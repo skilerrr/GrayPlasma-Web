@@ -1,0 +1,2028 @@
+[
+  {
+    "id": "19054d70-2c62-80f0-859a-d75c00381b5e",
+    "category": "OLED Monitor",
+    "modelName": "LIST OLED MONITORS",
+    "rawProps": {
+      "BRAND & MODEL TYPE": "LIST OLED MONITORS"
+    },
+    "format": {
+      "site_id": "19f54d70-2c62-8003-bbd0-00790d49151a",
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/3a454d70-2c62-805a-8dbf-007adfa124a6",
+      "page_cover": "attachment:b3f60a29-0a6a-4e84-8b8e-cfe1b32349a3:Banner_Notion_utama.png",
+      "page_full_width": true,
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:893b41a2-1ed5-46c7-8655-5056da8d6fe7:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1738641155267
+  },
+  {
+    "id": "4120d434-aa85-47d1-a362-6f9049b99c4e",
+    "category": "List SDR Monitor (DISCONTINUE)",
+    "modelName": "GRAYPLASMAID - REKOMENDASI MONITOR",
+    "rawProps": {
+      "BRAND & MODEL TYPE": "GRAYPLASMAID - REKOMENDASI MONITOR"
+    },
+    "format": {
+      "site_id": "22254d70-2c62-8026-87a6-0079be3ae19e",
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/3a454d70-2c62-805a-8dbf-007adfa124a6",
+      "page_cover": "attachment:8b390567-d57f-4abd-b49b-96bda8297edb:Banner_Notion_utama.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "page_full_width": true,
+      "page_cover_position": 0.5519,
+      "page_section_visibility": {
+        "comments": "section_show",
+        "backlinks": "section_show",
+        "margin_comments": "minimal"
+      },
+      "social_media_image_preview_url": "attachment:7fe732ad-244b-4dbf-8c1e-4d1d16fcf2cb:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1717006523960
+  },
+  {
+    "id": "27d54d70-2c62-804f-b085-e01072b63e65",
+    "category": "List SDR Monitor (GTID Review)",
+    "modelName": "Xiaomi G24i (2026)",
+    "rawProps": {
+      "Curvature": "None",
+      "RECOMMENDED PRICING": "1550000",
+      "Market Class": "144Hz+",
+      "Bracket Support (VESA Mount)": "YES (75 × 75 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZS4grLsN5/",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "24 Inch or 23.8 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/Lm3epPnA0",
+      "Refresh Rate": "200Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9hn2brPyXbB-anTQ2/",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1600000",
+      "BRAND & MODEL TYPE": "Xiaomi G24i (2026)"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:672843c2-5f75-40ea-9f75-6877a907e1ef:ikon_monitor.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:561f21bd-67c4-4da5-a9d1-61446269938e:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1759143506449
+  },
+  {
+    "id": "21854d70-2c62-8053-9430-cbfe012b4ec9",
+    "category": "List SDR Monitor (GTID Review)",
+    "modelName": "SKYWORTH F24G41F",
+    "rawProps": {
+      "Curvature": "None",
+      "RECOMMENDED PRICING": "1450000",
+      "Market Class": "144Hz+",
+      "Bracket Support (VESA Mount)": "YES (75 × 75 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSX7UQ9ac/",
+      "Stand Capability": "Tilt",
+      "Display Input": "DisplayPort 1.4,HDMI 2.0",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "24 Inch or 23.8 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/gOu3TSjVx",
+      "Refresh Rate": "240Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxSwMyKCx8-Bzr7Y/",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1749000",
+      "BRAND & MODEL TYPE": "SKYWORTH F24G41F"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:dc3d585b-e1bf-42d2-abb5-6a0f4ea1bed3:ikon_monitor.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:388a24c0-4105-4e36-b9c1-aba7605b90a5:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1750383024548
+  },
+  {
+    "id": "27d54d70-2c62-8065-9a51-fecccfa15543",
+    "category": "List SDR Monitor (GTID Review)",
+    "modelName": "MSI MAG 245F X24",
+    "rawProps": {
+      "Curvature": "None",
+      "RECOMMENDED PRICING": "1500000",
+      "Market Class": "240Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSX7yjkFw/",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.2",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "24 Inch or 23.8 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/9pXpXlW99E",
+      "Refresh Rate": "240Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxSoE5E61a-5CHF4/",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1900000",
+      "BRAND & MODEL TYPE": "MSI MAG 245F X24"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:71b510d1-0093-4325-af21-4a3f6ea79462:ikon_monitor.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:2b53c4cf-f8d2-470c-8e6e-f0263cae4f64:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1759143517743
+  },
+  {
+    "id": "31654d70-2c62-804b-b6e7-d248cd87eb7a",
+    "category": "List SDR Monitor (GTID Review)",
+    "modelName": "Xiaomi A27Qi (2026) (?)",
+    "rawProps": {
+      "RECOMMENDED PRICING": "1800000",
+      "OjIF": "https://tk.tokopedia.com/ZSX7y3dLn/",
+      "Aspect Ratio": "16:9 (Wide)",
+      "LINK SHOPEE": "https://s.shopee.co.id/3B6GbhQ8jf",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxAkdXS3EN-4gEhL/",
+      "Kisaran Harga": "2099000",
+      "BRAND & MODEL TYPE": "Xiaomi A27Qi (2026) (?)"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:1feca5c4-64be-44d7-ab74-9cecd7ce9963:ikon_monitor.png",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:f19ebdfc-b31f-4d65-9cd3-dc3f11a6209f:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1772380728526
+  },
+  {
+    "id": "16d54d70-2c62-80ec-9fca-d772d66e9afd",
+    "category": "List SDR Monitor (GTID Review)",
+    "modelName": "SKYWORTH H24G30Q",
+    "rawProps": {
+      "Curvature": "None",
+      "RECOMMENDED PRICING": "1750000",
+      "Market Class": "144Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSXhDaWvu/",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "24 Inch or 23.8 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/1LWWpK8Ljd",
+      "Refresh Rate": "180Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxADhW53ue-2ZVOs/",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "2390000",
+      "BRAND & MODEL TYPE": "SKYWORTH H24G30Q"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:af167141-d604-405d-aa25-857940cdd327:Guidance_Banner_Notion.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:42e50026-5583-49b1-8887-e161a43f25c8:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1735624684217
+  },
+  {
+    "id": "16954d70-2c62-8023-b2fb-d5e3cf7d5e05",
+    "category": "List SDR Monitor (GTID Review)",
+    "modelName": "MSI MAG 255XF",
+    "rawProps": {
+      "Curvature": "None",
+      "RECOMMENDED PRICING": "2100000",
+      "Market Class": "240Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSX7yXMPw/",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "25 Inch or 24.5 Inch",
+      "Data Response Time": "Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/8fGtVdAAio",
+      "Refresh Rate": "300Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxA5TCrXs3-GZh4w/",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "2350000",
+      "BRAND & MODEL TYPE": "MSI MAG 255XF"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:36ab94d9-3eb0-4587-8c26-a5312a71202e:Guidance_Banner_Notion.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "card_cover_position": 1,
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:5488ed30-f0cd-43a3-ac3c-2b5bbd17ff20:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1735281434085
+  },
+  {
+    "id": "27854d70-2c62-80cd-ae1b-c33a4f8fa4cb",
+    "category": "List SDR Monitor (GTID Review)",
+    "modelName": "Asus TUF VG259QMR5A",
+    "rawProps": {
+      "Curvature": "None",
+      "RECOMMENDED PRICING": "1999000",
+      "Market Class": "240Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSX7yxeLp/",
+      "Stand Capability": "Tilt",
+      "Display Input": "DisplayPort 1.4,HDMI 2.0",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "25 Inch or 24.5 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "Refresh Rate": "310Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxAqur4bLP-Ml5b5/",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "2499000",
+      "BRAND & MODEL TYPE": "Asus TUF VG259QMR5A"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:c7d1b1dc-f4db-41e9-8428-35e0a5f5a2e0:ikon_monitor.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:4742bb3e-f03b-4b25-8204-9121bae4ff4e:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1758674225276
+  },
+  {
+    "id": "23954d70-2c62-803e-a799-d59ce803d230",
+    "category": "List SDR Monitor (GTID Review)",
+    "modelName": "MSI MAG 274QF X24",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "240Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://vt.tokopedia.com/t/ZSHvn1trvAP2h-zpX88/",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Baru,Toleransi Lama,Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/LmVKuxFei",
+      "Refresh Rate": "240Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZSS4fnLAt/",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "3300000",
+      "BRAND & MODEL TYPE": "MSI MAG 274QF X24"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:623b390e-16c5-4f20-b11d-f68bb567ab43:Banner_Notion_2_(Logo_only).png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:273a48de-2e3c-46cf-a4f5-6c26d871f7c3:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1753277423257
+  },
+  {
+    "id": "37054d70-2c62-8062-a7ca-e4657ce3dfa1",
+    "category": "List SDR Monitor (GTID Review)",
+    "modelName": "Gigabyte G27Q20 (PENUH PERTIMBANGAN)",
+    "rawProps": {
+      "Curvature": "None",
+      "RECOMMENDED PRICING": "2400000",
+      "Market Class": "144Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSXhUhXQu/",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB)",
+      "Refresh Rate": "200Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxA3uRQU8A-nBhq9/",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "2999000",
+      "BRAND & MODEL TYPE": "Gigabyte G27Q20 (PENUH PERTIMBANGAN)"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:bc2f5432-68b2-44bd-bcec-0617601b39ca:Guidance_Banner_Notion.png",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:e303bf1d-eef9-4183-8d18-43581b3f1748:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1780129509234
+  },
+  {
+    "id": "24854d70-2c62-806a-9403-c8d625919db3",
+    "category": "List SDR Monitor (GTID Review)",
+    "modelName": "Xiaomi A27Ui (2025)",
+    "rawProps": {
+      "Curvature": "None",
+      "RECOMMENDED PRICING": "3400000",
+      "Market Class": "60-75 Hz",
+      "Bracket Support (VESA Mount)": "YES (75 × 75 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSX7y3RnU/",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4,USB C (DP Alt Mode)",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/3LK7LIkBbP",
+      "Refresh Rate": "60Hz",
+      "USB Hub": "YES",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxAE1bKD1Y-rMYV4/",
+      "Resolution (Pixel)": "3840x2160 (UHD)",
+      "Kisaran Harga": "3399000",
+      "BRAND & MODEL TYPE": "Xiaomi A27Ui (2025)"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:02a536c1-310c-4600-8dad-d0e36b4a83cf:Guidance_Banner_Notion.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:c6fed814-5d23-4cbf-945c-a2fb697920f8:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1754577155833
+  },
+  {
+    "id": "29654d70-2c62-80d1-8714-ee7ed7e77681",
+    "category": "List SDR Monitor (GTID Review)",
+    "modelName": "Asus ROG Strix XG27ACMES",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "240Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSX7fNDXS/",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4 DSC,USB C (DP Alt Mode)",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/9KbYxLdXS9",
+      "Refresh Rate": "255 Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxD2xQ3BCf-QduyJ/",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "3799000",
+      "BRAND & MODEL TYPE": "Asus ROG Strix XG27ACMES"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:3d00b37f-3ed9-49fa-a8bd-985eb71e6212:Guidance_Banner_Notion.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:179d0c5c-e230-4ede-bb4a-61408ab12c42:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1761271631888
+  },
+  {
+    "id": "16954d70-2c62-80aa-b959-ca3c2db3a1c3",
+    "category": "List SDR Monitor (GTID Review)",
+    "modelName": "Xiaomi G34WQi (2024)",
+    "rawProps": {
+      "Curvature": "1500R",
+      "Market Class": "144Hz+",
+      "Bracket Support (VESA Mount)": "YES (75 × 75 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSQMANXoB/",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "21:9 (UltraWide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "34 Inch",
+      "Data Response Time": "Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "",
+      "Refresh Rate": "180Hz",
+      "USB Hub": "None",
+      "Panel Type": "VA",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxDB2bkPtj-emJ9C/",
+      "Resolution (Pixel)": "3440x1440 (UWQHD)",
+      "Kisaran Harga": "3800000",
+      "BRAND & MODEL TYPE": "Xiaomi G34WQi (2024)"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:ad3d61ed-4017-4339-bbb7-27d784f04542:G34WQi.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "card_cover_position": 0.4881,
+      "copied_from_pointer": {
+        "id": "16954d70-2c62-80d9-a31b-e9a1b610a632",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:f79a5770-9d2c-439a-b1f3-61ce9e91ca37:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1735304974342
+  },
+  {
+    "id": "19954d70-2c62-805f-a0ab-df0eb81945d0",
+    "category": "List SDR Monitor (GTID Review)",
+    "modelName": "SKYWORTH F27G67Q Pro",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "240Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSXhU1ax3/",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "DisplayPort 1.4,HDMI 2.1 FRL (48 Gbps)",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/9zoXKclWem",
+      "Refresh Rate": "300Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxDyAAnWpX-b8fDl/",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "3899000",
+      "BRAND & MODEL TYPE": "SKYWORTH F27G67Q Pro"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:e3ee029d-ffe2-46e3-9423-12dd978e98d8:Guidance_Banner_Notion.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "1ad54d70-2c62-80a7-8d69-ff35474e506f",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:a22f66e7-f0b3-44e4-82f9-7816458d238c:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1739436474913
+  },
+  {
+    "id": "16954d70-2c62-8018-9557-e19406b4ecd7",
+    "category": "List SDR Monitor (GTID Review)",
+    "modelName": "SKYWORTH H27G10U",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "144Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSXhDvuna/",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/704XNcbMGo",
+      "Refresh Rate": "160Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxDmAWoPD7-koMHR/",
+      "Resolution (Pixel)": "3840x2160 (UHD)",
+      "Kisaran Harga": "3900000",
+      "BRAND & MODEL TYPE": "SKYWORTH H27G10U"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:67e7c769-101c-4f5c-98b7-6206a581821c:Banner_Notion_2_(Logo_only).png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "card_cover_position": 0.732,
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:e548fc2a-6d91-4497-b57f-a7b64ba243f6:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1735353377973
+  },
+  {
+    "id": "23c54d70-2c62-8068-b41e-c037caebd167",
+    "category": "List SDR Monitor (GTID Review)",
+    "modelName": "MSI MAG 275UPD E14",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "Dual Mode 4K - 1080p",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSX7yBKch/",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/802GQi5Zbd",
+      "Refresh Rate": "144Hz,288Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxDtmtDqLj-p4s5D/",
+      "Resolution (Pixel)": "3840x2160 (UHD),1920x1080 (FHD)",
+      "Kisaran Harga": "4799000",
+      "BRAND & MODEL TYPE": "MSI MAG 275UPD E14"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:0b1a0e1f-9b29-4b3e-83d8-a2291e055e71:Banner_Notion_2_(Logo_only).png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:da0eeda2-ab18-4ee9-a72e-f5d2113b10ff:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1753530869427
+  },
+  {
+    "id": "25b54d70-2c62-80c4-a3f8-cdbe87303c1f",
+    "category": "List SDR Monitor (GTID Review)",
+    "modelName": "Asus TUF VG34WQML5A",
+    "rawProps": {
+      "Curvature": "1500R",
+      "Market Class": "144Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSX7fdM6A/",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment",
+      "Display Input": "HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4 DSC",
+      "Aspect Ratio": "21:9 (UltraWide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "34 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/4VWnY3tlmw",
+      "Refresh Rate": "260Hz",
+      "USB Hub": "YES",
+      "Panel Type": "VA",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxUJxWPj55-Xzkrt/",
+      "Resolution (Pixel)": "3440x1440 (UWQHD)",
+      "Kisaran Harga": "4999000",
+      "BRAND & MODEL TYPE": "Asus TUF VG34WQML5A"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:894ae27a-f022-4a04-9299-434377a90f3b:Banner_Notion_2_(Logo_only).png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:6c78725c-49ec-4b2d-ad21-09ccf234e1f9:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1756200739780
+  },
+  {
+    "id": "1a454d70-2c62-8043-8a9f-d9d8d8d412ac",
+    "category": "List SDR Monitor (GTID Review)",
+    "modelName": "SKYWORTH F25G69F Pro",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "480Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSXhUNArD/",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4 DSC",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "25 Inch or 24.5 Inch",
+      "Data Response Time": "Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/8AKYmr4UFs",
+      "Refresh Rate": "500Hz",
+      "USB Hub": "YES",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9MnedVunBtF-R7WtH/",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "7100000",
+      "BRAND & MODEL TYPE": "SKYWORTH F25G69F Pro"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:527e0725-2ad4-4f68-b5c4-f37df9c026da:Banner_Notion_2_(Logo_only).png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "1ad54d70-2c62-80a7-8d69-ff35474e506f",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:c74aa34b-f13f-407f-b54c-e9f8c97fa72f:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1740385729521
+  },
+  {
+    "id": "35454d70-2c62-8023-bf39-cfe32f4ea0bd",
+    "category": "List SDR Monitor (GTID Review)",
+    "modelName": "Asus ROG STRIX XG27ACSR",
+    "rawProps": {
+      "BRAND & MODEL TYPE": "Asus ROG STRIX XG27ACSR "
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:f5f19dd0-e8ea-4f89-a2a0-fa5e6359ec8c:Banner_Notion_2_(Logo_only).png",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:29975eac-1bd3-4673-8201-4c7ef6cc70c2:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1777713280694
+  },
+  {
+    "id": "16f54d70-2c62-80a0-b5ed-ec8a5acfd403",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "Viewsonic VX2479A-HD-PRO",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "240Hz+",
+      "Data Response Time": "TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
+      "VESA Mount": "100x100 mm",
+      "Link Pembelian Tokopedia": "https://tk.tokopedia.com/ZSkon7t68/",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 1.4,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit (6 Bit + FRC)",
+      "Alasan Tak Layak dibeli(?)": "Aftersales tergolong lelet sekarang",
+      "Panel Size": "24 Inch",
+      "Link Shopee": "https://s.shopee.co.id/7AS5hwM7ny",
+      "Refresh Rate": "240Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1800000",
+      "BRAND & MODEL TYPE": "Viewsonic VX2479A-HD-PRO",
+      "LINK TIKTOKSHOP ": "https://vt.tokopedia.com/t/ZSHvn1Cjxj6L9-WorAr/"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:62aa842f-e972-4ccc-97b4-de1f56609a6d:Banner_Notion_2_(Logo_only)_-_white.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:2b6805e1-05c2-40dd-ba1b-2034da5b5fe4:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1735783315533
+  },
+  {
+    "id": "17f54d70-2c62-80a3-aeca-ee29debd27fe",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "MSI MAG 275QF",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "144Hz+",
+      "Data Response Time": "TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
+      "VESA Mount": "YES (100 × 100 mm)",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Alasan Tak Layak dibeli(?)": "Warna belum cakup P3",
+      "Panel Size": "27 Inch",
+      "Link Shopee": "https://s.shopee.co.id/10wR1ZXhAY",
+      "Refresh Rate": "180Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "2600000",
+      "BRAND & MODEL TYPE": "MSI MAG 275QF"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:10ac1c6e-a0cf-4261-aec9-da0356205d69:Banner_Notion_2_(Logo_only)_-_white.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "17154d70-2c62-81e1-b87c-c9c13bd99bd8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:70f878f9-dd82-40ad-a283-772e190488f0:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1737174571352
+  },
+  {
+    "id": "19254d70-2c62-80e1-835f-fda60e6594e8",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "Lenovo LEGION R34W-30",
+    "rawProps": {
+      "Curvature": "1500R",
+      "Market Class": "144Hz+",
+      "Data Response Time": "TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
+      "VESA Mount": "100x100 mm",
+      "Link Pembelian Tokopedia": "",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment",
+      "Display Input": "HDMI 2.1 TMDS (18 Gbps),DisplayPort 1.4",
+      "Aspect Ratio": "21:9 (UltraWide)",
+      "Panel Bit Depth": "8 Bit",
+      "Alasan Tak Layak dibeli(?)": "Kasus Aftersales yang kurang",
+      "Panel Size": "34 Inch",
+      "Link Shopee": "",
+      "Refresh Rate": "180Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "VA",
+      "Resolution (Pixel)": "3440x1440 (UWQHD)",
+      "Kisaran Harga": "4100000",
+      "BRAND & MODEL TYPE": "Lenovo LEGION R34W-30",
+      "LINK TIKTOKSHOP ": ""
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:c2b8ba7d-6eb4-4faa-b136-d69d1b40164c:Banner_Notion_2_(Logo_only)_-_white.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:ce23041f-fa1b-4ca5-8497-e225046536b8:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1738807838301
+  },
+  {
+    "id": "17654d70-2c62-8036-88ee-caa225928a1f",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "Lenovo L32P-30",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "60-75 Hz",
+      "Data Response Time": "NO DATA",
+      "VESA Mount": "YES (100 × 100 mm)",
+      "Link Pembelian Tokopedia": "https://tk.tokopedia.com/ZSB1ku2JC/",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.2,USB C (DP Alt Mode)",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "32 Inch",
+      "Link Shopee": "https://s.shopee.co.id/5Ah1KDTMxt",
+      "Refresh Rate": "60Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "3840x2160 (UHD)",
+      "Kisaran Harga": "5000000",
+      "BRAND & MODEL TYPE": "Lenovo L32P-30",
+      "LINK TIKTOKSHOP ": "https://vt.tokopedia.com/t/ZSkotqWyQ/"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:35e1df5b-a0d0-432a-894d-23ddcc1d6753:Banner_Notion_2_(Logo_only).png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "https://prod-files-secure.s3.us-west-2.amazonaws.com/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/c0985efd-297e-473f-b0aa-1b636b7a0409/SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1736421686014
+  },
+  {
+    "id": "37554d70-2c62-8045-8b86-c98a4f35985a",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "Lenovo LEGION 27Q-10 (IPS)",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "240Hz+",
+      "Data Response Time": "TOLERANSI BARU (5 RGB)",
+      "VESA Mount": "100x100 mm",
+      "Link Pembelian Tokopedia": "-",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.1 TMDS,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Alasan Tak Layak dibeli(?)": "Aftersales yang Tanda tanya",
+      "Panel Size": "27 Inch",
+      "Link Shopee": "-",
+      "Refresh Rate": "240Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "3200000",
+      "BRAND & MODEL TYPE": "Lenovo LEGION 27Q-10 (IPS)"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:84a8533c-035f-4561-8b69-aa427939ca95:Banner_Notion_2_(Logo_only).png",
+      "copied_from_pointer": {
+        "id": "17154d70-2c62-81e1-b87c-c9c13bd99bd8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:e1cd7bc7-9b1e-4f08-9e14-879f39ee8bd8:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1780550177307
+  },
+  {
+    "id": "2bd54d70-2c62-80a9-9c7b-e8eccface8ab",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "Acer Nitro VG272UW2",
+    "rawProps": {
+      "Curvature": "None",
+      "Data Response Time": "TOLERANSI LAMA (10 RGB)",
+      "Stand Capability": "Tilt",
+      "Display Input": "DisplayPort 1.4,HDMI 2.0",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Alasan Tak Layak dibeli(?)": "Model lama",
+      "Panel Size": "27 Inch",
+      "Refresh Rate": "240Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "2850000",
+      "BRAND & MODEL TYPE": "Acer Nitro VG272UW2"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:b058b484-210a-49cf-a40a-71d11425dd0d:Banner_Notion_2_(Logo_only)_-_white.png",
+      "copied_from_pointer": {
+        "id": "17154d70-2c62-81e1-b87c-c9c13bd99bd8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:a5bc7d36-f167-41cf-bbfd-b55a8e67d665:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1764693533271
+  },
+  {
+    "id": "2bd54d70-2c62-80c7-b125-d1a6962fc7fc",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "Lenovo LEGION R27Qe Gen 2",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "144Hz+",
+      "Data Response Time": "TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
+      "VESA Mount": "100x100 mm",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.1 TMDS,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Alasan Tak Layak dibeli(?)": "Aftersales yang turun, build quality semakin slim",
+      "Panel Size": "27 Inch",
+      "Refresh Rate": "200Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "2899000",
+      "BRAND & MODEL TYPE": "Lenovo LEGION R27Qe Gen 2"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:b058b484-210a-49cf-a40a-71d11425dd0d:Banner_Notion_2_(Logo_only)_-_white.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "17154d70-2c62-81e1-b87c-c9c13bd99bd8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:74956ebd-46cb-487a-a0d8-9632b0c82e30:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1764692763324
+  },
+  {
+    "id": "27254d70-2c62-80cb-bbed-e4fd1f81e39c",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "Lenovo LEGION 24-10",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "240Hz+",
+      "Data Response Time": "TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
+      "VESA Mount": "100x100 mm",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.1 TMDS,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Alasan Tak Layak dibeli(?)": "Aftersales yang kurang, Build Quality Downgrade, Tuning tetap downgrade",
+      "Panel Size": "24 Inch",
+      "Refresh Rate": "240Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1799000",
+      "BRAND & MODEL TYPE": "Lenovo LEGION 24-10"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:b058b484-210a-49cf-a40a-71d11425dd0d:Banner_Notion_2_(Logo_only)_-_white.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "17154d70-2c62-81e1-b87c-c9c13bd99bd8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:48cdb432-4e1e-4229-b340-52bac9624986:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1758209122479
+  },
+  {
+    "id": "1f954d70-2c62-8012-afd8-e55753826354",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "Lenovo LEGION Y27QF-30",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "240Hz+",
+      "Data Response Time": "TOLERANSI LAMA (10 RGB)",
+      "VESA Mount": "100x100 mm",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Alasan Tak Layak dibeli(?)": "Kasus Panel bergaris",
+      "Panel Size": "27 Inch",
+      "Refresh Rate": "240Hz",
+      "USB Hub": "YES",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "4500000",
+      "BRAND & MODEL TYPE": "Lenovo LEGION Y27QF-30"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:fdd76241-f9ed-4294-b629-b7b03c015bfe:Banner_Notion_2_(Logo_only)_-_white.png",
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:dde7610b-cee6-42f1-ac58-73ca945e184e:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1747749292634
+  },
+  {
+    "id": "1ee54d70-2c62-8089-8f13-cef85233733e",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "Lenovo LEGION R27Qe Gen 1",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "144Hz+",
+      "Data Response Time": "TOLERANSI LAMA (10 RGB)",
+      "VESA Mount": "100x100 mm",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "DisplayPort 1.4,HDMI 2.1 TMDS",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Alasan Tak Layak dibeli(?)": "Kasus Panel Bergaris",
+      "Panel Size": "27 Inch",
+      "Refresh Rate": "180Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "2800000",
+      "BRAND & MODEL TYPE": "Lenovo LEGION R27Qe Gen 1"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:bf10e77b-fb8a-4080-8a4f-79da563446cf:Banner_Notion_2_(Logo_only)_-_white.png",
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:3aa6ffcb-decc-4ccb-92f1-fa4c7c86a00c:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1746805177189
+  },
+  {
+    "id": "1e654d70-2c62-8044-a48e-c24bff133466",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "Acer ED270U-P2",
+    "rawProps": {
+      "Curvature": "1500R",
+      "Market Class": "144Hz+",
+      "Data Response Time": "TOLERANSI LAMA (10 RGB)",
+      "VESA Mount": "100x100 mm",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit (6 Bit + FRC)",
+      "Alasan Tak Layak dibeli(?)": "Tuning Panel tidak sebagus Skyworth",
+      "Panel Size": "27 Inch",
+      "Refresh Rate": "170Hz",
+      "USB Hub": "None",
+      "Panel Type": "VA",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "1999000",
+      "BRAND & MODEL TYPE": "Acer ED270U-P2 "
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:b058b484-210a-49cf-a40a-71d11425dd0d:Banner_Notion_2_(Logo_only)_-_white.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "17154d70-2c62-81e1-b87c-c9c13bd99bd8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:6db35bec-82bd-4453-b1fc-06eaccf2aa2b:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1746110014062
+  },
+  {
+    "id": "1d254d70-2c62-80dd-90ae-fde11d539d2c",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "Philips Evnia 25M2N5200P",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "240Hz+",
+      "Data Response Time": "TOLERANSI LAMA (10 RGB)",
+      "VESA Mount": "100x100 mm",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Alasan Tak Layak dibeli(?)": "Aftersales yang bermasalah",
+      "Panel Size": "25 Inch (24.5 Inch)",
+      "Refresh Rate": "280Hz",
+      "USB Hub": "YES",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "3400000",
+      "BRAND & MODEL TYPE": "Philips Evnia 25M2N5200P"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:ad307c68-9ef0-40ad-af86-50d323490126:Banner_Notion_2_(Logo_only)_-_white.png",
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:f8e96aae-f647-403f-8aa9-b01064b487b4:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1744351009573
+  },
+  {
+    "id": "1c454d70-2c62-80bf-9e5c-fbc229c3e243",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "Xiaomi G Pro 27i",
+    "rawProps": {
+      "Data Response Time": "NO DATA",
+      "Alasan Tak Layak dibeli(?)": "Banyak Quality Control yang bermasalah, tapi Xiaomi kebanyakan lepas tangan soal Bug red tint",
+      "Panel Size": "27 Inch",
+      "Refresh Rate": "180Hz",
+      "Panel Type": "Mini LED IPS",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "BRAND & MODEL TYPE": "Xiaomi G Pro 27i"
+    },
+    "createdTime": 1743137901282
+  },
+  {
+    "id": "1c254d70-2c62-800e-ac65-fa0abf870feb",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "Xiaomi A27i",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "100-120Hz",
+      "Data Response Time": "TOLERANSI LAMA (10 RGB)",
+      "VESA Mount": "75x75 mm",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Alasan Tak Layak dibeli(?)": "Masih Jaga jaga harga, Build Quality Panel tidak sebanding harga nya",
+      "Panel Size": "27 Inch",
+      "Refresh Rate": "100Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1300000",
+      "BRAND & MODEL TYPE": "Xiaomi A27i"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:3b0f1fef-4581-4651-bbdd-4b85386e8f10:Banner_Notion_2_(Logo_only)_-_white.png",
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:7886ab4a-fd84-4cf6-96be-8202ddc4e1da:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1742996384086
+  },
+  {
+    "id": "1be54d70-2c62-80cb-9bd0-e7797a78edda",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "Gigabyte (ALL LED MODEL)",
+    "rawProps": {
+      "Data Response Time": "TOLERANSI LAMA (10 RGB)",
+      "Alasan Tak Layak dibeli(?)": "Aftersales yang kacau, akibat kasus G24F2 bergaris",
+      "Kisaran Harga": "1000000",
+      "BRAND & MODEL TYPE": "Gigabyte (ALL LED MODEL)"
+    },
+    "format": {
+      "social_media_image_preview_url": "attachment:dba6f0bd-696b-4992-9d49-8eff3f9ea00e:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1742630416667
+  },
+  {
+    "id": "1a454d70-2c62-8045-90d9-c233658ba19e",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "MSI MAG274QRFW",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "144Hz+",
+      "Data Response Time": "TOLERANSI LAMA (10 RGB)",
+      "VESA Mount": "75x75 mm",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "DisplayPort 1.4,HDMI 2.0",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Alasan Tak Layak dibeli(?)": "Akurasi Warna tidak Akurat, hanya mengandalkan body putih",
+      "Panel Size": "27 Inch",
+      "Refresh Rate": "180Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "3700000",
+      "BRAND & MODEL TYPE": "MSI MAG274QRFW"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:87e21b69-532c-40bd-baee-3e8592288a7f:Banner_Notion_2_(Logo_only)_-_white.png",
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:67620f4a-bf12-4481-b572-97038297c888:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1740362758073
+  },
+  {
+    "id": "1a154d70-2c62-80c8-bd33-fa09a7021601",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "Xiaomi G27Qi (2024)",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "144Hz+",
+      "Data Response Time": "TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
+      "VESA Mount": "75x75 mm",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Alasan Tak Layak dibeli(?)": "Tuning Warna bermasalah",
+      "Panel Size": "27 Inch",
+      "Refresh Rate": "180Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "2600000",
+      "BRAND & MODEL TYPE": "Xiaomi G27Qi (2024)"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:cb450e11-4b23-4abc-9b43-d9035d61fb17:Banner_Notion_2_(Logo_only)_-_white.png",
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:81543d8c-70e3-4a20-ab57-3cb05a34a361:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1740105116520
+  },
+  {
+    "id": "17154d70-2c62-80b4-b6c5-fbe8630b5f82",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "AOC 24G4",
+    "rawProps": {
+      "Curvature": "None",
+      "Data Response Time": "TOLERANSI LAMA (10 RGB)",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Alasan Tak Layak dibeli(?)": "Masalah Panel Bergaris, Aftersales Brand",
+      "Panel Size": "24 Inch",
+      "Refresh Rate": "180Hz",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1700000",
+      "BRAND & MODEL TYPE": "AOC 24G4"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "17154d70-2c62-81e1-b87c-c9c13bd99bd8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "social_media_image_preview_url": "https://prod-files-secure.s3.us-west-2.amazonaws.com/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/423655d4-bcdc-447f-bfd8-b06116ffacb6/SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1735993617904
+  },
+  {
+    "id": "17154d70-2c62-8076-95f1-e4d54ed15d2f",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "MSI G255F",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "144Hz+",
+      "Data Response Time": "TOLERANSI LAMA (10 RGB)",
+      "VESA Mount": "100x100 mm",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Alasan Tak Layak dibeli(?)": "Fitur yang ditawarkan, dan Luasan Warna Panel",
+      "Panel Size": "25 Inch (24.5 Inch)",
+      "Refresh Rate": "180Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1550000",
+      "BRAND & MODEL TYPE": "MSI G255F"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:625447b9-fdb1-420e-9a17-2ce548860a7c:Banner_Notion_2_(Logo_only)_-_white.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "17154d70-2c62-81e1-b87c-c9c13bd99bd8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:200404ae-946f-4968-bd6a-cc88dab2617c:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1735993319547
+  },
+  {
+    "id": "17154d70-2c62-806c-a479-d34cd21de4bf",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "Koorui 24E3",
+    "rawProps": {
+      "Curvature": "None",
+      "Data Response Time": "TOLERANSI LAMA (10 RGB)",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 1.4,DisplayPort 1.2",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Alasan Tak Layak dibeli(?)": "Tuning Panel, masalah Garansi Distributor",
+      "Panel Size": "24 Inch",
+      "Refresh Rate": "165Hz",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1550000",
+      "BRAND & MODEL TYPE": "Koorui 24E3"
+    },
+    "createdTime": 1735993184095
+  },
+  {
+    "id": "17154d70-2c62-80a6-b9eb-e411a63cdbc1",
+    "category": "List SDR Monitor (YANG TIDAK WORTH IT)",
+    "modelName": "Lenovo L24i-4A",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "100-120Hz",
+      "Data Response Time": "TOLERANSI LAMA (10 RGB)",
+      "VESA Mount": "100x100 mm",
+      "Stand Capability": "Tilt",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Alasan Tak Layak dibeli(?)": "Tuning Panel sangat kurang, Overpriced",
+      "Panel Size": "24 Inch",
+      "Refresh Rate": "100Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1500000",
+      "BRAND & MODEL TYPE": "Lenovo L24i-4A"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "17154d70-2c62-81e1-b87c-c9c13bd99bd8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "social_media_image_preview_url": "https://prod-files-secure.s3.us-west-2.amazonaws.com/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/423655d4-bcdc-447f-bfd8-b06116ffacb6/SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1735993065924
+  },
+  {
+    "id": "16854d70-2c62-80c0-98fc-d2fb648e6bc8",
+    "category": "List SDR Monitor (DISCONTINUE)",
+    "modelName": "Acer EK251QE/Acer EK251Q Ebi",
+    "rawProps": {
+      "Curvature": "None",
+      "VESA Mount": "YES (100 × 100 mm)",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 1.4,VGA",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit (6 Bit + FRC)",
+      "Panel Size": "25 Inch or 24.5 Inch",
+      "Data Response Time": "Toleransi Lama",
+      "Refresh Rate": "100Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1075000",
+      "BRAND & MODEL TYPE": "Acer EK251QE/Acer EK251Q Ebi",
+      "LINK TOKOPEDIA": "https://tk.tokopedia.com/ZSrN124jr/",
+      "Tiktok Shop": "https://vt.tokopedia.com/t/ZSrCxB9MU/",
+      "Link Shopee": "https://s.shopee.co.id/1LTiC49TEm"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:514f79f1-fecc-47e2-aa21-3bf75f73ce6a:Banner_Notion_Logo_Only.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "card_cover_position": 0.9928,
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.4832,
+      "social_media_image_preview_url": "attachment:680fea33-7d5b-4942-9d92-68de30c15900:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1735261697344
+  },
+  {
+    "id": "17e54d70-2c62-80fd-89b0-c156acadd10b",
+    "category": "List SDR Monitor (DISCONTINUE)",
+    "modelName": "Viewsonic VA2432H",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "100-120Hz",
+      "VESA Mount": "75x75 mm",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 1.4,VGA",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit (6 Bit + FRC)",
+      "Panel Size": "24 Inch or 23.8 Inch",
+      "Data Response Time": "Toleransi Lama",
+      "Refresh Rate": "100Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1100000",
+      "BRAND & MODEL TYPE": "Viewsonic VA2432H",
+      "LINK TOKOPEDIA": ""
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:e15680e7-fd17-4f97-ab34-1973d5367bd8:Banner_Notion_Logo_Only.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:7f8e214a-290d-46ea-bf9e-e5431ab30983:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1737124297834
+  },
+  {
+    "id": "16854d70-2c62-806f-9e79-cf35782d5b39",
+    "category": "List SDR Monitor (DISCONTINUE)",
+    "modelName": "Asus TUF VG259Q3A",
+    "rawProps": {
+      "Curvature": "None",
+      "STATUS": "DISCONTINUED",
+      "Market Class": "144Hz+",
+      "VESA Mount": "100x100 mm",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.2",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "25 Inch or 24.5 Inch",
+      "Data Response Time": "Toleransi Lama",
+      "Refresh Rate": "180Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1500000",
+      "BRAND & MODEL TYPE": "Asus TUF VG259Q3A",
+      "LINK TOKOPEDIA": "",
+      "Tiktok Shop": "",
+      "Link Shopee": ""
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:191ee56d-efeb-47ba-898c-721d9717acca:Asus_TUF_VG259Q3A.jpg",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "card_cover_position": 0.7091,
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.4449,
+      "social_media_image_preview_url": "attachment:452158a4-6c40-4d2e-b027-f1b4d2c8b88d:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1735262821232
+  },
+  {
+    "id": "17154d70-2c62-808a-af32-ca2deb1fb9ab",
+    "category": "List SDR Monitor (DISCONTINUE)",
+    "modelName": "Lenovo LEGION R24e",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "144Hz+",
+      "VESA Mount": "100x100 mm",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "DisplayPort 1.4,HDMI 2.1 TMDS (18 Gbps)",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "24 Inch or 23.8 Inch",
+      "Data Response Time": "Toleransi Baru,Toleransi Lama",
+      "Refresh Rate": "180Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1550000",
+      "BRAND & MODEL TYPE": "Lenovo LEGION R24e",
+      "LINK TOKOPEDIA": "",
+      "Tiktok Shop": "",
+      "Link Shopee": ""
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:43679144-8d21-419c-9d7c-19df2eaa33dc:Banner_Notion_Logo_Only.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "19e54d70-2c62-8068-8e32-f49c996658c7",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:8d33f2cd-1283-4758-862a-dae1786a358a:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1735997462682
+  },
+  {
+    "id": "21e54d70-2c62-80a3-a46f-f112320cc2a6",
+    "category": "List SDR Monitor (DISCONTINUE)",
+    "modelName": "Skyworth H24G30F (180 Hz)",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "144Hz+",
+      "VESA Mount": "100x100 mm",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "24 Inch or 23.8 Inch",
+      "Data Response Time": "Toleransi Lama",
+      "Refresh Rate": "180Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1800000",
+      "BRAND & MODEL TYPE": "Skyworth H24G30F (180 Hz)",
+      "LINK TOKOPEDIA": "",
+      "Tiktok Shop": "",
+      "Link Shopee": ""
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:73dde66f-d6cb-48c6-9b0d-e018276fed65:Banner_Notion_Logo_Only.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "card_cover_position": 0.9854,
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80ff-9748-cd33b2d570e8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:1a87c45c-4f8b-4eab-8241-5a63d3c2e35b:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1750906582728
+  },
+  {
+    "id": "1d654d70-2c62-806f-a09a-c728bab1e941",
+    "category": "List SDR Monitor (DISCONTINUE)",
+    "modelName": "Xiaomi A27Qi (2025)",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "100-144Hz",
+      "VESA Mount": "YES (75 × 75 mm)",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Baru,Toleransi Lama",
+      "Refresh Rate": "100Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "1850000",
+      "BRAND & MODEL TYPE": "Xiaomi A27Qi (2025)",
+      "LINK TOKOPEDIA": "https://tk.tokopedia.com/ZSfBomhPv/",
+      "LINK TIKTOKSHOP ": " https://vt.tokopedia.com/t/ZSHv3C3xkGC4k-1fdd3/",
+      "Link Shopee": "https://s.shopee.co.id/8fGtVUaUf0"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:04859c53-366e-490a-9c6c-43aa5f4d8f55:Banner_Notion_2_(Logo_only).png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:876ed457-935c-48eb-a002-dd34e6ef2a9e:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1744678802226
+  },
+  {
+    "id": "17354d70-2c62-800f-9940-dc2f99708e8f",
+    "category": "List SDR Monitor (DISCONTINUE)",
+    "modelName": "Lenovo LEGION R25i-30",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "144Hz+",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "DisplayPort 1.4,HDMI 2.1 TMDS (18 Gbps)",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "25 Inch or 24.5 Inch",
+      "Data Response Time": "Toleransi Lama",
+      "Refresh Rate": "165Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1900000",
+      "BRAND & MODEL TYPE": "Lenovo LEGION R25i-30",
+      "LINK TOKOPEDIA": "https://tk.tokopedia.com/ZSkoGDbVN/",
+      "Tiktok Shop": "https://vt.tokopedia.com/t/ZSkoG5P6L/",
+      "Link Shopee": "https://s.shopee.co.id/2VgGABzhne"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:0b8643a6-998c-4f14-ac7c-05a03fa57142:Banner_Notion_Logo_Only.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:a5bab8d9-0b3f-4217-b4c2-52dca90ff5fe:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1736173791682
+  },
+  {
+    "id": "16854d70-2c62-8040-88e3-d4cc102d2076",
+    "category": "List SDR Monitor (DISCONTINUE)",
+    "modelName": "SKYWORTH H27G30Q",
+    "rawProps": {
+      "Curvature": "None",
+      "STATUS": "DISCONTINUED",
+      "Market Class": "144Hz+",
+      "VESA Mount": "100x100 mm",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Lama (10 RGB),Toleransi Lama",
+      "Refresh Rate": "180Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "2400000",
+      "BRAND & MODEL TYPE": "SKYWORTH H27G30Q",
+      "LINK TOKOPEDIA": "https://tk.tokopedia.com/ZSXhD3GKE/",
+      "LINK TIKTOKSHOP ": "https://vt.tokopedia.com/t/ZS9Mne5LF2qvb-SnyeA/",
+      "Link Shopee": ""
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:626445ec-a19f-4464-8440-f48d90d913a4:Banner_Notion_2_(Logo_only).png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "card_cover_position": 0.7961,
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:df361464-73bf-46be-bbad-25437dd506f5:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1735269809598
+  },
+  {
+    "id": "16954d70-2c62-80ce-b9e3-f5cef2603217",
+    "category": "List SDR Monitor (DISCONTINUE)",
+    "modelName": "Asus TUF VG27AQ3A (180 Hz)",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "144Hz+",
+      "VESA Mount": "100x100 mm",
+      "OjIF": "",
+      "Stand Capability": "Tilt,Swivel",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Lama",
+      "f_Ak": "",
+      "Refresh Rate": "180Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "zURD": "",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "2900000",
+      "BRAND & MODEL TYPE": "Asus TUF VG27AQ3A (180 Hz)"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:866554a3-5cfe-4d66-beed-4a625cb25629:Asus_TUF_VG27AQ3A.jpg",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "card_cover_position": 1,
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.6807,
+      "social_media_image_preview_url": "attachment:72bf30ab-f6fd-4be2-9c7f-a436c8538bdc:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1735280718101
+  },
+  {
+    "id": "16954d70-2c62-80c1-8817-cc44ae3b81f6",
+    "category": "List SDR Monitor (DISCONTINUE)",
+    "modelName": "Asus TUF VG249QM1A (DISCONTINUE)",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "240Hz+",
+      "VESA Mount": "100x100 mm",
+      "OjIF": "",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.2",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit (6 Bit + FRC)",
+      "Panel Size": "24 Inch or 23.8 Inch",
+      "Data Response Time": "Toleransi Lama",
+      "f_Ak": "",
+      "Refresh Rate": "270Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "3400000",
+      "BRAND & MODEL TYPE": "Asus TUF VG249QM1A (DISCONTINUE)"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:c731ff24-6b90-40a0-bd29-ea554ef564b4:Banner_Notion_Logo_Only.png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:d24584f9-2d87-4115-9a86-3301477245cc:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1735306960898
+  },
+  {
+    "id": "16954d70-2c62-801e-92cb-c556a90a3f3b",
+    "category": "List SDR Monitor (DISCONTINUE)",
+    "modelName": "Asus ROG Strix XG27ACS",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "144Hz+",
+      "VESA Mount": "YES (100 × 100 mm)",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4,USB C (DP Alt Mode)",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Lama",
+      "Refresh Rate": "180Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "3300000",
+      "BRAND & MODEL TYPE": "Asus ROG Strix XG27ACS",
+      "LINK TOKOPEDIA": "https://tk.tokopedia.com/ZSAYKjUkD/",
+      "LINK TIKTOKSHOP ": "https://vt.tokopedia.com/t/ZSkot2upa/",
+      "Link Shopee": "https://s.shopee.co.id/uLzpEfvt"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:8f0c130d-eac2-4f85-81ff-a8215b91d3c7:Banner_Notion_2_(Logo_only).png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "card_cover_position": 0.9969,
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:d9fa8206-7914-4b87-a28c-4718c32ea0f7:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1735285522112
+  },
+  {
+    "id": "16954d70-2c62-80a3-b964-ced2f9c73ca6",
+    "category": "List SDR Monitor (DISCONTINUE)",
+    "modelName": "Asus ROG Strix XG27WCS",
+    "rawProps": {
+      "Curvature": "1500R",
+      "Market Class": "144Hz+",
+      "VESA Mount": "YES (100 × 100 mm)",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4,USB C (DP Alt Mode)",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Lama",
+      "Refresh Rate": "180Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "VA",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "3500000",
+      "BRAND & MODEL TYPE": "Asus ROG Strix XG27WCS",
+      "LINK TOKOPEDIA": "https://tk.tokopedia.com/ZS6nEGPkp/",
+      "LINK TIKTOKSHOP ": "",
+      "Link Shopee": "https://s.shopee.co.id/4q4AwdDaLI"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:c20bf303-9268-49dd-8d8b-7bfe67348f2b:Banner_Notion_2_(Logo_only).png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "card_cover_position": 0.9993,
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:6fa8ee78-1da6-4f1b-869a-b0fbba6c2358:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1735349470214
+  },
+  {
+    "id": "16954d70-2c62-803d-bb71-c6eeacbc4068",
+    "category": "List SDR Monitor (DISCONTINUE)",
+    "modelName": "Lenovo N27P",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "60-75 Hz",
+      "VESA Mount": "YES (100 × 100 mm)",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.1 TMDS (18 Gbps),DisplayPort 1.4,USB C (DP Alt Mode)",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Lama",
+      "Refresh Rate": "60Hz",
+      "USB Hub": "YES",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "3840x2160 (UHD)",
+      "Kisaran Harga": "3750000",
+      "BRAND & MODEL TYPE": "Lenovo N27P",
+      "LINK TOKOPEDIA": "https://tk.tokopedia.com/ZSMjyQQaY/",
+      "LINK TIKTOKSHOP ": "https://vt.tokopedia.com/t/ZSkotSpgf/",
+      "Link Shopee": "https://s.shopee.co.id/8UsqOKtieh"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:a52b146e-59a3-406d-9633-28ff85dc321a:Banner_Notion_2_(Logo_only).png",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "card_cover_position": 1,
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:7af04b4a-7c0a-452f-9e6c-24011e6a135b:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1735296236975
+  },
+  {
+    "id": "20554d70-2c62-804e-8e1a-cde3eca8c192",
+    "category": "List SDR Monitor (DISCONTINUE)",
+    "modelName": "Asus ROG Strix XG27UCG",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "Dual Mode 4K - 1080p",
+      "VESA Mount": "YES (100 × 100 mm)",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4 DSC,USB C (DP Alt Mode)",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (Real)",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi 10 RGB,Toleransi 5 RGB",
+      "Refresh Rate": "320Hz,160Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "1920x1080 (FHD),3840x2160 (UHD)",
+      "Kisaran Harga": "6300000",
+      "BRAND & MODEL TYPE": "Asus ROG Strix XG27UCG",
+      "LINK TOKOPEDIA": "https://tk.tokopedia.com/ZSSVu9wd6/",
+      "LINK TIKTOKSHOP ": "https://vt.tokopedia.com/t/ZSkonhFtR/",
+      "Link Shopee": "https://s.shopee.co.id/708dBmvKLx"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/35454d70-2c62-8077-94cb-007a424edb93",
+      "page_cover": "attachment:018a0c13-0433-4f4f-99c0-a2856630ab14:Visual-Brilliance-Beyond-Compare-p-2000.jpg",
+      "block_locked": false,
+      "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+      "copied_from_pointer": {
+        "id": "16854d70-2c62-80bc-b4a8-eb29ce4e8ae8",
+        "table": "block",
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+      },
+      "page_cover_position": 0.6566,
+      "social_media_image_preview_url": "attachment:443cde6a-d4f0-48f2-a510-fb5a061991f3:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1748753295751
+  },
+  {
+    "id": "1a454d70-2c62-803a-9cc9-cfbbe9e09205",
+    "category": "List SDR Monitor (DISCONTINUE)",
+    "modelName": "Xiaomi G24i (2024)",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "144Hz+",
+      "VESA Mount": "75x75 mm",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 1.4,HDMI 2.0",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "24 Inch or 23.8 Inch",
+      "Data Response Time": "TOLERANSI BARU,TOLERANSI LAMA",
+      "Refresh Rate": "180Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1200000",
+      "BRAND & MODEL TYPE": "Xiaomi G24i (2024)",
+      "86de237e-65d9-41cb-80ce-b427f24c9cdb": "Kasus Panel Bergaris Sangat banyak"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:13243253-ca9f-444d-9e8c-dfabc6b07c1d:Banner_Notion_2_(Logo_only)_-_white.png",
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:3a6650d5-7300-43fe-980b-852ca4666b5e:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1740374668225
+  },
+  {
+    "id": "1a254d70-2c62-8059-9e36-ef34fe96eafa",
+    "category": "List SDR Monitor (DISCONTINUE)",
+    "modelName": "Xiaomi G27i (2024)",
+    "rawProps": {
+      "Curvature": "None",
+      "Market Class": "144Hz+",
+      "VESA Mount": "75x75 mm",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "TOLERANSI LAMA",
+      "Refresh Rate": "165Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1800000",
+      "BRAND & MODEL TYPE": "Xiaomi G27i (2024)",
+      "86de237e-65d9-41cb-80ce-b427f24c9cdb": "Aftersales Badut, Build Quality Panel dikorbankan"
+    },
+    "format": {
+      "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/1fa54d70-2c62-8002-aff3-007a92f245d7",
+      "page_cover": "attachment:4faa13c8-6173-4432-932f-0791ec3c2cf6:Banner_Notion_2_(Logo_only)_-_white.png",
+      "page_cover_position": 0.5,
+      "social_media_image_preview_url": "attachment:029510cc-4685-4c76-bd60-3b011f2ace01:SocialMediaPreviewImage.png"
+    },
+    "createdTime": 1740215228929
+  }
+]

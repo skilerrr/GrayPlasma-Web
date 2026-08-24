@@ -1,0 +1,833 @@
+{
+  "schema": {
+    ";}:w": {
+      "name": "Curvature",
+      "type": "select",
+      "options": [
+        {
+          "id": "6a8df816-440d-428f-938b-7385a5522ecd",
+          "color": "red",
+          "value": "None"
+        },
+        {
+          "id": "c775008d-2db4-45ca-a0ed-eb1534f30a39",
+          "color": "orange",
+          "value": "1500R"
+        },
+        {
+          "id": "a8028fa0-1605-4ffe-9d53-a84fb65097b7",
+          "color": "default",
+          "value": "1800R"
+        }
+      ]
+    },
+    "Ai}a": {
+      "name": "RECOMMENDED PRICING",
+      "type": "number",
+      "number_format": "rupiah"
+    },
+    "Diqz": {
+      "name": "Date Created",
+      "type": "created_time",
+      "time_format": "H:mm"
+    },
+    "FKD<": {
+      "name": "Market Class",
+      "type": "select",
+      "options": [
+        {
+          "id": "333c846d-41ec-4c9d-bd9c-c023868c1ceb",
+          "color": "green",
+          "value": "144Hz+"
+        },
+        {
+          "id": "7f3495d7-f8e7-4ed9-902a-d21b451cc946",
+          "color": "yellow",
+          "value": "240Hz+"
+        },
+        {
+          "id": "e77e1b56-f610-450f-a8e0-c7d0bb83df1a",
+          "color": "red",
+          "value": "60-75 Hz"
+        },
+        {
+          "id": "22d20f76-1433-4ac7-b4df-6fca61748fbe",
+          "color": "brown",
+          "value": "100-144Hz"
+        },
+        {
+          "id": "f218d4ed-f05e-4e63-9598-5f064b9f1e87",
+          "color": "purple",
+          "value": "480Hz+"
+        },
+        {
+          "id": "1bdc1a1a-e715-4504-ad20-a14b3f2c2bd4",
+          "color": "blue",
+          "value": "Dual Mode 4K - 1080p"
+        }
+      ]
+    },
+    "GNXx": {
+      "name": "Bracket Support (VESA Mount)",
+      "type": "select",
+      "options": [
+        {
+          "id": "ffcf1c8f-8f49-4794-9dee-611e99a197d7",
+          "color": "red",
+          "value": "NO"
+        },
+        {
+          "id": "b75b2d48-86ee-452b-8028-6b5732f59485",
+          "color": "green",
+          "value": "YES (75 × 75 mm)"
+        },
+        {
+          "id": "a4e72a4c-43f1-4aa4-a9e1-6676364fff7c",
+          "color": "green",
+          "value": "YES (100 × 100 mm)"
+        },
+        {
+          "id": "0c8247b8-46fb-49c4-91e0-0c547538145d",
+          "color": "purple",
+          "value": "YES (200 × 200)"
+        }
+      ]
+    },
+    "ROci": {
+      "name": "Stand Capability",
+      "type": "multi_select",
+      "options": [
+        {
+          "id": "YCB_",
+          "color": "red",
+          "value": "Rotate (Pivot)"
+        },
+        {
+          "id": "|i}g",
+          "color": "brown",
+          "value": "Height Adjustment"
+        },
+        {
+          "id": "Pe{Y",
+          "color": "blue",
+          "value": "Swivel"
+        },
+        {
+          "id": "Cang",
+          "color": "default",
+          "value": "Tilt"
+        }
+      ]
+    },
+    "VG~v": {
+      "name": "Display Input",
+      "type": "multi_select",
+      "options": [
+        {
+          "id": "2e122f38-6167-4bfa-9638-939304b901b3",
+          "color": "green",
+          "value": "HDMI 1.4"
+        },
+        {
+          "id": "4c79a753-e694-46bd-aa31-2604c4d7ddda",
+          "color": "yellow",
+          "value": "VGA"
+        },
+        {
+          "id": "47ec2936-96e0-4dc7-90a2-5d2e28ef3eea",
+          "color": "pink",
+          "value": "HDMI 2.0"
+        },
+        {
+          "id": "4110f5ea-289c-4741-be23-24be8892f9ba",
+          "color": "red",
+          "value": "DisplayPort 1.4"
+        },
+        {
+          "id": "683d0c45-e1cf-47de-b50a-f23b8feee99d",
+          "color": "default",
+          "value": "DisplayPort 1.2"
+        },
+        {
+          "id": "4bd90e6a-d4cf-42ae-98d2-2250b9ae8122",
+          "color": "brown",
+          "value": "HDMI 2.1 TMDS (18 Gbps)"
+        },
+        {
+          "id": "09af3a79-4724-435f-969a-f58782d48c99",
+          "color": "purple",
+          "value": "USB C (DP Alt Mode)"
+        },
+        {
+          "id": "791582e9-5da6-4d6c-a014-94b4d0819668",
+          "color": "blue",
+          "value": "HDMI 2.1 FRL (48 Gbps)"
+        },
+        {
+          "id": "eb666408-20cb-43d8-ab7b-89ee69078d48",
+          "color": "orange",
+          "value": "DisplayPort 1.4 DSC"
+        }
+      ]
+    },
+    "WZFL": {
+      "icon": "/icons/computer_gray.svg",
+      "name": "Aspect Ratio",
+      "type": "select",
+      "options": [
+        {
+          "id": "2685fc4e-0b6c-4104-acb4-5445439236bd",
+          "color": "blue",
+          "value": "16:9 (Wide)"
+        },
+        {
+          "id": "83fe8c2e-7596-47d3-a0f1-0efd695db648",
+          "color": "gray",
+          "value": "21:9 (UltraWide)"
+        }
+      ]
+    },
+    "Y=F\\": {
+      "name": "Panel Bit Depth",
+      "type": "select",
+      "options": [
+        {
+          "id": "a574d67c-17cf-40b3-a0f7-128b51cfe166",
+          "color": "gray",
+          "value": "8 Bit"
+        },
+        {
+          "id": "ed6e1f6d-b194-4367-8695-13b0d5ac61b4",
+          "color": "default",
+          "value": "8 Bit (6 Bit + FRC)"
+        },
+        {
+          "id": "7d31ac83-8047-49a0-ac46-9581f250e086",
+          "color": "pink",
+          "value": "10 Bit (8 Bit + FRC)"
+        },
+        {
+          "id": "dc55063e-322b-4c6d-8264-e0cf8b53c642",
+          "color": "purple",
+          "value": "10 Bit (Real)"
+        }
+      ]
+    },
+    "awUH": {
+      "icon": "/icons/crop_gray.svg",
+      "name": "Panel Size",
+      "type": "select",
+      "options": [
+        {
+          "id": "d7c9d100-eeff-4feb-8db5-1f1272f0a8b3",
+          "color": "brown",
+          "value": "24 Inch or 23.8 Inch"
+        },
+        {
+          "id": "0a4f6fbc-bd78-4a45-bd26-98d0c919f763",
+          "color": "green",
+          "value": "25 Inch or 24.5 Inch"
+        },
+        {
+          "id": "059f2e85-2919-4442-af29-851006f4b4de",
+          "color": "gray",
+          "value": "27 Inch"
+        },
+        {
+          "id": "bdc9fb57-b9ce-44a9-af27-1876de446894",
+          "color": "blue",
+          "value": "34 Inch"
+        },
+        {
+          "id": "f2ef02f2-683a-4549-8e71-5737b9e7040f",
+          "color": "purple",
+          "value": "32 Inch"
+        },
+        {
+          "id": "ee71a978-4ca1-40fd-9b71-c845c5baca9a",
+          "color": "pink",
+          "value": "43 Inch"
+        }
+      ]
+    },
+    "djsl": {
+      "name": "Data Response Time",
+      "type": "multi_select",
+      "options": [
+        {
+          "id": "968e70fe-6a14-4296-b861-10214382d28a",
+          "color": "red",
+          "value": "Toleransi Lama (10 RGB)"
+        },
+        {
+          "id": "2fdf4f03-659c-4750-b1dd-562912edc035",
+          "color": "green",
+          "value": "Toleransi Baru (5 RGB)"
+        },
+        {
+          "id": "cc296068-7a58-4e5e-996b-fa4378beeeaa",
+          "color": "pink",
+          "value": "NO DATA"
+        }
+      ]
+    },
+    "f_Ak": {
+      "name": "LINK SHOPEE",
+      "type": "url"
+    },
+    "iGP|": {
+      "name": "Refresh Rate",
+      "type": "multi_select",
+      "options": [
+        {
+          "id": "a63dff43-7d88-4fa8-a840-240488c71d55",
+          "color": "gray",
+          "value": "100Hz"
+        },
+        {
+          "id": "ade01efc-8588-4872-b374-16e6bc25f50f",
+          "color": "pink",
+          "value": "165Hz"
+        },
+        {
+          "id": "17d2750b-d182-4875-8061-c1809801d61f",
+          "color": "green",
+          "value": "180Hz"
+        },
+        {
+          "id": "719ea692-2696-4ad2-9922-3414fd7f0da5",
+          "color": "red",
+          "value": "300Hz"
+        },
+        {
+          "id": "c09d3f77-9e6f-4812-a317-3dbceeaa1a4e",
+          "color": "default",
+          "value": "280Hz"
+        },
+        {
+          "id": "393b1091-387d-4b68-b9e6-2cbfedd753b8",
+          "color": "yellow",
+          "value": "60Hz"
+        },
+        {
+          "id": "1b49016c-6b34-4d8d-b49f-c3201144b28a",
+          "color": "brown",
+          "value": "270Hz"
+        },
+        {
+          "id": "aeed35b0-072b-4327-8cb5-f337f5891bad",
+          "color": "blue",
+          "value": "160Hz"
+        },
+        {
+          "id": "4db2e970-6918-4656-937c-eead7ee1a6e1",
+          "color": "yellow",
+          "value": "240Hz"
+        },
+        {
+          "id": "d3fcf5f1-654a-40c4-9d4c-f5170473a4c4",
+          "color": "gray",
+          "value": "200Hz"
+        },
+        {
+          "id": "f2bf7cf3-75b8-4cc2-bfb0-8350292c0255",
+          "color": "blue",
+          "value": "500Hz"
+        },
+        {
+          "id": "1cf5d074-6794-468b-b867-c24d5c57ff73",
+          "color": "default",
+          "value": "320Hz"
+        },
+        {
+          "id": "6f7ed64c-3147-4bdf-908e-3ae83268b0aa",
+          "color": "default",
+          "value": "220Hz"
+        },
+        {
+          "id": "06e367aa-a9e4-4e89-a964-c03edc100249",
+          "color": "orange",
+          "value": "144Hz"
+        },
+        {
+          "id": "f507e9e9-1597-42c1-8869-76d1c36575d4",
+          "color": "purple",
+          "value": "288Hz"
+        },
+        {
+          "id": "8c1b9790-fc5d-4be8-a33f-5cad7be85c49",
+          "color": "purple",
+          "value": "260Hz"
+        },
+        {
+          "id": "ebddf2c8-3878-461e-aee1-9484142b7665",
+          "color": "red",
+          "value": "310Hz"
+        },
+        {
+          "id": "b76d0b86-de86-4e66-872d-6c8091693b70",
+          "color": "green",
+          "value": "255 Hz"
+        }
+      ]
+    },
+    "lOCw": {
+      "name": "USB Hub",
+      "type": "select",
+      "options": [
+        {
+          "id": "09068b71-a7e1-4c4a-aeba-98273061a536",
+          "color": "gray",
+          "value": "None"
+        },
+        {
+          "id": "a0ca5717-0fc1-4609-928b-182e40b2d387",
+          "color": "red",
+          "value": "YES"
+        }
+      ]
+    },
+    "t_mM": {
+      "name": "Last Updated",
+      "type": "date",
+      "time_format": "H:mm"
+    },
+    "v{jI": {
+      "name": "Panel Type",
+      "type": "select",
+      "options": [
+        {
+          "id": "055d9dfb-a3a7-4cef-9bb1-dc836446ea15",
+          "color": "default",
+          "value": "VA"
+        },
+        {
+          "id": "0b39241b-0484-448d-b8ca-6f8cb3a32875",
+          "color": "yellow",
+          "value": "Mini-LED VA"
+        },
+        {
+          "id": "69a3208b-c20c-4b18-b3d6-eb94aab897bf",
+          "color": "gray",
+          "value": "IPS"
+        },
+        {
+          "id": "194f9cf9-db8b-4527-a767-937795a42a86",
+          "color": "brown",
+          "value": "Mini LED IPS"
+        }
+      ]
+    },
+    "zVPG": {
+      "name": "Resolution (Pixel)",
+      "type": "multi_select",
+      "options": [
+        {
+          "id": "cd541f96-e9f5-4933-b756-e1ceb6b0d58b",
+          "color": "red",
+          "value": "1920x1080 (FHD)"
+        },
+        {
+          "id": "00a0ff68-84b0-4264-9b23-d08c76009755",
+          "color": "green",
+          "value": "2560x1440 (QHD)"
+        },
+        {
+          "id": "fc7ea83f-0a5d-4ecd-ae6e-21977a0034ab",
+          "color": "brown",
+          "value": "3440x1440 (UWQHD)"
+        },
+        {
+          "id": "37359020-29dc-4d78-9aa5-995629ff10e3",
+          "color": "pink",
+          "value": "3840x2160 (UHD)"
+        }
+      ]
+    },
+    "{~ZZ": {
+      "icon": "/icons/cash_gray.svg",
+      "name": "Kisaran Harga",
+      "type": "number",
+      "number_format": "rupiah",
+      "number_precision": "precision_0"
+    },
+    "title": {
+      "icon": "/icons/computer_gray.svg",
+      "name": "BRAND & MODEL TYPE",
+      "type": "title",
+      "description": ""
+    }
+  },
+  "items": [
+    {
+      "id": "27d54d70-2c62-804f-b085-e01072b63e65",
+      "Curvature": "None",
+      "RECOMMENDED PRICING": "1550000",
+      "Market Class": "144Hz+",
+      "Bracket Support (VESA Mount)": "YES (75 × 75 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZS4grLsN5/",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "24 Inch or 23.8 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/Lm3epPnA0",
+      "Refresh Rate": "200Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9hn2brPyXbB-anTQ2/",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1600000",
+      "BRAND & MODEL TYPE": "Xiaomi G24i (2026)"
+    },
+    {
+      "id": "21854d70-2c62-8053-9430-cbfe012b4ec9",
+      "Curvature": "None",
+      "RECOMMENDED PRICING": "1450000",
+      "Market Class": "144Hz+",
+      "Bracket Support (VESA Mount)": "YES (75 × 75 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSX7UQ9ac/",
+      "Stand Capability": "Tilt",
+      "Display Input": "DisplayPort 1.4,HDMI 2.0",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "24 Inch or 23.8 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/gOu3TSjVx",
+      "Refresh Rate": "240Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxSwMyKCx8-Bzr7Y/",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1749000",
+      "BRAND & MODEL TYPE": "SKYWORTH F24G41F"
+    },
+    {
+      "id": "27d54d70-2c62-8065-9a51-fecccfa15543",
+      "Curvature": "None",
+      "RECOMMENDED PRICING": "1500000",
+      "Market Class": "240Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSX7yjkFw/",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.2",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "24 Inch or 23.8 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/9pXpXlW99E",
+      "Refresh Rate": "240Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxSoE5E61a-5CHF4/",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "1900000",
+      "BRAND & MODEL TYPE": "MSI MAG 245F X24"
+    },
+    {
+      "id": "31654d70-2c62-804b-b6e7-d248cd87eb7a",
+      "RECOMMENDED PRICING": "1800000",
+      "OjIF": "https://tk.tokopedia.com/ZSX7y3dLn/",
+      "Aspect Ratio": "16:9 (Wide)",
+      "LINK SHOPEE": "https://s.shopee.co.id/3B6GbhQ8jf",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxAkdXS3EN-4gEhL/",
+      "Kisaran Harga": "2099000",
+      "BRAND & MODEL TYPE": "Xiaomi A27Qi (2026) (?)"
+    },
+    {
+      "id": "16d54d70-2c62-80ec-9fca-d772d66e9afd",
+      "Curvature": "None",
+      "RECOMMENDED PRICING": "1750000",
+      "Market Class": "144Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSXhDaWvu/",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "24 Inch or 23.8 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/1LWWpK8Ljd",
+      "Refresh Rate": "180Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxADhW53ue-2ZVOs/",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "2390000",
+      "BRAND & MODEL TYPE": "SKYWORTH H24G30Q"
+    },
+    {
+      "id": "16954d70-2c62-8023-b2fb-d5e3cf7d5e05",
+      "Curvature": "None",
+      "RECOMMENDED PRICING": "2100000",
+      "Market Class": "240Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSX7yXMPw/",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "25 Inch or 24.5 Inch",
+      "Data Response Time": "Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/8fGtVdAAio",
+      "Refresh Rate": "300Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxA5TCrXs3-GZh4w/",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "2350000",
+      "BRAND & MODEL TYPE": "MSI MAG 255XF"
+    },
+    {
+      "id": "27854d70-2c62-80cd-ae1b-c33a4f8fa4cb",
+      "Curvature": "None",
+      "RECOMMENDED PRICING": "1999000",
+      "Market Class": "240Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSX7yxeLp/",
+      "Stand Capability": "Tilt",
+      "Display Input": "DisplayPort 1.4,HDMI 2.0",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "25 Inch or 24.5 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "Refresh Rate": "310Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxAqur4bLP-Ml5b5/",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "2499000",
+      "BRAND & MODEL TYPE": "Asus TUF VG259QMR5A"
+    },
+    {
+      "id": "23954d70-2c62-803e-a799-d59ce803d230",
+      "Curvature": "None",
+      "Market Class": "240Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://vt.tokopedia.com/t/ZSHvn1trvAP2h-zpX88/",
+      "Stand Capability": "Tilt",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Baru,Toleransi Lama,Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/LmVKuxFei",
+      "Refresh Rate": "240Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZSS4fnLAt/",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "3300000",
+      "BRAND & MODEL TYPE": "MSI MAG 274QF X24"
+    },
+    {
+      "id": "37054d70-2c62-8062-a7ca-e4657ce3dfa1",
+      "Curvature": "None",
+      "RECOMMENDED PRICING": "2400000",
+      "Market Class": "144Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSXhUhXQu/",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB)",
+      "Refresh Rate": "200Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxA3uRQU8A-nBhq9/",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "2999000",
+      "BRAND & MODEL TYPE": "Gigabyte G27Q20 (PENUH PERTIMBANGAN)"
+    },
+    {
+      "id": "24854d70-2c62-806a-9403-c8d625919db3",
+      "Curvature": "None",
+      "RECOMMENDED PRICING": "3400000",
+      "Market Class": "60-75 Hz",
+      "Bracket Support (VESA Mount)": "YES (75 × 75 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSX7y3RnU/",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4,USB C (DP Alt Mode)",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/3LK7LIkBbP",
+      "Refresh Rate": "60Hz",
+      "USB Hub": "YES",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxAE1bKD1Y-rMYV4/",
+      "Resolution (Pixel)": "3840x2160 (UHD)",
+      "Kisaran Harga": "3399000",
+      "BRAND & MODEL TYPE": "Xiaomi A27Ui (2025)"
+    },
+    {
+      "id": "29654d70-2c62-80d1-8714-ee7ed7e77681",
+      "Curvature": "None",
+      "Market Class": "240Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSX7fNDXS/",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4 DSC,USB C (DP Alt Mode)",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/9KbYxLdXS9",
+      "Refresh Rate": "255 Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxD2xQ3BCf-QduyJ/",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "3799000",
+      "BRAND & MODEL TYPE": "Asus ROG Strix XG27ACMES"
+    },
+    {
+      "id": "16954d70-2c62-80aa-b959-ca3c2db3a1c3",
+      "Curvature": "1500R",
+      "Market Class": "144Hz+",
+      "Bracket Support (VESA Mount)": "YES (75 × 75 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSQMANXoB/",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment",
+      "Display Input": "HDMI 2.0,DisplayPort 1.4",
+      "Aspect Ratio": "21:9 (UltraWide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "34 Inch",
+      "Data Response Time": "Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "",
+      "Refresh Rate": "180Hz",
+      "USB Hub": "None",
+      "Panel Type": "VA",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxDB2bkPtj-emJ9C/",
+      "Resolution (Pixel)": "3440x1440 (UWQHD)",
+      "Kisaran Harga": "3800000",
+      "BRAND & MODEL TYPE": "Xiaomi G34WQi (2024)"
+    },
+    {
+      "id": "19954d70-2c62-805f-a0ab-df0eb81945d0",
+      "Curvature": "None",
+      "Market Class": "240Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSXhU1ax3/",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "DisplayPort 1.4,HDMI 2.1 FRL (48 Gbps)",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/9zoXKclWem",
+      "Refresh Rate": "300Hz",
+      "USB Hub": "None",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxDyAAnWpX-b8fDl/",
+      "Resolution (Pixel)": "2560x1440 (QHD)",
+      "Kisaran Harga": "3899000",
+      "BRAND & MODEL TYPE": "SKYWORTH F27G67Q Pro"
+    },
+    {
+      "id": "16954d70-2c62-8018-9557-e19406b4ecd7",
+      "Curvature": "None",
+      "Market Class": "144Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSXhDvuna/",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/704XNcbMGo",
+      "Refresh Rate": "160Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxDmAWoPD7-koMHR/",
+      "Resolution (Pixel)": "3840x2160 (UHD)",
+      "Kisaran Harga": "3900000",
+      "BRAND & MODEL TYPE": "SKYWORTH H27G10U"
+    },
+    {
+      "id": "23c54d70-2c62-8068-b41e-c037caebd167",
+      "Curvature": "None",
+      "Market Class": "Dual Mode 4K - 1080p",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSX7yBKch/",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "27 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/802GQi5Zbd",
+      "Refresh Rate": "144Hz,288Hz",
+      "USB Hub": "None",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxDtmtDqLj-p4s5D/",
+      "Resolution (Pixel)": "3840x2160 (UHD),1920x1080 (FHD)",
+      "Kisaran Harga": "4799000",
+      "BRAND & MODEL TYPE": "MSI MAG 275UPD E14"
+    },
+    {
+      "id": "25b54d70-2c62-80c4-a3f8-cdbe87303c1f",
+      "Curvature": "1500R",
+      "Market Class": "144Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSX7fdM6A/",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment",
+      "Display Input": "HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4 DSC",
+      "Aspect Ratio": "21:9 (UltraWide)",
+      "Panel Bit Depth": "10 Bit (8 Bit + FRC)",
+      "Panel Size": "34 Inch",
+      "Data Response Time": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/4VWnY3tlmw",
+      "Refresh Rate": "260Hz",
+      "USB Hub": "YES",
+      "Panel Type": "VA",
+      "zURD": "https://vt.tokopedia.com/t/ZS9rxUJxWPj55-Xzkrt/",
+      "Resolution (Pixel)": "3440x1440 (UWQHD)",
+      "Kisaran Harga": "4999000",
+      "BRAND & MODEL TYPE": "Asus TUF VG34WQML5A"
+    },
+    {
+      "id": "1a454d70-2c62-8043-8a9f-d9d8d8d412ac",
+      "Curvature": "None",
+      "Market Class": "480Hz+",
+      "Bracket Support (VESA Mount)": "YES (100 × 100 mm)",
+      "OjIF": "https://tk.tokopedia.com/ZSXhUNArD/",
+      "Stand Capability": "Tilt,Swivel,Height Adjustment,Rotate (Pivot)",
+      "Display Input": "HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4 DSC",
+      "Aspect Ratio": "16:9 (Wide)",
+      "Panel Bit Depth": "8 Bit",
+      "Panel Size": "25 Inch or 24.5 Inch",
+      "Data Response Time": "Toleransi Lama (10 RGB)",
+      "LINK SHOPEE": "https://s.shopee.co.id/8AKYmr4UFs",
+      "Refresh Rate": "500Hz",
+      "USB Hub": "YES",
+      "Last Updated": "‣",
+      "Panel Type": "IPS",
+      "zURD": "https://vt.tokopedia.com/t/ZS9MnedVunBtF-R7WtH/",
+      "Resolution (Pixel)": "1920x1080 (FHD)",
+      "Kisaran Harga": "7100000",
+      "BRAND & MODEL TYPE": "SKYWORTH F25G69F Pro"
+    },
+    {
+      "id": "35454d70-2c62-8023-bf39-cfe32f4ea0bd",
+      "BRAND & MODEL TYPE": "Asus ROG STRIX XG27ACSR "
+    },
+    {
+      "id": "4120d434-aa85-47d1-a362-6f9049b99c4e",
+      "BRAND & MODEL TYPE": "GRAYPLASMAID - REKOMENDASI MONITOR"
+    }
+  ]
+}

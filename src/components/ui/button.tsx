@@ -1,0 +1,44 @@
+import * as React from "react";
+import { cn } from "@/lib/utils";
+
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "default" | "outline" | "ghost" | "cyber" | "amber" | "secondary";
+  size?: "sm" | "md" | "lg" | "icon";
+}
+
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant = "default", size = "md", children, ...props }, ref) => {
+    return (
+      <button
+        ref={ref}
+        className={cn(
+          "inline-flex items-center justify-center font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98]",
+          // Variants
+          variant === "default" &&
+            "bg-zinc-900 text-white hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 shadow-sm",
+          variant === "cyber" &&
+            "bg-emerald-500 text-black font-semibold hover:bg-emerald-400 shadow-neon-emerald hover:shadow-[0_0_25px_-2px_rgba(16,185,129,0.5)] border border-emerald-400/40",
+          variant === "amber" &&
+            "bg-amber-500 text-black font-semibold hover:bg-amber-400 shadow-neon-amber hover:shadow-[0_0_25px_-2px_rgba(245,158,11,0.5)] border border-amber-400/40",
+          variant === "outline" &&
+            "border border-zinc-800 bg-black/40 text-zinc-300 hover:bg-zinc-900 hover:text-white hover:border-zinc-700",
+          variant === "ghost" &&
+            "text-zinc-400 hover:text-white hover:bg-zinc-900/60",
+          variant === "secondary" &&
+            "bg-zinc-800/80 text-zinc-200 hover:bg-zinc-700/80 border border-zinc-700/50",
+          // Sizes
+          size === "sm" && "h-8 px-3 text-xs rounded-md",
+          size === "md" && "h-9 px-4 text-sm rounded-lg",
+          size === "lg" && "h-11 px-6 text-base rounded-xl",
+          size === "icon" && "h-9 w-9 p-0 rounded-lg",
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </button>
+    );
+  }
+);
+Button.displayName = "Button";
