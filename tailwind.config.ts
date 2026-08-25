@@ -37,8 +37,8 @@ const config: Config = {
         }
       },
       fontFamily: {
-        sans: ["var(--font-metropolitan)", "var(--font-inter)", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
-        heading: ["var(--font-metropolitan)", "var(--font-inter)", "sans-serif"],
+        sans: ["var(--font-metropolitan)", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        heading: ["var(--font-metropolitan)", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
       },
       animation: {
         "shimmer": "shimmer 2s linear infinite",

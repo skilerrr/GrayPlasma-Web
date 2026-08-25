@@ -1,91 +1,60 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import {
   ExternalLink,
-  Info,
   Tv,
-  CheckCircle2,
-  XCircle,
-  AlertTriangle,
-  Flame,
   ArrowUpDown,
-  ShoppingBag,
-  Eye,
+  Table,
+  LayoutGrid,
+  List,
   SlidersHorizontal,
+  Search,
 } from "lucide-react";
 import { Monitor, TierRating } from "@/types/monitor";
 import { formatRupiah } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 
 interface NotionTableViewProps {
   monitors: Monitor[];
+  selectedMonitorId?: string;
   onSelectMonitor: (monitor: Monitor) => void;
 }
 
-export type TableCategoryTab =
-  | "all"
-  | "gtid-reviewed"
-  | "non-reviewed"
-  | "not-worth-it"
-  | "oled";
+export type TableViewTab = "table" | "price" | "size" | "gallery";
 
 export function NotionTableView({
   monitors,
+  selectedMonitorId,
   onSelectMonitor,
 }: NotionTableViewProps) {
-  const [activeTab, setActiveTab] = useState<TableCategoryTab>("all");
-  const [sortField, setSortField] = useState<"price" | "refresh" | "name" | "tier">("tier");
+  const [activeTab, setActiveTab] = useState<TableViewTab>("table");
+  const [sortField, setSortField] = useState<"price" | "name" | "refresh" | "size">("price");
   const [sortAsc, setSortAsc] = useState(true);
 
-  const filteredByTab = monitors.filter((m) => {
-    if (activeTab === "all") return true;
-    const desc = m.tierDescription || "";
-    const panel = m.specs?.display?.panelType || "";
-    if (activeTab === "gtid-reviewed") {
-      return !desc.includes("TIDAK WORTH IT") && !panel.includes("OLED");
-    }
-    if (activeTab === "non-reviewed") {
-      return desc.includes("Non-Review");
-    }
-    if (activeTab === "not-worth-it") {
-      return m.tier === "PASS" || desc.includes("TIDAK WORTH IT");
-    }
-    if (activeTab === "oled") {
-      return panel.toLowerCase().includes("oled");
-    }
-    return true;
-  });
-
-  const sortedMonitors = [...filteredByTab].sort((a, b) => {
+  const sortedMonitors = [...monitors].sort((a, b) => {
     if (sortField === "price") {
       return sortAsc ? a.price - b.price : b.price - a.price;
-    }
-    if (sortField === "refresh") {
-      return sortAsc
-        ? a.specs.display.refreshRate - b.specs.display.refreshRate
-        : b.specs.display.refreshRate - a.specs.display.refreshRate;
     }
     if (sortField === "name") {
       return sortAsc
         ? a.fullName.localeCompare(b.fullName)
         : b.fullName.localeCompare(a.fullName);
     }
-    if (sortField === "tier") {
-      const weights: Record<TierRating, number> = {
-        "S-TIER": 4,
-        "BEST VALUE": 3,
-        "RECOMMENDED": 2,
-        "PASS": 1,
-      };
+    if (sortField === "refresh") {
       return sortAsc
-        ? (weights[b.tier] || 0) - (weights[a.tier] || 0)
-        : (weights[a.tier] || 0) - (weights[b.tier] || 0);
+        ? a.specs.display.refreshRate - b.specs.display.refreshRate
+        : b.specs.display.refreshRate - a.specs.display.refreshRate;
+    }
+    if (sortField === "size") {
+      return sortAsc
+        ? a.specs.display.size.localeCompare(b.specs.display.size)
+        : b.specs.display.size.localeCompare(a.specs.display.size);
     }
     return 0;
   });
 
-  const handleSort = (field: "price" | "refresh" | "name" | "tier") => {
+  const handleSort = (field: "price" | "name" | "refresh" | "size") => {
     if (sortField === field) {
       setSortAsc(!sortAsc);
     } else {
@@ -95,248 +64,449 @@ export function NotionTableView({
   };
 
   return (
-    <div className="space-y-4">
-      {/* Table Database Tabs (Exact Notion Collection Views) */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-800 pb-2">
-        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-          <button
-            onClick={() => setActiveTab("all")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 flex-shrink-0 ${
-              activeTab === "all"
-                ? "bg-zinc-800 text-white border border-zinc-700 shadow-sm"
-                : "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900"
-            }`}
-          >
-            <span>📋 Semua Monitor ({monitors.length})</span>
-          </button>
-          <button
-            onClick={() => setActiveTab("gtid-reviewed")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 flex-shrink-0 ${
-              activeTab === "gtid-reviewed"
-                ? "bg-zinc-800 text-emerald-400 border border-emerald-500/40 shadow-sm"
-                : "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900"
-            }`}
-          >
-            <span>🟢 SDR GTID Reviewed</span>
-          </button>
-          <button
-            onClick={() => setActiveTab("oled")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 flex-shrink-0 ${
-              activeTab === "oled"
-                ? "bg-zinc-800 text-cyan-400 border border-cyan-500/40 shadow-sm"
-                : "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900"
-            }`}
-          >
-            <span>⚡ List OLED Monitors</span>
-          </button>
-          <button
-            onClick={() => setActiveTab("not-worth-it")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 flex-shrink-0 ${
-              activeTab === "not-worth-it"
-                ? "bg-zinc-800 text-rose-400 border border-rose-500/40 shadow-sm"
-                : "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900"
-            }`}
-          >
-            <span>⚠️ Tidak Worth It</span>
-          </button>
+    <div className="space-y-4 font-sans text-xs text-[#d4d4d4]">
+      {/* Title & View Mode Tabs Bar (Exact Notion styling from user screenshot) */}
+      <div className="space-y-3">
+        <div className="flex items-center gap-2">
+          <span className="text-xl">🖥️</span>
+          <h2 className="text-lg font-bold text-white tracking-tight">
+            List SDR Monitor (GTID Review & Database)
+          </h2>
         </div>
 
-        <div className="text-[11px] text-zinc-500 hidden sm:block">
-          Klik baris monitor untuk melihat ulasan & spek lengkap
+        {/* Top Notion View Mode Tabs */}
+        <div className="flex items-center justify-between border-b border-[#2a2a2a] pb-1 overflow-x-auto no-scrollbar gap-4">
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => setActiveTab("table")}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                activeTab === "table"
+                  ? "bg-[#252525] text-white border border-[#3f3f3f]"
+                  : "text-[#9b9a97] hover:text-white hover:bg-[#202020]"
+              }`}
+            >
+              <Table className="w-3.5 h-3.5" />
+              <span>List Tabel</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setActiveTab("price");
+                setSortField("price");
+                setSortAsc(true);
+              }}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                activeTab === "price"
+                  ? "bg-[#252525] text-white border border-[#3f3f3f]"
+                  : "text-[#9b9a97] hover:text-white hover:bg-[#202020]"
+              }`}
+            >
+              <List className="w-3.5 h-3.5" />
+              <span>List Harga</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setActiveTab("size");
+                setSortField("size");
+                setSortAsc(true);
+              }}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                activeTab === "size"
+                  ? "bg-[#252525] text-white border border-[#3f3f3f]"
+                  : "text-[#9b9a97] hover:text-white hover:bg-[#202020]"
+              }`}
+            >
+              <List className="w-3.5 h-3.5" />
+              <span>List Ukuran</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("gallery")}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                activeTab === "gallery"
+                  ? "bg-[#252525] text-white border border-[#3f3f3f]"
+                  : "text-[#9b9a97] hover:text-white hover:bg-[#202020]"
+              }`}
+            >
+              <LayoutGrid className="w-3.5 h-3.5" />
+              <span>Gallery</span>
+            </button>
+          </div>
+
+          <div className="text-[11px] text-[#787774] hidden sm:block">
+            {monitors.length} model terdaftar
+          </div>
         </div>
       </div>
 
-      {/* Notion Wide Scrollable Table Container */}
-      <div className="relative rounded-2xl border border-zinc-800 bg-[#09090b] overflow-hidden shadow-xl">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs border-collapse min-w-[1300px]">
-            {/* Table Header */}
-            <thead className="bg-[#121215] text-zinc-400 uppercase text-[10px] tracking-wider border-b border-zinc-800 sticky top-0 z-20">
-              <tr>
-                <th
-                  onClick={() => handleSort("name")}
-                  className="py-3 px-4 font-bold text-zinc-300 sticky left-0 z-30 bg-[#121215] border-r border-zinc-800/80 cursor-pointer hover:text-white transition-colors min-w-[260px]"
-                >
-                  <div className="flex items-center gap-1.5">
-                    <span>BRAND & MODEL TYPE</span>
-                    <ArrowUpDown className="w-3 h-3 text-zinc-500" />
-                  </div>
-                </th>
-                <th
-                  onClick={() => handleSort("tier")}
-                  className="py-3 px-3 font-bold cursor-pointer hover:text-white transition-colors min-w-[120px]"
-                >
-                  <div className="flex items-center gap-1.5">
-                    <span>TIER / VALUE</span>
-                    <ArrowUpDown className="w-3 h-3 text-zinc-500" />
-                  </div>
-                </th>
-                <th
-                  onClick={() => handleSort("price")}
-                  className="py-3 px-4 font-bold cursor-pointer hover:text-white transition-colors min-w-[150px]"
-                >
-                  <div className="flex items-center gap-1.5">
-                    <span>KISARAN HARGA</span>
-                    <ArrowUpDown className="w-3 h-3 text-zinc-500" />
-                  </div>
-                </th>
-                <th className="py-3 px-3 font-bold min-w-[130px]">RESOLUSI</th>
-                <th className="py-3 px-3 font-bold min-w-[90px]">UKURAN</th>
-                <th className="py-3 px-3 font-bold min-w-[100px]">PANEL</th>
-                <th
-                  onClick={() => handleSort("refresh")}
-                  className="py-3 px-3 font-bold cursor-pointer hover:text-white transition-colors min-w-[100px]"
-                >
-                  <div className="flex items-center gap-1.5">
-                    <span>REFRESH</span>
-                    <ArrowUpDown className="w-3 h-3 text-zinc-500" />
-                  </div>
-                </th>
-                <th className="py-3 px-3 font-bold text-cyan-400 min-w-[150px]">
-                  RESPONSE TIME (GTID)
-                </th>
-                <th className="py-3 px-3 font-bold min-w-[180px]">DISPLAY INPUT</th>
-                <th className="py-3 px-3 font-bold min-w-[140px]">STAND CAPABILITY</th>
-                <th className="py-3 px-3 font-bold min-w-[120px]">VESA MOUNT</th>
-                <th className="py-3 px-4 font-bold text-center min-w-[140px]">BELI / SHOPEE</th>
-              </tr>
-            </thead>
-
-            {/* Table Body */}
-            <tbody className="divide-y divide-zinc-900/80">
-              {sortedMonitors.map((m, idx) => {
-                const shopeeLink = m.marketplaces.find((mk) => mk.marketplace === "Shopee")?.url || "https://shopee.co.id";
-                const isPass = m.tier === "PASS";
-                const isSTier = m.tier === "S-TIER";
-                const isBestValue = m.tier === "BEST VALUE";
-
-                return (
-                  <tr
-                    key={m.id}
-                    onClick={() => onSelectMonitor(m)}
-                    className={`group hover:bg-zinc-900/60 transition-colors cursor-pointer ${
-                      idx % 2 === 0 ? "bg-black/40" : "bg-[#09090b]"
-                    } ${isPass ? "opacity-75 bg-rose-950/5 hover:opacity-100" : ""}`}
+      {/* ========================================================================= */}
+      {/* VIEW 1: NOTION DATABASE TABLE VIEW                                        */}
+      {/* ========================================================================= */}
+      {activeTab === "table" && (
+        <div className="rounded-2xl border border-[#2a2a2a] bg-[#191919] overflow-hidden shadow-xl">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs border-collapse min-w-[950px]">
+              <thead className="bg-[#202020] text-[#9b9a97] uppercase text-[10px] tracking-wider border-b border-[#2a2a2a] sticky top-0 z-20">
+                <tr>
+                  <th
+                    onClick={() => handleSort("price")}
+                    className="py-3 px-4 font-bold cursor-pointer hover:text-white transition-colors w-[150px]"
                   >
-                    {/* Sticky Brand & Model Type */}
-                    <td className="py-3.5 px-4 sticky left-0 z-10 bg-[#09090b] group-hover:bg-zinc-900 border-r border-zinc-800/80">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 flex-shrink-0 group-hover:border-emerald-500/50 transition-colors">
-                          <Tv className="w-4 h-4 text-emerald-400" />
-                        </div>
-                        <div className="min-w-0">
-                          <span className="font-bold text-white group-hover:text-emerald-400 transition-colors block truncate max-w-[200px]">
-                            {m.fullName}
+                    <div className="flex items-center gap-1.5">
+                      <span>💵 Kisaran Harga</span>
+                      <ArrowUpDown className="w-3 h-3 text-[#787774]" />
+                    </div>
+                  </th>
+
+                  <th
+                    onClick={() => handleSort("name")}
+                    className="py-3 px-4 font-bold text-[#e0e0e0] cursor-pointer hover:text-white transition-colors min-w-[240px]"
+                  >
+                    <div className="flex items-center gap-1.5">
+                      <Tv className="w-3.5 h-3.5 text-[#787774]" />
+                      <span>BRAND & MODEL TYPE</span>
+                      <ArrowUpDown className="w-3 h-3 text-[#787774]" />
+                    </div>
+                  </th>
+
+                  <th className="py-3 px-3 font-bold text-[#9b9a97] min-w-[210px]">
+                    📊 Data Response Time
+                  </th>
+
+                  <th
+                    onClick={() => handleSort("size")}
+                    className="py-3 px-3 font-bold cursor-pointer hover:text-white transition-colors min-w-[140px]"
+                  >
+                    <div className="flex items-center gap-1.5">
+                      <span>📐 Panel Size</span>
+                      <ArrowUpDown className="w-3 h-3 text-[#787774]" />
+                    </div>
+                  </th>
+
+                  <th className="py-3 px-3 font-bold min-w-[150px]">
+                    🖥️ Resolution
+                  </th>
+
+                  <th
+                    onClick={() => handleSort("refresh")}
+                    className="py-3 px-3 font-bold cursor-pointer hover:text-white transition-colors min-w-[100px]"
+                  >
+                    <div className="flex items-center gap-1.5">
+                      <span>Refresh</span>
+                      <ArrowUpDown className="w-3 h-3 text-[#787774]" />
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody className="divide-y divide-[#262626]">
+                {sortedMonitors.map((monitor) => {
+                  const isSelected = selectedMonitorId === monitor.id;
+
+                  return (
+                    <tr
+                      key={monitor.id}
+                      onClick={() => onSelectMonitor(monitor)}
+                      className={`cursor-pointer transition-all ${
+                        isSelected
+                          ? "bg-[#202020] ring-1 ring-[#2383e2] ring-inset"
+                          : "hover:bg-[#202020]"
+                      }`}
+                    >
+                      <td className="py-3 px-4 font-mono font-medium text-[#d4d4d4] whitespace-nowrap">
+                        {formatRupiah(monitor.price)}
+                      </td>
+
+                      <td className="py-3 px-4">
+                        <div className="flex items-center gap-2">
+                          <span className="text-base">🖥️</span>
+                          <span
+                            className={`font-semibold transition-colors ${
+                              isSelected ? "text-[#58a6ff]" : "text-white hover:text-[#58a6ff]"
+                            }`}
+                          >
+                            {monitor.fullName}
                           </span>
-                          <span className="text-[10px] text-zinc-400 block mt-0.5">
-                            {m.brand}
+                        </div>
+                      </td>
+
+                      <td className="py-3 px-3">
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <span className="px-2 py-0.5 rounded bg-[#203c2b] text-[#52ba69] text-[10px] font-medium whitespace-nowrap">
+                            {monitor.responseTimeData?.toleranceNew || "Toleransi Baru"}
+                          </span>
+                          <span className="px-2 py-0.5 rounded bg-[#442224] text-[#eb5757] text-[10px] font-medium whitespace-nowrap">
+                            {monitor.responseTimeData?.toleranceOld || "Toleransi Lama"}
                           </span>
                         </div>
-                      </div>
-                    </td>
+                      </td>
 
-                    {/* Tier / Rating */}
-                    <td className="py-3.5 px-3 whitespace-nowrap">
-                      <span
-                        className={`text-[10px] font-black px-2 py-0.5 rounded border inline-block ${
-                          isSTier
-                            ? "bg-emerald-500 text-black border-emerald-400"
-                            : isBestValue
-                            ? "bg-amber-500 text-black border-amber-400"
-                            : isPass
-                            ? "bg-rose-500/20 text-rose-400 border-rose-500/40"
-                            : "bg-zinc-800 text-zinc-300 border-zinc-700"
-                        }`}
-                      >
-                        {m.tier}
-                      </span>
-                    </td>
+                      <td className="py-3 px-3 text-[#9b9a97] whitespace-nowrap">
+                        {monitor.specs.display.size} {monitor.specs.display.panelType}
+                      </td>
 
-                    {/* Price */}
-                    <td className="py-3.5 px-4 whitespace-nowrap">
-                      <span className="font-mono font-bold text-white text-xs">
-                        {formatRupiah(m.price)}
-                      </span>
-                    </td>
+                      <td className="py-3 px-3 font-mono text-[#9b9a97] whitespace-nowrap">
+                        {monitor.specs.display.resolution}
+                      </td>
 
-                    {/* Resolution */}
-                    <td className="py-3.5 px-3 whitespace-nowrap text-zinc-300">
-                      {m.specs.display.resolution}
-                    </td>
-
-                    {/* Panel Size */}
-                    <td className="py-3.5 px-3 whitespace-nowrap text-zinc-300">
-                      {m.specs.display.size}
-                    </td>
-
-                    {/* Panel Type */}
-                    <td className="py-3.5 px-3 whitespace-nowrap">
-                      <span
-                        className={`px-2 py-0.5 rounded text-[11px] font-medium ${
-                          m.specs.display.panelType.includes("OLED")
-                            ? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/30"
-                            : "bg-zinc-900 text-zinc-300 border border-zinc-800"
-                        }`}
-                      >
-                        {m.specs.display.panelType}
-                      </span>
-                    </td>
-
-                    {/* Refresh Rate */}
-                    <td className="py-3.5 px-3 whitespace-nowrap font-mono font-semibold text-zinc-200">
-                      {m.specs.display.refreshRate} Hz
-                    </td>
-
-                    {/* Response Time */}
-                    <td className="py-3.5 px-3 whitespace-nowrap text-cyan-400 font-mono text-[11px]">
-                      {m.specs.display.responseTime}
-                    </td>
-
-                    {/* Display Input */}
-                    <td className="py-3.5 px-3 whitespace-nowrap text-zinc-400 text-[11px] max-w-[200px] truncate">
-                      {m.specs.connectivity.displayPort}, {m.specs.connectivity.hdmi}
-                    </td>
-
-                    {/* Stand Capability */}
-                    <td className="py-3.5 px-3 whitespace-nowrap text-zinc-400 text-[11px]">
-                      {m.specs.ergonomics.heightAdjustable ? "Height + Tilt" : "Tilt Only"}
-                    </td>
-
-                    {/* VESA Mount */}
-                    <td className="py-3.5 px-3 whitespace-nowrap text-zinc-400 text-[11px]">
-                      {m.specs.ergonomics.vesaMount}
-                    </td>
-
-                    {/* Buy CTA / Link Shopee */}
-                    <td className="py-3.5 px-4 text-center whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
-                      <div className="flex items-center justify-center gap-1.5">
-                        <a
-                          href={shopeeLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500 hover:text-black text-amber-400 text-[11px] font-bold transition-all"
-                        >
-                          <ShoppingBag className="w-3 h-3" />
-                          <span>Shopee</span>
-                          <ExternalLink className="w-2.5 h-2.5 opacity-70" />
-                        </a>
-
-                        <button
-                          onClick={() => onSelectMonitor(m)}
-                          className="p-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-800"
-                          title="Lihat Detail Ulasan"
-                        >
-                          <Eye className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                      <td className="py-3 px-3 font-mono text-[#58a6ff] whitespace-nowrap font-semibold">
+                        {monitor.specs.display.refreshRate}Hz
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* VIEW 2: LIST HARGA (GROUPED BY PRICE BRACKET)                             */}
+      {/* ========================================================================= */}
+      {activeTab === "price" && (
+        <div className="space-y-6">
+          {[
+            {
+              title: "💵 Budget Entry Level (< Rp 1.500.000)",
+              filter: (m: Monitor) => m.price < 1500000,
+              color: "border-emerald-500/40 text-emerald-400",
+            },
+            {
+              title: "💵 Mid-Range Value (Rp 1.500.000 - Rp 3.000.000)",
+              filter: (m: Monitor) => m.price >= 1500000 && m.price <= 3000000,
+              color: "border-cyan-500/40 text-cyan-400",
+            },
+            {
+              title: "💵 Sweetspot 1440p / 2K (Rp 3.000.000 - Rp 5.000.000)",
+              filter: (m: Monitor) => m.price > 3000000 && m.price <= 5000000,
+              color: "border-amber-500/40 text-amber-400",
+            },
+            {
+              title: "💵 Enthusiast, 4K & OLED (> Rp 5.000.000)",
+              filter: (m: Monitor) => m.price > 5000000,
+              color: "border-rose-500/40 text-rose-400",
+            },
+          ].map((group, idx) => {
+            const groupMonitors = sortedMonitors.filter(group.filter);
+            if (groupMonitors.length === 0) return null;
+
+            return (
+              <div key={idx} className="space-y-2">
+                <div className="flex items-center justify-between px-1">
+                  <h3 className={`text-xs font-bold uppercase tracking-wider flex items-center gap-2 ${group.color}`}>
+                    <span>{group.title}</span>
+                    <span className="px-2 py-0.5 rounded-full bg-[#252525] text-[10px] text-[#9b9a97] font-mono border border-[#333]">
+                      {groupMonitors.length} model
+                    </span>
+                  </h3>
+                </div>
+
+                <div className="rounded-2xl border border-[#2a2a2a] bg-[#191919] overflow-hidden shadow-lg">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left text-xs border-collapse min-w-[750px]">
+                      <tbody className="divide-y divide-[#262626]">
+                        {groupMonitors.map((monitor) => {
+                          const isSelected = selectedMonitorId === monitor.id;
+                          return (
+                            <tr
+                              key={monitor.id}
+                              onClick={() => onSelectMonitor(monitor)}
+                              className={`cursor-pointer transition-all ${
+                                isSelected ? "bg-[#202020] ring-1 ring-[#2383e2] ring-inset" : "hover:bg-[#202020]"
+                              }`}
+                            >
+                              <td className="py-2.5 px-4 font-mono font-bold text-emerald-400 whitespace-nowrap w-[150px]">
+                                {formatRupiah(monitor.price)}
+                              </td>
+                              <td className="py-2.5 px-4">
+                                <div className="flex items-center gap-2">
+                                  <span>🖥️</span>
+                                  <span className="font-semibold text-white hover:text-[#58a6ff]">
+                                    {monitor.fullName}
+                                  </span>
+                                </div>
+                              </td>
+                              <td className="py-2.5 px-3 text-[#9b9a97] whitespace-nowrap">
+                                {monitor.specs.display.size} • {monitor.specs.display.panelType} • {monitor.specs.display.refreshRate}Hz
+                              </td>
+                              <td className="py-2.5 px-3">
+                                <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                                  monitor.tier === "S-TIER"
+                                    ? "bg-[#203c2b] text-[#52ba69]"
+                                    : monitor.tier === "BEST VALUE"
+                                    ? "bg-[#1d354a] text-[#58a6ff]"
+                                    : "bg-[#282828] text-[#9b9a97]"
+                                }`}>
+                                  {monitor.tier}
+                                </span>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* VIEW 3: LIST UKURAN (GROUPED BY SCREEN SIZE)                              */}
+      {/* ========================================================================= */}
+      {activeTab === "size" && (
+        <div className="space-y-6">
+          {[
+            {
+              title: '📐 24 Inch (FHD Budget & Compact Esports)',
+              filter: (m: Monitor) => m.specs.display.size.includes("24") || m.specs.display.size.includes("23.8"),
+              color: "text-cyan-400",
+            },
+            {
+              title: '📐 27 Inch (Mainstream 1080p & 1440p 2K)',
+              filter: (m: Monitor) => m.specs.display.size.includes("27") || m.specs.display.size.includes("26.5"),
+              color: "text-emerald-400",
+            },
+            {
+              title: '📐 32 Inch (Large Immersive & 4K Creation)',
+              filter: (m: Monitor) => m.specs.display.size.includes("32") || m.specs.display.size.includes("31.5"),
+              color: "text-amber-400",
+            },
+            {
+              title: '📐 Ultrawide & Curved (21:9 Productivity)',
+              filter: (m: Monitor) => m.specs.display.size.toLowerCase().includes("ultrawide") || m.specs.display.size.includes("34"),
+              color: "text-rose-400",
+            },
+          ].map((group, idx) => {
+            const groupMonitors = sortedMonitors.filter(group.filter);
+            if (groupMonitors.length === 0) return null;
+
+            return (
+              <div key={idx} className="space-y-2">
+                <div className="flex items-center justify-between px-1">
+                  <h3 className={`text-xs font-bold uppercase tracking-wider flex items-center gap-2 ${group.color}`}>
+                    <span>{group.title}</span>
+                    <span className="px-2 py-0.5 rounded-full bg-[#252525] text-[10px] text-[#9b9a97] font-mono border border-[#333]">
+                      {groupMonitors.length} model
+                    </span>
+                  </h3>
+                </div>
+
+                <div className="rounded-2xl border border-[#2a2a2a] bg-[#191919] overflow-hidden shadow-lg">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left text-xs border-collapse min-w-[750px]">
+                      <tbody className="divide-y divide-[#262626]">
+                        {groupMonitors.map((monitor) => {
+                          const isSelected = selectedMonitorId === monitor.id;
+                          return (
+                            <tr
+                              key={monitor.id}
+                              onClick={() => onSelectMonitor(monitor)}
+                              className={`cursor-pointer transition-all ${
+                                isSelected ? "bg-[#202020] ring-1 ring-[#2383e2] ring-inset" : "hover:bg-[#202020]"
+                              }`}
+                            >
+                              <td className="py-2.5 px-4 font-mono font-bold text-white whitespace-nowrap w-[100px]">
+                                {monitor.specs.display.size}
+                              </td>
+                              <td className="py-2.5 px-4">
+                                <div className="flex items-center gap-2">
+                                  <span>🖥️</span>
+                                  <span className="font-semibold text-white hover:text-[#58a6ff]">
+                                    {monitor.fullName}
+                                  </span>
+                                </div>
+                              </td>
+                              <td className="py-2.5 px-3 font-mono text-emerald-400 whitespace-nowrap">
+                                {formatRupiah(monitor.price)}
+                              </td>
+                              <td className="py-2.5 px-3 text-[#9b9a97] whitespace-nowrap">
+                                {monitor.specs.display.panelType} • {monitor.specs.display.resolution} • {monitor.specs.display.refreshRate}Hz
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* VIEW 4: NOTION GALLERY CARD VIEW                                          */}
+      {/* ========================================================================= */}
+      {activeTab === "gallery" && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {sortedMonitors.map((monitor) => {
+            const isSelected = selectedMonitorId === monitor.id;
+            const photo = monitor.frontImage || monitor.thumbnail || "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop";
+
+            return (
+              <div
+                key={monitor.id}
+                onClick={() => onSelectMonitor(monitor)}
+                className={`group cursor-pointer rounded-2xl border transition-all overflow-hidden flex flex-col bg-[#202020] ${
+                  isSelected
+                    ? "border-[#2383e2] ring-2 ring-[#2383e2]/50 shadow-xl"
+                    : "border-[#2f2f2f] hover:border-[#3f3f3f] hover:bg-[#252525]"
+                }`}
+              >
+                {/* Card Thumbnail */}
+                <div className="w-full aspect-[16/10] bg-[#151515] relative overflow-hidden">
+                  <Image
+                    src={photo}
+                    alt={monitor.fullName}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute top-2 right-2">
+                    <span
+                      className={`text-[10px] font-bold px-2 py-0.5 rounded shadow-sm ${
+                        monitor.tier === "S-TIER"
+                          ? "bg-[#203c2b] text-[#52ba69] border border-[#52ba69]/30"
+                          : monitor.tier === "BEST VALUE"
+                          ? "bg-[#1d354a] text-[#58a6ff] border border-[#58a6ff]/30"
+                          : "bg-[#282828] text-[#d4d4d4]"
+                      }`}
+                    >
+                      {monitor.tier}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Card Body */}
+                <div className="p-3.5 space-y-2 flex-1 flex flex-col justify-between">
+                  <div className="space-y-1">
+                    <div className="text-[10px] text-[#787774] font-bold uppercase tracking-wider">
+                      {monitor.brand}
+                    </div>
+                    <h4 className="font-bold text-white text-xs line-clamp-1 group-hover:text-[#58a6ff] transition-colors">
+                      {monitor.fullName}
+                    </h4>
+                  </div>
+
+                  <div className="pt-2 border-t border-[#2a2a2a] flex items-center justify-between">
+                    <span className="font-mono font-bold text-emerald-400 text-xs">
+                      {formatRupiah(monitor.price)}
+                    </span>
+                    <span className="text-[10px] text-[#9b9a97] font-mono">
+                      {monitor.specs.display.size} • {monitor.specs.display.refreshRate}Hz
+                    </span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

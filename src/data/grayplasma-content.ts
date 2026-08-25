@@ -205,8 +205,123 @@ export const AFTERSALES_DATA: AftersalesBrand[] = [
       "Pastikan simpan nota pembelian resmi dan kartu garansi fisik",
       "Pantau update status servis secara aktif ke pihak distributor"
     ]
+  },
+  {
+    brand: "Samsung Monitor",
+    rating: "WARNING",
+    distributor: "Samsung Electronics Indonesia (SEIN)",
+    warrantyPeriod: "1 - 3 Tahun",
+    summary: "Sistem klaim dead pixel dan garis layar memerlukan negosiasi, serta waktu perbaikan panel curved sering menunggu kiriman modul.",
+    status: "Perlu Perhatian / Lama",
+    points: [
+      "Wajib periksa dead pixel pada saat pembelian",
+      "Service center resmi melimpah, namun ketersediaan panel curved bervariasi"
+    ]
+  },
+  {
+    brand: "Koorui / Titan Army / HKC",
+    rating: "C",
+    distributor: "Distributor Toko / Importir",
+    warrantyPeriod: "1 - 2 Tahun",
+    summary: "Brand OEM/ODM dengan harga sangat murah. Garansi bergantung pada toko atau distributor impor.",
+    status: "Perlu Perhatian / Lama",
+    points: [
+      "Harga sangat terjangkau, namun QC panel bervariasi",
+      "Klaim garansi biasanya dikirim ke drop-point Jakarta"
+    ]
   }
 ];
+
+export interface AvoidBrandItem {
+  brand: string;
+  category: string;
+  issue: string;
+  authorNote: string;
+  details: string[];
+}
+
+export const BRANDS_TO_AVOID_DATA: AvoidBrandItem[] = [
+  {
+    brand: "AOC dan PHILIPS MONITOR",
+    category: "RMA Lambat & Masalah Garis Layar",
+    issue: "Pengajuan proses garansi relatif lama, bahkan bisa memakan waktu lebih dari 1 bulan. Aftersales nya kacau. Masalah AOC 24G2 series yang tiba-tiba bergaris.",
+    authorNote: "Mempelajari masalah tidak menyelesaikan apa-apa jika tidak ada solusi untuk memecahkan masalah tersebut.",
+    details: [
+      "Panel AOC 24G4 dan 24G2SP sebenarnya sangat bagus secara warna dan responsivitas.",
+      "Namun komplain terbesar dari komunitas adalah lambatnya penggantian unit jika terjadi cacat garis layar.",
+      "Solusi: Simpan invoice toko dan hubungi CS MKP secara berkala."
+    ]
+  },
+  {
+    brand: "ASROCK? COOLERMASTER?",
+    category: "Brand Komponen yang Masuk ke Monitor",
+    issue: "Fokus utama bukan di manufaktur display. Sebagian besar lini monitor mereka adalah pesanan ODM dari pihak ketiga.",
+    authorNote: "Kurang konsisten dalam tuning overdrive firmware dan minimnya service center display khusus.",
+    details: [
+      "Tuning firmware OSD seringkali kaku dan opsi overdrive terbatas.",
+      "Jaringan perbaikan monitor belum seluas brand display veteran seperti Dell atau LG."
+    ]
+  },
+  {
+    brand: "GIGABYTE (BELUM TAHU APAKAH SERIUS MEMPERBAIKI AFTERSALES NYA ATAU TIDAK)",
+    category: "Catatan Riwayat Garansi",
+    issue: "Monitor Gigabyte seperti M27Q / G24F sempat sangat populer, namun riwayat penanganan RMA di masa lalu sering dikeluhkan.",
+    authorNote: "Perlu konfirmasi ketersediaan stok swap sebelum membeli tipe langka.",
+    details: [
+      "Kualitas visual dan fitur KVM Switch sangat baik.",
+      "Pastikan membeli dari distributor resmi PT Synnex Metrodata / Nusantara Jaya Teknologi."
+    ]
+  },
+  {
+    brand: "SAMSUNG MONITOR (Panel Curved Budget)",
+    category: "Masalah QC Panel Curved & Lepas Lem",
+    issue: "Lini monitor lengkung (curved) budget rentan mengalami panel terlepas dari bingkai (bezel separation) akibat panas dan lem melemah setelah pemakaian 1-2 tahun.",
+    authorNote: "Hati-hati pada lini Odyssey G3/G5 non-OLED.",
+    details: [
+      "Odyssey OLED G6/G8 sangat bagus, namun lini budget VA Curved memerlukan ekstra kehati-hatian.",
+      "Gunakan di ruangan ber-AC untuk mencegah lem panel memuai."
+    ]
+  },
+  {
+    brand: "LG MONITOR (Kebijakan Garansi Tertentu)",
+    category: "Syarat Dead Pixel Ambigu",
+    issue: "Meskipun aftersales LG tergolong cepat, kebijakan batas jumlah titik dead pixel di nota garansi beberapa seri terkadang menimbulkan perdebatan.",
+    authorNote: "Selalu lakukan Dead Pixel Check dalam 1x24 jam.",
+    details: [
+      "Segera tukar unit di marketplace jika ditemukan dead pixel sebelum masa komplain toko berakhir."
+    ]
+  },
+  {
+    brand: "KOORUI & BRAND ODM CHINA MURAH",
+    category: "QC dan Umur Pakai Komponen",
+    issue: "Monitor ODM murah menghemat biaya pada sirkuit power supply internal dan backlight, sehingga umur pakai komponen lebih pendek.",
+    authorNote: "Bagus untuk budget mepet, tapi siapkan mental jika rusak setelah 1-2 tahun.",
+    details: [
+      "Koorui 24E3 memiliki performa lumayan di harga Rp 1.2 jutaan.",
+      "Jangan gunakan kecerahan 100% terus-menerus agar backlight LED tidak cepat redup/panas."
+    ]
+  },
+  {
+    brand: "LENOVO MONITOR (Lini Standar Non-Legion)",
+    category: "Opsi OSD dan Keterbatasan Stand",
+    issue: "Lini Lenovo ThinkVision atau seri D budget seringkali memiliki stand yang tidak bisa diatur ketinggiannya dan tanpa port DisplayPort.",
+    authorNote: "Pilih seri Lenovo Legion jika menginginkan tuning gaming yang benar.",
+    details: [
+      "Seri kantor Lenovo D-series umumnya hanya 75Hz-100Hz dengan color gamut terbatas."
+    ]
+  }
+];
+
+export const BRAND_ODM_GUIDE = {
+  title: "BRAND ODM LAYAK DIBELI?",
+  subtitle: "Edukasi Mengenai Monitor Hasil Rebrand ODM / OEM di Pasar Indonesia",
+  description: "ODM (Original Design Manufacturer) adalah pabrik pihak ketiga di China yang memproduksi monitor secara massal lalu ditempel logo brand lokal/baru. Sebagian brand ODM menawarkan harga murah namun mengorbankan tuning overdrive, akurasi kalibrasi warna, dan garansi jangka panjang.",
+  poinPenting: [
+    "Brand OEM/ODM Murni: Pabrik membuat desain utuh dan brand hanya menempel stiker logo (minim riset).",
+    "Kelemahan Utama: Firmware OSD seringkali generik, overdrive tidak disesuaikan dengan karakteristik panel, dan risiko inverse ghosting tinggi.",
+    "Rekomendasi: Jika ingin membeli monitor ODM karena budget murah, prioritaskan brand yang memberikan garansi 3 tahun ganti baru dan sudah di-review response time-nya oleh GTID."
+  ]
+};
 
 export const DESK_GUIDES: DeskGuide[] = [
   {
@@ -314,6 +429,141 @@ export const GRAYNOTES_LIST: GrayNoteItem[] = [
   }
 ];
 
+export interface FAQItem {
+  id: string;
+  question: string;
+  answer: string;
+  category?: string;
+  important?: boolean;
+}
+
+export interface BandwidthGuidance {
+  interface: string;
+  bandwidth: string;
+  maxResolutionHz: string;
+  colorDepth: string;
+  dscSupport: string;
+  notes: string;
+}
+
+export const BANDWIDTH_GUIDANCES: BandwidthGuidance[] = [
+  {
+    interface: "HDMI 2.0",
+    bandwidth: "18.0 Gbps (Data Rate: 14.4 Gbps)",
+    maxResolutionHz: "1080p 240Hz / 1440p 144Hz / 4K 60Hz",
+    colorDepth: "8-bit RGB (10-bit butuh Chroma Subsampling YCbCr 4:2:2)",
+    dscSupport: "Tidak Didukung",
+    notes: "Kabel bawaan HDMI 2.0 sering membuat monitor 1440p 180Hz turun ke 144Hz atau warna turun ke 8-bit. Tidak disarankan untuk monitor 1440p high-refresh."
+  },
+  {
+    interface: "HDMI 2.1 FRL (Fixed Rate Link)",
+    bandwidth: "48.0 Gbps (Data Rate: 42.6 Gbps)",
+    maxResolutionHz: "4K 144Hz+ Native / 8K 60Hz",
+    colorDepth: "10-bit / 12-bit Full RGB 4:4:4",
+    dscSupport: "Didukung (DSC 1.2a)",
+    notes: "Standar terbaru untuk console PS5/Xbox Series X dan monitor 4K 144Hz+. Hati-hati dengan penamaan HDMI 2.1 TMDS (rebranded HDMI 2.0)."
+  },
+  {
+    interface: "DisplayPort 1.4 (HBR3)",
+    bandwidth: "32.4 Gbps (Data Rate: 25.92 Gbps)",
+    maxResolutionHz: "1440p 240Hz+ / 4K 120Hz Native (4K 240Hz via DSC)",
+    colorDepth: "10-bit RGB 4:4:4 dengan DSC",
+    dscSupport: "Didukung (DSC 1.2a)",
+    notes: "Koneksi standar emas untuk PC gaming. Wajib digunakan jika ingin mengaktifkan G-Sync Compatible NVIDIA dan refresh rate maksimal."
+  },
+  {
+    interface: "DisplayPort 2.1 (UHBR10 / UHBR20)",
+    bandwidth: "Up to 80.0 Gbps",
+    maxResolutionHz: "4K 240Hz+ Uncompressed / 8K 165Hz",
+    colorDepth: "10-bit / 12-bit RGB Native",
+    dscSupport: "Didukung",
+    notes: "Standar masa depan untuk monitor flagship OLED / GPU generasi terbaru (Radeon RX 7000 series, RTX 50 series)."
+  }
+];
+
+export const FAQ_LIST: FAQItem[] = [
+  {
+    id: "faq-build-quality",
+    question: "BUILD QUALITY PANEL NGARUH(?)",
+    answer: "Sangat ngaruh! Ketebalan lapisan polarizer, kualitas lem panel, serta modul backlight menentukan seberapa awet monitor terhadap masalah garis horizontal/vertikal (dead lines) dan backlight bleed yang parah setelah 1-2 tahun pemakaian. Brand tier atas umumnya menggunakan panel grade A+ dengan Quality Control lebih ketat.",
+    category: "Panel & Kualitas"
+  },
+  {
+    id: "faq-ideal-monitor",
+    question: "MENENTUKAN MONITOR YANG IDEAL",
+    answer: "Monitor ideal ditentukan oleh 3 faktor: (1) Jarak pandang vs ukuran meja (meja kedalaman 60cm paling pas 24-27 inci), (2) Kemampuan spesifikasi kartu grafis / GPU (jangan paksakan 1440p jika VGA hanya GTX 1650/RX 6500), dan (3) Kebutuhan utama (esport fps butuh refresh tinggi + motion clarity, editing butuh sRGB/DCI-P3 akurat).",
+    category: "Panduan Memilih",
+    important: true
+  },
+  {
+    id: "faq-optimal-settings",
+    question: "OPTIMAL SETTINGS GUIDELINE",
+    answer: "Untuk hampir semua monitor gaming: (1) Atur Overdrive ke level 'Medium' atau 'Fast' (hindari Fastest/Extreme agar tidak ada inverse ghosting), (2) Gunakan Preset sRGB / User Color D65 untuk akurasi warna natural, (3) Matikan fitur MPRT / 1ms Black Frame Insertion jika membuat layar redup atau flicker.",
+    category: "Setting OSD"
+  },
+  {
+    id: "faq-laptop-gaming",
+    question: "LAPTOP GAMING = GIMMICK",
+    answer: "Layar bawaan laptop gaming budget (di bawah 15 juta) seringkali memiliki akurasi warna rendah (hanya 45% NTSC / 62% sRGB) dan response time lambat (di atas 15-20ms) sehingga visual berbayang. Menghubungkan laptop ke monitor eksternal IPS 100% sRGB via DisplayPort/Type-C akan meningkatkan performa visual dan ergonomi secara drastis.",
+    category: "Laptop & Setup"
+  },
+  {
+    id: "faq-gtid-hz-tinggi",
+    question: "GTID lebih menyarankan Hz tinggi dibanding cuma FHD 100-144Hz, gimana dong?",
+    answer: "Di tahun 2026, selisih harga monitor 100Hz dengan 180Hz sudah sangat tipis (hanya selisih 100-200 ribu rupiah). Membeli 180Hz memberikan kelancaran (fluidity) gerakan kursor dan animasi yang jauh lebih responsif, serta panel 180Hz modern umumnya memiliki tuning Overdrive yang jauh lebih matang dibanding panel murah 100Hz.",
+    category: "Refresh Rate"
+  },
+  {
+    id: "faq-toleransi-lama-baru",
+    question: "BANG ITU DATA LAMA (Toleransi lama) VS (Toleransi Baru) DATA BARU, ITU APAAN YA BANG?",
+    answer: "Pada standar data pengujian baru di Glosarium GTID, batas toleransi Overshoot (inverse ghosting) diperketat maksimal di bawah 5% pada semua transisi warna. Jadi monitor yang di data lama tercatat 1ms bisa saja di data baru menjadi 4ms karena diuji pada overdrive yang bebas ghosting putih.",
+    category: "Glosarium GTID",
+    important: true
+  },
+  {
+    id: "faq-luasan-vs-akurasi",
+    question: "LUASAN ≠ AKURASI (WARNA)",
+    answer: "Luasan Gamut (seperti 120% sRGB / 95% DCI-P3) HANYA menunjukkan seberapa lebar cakupan warna yang mampu diproduksi layar, BUKAN ketepatan warnanya! Jika monitor punya gamut luas tapi Delta E-nya di atas 7, maka warna kulit manusia atau warna logo bisa terlihat kemerahan/kehijauan (oversaturated) secara berlebihan. Akurasi diukur dari Delta E (deITP/de2000 < 3-5).",
+    category: "Warna & Kalibrasi"
+  },
+  {
+    id: "faq-skyworth-po",
+    question: "BANG, SKYWORTH SERING (PO) PRE ORDER. BAIKNYA IKUT PO ATAU JANGAN?",
+    answer: "Jika tidak buru-buru butuh monitor, ikut PO batch resmi Skyworth sangat menguntungkan karena harganya jauh lebih murah dan sering dapat bonus bracket/kabel. Namun pastikan membeli di toko resmi dengan estimasi kirim yang jelas dan garansi PT Skyworth Indonesia 3 tahun.",
+    category: "Pembelian & Brand"
+  },
+  {
+    id: "faq-ips-va-tn",
+    question: "IPS, VA, TN? MANA YANG LEBIH BAIK?",
+    answer: "1. IPS: Pilihan terbaik untuk 90% pengguna karena warna konsisten dari segala sudut dan response time cepat tanpa black smearing.\n2. VA: Cocok untuk menonton film di ruangan gelap berkat kontras tinggi (3000:1), namun rentan ghosting bayangan hitam pada objek gelap.\n3. TN: Sudah ditinggalkan di 2026 karena sudut pandang buruk dan warna pudar.",
+    category: "Tipe Panel"
+  },
+  {
+    id: "faq-main-fhd-di-2k",
+    question: "BANG, KALO PAKE MONITOR 2K, MAIN DI FHD AMAN GA YA?",
+    answer: "Bisa, namun tampilan akan sedikit lebih buram (soft/blurry) dibanding monitor FHD asli karena 1440p tidak terbagi genap menjadi 1080p (skala non-integer 1.33x). Solusinya di game adalah gunakan resolusi native 1440p lalu aktifkan DLSS / FSR pada mode Quality/Balanced agar FPS tetap tinggi namun gambar tetap tajam.",
+    category: "Resolusi"
+  },
+  {
+    id: "faq-beli-online-aman",
+    question: "BELI MONITOR ONLINE AMAN?",
+    answer: "Aman dengan 3 syarat wajib: (1) Beli di Official Store atau toko bintang 5 terpercaya, (2) Wajib centang Asuransi Pengiriman dan Bubble Wrap Kayu tambahan jika luar pulau, (3) Lakukan video unboxing utuh tanpa jeda dari paket tersegel sampai monitor menyala dan tes dead pixel.",
+    category: "Belanja Online"
+  },
+  {
+    id: "faq-100-srgb-1ms-gimmick",
+    question: "100% sRGB / DCI-P3 & 1ms MPRT GIMMICK?",
+    answer: "Ya, 1ms MPRT adalah klaim strobing yang membuat layar berkedip dan redup. Response time nyata panel IPS rata-rata adalah 3-7ms GtG. Jangan jadikan tulisan '1ms' di dus sebagai acuan tunggal; periksa data pengetesan GtG asli di tabel database kami.",
+    category: "Gimmick Marketing"
+  },
+  {
+    id: "faq-logo-grayplasma",
+    question: "KOK BANYAK LOGO GP (GRAYPLASMA?)",
+    answer: "Logo GP menandakan kurasi catatan dan anotasi khusus yang ditambahkan oleh Joel Gray (@gray1plasma) bersama GlaciK untuk melengkapi dan menyederhanakan data mentah pengetesan laboratorium GTID Tech.",
+    category: "Tentang GP"
+  }
+];
+
 export const CONSULTATION_DATA = {
   author: "Joel Gray (@gray1plasma)",
   collaborators: "GlaciK & Data Pengujian GTID Tech",
@@ -324,5 +574,7 @@ export const CONSULTATION_DATA = {
   discordUrl: "https://discord.gg/joingtid",
   youtubeUrl: "https://www.youtube.com/c/GTiDtech/videos",
   notionUrl: "https://grayplasma.notion.site/GRAYPLASMAID-REKOMENDASI-MONITOR-4120d434aa8547d1a3626f9049b99c4e",
-  disclaimer: "DISCLAIMER : SELURUH LIST YANG ADA DI NOTION INI PERLU DITANYAKAN KEMBALI KEPADA PENULIS, DIKARENAKAN PERLU MEMPERTIMBANGKAN ASPEK SEPERTI SPESIFIKASI PC DESKTOP ATAU LAPTOP, UKURAN MEJA, DAN KEBUTUHAN NYA SEPERTI APA, DSB."
+  feedbackFormUrl: "https://docs.google.com/forms/d/e/1FAIpQLSeMGUEruo05yP4fjQAKttC-gRXk0VFXsud9XupfOgzX38JIpw/viewform",
+  disclaimer: "DISCLAIMER : SELURUH LIST YANG ADA DI NOTION INI PERLU DITANYAKAN KEMBALI KEPADA PENULIS, DIKARENAKAN PERLU MEMPERTIMBANGKAN ASPEK SEPERTI SPESIFIKASI PC DESKTOP ATAU LAPTOP, UKURAN MEJA, DAN KEBUTUHAN NYA SEPERTI APA, DSB.\n\nMULAI 15 AGUSTUS 2026, LINK TOKOPEDIA DAN TIKTOKSHOP AKAN DIHAPUS, DIKARENAKAN TERKADANG ERROR. JIKA INGIN MEMINTA LINK TOKOPEDIA DAN TIKTOKSHOP, DM DISCORD GRAYPLASMA ATAU TIKTOK @GRAY1PLASMA ATAU BERTANYA MELALUI WHATSAPP 0851-7979-4019 A/N JOEL GRAY (RESPON LEBIH CEPAT DISCORD)"
 };
+

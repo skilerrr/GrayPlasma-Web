@@ -16,6 +16,7 @@ export const MONITORS_DATA: Monitor[] = [
     "tierDescription": "Kategori Notion: 144Hz+. Response Time: Toleransi Baru (5 RGB),Toleransi Lama (10 RGB). Stand: Tilt.",
     "price": 1600000,
     "originalPrice": 1840000,
+    "recommendedPrice": 1550000,
     "thumbnail": "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop",
     "gallery": [
       "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop"
@@ -38,6 +39,34 @@ export const MONITORS_DATA: Monitor[] = [
       "Perhatikan settingan Overdrive di menu OSD agar tidak inverse ghosting",
       "Port USB Hub: None"
     ],
+    "deepDiveTitle": "Analisis Pengujian Response Time & Motion Clarity Xiaomi G24i",
+    "deepDiveDescription": "Xiaomi G24i menghadirkan performa refresh rate 200Hz di harga Rp 1.5 jutaan. Pada pengetesan GTID, overdrive level 'Fast' memberikan motion clarity paling stabil tanpa ada overshoot yang mengganggu.",
+    "deepDiveNote": "Gunakan DisplayPort 1.4 bawaan untuk mengaktifkan 200Hz penuh di PC Desktop.",
+    "accessoriesIncluded": [
+      "Kabel Power Adapter Xiaomi",
+      "Buku Panduan & Garansi Resmi",
+      "Kabel DisplayPort to DisplayPort"
+    ],
+    "additionalStores": [
+      {
+        "city": "SURABAYA",
+        "storeName": "Xiaomi Official Surabaya",
+        "url": "https://s.shopee.co.id/Lm3epPnA0",
+        "price": 1600000
+      },
+      {
+        "city": "JAKARTA",
+        "storeName": "Xiaomi Exclusive Center",
+        "url": "https://tokopedia.com",
+        "price": 1600000
+      }
+    ],
+    "responseTimeData": {
+      "toleranceNew": "Toleransi Baru (5 RGB)",
+      "toleranceOld": "Toleransi Lama (10 RGB)",
+      "gtidScore": "4.2ms GtG",
+      "overdriveRecommendation": "Fast"
+    },
     "specs": {
       "display": {
         "size": "24 Inch or 23.8 Inch",
@@ -117,6 +146,7 @@ export const MONITORS_DATA: Monitor[] = [
     "tierDescription": "Kategori Notion: 144Hz+. Response Time: Toleransi Baru (5 RGB),Toleransi Lama (10 RGB). Stand: Tilt.",
     "price": 1749000,
     "originalPrice": 2010000,
+    "recommendedPrice": 1450000,
     "thumbnail": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop",
     "gallery": [
       "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop"
@@ -139,6 +169,35 @@ export const MONITORS_DATA: Monitor[] = [
       "Perhatikan settingan Overdrive di menu OSD agar tidak inverse ghosting",
       "Port USB Hub: None"
     ],
+    "deepDiveTitle": "Pengujian Skyworth 240Hz: Cakupan Gamut dan Stabilitas Overdrive",
+    "deepDiveDescription": "Skyworth F24G41F memiliki ~62% Rec. 2020 dengan response time yang sangat kompetitif di kelas 240Hz budget. Rekomendasi pengaturan Overdrive di OSD adalah level Medium.",
+    "deepDiveNote": "Garansi resmi PT Skyworth Indonesia 3 tahun ganti modul/unit.",
+    "accessoriesIncluded": [
+      "Kabel Adaptor Listrik",
+      "Manual Book Skyworth",
+      "Kabel HDMI 2.0",
+      "Bracket Base Stand"
+    ],
+    "additionalStores": [
+      {
+        "city": "SURABAYA",
+        "storeName": "Skyworth Official Jatim",
+        "url": "https://s.shopee.co.id/gOu3TSjVx",
+        "price": 1749000
+      },
+      {
+        "city": "JAKARTA",
+        "storeName": "Skyworth Indonesia Mall",
+        "url": "https://tokopedia.com",
+        "price": 1749000
+      }
+    ],
+    "responseTimeData": {
+      "toleranceNew": "Toleransi Baru (5 RGB)",
+      "toleranceOld": "Toleransi Lama (10 RGB)",
+      "gtidScore": "3.9ms GtG",
+      "overdriveRecommendation": "Medium"
+    },
     "specs": {
       "display": {
         "size": "24 Inch or 23.8 Inch",
@@ -218,6 +277,7 @@ export const MONITORS_DATA: Monitor[] = [
     "tierDescription": "Kategori Notion: 240Hz+. Response Time: Toleransi Baru (5 RGB),Toleransi Lama (10 RGB). Stand: Tilt.",
     "price": 1900000,
     "originalPrice": 2190000,
+    "recommendedPrice": 1500000,
     "thumbnail": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop",
     "gallery": [
       "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop"
@@ -240,6 +300,36 @@ export const MONITORS_DATA: Monitor[] = [
       "Perhatikan settingan Overdrive di menu OSD agar tidak inverse ghosting",
       "Port USB Hub: None"
     ],
+    "deepDiveTitle": "Akurat di D65-P3 tapi kok Undersaturated di D65-P3?",
+    "deepDiveDescription": "Yap benar, ini bisa saja terjadi. Hal ini terjadi di H24G30F 180Hz yang sudah GTID tes. Skyworth memiliki ~62% Rec. 2020, sehingga ada sekitar ~8-10% kehilangan Warna P3 di ujung Spektrum Warna. Berarti MSI di ujung spektrum warna, sedikit parah dibanding H24G30F 180Hz, hanya ~59% Rec. 2020.",
+    "deepDiveNote": "Warna yang bisa MSI Cakup, itu akan akurat, Namun hanya bagian yang bisa MSI MAG 245F X24 cakup (Jika ada hal yang kurang jelas dari poin di atas, bertanyalah kepada poin tersebut)",
+    "accessoriesIncluded": [
+      "Kabel Adaptor",
+      "Manual Book",
+      "Kabel HDMI to HDMI"
+    ],
+    "additionalStores": [
+      {
+        "city": "SURABAYA",
+        "storeName": "MSI Surabaya Partner Store",
+        "url": "https://s.shopee.co.id/9pXpXlW99E",
+        "price": 1900000,
+        "note": "Ready Stock Surabaya Instant / Same Day"
+      },
+      {
+        "city": "JAKARTA",
+        "storeName": "MSI Official Mall",
+        "url": "https://shopee.co.id",
+        "price": 1900000,
+        "note": "Official Distributor PT AAA"
+      }
+    ],
+    "responseTimeData": {
+      "toleranceNew": "Toleransi Baru (5 RGB)",
+      "toleranceOld": "Toleransi Lama (10 RGB)",
+      "gtidScore": "3.8ms GtG",
+      "overdriveRecommendation": "Fast"
+    },
     "specs": {
       "display": {
         "size": "24 Inch or 23.8 Inch",

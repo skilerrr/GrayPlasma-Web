@@ -25,16 +25,20 @@ import {
   Check,
   Flame,
   AlertTriangle,
+  Layers,
 } from "lucide-react";
 import { Monitor } from "@/types/monitor";
 import { DeskItem, PeripheralItem } from "@/data/grayplasma-desk-peripherals";
 import { AftersalesBrand } from "@/data/grayplasma-content";
+import { SiteHierarchyNode } from "@/types/site-hierarchy";
 import { DatabaseService } from "@/lib/db-service";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { compressImage, formatFileSize, CompressedImageResult } from "@/lib/image-compressor";
 import { MonitorFormModal } from "@/components/admin/monitor-form-modal";
 import { DeskFormModal } from "@/components/admin/desk-form-modal";
 import { AftersalesFormModal } from "@/components/admin/aftersales-form-modal";
+import { HierarchySandboxManager } from "@/components/admin/hierarchy-sandbox-manager";
+import { MonitorSidePanel } from "@/components/monitor-side-panel";
 import { Button } from "@/components/ui/button";
 import { GPLogo } from "@/components/gp-logo";
 import { formatRupiah } from "@/lib/utils";
@@ -50,15 +54,24 @@ export default function AdminDashboardPage() {
   const [desks, setDesks] = useState<DeskItem[]>([]);
   const [peripherals, setPeripherals] = useState<PeripheralItem[]>([]);
   const [aftersales, setAftersales] = useState<AftersalesBrand[]>([]);
+  const [hierarchyNodes, setHierarchyNodes] = useState<SiteHierarchyNode[]>([]);
+  const [bannerSettings, setBannerSettings] = useState<any>({
+    homeBannerUrl: "",
+    homeBannerTitle: "Katalog & Database Rekomendasi Monitor",
+    homeBannerSubtitle: "Kurasi monitor independen kolaborasi Joel Gray (@gray1plasma) x GlaciK dengan pengujian laboratorium GTID Tech.",
+    guideBannerUrl: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1600&auto=format&fit=crop",
+    monitorBannerUrl: "",
+  });
   const [isLoading, setIsLoading] = useState(true);
 
   // Active Tab
-  const [activeTab, setActiveTab] = useState<"monitors" | "desks" | "peripherals" | "aftersales" | "supabase" | "compressor">("monitors");
+  const [activeTab, setActiveTab] = useState<"hierarchy" | "banners" | "monitors" | "desks" | "peripherals" | "aftersales" | "supabase" | "compressor">("hierarchy");
   const [searchQuery, setSearchQuery] = useState("");
 
   // Modals state
   const [selectedMonitor, setSelectedMonitor] = useState<Monitor | null>(null);
   const [isMonitorModalOpen, setIsMonitorModalOpen] = useState(false);
+  const [testSidePanelMonitor, setTestSidePanelMonitor] = useState<Monitor | null>(null);
 
   const [deskModalType, setDeskModalType] = useState<"desk" | "peripheral">("desk");
   const [selectedDesk, setSelectedDesk] = useState<DeskItem | null>(null);
@@ -91,16 +104,20 @@ export default function AdminDashboardPage() {
   const loadAllData = async () => {
     setIsLoading(true);
     try {
-      const [mList, dList, pList, aList] = await Promise.all([
+      const [mList, dList, pList, aList, hList, bSettings] = await Promise.all([
         DatabaseService.getMonitors(),
         DatabaseService.getDesks(),
         DatabaseService.getPeripherals(),
         DatabaseService.getAftersales(),
+        DatabaseService.getHierarchyNodes(),
+        DatabaseService.getBannerSettings(),
       ]);
       setMonitors(mList);
       setDesks(dList);
       setPeripherals(pList);
       setAftersales(aList);
+      setHierarchyNodes(hList);
+      setBannerSettings(bSettings);
     } catch (e) {
       console.error("Failed to load admin data", e);
     } finally {
@@ -378,6 +395,28 @@ export default function AdminDashboardPage() {
         {/* Admin Navigation Tabs */}
         <div className="flex items-center gap-2 border-b border-zinc-800 pb-2 overflow-x-auto no-scrollbar">
           <button
+            onClick={() => setActiveTab("hierarchy")}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 flex-shrink-0 ${
+              activeTab === "hierarchy"
+                ? "bg-zinc-800 text-cyan-400 border border-cyan-500/40 shadow-sm"
+                : "text-zinc-400 hover:text-white"
+            }`}
+          >
+            <Layers className="w-4 h-4" />
+            <span>Hierarki & Sandbox ({hierarchyNodes.length})</span>
+          </button>
+          <button
+            onClick={() => setActiveTab("banners")}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 flex-shrink-0 ${
+              activeTab === "banners"
+                ? "bg-zinc-800 text-amber-400 border border-amber-500/40 shadow-sm"
+                : "text-zinc-400 hover:text-white"
+            }`}
+          >
+            <ImageIcon className="w-4 h-4" />
+            <span>Custom Banner Tiap Page</span>
+          </button>
+          <button
             onClick={() => setActiveTab("monitors")}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 flex-shrink-0 ${
               activeTab === "monitors"
@@ -444,6 +483,160 @@ export default function AdminDashboardPage() {
             <span>WebP Optimizer Lab</span>
           </button>
         </div>
+
+        {/* 0. HIERARCHY & NOTION SANDBOX TAB */}
+        {activeTab === "hierarchy" && (
+          <HierarchySandboxManager
+            nodes={hierarchyNodes}
+            onUpdateNodes={(updated) => {
+              setHierarchyNodes(updated);
+              showNotice("Hierarki website & panduan berhasil diperbarui!");
+            }}
+            onTestTrigger={(node) => {
+              if (node.onClickAction === "route") {
+                window.open(node.fullPath, "_blank");
+              } else if (node.onClickAction === "side-panel") {
+                const sampleMonitor = monitors[0] || null;
+                setTestSidePanelMonitor(sampleMonitor);
+                showNotice(`⚡ Triggered Side-Panel Preview untuk ${node.title}`);
+              } else if (node.onClickAction === "modal") {
+                setSelectedMonitor(monitors[0] || null);
+                setIsMonitorModalOpen(true);
+                showNotice(`⚡ Triggered Modal Preview untuk ${node.title}`);
+              } else if (node.onClickAction === "external" && node.externalUrl) {
+                window.open(node.externalUrl, "_blank");
+              } else {
+                window.open(node.fullPath, "_blank");
+              }
+            }}
+          />
+        )}
+
+        {/* 0.5 PAGE BANNERS CUSTOMIZATION TAB */}
+        {activeTab === "banners" && (
+          <div className="bg-surface-dark border border-zinc-800 rounded-3xl p-6 sm:p-8 space-y-6">
+            <div className="space-y-1 border-b border-zinc-800 pb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold">
+                <ImageIcon className="w-3.5 h-3.5" />
+                <span>Page Banner Customizer</span>
+              </div>
+              <h3 className="text-xl font-bold text-white tracking-tight">
+                Kustomisasi Banner & Header Tiap Halaman
+              </h3>
+              <p className="text-xs text-zinc-400 max-w-2xl">
+                Ubah cover banner, judul, dan subjudul utama di Beranda, halaman Panduan (/guide/...), serta default header monitor.
+              </p>
+            </div>
+
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                await DatabaseService.saveBannerSettings(bannerSettings);
+                showNotice("Pengaturan banner halaman berhasil disimpan!");
+              }}
+              className="space-y-5 text-xs max-w-3xl"
+            >
+              {/* Home Page Banner */}
+              <div className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-4">
+                <h4 className="font-bold text-white uppercase text-xs text-amber-400">
+                  1. Banner Halaman Beranda (Home Page)
+                </h4>
+                <div className="space-y-3">
+                  <div>
+                    <label className="text-zinc-400 block mb-1">Judul Utama Hero Banner</label>
+                    <input
+                      type="text"
+                      value={bannerSettings.homeBannerTitle || ""}
+                      onChange={(e) => setBannerSettings({ ...bannerSettings, homeBannerTitle: e.target.value })}
+                      placeholder="Katalog & Database Rekomendasi Monitor"
+                      className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400 text-xs"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-zinc-400 block mb-1">Subjudul / Deskripsi Hero</label>
+                    <textarea
+                      rows={2}
+                      value={bannerSettings.homeBannerSubtitle || ""}
+                      onChange={(e) => setBannerSettings({ ...bannerSettings, homeBannerSubtitle: e.target.value })}
+                      placeholder="Kurasi monitor independen..."
+                      className="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-white focus:outline-none focus:border-amber-400 text-xs"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-zinc-400 block mb-1">Background Image URL (Opsional)</label>
+                    <input
+                      type="text"
+                      value={bannerSettings.homeBannerUrl || ""}
+                      onChange={(e) => setBannerSettings({ ...bannerSettings, homeBannerUrl: e.target.value })}
+                      placeholder="https://images.unsplash.com/... (kosongkan jika ingin tema clean dark)"
+                      className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-zinc-300 focus:outline-none focus:border-amber-400 text-xs"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Guide Page Default Banner */}
+              <div className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-4">
+                <h4 className="font-bold text-white uppercase text-xs text-cyan-400">
+                  2. Default Banner Halaman Panduan (/guide/...)
+                </h4>
+                <div>
+                  <label className="text-zinc-400 block mb-1">Default Cover Image URL untuk Panduan</label>
+                  <input
+                    type="text"
+                    value={bannerSettings.guideBannerUrl || ""}
+                    onChange={(e) => setBannerSettings({ ...bannerSettings, guideBannerUrl: e.target.value })}
+                    placeholder="https://images.unsplash.com/..."
+                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-zinc-300 focus:outline-none focus:border-cyan-400 text-xs"
+                  />
+                </div>
+              </div>
+
+              {/* Monitor Page Default Banner */}
+              <div className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-4">
+                <h4 className="font-bold text-white uppercase text-xs text-emerald-400">
+                  3. Default Banner Halaman Monitor (/monitor/[slug])
+                </h4>
+                <div>
+                  <label className="text-zinc-400 block mb-1">Background Banner URL untuk Halaman Monitor</label>
+                  <input
+                    type="text"
+                    value={bannerSettings.monitorBannerUrl || ""}
+                    onChange={(e) => setBannerSettings({ ...bannerSettings, monitorBannerUrl: e.target.value })}
+                    placeholder="https://images.unsplash.com/... (opsional)"
+                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-zinc-300 focus:outline-none focus:border-emerald-400 text-xs"
+                  />
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex items-center justify-end gap-3 pt-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const res = DatabaseService.resetBannerSettings();
+                    setBannerSettings(res);
+                    showNotice("Banner dikembalikan ke template default.");
+                  }}
+                  className="text-xs"
+                >
+                  Reset Default
+                </Button>
+                <Button
+                  type="submit"
+                  variant="cyber"
+                  size="sm"
+                  className="font-bold flex items-center gap-1.5 text-xs"
+                >
+                  <Check className="w-3.5 h-3.5" />
+                  <span>Simpan Pengaturan Banner</span>
+                </Button>
+              </div>
+            </form>
+          </div>
+        )}
 
         {/* 1. MONITORS CRUD TAB */}
         {activeTab === "monitors" && (
@@ -945,6 +1138,13 @@ export default function AdminDashboardPage() {
         isOpen={isAftersalesModalOpen}
         onClose={() => setIsAftersalesModalOpen(false)}
         onSave={handleSaveAftersales}
+      />
+
+      {/* Monitor Side Panel Test Preview */}
+      <MonitorSidePanel
+        monitor={testSidePanelMonitor}
+        isOpen={Boolean(testSidePanelMonitor)}
+        onClose={() => setTestSidePanelMonitor(null)}
       />
     </div>
   );

@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Sparkles,
   ArrowUpDown,
@@ -38,6 +39,7 @@ import {
   DollarSign,
   User,
   Coffee,
+  ShoppingBag,
 } from "lucide-react";
 import {
   Monitor,
@@ -55,14 +57,29 @@ import {
   ABOUT_NOTION_CONTENT,
   HOW_TO_READ_GLOSSARY,
   OLED_DEEP_DIVE,
+  FAQ_LIST,
+  BANDWIDTH_GUIDANCES,
+  BRANDS_TO_AVOID_DATA,
+  BRAND_ODM_GUIDE,
 } from "@/data/grayplasma-content";
+import { PERIPHERALS_DATABASE } from "@/data/grayplasma-desk-peripherals";
+import { formatRupiah } from "@/lib/utils";
 import { Navbar, NavMenuKey } from "@/components/navbar";
 import { FilterBar } from "@/components/filter-bar";
 import { MonitorCard } from "@/components/monitor-card";
 import { MonitorModal } from "@/components/monitor-modal";
+import { MonitorSidePanel } from "@/components/monitor-side-panel";
 import { NotionTableView } from "@/components/notion-table-view";
+import { NotionKanbanBoard, NotionBoardCard } from "@/components/notion-kanban-board";
+import { NotionAftersalesSidePanel } from "@/components/notion-aftersales-side-panel";
+import {
+  NOTION_AFTERSALES_COLUMNS,
+  NOTION_AFTERSALES_CARDS,
+} from "@/data/notion-aftersales-board-data";
+import { NotionBlockRenderer } from "@/components/notion-block-renderer";
 import { DeskPeripheralsView } from "@/components/desk-peripherals-view";
 import { GPLogo } from "@/components/gp-logo";
+import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 
 const INITIAL_FILTER_STATE: FilterState = {
@@ -88,12 +105,23 @@ export default function CatalogPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [activeMenuKey, setActiveMenuKey] = useState<NavMenuKey | "home">("home");
   const [viewMode, setViewMode] = useState<"table" | "grid">("table");
+  const [bannerSettings, setBannerSettings] = useState<any>({
+    homeBannerUrl: "",
+    homeBannerTitle: "Katalog & Database Rekomendasi Monitor",
+    homeBannerSubtitle: "Kurasi monitor independen kolaborasi Joel Gray (@gray1plasma) x GlaciK dengan pengujian laboratorium GTID Tech.",
+  });
+  const [selectedAftersalesCard, setSelectedAftersalesCard] = useState<NotionBoardCard | null>(null);
+  const [isAftersalesPanelOpen, setIsAftersalesPanelOpen] = useState(false);
 
   useEffect(() => {
     async function loadData() {
       try {
-        const loaded = await DatabaseService.getMonitors();
-        setMonitorsData(loaded);
+        const [loadedMonitors, loadedBanners] = await Promise.all([
+          DatabaseService.getMonitors(),
+          DatabaseService.getBannerSettings(),
+        ]);
+        setMonitorsData(loadedMonitors);
+        if (loadedBanners) setBannerSettings(loadedBanners);
       } catch (e) {
         console.error("Failed to load dynamic monitors", e);
       } finally {
@@ -264,341 +292,212 @@ export default function CatalogPage() {
         onMenuSelect={handleMenuSelect}
       />
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex-1 w-full">
-        {/* Full-width Notion Cover Banner (Exact match to Image 1) */}
-        <section className="relative w-full rounded-3xl overflow-hidden border border-zinc-800/90 mb-8 bg-[#09090b]">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1a20_1px,transparent_1px),linear-gradient(to_bottom,#1a1a20_1px,transparent_1px)] bg-[size:32px_32px] sm:bg-[size:44px_44px] pointer-events-none opacity-85" />
-          
-          <div className="relative z-10 py-12 sm:py-16 md:py-20 px-6 flex flex-col items-center justify-center text-center">
-            {/* Ghost WELCOME watermark */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
-              <span className="text-zinc-800/40 sm:text-zinc-800/60 font-black tracking-tight text-6xl sm:text-8xl md:text-9xl uppercase transform scale-110">
-                WELCOME
-              </span>
+      {/* Main Content with dynamic rearrangement when Side-Peek Drawer opens */}
+      <main className={`transition-all duration-300 px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex-1 w-full space-y-8 ${
+        selectedMonitor ? "lg:mr-[620px] xl:mr-[680px] lg:max-w-[calc(100vw-640px)] xl:max-w-[calc(100vw-700px)]" : "max-w-7xl mx-auto"
+      }`}>
+        {/* Minimal Hero Header with Dynamic Customization */}
+        <section className="relative w-full rounded-2xl border border-zinc-800/80 bg-zinc-950 p-6 sm:p-10 overflow-hidden">
+          {bannerSettings.homeBannerUrl && (
+            <div className="absolute inset-0 z-0">
+              <Image
+                src={bannerSettings.homeBannerUrl}
+                alt="Banner Cover"
+                fill
+                className="object-cover opacity-20"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
             </div>
+          )}
+          <div className="relative z-10 max-w-3xl space-y-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[11px] font-semibold tracking-wider text-zinc-300 uppercase">
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              <span>GRAYPLASMA • REKOMENDASI MONITOR</span>
+            </div>
+            <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+              {bannerSettings.homeBannerTitle || "Katalog & Database Rekomendasi Monitor"}
+            </h1>
+            <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+              {bannerSettings.homeBannerSubtitle || "Kurasi monitor independen kolaborasi Joel Gray (@gray1plasma) x GlaciK dengan pengujian laboratorium GTID Tech."}
+            </p>
 
-            {/* Foreground Title */}
-            <div className="relative z-20 space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/80 border border-zinc-700 text-[11px] font-bold tracking-widest text-zinc-300 uppercase shadow-lg">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>GRAYPLASMAID • REKOMENDASI MONITOR</span>
-              </div>
-              <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight max-w-4xl drop-shadow-md">
-                GRAYPLASMA • MONITOR UNAFFORDABLE
-              </h1>
-              <p className="text-xs sm:text-sm text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-                Database Pengujian & Kurasi Monitor Independen kolaborasi Joel Gray (@gray1plasma) x GlaciK dengan data pengetesan GTID Tech.
-              </p>
+            {/* Quick Notion Sub-Path Links */}
+            <div className="flex items-center gap-2 pt-2 overflow-x-auto no-scrollbar flex-wrap">
+              <Link
+                href="/guide/sdr/glossary"
+                className="px-2.5 py-1 rounded-lg bg-[#202020] border border-[#2f2f2f] hover:border-[#58a6ff] text-[#9b9a97] hover:text-white text-[11px] font-mono transition-colors"
+              >
+                /guide/sdr/glossary
+              </Link>
+              <Link
+                href="/guide/brand/aftersales-rma"
+                className="px-2.5 py-1 rounded-lg bg-[#202020] border border-[#2f2f2f] hover:border-[#52ba69] text-[#9b9a97] hover:text-white text-[11px] font-mono transition-colors"
+              >
+                /guide/brand/aftersales-rma
+              </Link>
+              <Link
+                href="/guide/faq"
+                className="px-2.5 py-1 rounded-lg bg-[#202020] border border-[#2f2f2f] hover:border-[#ff9f43] text-[#9b9a97] hover:text-white text-[11px] font-mono transition-colors"
+              >
+                /guide/faq
+              </Link>
+              <Link
+                href="/guide/setup/meja-ergonomi"
+                className="px-2.5 py-1 rounded-lg bg-[#202020] border border-[#2f2f2f] hover:border-[#58a6ff] text-[#9b9a97] hover:text-white text-[11px] font-mono transition-colors"
+              >
+                /guide/setup/meja-ergonomi
+              </Link>
+              <Link
+                href="/guide/display/bandwidth-dp-hdmi"
+                className="px-2.5 py-1 rounded-lg bg-[#202020] border border-[#2f2f2f] hover:border-[#eb5757] text-[#9b9a97] hover:text-white text-[11px] font-mono transition-colors"
+              >
+                /guide/display/bandwidth-dp-hdmi
+              </Link>
             </div>
           </div>
-        </section>
-
+        </section>        {/* ========================================================================= */}
+        {/* CORE WORKSPACE: LEFT FILTER BAR + RIGHT DATABASE TABLE                    */}
         {/* ========================================================================= */}
-        {/* VIEW: NOTION-STYLE HOMEPAGE                                               */}
-        {/* ========================================================================= */}
-        {activeMenuKey === "home" && (
-          <div className="space-y-10 animate-in fade-in duration-200">
-            {/* Notion Header & Icon Block */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-zinc-800">
-              <div className="flex items-center gap-4">
-                <GPLogo className="w-14 h-14 sm:w-16 sm:h-16 flex-shrink-0" />
-                <div>
-                  <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-                    GRAYPLASMAID - REKOMENDASI MONITOR
-                  </h2>
-                  <p className="text-xs text-zinc-400 mt-1">
-                    Database Rekomendasi Monitor oleh Joel Gray x GlaciK berdasarkan data pengetesan GTID Tech.
-                  </p>
-                </div>
+        {(activeMenuKey === "home" || isCatalog) && (
+          <div className="space-y-8 animate-in fade-in duration-200">
+            <div className="flex flex-col lg:flex-row gap-6 items-start">
+              {/* Left Sidebar Filter Section (Permanent & Never Hidden) */}
+              <div className="w-full lg:w-72 xl:w-80 flex-shrink-0">
+                <FilterBar
+                  filterState={filterState}
+                  onFilterChange={setFilterState}
+                  onResetFilters={handleResetFilters}
+                  isMobileDrawerOpen={isMobileDrawerOpen}
+                  onCloseMobileDrawer={() => setIsMobileDrawerOpen(false)}
+                  totalFilteredCount={filteredMonitors.length}
+                />
               </div>
 
-              {/* Consultation WA & Discord CTA */}
-              <div className="flex items-center gap-2 self-start sm:self-center flex-wrap">
-                <a
-                  href={CONSULTATION_DATA.whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-500 text-black font-bold text-xs hover:bg-emerald-400 transition-colors shadow-neon-emerald"
-                >
-                  <PhoneCall className="w-3.5 h-3.5" />
-                  <span>Konsultasi WA</span>
-                </a>
-                <a
-                  href={CONSULTATION_DATA.discordUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-200 font-semibold text-xs hover:bg-zinc-800 transition-colors"
-                >
-                  <MessageSquare className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>Discord GTID</span>
-                </a>
-              </div>
+              {/* Right Main Database Table & Cards */}
+              <section className="flex-1 w-full min-w-0 space-y-6">
+                <NotionTableView
+                  monitors={filteredMonitors}
+                  selectedMonitorId={selectedMonitor?.id}
+                  onSelectMonitor={(m) => setSelectedMonitor(m)}
+                />
+              </section>
             </div>
 
-            {/* Notion Callout Box: Disclaimer */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-zinc-950 border border-amber-500/30 flex items-start gap-3.5 shadow-lg">
-              <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400 flex-shrink-0 mt-0.5">
-                <AlertTriangle className="w-5 h-5" />
-              </div>
-              <div className="space-y-1 text-xs">
-                <h4 className="font-bold text-amber-300 uppercase tracking-wider text-[11px]">
-                  Catatan Penting / Disclaimer GrayPlasma
-                </h4>
-                <p className="text-zinc-300 leading-relaxed">
-                  {CONSULTATION_DATA.disclaimer}
-                </p>
-              </div>
-            </div>
-
-            {/* Support Penulis & Donasi Callout from Notion */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-surface-dark border border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-rose-500/10 text-rose-400 flex-shrink-0">
-                  <Heart className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-white">Support & Donasi Penulis</h4>
-                  <p className="text-xs text-zinc-400">
-                    Bisa support melalui QRIS, Saweria, atau berbelanja menggunakan Link Affiliate yang tersedia.
-                  </p>
-                </div>
-              </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handleMenuSelect("support-donasi")}
-                className="text-xs font-bold flex-shrink-0"
-              >
-                <span>Lihat QRIS & Donasi →</span>
-              </Button>
-            </div>
-
-            {/* Main Notion Page Hub: Sub-page Directories */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-2">
-                  <BookOpen className="w-4 h-4 text-emerald-400" />
-                  <span>Daftar Halaman & Sub-Page Notion</span>
+            {/* Quick Resource Guides (Clean & Essential) */}
+            <div className="space-y-4 pt-8 border-t border-[#2a2a2a]">
+              <div className="flex items-center gap-2">
+                <span className="text-lg">📚</span>
+                <h3 className="text-base font-bold text-white tracking-tight">
+                  Panduan & Sumber Daya Penting
                 </h3>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* 1. Rekomendasi Monitor Hub */}
-                <div
-                  onClick={() => handleMenuSelect("catalog-all")}
-                  className="group bg-surface-dark border border-zinc-800 hover:border-emerald-500/60 rounded-2xl p-5 transition-all cursor-pointer shadow-sm hover:shadow-card-hover flex flex-col justify-between"
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <Link
+                  href="/guide/brand/aftersales-rma"
+                  className="p-4 rounded-2xl bg-[#202020] border border-[#2f2f2f] hover:border-[#52ba69] transition-all space-y-2 group block"
                 >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                          <Tv className="w-5 h-5" />
-                        </div>
-                        <h4 className="text-base font-bold text-white group-hover:text-emerald-300 transition-colors">
-                          Rekomendasi Monitor ({monitorsData.length} Model Teruji)
-                        </h4>
-                      </div>
-                      <ChevronRight className="w-4 h-4 text-zinc-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
-                    </div>
-                    <p className="text-xs text-zinc-400 leading-relaxed">
-                      Daftar kurasi monitor gaming & kerja dengan data pengujian response time GTID Tech, filter multi-kriteria, dan link Shopee / Tokopedia.
-                    </p>
+                  <div className="flex items-center gap-2 font-bold text-white text-xs group-hover:text-[#52ba69]">
+                    <ShieldAlert className="w-4 h-4 text-amber-400" />
+                    <span>Aftersales Brand Tier List</span>
                   </div>
+                  <p className="text-[11px] text-[#9b9a97] leading-relaxed">
+                    Evaluasi garansi, track record RMA, dan transparansi brand monitor di Indonesia.
+                  </p>
+                  <span className="text-[10px] text-[#787774] font-mono block pt-1 group-hover:text-[#52ba69]">
+                    /guide/brand/aftersales-rma →
+                  </span>
+                </Link>
 
-                  <div className="flex flex-wrap gap-1.5 pt-4 mt-2 border-t border-zinc-900" onClick={(e) => e.stopPropagation()}>
-                    <button
-                      onClick={() => handleMenuSelect("catalog-1080p")}
-                      className="text-[11px] px-2.5 py-1 rounded-lg bg-zinc-900 hover:bg-emerald-500/20 text-zinc-300 hover:text-emerald-300 border border-zinc-800 transition-colors"
-                    >
-                      1080p (FHD)
-                    </button>
-                    <button
-                      onClick={() => handleMenuSelect("catalog-1440p")}
-                      className="text-[11px] px-2.5 py-1 rounded-lg bg-zinc-900 hover:bg-emerald-500/20 text-zinc-300 hover:text-emerald-300 border border-zinc-800 transition-colors"
-                    >
-                      1440p (2K Sweetspot)
-                    </button>
-                    <button
-                      onClick={() => handleMenuSelect("catalog-oled")}
-                      className="text-[11px] px-2.5 py-1 rounded-lg bg-zinc-900 hover:bg-emerald-500/20 text-zinc-300 hover:text-emerald-300 border border-zinc-800 transition-colors"
-                    >
-                      OLED & 360Hz
-                    </button>
-                    <button
-                      onClick={() => handleMenuSelect("catalog-4k")}
-                      className="text-[11px] px-2.5 py-1 rounded-lg bg-zinc-900 hover:bg-emerald-500/20 text-zinc-300 hover:text-emerald-300 border border-zinc-800 transition-colors"
-                    >
-                      4K Creator
-                    </button>
-                  </div>
-                </div>
-
-                {/* 2. Glossary Guide */}
-                <div
-                  onClick={() => handleMenuSelect("glossary")}
-                  className="group bg-surface-dark border border-zinc-800 hover:border-cyan-500/60 rounded-2xl p-5 transition-all cursor-pointer shadow-sm hover:shadow-card-hover flex flex-col justify-between"
+                <Link
+                  href="/guide/faq"
+                  className="p-4 rounded-2xl bg-[#202020] border border-[#2f2f2f] hover:border-[#ff9f43] transition-all space-y-2 group block"
                 >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
-                          <BookOpen className="w-5 h-5" />
-                        </div>
-                        <h4 className="text-base font-bold text-white group-hover:text-cyan-300 transition-colors">
-                          How to Read GTID Glossary (SDR)
-                        </h4>
-                      </div>
-                      <ChevronRight className="w-4 h-4 text-zinc-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all" />
-                    </div>
-                    <p className="text-xs text-zinc-400 leading-relaxed">
-                      Panduan lengkap membaca metrik Delta E ITP (deITP), akurasi OSD sRGB/DCI-P3, contrast ratio, dan rumus Response Time Ideal vs Refresh Rate.
-                    </p>
+                  <div className="flex items-center gap-2 font-bold text-white text-xs group-hover:text-[#ff9f43]">
+                    <HelpCircle className="w-4 h-4 text-amber-400" />
+                    <span>QnA & FAQ GrayPlasma</span>
                   </div>
+                  <p className="text-[11px] text-[#9b9a97] leading-relaxed">
+                    13 sub-halaman tanya jawab lengkap seputar toleransi GTID, dead pixel, dan kabel.
+                  </p>
+                  <span className="text-[10px] text-[#787774] font-mono block pt-1 group-hover:text-[#ff9f43]">
+                    /guide/faq →
+                  </span>
+                </Link>
 
-                  <div className="flex items-center gap-2 pt-4 mt-2 border-t border-zinc-900 text-xs text-cyan-400 font-semibold">
-                    <span>Baca Panduan Glosarium Lengkap →</span>
-                  </div>
-                </div>
-
-                {/* 3. About Notion Page */}
-                <div
-                  onClick={() => handleMenuSelect("about")}
-                  className="group bg-surface-dark border border-zinc-800 hover:border-violet-500/60 rounded-2xl p-5 transition-all cursor-pointer shadow-sm hover:shadow-card-hover flex flex-col justify-between"
+                <Link
+                  href="/guide/sdr/glossary"
+                  className="p-4 rounded-2xl bg-[#202020] border border-[#2f2f2f] hover:border-[#58a6ff] transition-all space-y-2 group block"
                 >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-9 h-9 rounded-xl bg-violet-500/10 border border-violet-500/30 flex items-center justify-center text-violet-400">
-                          <HelpCircle className="w-5 h-5" />
-                        </div>
-                        <h4 className="text-base font-bold text-white group-hover:text-violet-300 transition-colors">
-                          Tentang Website Ini & Penulis (Joel Gray)
-                        </h4>
-                      </div>
-                      <ChevronRight className="w-4 h-4 text-zinc-500 group-hover:text-violet-400 group-hover:translate-x-1 transition-all" />
-                    </div>
-                    <p className="text-xs text-zinc-400 leading-relaxed">
-                      Latar belakang pembuatan website, cerita gap year penulis Joel Gray (@gray1plasma), serta kolaborasi dengan @GlaciK & GTID Tech.
-                    </p>
+                  <div className="flex items-center gap-2 font-bold text-white text-xs group-hover:text-[#58a6ff]">
+                    <BookOpen className="w-4 h-4 text-emerald-400" />
+                    <span>Cara Baca Data GTID Glossary</span>
                   </div>
+                  <p className="text-[11px] text-[#9b9a97] leading-relaxed">
+                    Panduan teknis membaca grafik Delta E, deITP, response time, dan color gamut.
+                  </p>
+                  <span className="text-[10px] text-[#787774] font-mono block pt-1 group-hover:text-[#58a6ff]">
+                    /guide/sdr/glossary →
+                  </span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
 
-                  <div className="flex items-center gap-2 pt-4 mt-2 border-t border-zinc-900 text-xs text-violet-400 font-semibold">
-                    <span>Baca Kisah & Latar Belakang →</span>
-                  </div>
-                </div>
 
-                {/* 4. Aftersales Brand Hub */}
-                <div
-                  onClick={() => handleMenuSelect("aftersales-tier")}
-                  className="group bg-surface-dark border border-zinc-800 hover:border-amber-500/60 rounded-2xl p-5 transition-all cursor-pointer shadow-sm hover:shadow-card-hover flex flex-col justify-between"
-                >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
-                          <ShieldAlert className="w-5 h-5" />
-                        </div>
-                        <h4 className="text-base font-bold text-white group-hover:text-amber-300 transition-colors">
-                          Aftersales & Garansi Brand di Indonesia
-                        </h4>
-                      </div>
-                      <ChevronRight className="w-4 h-4 text-zinc-500 group-hover:text-amber-400 group-hover:translate-x-1 transition-all" />
-                    </div>
-                    <p className="text-xs text-zinc-400 leading-relaxed">
-                      Tinjauan jujur kualitas layanan purna jual distributor (Dell ProSupport Onsite, LG, Asus, ViewSonic, Xiaomi, MSI, serta catatan RMA AOC).
-                    </p>
-                  </div>
+        {/* ========================================================================= */}
+        {/* VIEW: LIST AFTERSALES (AUTHENTIC NOTION KANBAN BOARD)                     */}
+        {/* ========================================================================= */}
+        {activeMenuKey === "aftersales-tier" && (
+          <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in duration-200">
+            {/* Breadcrumb */}
+            <div className="flex items-center justify-between bg-[#202020] border border-[#2f2f2f] rounded-xl px-4 py-2.5 text-xs text-[#9b9a97]">
+              <button
+                onClick={() => setActiveMenuKey("home")}
+                className="hover:text-white flex items-center gap-1.5 transition-colors"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Kembali ke Beranda</span>
+              </button>
+              <span className="text-[#e0e0e0] font-medium">
+                🖥️ LIST AFTERSALES (BRAND MONITOR OEM)
+              </span>
+            </div>
 
-                  <div className="flex items-center gap-2 pt-4 mt-2 border-t border-zinc-900 text-xs text-amber-400 font-semibold">
-                    <span>Lihat Tier List Distributor →</span>
-                  </div>
-                </div>
+            {/* Notion Header & Icon Block */}
+            <div className="space-y-4 pt-2">
+              <div className="text-4xl">🖥️</div>
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-[#ffffff] tracking-tight">
+                LIST AFTERSALES (BRAND MONITOR OEM)
+              </h1>
 
-                {/* 5. Rekomendasi Meja & Setup */}
-                <div
-                  onClick={() => handleMenuSelect("desk-guide")}
-                  className="group bg-surface-dark border border-zinc-800 hover:border-cyan-500/60 rounded-2xl p-5 transition-all cursor-pointer shadow-sm hover:shadow-card-hover flex flex-col justify-between"
-                >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
-                          <LayoutGrid className="w-5 h-5" />
-                        </div>
-                        <h4 className="text-base font-bold text-white group-hover:text-cyan-300 transition-colors">
-                          Rekomendasi Meja & Gimmick Meja Gaming
-                        </h4>
-                      </div>
-                      <ChevronRight className="w-4 h-4 text-zinc-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all" />
-                    </div>
-                    <p className="text-xs text-zinc-400 leading-relaxed">
-                      Panduan kedalaman meja (50cm, 60cm, 70-80cm) vs ukuran layar ideal dan rekomendasi gas spring monitor arm VESA.
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-2 pt-4 mt-2 border-t border-zinc-900 text-xs text-cyan-400 font-semibold">
-                    <span>Lihat Panduan Ergonomi Meja →</span>
-                  </div>
-                </div>
-
-                {/* 6. True HDR vs Fake HDR 400 */}
-                <div
-                  onClick={() => handleMenuSelect("hdr-guide")}
-                  className="group bg-surface-dark border border-zinc-800 hover:border-rose-500/60 rounded-2xl p-5 transition-all cursor-pointer shadow-sm hover:shadow-card-hover flex flex-col justify-between"
-                >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-9 h-9 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400">
-                          <SunMedium className="w-5 h-5" />
-                        </div>
-                        <h4 className="text-base font-bold text-white group-hover:text-rose-300 transition-colors">
-                          Monitor HDR (True HDR vs Fake HDR 400)
-                        </h4>
-                      </div>
-                      <ChevronRight className="w-4 h-4 text-zinc-500 group-hover:text-rose-400 group-hover:translate-x-1 transition-all" />
-                    </div>
-                    <p className="text-xs text-zinc-400 leading-relaxed">
-                      Edukasi mengapa DisplayHDR 400 di panel IPS standar tanpa local dimming adalah gimik marketing & daftar monitor True HDR sejati.
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-2 pt-4 mt-2 border-t border-zinc-900 text-xs text-rose-400 font-semibold">
-                    <span>Pelajari Perbedaan HDR →</span>
-                  </div>
+              {/* Subtitle / Catatan Section (Exact match to Image 2) */}
+              <div className="space-y-2 text-xs text-[#9b9a97]">
+                <p className="font-semibold uppercase tracking-wider text-[#787774]">
+                  AKAN DILENGKAPI
+                </p>
+                <div className="space-y-1">
+                  <span className="font-bold text-[#d4d4d4] uppercase">CATATAN :</span>
+                  <ul className="list-disc pl-5 space-y-1 text-[#b4b4b4]">
+                    <li>
+                      PENULIS TIDAK BERTANGGUNG JAWAB JIKA BRAND ANDA TERSINGGUNG DENGAN TULISAN DIBAWAH
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
 
-            {/* Notion Database Table Section directly on Homepage (Tabel demi tabel yang panjang ke samping) */}
-            <div className="space-y-4 pt-6 border-t border-zinc-800">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div>
-                  <h3 className="text-lg font-black text-white uppercase tracking-tight flex items-center gap-2">
-                    <Tv className="w-5 h-5 text-emerald-400" />
-                    <span>Database Rekomendasi Monitor (Tabel Interaktif Notion)</span>
-                  </h3>
-                  <p className="text-xs text-zinc-400">
-                    Tabel lengkap seluruh model dengan spesifikasi display, data response time GTID, stand capability, VESA mount, dan link pembelian Shopee. Geser ke samping untuk melihat seluruh kolom.
-                  </p>
-                </div>
-
-                <Button
-                  variant="cyber"
-                  size="sm"
-                  onClick={() => handleMenuSelect("catalog-all")}
-                  className="self-start sm:self-auto text-xs font-bold flex items-center gap-1.5"
-                >
-                  <span>Buka Mode Filter Lengkap</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Button>
-              </div>
-
-              {/* Full-width interactive horizontal scrollable Notion Table */}
-              <NotionTableView
-                monitors={monitorsData}
-                onSelectMonitor={(m) => setSelectedMonitor(m)}
+            {/* Authentic Notion Kanban Board */}
+            <div className="pt-2">
+              <NotionKanbanBoard
+                columns={NOTION_AFTERSALES_COLUMNS}
+                cards={NOTION_AFTERSALES_CARDS}
+                selectedCardId={selectedAftersalesCard?.id}
+                onSelectCard={(card) => {
+                  setSelectedAftersalesCard(card);
+                  setIsAftersalesPanelOpen(true);
+                }}
               />
             </div>
           </div>
@@ -800,7 +699,7 @@ export default function CatalogPage() {
                 className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Kembali ke Beranda Utama Notion</span>
+                <span>Kembali ke Beranda Utama</span>
               </button>
 
               <span className="text-xs text-zinc-500">
@@ -847,7 +746,7 @@ export default function CatalogPage() {
                             : "text-zinc-400 hover:text-white"
                         }`}
                       >
-                        📋 Tabel Notion
+                        📋 Tabel Database
                       </button>
                       <button
                         onClick={() => setViewMode("grid")}
@@ -900,6 +799,7 @@ export default function CatalogPage() {
                   viewMode === "table" ? (
                     <NotionTableView
                       monitors={filteredMonitors}
+                      selectedMonitorId={selectedMonitor?.id}
                       onSelectMonitor={(m) => setSelectedMonitor(m)}
                     />
                   ) : (
@@ -1255,6 +1155,275 @@ export default function CatalogPage() {
         )}
 
         {/* ========================================================================= */}
+        {/* VIEW: QnA & FAQ NOTION COLLECTION                                         */}
+        {/* ========================================================================= */}
+        {activeMenuKey === "faq" && (
+          <div className="max-w-5xl mx-auto space-y-6 animate-in fade-in duration-200">
+            {/* Breadcrumb */}
+            <div className="flex items-center justify-between bg-[#202020] border border-[#2f2f2f] rounded-xl px-4 py-2.5 text-xs text-[#9b9a97]">
+              <button
+                onClick={() => setActiveMenuKey("home")}
+                className="hover:text-white flex items-center gap-1.5 transition-colors"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Kembali ke Beranda</span>
+              </button>
+              <span className="text-[#e0e0e0] font-medium">
+                ❓ QNA & GRAYNOTES (FAQ)
+              </span>
+            </div>
+
+            {/* Notion Header & Icon Block */}
+            <div className="space-y-4 pt-2">
+              <div className="text-4xl">❓</div>
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-[#ffffff] tracking-tight">
+                QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)
+              </h1>
+
+              <div className="space-y-2 text-xs text-[#9b9a97]">
+                <p className="font-semibold uppercase tracking-wider text-[#787774]">
+                  DATABASE EDUKASI & JAWABAN RESMI
+                </p>
+                <div className="space-y-1">
+                  <span className="font-bold text-[#d4d4d4] uppercase">CATATAN :</span>
+                  <ul className="list-disc pl-5 space-y-1 text-[#b4b4b4]">
+                    <li>
+                      Seluruh ulasan dan panduan disusun independen oleh Joel Gray (@gray1plasma) x GlaciK berdasarkan pengujian laboratorium GTID Tech.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Notion Collection List */}
+            <div className="space-y-3 pt-2">
+              {FAQ_LIST.map((faq) => {
+                const slug = faq.id.replace(/^faq-/, "");
+                const subPath = `/guide/faq/${slug}`;
+
+                return (
+                  <div
+                    key={faq.id}
+                    className="p-5 rounded-2xl bg-[#202020] border border-[#2f2f2f] hover:border-[#3f3f3f] transition-all space-y-3 shadow-sm"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#2a2a2a] pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="text-base">📄</span>
+                        <h3 className="text-sm sm:text-base font-bold text-white tracking-tight">
+                          {faq.question}
+                        </h3>
+                      </div>
+
+                      <div className="flex items-center gap-2 self-start sm:self-auto">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#203c2b] text-[#52ba69] uppercase">
+                          {faq.category || "FAQ"}
+                        </span>
+                        {faq.important && (
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#442c1d] text-[#e07936] uppercase">
+                            Penting
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Answer Block */}
+                    <div className="text-xs sm:text-sm text-[#d4d4d4] leading-relaxed whitespace-pre-line">
+                      <NotionBlockRenderer content={faq.answer} />
+                    </div>
+
+                    {/* Footer Actions with Dedicated Sub-Path */}
+                    <div className="pt-2 border-t border-[#2a2a2a] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                      <span className="text-[11px] font-mono text-[#787774] truncate">
+                        Link: {subPath}
+                      </span>
+
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => {
+                            const text = `**[FAQ GRAYPLASMA] ${faq.question}**\n${faq.answer}\n🔗 ${window.location.origin}${subPath}`;
+                            navigator.clipboard.writeText(text);
+                            alert("Format callback Discord untuk pertanyaan ini telah disalin!");
+                          }}
+                          className="px-2.5 py-1 rounded bg-[#252525] border border-[#333333] hover:bg-[#2c2c2c] text-[#d4d4d4] hover:text-white flex items-center gap-1.5 transition-colors font-semibold"
+                        >
+                          <MessageSquare className="w-3.5 h-3.5 text-[#58a6ff]" />
+                          <span>Copy Discord Callback</span>
+                        </button>
+
+                        <Link
+                          href={subPath}
+                          className="px-3 py-1 rounded bg-[#2383e2] hover:bg-[#1f75c8] text-white font-bold flex items-center gap-1 transition-colors"
+                        >
+                          <span>Buka Halaman →</span>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================================= */}
+        {/* VIEW: BANDWIDTH GUIDANCES (NOTION STYLE)                                   */}
+        {/* ========================================================================= */}
+        {activeMenuKey === "bandwidth-guide" && (
+          <div className="max-w-5xl mx-auto space-y-6 animate-in fade-in duration-200">
+            {/* Breadcrumb */}
+            <div className="flex items-center justify-between bg-[#202020] border border-[#2f2f2f] rounded-xl px-4 py-2.5 text-xs text-[#9b9a97]">
+              <button
+                onClick={() => setActiveMenuKey("home")}
+                className="hover:text-white flex items-center gap-1.5 transition-colors"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Kembali ke Beranda</span>
+              </button>
+              <span className="text-[#e0e0e0] font-medium">
+                🔌 BANDWIDTH GUIDANCE
+              </span>
+            </div>
+
+            {/* Notion Header & Icon Block */}
+            <div className="space-y-4 pt-2">
+              <div className="text-4xl">🔌</div>
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-[#ffffff] tracking-tight">
+                BANDWIDTH GUIDANCE: HDMI 2.0 vs 2.1 vs DisplayPort 1.4/2.1
+              </h1>
+
+              <div className="space-y-2 text-xs text-[#9b9a97]">
+                <p className="font-semibold uppercase tracking-wider text-[#787774]">
+                  PANDUAN KONEKTIVITAS & KABEL DISPLAY
+                </p>
+                <div className="space-y-1">
+                  <span className="font-bold text-[#d4d4d4] uppercase">CATATAN :</span>
+                  <ul className="list-disc pl-5 space-y-1 text-[#b4b4b4]">
+                    <li>
+                      Kenapa monitor 1440p 180Hz turun ke 144Hz atau warna turun ke 8-bit saat memakai kabel HDMI 2.0 bawaan.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4 pt-2">
+              {BANDWIDTH_GUIDANCES.map((item, idx) => (
+                <div key={idx} className="bg-[#202020] border border-[#2f2f2f] rounded-2xl p-6 space-y-3 shadow-sm">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-base font-bold text-white flex items-center gap-2">
+                      <span className="text-emerald-400">⚡</span>
+                      <span>{item.interface}</span>
+                    </h3>
+                    <span className="text-xs font-mono font-bold text-[#52ba69] bg-[#203c2b] px-2.5 py-1 rounded">
+                      {item.bandwidth}
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-[#d4d4d4] pt-1">
+                    <div className="p-3.5 rounded-xl bg-[#191919] border border-[#2a2a2a]">
+                      <strong className="text-[#9b9a97] block text-[10px] uppercase">Maksimal Resolusi & Refresh:</strong>
+                      <span className="font-bold text-white mt-1 block text-sm">{item.maxResolutionHz}</span>
+                    </div>
+
+                    <div className="p-3.5 rounded-xl bg-[#191919] border border-[#2a2a2a]">
+                      <strong className="text-[#9b9a97] block text-[10px] uppercase">Color Depth & DSC:</strong>
+                      <span className="font-bold text-white mt-1 block text-sm">{item.colorDepth}</span>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-[#9b9a97] leading-relaxed pt-1">
+                    {item.notes}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================================= */}
+        {/* VIEW: FORM KRITIK & SARAN                                                 */}
+        {/* ========================================================================= */}
+        {activeMenuKey === "feedback" && (
+          <div className="max-w-3xl mx-auto space-y-6 animate-in fade-in duration-200">
+            {/* Breadcrumb */}
+            <div className="flex items-center justify-between bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5">
+              <button
+                onClick={() => setActiveMenuKey("home")}
+                className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Kembali ke Beranda Utama Notion</span>
+              </button>
+              <span className="text-xs text-zinc-500">Kritik & Saran</span>
+            </div>
+
+            <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-6 sm:p-8 space-y-6 text-center">
+              <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto">
+                <MessageSquare className="w-7 h-7" />
+              </div>
+              <div className="space-y-2">
+                <h2 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
+                  Form Kritik & Saran GrayPlasma
+                </h2>
+                <p className="text-xs sm:text-sm text-zinc-400 max-w-xl mx-auto leading-relaxed">
+                  Punya request monitor baru yang ingin dimasukkan ke database, koreksi harga / data pengetesan, atau saran untuk pengembangan website? Sampaikan langsung kepada kami!
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left pt-2">
+                <a
+                  href={CONSULTATION_DATA.feedbackFormUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 hover:border-amber-500 hover:bg-amber-500/20 transition-all space-y-2 group"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-amber-400">Google Form Resmi</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-amber-400" />
+                  </div>
+                  <h4 className="text-sm font-bold text-white">Formulir Kritik & Saran</h4>
+                  <p className="text-xs text-zinc-400 leading-relaxed">
+                    Buka dan isi kuesioner Google Form resmi GrayPlasma untuk request monitor atau feedback website.
+                  </p>
+                </a>
+
+                <a
+                  href={CONSULTATION_DATA.discordUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-cyan-500/60 hover:bg-zinc-900 transition-all space-y-2 group"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-cyan-400">Forum Discord GTID</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-cyan-400" />
+                  </div>
+                  <h4 className="text-sm font-bold text-white">Saluran Saran & Diskusi</h4>
+                  <p className="text-xs text-zinc-400 leading-relaxed">
+                    Sampaikan masukanmu langsung di channel komunitas Discord bersama ribuan enthusiast monitor lainnya.
+                  </p>
+                </a>
+
+                <a
+                  href={CONSULTATION_DATA.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-emerald-500/60 hover:bg-zinc-900 transition-all space-y-2 group sm:col-span-2"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-emerald-400">Direct Chat WhatsApp</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-emerald-400" />
+                  </div>
+                  <h4 className="text-sm font-bold text-white">Chat Joel Gray (@gray1plasma)</h4>
+                  <p className="text-xs text-zinc-400 leading-relaxed">
+                    Kirim pesan personal via WhatsApp ({CONSULTATION_DATA.whatsapp}) jika menemukan bug atau kesalahan data di website ini.
+                  </p>
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================================= */}
         {/* VIEW: KONSULTASI & KONTAK                                                 */}
         {/* ========================================================================= */}
         {activeMenuKey === "consultation" && (
@@ -1327,27 +1496,22 @@ export default function CatalogPage() {
         )}
       </main>
 
-      {/* Quick View Detail Modal Dialog */}
-      <MonitorModal
+      {/* Notion Side-Peek / Split View Panel for Monitor Navigation */}
+      <MonitorSidePanel
         monitor={selectedMonitor}
         isOpen={Boolean(selectedMonitor)}
         onClose={() => setSelectedMonitor(null)}
       />
 
-      {/* Footer */}
-      <footer className="border-t border-zinc-900 bg-black py-10 mt-16 text-center text-xs text-zinc-400">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-white uppercase tracking-wider">
-              GRAYPLASMA<span className="text-emerald-400">ID</span>
-            </span>
-            <span>— Kolaborasi Data Rekomendasi Monitor & GTID Tech</span>
-          </div>
-          <p className="text-[11px] text-zinc-400">
-            Daftar independen. Hak cipta materi ulasan milik GrayPlasma & GTID Tech.
-          </p>
-        </div>
-      </footer>
+      {/* Notion Aftersales Side Panel Drawer */}
+      <NotionAftersalesSidePanel
+        card={selectedAftersalesCard}
+        isOpen={isAftersalesPanelOpen}
+        onClose={() => setIsAftersalesPanelOpen(false)}
+      />
+
+      {/* Comprehensive Multi-Column Footer */}
+      <Footer />
     </div>
   );
 }

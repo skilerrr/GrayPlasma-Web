@@ -36,6 +36,9 @@ export type NavMenuKey =
   | "desk-guide"
   | "hdr-guide"
   | "graynotes-all"
+  | "faq"
+  | "bandwidth-guide"
+  | "feedback"
   | "glossary"
   | "about"
   | "support-donasi"
@@ -94,6 +97,9 @@ export function Navbar({
     currentKey === "desk-guide" ||
     currentKey === "hdr-guide" ||
     currentKey === "graynotes-all" ||
+    currentKey === "faq" ||
+    currentKey === "bandwidth-guide" ||
+    currentKey === "feedback" ||
     currentKey === "glossary" ||
     currentKey === "about" ||
     currentKey === "support-donasi" ||
@@ -115,9 +121,15 @@ export function Navbar({
                 <span className="text-base sm:text-lg font-black tracking-tight text-white uppercase">
                   GRAYPLASMA<span className="text-emerald-400">ID</span>
                 </span>
-                <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-700 text-zinc-300 hidden sm:inline-block">
-                  GTID TESTED
-                </span>
+                <Link
+                  href="/guide/sdr/glossary"
+                  onClick={(e) => e.stopPropagation()}
+                  className="text-[9px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20 hover:border-emerald-400 transition-colors hidden sm:inline-flex items-center gap-1 shadow-sm"
+                  title="Lihat Glosarium & Standar Pengujian GTID"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>GTID TESTED</span>
+                </Link>
               </div>
               <p className="text-[11px] text-zinc-400 hidden lg:block">
                 Katalog & Panduan Rekomendasi Monitor
@@ -128,8 +140,8 @@ export function Navbar({
           {/* Nav Dropdown Menus (Desktop) */}
           <nav className="hidden md:flex items-center gap-1 bg-zinc-950/90 border border-zinc-800 rounded-xl p-1">
             {/* Beranda */}
-            <button
-              onClick={() => onMenuSelect("home")}
+            <Link
+              href="/"
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 currentKey === "home"
                   ? "bg-zinc-800 text-white shadow-sm"
@@ -137,7 +149,7 @@ export function Navbar({
               }`}
             >
               Beranda
-            </button>
+            </Link>
 
             {/* Menu 1: Rekomendasi Monitor with Submenu */}
             <div className="relative" onClick={(e) => e.stopPropagation()}>
@@ -155,72 +167,104 @@ export function Navbar({
               </button>
 
               {openDropdown === "catalog" && (
-                <div className="absolute top-full left-0 mt-2 w-56 bg-surface-dark border border-zinc-800 rounded-xl p-1.5 shadow-2xl z-50 animate-in fade-in zoom-in-95">
-                  <div className="text-[10px] font-bold text-zinc-500 px-2.5 py-1 uppercase tracking-wider">
-                    Pilihan Kategori
+                <div className="absolute top-full left-0 mt-2 w-64 bg-[#202020] border border-[#2f2f2f] rounded-xl p-2 shadow-2xl z-50 animate-in fade-in zoom-in-95 space-y-1">
+                  <div className="text-[10px] font-bold text-[#787774] px-2 py-1 uppercase tracking-wider">
+                    Pilihan Kategori Rekomendasi
                   </div>
-                  <button
-                    onClick={() => {
-                      onMenuSelect("catalog-all");
-                      setOpenDropdown(null);
-                    }}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 transition-colors flex items-center justify-between"
+                  <Link
+                    href="/catalog/all"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-center justify-between group"
                   >
-                    <span>Semua Monitor</span>
-                    <span className="text-[10px] text-zinc-500">{totalMonitorsCount}</span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      onMenuSelect("catalog-1080p");
-                      setOpenDropdown(null);
-                    }}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 transition-colors"
+                    <div>
+                      <span className="block font-semibold">Semua Monitor</span>
+                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/catalog/all</span>
+                    </div>
+                    <span className="text-[10px] text-zinc-500 font-mono">{totalMonitorsCount}</span>
+                  </Link>
+                  <Link
+                    href="/catalog/1080p"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-center justify-between group"
                   >
-                    1080p (FHD Budget & Esport)
-                  </button>
-                  <button
-                    onClick={() => {
-                      onMenuSelect("catalog-1440p");
-                      setOpenDropdown(null);
-                    }}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 transition-colors"
+                    <div>
+                      <span className="block font-semibold">1080p (FHD Budget & Esport)</span>
+                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/catalog/1080p</span>
+                    </div>
+                  </Link>
+                  <Link
+                    href="/catalog/1440p"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-center justify-between group"
                   >
-                    1440p (2K Sweetspot)
-                  </button>
-                  <button
-                    onClick={() => {
-                      onMenuSelect("catalog-oled");
-                      setOpenDropdown(null);
-                    }}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 transition-colors"
+                    <div>
+                      <span className="block font-semibold">1440p (2K Sweetspot)</span>
+                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/catalog/1440p</span>
+                    </div>
+                  </Link>
+                  <Link
+                    href="/catalog/oled"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-center justify-between group"
                   >
-                    OLED & Flagship Tier
-                  </button>
-                  <button
-                    onClick={() => {
-                      onMenuSelect("catalog-4k");
-                      setOpenDropdown(null);
-                    }}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 transition-colors"
+                    <div>
+                      <span className="block font-semibold">OLED & Flagship Tier</span>
+                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/catalog/oled</span>
+                    </div>
+                  </Link>
+                  <Link
+                    href="/catalog/4k"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-center justify-between group"
                   >
-                    4K UHD & Creator Special
-                  </button>
+                    <div>
+                      <span className="block font-semibold">4K UHD & Creator Special</span>
+                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/catalog/4k</span>
+                    </div>
+                  </Link>
                 </div>
               )}
             </div>
 
-            {/* Menu 2: Aftersales */}
-            <button
-              onClick={() => onMenuSelect("aftersales-tier")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
-                isAftersalesActive
-                  ? "bg-zinc-800 text-white shadow-sm"
-                  : "text-zinc-400 hover:text-zinc-200"
-              }`}
-            >
-              <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
-              <span>Aftersales</span>
-            </button>
+            {/* Menu 2: Aftersales with Submenu */}
+            <div className="relative" onClick={(e) => e.stopPropagation()}>
+              <button
+                onClick={() => setOpenDropdown(openDropdown === "aftersales" ? null : "aftersales")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                  isAftersalesActive
+                    ? "bg-zinc-800 text-white shadow-sm"
+                    : "text-zinc-400 hover:text-zinc-200"
+                }`}
+              >
+                <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
+                <span>Aftersales</span>
+                <ChevronDown className={`w-3 h-3 transition-transform ${openDropdown === "aftersales" ? "rotate-180" : ""}`} />
+              </button>
+
+              {openDropdown === "aftersales" && (
+                <div className="absolute top-full left-0 mt-2 w-64 bg-[#202020] border border-[#2f2f2f] rounded-xl p-2 shadow-2xl z-50 animate-in fade-in zoom-in-95 space-y-1">
+                  <div className="text-[10px] font-bold text-[#787774] px-2 py-1 uppercase tracking-wider">
+                    Aftersales & Garansi Brand
+                  </div>
+                  <Link
+                    href="/guide/brand/aftersales-rma"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors block group"
+                  >
+                    <span className="block font-semibold">Aftersales Brand Tier List</span>
+                    <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/guide/brand/aftersales-rma</span>
+                  </Link>
+                  <Link
+                    href="/guide/brand/odm-layak-dibeli"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors block group"
+                  >
+                    <span className="block font-semibold">Brand ODM Monitor Layak Dibeli?</span>
+                    <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/guide/brand/odm-layak-dibeli</span>
+                  </Link>
+                </div>
+              )}
+            </div>
 
             {/* Menu 3: Panduan & Sub-pages */}
             <div className="relative" onClick={(e) => e.stopPropagation()}>
@@ -238,83 +282,112 @@ export function Navbar({
               </button>
 
               {openDropdown === "more" && (
-                <div className="absolute top-full right-0 mt-2 w-64 bg-surface-dark border border-zinc-800 rounded-xl p-1.5 shadow-2xl z-50 animate-in fade-in zoom-in-95">
-                  <button
-                    onClick={() => {
-                      onMenuSelect("glossary");
-                      setOpenDropdown(null);
-                    }}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 transition-colors flex items-center gap-2"
-                  >
-                    <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>How to Read GTID Glossary</span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      onMenuSelect("about");
-                      setOpenDropdown(null);
-                    }}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 transition-colors flex items-center gap-2"
-                  >
-                    <HelpCircle className="w-3.5 h-3.5 text-violet-400" />
-                    <span>Tentang Website Ini & Penulis</span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      onMenuSelect("desk-guide");
-                      setOpenDropdown(null);
-                    }}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 transition-colors flex items-center gap-2"
-                  >
-                    <LayoutGrid className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Rekomendasi Meja & Arm</span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      onMenuSelect("hdr-guide");
-                      setOpenDropdown(null);
-                    }}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 transition-colors flex items-center gap-2"
-                  >
-                    <SunMedium className="w-3.5 h-3.5 text-rose-400" />
-                    <span>True HDR vs Fake HDR 400</span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      onMenuSelect("graynotes-all");
-                      setOpenDropdown(null);
-                    }}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 transition-colors flex items-center gap-2"
-                  >
-                    <FileText className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>GrayNotes (DP, Ghosting, dll.)</span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      onMenuSelect("support-donasi");
-                      setOpenDropdown(null);
-                    }}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 transition-colors flex items-center gap-2 border-t border-zinc-800 mt-1 pt-1"
-                  >
-                    <Heart className="w-3.5 h-3.5 text-rose-400" />
-                    <span>Support & Donasi Penulis</span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      onMenuSelect("consultation");
-                      setOpenDropdown(null);
-                    }}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 transition-colors flex items-center gap-2"
-                  >
-                    <Headphones className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Konsultasi WA / Discord</span>
-                  </button>
+                <div className="absolute top-full right-0 mt-2 w-72 bg-[#202020] border border-[#2f2f2f] rounded-xl p-2 shadow-2xl z-50 animate-in fade-in zoom-in-95 max-h-[80vh] overflow-y-auto space-y-1">
+                  <div className="text-[10px] font-bold text-[#787774] px-2.5 py-1 uppercase tracking-wider">
+                    Panduan & Edukasi (/guide/...)
+                  </div>
                   <Link
-                    href="/admin"
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-bold text-emerald-400 hover:text-emerald-300 hover:bg-zinc-900 transition-colors flex items-center gap-2 border-t border-zinc-800 mt-1 pt-1.5"
+                    href="/guide/faq"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-start gap-2 group"
                   >
-                    <SlidersHorizontal className="w-3.5 h-3.5" />
-                    <span>Admin Panel (CMS & Supabase)</span>
+                    <HelpCircle className="w-3.5 h-3.5 text-amber-400 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <span className="block font-semibold">QnA & FAQ Section</span>
+                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/guide/faq</span>
+                    </div>
+                  </Link>
+                  <Link
+                    href="/guide/sdr/glossary"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-start gap-2 group"
+                  >
+                    <BookOpen className="w-3.5 h-3.5 text-emerald-400 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <span className="block font-semibold">How to Read GTID Glossary</span>
+                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/guide/sdr/glossary</span>
+                    </div>
+                  </Link>
+                  <Link
+                    href="/guide/display/bandwidth-dp-hdmi"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-start gap-2 group"
+                  >
+                    <SlidersHorizontal className="w-3.5 h-3.5 text-rose-400 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <span className="block font-semibold">Bandwidth DP 1.4 vs HDMI 2.1</span>
+                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/guide/display/bandwidth-dp-hdmi</span>
+                    </div>
+                  </Link>
+                  <Link
+                    href="/guide/setup/meja-ergonomi"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-start gap-2 group"
+                  >
+                    <LayoutGrid className="w-3.5 h-3.5 text-cyan-400 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <span className="block font-semibold">Rekomendasi Meja & Monitor Arm</span>
+                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/guide/setup/meja-ergonomi</span>
+                    </div>
+                  </Link>
+                  <Link
+                    href="/guide/oled/perawatan-burn-in"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-start gap-2 group"
+                  >
+                    <SunMedium className="w-3.5 h-3.5 text-rose-400 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <span className="block font-semibold">Panduan Lengkap OLED & Burn-in</span>
+                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/guide/oled/perawatan-burn-in</span>
+                    </div>
+                  </Link>
+                  <Link
+                    href="/guide/warna/akurasi-d65-p3"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-start gap-2 group"
+                  >
+                    <FileText className="w-3.5 h-3.5 text-cyan-400 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <span className="block font-semibold">D65-P3 Undersaturated Guide</span>
+                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/guide/warna/akurasi-d65-p3</span>
+                    </div>
+                  </Link>
+
+                  <div className="text-[10px] font-bold text-[#787774] px-2.5 py-1 uppercase tracking-wider border-t border-[#2f2f2f] mt-1 pt-1">
+                    Komunitas & Penulis
+                  </div>
+                  <Link
+                    href="/guide/about/tentang-penulis"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-start gap-2 group"
+                  >
+                    <HelpCircle className="w-3.5 h-3.5 text-violet-400 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <span className="block font-semibold">Tentang Website & Penulis</span>
+                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/guide/about/tentang-penulis</span>
+                    </div>
+                  </Link>
+                  <Link
+                    href="/guide/support/donasi-penulis"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-start gap-2 group"
+                  >
+                    <Heart className="w-3.5 h-3.5 text-rose-400 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <span className="block font-semibold">Support & Donasi Penulis</span>
+                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/guide/support/donasi-penulis</span>
+                    </div>
+                  </Link>
+                  <Link
+                    href="/guide/consultation/konsultasi-joel-gray"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-start gap-2 group"
+                  >
+                    <Headphones className="w-3.5 h-3.5 text-emerald-400 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <span className="block font-semibold">Konsultasi WA / Discord</span>
+                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/guide/consultation/konsultasi-joel-gray</span>
+                    </div>
                   </Link>
                 </div>
               )}
@@ -356,15 +429,8 @@ export function Navbar({
             </div>
           </div>
 
-          {/* Right Action: WhatsApp Consultation & Admin Link */}
+          {/* Right Action: WhatsApp Consultation */}
           <div className="flex items-center gap-2">
-            <Link
-              href="/admin"
-              className="hidden lg:inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-xs font-bold text-zinc-400 hover:text-white transition-all"
-            >
-              <span>Admin</span>
-            </Link>
-
             <Button
               variant="outline"
               size="sm"
@@ -393,70 +459,62 @@ export function Navbar({
 
         {/* Mobile Horizontal Menu Bar */}
         <div className="flex md:hidden items-center gap-2 py-2 border-t border-zinc-900 overflow-x-auto no-scrollbar">
-          <button
-            onClick={() => onMenuSelect("home")}
+          <Link
+            href="/"
             className={`flex-shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors ${
               currentKey === "home" ? "bg-zinc-800 text-white" : "text-zinc-400"
             }`}
           >
             Beranda
-          </button>
-          <button
-            onClick={() => onMenuSelect("catalog-all")}
-            className={`flex-shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors ${
-              currentKey === "catalog-all" ? "bg-zinc-800 text-white" : "text-zinc-400"
-            }`}
+          </Link>
+          <Link
+            href="/guide/brand/aftersales-rma"
+            className="flex-shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#193222] text-[#52ba69] border border-[#203c2b]"
           >
-            Semua ({totalMonitorsCount})
-          </button>
-          <button
-            onClick={() => onMenuSelect("catalog-1080p")}
-            className={`flex-shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors ${
-              currentKey === "catalog-1080p" ? "bg-zinc-800 text-white" : "text-zinc-400"
-            }`}
+            Aftersales
+          </Link>
+          <Link
+            href="/guide/setup/meja-ergonomi"
+            className="flex-shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#1d354a] text-[#58a6ff] border border-[#2383e2]/40"
           >
-            1080p
-          </button>
-          <button
-            onClick={() => onMenuSelect("catalog-1440p")}
-            className={`flex-shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors ${
-              currentKey === "catalog-1440p" ? "bg-zinc-800 text-white" : "text-zinc-400"
-            }`}
+            Meja & Setup
+          </Link>
+          <Link
+            href="/guide/faq"
+            className="flex-shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#442c1d] text-[#e07936] border border-[#ff9f43]/40"
           >
-            1440p
-          </button>
-          <button
-            onClick={() => onMenuSelect("catalog-oled")}
-            className={`flex-shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors ${
-              currentKey === "catalog-oled" ? "bg-zinc-800 text-white" : "text-zinc-400"
-            }`}
+            QnA & FAQ
+          </Link>
+          <Link
+            href="/guide/display/bandwidth-dp-hdmi"
+            className="flex-shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold text-zinc-400 hover:text-white"
           >
-            OLED
-          </button>
-          <button
-            onClick={() => onMenuSelect("glossary")}
-            className={`flex-shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors ${
-              currentKey === "glossary" ? "bg-zinc-800 text-white" : "text-zinc-400"
-            }`}
+            Bandwidth
+          </Link>
+          <Link
+            href="/guide/oled/perawatan-burn-in"
+            className="flex-shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold text-zinc-400 hover:text-white"
+          >
+            OLED Care
+          </Link>
+          <Link
+            href="/guide/sdr/glossary"
+            className="flex-shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold text-zinc-400 hover:text-white"
           >
             Glosarium
-          </button>
-          <button
-            onClick={() => onMenuSelect("about")}
-            className={`flex-shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors ${
-              currentKey === "about" ? "bg-zinc-800 text-white" : "text-zinc-400"
-            }`}
+          </Link>
+          <Link
+            href="/guide/about/tentang-penulis"
+            className="flex-shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold text-zinc-400 hover:text-white"
           >
             Tentang
-          </button>
-          <button
-            onClick={() => onMenuSelect("support-donasi")}
-            className={`flex-shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors ${
-              currentKey === "support-donasi" ? "bg-zinc-800 text-white" : "text-zinc-400"
-            }`}
+          </Link>
+          <Link
+            href="/guide/support/donasi-penulis"
+            className="flex-shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold text-zinc-400 hover:text-white"
           >
             Donasi
-          </button>
+          </Link>
         </div>
       </div>
     </header>

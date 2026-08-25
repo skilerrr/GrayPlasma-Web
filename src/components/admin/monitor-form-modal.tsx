@@ -232,6 +232,7 @@ export function MonitorFormModal({
       tierDescription: formData.tierDescription || "Rekomendasi GrayPlasma",
       price: Number(formData.price) || 1500000,
       originalPrice: Number(formData.originalPrice) || Math.round(Number(formData.price) * 1.15),
+      recommendedPrice: formData.recommendedPrice ? Number(formData.recommendedPrice) : undefined,
       thumbnail: formData.thumbnail || "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop",
       gallery: formData.gallery || [formData.thumbnail || ""],
       quickSpecs: [
@@ -252,6 +253,18 @@ export function MonitorFormModal({
         formData.specs?.display?.resolution || "FHD",
       ],
       createdAt: formData.createdAt || new Date().toISOString(),
+      frontImage: formData.frontImage || formData.thumbnail,
+      rearImage: formData.rearImage,
+      statusReason: formData.statusReason,
+      gtidReviewUrl: formData.gtidReviewUrl,
+      introduction: formData.introduction,
+      bannerImage: formData.bannerImage,
+      deepDiveTitle: formData.deepDiveTitle,
+      deepDiveDescription: formData.deepDiveDescription,
+      deepDiveNote: formData.deepDiveNote,
+      accessoriesIncluded: formData.accessoriesIncluded,
+      additionalStores: formData.additionalStores,
+      responseTimeData: formData.responseTimeData,
     };
 
     onSave(finalItem);
@@ -342,6 +355,16 @@ export function MonitorFormModal({
                   className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-mono"
                 />
               </div>
+              <div>
+                <label className="text-[11px] text-emerald-400 font-bold block mb-1"># Target Rekomendasi (Rp)</label>
+                <input
+                  type="number"
+                  value={formData.recommendedPrice || ""}
+                  onChange={(e) => setFormData({ ...formData, recommendedPrice: Number(e.target.value) })}
+                  placeholder="e.g. 1500000"
+                  className="w-full bg-zinc-950 border border-emerald-500/40 rounded-xl px-3 py-2 text-xs text-emerald-400 focus:outline-none focus:border-emerald-500 font-mono"
+                />
+              </div>
             </div>
           </div>
 
@@ -410,7 +433,18 @@ export function MonitorFormModal({
                     type="text"
                     value={formData.thumbnail}
                     onChange={(e) => setFormData({ ...formData, thumbnail: e.target.value })}
-                    placeholder="Atau masukkan Direct Image URL..."
+                    placeholder="Atau masukkan Direct Thumbnail URL..."
+                    className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-2.5 py-1 text-[11px] text-zinc-300 focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
+
+                {/* Banner Image URL (Opsional) */}
+                <div>
+                  <input
+                    type="text"
+                    value={formData.bannerImage || ""}
+                    onChange={(e) => setFormData({ ...formData, bannerImage: e.target.value })}
+                    placeholder="Custom Cover / Banner URL untuk Halaman Produk (Opsional)..."
                     className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-2.5 py-1 text-[11px] text-zinc-300 focus:outline-none focus:border-emerald-500"
                   />
                 </div>
@@ -418,7 +452,7 @@ export function MonitorFormModal({
             </div>
           </div>
 
-          {/* 3. Specs Details */}
+          {/* 3. Specs Details & Toleransi Data */}
           <div className="space-y-3 pt-4 border-t border-zinc-800/80">
             <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider">
               3. Spesifikasi Layar & Data GTID
@@ -459,7 +493,7 @@ export function MonitorFormModal({
                 />
               </div>
               <div>
-                <label className="text-[11px] text-zinc-400 block mb-1">Tipe Panel</label>
+                <label className="text-[11px] text-zinc-400 block mb-1">Panel Type</label>
                 <input
                   type="text"
                   value={formData.specs?.display?.panelType}
@@ -468,7 +502,7 @@ export function MonitorFormModal({
                       ...formData,
                       specs: {
                         ...formData.specs!,
-                        display: { ...formData.specs!.display, panelType: e.target.value as any },
+                        display: { ...formData.specs!.display, panelType: e.target.value },
                       },
                     })
                   }
@@ -489,77 +523,177 @@ export function MonitorFormModal({
                       },
                     })
                   }
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-white font-mono"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-white"
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               <div>
-                <label className="text-[11px] text-zinc-400 block mb-1">Response Time (GTID Tested)</label>
+                <label className="text-[11px] text-emerald-400 block mb-1">Toleransi Baru (Data Baru GTID)</label>
                 <input
                   type="text"
-                  value={formData.specs?.display?.responseTime}
+                  value={formData.responseTimeData?.toleranceNew || "Toleransi Baru (5 RGB)"}
                   onChange={(e) =>
                     setFormData({
                       ...formData,
-                      specs: {
-                        ...formData.specs!,
-                        display: { ...formData.specs!.display, responseTime: e.target.value },
+                      responseTimeData: {
+                        ...formData.responseTimeData,
+                        toleranceNew: e.target.value,
                       },
                     })
                   }
-                  placeholder="Contoh: 1ms GtG / 3.4ms di 180Hz"
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-white font-mono text-cyan-400"
+                  placeholder="e.g. Toleransi Baru (5 RGB)"
+                  className="w-full bg-zinc-950 border border-emerald-500/30 rounded-xl px-3 py-1.5 text-xs text-emerald-300"
                 />
               </div>
               <div>
-                <label className="text-[11px] text-zinc-400 block mb-1">Stand Capability</label>
+                <label className="text-[11px] text-rose-400 block mb-1">Toleransi Lama (Data Lama GTID)</label>
                 <input
                   type="text"
-                  value={formData.specs?.ergonomics?.heightAdjustable ? "Height Adjustable + Tilt" : "Tilt Only"}
+                  value={formData.responseTimeData?.toleranceOld || "Toleransi Lama (10 RGB)"}
                   onChange={(e) =>
                     setFormData({
                       ...formData,
-                      specs: {
-                        ...formData.specs!,
-                        ergonomics: {
-                          ...formData.specs!.ergonomics,
-                          heightAdjustable: e.target.value.toLowerCase().includes("height"),
-                        },
+                      responseTimeData: {
+                        ...formData.responseTimeData,
+                        toleranceOld: e.target.value,
                       },
                     })
                   }
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-white"
-                />
-              </div>
-              <div>
-                <label className="text-[11px] text-zinc-400 block mb-1">VESA Mount</label>
-                <input
-                  type="text"
-                  value={formData.specs?.ergonomics?.vesaMount}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      specs: {
-                        ...formData.specs!,
-                        ergonomics: {
-                          ...formData.specs!.ergonomics,
-                          vesaMount: e.target.value,
-                        },
-                      },
-                    })
-                  }
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-white"
+                  placeholder="e.g. Toleransi Lama (10 RGB)"
+                  className="w-full bg-zinc-950 border border-rose-500/30 rounded-xl px-3 py-1.5 text-xs text-rose-300"
                 />
               </div>
             </div>
           </div>
 
-          {/* 4. Shopee & Marketplace Affiliate Link */}
+          {/* 4. Ulasan Mendalam & Analisis Laboratorium (Side Panel & Full Page) */}
+          <div className="space-y-4 pt-4 border-t border-zinc-800/80">
+            <h4 className="text-xs font-bold text-cyan-400 uppercase tracking-wider">
+              4. Ulasan Mendalam & Analisis Laboratorium (Side Panel & Detail)
+            </h4>
+
+            {/* Photo Section URLs: Front & Rear */}
+            <div className="p-4 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-3">
+              <label className="text-xs font-bold text-white block">
+                Section Foto Monitor (Tampak Depan & Belakang)
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-[11px] text-zinc-400 block mb-1">URL Foto Tampak Depan (Layar / Bezel)</label>
+                  <input
+                    type="text"
+                    value={formData.frontImage || ""}
+                    onChange={(e) => setFormData({ ...formData, frontImage: e.target.value })}
+                    placeholder="https://images.unsplash.com/..."
+                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"
+                  />
+                </div>
+                <div>
+                  <label className="text-[11px] text-zinc-400 block mb-1">URL Foto Tampak Belakang (Stand & Chassis)</label>
+                  <input
+                    type="text"
+                    value={formData.rearImage || ""}
+                    onChange={(e) => setFormData({ ...formData, rearImage: e.target.value })}
+                    placeholder="https://images.unsplash.com/..."
+                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* YouTube Review URL & Status Alert */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="text-[11px] text-zinc-400 block mb-1">URL Video Review GTID (YouTube Embed)</label>
+                <input
+                  type="text"
+                  value={formData.gtidReviewUrl || ""}
+                  onChange={(e) => setFormData({ ...formData, gtidReviewUrl: e.target.value })}
+                  placeholder="https://www.youtube.com/watch?v=..."
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"
+                />
+              </div>
+              <div>
+                <label className="text-[11px] text-zinc-400 block mb-1">Status Banner Alert / Verdict Khusus</label>
+                <input
+                  type="text"
+                  value={formData.statusReason || ""}
+                  onChange={(e) => setFormData({ ...formData, statusReason: e.target.value })}
+                  placeholder="Contoh: TIDAK DISARANKAN LAGI KARENA DISCONTINUE"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <div>
+                <label className="text-[11px] text-zinc-400 block mb-1">Paragraf Pendahuluan</label>
+                <textarea
+                  rows={2}
+                  value={formData.introduction || ""}
+                  onChange={(e) => setFormData({ ...formData, introduction: e.target.value })}
+                  placeholder="Ulasan pengantar performa monitor..."
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3 text-xs text-white"
+                />
+              </div>
+              <div>
+                <label className="text-[11px] text-zinc-400 block mb-1">Judul Ulasan Mendalam (Heading Tambahan)</label>
+                <input
+                  type="text"
+                  value={formData.deepDiveTitle || ""}
+                  onChange={(e) => setFormData({ ...formData, deepDiveTitle: e.target.value })}
+                  placeholder="Contoh: Akurat di D65-P3 tapi kok Undersaturated di D65-P3?"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"
+                />
+              </div>
+              <div>
+                <label className="text-[11px] text-zinc-400 block mb-1">Paragraf Analisis Reviewer (Perbandingan Hasil Uji)</label>
+                <textarea
+                  rows={3}
+                  value={formData.deepDiveDescription || ""}
+                  onChange={(e) => setFormData({ ...formData, deepDiveDescription: e.target.value })}
+                  placeholder="Penjelasan detail komparasi gamut, delta E, dan hasil tes..."
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3 text-xs text-white"
+                />
+              </div>
+              <div>
+                <label className="text-[11px] text-zinc-400 block mb-1">Catatan Kesimpulan / Sub-Note</label>
+                <input
+                  type="text"
+                  value={formData.deepDiveNote || ""}
+                  onChange={(e) => setFormData({ ...formData, deepDiveNote: e.target.value })}
+                  placeholder="Warna yang bisa dicakup akan akurat..."
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-300"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* 5. Kelengkapan yang Diberi */}
+          <div className="space-y-2 pt-4 border-t border-zinc-800/80">
+            <label className="text-[11px] text-zinc-400 font-bold block">
+              5. Kelengkapan yang Diberi (Pisahkan dengan baris baru / Enter)
+            </label>
+            <textarea
+              rows={3}
+              value={(formData.accessoriesIncluded || []).join("\n")}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  accessoriesIncluded: e.target.value.split("\n").filter((s) => s.trim().length > 0),
+                })
+              }
+              placeholder="Kabel Adaptor&#10;Manual Book&#10;Kabel HDMI to HDMI"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3 text-xs text-white font-mono"
+            />
+          </div>
+
+          {/* 6. Link Pembelian Tambahan (Per-City) & Toko Affiliate */}
           <div className="space-y-3 pt-4 border-t border-zinc-800/80">
             <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider">
-              4. Link Pembelian & Toko Affiliate
+              6. Link Pembelian Tambahan (Surabaya, Jakarta, Shopee, Tokopedia)
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
@@ -594,7 +728,7 @@ export function MonitorFormModal({
             </div>
           </div>
 
-          {/* 5. Verdict & Notes */}
+          {/* 7. Verdict & Notes */}
           <div className="space-y-2 pt-4 border-t border-zinc-800/80">
             <label className="text-[11px] text-zinc-400 block">Evaluasi Singkat GrayPlasma / GTID Verdict</label>
             <textarea

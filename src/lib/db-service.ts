@@ -2,6 +2,8 @@ import { Monitor } from "@/types/monitor";
 import { MONITORS_DATA } from "@/data/monitors";
 import { DESK_DATABASE, PERIPHERALS_DATABASE, DeskItem, PeripheralItem } from "@/data/grayplasma-desk-peripherals";
 import { AFTERSALES_DATA, AftersalesBrand } from "@/data/grayplasma-content";
+import { SiteHierarchyNode } from "@/types/site-hierarchy";
+import { DEFAULT_SITE_HIERARCHY } from "@/data/site-hierarchy";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 
 const STORAGE_KEYS = {
@@ -9,7 +11,25 @@ const STORAGE_KEYS = {
   DESKS: "gp_db_desks_v1",
   PERIPHERALS: "gp_db_peripherals_v1",
   AFTERSALES: "gp_db_aftersales_v1",
+  HIERARCHY: "gp_db_hierarchy_v1",
+  PAGE_BANNERS: "gp_db_page_banners_v1",
   LAST_SYNC: "gp_db_last_sync",
+};
+
+export interface PageBannerSettings {
+  homeBannerUrl?: string;
+  homeBannerTitle?: string;
+  homeBannerSubtitle?: string;
+  guideBannerUrl?: string;
+  monitorBannerUrl?: string;
+}
+
+const DEFAULT_BANNER_SETTINGS: PageBannerSettings = {
+  homeBannerUrl: "",
+  homeBannerTitle: "Katalog & Database Rekomendasi Monitor",
+  homeBannerSubtitle: "Kurasi monitor independen kolaborasi Joel Gray (@gray1plasma) x GlaciK dengan pengujian laboratorium GTID Tech.",
+  guideBannerUrl: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1600&auto=format&fit=crop",
+  monitorBannerUrl: "",
 };
 
 // Helper for local storage access
@@ -246,7 +266,115 @@ export class DatabaseService {
   }
 
   // ==========================================
-  // 5. SUPABASE MIGRATION & SEEDING UTILITY
+  // 5. SITE HIERARCHY & GUIDES CRUD
+  // ==========================================
+  static async getHierarchyNodes(): Promise<SiteHierarchyNode[]> {
+    if (isSupabaseConfigured && supabase) {
+      try {
+        const { data, error } = await supabase
+          .from("hierarchy_nodes")
+          .select("*")
+          .order("order", { ascending: true });
+        if (!error && data && data.length > 0) {
+          return data as SiteHierarchyNode[];
+        }
+      } catch (err) {
+        console.warn("Supabase hierarchy fetch failed", err);
+      }
+    }
+    return getLocalData<SiteHierarchyNode[]>(STORAGE_KEYS.HIERARCHY, DEFAULT_SITE_HIERARCHY);
+  }
+
+  static async saveHierarchyNode(node: SiteHierarchyNode): Promise<SiteHierarchyNode[]> {
+    let current = getLocalData<SiteHierarchyNode[]>(STORAGE_KEYS.HIERARCHY, DEFAULT_SITE_HIERARCHY);
+    const existingIndex = current.findIndex((n) => n.id === node.id);
+
+    if (existingIndex >= 0) {
+      current[existingIndex] = node;
+    } else {
+      current = [...current, node];
+    }
+
+    setLocalData(STORAGE_KEYS.HIERARCHY, current);
+
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from("hierarchy_nodes").upsert(node);
+      } catch (err) {
+        console.error("Supabase hierarchy upsert error", err);
+      }
+    }
+
+    return current;
+  }
+
+  static async deleteHierarchyNode(id: string): Promise<SiteHierarchyNode[]> {
+    let current = getLocalData<SiteHierarchyNode[]>(STORAGE_KEYS.HIERARCHY, DEFAULT_SITE_HIERARCHY);
+    current = current.filter((n) => n.id !== id);
+    setLocalData(STORAGE_KEYS.HIERARCHY, current);
+
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from("hierarchy_nodes").delete().eq("id", id);
+      } catch (err) {
+        console.error("Supabase hierarchy delete error", err);
+      }
+    }
+    return current;
+  }
+
+  static resetHierarchyToDefault(): SiteHierarchyNode[] {
+    setLocalData(STORAGE_KEYS.HIERARCHY, DEFAULT_SITE_HIERARCHY);
+    return DEFAULT_SITE_HIERARCHY;
+  }
+
+  // ==========================================
+  // 6. PAGE BANNER SETTINGS CRUD
+  // ==========================================
+  static async getBannerSettings(): Promise<PageBannerSettings> {
+    if (isSupabaseConfigured && supabase) {
+      try {
+        const { data, error } = await supabase
+          .from("site_settings")
+          .select("*")
+          .eq("key", "page_banners")
+          .single();
+
+        if (!error && data && data.value) {
+          return data.value as PageBannerSettings;
+        }
+      } catch (err) {
+        console.warn("Supabase banner settings fetch failed, using local storage", err);
+      }
+    }
+    return getLocalData<PageBannerSettings>(STORAGE_KEYS.PAGE_BANNERS, DEFAULT_BANNER_SETTINGS);
+  }
+
+  static async saveBannerSettings(settings: PageBannerSettings): Promise<PageBannerSettings> {
+    setLocalData(STORAGE_KEYS.PAGE_BANNERS, settings);
+
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from("site_settings").upsert({
+          key: "page_banners",
+          value: settings,
+          updated_at: new Date().toISOString(),
+        });
+      } catch (err) {
+        console.error("Supabase banner settings upsert error", err);
+      }
+    }
+
+    return settings;
+  }
+
+  static resetBannerSettings(): PageBannerSettings {
+    setLocalData(STORAGE_KEYS.PAGE_BANNERS, DEFAULT_BANNER_SETTINGS);
+    return DEFAULT_BANNER_SETTINGS;
+  }
+
+  // ==========================================
+  // 6. SUPABASE MIGRATION & SEEDING UTILITY
   // ==========================================
   static async pushSeedToSupabase(): Promise<{ success: boolean; message: string }> {
     if (!isSupabaseConfigured || !supabase) {

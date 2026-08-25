@@ -189,15 +189,16 @@ export function DeskPeripheralsView() {
 
           <div className="relative rounded-2xl border border-zinc-800 bg-[#09090b] overflow-hidden shadow-xl">
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs border-collapse min-w-[1000px]">
+              <table className="w-full text-left text-xs border-collapse min-w-[1100px]">
                 <thead className="bg-[#121215] text-zinc-400 uppercase text-[10px] tracking-wider border-b border-zinc-800 sticky top-0 z-20">
                   <tr>
-                    <th className="py-3 px-4 font-bold text-zinc-300 min-w-[220px]">NAMA PRODUK</th>
-                    <th className="py-3 px-3 font-bold min-w-[150px]">KATEGORI</th>
-                    <th className="py-3 px-4 font-bold text-emerald-400 min-w-[120px]">HARGA</th>
-                    <th className="py-3 px-3 font-bold min-w-[260px]">EVALUASI & VERDICT GRAYPLASMA</th>
-                    <th className="py-3 px-3 font-bold min-w-[180px]">REKOMENDASI PENGGUNAAN</th>
-                    <th className="py-3 px-4 font-bold text-center min-w-[130px]">BELI / SHOPEE</th>
+                    <th className="py-3 px-4 font-bold text-zinc-300 min-w-[220px]">BRAND & MODEL NAME</th>
+                    <th className="py-3 px-4 font-bold text-emerald-400 min-w-[120px]">KISARAN HARGA*</th>
+                    <th className="py-3 px-3 font-bold min-w-[140px]">TYPE</th>
+                    <th className="py-3 px-3 font-bold min-w-[160px]">VERSION OR DETAIL</th>
+                    <th className="py-3 px-3 font-bold text-center min-w-[90px]">WARRANTY</th>
+                    <th className="py-3 px-4 font-bold text-center min-w-[120px]">SHOPEE</th>
+                    <th className="py-3 px-4 font-bold text-center min-w-[120px]">TOKOPEDIA</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-900/80">
@@ -208,35 +209,56 @@ export function DeskPeripheralsView() {
                         idx % 2 === 0 ? "bg-black/40" : "bg-[#09090b]"
                       }`}
                     >
-                      <td className="py-3.5 px-4 font-bold text-white text-sm">
-                        {p.name}
-                      </td>
-                      <td className="py-3.5 px-3">
-                        <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300 text-[11px]">
-                          {p.category}
-                        </span>
+                      <td className="py-3.5 px-4">
+                        <span className="font-bold text-white text-sm block">{p.name}</span>
+                        <span className="text-[11px] text-zinc-400 mt-0.5 block">{p.verdict}</span>
                       </td>
                       <td className="py-3.5 px-4 font-mono font-bold text-emerald-400 text-xs">
                         {formatRupiah(p.price)}
                       </td>
-                      <td className="py-3.5 px-3 text-zinc-300 text-xs leading-relaxed">
-                        <div>{p.verdict}</div>
-                        <span className="text-[10px] text-zinc-500 mt-0.5 block">{p.notes}</span>
+                      <td className="py-3.5 px-3">
+                        <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300 text-[11px]">
+                          {p.type || p.category}
+                        </span>
                       </td>
-                      <td className="py-3.5 px-3 text-cyan-400 text-xs">
-                        {p.recommendedFor}
+                      <td className="py-3.5 px-3">
+                        <span className="px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 font-mono text-[11px]">
+                          {p.versionDetail || p.recommendedFor}
+                        </span>
+                      </td>
+                      <td className="py-3.5 px-3 text-center text-zinc-400 text-xs font-mono">
+                        {p.warranty || "2 Tahun"}
                       </td>
                       <td className="py-3.5 px-4 text-center">
-                        <a
-                          href={p.shopeeUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500 hover:text-black text-amber-400 text-xs font-bold transition-all"
-                        >
-                          <ShoppingBag className="w-3 h-3" />
-                          <span>Shopee</span>
-                          <ExternalLink className="w-2.5 h-2.5" />
-                        </a>
+                        {p.shopeeUrl ? (
+                          <a
+                            href={p.shopeeUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-orange-500/10 border border-orange-500/30 hover:bg-orange-500 hover:text-black text-orange-400 text-xs font-bold transition-all"
+                          >
+                            <ShoppingBag className="w-3 h-3" />
+                            <span>Shopee</span>
+                            <ExternalLink className="w-2.5 h-2.5" />
+                          </a>
+                        ) : (
+                          <span className="text-zinc-600">-</span>
+                        )}
+                      </td>
+                      <td className="py-3.5 px-4 text-center">
+                        {p.tokopediaUrl ? (
+                          <a
+                            href={p.tokopediaUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 hover:bg-emerald-500 hover:text-black text-emerald-400 text-xs font-bold transition-all"
+                          >
+                            <span>Tokopedia</span>
+                            <ExternalLink className="w-2.5 h-2.5" />
+                          </a>
+                        ) : (
+                          <span className="text-zinc-600">-</span>
+                        )}
                       </td>
                     </tr>
                   ))}

@@ -66,6 +66,21 @@ export interface TechnicalSpecs {
   };
 }
 
+export interface AdditionalStoreLink {
+  city: string; // e.g. "SURABAYA", "JAKARTA", "BANDUNG", "ONLINE"
+  storeName: string;
+  url: string;
+  price?: number;
+  note?: string;
+}
+
+export interface ResponseTimeData {
+  toleranceNew?: string; // e.g. "Toleransi Baru (5 RGB)"
+  toleranceOld?: string; // e.g. "Toleransi Lama (10 RGB)"
+  gtidScore?: string;
+  overdriveRecommendation?: string;
+}
+
 export interface Monitor {
   id: string;
   slug: string;
@@ -76,6 +91,7 @@ export interface Monitor {
   tierDescription?: string;
   price: number;
   originalPrice?: number;
+  recommendedPrice?: number;
   thumbnail: string;
   gallery: string[];
   quickSpecs: string[]; // e.g. ["24\"", "Fast IPS", "180Hz", "0.5ms MPRT", "99% sRGB"]
@@ -87,6 +103,21 @@ export interface Monitor {
   priceHistory: PriceHistoryPoint[];
   tags: string[];
   createdAt: string;
+
+  // Rich Notion Deep-Dive & Side-Panel Fields (matching user screenshot)
+  frontImage?: string; // Foto tampak depan monitor (dengan layar/wallpaper)
+  rearImage?: string; // Foto tampak belakang monitor (stand & chassis)
+  statusReason?: string; // e.g. "TIDAK DISARANKAN LAGI KARENA BANYAK KASUS BERGARIS + DISCONTINUE"
+  gtidReviewUrl?: string; // Link video review GTID
+  introduction?: string; // Teks pendahuluan ulasan
+  bannerImage?: string; // Custom header banner image for the page
+  deepDiveTitle?: string; // e.g. "Akurat di D65-P3 tapi kok Undersaturated di D65-P3?"
+  deepDiveDescription?: string; // Detailed narrative text / review comparison
+  deepDiveNote?: string; // Summary disclaimer note
+  calmanCharts?: string[]; // Chart images (DeltaE, CIE Gamut Diagram, etc.)
+  accessoriesIncluded?: string[]; // Kelengkapan yang diberi (e.g. ["Kabel Adaptor", "Manual Book", "Kabel HDMI to HDMI"])
+  additionalStores?: AdditionalStoreLink[]; // Link Pembelian Tambahan (SURABAYA, JAKARTA, etc.)
+  responseTimeData?: ResponseTimeData;
 }
 
 export interface FilterState {
@@ -101,3 +132,16 @@ export interface FilterState {
   tiers: TierRating[];
   sortBy: "price-asc" | "price-desc" | "tier" | "refresh-desc" | "rating";
 }
+
+export const INITIAL_FILTER_STATE: FilterState = {
+  searchQuery: "",
+  quickTab: "all",
+  budgetRange: [0, 25000000],
+  budgetPreset: null,
+  panelTypes: [],
+  refreshRates: [],
+  screenSizes: [],
+  resolutions: [],
+  tiers: [],
+  sortBy: "tier",
+};

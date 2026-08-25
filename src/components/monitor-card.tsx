@@ -142,7 +142,15 @@ export function MonitorCard({
 
         {/* Marketplace CTA Actions */}
         <div className="relative flex items-center gap-2">
-          {/* Main Quick Buy Button */}
+          <a
+            href={`/monitor/${monitor.slug}`}
+            onClick={(e) => e.stopPropagation()}
+            className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-white transition-colors"
+            title="Buka Halaman Produk"
+          >
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+
           {bestDeal ? (
             <Button
               variant="cyber"
@@ -152,7 +160,6 @@ export function MonitorCard({
             >
               <ShoppingBag className="w-3.5 h-3.5" />
               <span>Beli di {bestDeal.marketplace}</span>
-              <ExternalLink className="w-3 h-3 opacity-70 group-hover/btn:opacity-100 transition-opacity" />
             </Button>
           ) : (
             <Button
