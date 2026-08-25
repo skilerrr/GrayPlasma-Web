@@ -291,33 +291,70 @@ Tulis penjelasan data pengetesan di sini dengan **format tebal**, \`kode\`, atau
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <label className="text-[#9b9a97] font-bold uppercase text-[10px]">Trigger Action:</label>
-                  <select
-                    value={formData.onClickAction}
-                    onChange={(e) =>
-                      setFormData({ ...formData, onClickAction: e.target.value as RouteTriggerAction })
-                    }
-                    className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#58a6ff]"
-                  >
-                    <option value="route">route (Buka Halaman Penuh)</option>
-                    <option value="side-panel">side-panel (Buka Side-Peek Drawer)</option>
-                    <option value="modal">modal (Modal Popup)</option>
-                    <option value="external">external (External URL)</option>
-                  </select>
+              {/* Cover Banner (Hero Notion Banner) Controls */}
+              <div className="p-3.5 rounded-2xl bg-[#171717] border border-[#2a2a2a] space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <label className="text-[#e0e0e0] font-bold uppercase text-[10px] flex items-center gap-1.5">
+                    <span>🖼️</span>
+                    <span>Hero Cover Banner (Layaknya Notion Page):</span>
+                  </label>
+                  {formData.coverImage && (
+                    <button
+                      type="button"
+                      onClick={() => setFormData({ ...formData, coverImage: "" })}
+                      className="text-[10px] text-rose-400 hover:underline"
+                    >
+                      Hapus Cover
+                    </button>
+                  )}
                 </div>
 
+                <input
+                  type="text"
+                  value={formData.coverImage || ""}
+                  onChange={(e) => setFormData({ ...formData, coverImage: e.target.value })}
+                  placeholder="Masukkan Direct URL Gambar Banner (https://...)"
+                  className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-[#58a6ff]"
+                />
+
+                {/* Preset Banner Selectors */}
                 <div className="space-y-1">
-                  <label className="text-[#9b9a97] font-bold uppercase text-[10px]">Cover Banner Image:</label>
-                  <input
-                    type="text"
-                    value={formData.coverImage || ""}
-                    onChange={(e) => setFormData({ ...formData, coverImage: e.target.value })}
-                    placeholder="https://images.unsplash.com/..."
-                    className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#58a6ff]"
-                  />
+                  <span className="text-[10px] text-[#787774] block">Preset Banner Cepat:</span>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+                    {[
+                      { name: "Tech Setup", url: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop" },
+                      { name: "Cyber Studio", url: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop" },
+                      { name: "Minimal Desk", url: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=1200&auto=format&fit=crop" },
+                      { name: "Carbon Mesh", url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop" },
+                    ].map((preset, pIdx) => (
+                      <button
+                        key={pIdx}
+                        type="button"
+                        onClick={() => setFormData({ ...formData, coverImage: preset.url })}
+                        className="px-2 py-1 rounded-lg bg-[#202020] hover:bg-[#2c2c2c] border border-[#333] text-[10px] text-[#d4d4d4] hover:text-white truncate text-left transition-colors"
+                      >
+                        {preset.name}
+                      </button>
+                    ))}
+                  </div>
                 </div>
+              </div>
+
+              {/* Trigger Action */}
+              <div className="space-y-1">
+                <label className="text-[#9b9a97] font-bold uppercase text-[10px]">Trigger Action:</label>
+                <select
+                  value={formData.onClickAction}
+                  onChange={(e) =>
+                    setFormData({ ...formData, onClickAction: e.target.value as RouteTriggerAction })
+                  }
+                  className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#58a6ff]"
+                >
+                  <option value="route">route (Buka Halaman Penuh)</option>
+                  <option value="side-panel">side-panel (Buka Side-Peek Drawer)</option>
+                  <option value="modal">modal (Modal Popup)</option>
+                  <option value="external">external (External URL)</option>
+                </select>
               </div>
 
               {/* Description / Summary */}
@@ -332,28 +369,44 @@ Tulis penjelasan data pengetesan di sini dengan **format tebal**, \`kode\`, atau
                 />
               </div>
 
-              {/* Markdown Content with Quick Format Buttons */}
+              {/* Markdown Content with Rich Notion Quick Format Buttons */}
               <div className="space-y-2 pt-2 border-t border-[#2f2f2f]">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <label className="text-[#e0e0e0] font-bold uppercase text-[10px] tracking-wider">
-                    Konten Halaman (Markdown):
+                    Konten Halaman (Markdown & Formatting Studio):
                   </label>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1 flex-wrap">
+                    <button
+                      type="button"
+                      onClick={() => handleInsertMarkdownSnippet("# Heading 1")}
+                      className="px-1.5 py-0.5 rounded bg-[#202020] hover:bg-[#2c2c2c] text-[#9b9a97] hover:text-white text-xs font-bold"
+                      title="Heading 1"
+                    >
+                      H1
+                    </button>
                     <button
                       type="button"
                       onClick={() => handleInsertMarkdownSnippet("## Heading 2")}
-                      className="p-1 rounded bg-[#202020] hover:bg-[#2c2c2c] text-[#9b9a97] hover:text-white"
+                      className="px-1.5 py-0.5 rounded bg-[#202020] hover:bg-[#2c2c2c] text-[#9b9a97] hover:text-white text-xs font-bold"
                       title="Heading 2"
                     >
-                      <Heading2 className="w-3.5 h-3.5" />
+                      H2
                     </button>
                     <button
                       type="button"
                       onClick={() => handleInsertMarkdownSnippet("### Heading 3")}
-                      className="p-1 rounded bg-[#202020] hover:bg-[#2c2c2c] text-[#9b9a97] hover:text-white"
+                      className="px-1.5 py-0.5 rounded bg-[#202020] hover:bg-[#2c2c2c] text-[#9b9a97] hover:text-white text-xs font-bold"
                       title="Heading 3"
                     >
-                      <Heading3 className="w-3.5 h-3.5" />
+                      H3
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleInsertMarkdownSnippet("**Teks Tebal**")}
+                      className="px-1.5 py-0.5 rounded bg-[#202020] hover:bg-[#2c2c2c] text-[#9b9a97] hover:text-white text-xs font-bold"
+                      title="Bold"
+                    >
+                      B
                     </button>
                     <button
                       type="button"
@@ -370,6 +423,22 @@ Tulis penjelasan data pengetesan di sini dengan **format tebal**, \`kode\`, atau
                       title="Callout Box"
                     >
                       <Quote className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleInsertMarkdownSnippet("![Deskripsi Gambar](https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop)")}
+                      className="px-1.5 py-0.5 rounded bg-[#203c2b] text-[#52ba69] hover:bg-[#203c2b]/80 text-[10px] font-bold"
+                      title="Insert Image"
+                    >
+                      + Gambar
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleInsertMarkdownSnippet("| Fitur | Status |\n|---|---|\n| Overdrive | Optimal |\n| Panel | IPS |")}
+                      className="px-1.5 py-0.5 rounded bg-[#1d354a] text-[#58a6ff] hover:bg-[#1d354a]/80 text-[10px] font-bold"
+                      title="Insert Table"
+                    >
+                      + Tabel
                     </button>
                     <button
                       type="button"
@@ -391,17 +460,17 @@ Tulis penjelasan data pengetesan di sini dengan **format tebal**, \`kode\`, atau
                 />
               </div>
 
-              {/* Discord Callback Summary Textarea */}
+              {/* Copy Details Summary Textarea */}
               <div className="space-y-1 pt-2">
                 <label className="text-[#58a6ff] font-bold uppercase text-[10px] flex items-center gap-1.5">
-                  <MessageSquare className="w-3.5 h-3.5" />
-                  <span>Discord Callback Quick Text:</span>
+                  <Share2 className="w-3.5 h-3.5" />
+                  <span>Copy Details Quick Summary Text:</span>
                 </label>
                 <textarea
                   rows={2}
                   value={formData.discordCallbackSummary}
                   onChange={(e) => setFormData({ ...formData, discordCallbackSummary: e.target.value })}
-                  placeholder="Teks ringkas yang siap dipaste ke Discord..."
+                  placeholder="Teks ringkas rincian yang disalin tanpa emoji slop..."
                   className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl p-2.5 text-white focus:outline-none focus:border-[#58a6ff]"
                 />
               </div>

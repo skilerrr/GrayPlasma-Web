@@ -528,6 +528,105 @@ export function MonitorFormModal({
               </div>
             </div>
 
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+              <div>
+                <label className="text-[11px] text-zinc-400 block mb-1">Aspect Ratio</label>
+                <input
+                  type="text"
+                  value={formData.aspectRatio || "16:9 (Wide)"}
+                  onChange={(e) => setFormData({ ...formData, aspectRatio: e.target.value })}
+                  placeholder="16:9 (Wide)"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-white"
+                />
+              </div>
+              <div>
+                <label className="text-[11px] text-zinc-400 block mb-1">Curvature</label>
+                <input
+                  type="text"
+                  value={formData.curvature || "None"}
+                  onChange={(e) => setFormData({ ...formData, curvature: e.target.value })}
+                  placeholder="None / 1500R"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-white"
+                />
+              </div>
+              <div>
+                <label className="text-[11px] text-zinc-400 block mb-1">Panel Bit Depth</label>
+                <input
+                  type="text"
+                  value={formData.panelBitDepth || "8 Bit"}
+                  onChange={(e) => setFormData({ ...formData, panelBitDepth: e.target.value })}
+                  placeholder="8 Bit / 10 Bit"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-white"
+                />
+              </div>
+              <div>
+                <label className="text-[11px] text-zinc-400 block mb-1">Market Class</label>
+                <input
+                  type="text"
+                  value={formData.marketClass || "144Hz+"}
+                  onChange={(e) => setFormData({ ...formData, marketClass: e.target.value })}
+                  placeholder="144Hz+ / 100Hz"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-white"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+              <div>
+                <label className="text-[11px] text-zinc-400 block mb-1">Stand Capability</label>
+                <input
+                  type="text"
+                  value={formData.standCapability || "Tilt"}
+                  onChange={(e) => setFormData({ ...formData, standCapability: e.target.value })}
+                  placeholder="Tilt / HAS"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-white"
+                />
+              </div>
+              <div>
+                <label className="text-[11px] text-zinc-400 block mb-1">USB Hub</label>
+                <input
+                  type="text"
+                  value={formData.usbHub || "None"}
+                  onChange={(e) => setFormData({ ...formData, usbHub: e.target.value })}
+                  placeholder="None / USB 3.0"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-white"
+                />
+              </div>
+              <div>
+                <label className="text-[11px] text-zinc-400 block mb-1">VESA Mount</label>
+                <input
+                  type="text"
+                  value={formData.specs?.ergonomics?.vesaMount || "75x75 mm"}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      specs: {
+                        ...formData.specs!,
+                        ergonomics: { ...formData.specs!.ergonomics, vesaMount: e.target.value },
+                      },
+                    })
+                  }
+                  placeholder="75x75 mm / 100x100 mm"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-white"
+                />
+              </div>
+              <div>
+                <label className="text-[11px] text-zinc-400 block mb-1">Display Inputs (Koma)</label>
+                <input
+                  type="text"
+                  value={(formData.displayInputs || ["HDMI 1.4", "HDMI 2.0"]).join(", ")}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      displayInputs: e.target.value.split(",").map((s) => s.trim()).filter(Boolean),
+                    })
+                  }
+                  placeholder="HDMI 1.4, HDMI 2.0, DP 1.4"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-white"
+                />
+              </div>
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               <div>
                 <label className="text-[11px] text-emerald-400 block mb-1">Toleransi Baru (Data Baru GTID)</label>

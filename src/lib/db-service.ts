@@ -418,11 +418,8 @@ export class DatabaseService {
   }
 
   static generateSQLMigration(): string {
-    const monitors = getLocalData<Monitor[]>(STORAGE_KEYS.MONITORS, MONITORS_DATA);
-    const monitorsJSON = JSON.stringify(monitors).replace(/'/g, "''");
-    
-    return `-- SQL Migration & Seed Script for Supabase
--- Run this in your Supabase Project -> SQL Editor
+    return `-- SQL Migration & Schema Setup for Supabase
+-- Run this script in your Supabase Project -> SQL Editor -> New Query -> Run
 
 CREATE TABLE IF NOT EXISTS public.monitors (
   id TEXT PRIMARY KEY,
@@ -434,16 +431,60 @@ CREATE TABLE IF NOT EXISTS public.monitors (
   "tierDescription" TEXT,
   price NUMERIC,
   "originalPrice" NUMERIC,
+  "recommendedPrice" NUMERIC,
+  "aspectRatio" TEXT,
+  curvature TEXT,
+  "displayInputs" JSONB,
+  "panelBitDepth" TEXT,
+  "standCapability" TEXT,
+  "usbHub" TEXT,
+  "marketClass" TEXT,
+  "createdDateText" TEXT,
+  "lastUpdatedDate" TEXT,
+  "linkShopee" TEXT,
+  "linkTokopedia" TEXT,
+  "linkTiktokShop" TEXT,
   thumbnail TEXT,
+  "frontImage" TEXT,
+  "rearImage" TEXT,
   gallery JSONB,
   "quickSpecs" JSONB,
   "expertVerdict" TEXT,
+  "statusReason" TEXT,
+  "gtidReviewUrl" TEXT,
+  introduction TEXT,
+  "bannerImage" TEXT,
+  "deepDiveTitle" TEXT,
+  "deepDiveDescription" TEXT,
+  "deepDiveNote" TEXT,
+  "accessoriesIncluded" JSONB,
+  "additionalStores" JSONB,
+  "responseTimeData" JSONB,
   pros JSONB,
   cons JSONB,
   specs JSONB,
   marketplaces JSONB,
   "priceHistory" JSONB,
   tags JSONB,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS public.hierarchy (
+  id TEXT PRIMARY KEY,
+  title TEXT,
+  slug TEXT,
+  "fullPath" TEXT,
+  category TEXT,
+  description TEXT,
+  "contentMarkdown" TEXT,
+  "onClickAction" TEXT,
+  "externalUrl" TEXT,
+  "coverImage" TEXT,
+  tags JSONB,
+  "order" NUMERIC,
+  "isPublished" BOOLEAN DEFAULT true,
+  "discordCallbackSummary" TEXT,
+  "updatedAt" TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -486,23 +527,39 @@ CREATE TABLE IF NOT EXISTS public.aftersales (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Enable RLS
+CREATE TABLE IF NOT EXISTS public.page_banners (
+  id TEXT PRIMARY KEY DEFAULT 'default',
+  "homeBannerUrl" TEXT,
+  "homeBannerTitle" TEXT,
+  "homeBannerSubtitle" TEXT,
+  "guideBannerUrl" TEXT,
+  "monitorBannerUrl" TEXT,
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Enable Row Level Security (RLS)
 ALTER TABLE public.monitors ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.hierarchy ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.desks ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.peripherals ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.aftersales ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.page_banners ENABLE ROW LEVEL SECURITY;
 
--- Public Read Policy
+-- Public Read Policies (Semua pengunjung bisa baca data)
 CREATE POLICY "Public Read Monitors" ON public.monitors FOR SELECT USING (true);
+CREATE POLICY "Public Read Hierarchy" ON public.hierarchy FOR SELECT USING (true);
 CREATE POLICY "Public Read Desks" ON public.desks FOR SELECT USING (true);
 CREATE POLICY "Public Read Peripherals" ON public.peripherals FOR SELECT USING (true);
 CREATE POLICY "Public Read Aftersales" ON public.aftersales FOR SELECT USING (true);
+CREATE POLICY "Public Read Banners" ON public.page_banners FOR SELECT USING (true);
 
--- Authenticated Admin All Access
+-- Admin Full Access Policies (Insert, Update, Delete)
 CREATE POLICY "Admin Full Access Monitors" ON public.monitors FOR ALL USING (true);
+CREATE POLICY "Admin Full Access Hierarchy" ON public.hierarchy FOR ALL USING (true);
 CREATE POLICY "Admin Full Access Desks" ON public.desks FOR ALL USING (true);
 CREATE POLICY "Admin Full Access Peripherals" ON public.peripherals FOR ALL USING (true);
 CREATE POLICY "Admin Full Access Aftersales" ON public.aftersales FOR ALL USING (true);
+CREATE POLICY "Admin Full Access Banners" ON public.page_banners FOR ALL USING (true);
 `;
   }
 }

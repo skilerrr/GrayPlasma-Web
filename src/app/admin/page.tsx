@@ -35,6 +35,7 @@ import { DatabaseService } from "@/lib/db-service";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { compressImage, formatFileSize, CompressedImageResult } from "@/lib/image-compressor";
 import { MonitorFormModal } from "@/components/admin/monitor-form-modal";
+import { MonitorLiveStudio } from "@/components/admin/monitor-live-studio";
 import { DeskFormModal } from "@/components/admin/desk-form-modal";
 import { AftersalesFormModal } from "@/components/admin/aftersales-form-modal";
 import { HierarchySandboxManager } from "@/components/admin/hierarchy-sandbox-manager";
@@ -638,134 +639,16 @@ export default function AdminDashboardPage() {
           </div>
         )}
 
-        {/* 1. MONITORS CRUD TAB */}
+        {/* 1. MONITORS CRUD & LIVE STUDIO TAB */}
         {activeTab === "monitors" && (
-          <div className="space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-dark border border-zinc-800 rounded-2xl p-4">
-              <div className="flex-1 max-w-md relative">
-                <Search className="w-4 h-4 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Cari monitor..."
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-9 pr-4 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500"
-                />
-              </div>
-
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleResetDefaults}
-                  className="text-xs font-semibold border-zinc-800"
-                  title="Kembalikan 55 data asli Notion"
-                >
-                  <RotateCcw className="w-3.5 h-3.5 mr-1" />
-                  <span>Reset Bawaan</span>
-                </Button>
-                <Button
-                  variant="cyber"
-                  size="sm"
-                  onClick={() => {
-                    setSelectedMonitor(null);
-                    setIsMonitorModalOpen(true);
-                  }}
-                  className="text-xs font-bold"
-                >
-                  <Plus className="w-4 h-4 mr-1" />
-                  <span>Tambah Monitor Baru</span>
-                </Button>
-              </div>
-            </div>
-
-            {/* Monitors Table */}
-            <div className="bg-[#09090b] border border-zinc-800 rounded-2xl overflow-hidden shadow-xl">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs border-collapse min-w-[900px]">
-                  <thead className="bg-[#121215] text-zinc-400 uppercase text-[10px] tracking-wider border-b border-zinc-800">
-                    <tr>
-                      <th className="py-3 px-4 font-bold text-zinc-300">MONITOR MODEL</th>
-                      <th className="py-3 px-3 font-bold">TIER</th>
-                      <th className="py-3 px-4 font-bold text-emerald-400">HARGA</th>
-                      <th className="py-3 px-3 font-bold">SPEK UTAMA</th>
-                      <th className="py-3 px-3 font-bold text-cyan-400">GTID RESPONSE TIME</th>
-                      <th className="py-3 px-4 font-bold text-center">AKSI</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-zinc-900">
-                    {filteredAdminMonitors.map((m) => (
-                      <tr key={m.id} className="hover:bg-zinc-900/60 transition-colors">
-                        <td className="py-3 px-4">
-                          <div className="flex items-center gap-3">
-                            <img
-                              src={m.thumbnail}
-                              alt={m.model}
-                              className="w-10 h-10 rounded-lg object-cover bg-zinc-900 border border-zinc-800 flex-shrink-0"
-                            />
-                            <div>
-                              <span className="font-bold text-white block">{m.fullName}</span>
-                              <span className="text-[10px] text-zinc-500">{m.brand} • {m.specs?.display?.size}</span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="py-3 px-3 whitespace-nowrap">
-                          <span className={`text-[10px] font-black px-2 py-0.5 rounded ${
-                            m.tier === "S-TIER"
-                              ? "bg-emerald-500 text-black"
-                              : m.tier === "BEST VALUE"
-                              ? "bg-amber-500 text-black"
-                              : m.tier === "PASS"
-                              ? "bg-rose-500/20 text-rose-400"
-                              : "bg-zinc-800 text-zinc-300"
-                          }`}>
-                            {m.tier}
-                          </span>
-                        </td>
-                        <td className="py-3 px-4 font-mono font-bold text-emerald-400 text-xs whitespace-nowrap">
-                          {formatRupiah(m.price)}
-                        </td>
-                        <td className="py-3 px-3 text-zinc-300 whitespace-nowrap">
-                          {m.specs?.display?.panelType} • {m.specs?.display?.refreshRate}Hz • {m.specs?.display?.resolution}
-                        </td>
-                        <td className="py-3 px-3 font-mono text-cyan-400 text-[11px] whitespace-nowrap">
-                          {m.specs?.display?.responseTime}
-                        </td>
-                        <td className="py-3 px-4 text-center whitespace-nowrap">
-                          <div className="flex items-center justify-center gap-1.5">
-                            <button
-                              onClick={() => {
-                                setSelectedMonitor(m);
-                                setIsMonitorModalOpen(true);
-                              }}
-                              className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-emerald-400 hover:bg-zinc-800 transition-colors"
-                              title="Edit Data"
-                            >
-                              <Edit2 className="w-3.5 h-3.5" />
-                            </button>
-                            <button
-                              onClick={() => handleDuplicateMonitor(m)}
-                              className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-cyan-400 hover:bg-zinc-800 transition-colors"
-                              title="Duplikat Monitor"
-                            >
-                              <Copy className="w-3.5 h-3.5" />
-                            </button>
-                            <button
-                              onClick={() => handleDeleteMonitor(m.id, m.fullName)}
-                              className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-rose-400 hover:bg-zinc-800 transition-colors"
-                              title="Hapus Monitor"
-                            >
-                              <Trash2 className="w-3.5 h-3.5" />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+          <MonitorLiveStudio
+            monitors={monitors}
+            onUpdateMonitors={(newMonitors) => {
+              setMonitors(newMonitors);
+              showNotice("Database monitor berhasil diperbarui.");
+            }}
+            onPreviewSidePanel={(mon) => setTestSidePanelMonitor(mon)}
+          />
         )}
 
         {/* 2. DESKS CRUD TAB */}

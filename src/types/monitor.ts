@@ -105,6 +105,18 @@ export interface Monitor {
   createdAt: string;
 
   // Rich Notion Deep-Dive & Side-Panel Fields (matching user screenshot)
+  aspectRatio?: string; // e.g. "16:9 (Wide)", "21:9 (Ultrawide)"
+  curvature?: string; // e.g. "None", "1500R", "1800R", "800R"
+  displayInputs?: string[]; // e.g. ["HDMI 1.4", "HDMI 2.0"], ["HDMI 2.0", "DP 1.4"]
+  panelBitDepth?: string; // e.g. "8 Bit", "8 Bit + FRC", "10 Bit"
+  standCapability?: string; // e.g. "Tilt", "HAS (Height, Tilt, Swivel, Pivot)"
+  usbHub?: string; // e.g. "None", "USB 3.0 Hub", "USB-C 65W PD"
+  marketClass?: string; // e.g. "144Hz+", "100Hz", "240Hz+"
+  createdDateText?: string; // e.g. "February 24, 2025 12:24"
+  lastUpdatedDate?: string; // e.g. "June 24, 2025"
+  linkShopee?: string; // e.g. Shopee URL
+  linkTokopedia?: string; // e.g. Tokopedia URL
+  linkTiktokShop?: string; // e.g. TikTok Shop URL
   frontImage?: string; // Foto tampak depan monitor (dengan layar/wallpaper)
   rearImage?: string; // Foto tampak belakang monitor (stand & chassis)
   statusReason?: string; // e.g. "TIDAK DISARANKAN LAGI KARENA BANYAK KASUS BERGARIS + DISCONTINUE"

@@ -331,22 +331,24 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
       <main className={`transition-all duration-300 px-4 sm:px-8 md:px-12 py-8 sm:py-12 flex-1 w-full space-y-8 ${
         selectedMonitorForPanel ? "lg:mr-[620px] xl:mr-[680px] lg:max-w-[calc(100vw-640px)] xl:max-w-[calc(100vw-700px)]" : "max-w-6xl mx-auto"
       }`}>
-        {/* Cover Banner if present */}
-        {matchedNode?.coverImage && (
-          <div className="relative w-full h-44 sm:h-56 rounded-2xl overflow-hidden border border-[#2f2f2f] bg-[#202020] mb-4">
-            <Image
-              src={matchedNode.coverImage}
-              alt="Cover"
-              fill
-              className="object-cover opacity-60"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#191919] via-transparent to-transparent" />
-          </div>
-        )}
+        {/* Notion Hero Cover Banner */}
+        <div className="relative w-full h-48 sm:h-60 rounded-3xl overflow-hidden border border-[#2f2f2f] bg-[#202020] mb-2 shadow-2xl">
+          <Image
+            src={
+              matchedNode?.coverImage ||
+              "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop"
+            }
+            alt="Page Hero Banner"
+            fill
+            className="object-cover opacity-60"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#191919] via-transparent to-transparent" />
+        </div>
 
-        {/* Notion Page Icon & Header */}
-        <div className="space-y-4">
-          <div className="text-4xl sm:text-5xl">
+        {/* Notion Page Icon & Header (Overlapping Cover) */}
+        <div className="space-y-4 -mt-12 relative z-10 px-2 sm:px-4">
+          <div className="text-5xl sm:text-6xl p-2 rounded-2xl bg-[#191919] border border-[#2a2a2a] w-fit shadow-xl">
             {isFAQIndexPage ? "❓" : isAftersalesPage ? "🛡️" : isAboutPage ? "👤" : isSupportPage ? "💖" : isConsultationPage ? "🎧" : "🖥️"}
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-[#ffffff] tracking-tight">

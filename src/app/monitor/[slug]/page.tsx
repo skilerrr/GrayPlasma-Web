@@ -180,56 +180,213 @@ Link Detail: ${detailUrl}`;
         </div>
 
         {/* ========================================================================= */}
-        {/* NOTION PROPERTY TABLE (EXACT MATCH)                                       */}
+        {/* NOTION PROPERTY TABLE (EXACT MATCH 21 PROPERTIES)                         */}
         {/* ========================================================================= */}
-        <div className="space-y-2 text-xs border-y border-[#2a2a2a] py-3 text-[#9b9a97]">
-          {/* 1. Data Response Time */}
+        <div className="space-y-1.5 text-xs border-y border-[#2a2a2a] py-3 text-[#9b9a97]">
+          {/* 1. Kisaran Harga */}
+          <div className="grid grid-cols-12 items-center gap-2 py-0.5">
+            <span className="col-span-4 text-[#787774] font-medium">Kisaran Harga</span>
+            <span className="col-span-8 font-mono font-bold text-white text-[11px]">
+              IDR {monitor.price.toLocaleString("en-US")}
+            </span>
+          </div>
+
+          {/* 2. Aspect Ratio */}
+          <div className="grid grid-cols-12 items-center gap-2 py-0.5">
+            <span className="col-span-4 text-[#787774] font-medium">Aspect Ratio</span>
+            <div className="col-span-8">
+              <span className="px-2 py-0.5 rounded bg-[#1d354a] text-[#58a6ff] text-[11px] font-medium">
+                {monitor.aspectRatio || "16:9 (Wide)"}
+              </span>
+            </div>
+          </div>
+
+          {/* 3. Curvature */}
+          <div className="grid grid-cols-12 items-center gap-2 py-0.5">
+            <span className="col-span-4 text-[#787774] font-medium">Curvature</span>
+            <div className="col-span-8">
+              <span className="px-2 py-0.5 rounded bg-[#442224] text-[#eb5757] text-[11px] font-medium">
+                {monitor.curvature || monitor.specs?.display?.curvature || "None"}
+              </span>
+            </div>
+          </div>
+
+          {/* 4. Display Input */}
+          <div className="grid grid-cols-12 items-center gap-2 py-0.5">
+            <span className="col-span-4 text-[#787774] font-medium">Display Input</span>
+            <div className="col-span-8 flex items-center gap-1.5 flex-wrap">
+              {(monitor.displayInputs && monitor.displayInputs.length > 0) ? (
+                monitor.displayInputs.map((input, idx) => (
+                  <span
+                    key={idx}
+                    className={`px-2 py-0.5 rounded text-[11px] font-medium ${
+                      idx === 0
+                        ? "bg-[#203c2b] text-[#52ba69]"
+                        : "bg-[#3b2344] text-[#d157eb]"
+                    }`}
+                  >
+                    {input}
+                  </span>
+                ))
+              ) : (
+                <>
+                  <span className="px-2 py-0.5 rounded bg-[#203c2b] text-[#52ba69] text-[11px] font-medium">
+                    HDMI 1.4
+                  </span>
+                  <span className="px-2 py-0.5 rounded bg-[#3b2344] text-[#d157eb] text-[11px] font-medium">
+                    HDMI 2.0
+                  </span>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* 5. Panel Bit Depth */}
+          <div className="grid grid-cols-12 items-center gap-2 py-0.5">
+            <span className="col-span-4 text-[#787774] font-medium">Panel Bit Depth</span>
+            <div className="col-span-8">
+              <span className="px-2 py-0.5 rounded bg-[#2f2f2f] text-[#d4d4d4] text-[11px] font-medium">
+                {monitor.panelBitDepth || "8 Bit"}
+              </span>
+            </div>
+          </div>
+
+          {/* 6. Panel Size */}
+          <div className="grid grid-cols-12 items-center gap-2 py-0.5">
+            <span className="col-span-4 text-[#787774] font-medium">Panel Size</span>
+            <div className="col-span-8">
+              <span className="px-2 py-0.5 rounded bg-[#442c1d] text-[#e07936] text-[11px] font-medium">
+                {monitor.specs?.display?.size || "24 Inch or 23.8 Inch"}
+              </span>
+            </div>
+          </div>
+
+          {/* 7. Panel Type */}
+          <div className="grid grid-cols-12 items-center gap-2 py-0.5">
+            <span className="col-span-4 text-[#787774] font-medium">Panel Type</span>
+            <div className="col-span-8">
+              <span className="px-2 py-0.5 rounded bg-[#2f2f2f] text-[#d4d4d4] text-[11px] font-medium">
+                {monitor.specs?.display?.panelType || "IPS"}
+              </span>
+            </div>
+          </div>
+
+          {/* 8. Refresh Rate */}
+          <div className="grid grid-cols-12 items-center gap-2 py-0.5">
+            <span className="col-span-4 text-[#787774] font-medium">Refresh Rate</span>
+            <div className="col-span-8">
+              <span className="px-2 py-0.5 rounded bg-[#203c2b] text-[#52ba69] text-[11px] font-medium font-mono">
+                {monitor.specs?.display?.refreshRate || 180}Hz
+              </span>
+            </div>
+          </div>
+
+          {/* 9. Resolution (Pixel) */}
+          <div className="grid grid-cols-12 items-center gap-2 py-0.5">
+            <span className="col-span-4 text-[#787774] font-medium">Resolution (Pixel)</span>
+            <div className="col-span-8">
+              <span className="px-2 py-0.5 rounded bg-[#442224] text-[#eb5757] text-[11px] font-medium">
+                {monitor.specs?.display?.resolution || "1920x1080 (FHD)"}
+              </span>
+            </div>
+          </div>
+
+          {/* 10. Stand Capability */}
+          <div className="grid grid-cols-12 items-center gap-2 py-0.5">
+            <span className="col-span-4 text-[#787774] font-medium">Stand Capability</span>
+            <div className="col-span-8">
+              <span className="px-2 py-0.5 rounded bg-[#2f2f2f] text-[#d4d4d4] text-[11px] font-medium">
+                {monitor.standCapability || (monitor.specs?.ergonomics?.heightAdjustable ? "HAS (Height, Tilt, Swivel, Pivot)" : "Tilt")}
+              </span>
+            </div>
+          </div>
+
+          {/* 11. USB Hub */}
+          <div className="grid grid-cols-12 items-center gap-2 py-0.5">
+            <span className="col-span-4 text-[#787774] font-medium">USB Hub</span>
+            <div className="col-span-8">
+              <span className="px-2 py-0.5 rounded bg-[#2f2f2f] text-[#d4d4d4] text-[11px] font-medium">
+                {monitor.usbHub || monitor.specs?.connectivity?.usbHub || "None"}
+              </span>
+            </div>
+          </div>
+
+          {/* 12. Market Class */}
+          <div className="grid grid-cols-12 items-center gap-2 py-0.5">
+            <span className="col-span-4 text-[#787774] font-medium">Market Class</span>
+            <div className="col-span-8">
+              <span className="px-2 py-0.5 rounded bg-[#203c2b] text-[#52ba69] text-[11px] font-medium">
+                {monitor.marketClass || (monitor.specs?.display?.refreshRate && monitor.specs.display.refreshRate >= 144 ? "144Hz+" : "100Hz")}
+              </span>
+            </div>
+          </div>
+
+          {/* 13. VESA Mount */}
+          <div className="grid grid-cols-12 items-center gap-2 py-0.5">
+            <span className="col-span-4 text-[#787774] font-medium">VESA Mount</span>
+            <div className="col-span-8">
+              <span className="px-2 py-0.5 rounded bg-[#2f2f2f] text-[#d4d4d4] text-[11px] font-medium">
+                {monitor.specs?.ergonomics?.vesaMount || "75x75 mm"}
+              </span>
+            </div>
+          </div>
+
+          {/* 14. Data Response Time */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
             <span className="col-span-4 text-[#787774] font-medium">Data Response Time</span>
             <div className="col-span-8 flex items-center gap-1.5 flex-wrap">
-              <span className="px-2 py-0.5 rounded bg-[#203c2b] text-[#52ba69] font-medium text-[11px]">
+              <span className="px-2 py-0.5 rounded bg-[#203c2b] text-[#52ba69] text-[11px] font-medium">
                 Toleransi Baru
               </span>
-              <span className="px-2 py-0.5 rounded bg-[#442224] text-[#eb5757] font-medium text-[11px]">
+              <span className="px-2 py-0.5 rounded bg-[#442224] text-[#eb5757] text-[11px] font-medium">
                 Toleransi Lama
               </span>
             </div>
           </div>
 
-          {/* 2. Date Created */}
+          {/* 15. Date Created */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
             <span className="col-span-4 text-[#787774] font-medium">Date Created</span>
-            <span className="col-span-8 text-[#d4d4d4] font-mono text-[11px]">
-              {monitor.createdAt || "February 24, 2025 12:24"}
+            <span className="col-span-8 font-bold text-[#d4d4d4] text-[11px]">
+              {monitor.createdDateText || "February 24, 2025 12:24"}
             </span>
           </div>
 
-          {/* 3. LINK TIKTOKSHOP */}
+          {/* 16. LINK TIKTOKSHOP */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
             <span className="col-span-4 text-[#787774] font-medium">LINK TIKTOKSHOP</span>
-            <span className="col-span-8 text-[#787774] italic text-[11px]">Empty</span>
+            <div className="col-span-8">
+              {monitor.linkTiktokShop ? (
+                <a href={monitor.linkTiktokShop} target="_blank" rel="noopener noreferrer" className="text-[#58a6ff] hover:underline font-mono text-[11px] inline-flex items-center gap-1">
+                  <span>{monitor.linkTiktokShop}</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              ) : (
+                <span className="text-[#787774] italic text-[11px]">Empty</span>
+              )}
+            </div>
           </div>
 
-          {/* 4. Last Updated */}
+          {/* 17. Last Updated */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
             <span className="col-span-4 text-[#787774] font-medium">Last Updated</span>
-            <span className="col-span-8 text-[#d4d4d4] font-mono text-[11px]">
-              June 24, 2025
+            <span className="col-span-8 font-bold text-[#d4d4d4] text-[11px]">
+              {monitor.lastUpdatedDate || "June 24, 2025"}
             </span>
           </div>
 
-          {/* 5. Link Shopee */}
+          {/* 18. Link Shopee */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
             <span className="col-span-4 text-[#787774] font-medium">Link Shopee</span>
             <div className="col-span-8">
-              {shopeeLink ? (
+              {(monitor.linkShopee || shopeeLink?.url) ? (
                 <a
-                  href={shopeeLink.url}
+                  href={monitor.linkShopee || shopeeLink?.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#58a6ff] hover:underline font-mono text-[11px] inline-flex items-center gap-1"
                 >
-                  <span>{shopeeLink.url}</span>
+                  <span>{monitor.linkShopee || shopeeLink?.url}</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               ) : (
@@ -238,18 +395,18 @@ Link Detail: ${detailUrl}`;
             </div>
           </div>
 
-          {/* 6. LINK TOKOPEDIA */}
+          {/* 19. LINK TOKOPEDIA */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
             <span className="col-span-4 text-[#787774] font-medium">LINK TOKOPEDIA</span>
             <div className="col-span-8">
-              {tokopediaLink ? (
+              {(monitor.linkTokopedia || tokopediaLink?.url) ? (
                 <a
-                  href={tokopediaLink.url}
+                  href={monitor.linkTokopedia || tokopediaLink?.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#58a6ff] hover:underline font-mono text-[11px] inline-flex items-center gap-1"
                 >
-                  <span>{tokopediaLink.url}</span>
+                  <span>{monitor.linkTokopedia || tokopediaLink?.url}</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               ) : (
@@ -258,11 +415,34 @@ Link Detail: ${detailUrl}`;
             </div>
           </div>
 
-          {/* 7. STATUS */}
+          {/* 20. Tiktok Shop */}
+          <div className="grid grid-cols-12 items-center gap-2 py-0.5">
+            <span className="col-span-4 text-[#787774] font-medium">Tiktok Shop</span>
+            <div className="col-span-8">
+              {monitor.linkTiktokShop ? (
+                <a href={monitor.linkTiktokShop} target="_blank" rel="noopener noreferrer" className="text-[#58a6ff] hover:underline font-mono text-[11px] inline-flex items-center gap-1">
+                  <span>{monitor.linkTiktokShop}</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              ) : (
+                <span className="text-[#787774] italic text-[11px]">Empty</span>
+              )}
+            </div>
+          </div>
+
+          {/* 21. STATUS */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
             <span className="col-span-4 text-[#787774] font-medium">STATUS</span>
             <div className="col-span-8">
-              <span className="px-2 py-0.5 rounded bg-[#203c2b] text-[#52ba69] font-bold text-[11px]">
+              <span className={`px-2 py-0.5 rounded text-[11px] font-bold ${
+                monitor.tier === "S-TIER"
+                  ? "bg-[#203c2b] text-[#52ba69]"
+                  : monitor.tier === "BEST VALUE"
+                  ? "bg-[#1d354a] text-[#58a6ff]"
+                  : monitor.tier === "RECOMMENDED"
+                  ? "bg-[#203c2b] text-[#52ba69]"
+                  : "bg-[#442224] text-[#eb5757]"
+              }`}>
                 {monitor.tier}
               </span>
             </div>

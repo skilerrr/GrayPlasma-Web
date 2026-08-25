@@ -49,10 +49,10 @@ export function NotionAftersalesSidePanel({
   if (!isOpen || !card) return null;
 
   const handleCopyDiscord = () => {
-    const text = `**[GRAYPLASMA AFTERSALES] ${card.title}**
-🏷️ Kualitas: ${card.tags.map((t) => t.label).join(", ")}
-⚡ Sistem: ${card.sistemKlaim || "Standard Distributor"}
-🔗 Info: ${typeof window !== "undefined" ? window.location.href : ""}`;
+    const text = `[GRAYPLASMA AFTERSALES] ${card.title}
+Kualitas: ${card.tags.map((t) => t.label).join(", ")}
+Sistem: ${card.sistemKlaim || "Standard Distributor"}
+Info: ${typeof window !== "undefined" ? window.location.href : ""}`;
     navigator.clipboard.writeText(text);
     setCopiedDiscord(true);
     setTimeout(() => setCopiedDiscord(false), 2000);
@@ -122,8 +122,8 @@ export function NotionAftersalesSidePanel({
                   : "bg-[#252525] border-[#333333] text-[#d4d4d4] hover:text-white hover:bg-[#2c2c2c]"
               }`}
             >
-              {copiedDiscord ? <Check className="w-3.5 h-3.5" /> : <MessageSquare className="w-3.5 h-3.5 text-[#58a6ff]" />}
-              <span>{copiedDiscord ? "Copied to Discord!" : "Copy Discord"}</span>
+              {copiedDiscord ? <Check className="w-3.5 h-3.5 text-[#52ba69]" /> : <Share2 className="w-3.5 h-3.5 text-[#58a6ff]" />}
+              <span>{copiedDiscord ? "Tersalin!" : "Copy Details"}</span>
             </button>
 
             <button
