@@ -295,71 +295,336 @@ export default function CatalogPage() {
       {/* Main Content with dynamic rearrangement when Side-Peek Drawer opens */}
       <main className={`transition-all duration-300 px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex-1 w-full space-y-8 ${
         selectedMonitor ? "lg:mr-[620px] xl:mr-[680px] lg:max-w-[calc(100vw-640px)] xl:max-w-[calc(100vw-700px)]" : "max-w-7xl mx-auto"
-      }`}>
-        {/* Minimal Hero Header with Dynamic Customization */}
-        <section className="relative w-full rounded-2xl border border-zinc-800/80 bg-zinc-950 p-6 sm:p-10 overflow-hidden">
-          {bannerSettings.homeBannerUrl && (
-            <div className="absolute inset-0 z-0">
-              <Image
-                src={bannerSettings.homeBannerUrl}
-                alt="Banner Cover"
-                fill
-                className="object-cover opacity-20"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
-            </div>
-          )}
-          <div className="relative z-10 max-w-3xl space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[11px] font-semibold tracking-wider text-zinc-300 uppercase">
-              <span className="w-2 h-2 rounded-full bg-emerald-400" />
-              <span>GRAYPLASMA • REKOMENDASI MONITOR</span>
-            </div>
-            <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-              {bannerSettings.homeBannerTitle || "Katalog & Database Rekomendasi Monitor"}
-            </h1>
-            <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-              {bannerSettings.homeBannerSubtitle || "Kurasi monitor independen kolaborasi Joel Gray (@gray1plasma) x GlaciK dengan pengujian laboratorium GTID Tech."}
-            </p>
+      }`}>        {/* ========================================================================= */}
+        {/* SECTION 1: AUTHENTIC NOTION HERO COVER & TITLE BLOCK                      */}
+        {/* ========================================================================= */}
+        <section className="space-y-6">
+          {/* Notion Hero Cover Banner */}
+          <div className="relative w-full h-48 sm:h-64 rounded-3xl overflow-hidden border border-[#2f2f2f] bg-[#202020] shadow-2xl">
+            <Image
+              src={
+                bannerSettings.homeBannerUrl ||
+                "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1600&auto=format&fit=crop"
+              }
+              alt="GrayPlasma Banner"
+              fill
+              className="object-cover opacity-60"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#191919] via-transparent to-transparent" />
+          </div>
 
-            {/* Quick Notion Sub-Path Links */}
-            <div className="flex items-center gap-2 pt-2 overflow-x-auto no-scrollbar flex-wrap">
-              <Link
-                href="/guide/sdr/glossary"
-                className="px-2.5 py-1 rounded-lg bg-[#202020] border border-[#2f2f2f] hover:border-[#58a6ff] text-[#9b9a97] hover:text-white text-[11px] font-mono transition-colors"
-              >
-                /guide/sdr/glossary
-              </Link>
+          {/* Notion Page Icon & Header */}
+          <div className="space-y-4 -mt-14 relative z-10 px-2 sm:px-4">
+            <div className="text-5xl sm:text-6xl p-2 rounded-2xl bg-[#191919] border border-[#2a2a2a] w-fit shadow-xl">
+              🖥️
+            </div>
+            <div className="space-y-1">
+              <h1 className="text-2xl sm:text-4xl font-extrabold text-[#ffffff] tracking-tight">
+                GRAYPLASMAID - REKOMENDASI MONITOR
+              </h1>
+              <p className="text-xs font-semibold uppercase tracking-wider text-[#787774]">
+                AKAN DILENGKAPI
+              </p>
+            </div>
+
+            {/* Notion Callout / Catatan Disclaimer Box (Exact match to Notion) */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#202020] border border-[#2f2f2f] text-xs text-[#d4d4d4] space-y-2.5 shadow-sm">
+              <div className="flex items-center gap-2 font-bold text-amber-400 uppercase tracking-wide">
+                <AlertTriangle className="w-4 h-4 text-amber-400" />
+                <span>CATATAN PENTING :</span>
+              </div>
+              <ul className="list-disc pl-5 space-y-1.5 text-[#b4b4b4] leading-relaxed">
+                <li>
+                  <strong className="text-white">SELURUH LIST YANG ADA DI WEB INI PERLU DITANYAKAN KEMBALI KEPADA PENULIS</strong>, dikarenakan perlu mempertimbangkan aspek spesifikasi PC Desktop / Laptop, ukuran meja, dan kebutuhan Anda.
+                </li>
+                <li>
+                  Mulai 15 Agustus 2026, link Tokopedia dan TikTok Shop akan dialihkan jika terjadi error. Jika butuh link khusus, silakan DM Discord GrayPlasma atau WhatsApp <strong className="text-[#52ba69]">0851-7979-4019</strong> a/n Joel Gray.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* SECTION 2: AUTHENTIC NOTION SUB-PAGES HIERARCHY GRID                      */}
+        {/* ========================================================================= */}
+        <section className="space-y-8">
+          {/* GROUP 1: REKOMENDASI MONITOR BERDASARKAN KATEGORI & RESOLUSI */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#e0e0e0] uppercase tracking-wider">
+              <span>🌟</span>
+              <span>1. REKOMENDASI MONITOR PILIHAN UTAMA</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {[
+                {
+                  title: "REKOMENDASI MONITOR 1080P (FHD BUDGET)",
+                  desc: "Katalog pilihan 1080p Fast IPS budget & esport 180Hz+",
+                  path: "/guide/1080p",
+                  icon: "🖥️",
+                  color: "hover:border-[#52ba69] text-[#52ba69]",
+                },
+                {
+                  title: "REKOMENDASI MONITOR 1440P (2K SWEETSPOT)",
+                  desc: "Pilihan monitor 2K 144Hz - 240Hz visual tajam",
+                  path: "/guide/1440p",
+                  icon: "🖥️",
+                  color: "hover:border-[#58a6ff] text-[#58a6ff]",
+                },
+                {
+                  title: "REKOMENDASI MONITOR 4K UHD & CREATOR",
+                  desc: "Monitor resolusi tinggi untuk productivity & visual",
+                  path: "/guide/4k",
+                  icon: "🖥️",
+                  color: "hover:border-[#ff9f43] text-[#ff9f43]",
+                },
+                {
+                  title: "REKOMENDASI MONITOR OLED & FLAGSHIP",
+                  desc: "Panel QD-OLED & WOLED contrast tanpa tanding",
+                  path: "/guide/oled",
+                  icon: "✨",
+                  color: "hover:border-[#d157eb] text-[#d157eb]",
+                },
+              ].map((card, idx) => (
+                <Link
+                  key={idx}
+                  href={card.path}
+                  className={`p-3.5 rounded-2xl bg-[#202020] border border-[#2f2f2f] transition-all space-y-1.5 group block shadow-sm ${card.color}`}
+                >
+                  <div className="flex items-center gap-2 font-bold text-white text-xs group-hover:text-white">
+                    <span>{card.icon}</span>
+                    <span className="truncate">{card.title}</span>
+                  </div>
+                  <p className="text-[11px] text-[#9b9a97] line-clamp-2 leading-relaxed">
+                    {card.desc}
+                  </p>
+                  <span className="text-[10px] font-mono text-[#787774] block pt-0.5 group-hover:underline">
+                    {card.path} →
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* GROUP 2: EVALUASI BRAND & AFTERSALES */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#e0e0e0] uppercase tracking-wider">
+              <span>🛡️</span>
+              <span>2. EVALUASI BRAND & AFTERSALES (OEM / ODM LIST)</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <Link
                 href="/guide/brand/aftersales-rma"
-                className="px-2.5 py-1 rounded-lg bg-[#202020] border border-[#2f2f2f] hover:border-[#52ba69] text-[#9b9a97] hover:text-white text-[11px] font-mono transition-colors"
+                className="p-4 rounded-2xl bg-[#202020] border border-[#2f2f2f] hover:border-[#52ba69] transition-all space-y-2 group block shadow-sm"
               >
-                /guide/brand/aftersales-rma
+                <div className="flex items-center gap-2 font-bold text-white text-xs group-hover:text-[#52ba69]">
+                  <span>🛡️</span>
+                  <span>LIST AFTERSALES (BRAND MONITOR OEM)</span>
+                </div>
+                <p className="text-[11px] text-[#9b9a97] leading-relaxed">
+                  Database komprehensif sistem klaim garansi, track record RMA distributor resmi, dan tiering brand di Indonesia.
+                </p>
+                <span className="text-[10px] text-[#787774] font-mono block group-hover:text-[#52ba69]">
+                  /guide/brand/aftersales-rma →
+                </span>
               </Link>
+
               <Link
-                href="/guide/faq"
-                className="px-2.5 py-1 rounded-lg bg-[#202020] border border-[#2f2f2f] hover:border-[#ff9f43] text-[#9b9a97] hover:text-white text-[11px] font-mono transition-colors"
+                href="/guide/brand/odm-layak-dibeli"
+                className="p-4 rounded-2xl bg-[#202020] border border-[#2f2f2f] hover:border-amber-400 transition-all space-y-2 group block shadow-sm"
               >
-                /guide/faq
-              </Link>
-              <Link
-                href="/guide/setup/meja-ergonomi"
-                className="px-2.5 py-1 rounded-lg bg-[#202020] border border-[#2f2f2f] hover:border-[#58a6ff] text-[#9b9a97] hover:text-white text-[11px] font-mono transition-colors"
-              >
-                /guide/setup/meja-ergonomi
-              </Link>
-              <Link
-                href="/guide/display/bandwidth-dp-hdmi"
-                className="px-2.5 py-1 rounded-lg bg-[#202020] border border-[#2f2f2f] hover:border-[#eb5757] text-[#9b9a97] hover:text-white text-[11px] font-mono transition-colors"
-              >
-                /guide/display/bandwidth-dp-hdmi
+                <div className="flex items-center gap-2 font-bold text-white text-xs group-hover:border-amber-400">
+                  <span>⚠️</span>
+                  <span>LIST BRAND MONITOR ODM / OEM LAYAK BELI</span>
+                </div>
+                <p className="text-[11px] text-[#9b9a97] leading-relaxed">
+                  Panduan membeli monitor rebadge/ODM (KTC, Titan Army, Xiaomi, Skyworth) dengan risiko minimal dan garansi jelas.
+                </p>
+                <span className="text-[10px] text-[#787774] font-mono block group-hover:text-amber-400">
+                  /guide/brand/odm-layak-dibeli →
+                </span>
               </Link>
             </div>
           </div>
-        </section>        {/* ========================================================================= */}
-        {/* CORE WORKSPACE: LEFT FILTER BAR + RIGHT DATABASE TABLE                    */}
+
+          {/* GROUP 3: GLOSARIUM GTID & KALIBRASI WARNA */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#e0e0e0] uppercase tracking-wider">
+              <span>🎨</span>
+              <span>3. GLOSARIUM & PANDUAN KALIBRASI WARNA (GTID TECH)</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {[
+                {
+                  title: "HOW TO READ GTID GLOSSARY",
+                  desc: "Cara membaca skor deITP, Delta E, gamut, dan response time.",
+                  path: "/guide/sdr/glossary",
+                  icon: "📄",
+                },
+                {
+                  title: "AKURASI D65-P3 VS UNDERSATURATED",
+                  desc: "Mengapa monitor Delta E rendah bisa kurang warna di Rec.2020.",
+                  path: "/guide/warna/akurasi-d65-p3",
+                  icon: "🎯",
+                },
+                {
+                  title: "BANDWIDTH DP VS HDMI 2.0 / 2.1",
+                  desc: "Panduan kabel agar monitor tembus refresh rate maksimal tanpa kompresi.",
+                  path: "/guide/display/bandwidth-dp-hdmi",
+                  icon: "🔌",
+                },
+                {
+                  title: "PERAWATAN MONITOR OLED",
+                  desc: "Tips pencegahan burn-in, pixel cleaning, dan kebiasaan pemakaian.",
+                  path: "/guide/oled/perawatan-burn-in",
+                  icon: "✨",
+                },
+              ].map((item, idx) => (
+                <Link
+                  key={idx}
+                  href={item.path}
+                  className="p-3.5 rounded-2xl bg-[#202020] border border-[#2f2f2f] hover:border-[#58a6ff] transition-all space-y-1.5 group block shadow-sm"
+                >
+                  <div className="flex items-center gap-2 font-bold text-white text-xs group-hover:text-[#58a6ff]">
+                    <span>{item.icon}</span>
+                    <span className="truncate">{item.title}</span>
+                  </div>
+                  <p className="text-[11px] text-[#9b9a97] line-clamp-2 leading-relaxed">
+                    {item.desc}
+                  </p>
+                  <span className="text-[10px] font-mono text-[#787774] block pt-0.5 group-hover:underline">
+                    {item.path} →
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* GROUP 4: QNA & GRAYNOTES */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#e0e0e0] uppercase tracking-wider">
+              <span>❓</span>
+              <span>4. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {[
+                {
+                  title: "Build Quality Panel & Ketahanan",
+                  desc: "Penjelasan umur panel dan dead-lines.",
+                  path: "/guide/faq/build-quality-panel",
+                },
+                {
+                  title: "Menentukan Monitor Ideal",
+                  desc: "3 faktor utama sebelum checkout monitor.",
+                  path: "/guide/faq/menentukan-monitor-ideal",
+                },
+                {
+                  title: "Luasan vs Akurasi Warna",
+                  desc: "Mengapa 100% sRGB belum tentu akurat.",
+                  path: "/guide/faq/luasan-vs-akurasi-warna",
+                },
+                {
+                  title: "IPS vs VA vs TN di 2026",
+                  desc: "Perbandingan teknologi panel modern.",
+                  path: "/guide/faq/ips-vs-va-vs-tn",
+                },
+                {
+                  title: "Ikut PO Skyworth Apakah Worth-It?",
+                  desc: "Kelebihan dan estimasi waktu PO.",
+                  path: "/guide/faq/skyworth-po",
+                },
+                {
+                  title: "Beli Monitor Online Aman",
+                  desc: "SOP unboxing dan proteksi asuransi kurir.",
+                  path: "/guide/faq/beli-monitor-online-aman",
+                },
+              ].map((faq, fIdx) => (
+                <Link
+                  key={fIdx}
+                  href={faq.path}
+                  className="p-3 rounded-xl bg-[#202020] border border-[#2f2f2f] hover:border-[#ff9f43] transition-all space-y-1 group block shadow-sm"
+                >
+                  <div className="flex items-center gap-1.5 font-bold text-white text-xs group-hover:text-[#ff9f43]">
+                    <span>❓</span>
+                    <span className="truncate">{faq.title}</span>
+                  </div>
+                  <p className="text-[11px] text-[#9b9a97] truncate">{faq.desc}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* GROUP 5: SETUP MEJA, AUTHOR & CONSULTATION */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+            <Link
+              href="/guide/setup/meja-ergonomi"
+              className="p-4 rounded-2xl bg-[#202020] border border-[#2f2f2f] hover:border-[#58a6ff] transition-all space-y-2 group block shadow-sm"
+            >
+              <div className="flex items-center gap-2 font-bold text-white text-xs group-hover:text-[#58a6ff]">
+                <span>🪑</span>
+                <span>Panduan Meja & Ergonomi</span>
+              </div>
+              <p className="text-[11px] text-[#9b9a97] leading-relaxed">
+                Ukuran kedalaman meja vs inch monitor & rekomendasi gas spring arm.
+              </p>
+            </Link>
+
+            <Link
+              href="/guide/about"
+              className="p-4 rounded-2xl bg-[#202020] border border-[#2f2f2f] hover:border-[#52ba69] transition-all space-y-2 group block shadow-sm"
+            >
+              <div className="flex items-center gap-2 font-bold text-white text-xs group-hover:text-[#52ba69]">
+                <span>👤</span>
+                <span>Tentang Penulis (Joel Gray)</span>
+              </div>
+              <p className="text-[11px] text-[#9b9a97] leading-relaxed">
+                Biodata, latar belakang kurasi independen, dan komitmen evaluasi monitor.
+              </p>
+            </Link>
+
+            <Link
+              href="/guide/consultation"
+              className="p-4 rounded-2xl bg-[#202020] border border-[#2f2f2f] hover:border-[#d157eb] transition-all space-y-2 group block shadow-sm"
+            >
+              <div className="flex items-center gap-2 font-bold text-white text-xs group-hover:text-[#d157eb]">
+                <span>🎧</span>
+                <span>Konsultasi & Support</span>
+              </div>
+              <p className="text-[11px] text-[#9b9a97] leading-relaxed">
+                Konsultasi pemilihan monitor via Discord GTID / WA dan dukungan donasi.
+              </p>
+            </Link>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* SECTION 3: DATABASE REKOMENDASI MONITOR (DILETAKKAN DI BAGIAN BAWAH)      */}
         {/* ========================================================================= */}
         {(activeMenuKey === "home" || isCatalog) && (
-          <div className="space-y-8 animate-in fade-in duration-200">
+          <section className="space-y-6 pt-10 border-t border-[#2a2a2a] animate-in fade-in duration-200">
+            {/* Database Header Title */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">🖥️</span>
+                  <h2 className="text-lg sm:text-2xl font-extrabold text-white tracking-tight">
+                    DATABASE REKOMENDASI MONITOR LENGKAP
+                  </h2>
+                </div>
+                <p className="text-xs text-[#9b9a97]">
+                  Tabel interaktif pengujian GTID Tech. Gunakan filter di sisi kiri atau pilih mode tampilan tabel/harga/ukuran di bawah.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="px-3 py-1 rounded-full bg-[#202020] border border-[#2f2f2f] text-xs font-mono text-[#52ba69] font-bold">
+                  {filteredMonitors.length} Model Ditampilkan
+                </span>
+              </div>
+            </div>
+
+            {/* Core 2-Column Database Layout: Left FilterBar + Right NotionTableView */}
             <div className="flex flex-col lg:flex-row gap-6 items-start">
               {/* Left Sidebar Filter Section (Permanent & Never Hidden) */}
               <div className="w-full lg:w-72 xl:w-80 flex-shrink-0">
@@ -373,76 +638,16 @@ export default function CatalogPage() {
                 />
               </div>
 
-              {/* Right Main Database Table & Cards */}
-              <section className="flex-1 w-full min-w-0 space-y-6">
+              {/* Right Main Database Table & Views */}
+              <div className="flex-1 w-full min-w-0 space-y-6">
                 <NotionTableView
                   monitors={filteredMonitors}
                   selectedMonitorId={selectedMonitor?.id}
                   onSelectMonitor={(m) => setSelectedMonitor(m)}
                 />
-              </section>
-            </div>
-
-            {/* Quick Resource Guides (Clean & Essential) */}
-            <div className="space-y-4 pt-8 border-t border-[#2a2a2a]">
-              <div className="flex items-center gap-2">
-                <span className="text-lg">📚</span>
-                <h3 className="text-base font-bold text-white tracking-tight">
-                  Panduan & Sumber Daya Penting
-                </h3>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                <Link
-                  href="/guide/brand/aftersales-rma"
-                  className="p-4 rounded-2xl bg-[#202020] border border-[#2f2f2f] hover:border-[#52ba69] transition-all space-y-2 group block"
-                >
-                  <div className="flex items-center gap-2 font-bold text-white text-xs group-hover:text-[#52ba69]">
-                    <ShieldAlert className="w-4 h-4 text-amber-400" />
-                    <span>Aftersales Brand Tier List</span>
-                  </div>
-                  <p className="text-[11px] text-[#9b9a97] leading-relaxed">
-                    Evaluasi garansi, track record RMA, dan transparansi brand monitor di Indonesia.
-                  </p>
-                  <span className="text-[10px] text-[#787774] font-mono block pt-1 group-hover:text-[#52ba69]">
-                    /guide/brand/aftersales-rma →
-                  </span>
-                </Link>
-
-                <Link
-                  href="/guide/faq"
-                  className="p-4 rounded-2xl bg-[#202020] border border-[#2f2f2f] hover:border-[#ff9f43] transition-all space-y-2 group block"
-                >
-                  <div className="flex items-center gap-2 font-bold text-white text-xs group-hover:text-[#ff9f43]">
-                    <HelpCircle className="w-4 h-4 text-amber-400" />
-                    <span>QnA & FAQ GrayPlasma</span>
-                  </div>
-                  <p className="text-[11px] text-[#9b9a97] leading-relaxed">
-                    13 sub-halaman tanya jawab lengkap seputar toleransi GTID, dead pixel, dan kabel.
-                  </p>
-                  <span className="text-[10px] text-[#787774] font-mono block pt-1 group-hover:text-[#ff9f43]">
-                    /guide/faq →
-                  </span>
-                </Link>
-
-                <Link
-                  href="/guide/sdr/glossary"
-                  className="p-4 rounded-2xl bg-[#202020] border border-[#2f2f2f] hover:border-[#58a6ff] transition-all space-y-2 group block"
-                >
-                  <div className="flex items-center gap-2 font-bold text-white text-xs group-hover:text-[#58a6ff]">
-                    <BookOpen className="w-4 h-4 text-emerald-400" />
-                    <span>Cara Baca Data GTID Glossary</span>
-                  </div>
-                  <p className="text-[11px] text-[#9b9a97] leading-relaxed">
-                    Panduan teknis membaca grafik Delta E, deITP, response time, dan color gamut.
-                  </p>
-                  <span className="text-[10px] text-[#787774] font-mono block pt-1 group-hover:text-[#58a6ff]">
-                    /guide/sdr/glossary →
-                  </span>
-                </Link>
               </div>
             </div>
-          </div>
+          </section>
         )}
 
 

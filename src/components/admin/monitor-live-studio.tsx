@@ -311,12 +311,7 @@ export function MonitorLiveStudio({
 
     try {
       setIsCompressing(true);
-      const compressed = await compressImage(file, {
-        maxWidth: 1200,
-        maxHeight: 1200,
-        quality: 0.82,
-        format: "webp",
-      });
+      const compressed = await compressImage(file, 1200, 0.82);
 
       setCompressionStats(compressed);
       setFormData((prev) => ({
