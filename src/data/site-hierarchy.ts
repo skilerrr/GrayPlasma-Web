@@ -229,6 +229,66 @@ Banyak pengguna monitor 1440p 180Hz–240Hz mengalami masalah refresh rate terku
     discordCallbackSummary: "🪑 Panduan Ukuran Meja vs Monitor: Meja 50cm maksimal 24\", meja 60cm sweetspot 27\" 1440p + arm gas spring F80. Link: https://grayplasma.id/guide/setup/meja-ergonomi",
     updatedAt: "2026-08-25"
   },
+  {
+    id: "guide-ukuran-meja-ideal",
+    title: "UKURAN MEJA DAN MONITOR YANG IDEAL",
+    slug: "ukuran-meja-monitor-ideal",
+    fullPath: "/guide/setup/ukuran-meja-monitor-ideal",
+    category: "Setup Meja & Ergonomi",
+    icon: "Ruler",
+    coverImage: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=1200&auto=format&fit=crop",
+    description: "Matriks ukuran meja (minimum cm vs ideal cm) untuk monitor 24 inci & 27 inci, laptop, serta penempatan PC di atas vs bawah meja.",
+    contentMarkdown: `# UKURAN MEJA DAN MONITOR YANG IDEAL
+
+> Panduan Matriks Dimensi Meja Kerja Berdasarkan Ukuran Layar Monitor & Penempatan PC
+
+---
+
+## 1. Matriks Gambaran Kasar (24 Inch)
+- **1 Monitor + PC Di Bawah Meja:** Min 120 × 60 cm | Ideal **120 × 70 cm**
+- **1 Monitor + PC Di Atas Meja:** Min 120 × 60 cm | Ideal **140 × 70 cm**
+- **1 Monitor + Laptop:** Min 120 × 60 cm | Ideal **140 × 70 cm**
+- **2 Monitor + Laptop:** Min 140 × 60 cm | Ideal **160 × 70 cm**
+- **2 Monitor + PC Di Bawah Meja:** Min 120 × 60 cm | Ideal **140 × 70 cm**
+- **2 Monitor + PC Di Atas Meja:** Min 140 × 60 cm | Ideal **160 × 70 cm**
+
+---
+
+## 2. Matriks Gambaran Kasar (27 Inch)
+- **1 Monitor + PC Di Bawah Meja:** Min 120 × 70 cm | Ideal **140 × 70 cm**
+- **1 Monitor + PC Di Atas Meja:** Min 140 × 70 cm | Ideal **140 × 70 cm**
+- **1 Monitor + Laptop:** Min 140 × 70 cm | Ideal **140 × 70 cm**
+- **2 Monitor + PC Di Atas Meja:** Min 140 × 70 cm | Ideal **160 × 70 cm**
+- **2 Monitor + PC Di Bawah Meja:** Min 140 × 70 cm | Ideal **160 × 70 cm**
+- **2 Monitor + Laptop:** Min 140 × 70 cm | Ideal **160 × 70 cm**`,
+    onClickAction: "route",
+    tags: ["Ukuran Meja", "24 Inch", "27 Inch", "Dual Monitor", "Ergonomi"],
+    order: 8,
+    isPublished: true,
+    discordCallbackSummary: "📐 Panduan Ukuran Meja & Monitor Ideal: 24\" minimal 120x60 (ideal 140x70), 27\" minimal 140x70 (ideal 160x70). Link: https://grayplasma.id/guide/setup/ukuran-meja-monitor-ideal",
+    updatedAt: "2026-08-26"
+  },
+  {
+    id: "guide-rekomendasi-meja-kaki",
+    title: "REKOMENDASI MEJA + KAKI",
+    slug: "rekomendasi-meja",
+    fullPath: "/catalog/desks",
+    category: "Setup Meja & Ergonomi",
+    icon: "LayoutGrid",
+    coverImage: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1200&auto=format&fit=crop",
+    description: "Daftar 10 rekomendasi daun meja custom multiplek HPL, meja hollow standar, standing desk elektrik, dan meja nakas.",
+    contentMarkdown: `# REKOMENDASI MEJA + KAKI
+
+> Kurasi 10 Meja Kokoh Standar GrayPlasma (Tahan Jepit Monitor Arm)
+
+Kunjungi halaman katalog meja di: [/catalog/desks](/catalog/desks)`,
+    onClickAction: "route",
+    tags: ["Meja", "Daun Meja", "Standing Desk", "Meja Hollow", "Meja Nakas"],
+    order: 9,
+    isPublished: true,
+    discordCallbackSummary: "🪑 Rekomendasi Meja + Kaki: 10 pilihan daun meja multiplek HPL & standing desk elektrik tahan jepit arm. Link: https://grayplasma.id/catalog/desks",
+    updatedAt: "2026-08-26"
+  },
 
   // ==========================================
   // INDIVIDUAL FAQ NOTION PAGES (DEDICATED)

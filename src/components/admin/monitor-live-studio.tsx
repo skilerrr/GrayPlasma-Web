@@ -869,27 +869,72 @@ export function MonitorLiveStudio({
             {/* SUB-TAB 3: ULASAN GTID & FOTO */}
             {activeSubTab === "review" && (
               <div className="space-y-3">
-                {/* Photo URLs */}
+                {/* Photo URLs with WebP compression & Paste */}
                 <div className="p-3 rounded-xl bg-[#121212] border border-[#262626] space-y-2">
-                  <span className="text-[10px] font-bold text-white uppercase block">Foto Monitor Depan & Belakang</span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-white uppercase block">Foto Monitor Depan & Belakang</span>
+                    <label className="text-[10px] text-emerald-400 hover:text-emerald-300 font-bold cursor-pointer flex items-center gap-1">
+                      <span>+ Upload / Paste WebP</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={async (e) => {
+                          const file = e.target.files?.[0];
+                          if (!file) return;
+                          showNotification("Mengompres foto ke WebP...");
+                          try {
+                            const { uploadOrProcessImage } = await import("@/lib/image-compressor");
+                            const { url } = await uploadOrProcessImage(file, "monitors");
+                            setFormData({ ...formData, frontImage: url, thumbnail: url });
+                            showNotification("Foto berhasil diupload!");
+                          } catch (err: any) {
+                            showNotification("Gagal upload: " + err.message);
+                          }
+                        }}
+                      />
+                    </label>
+                  </div>
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="text-[10px] text-[#787774] block mb-0.5">Tampak Depan (URL)</label>
+                      <label className="text-[10px] text-[#787774] block mb-0.5">Tampak Depan (URL / Paste)</label>
                       <input
                         type="text"
                         value={formData.frontImage || ""}
                         onChange={(e) => setFormData({ ...formData, frontImage: e.target.value, thumbnail: e.target.value })}
-                        placeholder="https://..."
+                        onPaste={async (e) => {
+                          const { handleClipboardImagePaste } = await import("@/lib/image-compressor");
+                          await handleClipboardImagePaste(e as any, {
+                            folder: "monitors",
+                            onStart: () => showNotification("Memproses paste gambar (WebP)..."),
+                            onSuccess: (_, url) => {
+                              setFormData({ ...formData, frontImage: url, thumbnail: url });
+                              showNotification("Foto tampak depan berhasil di-paste!");
+                            },
+                          });
+                        }}
+                        placeholder="https://... atau Ctrl+V gambar"
                         className="w-full bg-[#202020] border border-[#2f2f2f] rounded-lg px-2 py-1 text-xs text-white"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] text-[#787774] block mb-0.5">Tampak Belakang (URL)</label>
+                      <label className="text-[10px] text-[#787774] block mb-0.5">Tampak Belakang (URL / Paste)</label>
                       <input
                         type="text"
                         value={formData.rearImage || ""}
                         onChange={(e) => setFormData({ ...formData, rearImage: e.target.value })}
-                        placeholder="https://..."
+                        onPaste={async (e) => {
+                          const { handleClipboardImagePaste } = await import("@/lib/image-compressor");
+                          await handleClipboardImagePaste(e as any, {
+                            folder: "monitors",
+                            onStart: () => showNotification("Memproses paste gambar (WebP)..."),
+                            onSuccess: (_, url) => {
+                              setFormData({ ...formData, rearImage: url });
+                              showNotification("Foto tampak belakang berhasil di-paste!");
+                            },
+                          });
+                        }}
+                        placeholder="https://... atau Ctrl+V gambar"
                         className="w-full bg-[#202020] border border-[#2f2f2f] rounded-lg px-2 py-1 text-xs text-white"
                       />
                     </div>
@@ -943,12 +988,28 @@ export function MonitorLiveStudio({
                 </div>
 
                 <div>
-                  <label className="text-[#9b9a97] font-medium block mb-1">Paragraf Analisis Reviewer</label>
+                  <label className="text-[#9b9a97] font-medium block mb-1">Paragraf Analisis Reviewer (Support Ctrl+V Paste Gambar)</label>
                   <textarea
                     rows={3}
                     value={formData.deepDiveDescription || ""}
                     onChange={(e) => setFormData({ ...formData, deepDiveDescription: e.target.value })}
-                    placeholder="Penjelasan detail hasil uji lab..."
+                    onPaste={async (e) => {
+                      const { handleClipboardImagePaste } = await import("@/lib/image-compressor");
+                      await handleClipboardImagePaste(e, {
+                        folder: "monitors",
+                        onStart: () => showNotification("Memproses gambar clipboard (WebP)..."),
+                        onSuccess: (snippet) => {
+                          const target = e.currentTarget;
+                          const start = target.selectionStart || 0;
+                          const end = target.selectionEnd || 0;
+                          const curr = formData.deepDiveDescription || "";
+                          const updated = curr.substring(0, start) + snippet + curr.substring(end);
+                          setFormData({ ...formData, deepDiveDescription: updated });
+                          showNotification("Gambar berhasil disisipkan!");
+                        },
+                      });
+                    }}
+                    placeholder="Penjelasan detail hasil uji lab... (Bisa Ctrl+V paste gambar)"
                     className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl p-2.5 text-white"
                   />
                 </div>

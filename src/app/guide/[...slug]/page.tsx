@@ -53,6 +53,8 @@ import {
 } from "@/types/monitor";
 import { CONSULTATION_DATA, FAQ_LIST } from "@/data/grayplasma-content";
 import { formatRupiah } from "@/lib/utils";
+import { DeskRecommendationsView } from "@/components/desk-recommendations-view";
+import { DESK_DATABASE, DeskItem } from "@/data/grayplasma-desk-peripherals";
 
 interface GuideDynamicPageProps {
   params: Promise<{
@@ -70,6 +72,7 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
 
   const [nodes, setNodes] = useState<SiteHierarchyNode[]>(DEFAULT_SITE_HIERARCHY);
   const [monitors, setMonitors] = useState<Monitor[]>(MONITORS_DATA);
+  const [desks, setDesks] = useState<DeskItem[]>(DESK_DATABASE);
   const [aftersalesCards, setAftersalesCards] = useState<NotionBoardCard[]>(NOTION_AFTERSALES_CARDS);
   const [copiedDiscord, setCopiedDiscord] = useState(false);
   const [copiedUrl, setCopiedUrl] = useState(false);
@@ -94,6 +97,9 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
 
         const loadedMonitors = await DatabaseService.getMonitors();
         if (loadedMonitors && loadedMonitors.length > 0) setMonitors(loadedMonitors);
+
+        const loadedDesks = await DatabaseService.getDesks();
+        if (loadedDesks && loadedDesks.length > 0) setDesks(loadedDesks);
       } catch (e) {
         console.error("Failed to load guide data", e);
       }
@@ -211,6 +217,13 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
     return false;
   });
 
+  const isDeskPage =
+    lastSlug === "desks" ||
+    firstSlug === "desks" ||
+    lastSlug === "rekomendasi-meja" ||
+    firstSlug === "rekomendasi-meja" ||
+    fullPath.includes("/catalog/desks");
+
   const isAftersalesPage =
     lastSlug.includes("aftersales") ||
     firstSlug.includes("aftersales") ||
@@ -236,7 +249,9 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
     lastSlug === "consultation" ||
     firstSlug === "consultation";
 
-  const pageTitle = isCatalogPage
+  const pageTitle = isDeskPage
+    ? "REKOMENDASI MEJA + KAKI (GRAYPLASMA)"
+    : isCatalogPage
     ? lastSlug === "1080p"
       ? "REKOMENDASI MONITOR 1080P (FHD BUDGET & ESPORT)"
       : lastSlug === "1440p"
@@ -377,7 +392,11 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
         {/* ========================================================================= */}
         {/* CASE 0: CATALOG RECOMMENDATION DATABASE TABLE WITH LEFT FILTERBAR         */}
         {/* ========================================================================= */}
-        {isCatalogPage ? (
+        {isDeskPage ? (
+          <div className="pt-2">
+            <DeskRecommendationsView desks={desks} />
+          </div>
+        ) : isCatalogPage ? (
           <div className="flex flex-col lg:flex-row gap-6 items-start pt-2">
             {/* Left Sidebar Filter Section */}
             <div className="w-full lg:w-72 xl:w-80 flex-shrink-0">

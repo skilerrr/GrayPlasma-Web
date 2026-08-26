@@ -166,7 +166,7 @@ export function DeskFormModal({
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[11px] text-zinc-400 block mb-1">Kategori</label>
+                  <label className="text-[11px] text-zinc-400 block mb-1">Kategori Utama</label>
                   <select
                     value={deskData.category}
                     onChange={(e) => setDeskData({ ...deskData, category: e.target.value as DeskItem["category"] })}
@@ -176,16 +176,47 @@ export function DeskFormModal({
                     <option value="Daun Meja">Daun Meja</option>
                     <option value="Meja Elektrik (Standing Desk)">Meja Elektrik (Standing Desk)</option>
                     <option value="Meja L-Shaped">Meja L-Shaped</option>
+                    <option value="Meja Nakas">Meja Nakas</option>
+                    <option value="Meja Lesehan">Meja Lesehan</option>
                   </select>
                 </div>
                 <div>
-                  <label className="text-[11px] text-zinc-400 block mb-1">Harga (Rp)</label>
+                  <label className="text-[11px] text-zinc-400 block mb-1">Bentuk Meja</label>
+                  <select
+                    value={deskData.type || "NON L SHAPED"}
+                    onChange={(e) => setDeskData({ ...deskData, type: e.target.value })}
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"
+                  >
+                    <option value="NON L SHAPED">NON L SHAPED</option>
+                    <option value="L SHAPED">L SHAPED</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-[11px] text-zinc-400 block mb-1">Kisaran Harga (Rp)</label>
                   <input
                     type="number"
                     value={deskData.price}
                     onChange={(e) => setDeskData({ ...deskData, price: Number(e.target.value) })}
                     className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white font-mono"
                     required
+                  />
+                </div>
+                <div>
+                  <label className="text-[11px] text-zinc-400 block mb-1">Keterangan Tag (Pisahkan Koma)</label>
+                  <input
+                    type="text"
+                    value={(deskData.keterangan || []).join(", ")}
+                    onChange={(e) =>
+                      setDeskData({
+                        ...deskData,
+                        keterangan: e.target.value.split(",").map((s) => s.trim()).filter(Boolean),
+                      })
+                    }
+                    placeholder="DAUN MEJA, KAKI MEJA HOLLOW"
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"
                   />
                 </div>
               </div>
@@ -234,12 +265,35 @@ export function DeskFormModal({
               </div>
 
               <div>
-                <label className="text-[11px] text-zinc-400 block mb-1">Catatan GrayPlasma</label>
+                <label className="text-[11px] text-zinc-400 block mb-1">
+                  Konten Markdown / Panduan Detail (Support Ctrl+V Paste Gambar)
+                </label>
                 <textarea
-                  rows={2}
-                  value={deskData.notes}
-                  onChange={(e) => setDeskData({ ...deskData, notes: e.target.value })}
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-2.5 text-xs text-white"
+                  rows={5}
+                  value={deskData.markdownContent || deskData.notes || ""}
+                  onChange={(e) =>
+                    setDeskData({
+                      ...deskData,
+                      markdownContent: e.target.value,
+                      notes: e.target.value,
+                    })
+                  }
+                  onPaste={async (e) => {
+                    const { handleClipboardImagePaste } = await import("@/lib/image-compressor");
+                    await handleClipboardImagePaste(e, {
+                      folder: "desks",
+                      onSuccess: (snippet) => {
+                        const target = e.currentTarget;
+                        const start = target.selectionStart || 0;
+                        const end = target.selectionEnd || 0;
+                        const curr = deskData.markdownContent || "";
+                        const updated = curr.substring(0, start) + snippet + curr.substring(end);
+                        setDeskData({ ...deskData, markdownContent: updated });
+                      },
+                    });
+                  }}
+                  placeholder="### Rincian & Link Komponen Meja...\n(Bisa langsung Ctrl+V paste gambar)"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-2.5 text-xs text-white font-mono leading-relaxed"
                 />
               </div>
             </>

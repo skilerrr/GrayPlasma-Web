@@ -654,24 +654,41 @@ export default function AdminDashboardPage() {
         {/* 2. DESKS CRUD TAB */}
         {activeTab === "desks" && (
           <div className="space-y-4">
-            <div className="flex items-center justify-between bg-surface-dark border border-zinc-800 rounded-2xl p-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-dark border border-zinc-800 rounded-2xl p-4">
               <div>
-                <h3 className="text-sm font-bold text-white">Daftar Meja Rekomendasi</h3>
-                <p className="text-xs text-zinc-400">Kelola katalog daun meja, standing desk, dan spesifikasi ketebalan.</p>
+                <h3 className="text-sm font-bold text-white">Daftar Meja Rekomendasi ({desks.length} Meja)</h3>
+                <p className="text-xs text-zinc-400">Kelola katalog daun meja, standing desk elektrik, meja nakas, dan spesifikasi ketebalan.</p>
               </div>
-              <Button
-                variant="cyber"
-                size="sm"
-                onClick={() => {
-                  setDeskModalType("desk");
-                  setSelectedDesk(null);
-                  setIsDeskModalOpen(true);
-                }}
-                className="text-xs font-bold"
-              >
-                <Plus className="w-4 h-4 mr-1" />
-                <span>Tambah Meja Baru</span>
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    if (confirm("Reset seluruh data meja ke 10 model rekomendasi bawaan Notion?")) {
+                      const res = DatabaseService.resetDesksToDefault();
+                      setDesks(res);
+                      showNotice("Database meja telah di-reset ke 10 model bawaan Notion.");
+                    }
+                  }}
+                  className="text-xs border-zinc-700"
+                >
+                  <RotateCcw className="w-3.5 h-3.5 mr-1" />
+                  <span>Reset 10 Meja</span>
+                </Button>
+                <Button
+                  variant="cyber"
+                  size="sm"
+                  onClick={() => {
+                    setDeskModalType("desk");
+                    setSelectedDesk(null);
+                    setIsDeskModalOpen(true);
+                  }}
+                  className="text-xs font-bold"
+                >
+                  <Plus className="w-4 h-4 mr-1" />
+                  <span>Tambah Meja Baru</span>
+                </Button>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

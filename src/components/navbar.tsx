@@ -222,6 +222,17 @@ export function Navbar({
                       <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/catalog/4k</span>
                     </div>
                   </Link>
+                  <Link
+                    href="/catalog/desks"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-amber-300 hover:text-white hover:bg-[#282828] transition-colors flex items-center justify-between group border-t border-[#2f2f2f] pt-2"
+                  >
+                    <div>
+                      <span className="block font-semibold">🪑 Rekomendasi Meja + Kaki</span>
+                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/catalog/desks</span>
+                    </div>
+                    <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-400 font-bold">10 Meja</span>
+                  </Link>
                 </div>
               )}
             </div>
@@ -317,6 +328,17 @@ export function Navbar({
                     <div>
                       <span className="block font-semibold">Bandwidth DP 1.4 vs HDMI 2.1</span>
                       <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/guide/display/bandwidth-dp-hdmi</span>
+                    </div>
+                  </Link>
+                  <Link
+                    href="/guide/setup/ukuran-meja-monitor-ideal"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-start gap-2 group"
+                  >
+                    <Ruler className="w-3.5 h-3.5 text-amber-400 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <span className="block font-semibold">Ukuran Meja & Monitor Ideal (24" / 27")</span>
+                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/guide/setup/ukuran-meja-monitor-ideal</span>
                     </div>
                   </Link>
                   <Link

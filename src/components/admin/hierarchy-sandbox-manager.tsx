@@ -424,14 +424,27 @@ Tulis penjelasan data pengetesan di sini dengan **format tebal**, \`kode\`, atau
                     >
                       <Quote className="w-3.5 h-3.5" />
                     </button>
-                    <button
-                      type="button"
-                      onClick={() => handleInsertMarkdownSnippet("![Deskripsi Gambar](https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop)")}
-                      className="px-1.5 py-0.5 rounded bg-[#203c2b] text-[#52ba69] hover:bg-[#203c2b]/80 text-[10px] font-bold"
-                      title="Insert Image"
-                    >
-                      + Gambar
-                    </button>
+                    <label className="px-2 py-1 rounded bg-[#203c2b] text-[#52ba69] hover:bg-[#203c2b]/80 text-[10px] font-bold cursor-pointer flex items-center gap-1 transition-all">
+                      <span>🖼️ Upload / Paste Gambar</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={async (e) => {
+                          const file = e.target.files?.[0];
+                          if (!file) return;
+                          showNotification("Mengompres & memproses gambar ke WebP...");
+                          try {
+                            const { uploadOrProcessImage } = await import("@/lib/image-compressor");
+                            const { url } = await uploadOrProcessImage(file, "articles");
+                            handleInsertMarkdownSnippet(`![Gambar](${url})`);
+                            showNotification("Gambar berhasil disisipkan ke artikel!");
+                          } catch (err: any) {
+                            showNotification("Gagal memproses gambar: " + err.message);
+                          }
+                        }}
+                      />
+                    </label>
                     <button
                       type="button"
                       onClick={() => handleInsertMarkdownSnippet("| Fitur | Status |\n|---|---|\n| Overdrive | Optimal |\n| Panel | IPS |")}
@@ -451,13 +464,35 @@ Tulis penjelasan data pengetesan di sini dengan **format tebal**, \`kode\`, atau
                   </div>
                 </div>
 
-                <textarea
-                  rows={14}
-                  value={formData.contentMarkdown}
-                  onChange={(e) => setFormData({ ...formData, contentMarkdown: e.target.value })}
-                  placeholder="## Heading 2\n\nTulis ulasan di sini..."
-                  className="w-full bg-[#121212] border border-[#2f2f2f] rounded-2xl p-4 text-[#e0e0e0] font-mono text-xs focus:outline-none focus:border-[#58a6ff] leading-relaxed shadow-inner"
-                />
+                <div className="relative">
+                  <textarea
+                    rows={14}
+                    value={formData.contentMarkdown}
+                    onChange={(e) => setFormData({ ...formData, contentMarkdown: e.target.value })}
+                    onPaste={async (e) => {
+                      const { handleClipboardImagePaste } = await import("@/lib/image-compressor");
+                      await handleClipboardImagePaste(e, {
+                        folder: "articles",
+                        onStart: () => showNotification("Memproses gambar clipboard (WebP)..."),
+                        onSuccess: (snippet) => {
+                          const target = e.currentTarget;
+                          const start = target.selectionStart || 0;
+                          const end = target.selectionEnd || 0;
+                          const currentText = formData.contentMarkdown || "";
+                          const updated = currentText.substring(0, start) + snippet + currentText.substring(end);
+                          setFormData({ ...formData, contentMarkdown: updated });
+                          showNotification("Gambar clipboard berhasil di-paste & disisipkan!");
+                        },
+                        onError: (err) => showNotification("Gagal paste gambar: " + (err.message || err))
+                      });
+                    }}
+                    placeholder="## Heading 2\n\nTulis ulasan di sini... (Bisa langsung Ctrl+V paste gambar screenshot / link)"
+                    className="w-full bg-[#121212] border border-[#2f2f2f] rounded-2xl p-4 text-[#e0e0e0] font-mono text-xs focus:outline-none focus:border-[#58a6ff] leading-relaxed shadow-inner"
+                  />
+                  <div className="absolute right-3 bottom-3 text-[10px] text-zinc-500 bg-black/60 px-2 py-0.5 rounded pointer-events-none">
+                    💡 Tips: Bisa langsung <kbd className="text-zinc-300 font-bold">Ctrl+V</kbd> paste gambar
+                  </div>
+                </div>
               </div>
 
               {/* Copy Details Summary Textarea */}

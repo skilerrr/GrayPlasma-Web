@@ -1,0 +1,516 @@
+"use client";
+
+import React, { useState } from "react";
+import Link from "next/link";
+import {
+  LayoutGrid,
+  ExternalLink,
+  ShoppingBag,
+  Ruler,
+  Info,
+  ChevronRight,
+  X,
+  Search,
+  SlidersHorizontal,
+  CheckCircle2,
+  AlertTriangle,
+  Plus,
+  Edit2,
+  Trash2,
+  ArrowRight,
+  Maximize2,
+  Sparkles,
+} from "lucide-react";
+import { DeskItem, DESK_DATABASE } from "@/data/grayplasma-desk-peripherals";
+import { formatRupiah } from "@/lib/utils";
+import { NotionBlockRenderer } from "@/components/notion-block-renderer";
+import { Button } from "@/components/ui/button";
+
+interface DeskRecommendationsViewProps {
+  desks?: DeskItem[];
+  isAdmin?: boolean;
+  onEditDesk?: (desk: DeskItem) => void;
+  onDeleteDesk?: (id: string) => void;
+  onAddDesk?: () => void;
+}
+
+export function DeskRecommendationsView({
+  desks = DESK_DATABASE,
+  isAdmin = false,
+  onEditDesk,
+  onDeleteDesk,
+  onAddDesk,
+}: DeskRecommendationsViewProps) {
+  const [selectedDesk, setSelectedDesk] = useState<DeskItem | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedShape, setSelectedShape] = useState<string>("all");
+
+  const categories = [
+    { id: "all", label: "Semua Meja" },
+    { id: "Daun Meja", label: "Daun Meja Saja" },
+    { id: "Meja Standar", label: "Meja Standar (Hollow)" },
+    { id: "Meja Elektrik (Standing Desk)", label: "Meja Elektrik (Standing)" },
+    { id: "Meja L-Shaped", label: "L-Shaped ($$$)" },
+    { id: "Meja Nakas", label: "Meja Nakas" },
+    { id: "Meja Lesehan", label: "Meja Lesehan" },
+  ];
+
+  const filteredDesks = desks.filter((desk) => {
+    const matchesSearch =
+      desk.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      desk.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      desk.keterangan?.some((k) => k.toLowerCase().includes(searchQuery.toLowerCase()));
+
+    const matchesCategory =
+      selectedCategory === "all" ||
+      desk.category === selectedCategory ||
+      desk.keterangan?.includes(selectedCategory.toUpperCase());
+
+    const matchesShape =
+      selectedShape === "all" ||
+      (selectedShape === "L SHAPED" && desk.type?.includes("L SHAPED") && !desk.type?.includes("NON")) ||
+      (selectedShape === "NON L SHAPED" && (desk.type?.includes("NON") || !desk.type?.includes("L SHAPED")));
+
+    return matchesSearch && matchesCategory && matchesShape;
+  });
+
+  const getTagColor = (tag: string) => {
+    const t = tag.toUpperCase();
+    if (t.includes("DAUN MEJA")) return "bg-[#3d2b1f] text-[#f59e0b] border-[#f59e0b]/30";
+    if (t.includes("HOLLOW")) return "bg-[#27272a] text-[#d4d4d8] border-zinc-700";
+    if (t.includes("ELEKTRIK")) return "bg-[#143322] text-[#34d399] border-[#34d399]/30";
+    if (t.includes("LACI") || t.includes("NAKAS")) return "bg-[#312e81] text-[#a5b4fc] border-[#a5b4fc]/30";
+    if (t.includes("TACOSHEET") || t.includes("PLYWOOD")) return "bg-[#3f2020] text-[#fca5a5] border-[#fca5a5]/30";
+    return "bg-[#1e293b] text-[#93c5fd] border-blue-500/30";
+  };
+
+  return (
+    <div className="space-y-6 animate-in fade-in duration-200">
+      {/* 1. NOTION-STYLE PAGE HEADER */}
+      <div className="bg-[#191919] border border-[#2f2f2f] rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-2 text-xs text-[#9b9a97] flex-wrap">
+          <span>🖥️</span>
+          <span>GRAYPLASMAID - REKOMENDASI MONITOR</span>
+          <span>/</span>
+          <span className="text-white font-medium">🪑 REKOMENDASI MEJA</span>
+        </div>
+
+        {/* Page Title & Intro */}
+        <div className="space-y-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
+            <LayoutGrid className="w-3.5 h-3.5" />
+            <span>SUB-PAGE REKOMENDASI MONITOR</span>
+          </div>
+
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+            REKOMENDASI MEJA + KAKI
+          </h1>
+
+          <p className="text-xs sm:text-sm text-[#9b9a97] leading-relaxed max-w-4xl">
+            Seperti biasa, mencari sebuah produk itu mudah, namun mencari produk yang ideal sesuai kebutuhan itu sulit, seperti Monitor, dan bahkan meja yang digunakan untuk meletakkan Monitor. Halaman ini akan membahas penting nya memilih meja yang ideal dan ukuran nya, biar pas ada monitor, nyaman dipakai, tidak terlalu dekat atau terlalu jauh dari sisi jarak pandang.
+          </p>
+        </div>
+
+        {/* Action Link to Guide Ukuran Ideal */}
+        <div className="pt-2 border-t border-[#2f2f2f] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <Link
+            href="/guide/setup/ukuran-meja-monitor-ideal"
+            className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500/20 hover:border-amber-400 transition-all font-bold text-xs sm:text-sm group shadow-sm"
+          >
+            <Ruler className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
+            <span>📐 UKURAN MEJA DAN MONITOR YANG IDEAL</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </Link>
+
+          {isAdmin && onAddDesk && (
+            <Button
+              onClick={onAddDesk}
+              className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold gap-2 px-4 py-2 rounded-xl"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Tambah Meja Baru</span>
+            </Button>
+          )}
+        </div>
+      </div>
+
+      {/* 2. FILTER & SEARCH BAR */}
+      <div className="space-y-3 bg-[#191919] border border-[#2f2f2f] rounded-2xl p-4 shadow-lg">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          {/* Search Box */}
+          <div className="relative flex-1">
+            <Search className="w-4 h-4 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Cari nama toko, daun meja, hollow, elektrik, nakas..."
+              className="w-full bg-[#121212] border border-[#2f2f2f] rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder:text-zinc-600 focus:outline-none focus:border-emerald-500"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
+
+          {/* Shape Selector */}
+          <div className="flex items-center gap-1.5 bg-[#121212] p-1 rounded-xl border border-[#2f2f2f] text-xs">
+            <button
+              onClick={() => setSelectedShape("all")}
+              className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
+                selectedShape === "all" ? "bg-zinc-800 text-white" : "text-zinc-400 hover:text-zinc-200"
+              }`}
+            >
+              Semua Bentuk
+            </button>
+            <button
+              onClick={() => setSelectedShape("NON L SHAPED")}
+              className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
+                selectedShape === "NON L SHAPED" ? "bg-zinc-800 text-cyan-400" : "text-zinc-400 hover:text-zinc-200"
+              }`}
+            >
+              Non L-Shaped
+            </button>
+            <button
+              onClick={() => setSelectedShape("L SHAPED")}
+              className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
+                selectedShape === "L SHAPED" ? "bg-zinc-800 text-purple-400" : "text-zinc-400 hover:text-zinc-200"
+              }`}
+            >
+              L-Shaped
+            </button>
+          </div>
+        </div>
+
+        {/* Category Pills */}
+        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-2 border-t border-[#2f2f2f]/60">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setSelectedCategory(cat.id)}
+              className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                selectedCategory === cat.id
+                  ? "bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 shadow-sm"
+                  : "bg-[#202020] border border-[#2f2f2f] text-zinc-400 hover:text-white hover:bg-[#282828]"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* 3. NOTION-STYLE DATABASE TABLE */}
+      <div className="relative rounded-2xl border border-[#2f2f2f] bg-[#191919] overflow-hidden shadow-2xl">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs border-collapse min-w-[950px]">
+            <thead className="bg-[#1e1e1e] text-[#9b9a97] uppercase text-[11px] font-bold tracking-wider border-b border-[#2f2f2f] select-none sticky top-0 z-20">
+              <tr>
+                <th className="py-3 px-4 min-w-[240px] text-white flex items-center gap-1.5">
+                  <span>Aa</span>
+                  <span>NAMA TOKO / MEJA</span>
+                </th>
+                <th className="py-3 px-3 min-w-[220px]">
+                  <span>:= KETERANGAN</span>
+                </th>
+                <th className="py-3 px-3 min-w-[150px]">
+                  <span>⏱ L SHAPED ATAU NON L SHAPED</span>
+                </th>
+                <th className="py-3 px-3 min-w-[180px]">
+                  <span>🎯 CATATAN</span>
+                </th>
+                <th className="py-3 px-4 min-w-[140px] text-right font-mono text-emerald-400">
+                  <span># KISARAN HARGA</span>
+                </th>
+                <th className="py-3 px-3 text-center min-w-[120px]">AKSI / DETAIL</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#262626]">
+              {filteredDesks.map((desk, idx) => (
+                <tr
+                  key={desk.id || idx}
+                  onClick={() => setSelectedDesk(desk)}
+                  className={`group cursor-pointer hover:bg-[#222222] transition-colors ${
+                    idx % 2 === 0 ? "bg-[#191919]" : "bg-[#1c1c1c]"
+                  }`}
+                >
+                  {/* Nama Toko / Meja */}
+                  <td className="py-3.5 px-4 font-semibold text-white">
+                    <div className="flex items-center gap-2.5">
+                      <span className="text-base text-zinc-400 group-hover:text-emerald-400 transition-colors">
+                        📄
+                      </span>
+                      <span className="underline-offset-4 group-hover:underline font-bold text-sm">
+                        {desk.name}
+                      </span>
+                    </div>
+                  </td>
+
+                  {/* Keterangan Tags */}
+                  <td className="py-3.5 px-3">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      {(desk.keterangan && desk.keterangan.length > 0
+                        ? desk.keterangan
+                        : [desk.category]
+                      ).map((tag, tIdx) => (
+                        <span
+                          key={tIdx}
+                          className={`px-2 py-0.5 rounded text-[10px] font-bold border uppercase tracking-wider ${getTagColor(
+                            tag
+                          )}`}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </td>
+
+                  {/* L Shaped vs Non L-Shaped */}
+                  <td className="py-3.5 px-3">
+                    <span
+                      className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
+                        desk.type?.includes("NON") || !desk.type?.includes("L SHAPED")
+                          ? "bg-[#202020] text-zinc-300 border border-zinc-700"
+                          : "bg-[#3b1a45] text-purple-300 border border-purple-500/40"
+                      }`}
+                    >
+                      {desk.type || "NON L SHAPED"}
+                    </span>
+                  </td>
+
+                  {/* Catatan Badge */}
+                  <td className="py-3.5 px-3">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#143322] text-[#34d399] border border-[#34d399]/40 uppercase tracking-wider inline-flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#34d399] animate-pulse" />
+                      <span>{desk.catatanBadge || "ADA (DISARANKAN MEMBACA NYA)"}</span>
+                    </span>
+                  </td>
+
+                  {/* Kisaran Harga */}
+                  <td className="py-3.5 px-4 text-right font-mono font-bold text-xs text-emerald-400">
+                    {desk.price > 0 ? `IDR ${desk.price.toLocaleString("id-ID")}` : "IDR 0 (Custom)"}
+                  </td>
+
+                  {/* Action */}
+                  <td className="py-3.5 px-3 text-center" onClick={(e) => e.stopPropagation()}>
+                    <div className="flex items-center justify-center gap-2">
+                      <button
+                        onClick={() => setSelectedDesk(desk)}
+                        className="px-2.5 py-1 rounded-lg bg-[#262626] hover:bg-emerald-500/20 text-zinc-300 hover:text-emerald-400 text-[11px] font-semibold transition-colors flex items-center gap-1"
+                        title="Buka Catatan Lengkap"
+                      >
+                        <span>Buka</span>
+                        <ChevronRight className="w-3 h-3" />
+                      </button>
+
+                      {desk.shopeeUrl && (
+                        <a
+                          href={desk.shopeeUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 text-xs transition-colors"
+                          title="Beli di Shopee"
+                        >
+                          <ShoppingBag className="w-3.5 h-3.5" />
+                        </a>
+                      )}
+
+                      {isAdmin && onEditDesk && (
+                        <button
+                          onClick={() => onEditDesk(desk)}
+                          className="p-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs"
+                          title="Edit Meja"
+                        >
+                          <Edit2 className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                      {isAdmin && onDeleteDesk && (
+                        <button
+                          onClick={() => onDeleteDesk(desk.id)}
+                          className="p-1 rounded-lg bg-red-950/60 hover:bg-red-900/80 text-red-400 text-xs"
+                          title="Hapus Meja"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {filteredDesks.length === 0 && (
+          <div className="p-12 text-center space-y-2">
+            <Info className="w-8 h-8 text-zinc-600 mx-auto" />
+            <p className="text-sm text-zinc-400 font-medium">Tidak ada data meja yang sesuai dengan filter.</p>
+          </div>
+        )}
+      </div>
+
+      {/* 4. NOTION-STYLE SIDE PANEL DRAWER FOR DESK DETAILS */}
+      {selectedDesk && (
+        <div
+          className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex justify-end animate-in fade-in duration-200"
+          onClick={() => setSelectedDesk(null)}
+        >
+          <div
+            className="w-full max-w-2xl bg-[#191919] border-l border-[#2f2f2f] h-full overflow-y-auto shadow-2xl flex flex-col animate-in slide-in-from-right duration-300"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Drawer Top Header */}
+            <div className="sticky top-0 z-20 bg-[#191919]/95 backdrop-blur-md px-6 py-4 border-b border-[#2f2f2f] flex items-center justify-between">
+              <div className="flex items-center gap-2 text-xs text-[#9b9a97]">
+                <span>🪑</span>
+                <span className="truncate max-w-[280px] font-bold text-white uppercase tracking-tight">
+                  {selectedDesk.name}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                {selectedDesk.shopeeUrl && (
+                  <a
+                    href={selectedDesk.shopeeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-400 text-xs font-bold transition-all shadow-sm"
+                  >
+                    <ShoppingBag className="w-3.5 h-3.5" />
+                    <span>Beli di Shopee</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                )}
+                <button
+                  onClick={() => setSelectedDesk(null)}
+                  className="p-1.5 rounded-xl bg-[#202020] hover:bg-[#282828] text-zinc-400 hover:text-white transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Drawer Content */}
+            <div className="p-6 sm:p-8 space-y-6 flex-1">
+              {/* Title & Page Icon */}
+              <div className="space-y-3">
+                <div className="text-4xl">📄</div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                  {selectedDesk.name}
+                </h2>
+              </div>
+
+              {/* Notion-style Properties Table */}
+              <div className="space-y-2.5 p-4 rounded-2xl bg-[#202020] border border-[#2f2f2f] text-xs">
+                {/* L Shaped */}
+                <div className="grid grid-cols-3 gap-2 items-center">
+                  <span className="text-[#9b9a97] flex items-center gap-1.5">
+                    <span>⏱</span>
+                    <span>L SHAPED ATAU NON...</span>
+                  </span>
+                  <div className="col-span-2">
+                    <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-[#262626] text-white border border-zinc-700">
+                      {selectedDesk.type || "NON L SHAPED"}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Catatan Status */}
+                <div className="grid grid-cols-3 gap-2 items-center">
+                  <span className="text-[#9b9a97] flex items-center gap-1.5">
+                    <span>🎯</span>
+                    <span>CATATAN</span>
+                  </span>
+                  <div className="col-span-2">
+                    <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-[#143322] text-[#34d399] border border-[#34d399]/40">
+                      {selectedDesk.catatanBadge || "ADA (DISARANKAN MEMBACA NYA)"}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Keterangan */}
+                <div className="grid grid-cols-3 gap-2 items-start">
+                  <span className="text-[#9b9a97] flex items-center gap-1.5 pt-1">
+                    <span>:=</span>
+                    <span>KETERANGAN</span>
+                  </span>
+                  <div className="col-span-2 flex flex-wrap gap-1.5">
+                    {(selectedDesk.keterangan || [selectedDesk.category]).map((tag, idx) => (
+                      <span
+                        key={idx}
+                        className={`px-2 py-0.5 rounded text-[10px] font-bold border uppercase tracking-wider ${getTagColor(
+                          tag
+                        )}`}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Kisaran Harga */}
+                <div className="grid grid-cols-3 gap-2 items-center">
+                  <span className="text-[#9b9a97] flex items-center gap-1.5">
+                    <span>#</span>
+                    <span>KISARAN HARGA</span>
+                  </span>
+                  <div className="col-span-2 font-mono font-bold text-emerald-400 text-sm">
+                    {selectedDesk.price > 0 ? `IDR ${selectedDesk.price.toLocaleString("id-ID")}` : "Custom"}
+                  </div>
+                </div>
+
+                {/* Specs quick info */}
+                {selectedDesk.specs && (
+                  <div className="grid grid-cols-3 gap-2 items-center pt-2 border-t border-[#2f2f2f]">
+                    <span className="text-[#9b9a97]">DIMENSI / BAHAN</span>
+                    <div className="col-span-2 text-zinc-300 font-mono text-[11px]">
+                      {selectedDesk.specs.dimensions} • {selectedDesk.specs.material} (Tebal: {selectedDesk.specs.thickness})
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Render Full Rich Markdown Content */}
+              <div className="p-6 sm:p-8 rounded-2xl bg-[#202020] border border-[#2f2f2f] space-y-4">
+                {selectedDesk.markdownContent ? (
+                  <NotionBlockRenderer content={selectedDesk.markdownContent} />
+                ) : (
+                  <div className="space-y-4 text-xs text-zinc-300 leading-relaxed">
+                    <p className="font-semibold text-white">{selectedDesk.description}</p>
+                    {selectedDesk.notes && (
+                      <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300">
+                        <span className="font-bold block mb-1">Catatan GrayPlasma:</span>
+                        <span>{selectedDesk.notes}</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* Bottom Quick Jump to Ideal Size Guide */}
+              <div className="p-4 rounded-2xl bg-[#202020] border border-[#2f2f2f] flex items-center justify-between gap-4">
+                <div>
+                  <span className="text-xs font-bold text-white block">Bingung memilih ukuran meja?</span>
+                  <span className="text-[11px] text-zinc-400 block">
+                    Cek panduan ukuran meja 24" vs 27" dengan PC di atas vs bawah meja.
+                  </span>
+                </div>
+                <Link
+                  href="/guide/setup/ukuran-meja-monitor-ideal"
+                  className="px-3 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 hover:bg-emerald-500/30 text-xs font-bold whitespace-nowrap transition-all"
+                >
+                  Buka Panduan Ukuran →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

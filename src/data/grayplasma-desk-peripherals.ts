@@ -3,11 +3,14 @@ import { formatRupiah } from "@/lib/utils";
 export interface DeskItem {
   id: string;
   name: string;
-  category: "Daun Meja" | "Meja Standar" | "Meja Elektrik (Standing Desk)" | "Meja L-Shaped";
+  category: "Daun Meja" | "Meja Standar" | "Meja Elektrik (Standing Desk)" | "Meja L-Shaped" | "Meja Nakas" | "Meja Lesehan";
+  keterangan: string[];
   price: number;
-  type: string;
+  type: string; // "NON L SHAPED" | "L SHAPED"
+  catatanBadge?: string; // "ADA (DISARANKAN MEMBACA NYA)"
   description: string;
   notes: string;
+  markdownContent?: string;
   shopeeUrl: string;
   specs: {
     material: string;
@@ -20,122 +23,487 @@ export interface DeskItem {
 export interface PeripheralItem {
   id: string;
   name: string;
-  category: "Monitor Arm / Bracket" | "Screenbar / Lampu Monitor" | "Mousepad / Deskmat" | "Cable Management" | "Audio & Aksesoris" | "Kabel HDMI / DP";
+  category: string;
   price: number;
   brand: string;
-  type?: string;
+  type: string;
   versionDetail?: string;
-  warranty?: string;
+  warranty: string;
   verdict: string;
   notes: string;
-  shopeeUrl: string;
+  shopeeUrl?: string;
   tokopediaUrl?: string;
   tiktokUrl?: string;
-  recommendedFor: string;
+  recommendedFor?: string;
 }
 
 export interface ConsultationResultItem {
   id: string;
-  title: string;
-  budget: number;
-  specs: string;
-  needs: string;
-  recommendations: string[];
+  clientName: string;
+  consultationDate: string;
+  gpuOrDevice: string;
+  budget: string;
+  useCase: string;
+  chosenMonitor: string;
+  verdictHighlight: string;
+  reviewLink?: string;
 }
 
 export const GIMMICK_MEJA_GAMING_CONTENT = {
-  title: "GIMMICK 'MEJA GAMING' & PANDUAN MEMILIH MEJA BENAR",
-  subtitle: "Hindari membeli meja tipis berstiker karbon yang mudah melengkung dan tidak kuat dijepit monitor arm!",
-  poinPenting: [
-    "Meja Gaming Murah (< Rp 700.000) umumnya menggunakan bahan Particle Board / Serbuk Kayu tipis (1.2cm - 1.5cm) yang sangat rapuh. Ketika dipasang Monitor Arm Gas Spring jepit, daun meja berisiko jebol/patah.",
-    "Bentuk lekukan 'Ergonomic Curve' di depan meja gaming justru memakan ruang keyboard dan mousepad, serta membuat posisi pergelangan tangan tidak natural.",
-    "Pilihlah daun meja berbahan Plywood (Multiplek) tebal minimal 2.5cm - 3cm atau Kayu Solid dengan rangka kaki besi hollow minimal 4x4cm.",
-    "Jika budget terbatas (< Rp 700.000), opsi terbaik adalah membeli Daun Meja Plywood custom + Kaki Meja Besi Hollow secara terpisah."
+  title: "MENGAPA HINDARI MEJA GAMING BERBENTUK KOTAK RACING DENGAN KETEBALAN < 1.5 CM?",
+  contentMarkdown: `# HINDARI MEJA GAMING TIPIS (< 1.5 CM) UNTUK BRACKET MONITOR ARM
+
+> Standar Meja Kokoh GrayPlasma: Minimal Multiplek / Plywood 18-24mm Tahan Clamp Arm Gas-Spring
+
+1. **Risiko Meja Jebol/Melengkung:** Meja gaming particle board murah (MDF tipis 12-15mm) sangat rentan retak saat dijepit monitor arm gas-spring (seperti North Bayou F80/H100/F100A).
+2. **Gunakan Daun Meja Plywood HPL / Kayu Solid:** Lebih tahan air, tahan panas, dan kuat menahan beban 2-3 monitor sekaligus.
+3. **Gunakan Plat Protektor Bracket (Oximus EV-06 / Steel Plate):** Menyebarkan titik tekanan clamp pada permukaan meja.`
+};
+
+export interface IdealSizeItem {
+  id: string;
+  monitorSize: string; // e.g. "24 INCH" | "24 INCH (DUAL 24 INCH)" | "27 INCH" | "27 INCH (DUAL 24 / 27 INCH)"
+  deviceSetup: string; // e.g. "1 MONITOR, PC (DIBAWAH MEJA)"
+  minDeskSize: string; // e.g. "120 × 60"
+  idealDeskSize: string; // e.g. "120 × 70"
+  shape: "NON - L SHAPED" | "L SHAPED";
+}
+
+export const IDEAL_DESK_MONITOR_SIZES: {
+  size24: IdealSizeItem[];
+  size27: IdealSizeItem[];
+} = {
+  size24: [
+    {
+      id: "size24-1",
+      monitorSize: "24 INCH",
+      deviceSetup: "1 MONITOR, PC (DIBAWAH MEJA)",
+      minDeskSize: "120 × 60 cm",
+      idealDeskSize: "120 × 70 cm",
+      shape: "NON - L SHAPED"
+    },
+    {
+      id: "size24-2",
+      monitorSize: "24 INCH",
+      deviceSetup: "1 MONITOR, PC (DI ATAS MEJA)",
+      minDeskSize: "120 × 60 cm",
+      idealDeskSize: "140 × 70 cm",
+      shape: "NON - L SHAPED"
+    },
+    {
+      id: "size24-3",
+      monitorSize: "24 INCH",
+      deviceSetup: "1 MONITOR, LAPTOP",
+      minDeskSize: "120 × 60 cm",
+      idealDeskSize: "140 × 70 cm",
+      shape: "NON - L SHAPED"
+    },
+    {
+      id: "size24-4",
+      monitorSize: "24 INCH (DUAL 24 INCH)",
+      deviceSetup: "2 MONITOR, LAPTOP",
+      minDeskSize: "140 × 60 cm",
+      idealDeskSize: "160 × 70 cm",
+      shape: "NON - L SHAPED"
+    },
+    {
+      id: "size24-5",
+      monitorSize: "24 INCH (DUAL 24 INCH)",
+      deviceSetup: "2 MONITOR, PC (DIBAWAH MEJA)",
+      minDeskSize: "120 × 60 cm",
+      idealDeskSize: "140 × 70 cm",
+      shape: "NON - L SHAPED"
+    },
+    {
+      id: "size24-6",
+      monitorSize: "24 INCH (DUAL 24 INCH)",
+      deviceSetup: "2 MONITOR, PC (DI ATAS MEJA)",
+      minDeskSize: "140 × 60 cm",
+      idealDeskSize: "160 × 70 cm",
+      shape: "NON - L SHAPED"
+    }
+  ],
+  size27: [
+    {
+      id: "size27-1",
+      monitorSize: "27 INCH",
+      deviceSetup: "1 MONITOR, PC (DIBAWAH MEJA)",
+      minDeskSize: "120 × 70 cm",
+      idealDeskSize: "140 × 70 cm",
+      shape: "NON - L SHAPED"
+    },
+    {
+      id: "size27-2",
+      monitorSize: "27 INCH",
+      deviceSetup: "1 MONITOR, PC (DI ATAS MEJA)",
+      minDeskSize: "140 × 70 cm",
+      idealDeskSize: "140 × 70 cm",
+      shape: "NON - L SHAPED"
+    },
+    {
+      id: "size27-3",
+      monitorSize: "27 INCH",
+      deviceSetup: "1 MONITOR, LAPTOP",
+      minDeskSize: "140 × 70 cm",
+      idealDeskSize: "140 × 70 cm",
+      shape: "NON - L SHAPED"
+    },
+    {
+      id: "size27-4",
+      monitorSize: "27 INCH (DUAL 24 / 27 INCH)",
+      deviceSetup: "2 MONITOR, PC (DI ATAS MEJA)",
+      minDeskSize: "140 × 70 cm",
+      idealDeskSize: "160 × 70 cm",
+      shape: "NON - L SHAPED"
+    },
+    {
+      id: "size27-5",
+      monitorSize: "27 INCH (DUAL 24 / 27 INCH)",
+      deviceSetup: "2 MONITOR, PC (DIBAWAH MEJA)",
+      minDeskSize: "140 × 70 cm",
+      idealDeskSize: "160 × 70 cm",
+      shape: "NON - L SHAPED"
+    },
+    {
+      id: "size27-6",
+      monitorSize: "27 INCH (DUAL 24 / 27 INCH)",
+      deviceSetup: "2 MONITOR, LAPTOP",
+      minDeskSize: "140 × 70 cm",
+      idealDeskSize: "160 × 70 cm",
+      shape: "NON - L SHAPED"
+    }
   ]
 };
 
 export const DESK_DATABASE: DeskItem[] = [
   {
-    id: "desk-1",
-    name: "Daun Meja Custom Plywood / Multiplek Solid",
+    id: "desk-daun-meja-saja",
+    name: "DAUN MEJA SAJA",
     category: "Daun Meja",
+    keterangan: ["DAUN MEJA"],
     price: 700000,
-    type: "NON L-SHAPED (Custom Size)",
-    description: "Daun meja multiplek tebal 3cm dengan finishing HPL anti gores & anti air. Sangat kuat dijepit monitor arm dual monitor.",
-    notes: "Rekomendasi terbaik jika ingin merakit meja custom kuat tanpa takut jebol oleh clamp bracket.",
+    type: "NON L SHAPED",
+    catatanBadge: "ADA (DISARANKAN MEMBACA NYA)",
+    description: "Daun meja multiplek solid custom pilihan (Woody Star HPL / Tacosheet / Kayu Mahoni).",
+    notes: "Minimum requirement meja yang ideal dipakaikan bracket jepit (Oximus P100E atau P200E).",
+    markdownContent: `### Untuk Ukuran 120-140 x 60-70 cm (Tanpa Laci)
+
+#### Catatan Penting:
+- **INI ADALAH MINIMUM REQUIREMENT MEJA YANG IDEAL DIPAKAIKAN BRACKET JEPIT (Oximus P100E atau P200E)**
+- Buat Daun meja (Kecuali FJL Jati), saran langsung pakai **laminating HPL**, karena dari segi bahan lebih tebal dan kokoh dibanding Tacosheet *(Tacosheet masih oke, tapi kurang tahan panas ketika ada cangkir berisi air panas di atas daun meja).*
+- Untuk daun meja woodystar, jika ingin 70-80 cm dari sisi lebar, disarankan chat seller terlebih dahulu untuk request ukuran custom.
+
+---
+
+#### Pilihan Daun Meja Rekomendasi:
+1. **Daun Meja Tipe Plywood HPL (Woody Star)**: [Buka Link Shopee](https://s.shopee.co.id/9KeR1yvvAu)
+2. **(ATAU) Tipe Plywood Tacosheet (Woody Star)**: [Buka Link Shopee](https://s.shopee.co.id/7pqQX2E2Sf) *(Pilih ketebalan 3 cm)*
+3. **(ATAU) Daun Meja Kayu Mahoni (Hiasan Dinding 89)**: [Buka Link Shopee](https://s.shopee.co.id/BRe7qnpkU) *(Pilih lebar 60 cm atau lebih, request custom panjang 140 cm)*`,
     shopeeUrl: "https://s.shopee.co.id/9KeR1yvvAu",
     specs: {
-      material: "Multiplek / Plywood Grade A + HPL Taco",
-      thickness: "3.0 cm (Sangat Tebal & Kuat)",
+      material: "Plywood HPL / Kayu Mahoni / Tacosheet 3cm",
+      thickness: "3.0 cm (Kuat Jepit Arm)",
       armSupport: true,
-      dimensions: "120x60cm / 140x70cm / 160x80cm"
+      dimensions: "120-140 x 60-70 cm"
     }
   },
   {
-    id: "desk-2",
-    name: "Meja Standar Kaki Hollow Besi 4x4 (Tanpa Laci)",
+    id: "desk-meja-standar-1",
+    name: "MEJA STANDAR 1 (TANPA LACI)",
     category: "Meja Standar",
-    price: 750000,
-    type: "NON L-SHAPED",
-    description: "Meja minimalis rangka besi hollow galvanis kokoh dengan daun meja multiplek tebal 2.5cm.",
-    notes: "Kokoh, tidak goyang saat mengetik atau menggerakkan mouse secara agresif.",
+    keterangan: ["DAUN MEJA", "KAKI MEJA HOLLOW"],
+    price: 700000,
+    type: "NON L SHAPED",
+    catatanBadge: "ADA (DISARANKAN MEMBACA NYA)",
+    description: "Kombinasi daun meja custom solid + Kaki Meja Hollow Model V (Burhan Las).",
+    notes: "Disarankan mengambil tinggi kaki 70 cm dan beli 2 pcs (karena harga per 1 pcs).",
+    markdownContent: `### Untuk Ukuran 120-140 x 60-70 cm (Tanpa Laci)
+
+#### Catatan Penting:
+- **INI ADALAH MINIMUM REQUIREMENT MEJA YANG IDEAL DIPAKAIKAN BRACKET JEPIT (Oximus P100E atau P200E)**
+- Buat Daun meja (Kecuali FJL Jati), saran langsung pakai **laminating HPL** agar tahan panas dan kokoh.
+- Disarankan kaki meja mengambil tinggi 70 cm, dan lebar menyesuaikan daun meja.
+- Harga Kaki meja yang tertera adalah 1 pcs, bukan sepasang, jadi wajib beli 2 pcs.
+- *Catatan kestabilan:* Daun meja 160 x 70 dengan kaki ini agak goyang jika tidak disenderkan ke dinding. Jika ingin daun 160cm, pilih Meja Standar 2.
+
+---
+
+#### Komponen Pembelian:
+- **Daun Meja Plywood HPL (Woody Star)**: [Buka Link Shopee](https://s.shopee.co.id/9KeR1yvvAu)
+- **(ATAU) Tipe Plywood Tacosheet 3cm**: [Buka Link Shopee](https://s.shopee.co.id/7pqQX2E2Sf)
+- **(ATAU) Daun Kayu Mahoni**: [Buka Link Shopee](https://s.shopee.co.id/BRe7qnpkU)
+- **+ Kaki Meja Model V (Burhan Las)**: [Buka Link Shopee](https://s.shopee.co.id/LjkxfO137)
+
+**Estimasi Budget:** Rp 600.000 – Rp 800.000`,
     shopeeUrl: "https://s.shopee.co.id/9KeR1yvvAu",
     specs: {
-      material: "Rangka Besi Hollow 4x4 + Daun Plywood",
-      thickness: "2.5 cm",
-      armSupport: true,
-      dimensions: "120 x 60 x 75 cm"
-    }
-  },
-  {
-    id: "desk-3",
-    name: "Meja Minimalis Heavy Duty 140x70",
-    category: "Meja Standar",
-    price: 950000,
-    type: "NON L-SHAPED",
-    description: "Meja kedalaman 70cm ideal untuk monitor 27 inci s/d 32 inci dengan ruang keyboard leluasa.",
-    notes: "Kedalaman 70cm adalah sweetspot terbaik untuk jarak pandang monitor 2K / 4K.",
-    shopeeUrl: "https://s.shopee.co.id/9KeR1yvvAu",
-    specs: {
-      material: "Rangka Besi Kotak + Plywood HPL",
+      material: "Plywood HPL + Kaki Besi Hollow Model V",
       thickness: "3.0 cm",
       armSupport: true,
-      dimensions: "140 x 70 x 75 cm"
+      dimensions: "120-140 x 60-70 cm"
     }
   },
   {
-    id: "desk-4",
-    name: "Meja Elektrik Standing Desk Single Motor",
-    category: "Meja Elektrik (Standing Desk)",
-    price: 2499000,
-    type: "Adjustable Height (70cm - 118cm)",
-    description: "Meja hidrolik elektrik dengan memory preset tinggi duduk & berdiri. Mencegah sakit pinggang.",
-    notes: "Mampu menahan beban hingga 80kg (1-2 monitor + PC + audio speaker).",
-    shopeeUrl: "https://s.shopee.co.id/9KeR1yvvAu",
+    id: "desk-meja-standar-2",
+    name: "MEJA STANDAR 2 (TANPA LACI)",
+    category: "Meja Standar",
+    keterangan: ["DAUN MEJA", "KAKI MEJA HOLLOW"],
+    price: 1000000,
+    type: "NON L SHAPED",
+    catatanBadge: "ADA (DISARANKAN MEMBACA NYA)",
+    description: "Kombinasi Daun Meja HPL / FJL Jati + Kaki Meja T Kokoh Heavy Duty dari Segaris.ID.",
+    notes: "Sangat stabil untuk daun meja 140cm s/d 160cm. Kurangi 20cm dari ukuran daun meja untuk kaki meja.",
+    markdownContent: `### Untuk Ukuran 120-160 x 60-70 cm
+
+#### Catatan Penting:
+- Untuk daun meja ukuran 160 cm, ambil tipe kaki meja ukuran 140 cm.
+- Untuk daun meja 140 cm, pilih tipe kaki meja 120 cm. Daun meja 120 cm pilih kaki meja 100 cm *(kurangi 20 cm dari ukuran daun meja).*
+- Buat Daun meja disarankan memakai laminating HPL atau **FJL Kayu Jati** (Finishing tebal 3-4 cm).
+- *Catatan pemasangan FJL Jati:* Wajib menggunakan bor listrik saat memasang baut karena kayunya sangat padat dan keras.
+
+---
+
+#### Komponen Pembelian:
+- **Daun Meja Plywood HPL (Woody Star)**: [Buka Link Shopee](https://s.shopee.co.id/9KeR1yvvAu)
+- **(ATAU) FJL Kayu Jati (Rumah Kayu Official, 3-4cm finishing)**: [Buka Link Shopee](https://s.shopee.co.id/Lkkyktg5m)
+- **(ATAU) Daun Kayu Mahoni (Hiasan Dinding 89)**: [Buka Link Shopee](https://s.shopee.co.id/BRe7qnpkU)
+- **+ Kaki Meja T (Segaris.ID, Pre-Order)**: [Buka Link Shopee](https://s.shopee.co.id/6L1y6fOp6m)
+
+**Estimasi Budget:** Rp 900.000 – Rp 1.200.000`,
+    shopeeUrl: "https://s.shopee.co.id/4LGBJg6u69",
     specs: {
-      material: "Steel Frame Motorized + Solid Top",
+      material: "Multiplek HPL / FJL Jati + Rangka Besi T Segaris",
+      thickness: "3.0 - 4.0 cm",
+      armSupport: true,
+      dimensions: "120-160 x 60-70 cm"
+    }
+  },
+  {
+    id: "desk-meja-elektrik-1",
+    name: "MEJA ELEKTRIK 1",
+    category: "Meja Elektrik (Standing Desk)",
+    keterangan: ["DAUN MEJA", "KAKI MEJA ELEKTRIK"],
+    price: 1700000,
+    type: "NON L SHAPED",
+    catatanBadge: "ADA (DISARANKAN MEMBACA NYA)",
+    description: "Paket Meja Elektrik Single Motor XPANSE 1 Set (Daun Meja + Kaki Elektrik).",
+    notes: "Pilih ukuran 140x60 dengan opsi kayu Upgrade agar lebih tebal saat dijepit arm.",
+    markdownContent: `### Meja Elektrik Single Motor 1 Set (XPANSE)
+
+*Jika ingin 1 set lengkap (Daun Meja + Kaki Meja tanpa link terpisah)*
+
+#### Catatan Penting:
+- **Pilih ukuran 140 x 60 cm**, karena ukuran di bawah itu cukup tanggung untuk setup PC/Laptop + Monitor.
+- Untuk kayu, **wajib pilih opsi UPGRADE** karena bahannya lebih tebal dan kokoh dibanding varian standar.
+- Jika ingin memasang bracket monitor arm jepit tipe Oximus P100e atau sejenisnya, disarankan memakai adapter penguat **EV06**: [Link Shopee EV06](https://s.shopee.co.id/6L3ShUvFyA)
+
+---
+
+#### Link Pembelian:
+- **Daun Meja + Kaki Meja Single Motor XPANSE**: [Buka Link Shopee](https://s.shopee.co.id/3qKZPDHDG7)
+
+**Estimasi Budget:** Rp 1.500.000 – Rp 1.800.000`,
+    shopeeUrl: "https://s.shopee.co.id/2g8Ksj9qMQ",
+    specs: {
+      material: "Steel Motorized Frame + Top Upgrade",
       thickness: "2.5 cm",
       armSupport: true,
-      dimensions: "120 x 60 cm"
+      dimensions: "140 x 60 x 70-118 cm"
     }
   },
   {
-    id: "desk-5",
-    name: "Meja Elektrik Dual Motor Heavy Duty 160x80",
+    id: "desk-meja-elektrik-2",
+    name: "MEJA ELEKTRIK 2",
     category: "Meja Elektrik (Standing Desk)",
-    price: 3899000,
-    type: "Dual Motor Ultra Smooth",
-    description: "Standing desk dual motor dengan beban maksimal 120kg, anti-collision sensor, dan 4 memory height presets.",
-    notes: "Pilihan flagship para kreator dan programmer setup multi-monitor.",
-    shopeeUrl: "https://s.shopee.co.id/9KeR1yvvAu",
+    keterangan: ["DAUN MEJA", "KAKI MEJA ELEKTRIK"],
+    price: 1700000,
+    type: "NON L SHAPED",
+    catatanBadge: "ADA (DISARANKAN MEMBACA NYA)",
+    description: "Custom Racikan: Daun Meja HPL/Jati + Kaki Elektrik Oxihom T1 (Kaki Only).",
+    notes: "Solusi bagi yang ingin standing desk kokoh tanpa daun meja MDF bawaan yang rentan jebol.",
+    markdownContent: `### Custom Standing Desk (Kaki Oxihom T1 + Daun Custom Plywood HPL / FJL Jati)
+
+*Jika skeptis dengan kualitas daun meja bundle bawaan pabrik (MDF)*
+
+#### Catatan Penting:
+- Daun meja bundle bawaan Oxihom T1 berbahan MDF (serbuk kayu press) yang kurang kuat menahan tekanan clamp bracket monitor arm.
+- Menggunakan Daun Meja Custom Plywood HPL tebal 3cm atau FJL Jati 3-4cm memberikan ketahanan maksimal seumur hidup.
+- Untuk FJL Jati, gunakan bor saat pemasangan skrup rangka kaki.
+
+---
+
+#### Komponen Pembelian:
+- **Daun Meja Plywood HPL (Woody Star, 140-160cm)**: [Buka Link Shopee](https://s.shopee.co.id/9KeR1yvvAu)
+- **(ATAU) FJL Kayu Jati 3-4cm (Rumah Kayu Official)**: [Buka Link Shopee](https://s.shopee.co.id/Lkkyktg5m)
+- **(ATAU) Daun Kayu Mahoni (Hiasan Dinding 89)**: [Buka Link Shopee](https://s.shopee.co.id/BRe7qnpkU)
+- **+ Kaki Meja Oxihom T1 (Tipe Kaki Only - Hitam/Putih)**: [Buka Link Shopee](https://s.shopee.co.id/70J9UCjAJT)
+
+**Estimasi Budget:** Rp 1.500.000 – Rp 1.800.000`,
+    shopeeUrl: "https://s.shopee.co.id/2g8Ksj9qMQ",
     specs: {
-      material: "Dual Motor Steel Frame + Daun 160x80cm",
-      thickness: "3.0 cm",
+      material: "Plywood HPL / FJL Jati 3cm + Kaki Motor Oxihom T1",
+      thickness: "3.0 - 4.0 cm",
       armSupport: true,
-      dimensions: "160 x 80 x 65-125 cm"
+      dimensions: "140-160 x 60-70 cm"
+    }
+  },
+  {
+    id: "desk-meja-elektrik-3",
+    name: "MEJA ELEKTRIK 3",
+    category: "Meja Elektrik (Standing Desk)",
+    keterangan: ["DAUN MEJA", "KAKI MEJA ELEKTRIK"],
+    price: 3000000,
+    type: "NON L SHAPED",
+    catatanBadge: "ADA (DISARANKAN MEMBACA NYA)",
+    description: "Standing Desk Dual Motor Flagship Oxihom FL40 + Daun Meja 140x70 / 160x80.",
+    notes: "Pilihan paling kokoh, dual motor sangat stabil, garansi resmi 2 tahun, beban hingga 120kg.",
+    markdownContent: `### Meja Elektrik Dual Motor Oxihom FL40 + Daun Meja 140-180 cm
+
+*Setup impian kreator & power-user: Dual Motor Ultra Smooth dengan kapasitas beban tinggi*
+
+#### Catatan Penting:
+- Ukuran minimal daun meja ideal adalah **140 x 70 cm** dan maksimal **180 x 80 cm**.
+- Kaki meja **Oxihom FL40 (Dual Motor)** memiliki sertifikasi garansi 2 tahun dan sangat stabil di ketinggian maksimal tanpa goyang.
+- Telah diuji dan direkomendasikan langsung oleh member Discord GTID.
+
+---
+
+#### Komponen Pembelian:
+- **Daun Meja Plywood HPL (Woody Star)**: [Buka Link Shopee](https://s.shopee.co.id/9KeR1yvvAu)
+- **(ATAU) FJL Kayu Jati (Rumah Kayu Official, 3-4cm tebal)**: [Buka Link Shopee](https://s.shopee.co.id/Lkkyktg5m)
+- **(ATAU) Daun Kayu Mahoni 150cm**: [Buka Link Shopee](https://s.shopee.co.id/BRe7qnpkU)
+- **+ Kaki Meja Dual Motor Oxihom FL40 (Garansi 2 Tahun)**: [Buka Link Shopee](https://s.shopee.co.id/5L9NC8l84j)
+
+**Testimoni Discord:**
+[Lihat Review Member Discord GTID](https://discord.com/channels/856570745726566411/1417101046479847565/1473011994402488582)`,
+    shopeeUrl: "https://s.shopee.co.id/LjkxfO137",
+    specs: {
+      material: "Oxihom FL40 Dual Motor + Plywood HPL / FJL Jati",
+      thickness: "3.0 - 4.0 cm",
+      armSupport: true,
+      dimensions: "140-180 x 70-80 cm"
+    }
+  },
+  {
+    id: "desk-meja-elektrik-4-lshaped",
+    name: "MEJA ELEKTRIK 4 (L SHAPED, $$$)",
+    category: "Meja L-Shaped",
+    keterangan: ["DAUN MEJA", "KAKI MEJA ELEKTRIK"],
+    price: 8900000,
+    type: "L SHAPED",
+    catatanBadge: "ADA (DISARANKAN MEMBACA NYA)",
+    description: "UDESK PRO MAX Triple Motor Standing Desk L-Shaped (Garansi 3 Tahun).",
+    notes: "Setup sudut L-Shaped kelas premium dengan 3 motor penggerak dan kapasitas beban hingga 180kg.",
+    markdownContent: `### UDESK PRO MAX (TRIPLE MOTOR, 3 YEARS WARRANTY)
+
+*Setup sudut L-Shaped terbaik untuk produktivitas multi-monitor tanpa kompromi*
+
+#### Denah & Dimensi Daun Meja:
+Karena bentuknya L-Shaped, ukuran daun meja cukup kompleks dan disarankan memesan custom ke pengrajin kayu solid (Rumah Kayu Official).
+
+#### Komponen Pembelian:
+- **Daun Meja L-Shaped FJL Kayu Jati (Rumah Kayu Official)**:
+  *(Pilih ketebalan 3-4 cm dan sudah finishing. Chat seller untuk deal harga sesuai denah daun meja L-Shaped)*
+  [Buka Link Shopee Kayu](https://s.shopee.co.id/Lkkyktg5m)
+- **+ Kaki Meja UDesk Pro Max (Triple Motor)**:
+  [Buka Link Shopee UDesk](https://s.shopee.co.id/1LfBwolxd0)`,
+    shopeeUrl: "https://s.shopee.co.id/1LfBwolxd0",
+    specs: {
+      material: "UDesk Triple Motor Frame + FJL Jati L-Shape",
+      thickness: "3.5 cm",
+      armSupport: true,
+      dimensions: "Custom L-Shaped (160-200 x 120-140 cm)"
+    }
+  },
+  {
+    id: "desk-meja-nakas-1",
+    name: "MEJA NAKAS 1",
+    category: "Meja Nakas",
+    keterangan: ["MEJA + LACI (NAKAS)", "PLYWOOD (TACOSHEET)"],
+    price: 1250000,
+    type: "NON L-SHAPED",
+    catatanBadge: "ADA (DISARANKAN MEMBACA NYA)",
+    description: "Meja kerja dengan laci nakas penyimpanan terintegrasi ukuran 160-180 x 70 cm.",
+    notes: "Laminating Tacosheet, disarankan hindari meletakkan cangkir air panas langsung tanpa tatakan.",
+    markdownContent: `### Meja Kerja dengan Laci Nakas (Galaxy Furniture Jepara)
+
+*Ukuran 160 – 180 cm x 70 cm*
+
+#### Catatan:
+- Laminating meja masih menggunakan **TACOSHEET**, jadi disarankan selalu gunakan coaster / tatakan cangkir saat meletakkan minuman panas di atas meja agar lapisan tidak bergelombang.
+
+---
+
+#### Link Pembelian:
+- **Meja Nakas Galaxy Furniture Jepara**: [Buka Link Shopee](https://s.shopee.co.id/8pjMXZTOMv)`,
+    shopeeUrl: "https://s.shopee.co.id/9UyFYcSz4d",
+    specs: {
+      material: "Plywood Tacosheet + Drawer Nakas",
+      thickness: "2.5 cm",
+      armSupport: true,
+      dimensions: "160-180 x 70 x 75 cm"
+    }
+  },
+  {
+    id: "desk-meja-nakas-2",
+    name: "MEJA NAKAS 2 (UKURAN BESAR, TBC)",
+    category: "Meja Nakas",
+    keterangan: ["MEJA + LACI (NAKAS)", "PLYWOOD (TACOSHEET)"],
+    price: 1650000,
+    type: "NON L-SHAPED",
+    catatanBadge: "ADA (DISARANKAN MEMBACA NYA)",
+    description: "Meja Nakas Panjang 180-200 cm x lebar 60-70 cm untuk setup ekstra lega.",
+    notes: "Pilih lebar minimal 60cm, jika ingin 70cm silakan chat seller untuk penyesuaian harga.",
+    markdownContent: `### Meja Nakas Ukuran Besar (Galaxy Furniture Jepara)
+
+*Ukuran 180 – 200 x 60 cm*
+
+#### Catatan:
+- Pilih ukuran lebar minimal 60 cm *(di bawah 60 cm terlalu sempit untuk meletakkan monitor dan keyboard).*
+- Jika ingin lebar meja 70 cm, disarankan chat seller terlebih dahulu untuk kesepakatan harga custom.
+
+---
+
+#### Link Pembelian:
+- **Ukuran 200 x 60 cm (Galaxy Furniture Jepara)**: [Buka Link Shopee](https://s.shopee.co.id/3VjeYBMsj6)`,
+    shopeeUrl: "https://s.shopee.co.id/3VjeYBMsj6",
+    specs: {
+      material: "Plywood Tacosheet + Nakas Besar",
+      thickness: "2.5 cm",
+      armSupport: true,
+      dimensions: "180-200 x 60-70 x 75 cm"
+    }
+  },
+  {
+    id: "desk-meja-lesehan-1",
+    name: "MEJA LESEHAN 1",
+    category: "Meja Lesehan",
+    keterangan: ["MEJA + LACI (NAKAS)", "KAKI MEJA HOLLOW"],
+    price: 450000,
+    type: "NON L-SHAPED",
+    catatanBadge: "ADA (DISARANKAN MEMBACA NYA)",
+    description: "Meja kerja lesehan minimalis ukuran 120 x 60 cm dengan pilihan tinggi 32cm atau 45cm.",
+    notes: "Tidak disarankan memakai Bracket Jepit karena kaki kecil dan berisiko jatuh.",
+    markdownContent: `### Meja Kerja Lesehan 120 x 60 cm
+
+#### Catatan:
+- **Peringatan Bracket:** Tidak disarankan menggunakan Bracket Monitor Arm Jepit pada meja lesehan ini karena diameter kaki meja yang kecil dan terdapat risiko kestabilan/jatuh.
+
+---
+
+#### Link Pembelian:
+- **Pilihan Tinggi 32 cm**: [Buka Link Shopee](https://s.shopee.co.id/4fvOPqdRau)
+- **Pilihan Tinggi 45 cm**: [Buka Link Shopee](https://s.shopee.co.id/2gAK2LFwNZ)`,
+    shopeeUrl: "https://s.shopee.co.id/4fvOPqdRau",
+    specs: {
+      material: "Plywood + Kaki Hollow Lesehan",
+      thickness: "2.0 cm",
+      armSupport: false,
+      dimensions: "120 x 60 x 32/45 cm"
     }
   }
 ];
+
 
 export const PERIPHERALS_DATABASE: PeripheralItem[] = [
   {

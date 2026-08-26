@@ -169,6 +169,11 @@ export class DatabaseService {
     return current;
   }
 
+  static resetDesksToDefault(): DeskItem[] {
+    setLocalData(STORAGE_KEYS.DESKS, DESK_DATABASE);
+    return DESK_DATABASE;
+  }
+
   // ==========================================
   // 3. PERIPHERALS CRUD
   // ==========================================
@@ -492,10 +497,13 @@ CREATE TABLE IF NOT EXISTS public.desks (
   id TEXT PRIMARY KEY,
   name TEXT,
   category TEXT,
+  keterangan JSONB,
   price NUMERIC,
   type TEXT,
+  "catatanBadge" TEXT,
   description TEXT,
   notes TEXT,
+  "markdownContent" TEXT,
   "shopeeUrl" TEXT,
   specs JSONB,
   created_at TIMESTAMPTZ DEFAULT NOW()

@@ -1,0 +1,2416 @@
+{
+  "result": {
+    "type": "reducer",
+    "reducerResults": {
+      "collection_group_results": {
+        "type": "results",
+        "blockIds": [
+          "3c154d70-2c62-80d6-ae02-c42191262bb7",
+          "34f54d70-2c62-8063-ae6d-ec759681d75f",
+          "35f54d70-2c62-8018-876e-d42d746c2141",
+          "35e54d70-2c62-8046-bb27-c90941ecd8b9",
+          "38254d70-2c62-804a-955c-cd263415c16a",
+          "34f54d70-2c62-8061-9536-dabd2db13c8b",
+          "3bb54d70-2c62-8072-8c33-eae578067246",
+          "35e54d70-2c62-8098-99ef-c447054966b0",
+          "3b654d70-2c62-80c0-bb72-fc471faf8b7a",
+          "3bb54d70-2c62-80d2-b51d-c9ab7f289b23"
+        ],
+        "hasMore": false
+      }
+    },
+    "sizeHint": 10
+  },
+  "recordMap": {
+    "__version__": 3,
+    "block": {
+      "3c154d70-2c62-80d6-ae02-c42191262bb7": {
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+        "value": {
+          "value": {
+            "id": "3c154d70-2c62-80d6-ae02-c42191262bb7",
+            "version": 70,
+            "type": "page",
+            "properties": {
+              "AQpZ": [
+                [
+                  "ADA (DISARANKAN MEMBACA NYA)"
+                ]
+              ],
+              "Tbgs": [
+                [
+                  "700000"
+                ]
+              ],
+              "gxGr": [
+                [
+                  "https://s.shopee.co.id/9KeR1yvvAu",
+                  [
+                    [
+                      "a",
+                      "https://s.shopee.co.id/9KeR1yvvAu"
+                    ]
+                  ]
+                ]
+              ],
+              "ksKk": [
+                [
+                  "NON L SHAPED"
+                ]
+              ],
+              "xKK;": [
+                [
+                  "DAUN MEJA"
+                ]
+              ],
+              "title": [
+                [
+                  "DAUN MEJA SAJA"
+                ]
+              ]
+            },
+            "content": [
+              "3c154d70-2c62-8090-9513-cbdc7cad36b8",
+              "3c154d70-2c62-80c1-b51e-db1fafaf91b1"
+            ],
+            "format": {
+              "copied_from_pointer": {
+                "id": "34f54d70-2c62-8063-ae6d-ec759681d75f",
+                "table": "block",
+                "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+              },
+              "social_media_image_preview_url": "attachment:638dc9c3-89ba-4eec-b67e-ebe05a45c3c4:SocialMediaPreviewImage.png"
+            },
+            "created_time": 1787116978811,
+            "last_edited_time": 1787117024397,
+            "parent_id": "34f54d70-2c62-80ce-86ba-000bc329a852",
+            "parent_table": "collection",
+            "alive": true,
+            "copied_from": "34f54d70-2c62-8063-ae6d-ec759681d75f",
+            "file_ids": [
+              "638dc9c3-89ba-4eec-b67e-ebe05a45c3c4"
+            ],
+            "created_by_table": "notion_user",
+            "created_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "last_edited_by_table": "notion_user",
+            "last_edited_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "space_id": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+            "crdt_format_version": 1,
+            "crdt_data": {
+              "title": {
+                "r": "Xp7FIPqf2fFZ5F9Fu7xepw,\"start\",\"end\"",
+                "n": {
+                  "Xp7FIPqf2fFZ5F9Fu7xepw,\"start\",\"end\"": {
+                    "s": {
+                      "x": "Xp7FIPqf2fFZ5F9Fu7xepw",
+                      "i": [
+                        {
+                          "t": "s"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "eR3VTecLlRmj",
+                            64
+                          ],
+                          "o": "start",
+                          "l": 14,
+                          "c": "DAUN MEJA SAJA"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "eR3VTecLlRmj",
+                            59
+                          ],
+                          "o": "start",
+                          "l": -5
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "eR3VTecLlRmj",
+                            28
+                          ],
+                          "o": "start",
+                          "l": -31
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "PjFkt077nbt2",
+                            1
+                          ],
+                          "o": "start",
+                          "l": -27
+                        },
+                        {
+                          "t": "e"
+                        }
+                      ],
+                      "l": ""
+                    },
+                    "c": []
+                  }
+                }
+              }
+            }
+          },
+          "role": "reader"
+        }
+      },
+      "34f54d70-2c62-8063-ae6d-ec759681d75f": {
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+        "value": {
+          "value": {
+            "id": "34f54d70-2c62-8063-ae6d-ec759681d75f",
+            "version": 184,
+            "type": "page",
+            "properties": {
+              "AQpZ": [
+                [
+                  "ADA (DISARANKAN MEMBACA NYA)"
+                ]
+              ],
+              "Tbgs": [
+                [
+                  "700000"
+                ]
+              ],
+              "gxGr": [
+                [
+                  "https://s.shopee.co.id/9KeR1yvvAu",
+                  [
+                    [
+                      "a",
+                      "https://s.shopee.co.id/9KeR1yvvAu"
+                    ]
+                  ]
+                ]
+              ],
+              "ksKk": [
+                [
+                  "NON L SHAPED"
+                ]
+              ],
+              "xKK;": [
+                [
+                  "DAUN MEJA,KAKI MEJA HOLLOW"
+                ]
+              ],
+              "title": [
+                [
+                  "MEJA STANDAR 1 (TANPA LACI)"
+                ]
+              ]
+            },
+            "content": [
+              "34f54d70-2c62-809a-9d65-d0774e0d8129",
+              "37b54d70-2c62-8028-b27b-f23eee2588da"
+            ],
+            "format": {
+              "social_media_image_preview_url": "attachment:eef91dbe-8a01-4868-a02f-a6fb06f786d5:SocialMediaPreviewImage.png"
+            },
+            "created_time": 1777272381526,
+            "last_edited_time": 1786115702075,
+            "parent_id": "34f54d70-2c62-80ce-86ba-000bc329a852",
+            "parent_table": "collection",
+            "alive": true,
+            "file_ids": [
+              "a9a79613-2c67-4776-8a7b-e4647fae23d7",
+              "eef91dbe-8a01-4868-a02f-a6fb06f786d5"
+            ],
+            "created_by_table": "notion_user",
+            "created_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "last_edited_by_table": "notion_user",
+            "last_edited_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "space_id": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+            "crdt_format_version": 1,
+            "crdt_data": {
+              "title": {
+                "r": "P8rHTW-aii_KoCdwtqZuNA,\"start\",\"end\"",
+                "n": {
+                  "P8rHTW-aii_KoCdwtqZuNA,\"start\",\"end\"": {
+                    "s": {
+                      "x": "P8rHTW-aii_KoCdwtqZuNA",
+                      "i": [
+                        {
+                          "t": "s"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "hE0SlqfyRSqi",
+                            11
+                          ],
+                          "o": "start",
+                          "l": 13,
+                          "c": "MEJA STANDAR "
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "hE0SlqfyRSqi",
+                            25
+                          ],
+                          "o": [
+                            "hE0SlqfyRSqi",
+                            23
+                          ],
+                          "l": 3,
+                          "c": "1 ("
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "hE0SlqfyRSqi",
+                            29
+                          ],
+                          "o": [
+                            "hE0SlqfyRSqi",
+                            27
+                          ],
+                          "l": 11,
+                          "c": "TANPA LACI)"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "hE0SlqfyRSqi",
+                            28
+                          ],
+                          "o": [
+                            "hE0SlqfyRSqi",
+                            27
+                          ],
+                          "l": -1
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "hE0SlqfyRSqi",
+                            24
+                          ],
+                          "o": [
+                            "hE0SlqfyRSqi",
+                            23
+                          ],
+                          "l": -1
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "TcqKwC6dteua",
+                            1
+                          ],
+                          "o": "start",
+                          "l": -10
+                        },
+                        {
+                          "t": "e"
+                        }
+                      ],
+                      "l": ""
+                    },
+                    "c": []
+                  }
+                }
+              }
+            }
+          },
+          "role": "reader"
+        }
+      },
+      "35f54d70-2c62-8018-876e-d42d746c2141": {
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+        "value": {
+          "value": {
+            "id": "35f54d70-2c62-8018-876e-d42d746c2141",
+            "version": 160,
+            "type": "page",
+            "properties": {
+              "AQpZ": [
+                [
+                  "ADA (DISARANKAN MEMBACA NYA)"
+                ]
+              ],
+              "Tbgs": [
+                [
+                  "1000000"
+                ]
+              ],
+              "gxGr": [
+                [
+                  "https://s.shopee.co.id/4LGBJg6u69",
+                  [
+                    [
+                      "a",
+                      "https://s.shopee.co.id/4LGBJg6u69"
+                    ]
+                  ]
+                ]
+              ],
+              "ksKk": [
+                [
+                  "NON L SHAPED"
+                ]
+              ],
+              "xKK;": [
+                [
+                  "DAUN MEJA,KAKI MEJA HOLLOW"
+                ]
+              ],
+              "title": [
+                [
+                  "MEJA STANDAR 2 (TANPA LACI)"
+                ]
+              ]
+            },
+            "content": [
+              "35f54d70-2c62-806b-b606-d926a7091bc2",
+              "35f54d70-2c62-80e5-ae68-da9e26d680ae"
+            ],
+            "format": {
+              "social_media_image_preview_url": "attachment:d120f336-5144-44f4-8e48-40a2f3f14fab:SocialMediaPreviewImage.png"
+            },
+            "created_time": 1778693909686,
+            "last_edited_time": 1787492278119,
+            "parent_id": "34f54d70-2c62-80ce-86ba-000bc329a852",
+            "parent_table": "collection",
+            "alive": true,
+            "file_ids": [
+              "d120f336-5144-44f4-8e48-40a2f3f14fab"
+            ],
+            "created_by_table": "notion_user",
+            "created_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "last_edited_by_table": "notion_user",
+            "last_edited_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "space_id": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+            "crdt_format_version": 1,
+            "crdt_data": {
+              "title": {
+                "r": "-307Gq8XlgKpgRI9yjosHg,\"start\",\"end\"",
+                "n": {
+                  "-307Gq8XlgKpgRI9yjosHg,\"start\",\"end\"": {
+                    "s": {
+                      "x": "-307Gq8XlgKpgRI9yjosHg",
+                      "i": [
+                        {
+                          "t": "s"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "hE0SlqfyRSqi",
+                            11
+                          ],
+                          "o": "start",
+                          "l": 27,
+                          "c": "MEJA STANDAR 2 (TANPA LACI)"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "Da5ro9zPPEiI",
+                            1
+                          ],
+                          "o": "start",
+                          "l": -10
+                        },
+                        {
+                          "t": "e"
+                        }
+                      ],
+                      "l": ""
+                    },
+                    "c": []
+                  }
+                }
+              }
+            }
+          },
+          "role": "reader"
+        }
+      },
+      "35e54d70-2c62-8046-bb27-c90941ecd8b9": {
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+        "value": {
+          "value": {
+            "id": "35e54d70-2c62-8046-bb27-c90941ecd8b9",
+            "version": 115,
+            "type": "page",
+            "properties": {
+              "AQpZ": [
+                [
+                  "ADA (DISARANKAN MEMBACA NYA)"
+                ]
+              ],
+              "Tbgs": [
+                [
+                  "1700000"
+                ]
+              ],
+              "gxGr": [
+                [
+                  "https://s.shopee.co.id/2g8Ksj9qMQ",
+                  [
+                    [
+                      "a",
+                      "https://s.shopee.co.id/2g8Ksj9qMQ"
+                    ]
+                  ]
+                ]
+              ],
+              "ksKk": [
+                [
+                  "NON L SHAPED"
+                ]
+              ],
+              "xKK;": [
+                [
+                  "DAUN MEJA,KAKI MEJA ELEKTRIK"
+                ]
+              ],
+              "title": [
+                [
+                  "MEJA ELEKTRIK 1"
+                ]
+              ]
+            },
+            "content": [
+              "37b54d70-2c62-8093-aadb-fa31861e899d",
+              "38c54d70-2c62-803d-a646-dbd672180e98",
+              "38c54d70-2c62-807c-8e45-d1bf6f4f819f",
+              "38c54d70-2c62-804d-b882-c3ee64180eab",
+              "3b554d70-2c62-8055-b7c1-f56981c7615c",
+              "3b554d70-2c62-80f7-8897-d68179bed4b1"
+            ],
+            "format": {
+              "social_media_image_preview_url": "attachment:7d15d938-f154-489d-a697-01a706aed30a:SocialMediaPreviewImage.png"
+            },
+            "created_time": 1778590610615,
+            "last_edited_time": 1786115220036,
+            "parent_id": "34f54d70-2c62-80ce-86ba-000bc329a852",
+            "parent_table": "collection",
+            "alive": true,
+            "file_ids": [
+              "7d15d938-f154-489d-a697-01a706aed30a"
+            ],
+            "created_by_table": "notion_user",
+            "created_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "last_edited_by_table": "notion_user",
+            "last_edited_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "space_id": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+            "crdt_format_version": 1,
+            "crdt_data": {
+              "title": {
+                "r": "lf6GqPzEbPKszqLf0lWjnA,\"start\",\"end\"",
+                "n": {
+                  "lf6GqPzEbPKszqLf0lWjnA,\"start\",\"end\"": {
+                    "s": {
+                      "x": "lf6GqPzEbPKszqLf0lWjnA",
+                      "i": [
+                        {
+                          "t": "s"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "hE0SlqfyRSqi",
+                            20
+                          ],
+                          "o": "start",
+                          "l": 15,
+                          "c": "MEJA ELEKTRIK 1"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "hYOjd5MN1PDF",
+                            1
+                          ],
+                          "o": "start",
+                          "l": -19
+                        },
+                        {
+                          "t": "e"
+                        }
+                      ],
+                      "l": ""
+                    },
+                    "c": []
+                  }
+                }
+              }
+            }
+          },
+          "role": "reader"
+        }
+      },
+      "38254d70-2c62-804a-955c-cd263415c16a": {
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+        "value": {
+          "value": {
+            "id": "38254d70-2c62-804a-955c-cd263415c16a",
+            "version": 54,
+            "type": "page",
+            "properties": {
+              "AQpZ": [
+                [
+                  "ADA (DISARANKAN MEMBACA NYA)"
+                ]
+              ],
+              "Tbgs": [
+                [
+                  "1700000"
+                ]
+              ],
+              "gxGr": [
+                [
+                  "https://s.shopee.co.id/2g8Ksj9qMQ",
+                  [
+                    [
+                      "a",
+                      "https://s.shopee.co.id/2g8Ksj9qMQ"
+                    ]
+                  ]
+                ]
+              ],
+              "ksKk": [
+                [
+                  "NON L SHAPED"
+                ]
+              ],
+              "xKK;": [
+                [
+                  "DAUN MEJA,KAKI MEJA ELEKTRIK"
+                ]
+              ],
+              "title": [
+                [
+                  "MEJA ELEKTRIK 2"
+                ]
+              ]
+            },
+            "content": [
+              "38254d70-2c62-80bf-8d8d-fa2216fa7a3e",
+              "38254d70-2c62-805b-99fa-eb72c688b742"
+            ],
+            "format": {
+              "copied_from_pointer": {
+                "id": "35e54d70-2c62-8046-bb27-c90941ecd8b9",
+                "table": "block",
+                "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+              },
+              "social_media_image_preview_url": "attachment:7d15d938-f154-489d-a697-01a706aed30a:SocialMediaPreviewImage.png"
+            },
+            "created_time": 1781694650389,
+            "last_edited_time": 1787638280243,
+            "parent_id": "34f54d70-2c62-80ce-86ba-000bc329a852",
+            "parent_table": "collection",
+            "alive": true,
+            "copied_from": "35e54d70-2c62-8046-bb27-c90941ecd8b9",
+            "created_by_table": "notion_user",
+            "created_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "last_edited_by_table": "notion_user",
+            "last_edited_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "space_id": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+            "crdt_format_version": 1,
+            "crdt_data": {
+              "title": {
+                "r": "iNuEbne5i9IK7I8auf-Ztw,\"start\",\"end\"",
+                "n": {
+                  "iNuEbne5i9IK7I8auf-Ztw,\"start\",\"end\"": {
+                    "s": {
+                      "x": "iNuEbne5i9IK7I8auf-Ztw",
+                      "i": [
+                        {
+                          "t": "s"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "FHQpvJPswMJZ",
+                            16
+                          ],
+                          "o": "start",
+                          "l": 14,
+                          "c": "MEJA ELEKTRIK "
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "FHQpvJPswMJZ",
+                            35
+                          ],
+                          "o": [
+                            "FHQpvJPswMJZ",
+                            29
+                          ],
+                          "l": 1,
+                          "c": "2"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "FHQpvJPswMJZ",
+                            30
+                          ],
+                          "o": [
+                            "FHQpvJPswMJZ",
+                            29
+                          ],
+                          "l": -5
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "ecYwedA1uOnm",
+                            1
+                          ],
+                          "o": "start",
+                          "l": -15
+                        },
+                        {
+                          "t": "e"
+                        }
+                      ],
+                      "l": ""
+                    },
+                    "c": []
+                  }
+                }
+              }
+            }
+          },
+          "role": "reader"
+        }
+      },
+      "34f54d70-2c62-8061-9536-dabd2db13c8b": {
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+        "value": {
+          "value": {
+            "id": "34f54d70-2c62-8061-9536-dabd2db13c8b",
+            "version": 150,
+            "type": "page",
+            "properties": {
+              "AQpZ": [
+                [
+                  "ADA (DISARANKAN MEMBACA NYA)"
+                ]
+              ],
+              "Tbgs": [
+                [
+                  "3000000"
+                ]
+              ],
+              "gxGr": [
+                [
+                  "https://s.shopee.co.id/LjkxfO137",
+                  [
+                    [
+                      "a",
+                      "https://s.shopee.co.id/LjkxfO137"
+                    ]
+                  ]
+                ]
+              ],
+              "ksKk": [
+                [
+                  "NON L SHAPED"
+                ]
+              ],
+              "xKK;": [
+                [
+                  "DAUN MEJA,KAKI MEJA ELEKTRIK"
+                ]
+              ],
+              "title": [
+                [
+                  "MEJA ELEKTRIK 3"
+                ]
+              ]
+            },
+            "content": [
+              "37b54d70-2c62-80c9-9de6-cf139ee53c2e",
+              "3c454d70-2c62-8045-9a83-ee9dd642bcd2",
+              "35454d70-2c62-801f-a8e1-c98397221563",
+              "38454d70-2c62-80b3-92d4-c15d3e3e3fbf",
+              "39c54d70-2c62-806e-8530-d52eef7df9fa",
+              "37b54d70-2c62-8087-86c2-c709de9eeb85",
+              "37b54d70-2c62-805c-9a73-cd34bd711a03",
+              "38254d70-2c62-80cf-b2f6-df6992c11941",
+              "35454d70-2c62-8043-a7ad-f2471cd008c1",
+              "35754d70-2c62-8030-ae86-c9099019e1f7"
+            ],
+            "format": {
+              "social_media_image_preview_url": "attachment:76c2d5b9-b2c3-47d8-87bd-93a40d9768fb:SocialMediaPreviewImage.png"
+            },
+            "created_time": 1777272659223,
+            "last_edited_time": 1787388773034,
+            "parent_id": "34f54d70-2c62-80ce-86ba-000bc329a852",
+            "parent_table": "collection",
+            "alive": true,
+            "file_ids": [
+              "d262a9b7-b437-48fb-8faa-7ecfe7bd6f7d",
+              "5dd18529-6345-4e0f-8c57-af9f26908e9f",
+              "7ca4c7fc-2010-4fda-bc34-d5f98b40dba3",
+              "b8efbaf9-a826-45a1-8ce1-4febcac17a45",
+              "76c2d5b9-b2c3-47d8-87bd-93a40d9768fb"
+            ],
+            "created_by_table": "notion_user",
+            "created_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "last_edited_by_table": "notion_user",
+            "last_edited_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "space_id": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+            "crdt_format_version": 1,
+            "crdt_data": {
+              "title": {
+                "r": "sHlWvD5jLFMsZVO5KrqkWA,\"start\",\"end\"",
+                "n": {
+                  "sHlWvD5jLFMsZVO5KrqkWA,\"start\",\"end\"": {
+                    "s": {
+                      "x": "sHlWvD5jLFMsZVO5KrqkWA",
+                      "i": [
+                        {
+                          "t": "s"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "hE0SlqfyRSqi",
+                            11
+                          ],
+                          "o": "start",
+                          "l": 14,
+                          "c": "MEJA ELEKTRIK "
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "FHQpvJPswMJZ",
+                            26
+                          ],
+                          "o": [
+                            "hE0SlqfyRSqi",
+                            24
+                          ],
+                          "l": 1,
+                          "c": "3"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "hE0SlqfyRSqi",
+                            25
+                          ],
+                          "o": [
+                            "hE0SlqfyRSqi",
+                            24
+                          ],
+                          "l": -1
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "ASFo3_F6L0-b",
+                            1
+                          ],
+                          "o": "start",
+                          "l": -10
+                        },
+                        {
+                          "t": "e"
+                        }
+                      ],
+                      "l": ""
+                    },
+                    "c": []
+                  }
+                }
+              }
+            }
+          },
+          "role": "reader"
+        }
+      },
+      "3bb54d70-2c62-8072-8c33-eae578067246": {
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+        "value": {
+          "value": {
+            "id": "3bb54d70-2c62-8072-8c33-eae578067246",
+            "version": 204,
+            "type": "page",
+            "properties": {
+              "AQpZ": [
+                [
+                  "ADA (DISARANKAN MEMBACA NYA)"
+                ]
+              ],
+              "Tbgs": [
+                [
+                  "8900000"
+                ]
+              ],
+              "ksKk": [
+                [
+                  "L SHAPED"
+                ]
+              ],
+              "xKK;": [
+                [
+                  "DAUN MEJA,KAKI MEJA ELEKTRIK"
+                ]
+              ],
+              "title": [
+                [
+                  "MEJA ELEKTRIK 4 (L SHAPED, $$$)"
+                ]
+              ]
+            },
+            "content": [
+              "3c554d70-2c62-80ff-96dd-e827180c7bc7",
+              "3c554d70-2c62-800f-a45f-f914555275fa",
+              "3c554d70-2c62-8007-b9f4-ea9eaab2f734",
+              "3c554d70-2c62-804f-bc89-edc05b8fd06c",
+              "3c554d70-2c62-80fc-b46f-cfb264926b3b",
+              "3c554d70-2c62-8064-b61a-f487c680f254",
+              "3c554d70-2c62-8019-9f74-efebaf781eeb",
+              "3c554d70-2c62-8030-9cd8-c64c15f8529d"
+            ],
+            "created_time": 1786640487734,
+            "last_edited_time": 1787492175984,
+            "parent_id": "34f54d70-2c62-80ce-86ba-000bc329a852",
+            "parent_table": "collection",
+            "alive": true,
+            "created_by_table": "notion_user",
+            "created_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "last_edited_by_table": "notion_user",
+            "last_edited_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "space_id": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+            "crdt_format_version": 1,
+            "crdt_data": {
+              "title": {
+                "r": "glydHAX7_F7EqmK_pc4V1w,\"start\",\"end\"",
+                "n": {
+                  "glydHAX7_F7EqmK_pc4V1w,\"start\",\"end\"": {
+                    "s": {
+                      "x": "glydHAX7_F7EqmK_pc4V1w",
+                      "i": [
+                        {
+                          "t": "s"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "ffiJCu39SXLW",
+                            1
+                          ],
+                          "o": "start",
+                          "l": 17,
+                          "c": "MEJA ELEKTRIK 4 ("
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "ffiJCu39SXLW",
+                            19
+                          ],
+                          "o": [
+                            "ffiJCu39SXLW",
+                            17
+                          ],
+                          "l": 14,
+                          "c": "L SHAPED, $$$)"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "ffiJCu39SXLW",
+                            18
+                          ],
+                          "o": [
+                            "ffiJCu39SXLW",
+                            17
+                          ],
+                          "l": -1
+                        },
+                        {
+                          "t": "e"
+                        }
+                      ],
+                      "l": ""
+                    },
+                    "c": []
+                  }
+                }
+              }
+            }
+          },
+          "role": "reader"
+        }
+      },
+      "35e54d70-2c62-8098-99ef-c447054966b0": {
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+        "value": {
+          "value": {
+            "id": "35e54d70-2c62-8098-99ef-c447054966b0",
+            "version": 133,
+            "type": "page",
+            "properties": {
+              "AQpZ": [
+                [
+                  "ADA (DISARANKAN MEMBACA NYA)"
+                ]
+              ],
+              "gxGr": [
+                [
+                  "https://s.shopee.co.id/9UyFYcSz4d",
+                  [
+                    [
+                      "a",
+                      "https://s.shopee.co.id/9UyFYcSz4d"
+                    ]
+                  ]
+                ]
+              ],
+              "ksKk": [
+                [
+                  "NON L SHAPED"
+                ]
+              ],
+              "xKK;": [
+                [
+                  "MEJA + LACI (NAKAS),PLYWOOD (TACOSHEET)"
+                ]
+              ],
+              "title": [
+                [
+                  "MEJA NAKAS 1"
+                ]
+              ]
+            },
+            "content": [
+              "35e54d70-2c62-802e-a522-c8c5fefb13c5",
+              "37d54d70-2c62-8016-bb30-d93dcb9d18af",
+              "37d54d70-2c62-802b-b4b1-fef48fa8faee",
+              "37d54d70-2c62-8006-bfa5-e435b747f2c4",
+              "37f54d70-2c62-8018-a3d8-e474a2341436",
+              "37d54d70-2c62-8072-8159-fcbc63dbc938"
+            ],
+            "format": {
+              "social_media_image_preview_url": "attachment:cdc17bac-e7e7-4717-b459-e3af6c279f6c:SocialMediaPreviewImage.png"
+            },
+            "created_time": 1778590033908,
+            "last_edited_time": 1787373161088,
+            "parent_id": "34f54d70-2c62-80ce-86ba-000bc329a852",
+            "parent_table": "collection",
+            "alive": true,
+            "file_ids": [
+              "c0a8eb2a-c88b-45d5-bd91-6c3d30b6467f",
+              "cdc17bac-e7e7-4717-b459-e3af6c279f6c"
+            ],
+            "created_by_table": "notion_user",
+            "created_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "last_edited_by_table": "notion_user",
+            "last_edited_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "space_id": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+            "crdt_format_version": 1,
+            "crdt_data": {
+              "title": {
+                "r": "V5xTLZd-JId07_VVe7mdbw,\"start\",\"end\"",
+                "n": {
+                  "V5xTLZd-JId07_VVe7mdbw,\"start\",\"end\"": {
+                    "s": {
+                      "x": "V5xTLZd-JId07_VVe7mdbw",
+                      "i": [
+                        {
+                          "t": "s"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "ZDGle0pMpvmw",
+                            22
+                          ],
+                          "o": "start",
+                          "l": 2,
+                          "c": "ME"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "ZDGle0pMpvmw",
+                            28
+                          ],
+                          "o": [
+                            "ZDGle0pMpvmw",
+                            23
+                          ],
+                          "l": 9,
+                          "c": "JA NAKAS "
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "ffiJCu39SXLW",
+                            38
+                          ],
+                          "o": [
+                            "ZDGle0pMpvmw",
+                            36
+                          ],
+                          "l": 1,
+                          "c": "1"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "ZDGle0pMpvmw",
+                            37
+                          ],
+                          "o": [
+                            "ZDGle0pMpvmw",
+                            36
+                          ],
+                          "l": -1
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "ZDGle0pMpvmw",
+                            27
+                          ],
+                          "o": [
+                            "ZDGle0pMpvmw",
+                            23
+                          ],
+                          "l": -1
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "ZDGle0pMpvmw",
+                            24
+                          ],
+                          "o": [
+                            "ZDGle0pMpvmw",
+                            23
+                          ],
+                          "l": -3
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "hYOjd5MN1PDF",
+                            1
+                          ],
+                          "o": "start",
+                          "l": -21
+                        },
+                        {
+                          "t": "e"
+                        }
+                      ],
+                      "l": ""
+                    },
+                    "c": []
+                  }
+                }
+              }
+            }
+          },
+          "role": "reader"
+        }
+      },
+      "3b654d70-2c62-80c0-bb72-fc471faf8b7a": {
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+        "value": {
+          "value": {
+            "id": "3b654d70-2c62-80c0-bb72-fc471faf8b7a",
+            "version": 101,
+            "type": "page",
+            "properties": {
+              "AQpZ": [
+                [
+                  "ADA (DISARANKAN MEMBACA NYA)"
+                ]
+              ],
+              "ksKk": [
+                [
+                  "NON L SHAPED"
+                ]
+              ],
+              "xKK;": [
+                [
+                  "MEJA + LACI (NAKAS),PLYWOOD (TACOSHEET)"
+                ]
+              ],
+              "title": [
+                [
+                  "MEJA NAKAS 2 (UKURAN BESAR, TBC)"
+                ]
+              ]
+            },
+            "content": [
+              "3b654d70-2c62-8093-a323-e53ab204c65a"
+            ],
+            "format": {
+              "social_media_image_preview_url": "attachment:074f9b72-2dfd-48c4-baab-0a7676d30369:SocialMediaPreviewImage.png"
+            },
+            "created_time": 1786216377702,
+            "last_edited_time": 1787373360037,
+            "parent_id": "34f54d70-2c62-80ce-86ba-000bc329a852",
+            "parent_table": "collection",
+            "alive": true,
+            "file_ids": [
+              "074f9b72-2dfd-48c4-baab-0a7676d30369"
+            ],
+            "created_by_table": "notion_user",
+            "created_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "last_edited_by_table": "notion_user",
+            "last_edited_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "space_id": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+            "crdt_format_version": 1,
+            "crdt_data": {
+              "title": {
+                "r": "mAPJcLAvrmuM1IQMafdWxQ,\"start\",\"end\"",
+                "n": {
+                  "mAPJcLAvrmuM1IQMafdWxQ,\"start\",\"end\"": {
+                    "s": {
+                      "x": "mAPJcLAvrmuM1IQMafdWxQ",
+                      "i": [
+                        {
+                          "t": "s"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "66s0TWrmkinB",
+                            1
+                          ],
+                          "o": "start",
+                          "l": 11,
+                          "c": "MEJA NAKAS "
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "ffiJCu39SXLW",
+                            35
+                          ],
+                          "o": [
+                            "66s0TWrmkinB",
+                            11
+                          ],
+                          "l": 1,
+                          "c": "2"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "66s0TWrmkinB",
+                            12
+                          ],
+                          "o": [
+                            "66s0TWrmkinB",
+                            11
+                          ],
+                          "l": -1
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "66s0TWrmkinB",
+                            13
+                          ],
+                          "o": [
+                            "66s0TWrmkinB",
+                            12
+                          ],
+                          "l": 9,
+                          "c": " (UKURAN "
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "66s0TWrmkinB",
+                            24
+                          ],
+                          "o": [
+                            "66s0TWrmkinB",
+                            21
+                          ],
+                          "l": 5,
+                          "c": "BESAR"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "ccZ6Yc5dEAFn",
+                            34
+                          ],
+                          "o": [
+                            "66s0TWrmkinB",
+                            28
+                          ],
+                          "l": 1,
+                          "c": ","
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "ccZ6Yc5dEAFn",
+                            30
+                          ],
+                          "o": [
+                            "66s0TWrmkinB",
+                            28
+                          ],
+                          "l": 4,
+                          "c": " TBC"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "66s0TWrmkinB",
+                            29
+                          ],
+                          "o": [
+                            "66s0TWrmkinB",
+                            28
+                          ],
+                          "l": 1,
+                          "c": ")"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "66s0TWrmkinB",
+                            22
+                          ],
+                          "o": [
+                            "66s0TWrmkinB",
+                            21
+                          ],
+                          "l": -2
+                        },
+                        {
+                          "t": "e"
+                        }
+                      ],
+                      "l": ""
+                    },
+                    "c": []
+                  }
+                }
+              }
+            }
+          },
+          "role": "reader"
+        }
+      },
+      "3bb54d70-2c62-80d2-b51d-c9ab7f289b23": {
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+        "value": {
+          "value": {
+            "id": "3bb54d70-2c62-80d2-b51d-c9ab7f289b23",
+            "version": 56,
+            "type": "page",
+            "properties": {
+              "AQpZ": [
+                [
+                  "ADA (DISARANKAN MEMBACA NYA)"
+                ]
+              ],
+              "ksKk": [
+                [
+                  "NON L SHAPED"
+                ]
+              ],
+              "xKK;": [
+                [
+                  "MEJA + LACI (NAKAS),KAKI MEJA HOLLOW"
+                ]
+              ],
+              "title": [
+                [
+                  "MEJA LESEHAN 1 "
+                ]
+              ]
+            },
+            "content": [
+              "3bb54d70-2c62-8009-8fa6-fa76599e5ba6",
+              "3bb54d70-2c62-8095-8fe5-c4133596270a",
+              "3bb54d70-2c62-808a-93a5-da0c346793f8",
+              "3bb54d70-2c62-80fa-8f0b-e5d9cae80802",
+              "3bb54d70-2c62-8002-a343-c391b08e466b"
+            ],
+            "format": {
+              "social_media_image_preview_url": "attachment:3fcf631c-b0b6-4d5e-a070-e6346b03e1d2:SocialMediaPreviewImage.png"
+            },
+            "created_time": 1786640486100,
+            "last_edited_time": 1786939718932,
+            "parent_id": "34f54d70-2c62-80ce-86ba-000bc329a852",
+            "parent_table": "collection",
+            "alive": true,
+            "file_ids": [
+              "3fcf631c-b0b6-4d5e-a070-e6346b03e1d2"
+            ],
+            "created_by_table": "notion_user",
+            "created_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "last_edited_by_table": "notion_user",
+            "last_edited_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "space_id": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+            "crdt_format_version": 1,
+            "crdt_data": {
+              "title": {
+                "r": "Rj71mCMzeD3b9lhL5SdzVg,\"start\",\"end\"",
+                "n": {
+                  "Rj71mCMzeD3b9lhL5SdzVg,\"start\",\"end\"": {
+                    "s": {
+                      "x": "Rj71mCMzeD3b9lhL5SdzVg",
+                      "i": [
+                        {
+                          "t": "s"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "t9aUYSW4E6Hq",
+                            1
+                          ],
+                          "o": "start",
+                          "l": 15,
+                          "c": "MEJA LESEHAN 1 "
+                        },
+                        {
+                          "t": "e"
+                        }
+                      ],
+                      "l": ""
+                    },
+                    "c": []
+                  }
+                }
+              }
+            }
+          },
+          "role": "reader"
+        }
+      },
+      "34f54d70-2c62-8086-9eb6-c09d45c10b86": {
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+        "value": {
+          "value": {
+            "id": "34f54d70-2c62-8086-9eb6-c09d45c10b86",
+            "version": 112,
+            "type": "collection_view",
+            "view_ids": [
+              "34f54d70-2c62-8013-a999-000c7c1244a0"
+            ],
+            "collection_id": "34f54d70-2c62-80ce-86ba-000bc329a852",
+            "format": {
+              "collection_pointer": {
+                "id": "34f54d70-2c62-80ce-86ba-000bc329a852",
+                "table": "collection",
+                "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+              },
+              "collection_pointers": [
+                {
+                  "id": "34f54d70-2c62-80ce-86ba-000bc329a852",
+                  "table": "collection",
+                  "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665"
+                }
+              ]
+            },
+            "created_time": 1777272332868,
+            "last_edited_time": 1787373463796,
+            "parent_id": "32254d70-2c62-801c-9bc5-c52e05556b9b",
+            "parent_table": "block",
+            "alive": true,
+            "space_id": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+            "crdt_format_version": 1,
+            "crdt_data": {
+              "title": {
+                "r": "C2kaEaL-6hXYLimSlVx2kA,\"start\",\"end\"",
+                "n": {
+                  "C2kaEaL-6hXYLimSlVx2kA,\"start\",\"end\"": {
+                    "s": {
+                      "x": "C2kaEaL-6hXYLimSlVx2kA",
+                      "i": [
+                        {
+                          "t": "s"
+                        },
+                        {
+                          "t": "e"
+                        }
+                      ],
+                      "l": ""
+                    },
+                    "c": []
+                  }
+                }
+              }
+            }
+          },
+          "role": "reader"
+        }
+      },
+      "32254d70-2c62-801c-9bc5-c52e05556b9b": {
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+        "value": {
+          "value": {
+            "id": "32254d70-2c62-801c-9bc5-c52e05556b9b",
+            "version": 407,
+            "type": "page",
+            "properties": {
+              "title": [
+                [
+                  "REKOMENDASI MEJA"
+                ]
+              ]
+            },
+            "content": [
+              "36754d70-2c62-8088-97dd-ebee0d18f1aa",
+              "37854d70-2c62-808e-9df3-df2c87c42db9",
+              "32254d70-2c62-80da-9c5d-e706ea5a0481",
+              "36754d70-2c62-80a7-8981-c9a35de89a39",
+              "32254d70-2c62-807b-8541-e26c002f8e6f",
+              "3a554d70-2c62-8038-87ba-c9992e4bd277",
+              "34f54d70-2c62-8086-9eb6-c09d45c10b86",
+              "34f54d70-2c62-8039-90e2-d57ef7fe86ed",
+              "35e54d70-2c62-800c-abf1-d0832cd1f24d",
+              "3b554d70-2c62-80b3-81b6-e6b286b388ee"
+            ],
+            "format": {
+              "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/3a454d70-2c62-805a-8dbf-007adfa124a6",
+              "page_cover": "attachment:e3922b57-20f1-4f6d-80ad-98400ac76d4e:Meja_Monitor.png",
+              "page_full_width": true,
+              "page_cover_position": 0.5357,
+              "social_media_image_preview_url": "attachment:b6debd1f-9c92-417a-ab81-7db43ac3f048:SocialMediaPreviewImage.png"
+            },
+            "permissions": [
+              {
+                "role": "reader",
+                "type": "public_permission",
+                "is_site": true,
+                "added_timestamp": 1786286848788,
+                "allow_duplicate": false
+              }
+            ],
+            "created_time": 1773369304512,
+            "last_edited_time": 1787579122409,
+            "parent_id": "31c54d70-2c62-8077-82ce-e62970838bff",
+            "parent_table": "block",
+            "alive": true,
+            "file_ids": [
+              "e057a295-75f5-4c56-b108-d057c0ca260f",
+              "295c9772-1095-4121-81aa-8bd1f57882c7",
+              "509915b3-507d-42d3-81a7-c99a9e46cc40",
+              "b3ec8377-e26f-4db8-a060-937a396bfcdd",
+              "709e3e6e-0752-4e17-843f-652e9812a687",
+              "9e854cb8-9e2a-422c-af9c-01d41febb24b",
+              "dee97a33-5272-4fa6-b32f-b31668654136",
+              "e2c29bd8-8417-4d53-937c-4417a2105c60",
+              "c744628e-e1aa-4971-abe5-588c1cd91922",
+              "3252fbd2-8bb4-47a3-aba7-d9fba69d6463",
+              "a29ab033-ca86-4541-bcb0-152eef128351",
+              "e3922b57-20f1-4f6d-80ad-98400ac76d4e",
+              "f895f161-f34e-4cc3-815b-e3cdf38a0a76",
+              "bcaac41e-a6a3-46bc-9ddd-a0459a764e18",
+              "847b0c47-2fa4-47b9-922d-dbee8aa40fcd",
+              "b6debd1f-9c92-417a-ab81-7db43ac3f048"
+            ],
+            "space_id": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+            "crdt_format_version": 1,
+            "crdt_data": {
+              "title": {
+                "r": "ufhU2b8a77a75i2xrY51NQ,\"start\",[\"GK7y5rKCMWcH\",70]",
+                "n": {
+                  "ufhU2b8a77a75i2xrY51NQ,\"start\",[\"GK7y5rKCMWcH\",70]": {
+                    "s": {
+                      "x": "ufhU2b8a77a75i2xrY51NQ",
+                      "i": [
+                        {
+                          "t": "s"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "GK7y5rKCMWcH",
+                            40
+                          ],
+                          "o": "start",
+                          "l": 16,
+                          "c": "REKOMENDASI MEJA"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "GK7y5rKCMWcH",
+                            56
+                          ],
+                          "o": [
+                            "GK7y5rKCMWcH",
+                            55
+                          ],
+                          "l": -1
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "7FillIwGY84J",
+                            82
+                          ],
+                          "o": [
+                            "GK7y5rKCMWcH",
+                            56
+                          ],
+                          "l": -5
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "7FillIwGY84J",
+                            71
+                          ],
+                          "o": [
+                            "GK7y5rKCMWcH",
+                            56
+                          ],
+                          "l": -11
+                        },
+                        {
+                          "t": "p",
+                          "i": [
+                            "GK7y5rKCMWcH",
+                            70
+                          ],
+                          "o": [
+                            "GK7y5rKCMWcH",
+                            56
+                          ]
+                        }
+                      ],
+                      "l": "L"
+                    },
+                    "c": []
+                  }
+                }
+              }
+            }
+          },
+          "role": "reader"
+        }
+      },
+      "31c54d70-2c62-8077-82ce-e62970838bff": {
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+        "value": {
+          "value": {
+            "id": "31c54d70-2c62-8077-82ce-e62970838bff",
+            "version": 21,
+            "type": "callout",
+            "content": [
+              "31c54d70-2c62-80dc-a3ea-ca55c294f53c",
+              "3c554d70-2c62-80ee-bb6f-d93c61874590",
+              "32254d70-2c62-801c-9bc5-c52e05556b9b"
+            ],
+            "format": {
+              "page_icon": "📝",
+              "block_color": "gray_background",
+              "callout_version": 2
+            },
+            "created_time": 1772890234415,
+            "last_edited_time": 1787470852268,
+            "parent_id": "1e254d70-2c62-80e7-a6a6-d2e1a0b65ea0",
+            "parent_table": "block",
+            "alive": true,
+            "space_id": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+            "crdt_format_version": 1,
+            "crdt_data": {
+              "title": {
+                "r": "QUsHWOP9ky6ihVyt4YLn0w,\"start\",\"end\"",
+                "n": {
+                  "QUsHWOP9ky6ihVyt4YLn0w,\"start\",\"end\"": {
+                    "s": {
+                      "x": "QUsHWOP9ky6ihVyt4YLn0w",
+                      "i": [
+                        {
+                          "t": "s"
+                        },
+                        {
+                          "t": "e"
+                        }
+                      ],
+                      "l": ""
+                    },
+                    "c": []
+                  }
+                }
+              }
+            }
+          },
+          "role": "reader"
+        }
+      },
+      "1e254d70-2c62-80e7-a6a6-d2e1a0b65ea0": {
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+        "value": {
+          "value": {
+            "id": "1e254d70-2c62-80e7-a6a6-d2e1a0b65ea0",
+            "version": 138,
+            "type": "column",
+            "content": [
+              "16754d70-2c62-8077-9159-f3e3a0deb3a8",
+              "22454d70-2c62-80df-8708-f0414cbfd702",
+              "31c54d70-2c62-8077-82ce-e62970838bff",
+              "17f54d70-2c62-80e1-aec6-cb5a32ce6326",
+              "3c254d70-2c62-8079-92eb-cee9eb78abde"
+            ],
+            "format": {
+              "column_ratio": 0.5
+            },
+            "created_time": 1745764574169,
+            "last_edited_time": 1787196322011,
+            "parent_id": "1e254d70-2c62-80a7-b8c7-c62f159a1d52",
+            "parent_table": "block",
+            "alive": true,
+            "space_id": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+            "crdt_format_version": 1,
+            "crdt_data": {
+              "title": {
+                "r": "6EDYycA56ZxkQVm1v6ESdA,\"start\",\"end\"",
+                "n": {
+                  "6EDYycA56ZxkQVm1v6ESdA,\"start\",\"end\"": {
+                    "s": {
+                      "x": "6EDYycA56ZxkQVm1v6ESdA",
+                      "i": [
+                        {
+                          "t": "s"
+                        },
+                        {
+                          "t": "e"
+                        }
+                      ],
+                      "l": ""
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "role": "reader"
+        }
+      },
+      "1e254d70-2c62-80a7-b8c7-c62f159a1d52": {
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+        "value": {
+          "value": {
+            "id": "1e254d70-2c62-80a7-b8c7-c62f159a1d52",
+            "version": 7,
+            "type": "column_list",
+            "content": [
+              "1e254d70-2c62-80e7-a6a6-d2e1a0b65ea0",
+              "1e254d70-2c62-8074-b96f-d601d717ced7"
+            ],
+            "created_time": 1745764574175,
+            "last_edited_time": 1745764574199,
+            "parent_id": "4120d434-aa85-47d1-a362-6f9049b99c4e",
+            "parent_table": "block",
+            "alive": true,
+            "space_id": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+            "crdt_format_version": 1,
+            "crdt_data": {
+              "title": {
+                "r": "kl_1E71WlHnWXcyGkZUMeA,\"start\",\"end\"",
+                "n": {
+                  "kl_1E71WlHnWXcyGkZUMeA,\"start\",\"end\"": {
+                    "s": {
+                      "x": "kl_1E71WlHnWXcyGkZUMeA",
+                      "i": [
+                        {
+                          "t": "s"
+                        },
+                        {
+                          "t": "e"
+                        }
+                      ],
+                      "l": ""
+                    },
+                    "c": []
+                  }
+                }
+              }
+            }
+          },
+          "role": "reader"
+        }
+      },
+      "4120d434-aa85-47d1-a362-6f9049b99c4e": {
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+        "value": {
+          "value": {
+            "id": "4120d434-aa85-47d1-a362-6f9049b99c4e",
+            "version": 4254,
+            "type": "page",
+            "properties": {
+              "title": [
+                [
+                  "GRAYPLASMAID - REKOMENDASI MONITOR"
+                ]
+              ]
+            },
+            "content": [
+              "17754d70-2c62-809e-8a52-efea005fa831",
+              "20e54d70-2c62-80ba-b7c6-e2f9502a5946",
+              "20e54d70-2c62-80f8-8803-ede0d8862228",
+              "21c54d70-2c62-802e-a433-dee84352d817",
+              "21c54d70-2c62-809c-8c9c-ca5e15431679",
+              "20e54d70-2c62-8010-a785-f151f83067d5",
+              "23654d70-2c62-801d-b014-fe46e53358ca",
+              "2c754d70-2c62-8075-a1d7-cc5c3e372c2a",
+              "22f54d70-2c62-80ec-9cc3-f7ffc66f8f2f",
+              "b01cc018-4dd2-41d9-ae41-bfcd1627b4c3",
+              "1c054d70-2c62-8024-bcba-c4645e1b38b8",
+              "16754d70-2c62-80ec-90f7-eff1ee3266a2",
+              "16a54d70-2c62-8011-bf48-f67193f3f2f5",
+              "1e254d70-2c62-80a7-b8c7-c62f159a1d52",
+              "16754d70-2c62-8034-8abb-c1fb5dd89db4",
+              "1be54d70-2c62-80d1-8617-f3ada67b2b4f",
+              "2a754d70-2c62-8070-927c-fceb4b3e3e83",
+              "1bf54d70-2c62-80df-84f4-f180cae22351",
+              "16754d70-2c62-8071-a0ed-f4d037e20dde",
+              "16854d70-2c62-8038-b706-e8bb60a2a50d",
+              "16854d70-2c62-8005-a738-e158151c2a12",
+              "34854d70-2c62-8042-98d2-f24d212a4116",
+              "16954d70-2c62-8061-9b1b-e6fb864038b8",
+              "16f54d70-2c62-8018-a2d7-f87b7c4732a3",
+              "17154d70-2c62-8019-816b-c3c521d5c6ef",
+              "21e54d70-2c62-80c9-b0df-ee6d54500b90",
+              "16954d70-2c62-8082-a631-ea800cb990d6",
+              "16954d70-2c62-807b-be01-f30badf7ca1b",
+              "16954d70-2c62-80c8-9127-f59ec22bc90e",
+              "16954d70-2c62-8094-89d2-f527fee2c25b"
+            ],
+            "format": {
+              "site_id": "22254d70-2c62-8026-87a6-0079be3ae19e",
+              "page_icon": "notion://custom_emoji/cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665/3a454d70-2c62-805a-8dbf-007adfa124a6",
+              "page_cover": "attachment:8b390567-d57f-4abd-b49b-96bda8297edb:Banner_Notion_utama.png",
+              "block_locked": false,
+              "block_locked_by": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+              "page_full_width": true,
+              "page_cover_position": 0.5519,
+              "page_section_visibility": {
+                "comments": "section_show",
+                "backlinks": "section_show",
+                "margin_comments": "minimal"
+              },
+              "social_media_image_preview_url": "attachment:7fe732ad-244b-4dbf-8c1e-4d1d16fcf2cb:SocialMediaPreviewImage.png"
+            },
+            "permissions": [
+              {
+                "role": "editor",
+                "type": "user_permission",
+                "user_id": "31b18c38-b248-4b39-b006-3d5636dd1d75"
+              },
+              {
+                "role": "reader",
+                "type": "space_permission",
+                "unlisted_timestamp": 1735146194201
+              },
+              {
+                "role": "editor",
+                "type": "user_permission",
+                "user_id": "318f92ad-ba33-4170-8bbf-219b1b2a0164",
+                "invite_id": "9dcc9cc9-f950-4841-91c3-16bacede4aef"
+              },
+              {
+                "role": "reader",
+                "type": "public_permission",
+                "is_site": true,
+                "added_timestamp": 1751288909795
+              }
+            ],
+            "created_time": 1717006523960,
+            "last_edited_time": 1787579105680,
+            "parent_id": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+            "parent_table": "space",
+            "alive": true,
+            "file_ids": [
+              "57cd3e47-0a4f-4d07-9e41-59c35f72ebd1",
+              "56c269bd-15fc-4b48-8614-683e4d474a60",
+              "3153d40d-9fe9-4e29-b8a2-dbb781b874a1",
+              "1303423b-0b0d-4c71-911d-f30c5a53006f",
+              "98fe1504-bf4f-4401-9138-e54e7fece62d",
+              "042ca684-17b4-40d9-b4ed-abfc2ac7fdfa",
+              "78ae1d22-f317-4864-8297-685b53c74c99",
+              "b8e1efda-e26d-414e-bcab-b66a6da488b2",
+              "95da28e0-cf2c-4f07-8fd4-5f28e61eafeb",
+              "7c8bd2c5-1410-4063-99a2-c3427d9cb1c0",
+              "0ed0c62c-fb08-40da-b566-001e96a63d32",
+              "24cdc970-4eff-47d2-ab0d-ee30dc9125dd",
+              "51369632-a2f9-4d8d-8dd6-c222df77c7f7",
+              "ade160c6-db65-4d7e-a39a-ed371086edc0",
+              "38a87438-f7d4-480b-a256-5b068e70b091",
+              "0efebd04-ab7a-4094-b6e0-0e51ad9199a6",
+              "0f30b4cd-91de-444e-9ebd-03d1758e1ed7",
+              "79fb3eb0-986a-40c8-8cb2-94a512135c92",
+              "418dc4c5-de05-4f35-a5f5-9da25a684d6a",
+              "c2fa72a0-f4a0-4e69-94f4-726946eaba9d",
+              "b8d5ea28-ccf5-4825-a9c2-4f31f973fac2",
+              "d936d79f-f05d-4ed9-9849-5cc85fb389bd",
+              "664ea5d9-fc5b-49b5-9f53-3d9b2ce794f9",
+              "47d760a9-065a-4019-aee8-fa83ba6d828f",
+              "d1389844-c0b5-4fa4-942a-d4167f010c1d",
+              "5f67bfec-7679-425a-b58e-97326e77a4e7",
+              "2ac546f5-a76a-43ac-ac92-b3d2042a3eec",
+              "d3665cde-4d23-4e25-9d43-87501d9d8fd5",
+              "ae8289c5-da25-4c28-8823-c34795aa61c6",
+              "82901e9e-4612-4ca1-8246-cf87e9147706",
+              "6294245d-45cb-457a-bb66-2d9ca30abde7",
+              "b6fb6262-9651-4c5f-83d0-6e0d24e0e09d",
+              "068d70d3-e913-4c96-9e99-d1b61ab630b7",
+              "5f8ce5d1-67d2-4a67-a12b-c809334f059f",
+              "72d363d5-11ad-4247-9e39-7b1af66652ae",
+              "74fd64c5-a641-4475-89e8-5f084f319c3b",
+              "1e888881-e0a7-4058-b625-f621ca5ca434",
+              "50bd1e22-8d65-4e4e-b200-beaeb4c7111a",
+              "c393b72e-d306-427b-8892-c74e9bb4d04f",
+              "46ceb674-157a-496d-beac-42f7cadcc3df",
+              "adedc6ae-ca26-43b4-b33f-d0ce388d86e6",
+              "fb74dad9-8098-4fce-b262-37ad020cc937",
+              "50d94c71-0698-40d4-98c9-8dd041c6ed00",
+              "9c3d215d-d0ab-4bfb-8e56-fddcf51718ad",
+              "ed826661-7da8-4a54-854c-70594214aa53",
+              "c54d62d0-c46e-4ef7-88c7-5b2a3a3ed519",
+              "09508b4c-1951-4dd0-ba24-f65dc3b64269",
+              "5bad7c4b-86eb-4367-97d0-20ab48c47a7c",
+              "56eb6b45-36c5-4938-a225-c0de88d41e49",
+              "bce0b11b-2bca-42f5-93b4-6880611f7d0b",
+              "0037b3c8-50dd-447e-b685-a8dd4b1506c6",
+              "214c0255-1e0c-44cd-854d-1907054a87ef",
+              "aa42836d-90cf-4eae-b7c2-63df52dda78e",
+              "6ea224c3-f27b-4f1e-be9f-587170f6dce7",
+              "00e06d0a-a597-4b58-8cc7-46aee849f47c",
+              "94ec6c92-a7f4-4662-be6f-61352c38414f",
+              "d0e7b30f-cd8f-4fb9-a550-72fd4e195091",
+              "20d68f3c-01ce-4ef2-8a00-d7c06d2b2988",
+              "f4f74bbf-c30f-4441-9230-c1674d1f0f25",
+              "fbedfc88-8726-4c8e-ae13-5fdcb438e339",
+              "af2b1009-61a7-42b9-8bc2-3a5967f68716",
+              "6de3b6bb-195e-495b-a067-8d61717f9c6f",
+              "c4fc5e97-ff6c-4b58-bf3b-c3c8c5f7fbcf",
+              "1ca8c667-c007-419c-abfe-18706af44119",
+              "ff4fb9a8-90eb-4656-aff1-158158115a2c",
+              "3906eb21-a077-4b43-846b-c95ea8af2b48",
+              "0cb7436f-591a-4adc-8d15-2cd3c2b3044d",
+              "4c02129e-03ff-44f0-9a8f-d6949501f02f",
+              "922efd85-3b39-4784-a183-4f80766ad6cc",
+              "1fd0bb3a-81bd-4132-95c5-5e48f297a5f7",
+              "8059a464-adb7-42fe-b426-f383b33448b7",
+              "25768028-351a-439e-9c05-6b8d39132fb0",
+              "ceddd9fe-21bf-4647-a177-ff4017d2cdb0",
+              "9a3efdfe-61e4-40ea-898a-8ebbabe1a6ca",
+              "3f67b30b-f19f-4c93-af6d-91dfc0323571",
+              "10802576-2151-48e6-a022-e4fdd642a80b",
+              "a0f95589-af04-4e7e-ba3f-3c58edc54b73",
+              "31ef7f73-f19e-475c-a753-0d692af34afc",
+              "a2d30117-0b28-4b90-be35-4fa8393ab2e7",
+              "157d213b-cb11-43b3-80dd-ebaa23b09c04",
+              "20efe089-3b94-400b-b9d1-352cc8e7d9e9",
+              "3561c64c-3edf-4dbf-8e1d-bb7177f6e62b",
+              "46d9ceee-3a87-4a5a-908f-9d0778fb2028",
+              "6363adf3-a42a-46ac-be33-c68fb89f77b8",
+              "271b1289-e9c4-4536-9e5b-6239631ad3f1",
+              "cbc57d96-e028-4f17-9187-22eb9909bfa0",
+              "dd1afd52-f93d-42b9-9e85-f210b8525c2f",
+              "634eaa8d-569c-410a-aebb-61577cf4d6c4",
+              "609b87e3-df48-498a-ac85-a6ed7efd8b1e",
+              "e8eca7b0-3bd7-4447-b7ba-4780a2fcd2ab",
+              "5d76badf-2b2f-47f1-95fd-2e6f646f9b90",
+              "52754581-842e-4b95-b07b-398618e3fef2",
+              "89ec828d-ccc1-49bd-ba3f-ca0ff0614ee5",
+              "ebd644d4-6219-4bfb-99bf-f0b865b10efe",
+              "0271be1e-5d57-4372-8401-f1610f41c965",
+              "13f82b0e-025a-4004-ba57-2afbd481473f",
+              "0e1d524b-cbda-4d90-a078-7a6e77afbeec",
+              "19f09fea-c582-46b6-b15b-5cd312731e86",
+              "1a68a6fe-ddae-435d-a941-a4f6979c2794",
+              "0aa10ce3-2d51-4db2-825f-db629aa61891",
+              "cc1772d0-19d2-46d5-9275-a770b7090924",
+              "07264824-de2e-4910-9750-a12e999e02c7",
+              "e57c7b93-512f-40ed-bd68-6eb0cc9a028d",
+              "66ce72e4-0b36-44ff-bc92-a816ccb91509",
+              "5f0d7547-a6bd-4084-a0c4-7265fa7f97a4",
+              "a0e7f9f9-ff5e-4da8-95d1-b81da2e75302",
+              "3fec7668-7e52-4eca-b278-e96aab12aeae",
+              "cd22ac63-e641-4754-809c-702d46daec54",
+              "3159d5ae-7731-4afb-aa3e-d6d07e71a360",
+              "de2ccf32-1fb4-4c5b-b0be-19f970d99bbd",
+              "a473017b-5c04-432c-8e23-b6c26c3cc8ba",
+              "b3692a3c-527e-4b48-ba62-308563c5b210",
+              "abde37cb-8b99-4f6f-8879-3cddb680460c",
+              "0ded4053-3825-4214-a7f6-6a504f18d58e",
+              "74c672e7-3bd2-4db5-88a3-80173c2af086",
+              "f04b68af-aa5c-487a-84f8-2a53687db971",
+              "649b2bb1-c50b-4ac5-9de2-02c23198a681",
+              "c432d0a4-f30c-4087-9d1e-72832ab601e5",
+              "42b1ea0b-cf7f-423f-9fdb-94d47b9bc727",
+              "3ed39578-deaf-4f38-a431-6006bfdcfa75",
+              "39df5a14-3a51-4651-90c5-558787faf7ba",
+              "6a62d8e3-a7ac-4f49-8bc2-f6615ef8cd64",
+              "2bc41d98-0c66-4373-b170-b5742e1851f4",
+              "182733eb-4d5c-4208-84e2-4569e025f923",
+              "a82957cb-0c59-422f-b9a9-e5607c3d44e6",
+              "5cc513ec-8351-4519-ae21-d0799c600775",
+              "a6380a95-4a3d-4dbf-b95a-b6e47c8de34b",
+              "39758cd1-efa8-4269-8c10-fbda9d00b65a",
+              "03e528cf-d152-47a0-b3ef-597dcb021a6e",
+              "0dd8b3c4-968f-4117-acb2-37e7f8b49205",
+              "43a4bbc7-9fcc-4557-870f-78436c331f17",
+              "5156a959-c718-4df7-8ae6-a423a0d1a917",
+              "a55d7c7f-d930-4973-8c4a-28403bca897d",
+              "1a87d124-1675-4393-887a-f0c9449cdf09",
+              "56a3b799-6b86-4816-9a5d-95b1060eb8d7",
+              "ff8aa052-e933-4257-9bf3-b4dbbf67e720",
+              "b8505143-cac5-4177-b7aa-b225739391a5",
+              "b8d0a581-4cc5-4e3e-b0c3-62aaf2d74f13",
+              "b36078ab-7a81-42c9-b438-d10da3140934",
+              "47703aaa-7f44-4563-8eed-9ff625094e1d",
+              "e0a78d5d-9abf-4a23-af16-128bc68ec3dc",
+              "d4d0a343-c85c-40ed-8e0c-23a36b137b39",
+              "b3fcac00-1493-462d-bb88-fd936ee69713",
+              "dbd41de4-b2e2-4e03-9369-91c32cf24b04",
+              "f24d5a7b-8358-4263-9fec-a5e7d0b9e3ec",
+              "6891375d-59c0-4179-8452-135f81fb0953",
+              "63368c72-1704-4640-a676-f64fd8902bf2",
+              "e05d4a9c-4270-4461-993e-143dc2c31834",
+              "07cfbf01-0539-4aad-9138-c515d67f03c1",
+              "b8b7d0ce-9ada-45ee-8859-798f2874a614",
+              "2e636563-38c9-4d17-94fa-760b08b9a78e",
+              "768198f9-452d-4d6e-84ac-760126207350",
+              "d22583db-2806-430b-8f5e-c33b2bc7194d",
+              "073c7b7b-3002-431c-9425-bb3a8be973a2",
+              "dc1bc8c7-062d-4f38-8149-3f3f4f62effb",
+              "5bc0fee1-7226-4a82-804a-3cda5449b8df",
+              "7deafb0c-a571-4aa1-b0ae-f6b5ee2ce893",
+              "4c77589d-1906-4d63-a819-326ecbd32ef8",
+              "c1222cbd-86c2-428c-86e4-0b5c9309bb36",
+              "36f60fda-b7da-471d-948d-4b8ddc4b2472",
+              "1b2cc054-34ff-456e-8409-83942c97edbb",
+              "d2964bbb-4858-4838-836d-703354a599fd",
+              "83ac2d8b-59b8-4159-9626-280325cea31b",
+              "ce0d258c-3091-4696-ba16-5ddeac0d0371",
+              "b68a9955-67f5-4a3b-937b-db9024efbc3e",
+              "0b6090e4-4cfd-4219-9576-3181a6e882ec",
+              "5fa6396d-bb0a-4fd2-8767-ecc908192146",
+              "21919463-89e3-4c9d-9295-4535a5a9c75f",
+              "317a4251-74f6-4f17-a62b-11e0ff0008a2",
+              "b78a560b-bda3-4afc-91e6-0080d78508d0",
+              "c063b263-c153-45c8-a9f3-c4beab4fbfc6",
+              "853781fb-e4bf-4d25-8d25-1796dc408b29",
+              "8e705b2b-be7a-4903-b4ee-18a438c12654",
+              "3dc82040-4765-4997-bd33-38bcbe25a617",
+              "45f42218-4d01-4e55-bbf5-3963afd58f91",
+              "920126fc-b90c-416b-90ac-3ae5d8f94630",
+              "9bb01f73-87c0-44bc-b997-76cc8d98fa72",
+              "04f8f022-9bba-4da6-b3c2-adc131b42242",
+              "80737527-1fa3-4ce5-ba32-6d384c26a08b",
+              "2635d978-55ea-4577-957a-5e8023b90668",
+              "de63d534-614d-4b9f-8394-3a71b901a717",
+              "a151b37f-70b3-474a-a441-ae8a9c9211f7",
+              "11fcf2a6-18a0-4e60-9430-e29266ef282d",
+              "ddafb218-70d5-46aa-8ca0-b02ac2e614c9",
+              "966302cb-2e04-42a9-a22b-3a002012c088",
+              "baccfa61-5b4d-4ae4-97bf-209632623293",
+              "6589a7b6-084b-49e6-b445-0a37e06a886f",
+              "e905ea04-1e7a-44dd-9b72-dc39d6e4452d",
+              "4d2eec32-99eb-4583-a3bd-a17c87feec51",
+              "e25b3918-7e0f-46d4-9ce4-d8f9eb49f801",
+              "49e03479-a913-48eb-9771-e51cc5f33ecd",
+              "df153a45-f669-40ae-95f9-2176477ef339",
+              "918d6b24-fa9a-45cf-ac86-0dae919a3d2f",
+              "345874ae-bdf2-448c-a0e9-4f6369d94c72",
+              "c115c29c-6e61-4266-850c-6c7111befc0c",
+              "4773a156-bd80-44ce-b8dd-a76c2aa2fe77",
+              "45b6e8af-df3e-46db-9441-6a07ef87a6d7",
+              "fd4fe156-7988-4a78-91cd-8134def3f1d8",
+              "c539d12a-5da9-49b0-b22d-9946b9ed43b6",
+              "3e3a4ee8-9b15-4b1a-9b8d-e2b5d43f853a",
+              "8ee69734-cffa-42f9-8402-2c02ce1b4180",
+              "a6b49742-af51-46dc-87a4-cb1eb48a9a76",
+              "45df4550-d9d8-4939-a13e-ebcc4813f221",
+              "65f0994c-d584-4c8c-9fb4-dad7efee73c3",
+              "ebb4df69-a8c4-44de-93d1-7a3e47390053",
+              "6708ff7a-b02e-4fa7-a499-68a51a41a3cb",
+              "42d5f061-392c-4abe-9233-fb184cde087a",
+              "3fb26ff3-b969-4996-97f9-67c2a2ef14df",
+              "7a698f48-5b56-4f4f-a7fe-dfeea944113c",
+              "9f469912-e0b2-4523-b994-6915a5fed165",
+              "5d1675b2-0d6e-4a41-ae76-e78f531f9f14",
+              "399dcbc2-3856-4b28-8528-68368a5e9fbb",
+              "f85d000c-4201-4327-b470-60c0415843cc",
+              "b5ca6005-f58c-4bcb-9597-26013c6b4ca2",
+              "9e824fb6-7341-4813-95fd-3d49ced25615",
+              "a0556b74-c740-4891-9a72-9e22e3370be7",
+              "d093a87c-203d-476f-8df0-96d042e39d3c",
+              "30d8b13f-9d18-4df5-91bd-56236275ed98",
+              "6c43e222-17a6-4dae-a359-9f8cd95c5de5",
+              "ac836081-c52c-4527-af5b-bb02e207f417",
+              "11c69e59-fcfa-4f90-a990-9cc87b35e2f5",
+              "5714e307-3913-42ea-ac66-981c0ab0b512",
+              "5a8ea541-84c4-41b7-bbd8-60a588d5d0b6",
+              "85544d1e-5c65-4dca-8c37-71da1f256de5",
+              "6b6e19e2-c0b0-4d74-8fe0-5c473308357f",
+              "f3c29e29-131f-4752-bf8a-5e0e675ffd58",
+              "13112652-1576-4574-a53a-56773355368a",
+              "379e3eb2-9840-492d-a140-1f36f41ffd77",
+              "5ff7c858-44bd-494b-9a5f-a42b6b09078f",
+              "28b210c6-b202-4ca4-b913-6499a9afff41",
+              "3b9c0d71-d44b-460d-bb5b-a4eea85e9832",
+              "fdf98eca-e0be-4c60-9b93-174fdedf6b4e",
+              "a19fe7dd-2f5d-4bc4-b351-a1a1db1e8f7d",
+              "8b390567-d57f-4abd-b49b-96bda8297edb",
+              "ab29a1ae-6619-4b81-8535-6c53934d2f2c",
+              "8aff8347-9808-4fbf-9363-9e7b888299c9",
+              "60d5b90b-ca50-49d7-829e-d9ed901cd83b",
+              "09d263c5-1a6e-4d49-9b4d-8e1c2ceddf0e",
+              "7fe732ad-244b-4dbf-8c1e-4d1d16fcf2cb"
+            ],
+            "ignore_block_count": true,
+            "space_id": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+            "crdt_format_version": 1,
+            "crdt_data": {
+              "title": {
+                "r": "UHSzGxpEqlSoWsu2CdlhUQ,\"start\",\"end\"",
+                "n": {
+                  "UHSzGxpEqlSoWsu2CdlhUQ,\"start\",\"end\"": {
+                    "s": {
+                      "x": "UHSzGxpEqlSoWsu2CdlhUQ",
+                      "i": [
+                        {
+                          "t": "s"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "zNCndlMXPhQ9",
+                            31
+                          ],
+                          "o": "start",
+                          "l": 10,
+                          "c": "GRAYPLASMA"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "zNCndlMXPhQ9",
+                            42
+                          ],
+                          "o": [
+                            "zNCndlMXPhQ9",
+                            40
+                          ],
+                          "l": 5,
+                          "c": "ID - "
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "zNCndlMXPhQ9",
+                            41
+                          ],
+                          "o": [
+                            "zNCndlMXPhQ9",
+                            40
+                          ],
+                          "l": -1
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "h29vc8_yPws2",
+                            1
+                          ],
+                          "o": "start",
+                          "l": 19,
+                          "c": "REKOMENDASI MONITOR"
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "LuxjaFOQ8xNA",
+                            23
+                          ],
+                          "o": [
+                            "h29vc8_yPws2",
+                            19
+                          ],
+                          "l": -4
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "LuxjaFOQ8xNA",
+                            29
+                          ],
+                          "o": [
+                            "LuxjaFOQ8xNA",
+                            26
+                          ],
+                          "l": -2
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "LuxjaFOQ8xNA",
+                            28
+                          ],
+                          "o": [
+                            "LuxjaFOQ8xNA",
+                            26
+                          ],
+                          "l": -1
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "LuxjaFOQ8xNA",
+                            27
+                          ],
+                          "o": [
+                            "LuxjaFOQ8xNA",
+                            26
+                          ],
+                          "l": -1
+                        },
+                        {
+                          "t": "t",
+                          "i": [
+                            "h29vc8_yPws2",
+                            20
+                          ],
+                          "o": [
+                            "h29vc8_yPws2",
+                            19
+                          ],
+                          "l": -3
+                        },
+                        {
+                          "t": "e"
+                        }
+                      ],
+                      "l": ""
+                    },
+                    "c": []
+                  }
+                }
+              }
+            }
+          },
+          "role": "reader"
+        }
+      }
+    },
+    "collection": {
+      "34f54d70-2c62-80ce-86ba-000bc329a852": {
+        "spaceId": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+        "value": {
+          "value": {
+            "id": "34f54d70-2c62-80ce-86ba-000bc329a852",
+            "version": 195,
+            "name": [
+              [
+                "REKOMENDASI MEJA + KAKI  "
+              ]
+            ],
+            "schema": {
+              "AQpZ": {
+                "name": "CATATAN ",
+                "type": "select",
+                "options": [
+                  {
+                    "id": "641f2a74-c119-4c63-85ff-49034028ec77",
+                    "color": "green",
+                    "value": "ADA (DISARANKAN MEMBACA NYA)"
+                  }
+                ]
+              },
+              "Tbgs": {
+                "name": "KISARAN HARGA",
+                "type": "number",
+                "number_format": "rupiah",
+                "number_precision": "precision_uncapped"
+              },
+              "ksKk": {
+                "name": " L SHAPED ATAU NON L SHAPED",
+                "type": "select",
+                "options": [
+                  {
+                    "id": "3c842b74-3a73-46f6-ac86-084b19b8fa35",
+                    "color": "default",
+                    "value": "NON L SHAPED"
+                  },
+                  {
+                    "id": "e860b0b4-49a5-4190-aae8-eaba1d0341dd",
+                    "color": "blue",
+                    "value": "L SHAPED"
+                  }
+                ]
+              },
+              "xKK;": {
+                "name": "KETERANGAN",
+                "type": "multi_select",
+                "options": [
+                  {
+                    "id": "79c557e7-ba6b-4563-95c8-fc565576490c",
+                    "color": "brown",
+                    "value": "KAKI MEJA HOLLOW"
+                  },
+                  {
+                    "id": "50b9746f-e8db-4ed8-86eb-2889507b9684",
+                    "color": "orange",
+                    "value": "DAUN MEJA"
+                  },
+                  {
+                    "id": "f57f011d-bc33-47c3-949e-effab1b83df4",
+                    "color": "default",
+                    "value": "PLYWOOD (HPL)"
+                  },
+                  {
+                    "id": "b7e0d63e-8687-4a37-9fdb-c92b27756aa4",
+                    "color": "green",
+                    "value": "KAKI MEJA ELEKTRIK"
+                  },
+                  {
+                    "id": "b19b56c3-4da7-45be-bd2e-08b1b1cfc8de",
+                    "color": "yellow",
+                    "value": "MEJA + LACI (NAKAS)"
+                  },
+                  {
+                    "id": "da1761d3-d93f-4c3e-a7d7-3923e1985f4d",
+                    "color": "blue",
+                    "value": "FJL KAYU JATI"
+                  },
+                  {
+                    "id": "41c608ed-9b76-4ba6-9665-fb10a7938adb",
+                    "color": "pink",
+                    "value": "PLYWOOD (TACOSHEET)"
+                  }
+                ]
+              },
+              "title": {
+                "name": "NAMA TOKO",
+                "type": "title"
+              }
+            },
+            "format": {
+              "property_visibility": [
+                {
+                  "property": "ksKk",
+                  "visibility": "show"
+                },
+                {
+                  "property": "AQpZ",
+                  "visibility": "show"
+                },
+                {
+                  "property": "xKK;",
+                  "visibility": "show"
+                },
+                {
+                  "property": "Tbgs",
+                  "visibility": "show"
+                }
+              ],
+              "ai_suggested_properties": [
+                {
+                  "name": "ALAMAT TOKO",
+                  "type": "text"
+                },
+                {
+                  "name": "JENIS MEJA",
+                  "type": "select",
+                  "options": [
+                    {
+                      "id": "`znz",
+                      "color": "orange",
+                      "value": "Kayu"
+                    },
+                    {
+                      "id": "D|ae",
+                      "color": "green",
+                      "value": "Kaca"
+                    },
+                    {
+                      "id": "fCD]",
+                      "color": "red",
+                      "value": "Metal"
+                    },
+                    {
+                      "id": "OO:C",
+                      "color": "brown",
+                      "value": "Plastik"
+                    }
+                  ]
+                },
+                {
+                  "name": "HARGA MEJA",
+                  "type": "number"
+                },
+                {
+                  "name": "DESKRIPSI MEJA",
+                  "type": "text",
+                  "skill": "summarize_database_property"
+                }
+              ]
+            },
+            "parent_id": "34f54d70-2c62-8086-9eb6-c09d45c10b86",
+            "parent_table": "block",
+            "alive": true,
+            "migrated": true,
+            "space_id": "cb7b73e4-9a16-47aa-9f6e-c9d04a1f8665",
+            "deleted_schema": {
+              "gxGr": {
+                "name": "Link Shopee",
+                "type": "url"
+              }
+            },
+            "created_time": 1777272332869,
+            "last_edited_time": 1787373463796,
+            "created_by_table": "notion_user",
+            "created_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75",
+            "last_edited_by_table": "notion_user",
+            "last_edited_by_id": "31b18c38-b248-4b39-b006-3d5636dd1d75"
+          },
+          "role": "reader"
+        }
+      }
+    }
+  },
+  "collectionIds": [
+    "34f54d70-2c62-80ce-86ba-000bc329a852"
+  ],
+  "allBlockIds": [
+    "34f54d70-2c62-8061-9536-dabd2db13c8b",
+    "34f54d70-2c62-8063-ae6d-ec759681d75f",
+    "35e54d70-2c62-8046-bb27-c90941ecd8b9",
+    "35e54d70-2c62-8098-99ef-c447054966b0",
+    "35f54d70-2c62-8018-876e-d42d746c2141",
+    "38254d70-2c62-804a-955c-cd263415c16a",
+    "3b654d70-2c62-80c0-bb72-fc471faf8b7a",
+    "3bb54d70-2c62-8072-8c33-eae578067246",
+    "3bb54d70-2c62-80d2-b51d-c9ab7f289b23",
+    "3c154d70-2c62-80d6-ae02-c42191262bb7"
+  ],
+  "shouldUseClientMode": true,
+  "isViewSpecificClientMode": false,
+  "tags": {
+    "permissionMode": "all_rows_visible_by_default",
+    "backendUsed": [
+      "collectionRouter",
+      "collectionApi"
+    ]
+  }
+}

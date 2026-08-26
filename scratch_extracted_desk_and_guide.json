@@ -1,0 +1,17 @@
+{
+  "meja": {
+    "name": "REKOMENDASI_MEJA",
+    "schema": {},
+    "rows": []
+  },
+  "size24": {
+    "name": "UKURAN_24_INCH",
+    "schema": {},
+    "rows": []
+  },
+  "size27": {
+    "name": "UKURAN_27_INCH",
+    "schema": {},
+    "rows": []
+  }
+}

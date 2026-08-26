@@ -32,10 +32,13 @@ CREATE TABLE IF NOT EXISTS public.desks (
   id TEXT PRIMARY KEY,
   name TEXT,
   category TEXT,
+  keterangan JSONB,
   price NUMERIC,
   type TEXT,
+  "catatanBadge" TEXT,
   description TEXT,
   notes TEXT,
+  "markdownContent" TEXT,
   "shopeeUrl" TEXT,
   specs JSONB,
   created_at TIMESTAMPTZ DEFAULT NOW()

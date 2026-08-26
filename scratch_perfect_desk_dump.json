@@ -1,0 +1,1519 @@
+{
+  "meja": {
+    "pageId": "32254d70-2c62-801c-9bc5-c52e05556b9b",
+    "title": "REKOMENDASI MEJA",
+    "pageContent": [
+      {
+        "id": "36754d70-2c62-8088-97dd-ebee0d18f1aa",
+        "type": "header_4",
+        "text": "UNTUK MONITOR",
+        "plainText": "UNTUK MONITOR",
+        "properties": {
+          "title": [
+            [
+              "UNTUK MONITOR"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "37854d70-2c62-808e-9df3-df2c87c42db9",
+        "type": "text",
+        "text": "[https://bit.ly/panduanmejadanmonitorbygrayplasma](https://bit.ly/panduanmejadanmonitorbygrayplasma)",
+        "plainText": "https://bit.ly/panduanmejadanmonitorbygrayplasma",
+        "properties": {
+          "title": [
+            [
+              "https://bit.ly/panduanmejadanmonitorbygrayplasma",
+              [
+                [
+                  "a",
+                  "https://bit.ly/panduanmejadanmonitorbygrayplasma"
+                ]
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "id": "32254d70-2c62-80da-9c5d-e706ea5a0481",
+        "type": "callout",
+        "text": "",
+        "plainText": ""
+      },
+      {
+        "id": "36754d70-2c62-80a7-8981-c9a35de89a39",
+        "type": "header_4",
+        "text": "SUB-PAGE REKOMENDASI MONITOR",
+        "plainText": "SUB-PAGE REKOMENDASI MONITOR",
+        "properties": {
+          "title": [
+            [
+              "SUB-PAGE REKOMENDASI MONITOR"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "32254d70-2c62-807b-8541-e26c002f8e6f",
+        "type": "text",
+        "text": "Seperti biasa, mencari sebuah produk itu mudah, namun mencari produk yang ideal sesuai kebutuhan itu sulit, seperti Monitor, dan bahkan meja yang digunakan untuk meletakkan Monitor. Halaman ini akan membahas penting nya memilih meja yang ideal dan ukuran nya, biar pas ada monitor, nyaman dipakai, tidak terlalu dekat atau terlalu jauh dari sisi jarak pandang",
+        "plainText": "Seperti biasa, mencari sebuah produk itu mudah, namun mencari produk yang ideal sesuai kebutuhan itu sulit, seperti Monitor, dan bahkan meja yang digunakan untuk meletakkan Monitor. Halaman ini akan membahas penting nya memilih meja yang ideal dan ukuran nya, biar pas ada monitor, nyaman dipakai, tidak terlalu dekat atau terlalu jauh dari sisi jarak pandang",
+        "properties": {
+          "title": [
+            [
+              "Seperti biasa, mencari sebuah produk itu mudah, namun mencari produk yang ideal sesuai kebutuhan itu sulit, seperti Monitor, dan bahkan meja yang digunakan untuk meletakkan Monitor. Halaman ini akan membahas penting nya memilih meja yang ideal dan ukuran nya, biar pas ada monitor, nyaman dipakai, tidak terlalu dekat atau terlalu jauh dari sisi jarak pandang"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "3a554d70-2c62-8038-87ba-c9992e4bd277",
+        "type": "page",
+        "text": "UKURAN MEJA DAN MONITOR YANG IDEAL",
+        "plainText": "UKURAN MEJA DAN MONITOR YANG IDEAL",
+        "properties": {
+          "title": [
+            [
+              "UKURAN MEJA DAN MONITOR YANG IDEAL"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "34f54d70-2c62-8086-9eb6-c09d45c10b86",
+        "type": "collection_view",
+        "text": "",
+        "plainText": ""
+      },
+      {
+        "id": "34f54d70-2c62-8039-90e2-d57ef7fe86ed",
+        "type": "text",
+        "text": "AKAN DILENGKAPI",
+        "plainText": "AKAN DILENGKAPI",
+        "properties": {
+          "title": [
+            [
+              "AKAN DILENGKAPI"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "35e54d70-2c62-800c-abf1-d0832cd1f24d",
+        "type": "callout",
+        "text": "",
+        "plainText": ""
+      },
+      {
+        "id": "3b554d70-2c62-80b3-81b6-e6b286b388ee",
+        "type": "text",
+        "text": "",
+        "plainText": ""
+      }
+    ],
+    "collections": [
+      {
+        "id": "34f54d70-2c62-80ce-86ba-000bc329a852",
+        "name": "REKOMENDASI MEJA + KAKI  ",
+        "schema": {
+          "AQpZ": {
+            "name": "CATATAN ",
+            "type": "select",
+            "options": [
+              {
+                "id": "641f2a74-c119-4c63-85ff-49034028ec77",
+                "color": "green",
+                "value": "ADA (DISARANKAN MEMBACA NYA)"
+              }
+            ]
+          },
+          "Tbgs": {
+            "name": "KISARAN HARGA",
+            "type": "number",
+            "number_format": "rupiah",
+            "number_precision": "precision_uncapped"
+          },
+          "ksKk": {
+            "name": " L SHAPED ATAU NON L SHAPED",
+            "type": "select",
+            "options": [
+              {
+                "id": "3c842b74-3a73-46f6-ac86-084b19b8fa35",
+                "color": "default",
+                "value": "NON L SHAPED"
+              },
+              {
+                "id": "e860b0b4-49a5-4190-aae8-eaba1d0341dd",
+                "color": "blue",
+                "value": "L SHAPED"
+              }
+            ]
+          },
+          "xKK;": {
+            "name": "KETERANGAN",
+            "type": "multi_select",
+            "options": [
+              {
+                "id": "79c557e7-ba6b-4563-95c8-fc565576490c",
+                "color": "brown",
+                "value": "KAKI MEJA HOLLOW"
+              },
+              {
+                "id": "50b9746f-e8db-4ed8-86eb-2889507b9684",
+                "color": "orange",
+                "value": "DAUN MEJA"
+              },
+              {
+                "id": "f57f011d-bc33-47c3-949e-effab1b83df4",
+                "color": "default",
+                "value": "PLYWOOD (HPL)"
+              },
+              {
+                "id": "b7e0d63e-8687-4a37-9fdb-c92b27756aa4",
+                "color": "green",
+                "value": "KAKI MEJA ELEKTRIK"
+              },
+              {
+                "id": "b19b56c3-4da7-45be-bd2e-08b1b1cfc8de",
+                "color": "yellow",
+                "value": "MEJA + LACI (NAKAS)"
+              },
+              {
+                "id": "da1761d3-d93f-4c3e-a7d7-3923e1985f4d",
+                "color": "blue",
+                "value": "FJL KAYU JATI"
+              },
+              {
+                "id": "41c608ed-9b76-4ba6-9665-fb10a7938adb",
+                "color": "pink",
+                "value": "PLYWOOD (TACOSHEET)"
+              }
+            ]
+          },
+          "title": {
+            "name": "NAMA TOKO",
+            "type": "title"
+          }
+        },
+        "rows": [
+          {
+            "id": "3c154d70-2c62-80d6-ae02-c42191262bb7",
+            "properties": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              "KISARAN HARGA": "700000",
+              "gxGr": "https://s.shopee.co.id/9KeR1yvvAu",
+              " L SHAPED ATAU NON L SHAPED": "NON L SHAPED",
+              "KETERANGAN": "DAUN MEJA",
+              "NAMA TOKO": "DAUN MEJA SAJA"
+            },
+            "formattedProps": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              "KISARAN HARGA": "700000",
+              "gxGr": "[https://s.shopee.co.id/9KeR1yvvAu](https://s.shopee.co.id/9KeR1yvvAu)",
+              " L SHAPED ATAU NON L SHAPED": "NON L SHAPED",
+              "KETERANGAN": "DAUN MEJA",
+              "NAMA TOKO": "DAUN MEJA SAJA"
+            },
+            "content": [
+              {
+                "id": "3c154d70-2c62-8090-9513-cbdc7cad36b8",
+                "type": "text",
+                "text": "Untuk Ukuran 120-140 x 60-70 cm (Tanpa Laci)",
+                "plainText": "Untuk Ukuran 120-140 x 60-70 cm (Tanpa Laci)",
+                "properties": {
+                  "title": [
+                    [
+                      "Untuk Ukuran 120-140 x 60-70 cm (Tanpa Laci)"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "3c154d70-2c62-80c1-b51e-db1fafaf91b1",
+                "type": "text",
+                "text": "",
+                "plainText": ""
+              }
+            ]
+          },
+          {
+            "id": "34f54d70-2c62-8063-ae6d-ec759681d75f",
+            "properties": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              "KISARAN HARGA": "700000",
+              "gxGr": "https://s.shopee.co.id/9KeR1yvvAu",
+              " L SHAPED ATAU NON L SHAPED": "NON L SHAPED",
+              "KETERANGAN": "DAUN MEJA,KAKI MEJA HOLLOW",
+              "NAMA TOKO": "MEJA STANDAR 1 (TANPA LACI)"
+            },
+            "formattedProps": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              "KISARAN HARGA": "700000",
+              "gxGr": "[https://s.shopee.co.id/9KeR1yvvAu](https://s.shopee.co.id/9KeR1yvvAu)",
+              " L SHAPED ATAU NON L SHAPED": "NON L SHAPED",
+              "KETERANGAN": "DAUN MEJA,KAKI MEJA HOLLOW",
+              "NAMA TOKO": "MEJA STANDAR 1 (TANPA LACI)"
+            },
+            "content": [
+              {
+                "id": "34f54d70-2c62-809a-9d65-d0774e0d8129",
+                "type": "text",
+                "text": "Untuk Ukuran 120-140 x 60-70 cm (Tanpa Laci)",
+                "plainText": "Untuk Ukuran 120-140 x 60-70 cm (Tanpa Laci)",
+                "properties": {
+                  "title": [
+                    [
+                      "Untuk Ukuran 120-140 x 60-70 cm (Tanpa Laci)"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "37b54d70-2c62-8028-b27b-f23eee2588da",
+                "type": "text",
+                "text": "",
+                "plainText": ""
+              }
+            ]
+          },
+          {
+            "id": "35f54d70-2c62-8018-876e-d42d746c2141",
+            "properties": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              "KISARAN HARGA": "1000000",
+              "gxGr": "https://s.shopee.co.id/4LGBJg6u69",
+              " L SHAPED ATAU NON L SHAPED": "NON L SHAPED",
+              "KETERANGAN": "DAUN MEJA,KAKI MEJA HOLLOW",
+              "NAMA TOKO": "MEJA STANDAR 2 (TANPA LACI)"
+            },
+            "formattedProps": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              "KISARAN HARGA": "1000000",
+              "gxGr": "[https://s.shopee.co.id/4LGBJg6u69](https://s.shopee.co.id/4LGBJg6u69)",
+              " L SHAPED ATAU NON L SHAPED": "NON L SHAPED",
+              "KETERANGAN": "DAUN MEJA,KAKI MEJA HOLLOW",
+              "NAMA TOKO": "MEJA STANDAR 2 (TANPA LACI)"
+            },
+            "content": [
+              {
+                "id": "35f54d70-2c62-806b-b606-d926a7091bc2",
+                "type": "text",
+                "text": "Untuk Ukuran 120-160 x 60-70 cm ",
+                "plainText": "Untuk Ukuran 120-160 x 60-70 cm ",
+                "properties": {
+                  "title": [
+                    [
+                      "Untuk Ukuran 120-160 x 60-70 cm "
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "35f54d70-2c62-80e5-ae68-da9e26d680ae",
+                "type": "text",
+                "text": "",
+                "plainText": ""
+              }
+            ]
+          },
+          {
+            "id": "35e54d70-2c62-8046-bb27-c90941ecd8b9",
+            "properties": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              "KISARAN HARGA": "1700000",
+              "gxGr": "https://s.shopee.co.id/2g8Ksj9qMQ",
+              " L SHAPED ATAU NON L SHAPED": "NON L SHAPED",
+              "KETERANGAN": "DAUN MEJA,KAKI MEJA ELEKTRIK",
+              "NAMA TOKO": "MEJA ELEKTRIK 1"
+            },
+            "formattedProps": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              "KISARAN HARGA": "1700000",
+              "gxGr": "[https://s.shopee.co.id/2g8Ksj9qMQ](https://s.shopee.co.id/2g8Ksj9qMQ)",
+              " L SHAPED ATAU NON L SHAPED": "NON L SHAPED",
+              "KETERANGAN": "DAUN MEJA,KAKI MEJA ELEKTRIK",
+              "NAMA TOKO": "MEJA ELEKTRIK 1"
+            },
+            "content": [
+              {
+                "id": "37b54d70-2c62-8093-aadb-fa31861e899d",
+                "type": "text",
+                "text": "Jika ingin 1 set (Daun Meja + Kaki Meja, tanpa link yang terpisah)",
+                "plainText": "Jika ingin 1 set (Daun Meja + Kaki Meja, tanpa link yang terpisah)",
+                "properties": {
+                  "title": [
+                    [
+                      "Jika ingin 1 set (Daun Meja + Kaki Meja, tanpa link yang terpisah)"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "38c54d70-2c62-803d-a646-dbd672180e98",
+                "type": "text",
+                "text": "Catatan :",
+                "plainText": "Catatan :",
+                "properties": {
+                  "title": [
+                    [
+                      "Catatan :"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "38c54d70-2c62-807c-8e45-d1bf6f4f819f",
+                "type": "bulleted_list",
+                "text": "Pilih yang 140 x 60, karena dibawah itu cukup tanggung dari sisi ukuran",
+                "plainText": "Pilih yang 140 x 60, karena dibawah itu cukup tanggung dari sisi ukuran",
+                "properties": {
+                  "title": [
+                    [
+                      "Pilih yang 140 x 60, karena dibawah itu cukup tanggung dari sisi ukuran"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "38c54d70-2c62-804d-b882-c3ee64180eab",
+                "type": "bulleted_list",
+                "text": "Untuk Kayu pilih yang upgrade, karena bahan nya lebih tebal dibanding yang biasa, untuk warna sesuaikan dengan preferensi masing-masing ",
+                "plainText": "Untuk Kayu pilih yang upgrade, karena bahan nya lebih tebal dibanding yang biasa, untuk warna sesuaikan dengan preferensi masing-masing ",
+                "properties": {
+                  "title": [
+                    [
+                      "Untuk Kayu pilih yang upgrade, karena bahan nya lebih tebal dibanding yang biasa, untuk warna sesuaikan dengan preferensi masing-masing "
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "3b554d70-2c62-8055-b7c1-f56981c7615c",
+                "type": "bulleted_list",
+                "text": "Disarankan jika ingin memakai Bracket P100e atau sejenis nya(Tipe jepit)\nmenggunakan EV06, [https://s.shopee.co.id/6L3ShUvFyA](https://s.shopee.co.id/6L3ShUvFyA)",
+                "plainText": "Disarankan jika ingin memakai Bracket P100e atau sejenis nya(Tipe jepit)\nmenggunakan EV06, https://s.shopee.co.id/6L3ShUvFyA",
+                "properties": {
+                  "title": [
+                    [
+                      "Disarankan jika ingin memakai Bracket P100e atau sejenis nya(Tipe jepit)\nmenggunakan EV06, "
+                    ],
+                    [
+                      "https://s.shopee.co.id/6L3ShUvFyA",
+                      [
+                        [
+                          "a",
+                          "https://s.shopee.co.id/6L3ShUvFyA"
+                        ]
+                      ]
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "3b554d70-2c62-80f7-8897-d68179bed4b1",
+                "type": "text",
+                "text": "",
+                "plainText": ""
+              }
+            ]
+          },
+          {
+            "id": "38254d70-2c62-804a-955c-cd263415c16a",
+            "properties": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              "KISARAN HARGA": "1700000",
+              "gxGr": "https://s.shopee.co.id/2g8Ksj9qMQ",
+              " L SHAPED ATAU NON L SHAPED": "NON L SHAPED",
+              "KETERANGAN": "DAUN MEJA,KAKI MEJA ELEKTRIK",
+              "NAMA TOKO": "MEJA ELEKTRIK 2"
+            },
+            "formattedProps": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              "KISARAN HARGA": "1700000",
+              "gxGr": "[https://s.shopee.co.id/2g8Ksj9qMQ](https://s.shopee.co.id/2g8Ksj9qMQ)",
+              " L SHAPED ATAU NON L SHAPED": "NON L SHAPED",
+              "KETERANGAN": "DAUN MEJA,KAKI MEJA ELEKTRIK",
+              "NAMA TOKO": "MEJA ELEKTRIK 2"
+            },
+            "content": [
+              {
+                "id": "38254d70-2c62-80bf-8d8d-fa2216fa7a3e",
+                "type": "text",
+                "text": "Jika ingin Daun Meja dan Kaki Meja, yang terpisah (Dikarenakan skeptis dengan kualitas yang bundle)",
+                "plainText": "Jika ingin Daun Meja dan Kaki Meja, yang terpisah (Dikarenakan skeptis dengan kualitas yang bundle)",
+                "properties": {
+                  "title": [
+                    [
+                      "Jika ingin Daun Meja dan Kaki Meja, yang terpisah (Dikarenakan skeptis dengan kualitas yang bundle)"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "38254d70-2c62-805b-99fa-eb72c688b742",
+                "type": "text",
+                "text": "Untuk Ukuran 140-160 x 60-70 cm ",
+                "plainText": "Untuk Ukuran 140-160 x 60-70 cm ",
+                "properties": {
+                  "title": [
+                    [
+                      "Untuk Ukuran 140-160 x 60-70 cm "
+                    ]
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "34f54d70-2c62-8061-9536-dabd2db13c8b",
+            "properties": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              "KISARAN HARGA": "3000000",
+              "gxGr": "https://s.shopee.co.id/LjkxfO137",
+              " L SHAPED ATAU NON L SHAPED": "NON L SHAPED",
+              "KETERANGAN": "DAUN MEJA,KAKI MEJA ELEKTRIK",
+              "NAMA TOKO": "MEJA ELEKTRIK 3"
+            },
+            "formattedProps": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              "KISARAN HARGA": "3000000",
+              "gxGr": "[https://s.shopee.co.id/LjkxfO137](https://s.shopee.co.id/LjkxfO137)",
+              " L SHAPED ATAU NON L SHAPED": "NON L SHAPED",
+              "KETERANGAN": "DAUN MEJA,KAKI MEJA ELEKTRIK",
+              "NAMA TOKO": "MEJA ELEKTRIK 3"
+            },
+            "content": [
+              {
+                "id": "37b54d70-2c62-80c9-9de6-cf139ee53c2e",
+                "type": "text",
+                "text": "Jika ingin Daun Meja dengan Panjang 140 dan Lebar 70 cm",
+                "plainText": "Jika ingin Daun Meja dengan Panjang 140 dan Lebar 70 cm",
+                "properties": {
+                  "title": [
+                    [
+                      "Jika ingin Daun Meja dengan Panjang 140 dan Lebar 70 cm"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "3c454d70-2c62-8045-9a83-ee9dd642bcd2",
+                "type": "text",
+                "text": "",
+                "plainText": ""
+              },
+              {
+                "id": "35454d70-2c62-801f-a8e1-c98397221563",
+                "type": "text",
+                "text": "Daun Meja Tipe Plywood HPL (Woody Star)\n[https://s.shopee.co.id/9KeR1yvvAu](https://s.shopee.co.id/9KeR1yvvAu)",
+                "plainText": "Daun Meja Tipe Plywood HPL (Woody Star)\nhttps://s.shopee.co.id/9KeR1yvvAu",
+                "properties": {
+                  "title": [
+                    [
+                      "Daun Meja Tipe Plywood HPL (Woody Star)\n"
+                    ],
+                    [
+                      "https://s.shopee.co.id/9KeR1yvvAu",
+                      [
+                        [
+                          "a",
+                          "https://s.shopee.co.id/9KeR1yvvAu"
+                        ]
+                      ]
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "38454d70-2c62-80b3-92d4-c15d3e3e3fbf",
+                "type": "text",
+                "text": "(ATAU) FJL Kayu Jati (Rumah Kayu Official)\n[https://s.shopee.co.id/Lkkyktg5m](https://s.shopee.co.id/Lkkyktg5m) (Pilih yang 3-4 cm ketebalan dan sudah finishing)",
+                "plainText": "(ATAU) FJL Kayu Jati (Rumah Kayu Official)\nhttps://s.shopee.co.id/Lkkyktg5m (Pilih yang 3-4 cm ketebalan dan sudah finishing)",
+                "properties": {
+                  "title": [
+                    [
+                      "(ATAU) FJL Kayu Jati (Rumah Kayu Official)\n"
+                    ],
+                    [
+                      "https://s.shopee.co.id/Lkkyktg5m",
+                      [
+                        [
+                          "a",
+                          "https://s.shopee.co.id/Lkkyktg5m"
+                        ]
+                      ]
+                    ],
+                    [
+                      " (Pilih yang 3-4 cm ketebalan dan sudah finishing)"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "39c54d70-2c62-806e-8530-d52eef7df9fa",
+                "type": "text",
+                "text": "(ATAU) Daun Meja kayu Mahoni (Hiasan Dinding 89, Ukuran 150 cm)\n[https://s.shopee.co.id/BRe7qnpkU](https://s.shopee.co.id/BRe7qnpkU) (Pilih yang 60 cm atau lebih untuk ukuran lebar nya)\n+",
+                "plainText": "(ATAU) Daun Meja kayu Mahoni (Hiasan Dinding 89, Ukuran 150 cm)\nhttps://s.shopee.co.id/BRe7qnpkU (Pilih yang 60 cm atau lebih untuk ukuran lebar nya)\n+",
+                "properties": {
+                  "title": [
+                    [
+                      "(ATAU) Daun Meja kayu Mahoni (Hiasan Dinding 89, Ukuran 150 cm)\n"
+                    ],
+                    [
+                      "https://s.shopee.co.id/BRe7qnpkU",
+                      [
+                        [
+                          "a",
+                          "https://s.shopee.co.id/BRe7qnpkU"
+                        ]
+                      ]
+                    ],
+                    [
+                      " (Pilih yang 60 cm atau lebih untuk ukuran lebar nya)\n+"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "37b54d70-2c62-8087-86c2-c709de9eeb85",
+                "type": "text",
+                "text": "Oxihom FL40 (Pilih Kaki Meja, Dual Motor, Garansi 2 Tahun)\n[https://s.shopee.co.id/5L9NC8l84j](https://s.shopee.co.id/5L9NC8l84j)",
+                "plainText": "Oxihom FL40 (Pilih Kaki Meja, Dual Motor, Garansi 2 Tahun)\nhttps://s.shopee.co.id/5L9NC8l84j",
+                "properties": {
+                  "title": [
+                    [
+                      "Oxihom FL40 (Pilih Kaki Meja, Dual Motor, Garansi 2 Tahun)\n"
+                    ],
+                    [
+                      "https://s.shopee.co.id/5L9NC8l84j",
+                      [
+                        [
+                          "a",
+                          "https://s.shopee.co.id/5L9NC8l84j"
+                        ]
+                      ]
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "37b54d70-2c62-805c-9a73-cd34bd711a03",
+                "type": "text",
+                "text": "",
+                "plainText": ""
+              },
+              {
+                "id": "38254d70-2c62-80cf-b2f6-df6992c11941",
+                "type": "text",
+                "text": "Testimoni",
+                "plainText": "Testimoni",
+                "properties": {
+                  "title": [
+                    [
+                      "Testimoni"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "35454d70-2c62-8043-a7ad-f2471cd008c1",
+                "type": "bulleted_list",
+                "text": "[https://discord.com/channels/856570745726566411/1417101046479847565/1473011994402488582](https://discord.com/channels/856570745726566411/1417101046479847565/1473011994402488582)",
+                "plainText": "https://discord.com/channels/856570745726566411/1417101046479847565/1473011994402488582",
+                "properties": {
+                  "title": [
+                    [
+                      "https://discord.com/channels/856570745726566411/1417101046479847565/1473011994402488582",
+                      [
+                        [
+                          "a",
+                          "https://discord.com/channels/856570745726566411/1417101046479847565/1473011994402488582"
+                        ]
+                      ]
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "35754d70-2c62-8030-ae86-c9099019e1f7",
+                "type": "text",
+                "text": "",
+                "plainText": ""
+              }
+            ]
+          },
+          {
+            "id": "3bb54d70-2c62-8072-8c33-eae578067246",
+            "properties": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              "KISARAN HARGA": "8900000",
+              " L SHAPED ATAU NON L SHAPED": "L SHAPED",
+              "KETERANGAN": "DAUN MEJA,KAKI MEJA ELEKTRIK",
+              "NAMA TOKO": "MEJA ELEKTRIK 4 (L SHAPED, $$$)"
+            },
+            "formattedProps": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              "KISARAN HARGA": "8900000",
+              " L SHAPED ATAU NON L SHAPED": "L SHAPED",
+              "KETERANGAN": "DAUN MEJA,KAKI MEJA ELEKTRIK",
+              "NAMA TOKO": "MEJA ELEKTRIK 4 (L SHAPED, $$$)"
+            },
+            "content": [
+              {
+                "id": "3c554d70-2c62-80ff-96dd-e827180c7bc7",
+                "type": "header",
+                "text": "UDESK PRO MAX (TRIPLE MOTOR, 3 YEARS WARRANTY",
+                "plainText": "UDESK PRO MAX (TRIPLE MOTOR, 3 YEARS WARRANTY",
+                "properties": {
+                  "title": [
+                    [
+                      "UDESK PRO MAX (TRIPLE MOTOR, 3 YEARS WARRANTY"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "3c554d70-2c62-800f-a45f-f914555275fa",
+                "type": "text",
+                "text": "UKURAN (DAUN) MEJA SEPERTI BERIKUT (DIKARENAKAN L SHAPED,CUKUP KOMPLEKS UKURAN NYA)",
+                "plainText": "UKURAN (DAUN) MEJA SEPERTI BERIKUT (DIKARENAKAN L SHAPED,CUKUP KOMPLEKS UKURAN NYA)",
+                "properties": {
+                  "title": [
+                    [
+                      "UKURAN (DAUN) MEJA SEPERTI BERIKUT (DIKARENAKAN L SHAPED,CUKUP KOMPLEKS UKURAN NYA)"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "3c554d70-2c62-8007-b9f4-ea9eaab2f734",
+                "type": "image",
+                "text": "image.png",
+                "plainText": "image.png",
+                "properties": {
+                  "size": [
+                    [
+                      "109.4 KiB"
+                    ]
+                  ],
+                  "title": [
+                    [
+                      "image.png"
+                    ]
+                  ],
+                  "source": [
+                    [
+                      "attachment:92c5dbdd-b321-47c3-a643-f1536d9593da:image.png"
+                    ]
+                  ],
+                  "caption": [
+                    [
+                      "Gambar Panduan untuk Daun Meja UDesk Pro Max (Ini bukan ukuran maksimal)"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "3c554d70-2c62-804f-bc89-edc05b8fd06c",
+                "type": "text",
+                "text": "Link Pembelian",
+                "plainText": "Link Pembelian",
+                "properties": {
+                  "title": [
+                    [
+                      "Link Pembelian"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "3c554d70-2c62-80fc-b46f-cfb264926b3b",
+                "type": "text",
+                "text": "FJL Kayu Jati (Rumah Kayu Official)\n(Pilih yang 3-4 cm ketebalan dan sudah finishing, dikarenakan tidak ada, diharapkan chat seller untuk negosiasi soal harga, sesuai dengan Denah Daun meja di atas)\n[https://s.shopee.co.id/Lkkyktg5m](https://s.shopee.co.id/Lkkyktg5m) ",
+                "plainText": "FJL Kayu Jati (Rumah Kayu Official)\n(Pilih yang 3-4 cm ketebalan dan sudah finishing, dikarenakan tidak ada, diharapkan chat seller untuk negosiasi soal harga, sesuai dengan Denah Daun meja di atas)\nhttps://s.shopee.co.id/Lkkyktg5m ",
+                "properties": {
+                  "title": [
+                    [
+                      "FJL Kayu Jati (Rumah Kayu Official)\n(Pilih yang 3-4 cm ketebalan dan sudah finishing, dikarenakan tidak ada, diharapkan chat seller untuk negosiasi soal harga, sesuai dengan Denah Daun meja di atas)\n"
+                    ],
+                    [
+                      "https://s.shopee.co.id/Lkkyktg5m",
+                      [
+                        [
+                          "a",
+                          "https://s.shopee.co.id/Lkkyktg5m"
+                        ]
+                      ]
+                    ],
+                    [
+                      " "
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "3c554d70-2c62-8064-b61a-f487c680f254",
+                "type": "text",
+                "text": "+",
+                "plainText": "+",
+                "properties": {
+                  "title": [
+                    [
+                      "+"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "3c554d70-2c62-8019-9f74-efebaf781eeb",
+                "type": "text",
+                "text": "Kaki Meja (UDesk Pro Max)",
+                "plainText": "Kaki Meja (UDesk Pro Max)",
+                "properties": {
+                  "title": [
+                    [
+                      "Kaki Meja (UDesk Pro Max)"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "3c554d70-2c62-8030-9cd8-c64c15f8529d",
+                "type": "text",
+                "text": "[https://s.shopee.co.id/1LfBwolxd0](https://s.shopee.co.id/1LfBwolxd0)",
+                "plainText": "https://s.shopee.co.id/1LfBwolxd0",
+                "properties": {
+                  "title": [
+                    [
+                      "https://s.shopee.co.id/1LfBwolxd0",
+                      [
+                        [
+                          "a",
+                          "https://s.shopee.co.id/1LfBwolxd0"
+                        ]
+                      ]
+                    ]
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "35e54d70-2c62-8098-99ef-c447054966b0",
+            "properties": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              "gxGr": "https://s.shopee.co.id/9UyFYcSz4d",
+              " L SHAPED ATAU NON L SHAPED": "NON L SHAPED",
+              "KETERANGAN": "MEJA + LACI (NAKAS),PLYWOOD (TACOSHEET)",
+              "NAMA TOKO": "MEJA NAKAS 1"
+            },
+            "formattedProps": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              "gxGr": "[https://s.shopee.co.id/9UyFYcSz4d](https://s.shopee.co.id/9UyFYcSz4d)",
+              " L SHAPED ATAU NON L SHAPED": "NON L SHAPED",
+              "KETERANGAN": "MEJA + LACI (NAKAS),PLYWOOD (TACOSHEET)",
+              "NAMA TOKO": "MEJA NAKAS 1"
+            },
+            "content": [
+              {
+                "id": "35e54d70-2c62-802e-a522-c8c5fefb13c5",
+                "type": "text",
+                "text": "Ukuran 160 - 180 cm x 70 cm (Galaxy Furniture Jepara)",
+                "plainText": "Ukuran 160 - 180 cm x 70 cm (Galaxy Furniture Jepara)",
+                "properties": {
+                  "title": [
+                    [
+                      "Ukuran 160 - 180 cm x 70 cm (Galaxy Furniture Jepara)"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "37d54d70-2c62-8016-bb30-d93dcb9d18af",
+                "type": "text",
+                "text": "[https://s.shopee.co.id/8pjMXZTOMv](https://s.shopee.co.id/8pjMXZTOMv)",
+                "plainText": "https://s.shopee.co.id/8pjMXZTOMv",
+                "properties": {
+                  "title": [
+                    [
+                      "https://s.shopee.co.id/8pjMXZTOMv",
+                      [
+                        [
+                          "a",
+                          "https://s.shopee.co.id/8pjMXZTOMv"
+                        ]
+                      ]
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "37d54d70-2c62-802b-b4b1-fef48fa8faee",
+                "type": "text",
+                "text": "",
+                "plainText": ""
+              },
+              {
+                "id": "37d54d70-2c62-8006-bfa5-e435b747f2c4",
+                "type": "text",
+                "text": "Catatan :",
+                "plainText": "Catatan :",
+                "properties": {
+                  "title": [
+                    [
+                      "Catatan :"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "37f54d70-2c62-8018-a3d8-e474a2341436",
+                "type": "bulleted_list",
+                "text": "Laminating masih TACOSHEET, jadi disarankan jangan ada makanan panas di atas meja",
+                "plainText": "Laminating masih TACOSHEET, jadi disarankan jangan ada makanan panas di atas meja",
+                "properties": {
+                  "title": [
+                    [
+                      "Laminating masih TACOSHEET, jadi disarankan jangan ada makanan panas di atas meja"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "37d54d70-2c62-8072-8159-fcbc63dbc938",
+                "type": "text",
+                "text": "",
+                "plainText": ""
+              }
+            ]
+          },
+          {
+            "id": "3b654d70-2c62-80c0-bb72-fc471faf8b7a",
+            "properties": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              " L SHAPED ATAU NON L SHAPED": "NON L SHAPED",
+              "KETERANGAN": "MEJA + LACI (NAKAS),PLYWOOD (TACOSHEET)",
+              "NAMA TOKO": "MEJA NAKAS 2 (UKURAN BESAR, TBC)"
+            },
+            "formattedProps": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              " L SHAPED ATAU NON L SHAPED": "NON L SHAPED",
+              "KETERANGAN": "MEJA + LACI (NAKAS),PLYWOOD (TACOSHEET)",
+              "NAMA TOKO": "MEJA NAKAS 2 (UKURAN BESAR, TBC)"
+            },
+            "content": [
+              {
+                "id": "3b654d70-2c62-8093-a323-e53ab204c65a",
+                "type": "text",
+                "text": "Untuk Ukuran 180 - 200 x 60 cm",
+                "plainText": "Untuk Ukuran 180 - 200 x 60 cm",
+                "properties": {
+                  "title": [
+                    [
+                      "Untuk Ukuran 180 - 200 x 60 cm"
+                    ]
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "3bb54d70-2c62-80d2-b51d-c9ab7f289b23",
+            "properties": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              " L SHAPED ATAU NON L SHAPED": "NON L SHAPED",
+              "KETERANGAN": "MEJA + LACI (NAKAS),KAKI MEJA HOLLOW",
+              "NAMA TOKO": "MEJA LESEHAN 1 "
+            },
+            "formattedProps": {
+              "CATATAN ": "ADA (DISARANKAN MEMBACA NYA)",
+              " L SHAPED ATAU NON L SHAPED": "NON L SHAPED",
+              "KETERANGAN": "MEJA + LACI (NAKAS),KAKI MEJA HOLLOW",
+              "NAMA TOKO": "MEJA LESEHAN 1 "
+            },
+            "content": [
+              {
+                "id": "3bb54d70-2c62-8009-8fa6-fa76599e5ba6",
+                "type": "text",
+                "text": "Ukuran 120 x 60",
+                "plainText": "Ukuran 120 x 60",
+                "properties": {
+                  "title": [
+                    [
+                      "Ukuran 120 x 60"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "3bb54d70-2c62-8095-8fe5-c4133596270a",
+                "type": "text",
+                "text": "Catatan : ",
+                "plainText": "Catatan : ",
+                "properties": {
+                  "title": [
+                    [
+                      "Catatan : "
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "3bb54d70-2c62-808a-93a5-da0c346793f8",
+                "type": "text",
+                "text": "",
+                "plainText": ""
+              },
+              {
+                "id": "3bb54d70-2c62-80fa-8f0b-e5d9cae80802",
+                "type": "text",
+                "text": "[https://s.shopee.co.id/4fvOPqdRau](https://s.shopee.co.id/4fvOPqdRau) (Tinggi 32 cm)",
+                "plainText": "https://s.shopee.co.id/4fvOPqdRau (Tinggi 32 cm)",
+                "properties": {
+                  "title": [
+                    [
+                      "https://s.shopee.co.id/4fvOPqdRau",
+                      [
+                        [
+                          "a",
+                          "https://s.shopee.co.id/4fvOPqdRau"
+                        ]
+                      ]
+                    ],
+                    [
+                      " (Tinggi 32 cm)"
+                    ]
+                  ]
+                }
+              },
+              {
+                "id": "3bb54d70-2c62-8002-a343-c391b08e466b",
+                "type": "text",
+                "text": "[https://s.shopee.co.id/2gAK2LFwNZ](https://s.shopee.co.id/2gAK2LFwNZ) (Tinggi 45 cm)",
+                "plainText": "https://s.shopee.co.id/2gAK2LFwNZ (Tinggi 45 cm)",
+                "properties": {
+                  "title": [
+                    [
+                      "https://s.shopee.co.id/2gAK2LFwNZ",
+                      [
+                        [
+                          "a",
+                          "https://s.shopee.co.id/2gAK2LFwNZ"
+                        ]
+                      ]
+                    ],
+                    [
+                      " (Tinggi 45 cm)"
+                    ]
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "ukuran": {
+    "pageId": "3a554d70-2c62-8038-87ba-c9992e4bd277",
+    "title": "UKURAN MEJA DAN MONITOR YANG IDEAL",
+    "pageContent": [
+      {
+        "id": "3a554d70-2c62-80e8-824d-db26d2be4300",
+        "type": "text",
+        "text": "Ini panduan nya",
+        "plainText": "Ini panduan nya",
+        "properties": {
+          "title": [
+            [
+              "Ini panduan nya"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "32954d70-2c62-802c-bf67-d359513c9ce4",
+        "type": "collection_view",
+        "text": "",
+        "plainText": ""
+      },
+      {
+        "id": "32d54d70-2c62-80ce-bae5-f9d11157e64a",
+        "type": "collection_view",
+        "text": "",
+        "plainText": ""
+      },
+      {
+        "id": "32d54d70-2c62-8067-b892-fc005feba46e",
+        "type": "callout",
+        "text": "",
+        "plainText": ""
+      }
+    ],
+    "collections": [
+      {
+        "id": "32954d70-2c62-80be-b287-000b04213761",
+        "name": "GAMBARAN KASAR (24 INCH)",
+        "schema": {
+          ">pJJ": {
+            "name": "UKURAN MEJA (IDEAL, CM)",
+            "type": "select",
+            "options": [
+              {
+                "id": "ffaa8e1d-a352-42eb-9379-121837ad5e6b",
+                "color": "red",
+                "value": "120 × 70"
+              },
+              {
+                "id": "19b57326-b194-4e54-b504-83dbb539d0f6",
+                "color": "purple",
+                "value": "140 × 70"
+              },
+              {
+                "id": "7c8dbcc3-184e-4ac3-946e-eb097bfb0a23",
+                "color": "orange",
+                "value": "160 × 70"
+              }
+            ]
+          },
+          "@chc": {
+            "name": "Select",
+            "type": "select",
+            "options": [
+              {
+                "id": "fca3fa7a-6f19-4c46-8afe-57f834d33771",
+                "color": "purple",
+                "value": "NON - L SHAPED"
+              }
+            ]
+          },
+          "XweF": {
+            "name": "DEVICE",
+            "type": "multi_select",
+            "options": [
+              {
+                "id": "13df1af9-f6ee-4cd3-a4db-c940faa5cba6",
+                "color": "blue",
+                "value": "1 MONITOR"
+              },
+              {
+                "id": "c03a42f8-2c52-4bc2-b3cc-3b16a45dbe4f",
+                "color": "pink",
+                "value": "PC (DIBAWAH MEJA)"
+              },
+              {
+                "id": "a10091be-339b-4bba-8ba9-e21cbd56f789",
+                "color": "purple",
+                "value": "PC (DI ATAS MEJA)"
+              },
+              {
+                "id": "9ce2e63a-5ec9-4edf-bbd3-0af8a798a409",
+                "color": "orange",
+                "value": "LAPTOP"
+              },
+              {
+                "id": "d2026664-af31-4938-bb08-c3dc9af37637",
+                "color": "gray",
+                "value": "2 MONITOR"
+              }
+            ]
+          },
+          "jM{B": {
+            "name": "UKURAN MEJA (MINIMUM, CM)",
+            "type": "select",
+            "options": [
+              {
+                "id": "310476e3-b9c4-4b17-854a-b46c126cccdd",
+                "color": "pink",
+                "value": "120 × 60"
+              },
+              {
+                "id": "3e4dd1b7-5a4a-4642-915d-1749e715b9e9",
+                "color": "green",
+                "value": "140 × 60"
+              }
+            ]
+          },
+          "title": {
+            "name": "UKURAN MONITOR",
+            "type": "title"
+          }
+        },
+        "rows": [
+          {
+            "id": "32d54d70-2c62-80ed-a688-d5c6560b0593",
+            "properties": {
+              "UKURAN MEJA (IDEAL, CM)": "120 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "1 MONITOR,PC (DIBAWAH MEJA)",
+              "UKURAN MEJA (MINIMUM, CM)": "120 × 60",
+              "UKURAN MONITOR": "24 INCH"
+            },
+            "formattedProps": {
+              "UKURAN MEJA (IDEAL, CM)": "120 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "1 MONITOR,PC (DIBAWAH MEJA)",
+              "UKURAN MEJA (MINIMUM, CM)": "120 × 60",
+              "UKURAN MONITOR": "24 INCH"
+            },
+            "content": []
+          },
+          {
+            "id": "32d54d70-2c62-8064-8e9a-df30e996069a",
+            "properties": {
+              "UKURAN MEJA (IDEAL, CM)": "140 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "1 MONITOR,PC (DI ATAS MEJA)",
+              "UKURAN MEJA (MINIMUM, CM)": "120 × 60",
+              "UKURAN MONITOR": "24 INCH"
+            },
+            "formattedProps": {
+              "UKURAN MEJA (IDEAL, CM)": "140 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "1 MONITOR,PC (DI ATAS MEJA)",
+              "UKURAN MEJA (MINIMUM, CM)": "120 × 60",
+              "UKURAN MONITOR": "24 INCH"
+            },
+            "content": [
+              {
+                "id": "32d54d70-2c62-809f-9ee5-e61ac33c96fa",
+                "type": "text",
+                "text": "",
+                "plainText": ""
+              }
+            ]
+          },
+          {
+            "id": "32d54d70-2c62-80d5-a69a-f5221d02aac4",
+            "properties": {
+              "UKURAN MEJA (IDEAL, CM)": "140 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "1 MONITOR,LAPTOP",
+              "UKURAN MEJA (MINIMUM, CM)": "120 × 60",
+              "UKURAN MONITOR": "24 INCH"
+            },
+            "formattedProps": {
+              "UKURAN MEJA (IDEAL, CM)": "140 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "1 MONITOR,LAPTOP",
+              "UKURAN MEJA (MINIMUM, CM)": "120 × 60",
+              "UKURAN MONITOR": "24 INCH"
+            },
+            "content": [
+              {
+                "id": "32d54d70-2c62-8033-ac6b-f5f31ea88ef2",
+                "type": "text",
+                "text": "",
+                "plainText": ""
+              }
+            ]
+          },
+          {
+            "id": "32d54d70-2c62-808a-905c-d7c7adef2c1e",
+            "properties": {
+              "UKURAN MEJA (IDEAL, CM)": "160 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "2 MONITOR,LAPTOP",
+              "UKURAN MEJA (MINIMUM, CM)": "140 × 60",
+              "UKURAN MONITOR": "24 INCH (DUAL 24 INCH)"
+            },
+            "formattedProps": {
+              "UKURAN MEJA (IDEAL, CM)": "160 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "2 MONITOR,LAPTOP",
+              "UKURAN MEJA (MINIMUM, CM)": "140 × 60",
+              "UKURAN MONITOR": "24 INCH (DUAL 24 INCH)"
+            },
+            "content": [
+              {
+                "id": "32d54d70-2c62-8092-82ba-eccbc1adb8e7",
+                "type": "text",
+                "text": "CATATAN : DISARANKAN KONSULTASI TERLEBIH DAHULU APAKAH LAPTOP NYA SUPPORT DUAL MONITOR EKSTERNAL ATAU TIDAK",
+                "plainText": "CATATAN : DISARANKAN KONSULTASI TERLEBIH DAHULU APAKAH LAPTOP NYA SUPPORT DUAL MONITOR EKSTERNAL ATAU TIDAK",
+                "properties": {
+                  "title": [
+                    [
+                      "CATATAN : DISARANKAN KONSULTASI TERLEBIH DAHULU APAKAH LAPTOP NYA SUPPORT DUAL MONITOR EKSTERNAL ATAU TIDAK"
+                    ]
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "32d54d70-2c62-8067-82e8-dcd30b08cdb5",
+            "properties": {
+              "UKURAN MEJA (IDEAL, CM)": "140 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "2 MONITOR,PC (DIBAWAH MEJA)",
+              "UKURAN MEJA (MINIMUM, CM)": "120 × 60",
+              "UKURAN MONITOR": "24 INCH (DUAL 24 INCH)"
+            },
+            "formattedProps": {
+              "UKURAN MEJA (IDEAL, CM)": "140 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "2 MONITOR,PC (DIBAWAH MEJA)",
+              "UKURAN MEJA (MINIMUM, CM)": "120 × 60",
+              "UKURAN MONITOR": "24 INCH (DUAL 24 INCH)"
+            },
+            "content": []
+          },
+          {
+            "id": "32d54d70-2c62-80fc-8123-de44c7206ba6",
+            "properties": {
+              "UKURAN MEJA (IDEAL, CM)": "160 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "2 MONITOR,PC (DI ATAS MEJA)",
+              "UKURAN MEJA (MINIMUM, CM)": "140 × 60",
+              "UKURAN MONITOR": "24 INCH (DUAL 24 INCH)"
+            },
+            "formattedProps": {
+              "UKURAN MEJA (IDEAL, CM)": "160 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "2 MONITOR,PC (DI ATAS MEJA)",
+              "UKURAN MEJA (MINIMUM, CM)": "140 × 60",
+              "UKURAN MONITOR": "24 INCH (DUAL 24 INCH)"
+            },
+            "content": []
+          }
+        ]
+      },
+      {
+        "id": "32d54d70-2c62-815a-8296-000ba9eb8d2d",
+        "name": "GAMBARAN KASAR (27 INCH, TERMASUK SECONDARY 24 INCH)",
+        "schema": {
+          ">pJJ": {
+            "name": "UKURAN MEJA (IDEAL, CM)",
+            "type": "multi_select",
+            "options": [
+              {
+                "id": "ffaa8e1d-a352-42eb-9379-121837ad5e6b",
+                "color": "red",
+                "value": "120 × 60"
+              },
+              {
+                "id": "19b57326-b194-4e54-b504-83dbb539d0f6",
+                "color": "purple",
+                "value": "140 × 60"
+              },
+              {
+                "id": "7c8dbcc3-184e-4ac3-946e-eb097bfb0a23",
+                "color": "orange",
+                "value": "160 × 60"
+              },
+              {
+                "id": "c88a73da-0c4a-410e-a1bc-2a462359fd2c",
+                "color": "blue",
+                "value": "140 × 70"
+              },
+              {
+                "id": "23efd654-3302-4c48-b9a2-da2294b54cac",
+                "color": "green",
+                "value": "160 × 70"
+              }
+            ]
+          },
+          "WNjt": {
+            "name": "Select",
+            "type": "select",
+            "options": [
+              {
+                "id": "c63146bc-20b5-4936-901d-646cebfadc59",
+                "color": "red",
+                "value": "NON - L SHAPED"
+              }
+            ]
+          },
+          "XweF": {
+            "name": "DEVICE",
+            "type": "multi_select",
+            "options": [
+              {
+                "id": "13df1af9-f6ee-4cd3-a4db-c940faa5cba6",
+                "color": "blue",
+                "value": "1 MONITOR"
+              },
+              {
+                "id": "c03a42f8-2c52-4bc2-b3cc-3b16a45dbe4f",
+                "color": "pink",
+                "value": "PC (DIBAWAH MEJA)"
+              },
+              {
+                "id": "a10091be-339b-4bba-8ba9-e21cbd56f789",
+                "color": "purple",
+                "value": "PC (DI ATAS MEJA)"
+              },
+              {
+                "id": "9ce2e63a-5ec9-4edf-bbd3-0af8a798a409",
+                "color": "orange",
+                "value": "LAPTOP"
+              },
+              {
+                "id": "d2026664-af31-4938-bb08-c3dc9af37637",
+                "color": "gray",
+                "value": "2 MONITOR"
+              }
+            ]
+          },
+          "jM{B": {
+            "name": "UKURAN MEJA (MINIMUM, CM)",
+            "type": "select",
+            "options": [
+              {
+                "id": "310476e3-b9c4-4b17-854a-b46c126cccdd",
+                "color": "pink",
+                "value": "120 × 70"
+              },
+              {
+                "id": "3e4dd1b7-5a4a-4642-915d-1749e715b9e9",
+                "color": "green",
+                "value": "140 × 60"
+              },
+              {
+                "id": "83c95fed-09d7-4853-9c63-5d77a9dcaee0",
+                "color": "orange",
+                "value": "140 × 70"
+              }
+            ]
+          },
+          "title": {
+            "name": "UKURAN MONITOR",
+            "type": "title"
+          }
+        },
+        "rows": [
+          {
+            "id": "32d54d70-2c62-817c-bdb4-c7a3419cc3e3",
+            "properties": {
+              "UKURAN MEJA (IDEAL, CM)": "140 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "1 MONITOR,PC (DIBAWAH MEJA)",
+              "UKURAN MEJA (MINIMUM, CM)": "120 × 70",
+              "UKURAN MONITOR": "27 INCH"
+            },
+            "formattedProps": {
+              "UKURAN MEJA (IDEAL, CM)": "140 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "1 MONITOR,PC (DIBAWAH MEJA)",
+              "UKURAN MEJA (MINIMUM, CM)": "120 × 70",
+              "UKURAN MONITOR": "27 INCH"
+            },
+            "content": []
+          },
+          {
+            "id": "32d54d70-2c62-8187-bfc5-f1c3ba82c6e0",
+            "properties": {
+              "UKURAN MEJA (IDEAL, CM)": "160 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "2 MONITOR,PC (DI ATAS MEJA)",
+              "UKURAN MEJA (MINIMUM, CM)": "140 × 70",
+              "UKURAN MONITOR": "27 INCH (DUAL 24 / 27 INCH)"
+            },
+            "formattedProps": {
+              "UKURAN MEJA (IDEAL, CM)": "160 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "2 MONITOR,PC (DI ATAS MEJA)",
+              "UKURAN MEJA (MINIMUM, CM)": "140 × 70",
+              "UKURAN MONITOR": "27 INCH (DUAL 24 / 27 INCH)"
+            },
+            "content": []
+          },
+          {
+            "id": "32d54d70-2c62-81af-85ee-ff04535f7fd3",
+            "properties": {
+              "UKURAN MEJA (IDEAL, CM)": "140 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "1 MONITOR,LAPTOP",
+              "UKURAN MEJA (MINIMUM, CM)": "140 × 70",
+              "UKURAN MONITOR": "27 INCH"
+            },
+            "formattedProps": {
+              "UKURAN MEJA (IDEAL, CM)": "140 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "1 MONITOR,LAPTOP",
+              "UKURAN MEJA (MINIMUM, CM)": "140 × 70",
+              "UKURAN MONITOR": "27 INCH"
+            },
+            "content": []
+          },
+          {
+            "id": "32d54d70-2c62-8159-b309-e9cb673d99e8",
+            "properties": {
+              "UKURAN MEJA (IDEAL, CM)": "140 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "1 MONITOR,PC (DI ATAS MEJA)",
+              "UKURAN MEJA (MINIMUM, CM)": "140 × 70",
+              "UKURAN MONITOR": "27 INCH"
+            },
+            "formattedProps": {
+              "UKURAN MEJA (IDEAL, CM)": "140 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "1 MONITOR,PC (DI ATAS MEJA)",
+              "UKURAN MEJA (MINIMUM, CM)": "140 × 70",
+              "UKURAN MONITOR": "27 INCH"
+            },
+            "content": [
+              {
+                "id": "32d54d70-2c62-814c-9582-d60ab9f19573",
+                "type": "text",
+                "text": "",
+                "plainText": ""
+              }
+            ]
+          },
+          {
+            "id": "32d54d70-2c62-81a0-9fa0-c8536b367333",
+            "properties": {
+              "UKURAN MEJA (IDEAL, CM)": "160 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "2 MONITOR,PC (DIBAWAH MEJA)",
+              "UKURAN MEJA (MINIMUM, CM)": "140 × 70",
+              "UKURAN MONITOR": "27 INCH (DUAL 24 / 27 INCH)"
+            },
+            "formattedProps": {
+              "UKURAN MEJA (IDEAL, CM)": "160 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "2 MONITOR,PC (DIBAWAH MEJA)",
+              "UKURAN MEJA (MINIMUM, CM)": "140 × 70",
+              "UKURAN MONITOR": "27 INCH (DUAL 24 / 27 INCH)"
+            },
+            "content": []
+          },
+          {
+            "id": "32d54d70-2c62-81dd-ae98-df162a17b084",
+            "properties": {
+              "UKURAN MEJA (IDEAL, CM)": "160 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "2 MONITOR,LAPTOP",
+              "UKURAN MEJA (MINIMUM, CM)": "140 × 70",
+              "UKURAN MONITOR": "27 INCH (DUAL 24 / 27 INCH)"
+            },
+            "formattedProps": {
+              "UKURAN MEJA (IDEAL, CM)": "160 × 70",
+              "Select": "NON - L SHAPED",
+              "DEVICE": "2 MONITOR,LAPTOP",
+              "UKURAN MEJA (MINIMUM, CM)": "140 × 70",
+              "UKURAN MONITOR": "27 INCH (DUAL 24 / 27 INCH)"
+            },
+            "content": [
+              {
+                "id": "32d54d70-2c62-81b0-8a58-f4d8c5d7d622",
+                "type": "text",
+                "text": "CATATAN : DISARANKAN KONSULTASI TERLEBIH DAHULU APAKAH LAPTOP NYA SUPPORT DUAL MONITOR EKSTERNAL ATAU TIDAK",
+                "plainText": "CATATAN : DISARANKAN KONSULTASI TERLEBIH DAHULU APAKAH LAPTOP NYA SUPPORT DUAL MONITOR EKSTERNAL ATAU TIDAK",
+                "properties": {
+                  "title": [
+                    [
+                      "CATATAN : DISARANKAN KONSULTASI TERLEBIH DAHULU APAKAH LAPTOP NYA SUPPORT DUAL MONITOR EKSTERNAL ATAU TIDAK"
+                    ]
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

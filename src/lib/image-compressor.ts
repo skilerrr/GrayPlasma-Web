@@ -106,3 +106,86 @@ export function formatFileSize(bytes: number): string {
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
 }
+
+/**
+ * Uploads compressed file to Supabase Storage if available, or returns dataUrl
+ */
+export async function uploadOrProcessImage(
+  file: File,
+  folder = "articles"
+): Promise<{ url: string; isRemote: boolean; compressedSize: number }> {
+  const result = await compressImage(file);
+  
+  // Try Supabase Storage if configured
+  try {
+    const { supabase, isSupabaseConfigured } = await import("@/lib/supabase");
+    if (isSupabaseConfigured && supabase) {
+      const fileName = `${folder}/${Date.now()}-${Math.random().toString(36).substring(2, 8)}.webp`;
+      const { data, error } = await supabase.storage
+        .from("gp-assets")
+        .upload(fileName, result.file, {
+          contentType: "image/webp",
+          upsert: true,
+        });
+
+      if (!error && data) {
+        const { data: publicUrlData } = supabase.storage
+          .from("gp-assets")
+          .getPublicUrl(fileName);
+        return {
+          url: publicUrlData.publicUrl,
+          isRemote: true,
+          compressedSize: result.compressedSize,
+        };
+      }
+    }
+  } catch (err) {
+    console.warn("Storage upload fallback to Data URL", err);
+  }
+
+  return {
+    url: result.dataUrl,
+    isRemote: false,
+    compressedSize: result.compressedSize,
+  };
+}
+
+/**
+ * Handles paste event from clipboard in any text area or content editor
+ */
+export async function handleClipboardImagePaste(
+  e: React.ClipboardEvent<HTMLTextAreaElement | HTMLInputElement>,
+  options?: {
+    folder?: string;
+    onStart?: () => void;
+    onSuccess?: (markdownSnippet: string, url: string) => void;
+    onError?: (err: any) => void;
+  }
+): Promise<boolean> {
+  const items = e.clipboardData?.items;
+  if (!items) return false;
+
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    if (item.type.indexOf("image") !== -1) {
+      const file = item.getAsFile();
+      if (file) {
+        e.preventDefault();
+        options?.onStart?.();
+
+        try {
+          const { url } = await uploadOrProcessImage(file, options?.folder || "articles");
+          const markdownSnippet = `\n\n![Gambar Lampiran](${url})\n\n`;
+          options?.onSuccess?.(markdownSnippet, url);
+          return true;
+        } catch (err) {
+          options?.onError?.(err);
+          return false;
+        }
+      }
+    }
+  }
+
+  return false;
+}
+

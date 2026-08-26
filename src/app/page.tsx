@@ -48,6 +48,8 @@ import {
   TierRating,
 } from "@/types/monitor";
 import { MONITORS_DATA } from "@/data/monitors";
+import { DeskRecommendationsView } from "@/components/desk-recommendations-view";
+import { DESK_DATABASE, DeskItem } from "@/data/grayplasma-desk-peripherals";
 import {
   DESK_GUIDES,
   HDR_GUIDES,
@@ -1467,6 +1469,26 @@ export default function CatalogPage() {
                 );
               })}
             </div>
+          </div>
+        )}
+
+        {/* ========================================================================= */}
+        {/* VIEW: REKOMENDASI MEJA + KAKI (NOTION STYLE)                              */}
+        {/* ========================================================================= */}
+        {activeMenuKey === "desk-guide" && (
+          <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in duration-200">
+            <div className="flex items-center justify-between bg-[#202020] border border-[#2f2f2f] rounded-xl px-4 py-2.5 text-xs text-[#9b9a97]">
+              <button
+                onClick={() => setActiveMenuKey("home")}
+                className="hover:text-white flex items-center gap-1.5 transition-colors font-bold"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Kembali ke Beranda Utama</span>
+              </button>
+              <span className="text-white font-medium">🪑 REKOMENDASI MEJA</span>
+            </div>
+
+            <DeskRecommendationsView />
           </div>
         )}
 
