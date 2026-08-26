@@ -13,6 +13,12 @@ body {
   font-family: var(--font-metropolitan), -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure typography never exceeds Extra Bold (800) */
+.font-black {
+  font-weight: 800 !important;
 }
 
 /* Custom Sleek Dark Scrollbars */

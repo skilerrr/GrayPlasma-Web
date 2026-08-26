@@ -39,18 +39,22 @@ export interface PeripheralItem {
 
 export interface ConsultationResultItem {
   id: string;
-  clientName: string;
-  consultationDate: string;
-  gpuOrDevice: string;
-  budget: string;
-  useCase: string;
-  chosenMonitor: string;
-  verdictHighlight: string;
-  reviewLink?: string;
+  title: string;
+  budget: number;
+  specs: string;
+  needs: string;
+  recommendations: string[];
 }
 
 export const GIMMICK_MEJA_GAMING_CONTENT = {
   title: "MENGAPA HINDARI MEJA GAMING BERBENTUK KOTAK RACING DENGAN KETEBALAN < 1.5 CM?",
+  subtitle: "Edukasi penting mengapa meja gaming particle board murah rawan patah/jebol saat dipasang monitor arm gas-spring.",
+  poinPenting: [
+    "Particle Board / MDF tipis (1.2 - 1.5 cm) memiliki kepadatan serat kayu rendah sehingga mudah hancur menerima tekanan clamp monitor arm.",
+    "Beban 1 monitor 24-27 inci beserta arm gas spring menghasilkan titik tumpu terkonsentrasi sekitar 5 - 9 kg pada plat jepit 5x5 cm.",
+    "Standar meja aman untuk monitor arm wajib menggunakan Multiplek / Plywood minimal tebal 1.8 cm - 2.4 cm dengan laminasi HPL atau kayu solid FJL.",
+    "Jika meja terlanjur tipis, gunakan plat protektor clamp tambahan seperti Oximus EV-06 untuk menyebarkan titik beban secara merata."
+  ],
   contentMarkdown: `# HINDARI MEJA GAMING TIPIS (< 1.5 CM) UNTUK BRACKET MONITOR ARM
 
 > Standar Meja Kokoh GrayPlasma: Minimal Multiplek / Plywood 18-24mm Tahan Clamp Arm Gas-Spring

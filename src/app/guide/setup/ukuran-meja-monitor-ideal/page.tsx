@@ -18,7 +18,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { IDEAL_DESK_MONITOR_SIZES } from "@/data/grayplasma-desk-peripherals";
-import { GPLogo } from "@/components/gp-logo";
+import { SubpageNavbar } from "@/components/subpage-navbar";
 import { Footer } from "@/components/footer";
 
 export default function UkuranMejaMonitorIdealPage() {
@@ -54,38 +54,24 @@ export default function UkuranMejaMonitorIdealPage() {
 
   return (
     <div className="min-h-screen bg-[#191919] text-[#e0e0e0] flex flex-col font-sans selection:bg-amber-500/30 selection:text-amber-200">
-      {/* Top Breadcrumb Bar */}
-      <div className="border-b border-[#2f2f2f] bg-[#121212]/90 backdrop-blur-md sticky top-0 z-30 px-4 sm:px-8 py-3.5">
-        <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-xs text-[#9b9a97] overflow-x-auto no-scrollbar">
-            <Link href="/" className="hover:text-white transition-colors flex items-center gap-1.5 font-bold">
-              <GPLogo className="w-5 h-5" />
-              <span>BERANDA</span>
-            </Link>
-            <span>/</span>
-            <Link href="/catalog/desks" className="hover:text-white transition-colors">
-              🪑 REKOMENDASI MEJA
-            </Link>
-            <span>/</span>
-            <span className="text-white font-medium">📐 UKURAN MEJA & MONITOR IDEAL</span>
-          </div>
-
-          <Link
-            href="/catalog/desks"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#202020] hover:bg-[#282828] border border-[#2f2f2f] text-xs font-bold text-zinc-300 hover:text-white transition-all shadow-sm flex-shrink-0"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Ke Katalog Meja</span>
-          </Link>
-        </div>
-      </div>
+      {/* Unified Subpage Navbar */}
+      <SubpageNavbar
+        breadcrumbs={[
+          { label: "REKOMENDASI MEJA", href: "/catalog/desks", icon: "🪑" },
+          { label: "UKURAN MEJA & MONITOR IDEAL", icon: "📐" },
+        ]}
+        backLink={{
+          href: "/catalog/desks",
+          label: "Ke Katalog Meja",
+        }}
+      />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 flex-1 w-full">
         {/* Page Hero Title */}
         <div className="bg-[#202020] border border-[#2f2f2f] rounded-3xl p-6 sm:p-10 space-y-6 shadow-2xl relative overflow-hidden">
           <div className="relative z-10 space-y-4">
             <div className="text-4xl sm:text-5xl">📐</div>
-            <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight uppercase">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-normal uppercase">
               UKURAN MEJA DAN MONITOR YANG IDEAL
             </h1>
             <p className="text-sm sm:text-base text-[#9b9a97] leading-relaxed max-w-3xl">

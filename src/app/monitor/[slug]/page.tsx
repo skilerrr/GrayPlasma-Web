@@ -20,6 +20,7 @@ import { DatabaseService } from "@/lib/db-service";
 import { Footer } from "@/components/footer";
 import { YouTubeEmbed } from "@/components/youtube-embed";
 import { formatRupiah } from "@/lib/utils";
+import { SubpageNavbar } from "@/components/subpage-navbar";
 
 interface MonitorDetailPageProps {
   params: Promise<{
@@ -132,42 +133,40 @@ Link Detail: ${detailUrl}`;
 
   return (
     <div className="min-h-screen bg-[#191919] text-[#d4d4d4] flex flex-col font-sans selection:bg-[#2383e2] selection:text-white">
-      {/* Top Notion Breadcrumbs Toolbar */}
-      <div className="sticky top-0 z-30 bg-[#191919]/95 backdrop-blur-md border-b border-[#2a2a2a] px-4 sm:px-8 py-2.5 flex items-center justify-between text-xs">
-        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar whitespace-nowrap text-[#9b9a97]">
-          <Link href="/" className="hover:text-white flex items-center gap-1">
-            <span>🖥️</span>
-            <span className="hover:underline">GRAYPLASMAID - REKOMENDASI MONITOR</span>
-          </Link>
-          <span>/</span>
-          <span className="text-[#e0e0e0] font-medium flex items-center gap-1 truncate">
-            <span>🖥️</span>
-            <span className="truncate">{monitor.fullName}</span>
-          </span>
-        </div>
+      {/* Unified Clean Subpage Navbar */}
+      <SubpageNavbar
+        breadcrumbs={[
+          { label: "REKOMENDASI MONITOR", href: "/", icon: "🖥️" },
+          { label: monitor.fullName, icon: "🏷️" },
+        ]}
+        backLink={{
+          href: "/",
+          label: "Kembali ke Katalog",
+        }}
+        rightActions={
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleCopyDetails}
+              className={`px-2.5 py-1.5 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 border ${
+                copiedDetails
+                  ? "bg-[#203c2b] text-[#52ba69] border-[#52ba69]/40"
+                  : "bg-[#202020] border-[#2f2f2f] text-zinc-300 hover:text-white hover:bg-[#282828]"
+              }`}
+            >
+              {copiedDetails ? <Check className="w-3.5 h-3.5 text-[#52ba69]" /> : <Copy className="w-3.5 h-3.5 text-[#58a6ff]" />}
+              <span className="hidden sm:inline">{copiedDetails ? "Tersalin!" : "Copy Details"}</span>
+            </button>
 
-        <div className="flex items-center gap-2 flex-shrink-0">
-          <button
-            onClick={handleCopyDetails}
-            className={`px-2.5 py-1 rounded text-xs font-semibold transition-colors flex items-center gap-1.5 border ${
-              copiedDetails
-                ? "bg-[#203c2b] text-[#52ba69] border-[#52ba69]/40"
-                : "bg-[#252525] border-[#333333] text-[#d4d4d4] hover:text-white hover:bg-[#2c2c2c]"
-            }`}
-          >
-            {copiedDetails ? <Check className="w-3.5 h-3.5 text-[#52ba69]" /> : <Copy className="w-3.5 h-3.5 text-[#58a6ff]" />}
-            <span>{copiedDetails ? "Tersalin!" : "Copy Details"}</span>
-          </button>
-
-          <button
-            onClick={handleCopyUrl}
-            className="p-1.5 rounded bg-[#252525] border border-[#333333] hover:text-white hover:bg-[#2c2c2c] transition-colors"
-            title="Salin URL Halaman"
-          >
-            {copiedUrl ? <Check className="w-3.5 h-3.5 text-[#52ba69]" /> : <Share2 className="w-3.5 h-3.5" />}
-          </button>
-        </div>
-      </div>
+            <button
+              onClick={handleCopyUrl}
+              className="p-2 rounded-xl bg-[#202020] border border-[#2f2f2f] text-zinc-400 hover:text-white hover:bg-[#282828] transition-colors"
+              title="Salin URL"
+            >
+              {copiedUrl ? <Check className="w-3.5 h-3.5 text-[#52ba69]" /> : <Share2 className="w-3.5 h-3.5" />}
+            </button>
+          </div>
+        }
+      />
 
       {/* Main Full Page Notion Document */}
       <main className="max-w-4xl mx-auto px-4 sm:px-8 py-8 sm:py-12 flex-1 w-full space-y-6">

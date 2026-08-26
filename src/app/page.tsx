@@ -295,9 +295,8 @@ export default function CatalogPage() {
       />
 
       {/* Main Content with dynamic rearrangement when Side-Peek Drawer opens */}
-      <main className={`transition-all duration-300 px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex-1 w-full space-y-8 ${
-        selectedMonitor ? "lg:mr-[620px] xl:mr-[680px] lg:max-w-[calc(100vw-640px)] xl:max-w-[calc(100vw-700px)]" : "max-w-7xl mx-auto"
-      }`}>        {/* ========================================================================= */}
+      <main className={`transition-all duration-300 px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex-1 w-full space-y-8 ${selectedMonitor ? "lg:mr-[620px] xl:mr-[680px] lg:max-w-[calc(100vw-640px)] xl:max-w-[calc(100vw-700px)]" : "max-w-7xl mx-auto"
+        }`}>        {/* ========================================================================= */}
         {/* SECTION 1: AUTHENTIC NOTION HERO COVER & TITLE BLOCK                      */}
         {/* ========================================================================= */}
         <section className="space-y-6">
@@ -863,7 +862,7 @@ export default function CatalogPage() {
               <div className="w-16 h-16 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-400 flex items-center justify-center mx-auto">
                 <Heart className="w-8 h-8" />
               </div>
-              
+
               <div className="space-y-2">
                 <h2 className="text-2xl font-black text-white uppercase tracking-tight">
                   Support & Donasi Penulis
@@ -947,21 +946,19 @@ export default function CatalogPage() {
                     <div className="flex items-center bg-zinc-900 border border-zinc-800 rounded-xl p-0.5">
                       <button
                         onClick={() => setViewMode("table")}
-                        className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
-                          viewMode === "table"
+                        className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${viewMode === "table"
                             ? "bg-zinc-800 text-emerald-400 shadow-sm"
                             : "text-zinc-400 hover:text-white"
-                        }`}
+                          }`}
                       >
                         📋 Tabel Database
                       </button>
                       <button
                         onClick={() => setViewMode("grid")}
-                        className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
-                          viewMode === "grid"
+                        className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${viewMode === "grid"
                             ? "bg-zinc-800 text-emerald-400 shadow-sm"
                             : "text-zinc-400 hover:text-white"
-                        }`}
+                          }`}
                       >
                         🔲 Kartu Grid
                       </button>
@@ -1080,30 +1077,28 @@ export default function CatalogPage() {
               {AFTERSALES_DATA.map((brand, idx) => (
                 <div
                   key={idx}
-                  className={`bg-zinc-950/90 border rounded-2xl p-5 space-y-3 transition-all ${
-                    brand.rating === "S"
+                  className={`bg-zinc-950/90 border rounded-2xl p-5 space-y-3 transition-all ${brand.rating === "S"
                       ? "border-emerald-500/40 shadow-[0_0_15px_rgba(16,185,129,0.1)]"
                       : brand.rating === "A"
-                      ? "border-cyan-500/40"
-                      : brand.rating === "WARNING"
-                      ? "border-rose-500/50 bg-rose-950/10"
-                      : "border-zinc-800"
-                  }`}
+                        ? "border-cyan-500/40"
+                        : brand.rating === "WARNING"
+                          ? "border-rose-500/50 bg-rose-950/10"
+                          : "border-zinc-800"
+                    }`}
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <div className="flex items-center gap-2">
                         <h3 className="text-base font-black text-white">{brand.brand}</h3>
                         <span
-                          className={`text-[10px] font-black px-2 py-0.5 rounded ${
-                            brand.rating === "S"
+                          className={`text-[10px] font-black px-2 py-0.5 rounded ${brand.rating === "S"
                               ? "bg-emerald-500 text-black"
                               : brand.rating === "A"
-                              ? "bg-cyan-500 text-black"
-                              : brand.rating === "WARNING"
-                              ? "bg-rose-500 text-white font-bold"
-                              : "bg-zinc-800 text-zinc-200"
-                          }`}
+                                ? "bg-cyan-500 text-black"
+                                : brand.rating === "WARNING"
+                                  ? "bg-rose-500 text-white font-bold"
+                                  : "bg-zinc-800 text-zinc-200"
+                            }`}
                         >
                           Tier {brand.rating}
                         </span>
@@ -1114,15 +1109,14 @@ export default function CatalogPage() {
                     </div>
 
                     <span
-                      className={`text-[10px] font-bold px-2 py-1 rounded-lg border ${
-                        brand.status === "Sangat Direkomendasikan"
+                      className={`text-[10px] font-bold px-2 py-1 rounded-lg border ${brand.status === "Sangat Direkomendasikan"
                           ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
                           : brand.status === "Bagus & Aman"
-                          ? "bg-cyan-500/10 text-cyan-400 border-cyan-500/30"
-                          : brand.status === "Perlu Perhatian / Lama"
-                          ? "bg-rose-500/10 text-rose-400 border-rose-500/30"
-                          : "bg-zinc-900 text-zinc-400 border-zinc-800"
-                      }`}
+                            ? "bg-cyan-500/10 text-cyan-400 border-cyan-500/30"
+                            : brand.status === "Perlu Perhatian / Lama"
+                              ? "bg-rose-500/10 text-rose-400 border-rose-500/30"
+                              : "bg-zinc-900 text-zinc-400 border-zinc-800"
+                        }`}
                     >
                       {brand.status}
                     </span>
@@ -1243,28 +1237,26 @@ export default function CatalogPage() {
               {HDR_GUIDES.map((hdr, idx) => (
                 <div
                   key={idx}
-                  className={`bg-zinc-950 border rounded-2xl p-5 space-y-4 flex flex-col justify-between ${
-                    hdr.tier === "TRUE HDR"
+                  className={`bg-zinc-950 border rounded-2xl p-5 space-y-4 flex flex-col justify-between ${hdr.tier === "TRUE HDR"
                       ? "border-emerald-500/50 shadow-[0_0_15px_rgba(16,185,129,0.15)]"
                       : hdr.tier === "DECENT HDR"
-                      ? "border-amber-500/40"
-                      : "border-zinc-800"
-                  }`}
+                        ? "border-amber-500/40"
+                        : "border-zinc-800"
+                    }`}
                 >
                   <div className="space-y-3">
                     <span
-                      className={`text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-wider ${
-                        hdr.tier === "TRUE HDR"
+                      className={`text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-wider ${hdr.tier === "TRUE HDR"
                           ? "bg-emerald-500 text-black"
                           : hdr.tier === "DECENT HDR"
-                          ? "bg-amber-500 text-black"
-                          : "bg-zinc-800 text-zinc-400"
-                      }`}
+                            ? "bg-amber-500 text-black"
+                            : "bg-zinc-800 text-zinc-400"
+                        }`}
                     >
                       {hdr.tier}
                     </span>
                     <h3 className="text-sm font-bold text-white leading-snug">{hdr.requirements}</h3>
-                    
+
                     <div className="space-y-1.5 text-xs text-zinc-400">
                       <div><strong>Peak Brightness:</strong> {hdr.peakBrightness}</div>
                       <div><strong>Dimming Zones:</strong> {hdr.dimmingZones}</div>
@@ -1332,7 +1324,7 @@ export default function CatalogPage() {
                   </div>
 
                   <h3 className="text-base font-black text-white">{note.title}</h3>
-                  
+
                   <p className="text-xs text-zinc-300 leading-relaxed bg-zinc-900/60 p-3 rounded-xl border border-zinc-800/80">
                     {note.summary}
                   </p>

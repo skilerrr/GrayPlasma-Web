@@ -20,6 +20,7 @@ import {
   Heart,
   HelpCircle,
   Tv,
+  Ruler,
 } from "lucide-react";
 import { QuickFilterTab } from "@/types/monitor";
 import { Button } from "@/components/ui/button";
