@@ -103,12 +103,20 @@ export function DeskFormModal({
         id: deskData.id || `desk-${Date.now()}`,
         name: deskData.name || "Meja",
         category: deskData.category || "Meja Standar",
+        keterangan: deskData.keterangan || [],
         price: Number(deskData.price) || 750000,
         type: deskData.type || "NON L-SHAPED",
+        catatanBadge: deskData.catatanBadge || "ADA (DISARANKAN MEMBACA NYA)",
         description: deskData.description || "Meja setup kokoh.",
         notes: deskData.notes || "",
+        markdownContent: deskData.markdownContent || "",
         shopeeUrl: deskData.shopeeUrl || "https://shopee.co.id",
-        specs: deskData.specs as DeskItem["specs"],
+        specs: (deskData.specs || {
+          material: "Plywood HPL",
+          thickness: "2.5 cm",
+          armSupport: true,
+          dimensions: "120 x 70 x 75 cm"
+        }) as DeskItem["specs"],
       });
     } else if (type === "peripheral" && onSavePeripheral) {
       if (!periphData.name || !periphData.price) {
@@ -121,6 +129,8 @@ export function DeskFormModal({
         category: periphData.category || "Monitor Arm / Bracket",
         price: Number(periphData.price) || 250000,
         brand: periphData.brand || "Brand",
+        type: periphData.type || "Monitor Arm",
+        warranty: periphData.warranty || "1 Tahun",
         verdict: periphData.verdict || "Evaluasi GrayPlasma.",
         notes: periphData.notes || "",
         shopeeUrl: periphData.shopeeUrl || "https://shopee.co.id",
