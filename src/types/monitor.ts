@@ -1,6 +1,32 @@
 export type TierRating = "S-TIER" | "BEST VALUE" | "RECOMMENDED" | "PASS";
 
-export type PanelType = "IPS" | "Fast IPS" | "VA" | "OLED" | "QD-OLED" | "Nano IPS" | "Fast VA" | "Mini-LED" | "Mini LED IPS" | (string & {});
+export type PanelType =
+  | "IPS"
+  | "Fast IPS"
+  | "VA"
+  | "Fast VA"
+  | "OLED"
+  | "QD-OLED"
+  | "WOLED"
+  | "Nano IPS"
+  | "Mini-LED"
+  | "Mini LED IPS"
+  | (string & {});
+
+export type SubpixelLayout =
+  | "RGB Stripe"
+  | "BGR Stripe"
+  | "QD-OLED Gen 1 (Triangular)"
+  | "QD-OLED Gen 2/3 (Improved)"
+  | "WOLED (RWBG)"
+  | "Unknown";
+
+export type CoatingType =
+  | "Matte 3H (Anti-Glare)"
+  | "Semi-Glossy (Low Haze)"
+  | "True Glossy"
+  | "Ultra Low Reflection"
+  | "Unknown";
 
 export type RefreshRateOption = "100Hz" | "144Hz" | "165Hz–180Hz" | "240Hz+";
 
@@ -28,6 +54,26 @@ export interface PriceHistoryPoint {
   label?: string;
 }
 
+export interface VRRSpecs {
+  range: string; // e.g. "48Hz – 240Hz"
+  lfc: boolean; // Low Framerate Compensation
+  certifications: string[]; // e.g. ["G-Sync Compatible", "FreeSync Premium"]
+}
+
+export interface OvershootData {
+  maxOvershootPercent: number; // e.g. 4.2%
+  bestOverdriveMode: string; // e.g. "Level 2 / Fast"
+  visualGhostingVerdict: string; // e.g. "Sangat Bersih, Tanpa Inverse Ghosting"
+}
+
+export interface LabTestingMatrixRow {
+  parameter: string; // e.g. "Response Time (GtG)", "Contrast Ratio", "Color Gamut P3", "Max Nits"
+  marketingClaim: string; // e.g. "0.5ms MPRT", "1000:1", "95% P3", "HDR 400"
+  gtidResult: string; // e.g. "5.2ms (Toleransi 5 RGB)", "1330:1 Black", "100% P3", "270 nits"
+  ratingStatus: "optimal" | "acceptable" | "warning" | "gimmick";
+  notes?: string;
+}
+
 export interface TechnicalSpecs {
   display: {
     size: string;
@@ -41,6 +87,8 @@ export interface TechnicalSpecs {
     hdr: string;
     viewingAngle: string;
     curvature?: string;
+    subpixelLayout?: SubpixelLayout;
+    coatingType?: CoatingType;
   };
   connectivity: {
     displayPort: string;
@@ -59,6 +107,7 @@ export interface TechnicalSpecs {
   };
   features: {
     syncTech: string; // e.g. FreeSync Premium / G-Sync Compatible
+    vrrSpecs?: VRRSpecs;
     builtInSpeakers: boolean;
     speakersDetail?: string;
     powerConsumption: string;
@@ -79,6 +128,7 @@ export interface ResponseTimeData {
   toleranceOld?: string; // e.g. "Toleransi Lama (10 RGB)"
   gtidScore?: string;
   overdriveRecommendation?: string;
+  overshootPercent?: number;
 }
 
 export interface Monitor {
@@ -94,7 +144,7 @@ export interface Monitor {
   recommendedPrice?: number;
   thumbnail: string;
   gallery: string[];
-  quickSpecs: string[]; // e.g. ["24\"", "Fast IPS", "180Hz", "0.5ms MPRT", "99% sRGB"]
+  quickSpecs: string[]; // e.g. ["27\"", "2K 240Hz", "Fast IPS", "100% P3", "1330:1"]
   expertVerdict: string;
   pros: string[];
   cons: string[];
@@ -103,33 +153,42 @@ export interface Monitor {
   priceHistory: PriceHistoryPoint[];
   tags: string[];
   createdAt: string;
+  updatedAt?: string;
+  versionId?: number;
 
-  // Rich Notion Deep-Dive & Side-Panel Fields (matching user screenshot)
+  // Rich Notion Deep-Dive & Side-Panel Fields
   aspectRatio?: string; // e.g. "16:9 (Wide)", "21:9 (Ultrawide)"
   curvature?: string; // e.g. "None", "1500R", "1800R", "800R"
-  displayInputs?: string[]; // e.g. ["HDMI 1.4", "HDMI 2.0"], ["HDMI 2.0", "DP 1.4"]
+  displayInputs?: string[]; // e.g. ["HDMI 2.1 TMDS", "DP 1.4"]
   panelBitDepth?: string; // e.g. "8 Bit", "8 Bit + FRC", "10 Bit"
   standCapability?: string; // e.g. "Tilt", "HAS (Height, Tilt, Swivel, Pivot)"
   usbHub?: string; // e.g. "None", "USB 3.0 Hub", "USB-C 65W PD"
   marketClass?: string; // e.g. "144Hz+", "100Hz", "240Hz+"
   createdDateText?: string; // e.g. "February 24, 2025 12:24"
   lastUpdatedDate?: string; // e.g. "June 24, 2025"
-  linkShopee?: string; // e.g. Shopee URL
-  linkTokopedia?: string; // e.g. Tokopedia URL
-  linkTiktokShop?: string; // e.g. TikTok Shop URL
-  frontImage?: string; // Foto tampak depan monitor (dengan layar/wallpaper)
-  rearImage?: string; // Foto tampak belakang monitor (stand & chassis)
-  statusReason?: string; // e.g. "TIDAK DISARANKAN LAGI KARENA BANYAK KASUS BERGARIS + DISCONTINUE"
-  gtidReviewUrl?: string; // Link video review GTID
-  introduction?: string; // Teks pendahuluan ulasan
-  bannerImage?: string; // Custom header banner image for the page
-  deepDiveTitle?: string; // e.g. "Akurat di D65-P3 tapi kok Undersaturated di D65-P3?"
-  deepDiveDescription?: string; // Detailed narrative text / review comparison
-  deepDiveNote?: string; // Summary disclaimer note
-  calmanCharts?: string[]; // Chart images (DeltaE, CIE Gamut Diagram, etc.)
-  accessoriesIncluded?: string[]; // Kelengkapan yang diberi (e.g. ["Kabel Adaptor", "Manual Book", "Kabel HDMI to HDMI"])
-  additionalStores?: AdditionalStoreLink[]; // Link Pembelian Tambahan (SURABAYA, JAKARTA, etc.)
+  linkShopee?: string;
+  linkTokopedia?: string;
+  linkTiktokShop?: string;
+  frontImage?: string;
+  rearImage?: string;
+  statusReason?: string;
+  gtidReviewUrl?: string;
+  introduction?: string;
+  bannerImage?: string;
+  deepDiveTitle?: string;
+  deepDiveDescription?: string;
+  deepDiveNote?: string;
+  calmanCharts?: string[];
+  accessoriesIncluded?: string[];
+  additionalStores?: AdditionalStoreLink[];
   responseTimeData?: ResponseTimeData;
+
+  // Modern GTID Lab Testing Matrix & Engineering Specs
+  subpixelLayout?: SubpixelLayout;
+  coatingType?: CoatingType;
+  vrrSpecs?: VRRSpecs;
+  overshootData?: OvershootData;
+  labTestingMatrix?: LabTestingMatrixRow[];
 }
 
 export interface FilterState {

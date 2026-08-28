@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #191919;
-  --foreground: #d4d4d4;
+  --background: #09090b;
+  --foreground: #ededed;
 }
 
 body {
@@ -21,6 +21,42 @@ body {
   font-weight: 800 !important;
 }
 
+/* Dark Technical Blueprint Grid Pattern */
+.bg-blueprint-grid {
+  background-color: #0d0d11;
+  background-image: linear-gradient(to right, rgba(31, 32, 43, 0.6) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(31, 32, 43, 0.6) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Dark Blueprint Card Sheet (Anti-Flashbang) */
+.bg-blueprint-sheet {
+  background-color: #12131a;
+  background-image: linear-gradient(to right, rgba(31, 32, 43, 0.8) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(31, 32, 43, 0.8) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Light Technical Graph Paper Pattern (For Infographic Export & Light Sheets) */
+.bg-paper-grid {
+  background-color: #f8f9fa;
+  background-image: linear-gradient(to right, #e5e7eb 1px, transparent 1px),
+    linear-gradient(to bottom, #e5e7eb 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Tabular Numerals for Display Testing Matrices */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Vertical Text Ribbon Utilities */
+.vertical-ribbon {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+}
+
 /* Custom Sleek Dark Scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
@@ -28,7 +64,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: #09090b;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -55,9 +91,9 @@ input[type="range"]::-webkit-slider-thumb {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #10b981;
+  background: #00e676;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+  box-shadow: 0 0 10px rgba(0, 230, 118, 0.5);
   border: 2px solid #ffffff;
 }
 
@@ -65,8 +101,8 @@ input[type="range"]::-moz-range-thumb {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #10b981;
+  background: #00e676;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+  box-shadow: 0 0 10px rgba(0, 230, 118, 0.5);
   border: 2px solid #ffffff;
 }

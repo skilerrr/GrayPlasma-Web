@@ -79,17 +79,23 @@ export class DatabaseService {
     let current = getLocalData<Monitor[]>(STORAGE_KEYS.MONITORS, MONITORS_DATA);
     const existingIndex = current.findIndex((m) => m.id === monitor.id);
 
+    const updatedMonitor: Monitor = {
+      ...monitor,
+      updatedAt: new Date().toISOString(),
+      versionId: (monitor.versionId || 1) + 1,
+    };
+
     if (existingIndex >= 0) {
-      current[existingIndex] = monitor;
+      current[existingIndex] = updatedMonitor;
     } else {
-      current = [monitor, ...current];
+      current = [updatedMonitor, ...current];
     }
 
     setLocalData(STORAGE_KEYS.MONITORS, current);
 
     if (isSupabaseConfigured && supabase) {
       try {
-        await supabase.from("monitors").upsert(monitor);
+        await supabase.from("monitors").upsert(updatedMonitor);
       } catch (err) {
         console.error("Supabase monitor upsert error", err);
       }

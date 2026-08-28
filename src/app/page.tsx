@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -40,6 +40,8 @@ import {
   User,
   Coffee,
   ShoppingBag,
+  Table,
+  Scale,
 } from "lucide-react";
 import {
   Monitor,
@@ -74,6 +76,8 @@ import { MonitorSidePanel } from "@/components/monitor-side-panel";
 import { NotionTableView } from "@/components/notion-table-view";
 import { NotionKanbanBoard, NotionBoardCard } from "@/components/notion-kanban-board";
 import { NotionAftersalesSidePanel } from "@/components/notion-aftersales-side-panel";
+import { MonitorComparatorTray } from "@/components/comparator/monitor-comparator-tray";
+import { useMonitorComparator } from "@/hooks/use-monitor-comparator";
 import {
   NOTION_AFTERSALES_COLUMNS,
   NOTION_AFTERSALES_CARDS,
@@ -83,6 +87,11 @@ import { DeskPeripheralsView } from "@/components/desk-peripherals-view";
 import { GPLogo } from "@/components/gp-logo";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
+import { PaginationBar } from "@/components/ui/pagination-bar";
+import { DeskCard } from "@/components/desk-card";
+import { PeripheralCard } from "@/components/peripheral-card";
+import { DeskSidePanel } from "@/components/desk-side-panel";
+import { PeripheralItem } from "@/data/grayplasma-desk-peripherals";
 
 const INITIAL_FILTER_STATE: FilterState = {
   searchQuery: "",
@@ -99,14 +108,28 @@ const INITIAL_FILTER_STATE: FilterState = {
 
 import { DatabaseService } from "@/lib/db-service";
 
-export default function CatalogPage() {
+function CatalogPageContent() {
   const [monitorsData, setMonitorsData] = useState<Monitor[]>(MONITORS_DATA);
+  const [desksData, setDesksData] = useState<DeskItem[]>(DESK_DATABASE);
+  const [peripheralsData, setPeripheralsData] = useState<PeripheralItem[]>(PERIPHERALS_DATABASE);
   const [filterState, setFilterState] = useState<FilterState>(INITIAL_FILTER_STATE);
   const [selectedMonitor, setSelectedMonitor] = useState<Monitor | null>(null);
+  const [selectedDesk, setSelectedDesk] = useState<DeskItem | null>(null);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [activeMenuKey, setActiveMenuKey] = useState<NavMenuKey | "home">("home");
   const [viewMode, setViewMode] = useState<"table" | "grid">("table");
+  const comparator = useMonitorComparator(monitorsData);
+  
+  // Pagination & Filter States for Homepage Databases
+  const [monitorPage, setMonitorPage] = useState(1);
+  const [deskPage, setDeskPage] = useState(1);
+  const [deskCategory, setDeskCategory] = useState<string>("all");
+  const [deskSearch, setDeskSearch] = useState<string>("");
+  const [peripheralPage, setPeripheralPage] = useState(1);
+  const [peripheralCategory, setPeripheralCategory] = useState<string>("all");
+  const [peripheralSearch, setPeripheralSearch] = useState<string>("");
+
   const [bannerSettings, setBannerSettings] = useState<any>({
     homeBannerUrl: "",
     homeBannerTitle: "Katalog & Database Rekomendasi Monitor",
@@ -118,12 +141,14 @@ export default function CatalogPage() {
   useEffect(() => {
     async function loadData() {
       try {
-        const [loadedMonitors, loadedBanners] = await Promise.all([
+        const [loadedMonitors, loadedBanners, loadedDesks] = await Promise.all([
           DatabaseService.getMonitors(),
           DatabaseService.getBannerSettings(),
+          DatabaseService.getDesks(),
         ]);
         setMonitorsData(loadedMonitors);
         if (loadedBanners) setBannerSettings(loadedBanners);
+        if (loadedDesks && loadedDesks.length > 0) setDesksData(loadedDesks);
       } catch (e) {
         console.error("Failed to load dynamic monitors", e);
       } finally {
@@ -132,6 +157,11 @@ export default function CatalogPage() {
     }
     loadData();
   }, []);
+
+  // Reset monitor page to 1 on filter changes
+  useEffect(() => {
+    setMonitorPage(1);
+  }, [filterState]);
 
   // Handle menu selection
   const handleMenuSelect = (key: NavMenuKey | "home") => {
@@ -259,6 +289,80 @@ export default function CatalogPage() {
     });
   }, [filterState, monitorsData]);
 
+  const ITEMS_PER_PAGE = 9;
+
+  // Paginated Monitors
+  const totalMonitorPages = Math.max(1, Math.ceil(filteredMonitors.length / ITEMS_PER_PAGE));
+  const paginatedMonitors = useMemo(() => {
+    const start = (monitorPage - 1) * ITEMS_PER_PAGE;
+    return filteredMonitors.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredMonitors, monitorPage]);
+
+  // Filtered & Paginated Desks
+  const deskCategories = [
+    { id: "all", label: "Semua Meja" },
+    { id: "Daun Meja", label: "Daun Meja" },
+    { id: "Meja Standar", label: "Meja Standar" },
+    { id: "Meja Elektrik (Standing Desk)", label: "Meja Elektrik" },
+    { id: "Meja L-Shaped", label: "L-Shaped" },
+    { id: "Meja Nakas", label: "Nakas" },
+    { id: "Meja Lesehan", label: "Lesehan" },
+  ];
+
+  const filteredDesks = useMemo(() => {
+    return desksData.filter((d) => {
+      if (deskSearch.trim()) {
+        const q = deskSearch.toLowerCase();
+        const match =
+          d.name.toLowerCase().includes(q) ||
+          d.description?.toLowerCase().includes(q) ||
+          d.specs.material?.toLowerCase().includes(q);
+        if (!match) return false;
+      }
+      if (deskCategory !== "all" && d.category !== deskCategory) return false;
+      return true;
+    });
+  }, [desksData, deskSearch, deskCategory]);
+
+  const totalDeskPages = Math.max(1, Math.ceil(filteredDesks.length / ITEMS_PER_PAGE));
+  const paginatedDesks = useMemo(() => {
+    const start = (deskPage - 1) * ITEMS_PER_PAGE;
+    return filteredDesks.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredDesks, deskPage]);
+
+  // Filtered & Paginated Peripherals
+  const peripheralCategories = [
+    { id: "all", label: "Semua Aksesoris" },
+    { id: "Bracket / Monitor Arm", label: "Monitor Arm" },
+    { id: "Cable Management", label: "Cable Management" },
+    { id: "Screenbar / Lampu", label: "Screenbar / Lampu" },
+    { id: "Stand / Riser", label: "Stand / Riser" },
+    { id: "Audio", label: "Audio & Headset" },
+  ];
+
+  const filteredPeripherals = useMemo(() => {
+    return peripheralsData.filter((p) => {
+      if (peripheralSearch.trim()) {
+        const q = peripheralSearch.toLowerCase();
+        const match =
+          p.name.toLowerCase().includes(q) ||
+          p.brand?.toLowerCase().includes(q) ||
+          p.verdict?.toLowerCase().includes(q);
+        if (!match) return false;
+      }
+      if (peripheralCategory !== "all" && !p.category.toLowerCase().includes(peripheralCategory.toLowerCase())) {
+        return false;
+      }
+      return true;
+    });
+  }, [peripheralsData, peripheralSearch, peripheralCategory]);
+
+  const totalPeripheralPages = Math.max(1, Math.ceil(filteredPeripherals.length / ITEMS_PER_PAGE));
+  const paginatedPeripherals = useMemo(() => {
+    const start = (peripheralPage - 1) * ITEMS_PER_PAGE;
+    return filteredPeripherals.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredPeripherals, peripheralPage]);
+
   // Featured top picks
   const featuredMonitors = useMemo(() => {
     return monitorsData.filter((m) => m.tier === "S-TIER" || m.tier === "BEST VALUE").slice(0, 6);
@@ -294,9 +398,9 @@ export default function CatalogPage() {
         onMenuSelect={handleMenuSelect}
       />
 
-      {/* Main Content with dynamic rearrangement when Side-Peek Drawer opens */}
-      <main className={`transition-all duration-300 px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex-1 w-full space-y-8 ${selectedMonitor ? "lg:mr-[620px] xl:mr-[680px] lg:max-w-[calc(100vw-640px)] xl:max-w-[calc(100vw-700px)]" : "max-w-7xl mx-auto"
-        }`}>        {/* ========================================================================= */}
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex-1 w-full space-y-8">
+        {/* ========================================================================= */}
         {/* SECTION 1: AUTHENTIC NOTION HERO COVER & TITLE BLOCK                      */}
         {/* ========================================================================= */}
         <section className="space-y-6">
@@ -600,11 +704,11 @@ export default function CatalogPage() {
         </section>
 
         {/* ========================================================================= */}
-        {/* SECTION 3: DATABASE REKOMENDASI MONITOR (DILETAKKAN DI BAGIAN BAWAH)      */}
+        {/* SECTION 3: DATABASE REKOMENDASI MONITOR (9 ITEMS PER PAGE)                */}
         {/* ========================================================================= */}
         {(activeMenuKey === "home" || isCatalog) && (
           <section className="space-y-6 pt-10 border-t border-[#2a2a2a] animate-in fade-in duration-200">
-            {/* Database Header Title */}
+            {/* Database Header Title & View Switcher */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
@@ -614,20 +718,48 @@ export default function CatalogPage() {
                   </h2>
                 </div>
                 <p className="text-xs text-[#9b9a97]">
-                  Tabel interaktif pengujian GTID Tech. Gunakan filter di sisi kiri atau pilih mode tampilan tabel/harga/ukuran di bawah.
+                  Tabel interaktif & katalog pengujian GTID Tech (9 monitor per halaman).
                 </p>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2.5">
+                {/* View Mode Toggle */}
+                <div className="flex items-center gap-1 bg-[#18181f] p-1 rounded-xl border border-zinc-800">
+                  <button
+                    type="button"
+                    onClick={() => setViewMode("grid")}
+                    className={`px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                      viewMode === "grid"
+                        ? "bg-gp-emerald text-black font-black shadow-neon-gp-emerald"
+                        : "text-zinc-400 hover:text-white"
+                    }`}
+                  >
+                    <LayoutGrid className="w-3.5 h-3.5" />
+                    <span>Grid Infografis</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setViewMode("table")}
+                    className={`px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                      viewMode === "table"
+                        ? "bg-zinc-800 text-white font-bold"
+                        : "text-zinc-400 hover:text-white"
+                    }`}
+                  >
+                    <Table className="w-3.5 h-3.5" />
+                    <span>Tabel Lab</span>
+                  </button>
+                </div>
+
                 <span className="px-3 py-1 rounded-full bg-[#202020] border border-[#2f2f2f] text-xs font-mono text-[#52ba69] font-bold">
-                  {filteredMonitors.length} Model Ditampilkan
+                  {filteredMonitors.length} Model
                 </span>
               </div>
             </div>
 
-            {/* Core 2-Column Database Layout: Left FilterBar + Right NotionTableView */}
+            {/* Core 2-Column Database Layout: Left FilterBar + Right Content */}
             <div className="flex flex-col lg:flex-row gap-6 items-start">
-              {/* Left Sidebar Filter Section (Permanent & Never Hidden) */}
+              {/* Left Sidebar Filter Section */}
               <div className="w-full lg:w-72 xl:w-80 flex-shrink-0">
                 <FilterBar
                   filterState={filterState}
@@ -639,15 +771,314 @@ export default function CatalogPage() {
                 />
               </div>
 
-              {/* Right Main Database Table & Views */}
+              {/* Right Main Content */}
               <div className="flex-1 w-full min-w-0 space-y-6">
-                <NotionTableView
-                  monitors={filteredMonitors}
-                  selectedMonitorId={selectedMonitor?.id}
-                  onSelectMonitor={(m) => setSelectedMonitor(m)}
-                />
+                {viewMode === "grid" ? (
+                  <div className="space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4.5 animate-in fade-in duration-200">
+                      {paginatedMonitors.map((monitor) => (
+                        <MonitorCard
+                          key={monitor.id}
+                          monitor={monitor}
+                          onSelectMonitor={(m) => setSelectedMonitor(m)}
+                          onCompareToggle={(m) => comparator.togglePin(m)}
+                          isCompared={comparator.isPinned(monitor)}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Monitor Pagination Bar */}
+                    <PaginationBar
+                      currentPage={monitorPage}
+                      totalPages={totalMonitorPages}
+                      totalItems={filteredMonitors.length}
+                      itemsPerPage={ITEMS_PER_PAGE}
+                      onPageChange={setMonitorPage}
+                    />
+                  </div>
+                ) : (
+                  <NotionTableView
+                    monitors={paginatedMonitors}
+                    selectedMonitorId={selectedMonitor?.id}
+                    onSelectMonitor={(m) => setSelectedMonitor(m)}
+                  />
+                )}
               </div>
             </div>
+          </section>
+        )}
+
+        {/* ========================================================================= */}
+        {/* SECTION 4: DATABASE REKOMENDASI MEJA & ERGONOMI (TABEL & 9 PER PAGE)      */}
+        {/* ========================================================================= */}
+        {activeMenuKey === "home" && (
+          <section className="space-y-6 pt-12 border-t border-[#2a2a2a] animate-in fade-in duration-200">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">🪑</span>
+                  <h2 className="text-lg sm:text-2xl font-extrabold text-white tracking-tight">
+                    DATABASE REKOMENDASI MEJA & SETUP ERGONOMI
+                  </h2>
+                </div>
+                <p className="text-xs text-[#9b9a97]">
+                  Tabel kurasi daun meja plywood solid & standing desk elektrik (Klik baris untuk melihat side panel ulasan).
+                </p>
+              </div>
+
+              <span className="px-3 py-1 rounded-full bg-[#202020] border border-[#2f2f2f] text-xs font-mono text-amber-400 font-bold self-start sm:self-auto">
+                {filteredDesks.length} Pilihan Meja
+              </span>
+            </div>
+
+            {/* Category Filter Pills & Search */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#111116] p-3 rounded-2xl border border-zinc-800/80">
+              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+                {deskCategories.map((cat) => (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => {
+                      setDeskCategory(cat.id);
+                      setDeskPage(1);
+                    }}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                      deskCategory === cat.id
+                        ? "bg-amber-500 text-black font-bold shadow-neon-amber"
+                        : "bg-[#18181f] text-zinc-400 hover:text-white border border-zinc-800"
+                    }`}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+
+              <input
+                type="text"
+                value={deskSearch}
+                onChange={(e) => {
+                  setDeskSearch(e.target.value);
+                  setDeskPage(1);
+                }}
+                placeholder="Cari meja..."
+                className="px-3.5 py-1.5 rounded-xl bg-[#18181f] border border-zinc-800 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500/60 w-full sm:w-56"
+              />
+            </div>
+
+            {/* Desks Table View */}
+            <div className="relative rounded-2xl border border-zinc-800/80 bg-[#141418] overflow-hidden shadow-2xl">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs border-collapse min-w-[850px]">
+                  <thead className="bg-[#18181f] text-zinc-400 uppercase text-[11px] font-bold tracking-wider border-b border-zinc-800 select-none">
+                    <tr>
+                      <th className="py-3 px-4 min-w-[220px] text-white">NAMA MEJA / MODEL</th>
+                      <th className="py-3 px-3 min-w-[180px]">KETERANGAN / KATEGORI</th>
+                      <th className="py-3 px-3 min-w-[140px]">TIPE BENTUK</th>
+                      <th className="py-3 px-3 min-w-[160px]">STATUS CATATAN</th>
+                      <th className="py-3 px-4 min-w-[140px] text-right font-mono text-emerald-400">ESTIMASI BUDGET</th>
+                      <th className="py-3 px-3 text-center min-w-[110px]">AKSI / DETAIL</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-zinc-800/60 font-sans">
+                    {paginatedDesks.map((desk, idx) => (
+                      <tr
+                        key={desk.id || idx}
+                        onClick={() => setSelectedDesk(desk)}
+                        className={`group cursor-pointer hover:bg-[#1c1c24] transition-colors ${
+                          idx % 2 === 0 ? "bg-[#141418]" : "bg-[#16161c]"
+                        }`}
+                      >
+                        <td className="py-3.5 px-4 font-bold text-white">
+                          <div className="flex items-center gap-2">
+                            <span className="text-base text-zinc-500 group-hover:text-amber-400 transition-colors">📄</span>
+                            <span className="group-hover:text-amber-400 transition-colors">{desk.name}</span>
+                          </div>
+                        </td>
+                        <td className="py-3.5 px-3">
+                          <div className="flex flex-wrap gap-1">
+                            {(desk.keterangan || [desk.category]).map((tag, tIdx) => (
+                              <span key={tIdx} className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#262630] text-zinc-300 border border-zinc-700">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </td>
+                        <td className="py-3.5 px-3">
+                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-zinc-900 text-zinc-400 border border-zinc-800">
+                            {desk.type || "NON L SHAPED"}
+                          </span>
+                        </td>
+                        <td className="py-3.5 px-3">
+                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/25">
+                            {desk.catatanBadge || "ADA (BACA PANDUAN)"}
+                          </span>
+                        </td>
+                        <td className="py-3.5 px-4 text-right font-mono font-bold text-emerald-400 tabular-nums">
+                          {desk.price > 0 ? formatRupiah(desk.price) : "Custom"}
+                        </td>
+                        <td className="py-3.5 px-3 text-center">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedDesk(desk);
+                            }}
+                            className="px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-[11px] font-semibold transition-colors"
+                          >
+                            Detail →
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Desk Pagination Bar */}
+            <PaginationBar
+              currentPage={deskPage}
+              totalPages={totalDeskPages}
+              totalItems={filteredDesks.length}
+              itemsPerPage={ITEMS_PER_PAGE}
+              onPageChange={setDeskPage}
+            />
+          </section>
+        )}
+
+        {/* ========================================================================= */}
+        {/* SECTION 5: DATABASE REKOMENDASI AKSESORIS & PERIPHERALS (TABEL & 9 PER P)  */}
+        {/* ========================================================================= */}
+        {activeMenuKey === "home" && (
+          <section className="space-y-6 pt-12 border-t border-[#2a2a2a] animate-in fade-in duration-200">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">🎧</span>
+                  <h2 className="text-lg sm:text-2xl font-extrabold text-white tracking-tight">
+                    DATABASE REKOMENDASI AKSESORIS & PERIPHERALS
+                  </h2>
+                </div>
+                <p className="text-xs text-[#9b9a97]">
+                  Tabel kurasi bracket gas spring arm, screenbar lightbar, & cable management.
+                </p>
+              </div>
+
+              <span className="px-3 py-1 rounded-full bg-[#202020] border border-[#2f2f2f] text-xs font-mono text-cyan-400 font-bold self-start sm:self-auto">
+                {filteredPeripherals.length} Aksesoris
+              </span>
+            </div>
+
+            {/* Category Filter Pills & Search */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#111116] p-3 rounded-2xl border border-zinc-800/80">
+              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+                {peripheralCategories.map((cat) => (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => {
+                      setPeripheralCategory(cat.id);
+                      setPeripheralPage(1);
+                    }}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                      peripheralCategory === cat.id
+                        ? "bg-cyan-400 text-black font-bold"
+                        : "bg-[#18181f] text-zinc-400 hover:text-white border border-zinc-800"
+                    }`}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+
+              <input
+                type="text"
+                value={peripheralSearch}
+                onChange={(e) => {
+                  setPeripheralSearch(e.target.value);
+                  setPeripheralPage(1);
+                }}
+                placeholder="Cari aksesoris..."
+                className="px-3.5 py-1.5 rounded-xl bg-[#18181f] border border-zinc-800 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-400/60 w-full sm:w-56"
+              />
+            </div>
+
+            {/* Peripherals Table View */}
+            <div className="relative rounded-2xl border border-zinc-800/80 bg-[#141418] overflow-hidden shadow-2xl">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs border-collapse min-w-[850px]">
+                  <thead className="bg-[#18181f] text-zinc-400 uppercase text-[11px] font-bold tracking-wider border-b border-zinc-800 select-none">
+                    <tr>
+                      <th className="py-3 px-4 min-w-[220px] text-white">NAMA AKSESORIS</th>
+                      <th className="py-3 px-3 min-w-[160px]">KATEGORI</th>
+                      <th className="py-3 px-3 min-w-[130px]">BRAND</th>
+                      <th className="py-3 px-3 min-w-[140px]">GARANSI / SPEK</th>
+                      <th className="py-3 px-4 min-w-[140px] text-right font-mono text-cyan-400">KISARAN HARGA</th>
+                      <th className="py-3 px-3 text-center min-w-[130px]">AKSI BELI</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-zinc-800/60 font-sans">
+                    {paginatedPeripherals.map((item, idx) => {
+                      const buyUrl = item.shopeeUrl || item.tokopediaUrl || item.tiktokUrl;
+                      const platform = item.shopeeUrl ? "Shopee" : item.tokopediaUrl ? "Tokopedia" : item.tiktokUrl ? "TikTok" : "Marketplace";
+                      return (
+                        <tr
+                          key={item.id || idx}
+                          className={`hover:bg-[#1c1c24] transition-colors ${
+                            idx % 2 === 0 ? "bg-[#141418]" : "bg-[#16161c]"
+                          }`}
+                        >
+                          <td className="py-3.5 px-4 font-bold text-white">
+                            <div className="flex items-center gap-2">
+                              <span className="text-base text-zinc-500">🎧</span>
+                              <span>{item.name}</span>
+                            </div>
+                          </td>
+                          <td className="py-3.5 px-3">
+                            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/25">
+                              {item.category}
+                            </span>
+                          </td>
+                          <td className="py-3.5 px-3 font-semibold text-zinc-300">
+                            {item.brand}
+                          </td>
+                          <td className="py-3.5 px-3 text-zinc-400 font-mono text-[11px]">
+                            {item.warranty ? `Garansi ${item.warranty}` : item.type}
+                          </td>
+                          <td className="py-3.5 px-4 text-right font-mono font-bold text-white tabular-nums">
+                            {item.price > 0 ? formatRupiah(item.price) : "Cek Toko"}
+                          </td>
+                          <td className="py-3.5 px-3 text-center">
+                            {buyUrl ? (
+                              <a
+                                href={buyUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-[#ee4d2d]/15 hover:bg-[#ee4d2d] border border-[#ee4d2d]/40 text-[#ee4d2d] hover:text-white text-[11px] font-bold transition-all"
+                              >
+                                <ShoppingBag className="w-3 h-3" />
+                                <span>Beli di {platform}</span>
+                              </a>
+                            ) : (
+                              <span className="text-zinc-600 text-[11px]">-</span>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Peripheral Pagination Bar */}
+            <PaginationBar
+              currentPage={peripheralPage}
+              totalPages={totalPeripheralPages}
+              totalItems={filteredPeripherals.length}
+              itemsPerPage={ITEMS_PER_PAGE}
+              onPageChange={setPeripheralPage}
+            />
           </section>
         )}
 
@@ -1722,6 +2153,13 @@ export default function CatalogPage() {
         onClose={() => setSelectedMonitor(null)}
       />
 
+      {/* Notion Side-Peek Drawer for Desk Navigation */}
+      <DeskSidePanel
+        desk={selectedDesk}
+        isOpen={Boolean(selectedDesk)}
+        onClose={() => setSelectedDesk(null)}
+      />
+
       {/* Notion Aftersales Side Panel Drawer */}
       <NotionAftersalesSidePanel
         card={selectedAftersalesCard}
@@ -1729,8 +2167,34 @@ export default function CatalogPage() {
         onClose={() => setIsAftersalesPanelOpen(false)}
       />
 
+      {/* Floating Bottom Head-to-Head Monitor Comparator Tray */}
+      <MonitorComparatorTray
+        pinnedMonitors={comparator.pinnedMonitors}
+        onRemovePin={comparator.removePin}
+        onClearAll={comparator.clearAllPins}
+        isOpen={comparator.isCompareModalOpen}
+        onOpenChange={comparator.setIsCompareModalOpen}
+      />
+
       {/* Comprehensive Multi-Column Footer */}
       <Footer />
     </div>
+  );
+}
+
+export default function CatalogPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-black flex flex-col items-center justify-center space-y-3 font-sans">
+          <div className="text-3xl animate-bounce">🖥️</div>
+          <p className="text-xs font-mono font-bold text-gp-emerald uppercase tracking-widest">
+            Memuat Katalog GrayPlasma...
+          </p>
+        </div>
+      }
+    >
+      <CatalogPageContent />
+    </Suspense>
   );
 }

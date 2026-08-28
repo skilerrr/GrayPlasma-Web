@@ -146,6 +146,14 @@ Link Detail: ${detailUrl}`;
         rightActions={
           <div className="flex items-center gap-2">
             <button
+              onClick={() => window.open(`/api/og/monitor?slug=${monitor.slug}&format=square`, "_blank")}
+              className="px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 bg-gp-orange/15 border border-gp-orange/40 text-gp-orange hover:bg-gp-orange hover:text-black"
+              title="Download poster ulasan infografis"
+            >
+              <span>Export Poster PNG</span>
+            </button>
+
+            <button
               onClick={handleCopyDetails}
               className={`px-2.5 py-1.5 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 border ${
                 copiedDetails

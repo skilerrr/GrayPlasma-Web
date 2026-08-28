@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
 
 const metropolitan = Montserrat({
@@ -41,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="id" className={`${metropolitan.variable} dark`}>
       <body className="bg-black text-white antialiased min-h-screen font-sans">
-        {children}
+        <NuqsAdapter>{children}</NuqsAdapter>
       </body>
     </html>
   );
