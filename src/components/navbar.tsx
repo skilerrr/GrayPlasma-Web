@@ -26,6 +26,7 @@ import { QuickFilterTab } from "@/types/monitor";
 import { Button } from "@/components/ui/button";
 import { GPLogo } from "@/components/gp-logo";
 import { CONSULTATION_DATA } from "@/data/grayplasma-content";
+import { DatabaseService, GlobalSiteSettings, DEFAULT_SITE_SETTINGS } from "@/lib/db-service";
 
 export type NavMenuKey =
   | "catalog-all"
@@ -70,6 +71,19 @@ export function Navbar({
 }: NavbarProps) {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [openDropdown, setOpenDropdown] = useState<"catalog" | "aftersales" | "more" | null>(null);
+  const [siteSettings, setSiteSettings] = useState<GlobalSiteSettings>(DEFAULT_SITE_SETTINGS);
+
+  useEffect(() => {
+    async function loadSettings() {
+      try {
+        const s = await DatabaseService.getSiteSettings();
+        if (s) setSiteSettings(s);
+      } catch (err) {
+        console.error("Failed to load navbar site settings", err);
+      }
+    }
+    loadSettings();
+  }, []);
 
   useEffect(() => {
     const handleDocumentClick = () => setOpenDropdown(null);
@@ -108,6 +122,29 @@ export function Navbar({
 
   return (
     <header className="sticky top-0 z-40 w-full bg-black/92 backdrop-blur-xl border-b border-zinc-800/80 transition-all">
+      {/* Dynamic Announcement Ribbon */}
+      {siteSettings.announcement?.isEnabled && siteSettings.announcement.text && (
+        <div className="w-full bg-gradient-to-r from-emerald-950 via-zinc-950 to-emerald-950 border-b border-emerald-500/20 px-4 py-1.5 text-xs flex items-center justify-center gap-2.5 text-emerald-200">
+          {siteSettings.announcement.badgeText && (
+            <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-black text-[10px] border border-emerald-500/40">
+              {siteSettings.announcement.badgeText}
+            </span>
+          )}
+          <span className="font-medium text-[11px] sm:text-xs">
+            {siteSettings.announcement.text}
+          </span>
+          {siteSettings.announcement.linkUrl && (
+            <Link
+              href={siteSettings.announcement.linkUrl}
+              className="text-emerald-400 hover:text-emerald-300 underline font-bold text-[11px] flex items-center gap-0.5 ml-1"
+            >
+              <span>{siteSettings.announcement.linkText || "Buka"}</span>
+              <ExternalLink className="w-3 h-3" />
+            </Link>
+          )}
+        </div>
+      )}
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Navbar Row */}
         <div className="flex items-center justify-between h-16 sm:h-20 gap-3">
@@ -120,7 +157,7 @@ export function Navbar({
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-base sm:text-lg font-black tracking-tight text-white uppercase">
-                  GRAYPLASMA<span className="text-emerald-400">ID</span>
+                  {siteSettings.brandName || "GRAYPLASMA"}<span className="text-emerald-400">ID</span>
                 </span>
                 <Link
                   href="/guide/sdr/glossary"
@@ -133,7 +170,7 @@ export function Navbar({
                 </Link>
               </div>
               <p className="text-[11px] text-zinc-400 hidden lg:block">
-                Katalog & Panduan Rekomendasi Monitor
+                {siteSettings.brandTagline || "Katalog & Panduan Rekomendasi Monitor"}
               </p>
             </div>
           </div>

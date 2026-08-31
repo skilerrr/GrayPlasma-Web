@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Tv,
@@ -22,8 +22,25 @@ import {
 } from "lucide-react";
 import { GPLogo } from "@/components/gp-logo";
 import { CONSULTATION_DATA } from "@/data/grayplasma-content";
+import { DatabaseService, GlobalSiteSettings, DEFAULT_SITE_SETTINGS } from "@/lib/db-service";
 
 export function Footer() {
+  const [siteSettings, setSiteSettings] = useState<GlobalSiteSettings>(DEFAULT_SITE_SETTINGS);
+
+  useEffect(() => {
+    async function loadSettings() {
+      try {
+        const s = await DatabaseService.getSiteSettings();
+        if (s) setSiteSettings(s);
+      } catch (err) {
+        console.error("Failed to load footer settings", err);
+      }
+    }
+    loadSettings();
+  }, []);
+
+  const consult = siteSettings.consultation || CONSULTATION_DATA;
+
   return (
     <footer className="border-t border-zinc-800/90 bg-[#09090b] text-zinc-400 text-xs mt-20 relative overflow-hidden">
       {/* Subtle top neon ambient glow */}
@@ -38,18 +55,18 @@ export function Footer() {
               <GPLogo className="w-10 h-10 flex-shrink-0" />
               <div>
                 <span className="font-black text-white text-base tracking-tight uppercase block">
-                  GRAYPLASMA<span className="text-emerald-400">ID</span>
+                  {siteSettings.brandName || "GRAYPLASMA"}<span className="text-emerald-400">ID</span>
                 </span>
                 <span className="text-[11px] text-zinc-400">
-                  Rekomendasi & Kurasi Monitor
+                  {siteSettings.brandTagline || "Rekomendasi & Kurasi Monitor"}
                 </span>
               </div>
             </div>
 
             <p className="text-xs text-zinc-400 leading-relaxed max-w-sm">
               Database Pengujian & Kurasi Monitor Independen kolaborasi{" "}
-              <strong className="text-white">Joel Gray (@gray1plasma)</strong> x{" "}
-              <strong className="text-white">GlaciK</strong> berdasarkan data pengetesan laboratorium{" "}
+              <strong className="text-white">{consult.author || "Joel Gray (@gray1plasma)"}</strong> x{" "}
+              <strong className="text-white">{consult.collaborators || "GlaciK"}</strong> berdasarkan data pengetesan laboratorium{" "}
               <strong className="text-white">GTID Tech</strong>.
             </p>
           </div>
@@ -143,18 +160,18 @@ export function Footer() {
             <ul className="space-y-2 text-xs">
               <li>
                 <a
-                  href={CONSULTATION_DATA.whatsappUrl}
+                  href={consult.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-emerald-400 transition-colors flex items-center gap-1.5"
                 >
                   <PhoneCall className="w-3 h-3 text-emerald-400" />
-                  <span>WhatsApp: {CONSULTATION_DATA.whatsapp} (Joel Gray)</span>
+                  <span>WhatsApp: {consult.whatsapp} ({consult.author?.split(" ")[0] || "Joel Gray"})</span>
                 </a>
               </li>
               <li>
                 <a
-                  href={CONSULTATION_DATA.discordUrl}
+                  href={consult.discordUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-cyan-400 transition-colors flex items-center gap-1.5"
@@ -165,18 +182,18 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href={CONSULTATION_DATA.tiktokUrl}
+                  href={consult.tiktokUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-rose-400 transition-colors flex items-center gap-1.5"
                 >
                   <Send className="w-3 h-3 text-rose-400" />
-                  <span>TikTok: {CONSULTATION_DATA.tiktok}</span>
+                  <span>TikTok: {consult.tiktok}</span>
                 </a>
               </li>
               <li>
                 <a
-                  href={CONSULTATION_DATA.youtubeUrl}
+                  href={consult.youtubeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-red-400 transition-colors flex items-center gap-1.5"
@@ -187,7 +204,7 @@ export function Footer() {
               </li>
               <li className="pt-1">
                 <a
-                  href={CONSULTATION_DATA.feedbackFormUrl}
+                  href={consult.feedbackFormUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500 hover:text-black font-semibold transition-all text-[11px]"
@@ -207,14 +224,14 @@ export function Footer() {
             <span>Ketentuan & Disclaimer Pengujian</span>
           </div>
           <p className="leading-relaxed text-zinc-400">
-            Seluruh data dan rekomendasi yang ada di website ini disarikan secara independen untuk membantu calon pembeli memahami data teknis. Selalu tanyakan dan konsultasikan kembali sebelum melakukan pembelian untuk menyesuaikan dengan spesifikasi kartu grafis PC/Laptop, dimensi meja, serta tujuan pemakaian Anda.
+            {consult.disclaimer || "Seluruh data dan rekomendasi yang ada di website ini disarikan secara independen untuk membantu calon pembeli memahami data teknis. Selalu tanyakan dan konsultasikan kembali sebelum melakukan pembelian untuk menyesuaikan dengan spesifikasi kartu grafis PC/Laptop, dimensi meja, serta tujuan pemakaian Anda."}
           </p>
         </div>
 
         {/* Bottom Bar */}
         <div className="pt-6 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
           <div className="text-zinc-500 text-center sm:text-left">
-            © 2026 <strong className="text-zinc-400">GrayPlasma</strong>. Hak Cipta materi kurasi milik Joel Gray x GlaciK. Data pengujian milik GTID Tech.
+            {siteSettings.copyrightText || "© 2026 GrayPlasma. Hak Cipta materi kurasi milik Joel Gray x GlaciK. Data pengujian milik GTID Tech."}
           </div>
         </div>
       </div>

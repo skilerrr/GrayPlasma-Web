@@ -774,35 +774,35 @@ function CatalogPageContent() {
               {/* Right Main Content */}
               <div className="flex-1 w-full min-w-0 space-y-6">
                 {viewMode === "grid" ? (
-                  <div className="space-y-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4.5 animate-in fade-in duration-200">
-                      {paginatedMonitors.map((monitor) => (
-                        <MonitorCard
-                          key={monitor.id}
-                          monitor={monitor}
-                          onSelectMonitor={(m) => setSelectedMonitor(m)}
-                          onCompareToggle={(m) => comparator.togglePin(m)}
-                          isCompared={comparator.isPinned(monitor)}
-                        />
-                      ))}
-                    </div>
-
-                    {/* Monitor Pagination Bar */}
-                    <PaginationBar
-                      currentPage={monitorPage}
-                      totalPages={totalMonitorPages}
-                      totalItems={filteredMonitors.length}
-                      itemsPerPage={ITEMS_PER_PAGE}
-                      onPageChange={setMonitorPage}
-                    />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4.5 animate-in fade-in duration-200">
+                    {paginatedMonitors.map((monitor) => (
+                      <MonitorCard
+                        key={monitor.id}
+                        monitor={monitor}
+                        onSelectMonitor={(m) => setSelectedMonitor(m)}
+                        onCompareToggle={(m) => comparator.togglePin(m)}
+                        isCompared={comparator.isPinned(monitor)}
+                      />
+                    ))}
                   </div>
                 ) : (
-                  <NotionTableView
-                    monitors={paginatedMonitors}
-                    selectedMonitorId={selectedMonitor?.id}
-                    onSelectMonitor={(m) => setSelectedMonitor(m)}
-                  />
+                  <div className="space-y-4">
+                    <NotionTableView
+                      monitors={paginatedMonitors}
+                      selectedMonitorId={selectedMonitor?.id}
+                      onSelectMonitor={(m) => setSelectedMonitor(m)}
+                    />
+                  </div>
                 )}
+
+                {/* Monitor Pagination Bar (Active for both Grid and Table view) */}
+                <PaginationBar
+                  currentPage={monitorPage}
+                  totalPages={totalMonitorPages}
+                  totalItems={filteredMonitors.length}
+                  itemsPerPage={ITEMS_PER_PAGE}
+                  onPageChange={setMonitorPage}
+                />
               </div>
             </div>
           </section>
