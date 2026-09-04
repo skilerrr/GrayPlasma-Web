@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { X, LayoutGrid, ShoppingBag, Wrench } from "lucide-react";
 import { DeskItem, PeripheralItem } from "@/data/grayplasma-desk-peripherals";
 import { Button } from "@/components/ui/button";
+import { NotionRichEditor } from "@/components/admin/notion-rich-editor";
 
 interface DeskFormModalProps {
   type: "desk" | "peripheral";
@@ -275,35 +276,20 @@ export function DeskFormModal({
               </div>
 
               <div>
-                <label className="text-[11px] text-zinc-400 block mb-1">
-                  Konten Markdown / Panduan Detail (Support Ctrl+V Paste Gambar)
+                <label className="text-[11px] text-zinc-400 block mb-1 font-semibold">
+                  Ulasan & Catatan Detail Setup Meja (Word/Notion WYSIWYG):
                 </label>
-                <textarea
-                  rows={5}
+                <NotionRichEditor
                   value={deskData.markdownContent || deskData.notes || ""}
-                  onChange={(e) =>
+                  onChange={(val) =>
                     setDeskData({
                       ...deskData,
-                      markdownContent: e.target.value,
-                      notes: e.target.value,
+                      markdownContent: val,
+                      notes: val,
                     })
                   }
-                  onPaste={async (e) => {
-                    const { handleClipboardImagePaste } = await import("@/lib/image-compressor");
-                    await handleClipboardImagePaste(e, {
-                      folder: "desks",
-                      onSuccess: (snippet) => {
-                        const target = e.currentTarget;
-                        const start = target.selectionStart || 0;
-                        const end = target.selectionEnd || 0;
-                        const curr = deskData.markdownContent || "";
-                        const updated = curr.substring(0, start) + snippet + curr.substring(end);
-                        setDeskData({ ...deskData, markdownContent: updated });
-                      },
-                    });
-                  }}
-                  placeholder="### Rincian & Link Komponen Meja...\n(Bisa langsung Ctrl+V paste gambar)"
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-2.5 text-xs text-white font-mono leading-relaxed"
+                  minHeight="min-h-[220px]"
+                  placeholder="Tulis ulasan panduan meja, opsi kaki, dan detail ukuran..."
                 />
               </div>
             </>
@@ -387,12 +373,24 @@ export function DeskFormModal({
               </div>
 
               <div>
-                <label className="text-[11px] text-zinc-400 block mb-1">Evaluasi / Verdict</label>
+                <label className="text-[11px] text-zinc-400 block mb-1">Evaluasi / Verdict Singkat</label>
                 <textarea
                   rows={2}
                   value={periphData.verdict}
                   onChange={(e) => setPeriphData({ ...periphData, verdict: e.target.value })}
                   className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-2.5 text-xs text-white"
+                />
+              </div>
+
+              <div>
+                <label className="text-[11px] text-zinc-400 block mb-1 font-semibold">
+                  Catatan Ulasan Lengkap Aksesoris (Word/Notion WYSIWYG):
+                </label>
+                <NotionRichEditor
+                  value={periphData.notes || ""}
+                  onChange={(val) => setPeriphData({ ...periphData, notes: val })}
+                  minHeight="min-h-[200px]"
+                  placeholder="Tulis catatan kompabilitas bracket, review pegas, kabel..."
                 />
               </div>
             </>

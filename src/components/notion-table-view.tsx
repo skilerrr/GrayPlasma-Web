@@ -75,18 +75,18 @@ export function NotionTableView({
         </div>
 
         {/* Top Notion View Mode Tabs */}
-        <div className="flex items-center justify-between border-b border-[#2a2a2a] pb-1 overflow-x-auto no-scrollbar gap-4">
-          <div className="flex items-center gap-1">
+        <div className="flex items-center justify-between border-b border-zinc-800 pb-2 overflow-x-auto no-scrollbar gap-4">
+          <div className="flex items-center gap-1.5">
             <button
               onClick={() => setActiveTab("table")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
                 activeTab === "table"
-                  ? "bg-[#252525] text-white border border-[#3f3f3f]"
-                  : "text-[#9b9a97] hover:text-white hover:bg-[#202020]"
+                  ? "bg-zinc-800 text-white border border-zinc-600 shadow-[2px_2px_0px_#000]"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
               }`}
             >
-              <Table className="w-3.5 h-3.5" />
-              <span>List Tabel</span>
+              <Table className="w-3.5 h-3.5 text-emerald-400" />
+              <span>[ LIST TABEL ]</span>
             </button>
 
             <button
@@ -95,14 +95,14 @@ export function NotionTableView({
                 setSortField("price");
                 setSortAsc(true);
               }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
                 activeTab === "price"
-                  ? "bg-[#252525] text-white border border-[#3f3f3f]"
-                  : "text-[#9b9a97] hover:text-white hover:bg-[#202020]"
+                  ? "bg-zinc-800 text-white border border-zinc-600 shadow-[2px_2px_0px_#000]"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
               }`}
             >
-              <List className="w-3.5 h-3.5" />
-              <span>List Harga</span>
+              <List className="w-3.5 h-3.5 text-cyan-400" />
+              <span>[ LIST HARGA ]</span>
             </button>
 
             <button
@@ -111,96 +111,97 @@ export function NotionTableView({
                 setSortField("size");
                 setSortAsc(true);
               }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
                 activeTab === "size"
-                  ? "bg-[#252525] text-white border border-[#3f3f3f]"
-                  : "text-[#9b9a97] hover:text-white hover:bg-[#202020]"
+                  ? "bg-zinc-800 text-white border border-zinc-600 shadow-[2px_2px_0px_#000]"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
               }`}
             >
-              <List className="w-3.5 h-3.5" />
-              <span>List Ukuran</span>
+              <List className="w-3.5 h-3.5 text-amber-400" />
+              <span>[ LIST UKURAN ]</span>
             </button>
 
             <button
               onClick={() => setActiveTab("gallery")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
                 activeTab === "gallery"
-                  ? "bg-[#252525] text-white border border-[#3f3f3f]"
-                  : "text-[#9b9a97] hover:text-white hover:bg-[#202020]"
+                  ? "bg-zinc-800 text-white border border-zinc-600 shadow-[2px_2px_0px_#000]"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
               }`}
             >
-              <LayoutGrid className="w-3.5 h-3.5" />
-              <span>Gallery</span>
+              <LayoutGrid className="w-3.5 h-3.5 text-rose-400" />
+              <span>[ GALLERY ]</span>
             </button>
           </div>
 
-          <div className="text-[11px] text-[#787774] hidden sm:block">
-            {monitors.length} model terdaftar
+          <div className="text-[11px] font-mono text-zinc-500 hidden sm:flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>[ {monitors.length} MODEL REKOMENDASI AKTIF ]</span>
           </div>
         </div>
       </div>
 
       {/* ========================================================================= */}
-      {/* VIEW 1: NOTION DATABASE TABLE VIEW                                        */}
+      {/* VIEW 1: TECH-BRUTALIST NOTION DATABASE TABLE VIEW                         */}
       {/* ========================================================================= */}
       {activeTab === "table" && (
-        <div className="rounded-2xl border border-[#2a2a2a] bg-[#191919] overflow-hidden shadow-xl">
+        <div className="rounded-lg border-2 border-zinc-800 bg-[#09090d] overflow-hidden shadow-[3px_3px_0px_#000]">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse min-w-[950px]">
-              <thead className="bg-[#202020] text-[#9b9a97] uppercase text-[10px] tracking-wider border-b border-[#2a2a2a] sticky top-0 z-20">
+              <thead className="bg-[#050508] text-zinc-300 uppercase text-[10px] font-mono tracking-wider border-b-2 border-zinc-700 sticky top-0 z-20">
                 <tr>
                   <th
                     onClick={() => handleSort("price")}
-                    className="py-3 px-4 font-bold cursor-pointer hover:text-white transition-colors w-[150px]"
+                    className="py-3 px-4 font-bold cursor-pointer hover:text-emerald-400 transition-colors w-[160px]"
                   >
                     <div className="flex items-center gap-1.5">
-                      <span>💵 Kisaran Harga</span>
-                      <ArrowUpDown className="w-3 h-3 text-[#787774]" />
+                      <span>[ 01 // KISARAN_HARGA ]</span>
+                      <ArrowUpDown className="w-3 h-3 text-zinc-500" />
                     </div>
                   </th>
 
                   <th
                     onClick={() => handleSort("name")}
-                    className="py-3 px-4 font-bold text-[#e0e0e0] cursor-pointer hover:text-white transition-colors min-w-[240px]"
+                    className="py-3 px-4 font-bold text-zinc-200 cursor-pointer hover:text-cyan-400 transition-colors min-w-[250px]"
                   >
                     <div className="flex items-center gap-1.5">
-                      <Tv className="w-3.5 h-3.5 text-[#787774]" />
-                      <span>BRAND & MODEL TYPE</span>
-                      <ArrowUpDown className="w-3 h-3 text-[#787774]" />
+                      <Tv className="w-3.5 h-3.5 text-zinc-500" />
+                      <span>[ 02 // BRAND & MODEL ]</span>
+                      <ArrowUpDown className="w-3 h-3 text-zinc-500" />
                     </div>
                   </th>
 
-                  <th className="py-3 px-3 font-bold text-[#9b9a97] min-w-[210px]">
-                    📊 Data Response Time
+                  <th className="py-3 px-3 font-bold text-zinc-300 min-w-[220px]">
+                    [ 03 // GTID_TOLERANSI ]
                   </th>
 
                   <th
                     onClick={() => handleSort("size")}
-                    className="py-3 px-3 font-bold cursor-pointer hover:text-white transition-colors min-w-[140px]"
+                    className="py-3 px-3 font-bold cursor-pointer hover:text-amber-400 transition-colors min-w-[140px]"
                   >
                     <div className="flex items-center gap-1.5">
-                      <span>📐 Panel Size</span>
-                      <ArrowUpDown className="w-3 h-3 text-[#787774]" />
+                      <span>[ 04 // PANEL_SIZE ]</span>
+                      <ArrowUpDown className="w-3 h-3 text-zinc-500" />
                     </div>
                   </th>
 
                   <th className="py-3 px-3 font-bold min-w-[150px]">
-                    🖥️ Resolution
+                    [ 05 // RESOLUSI ]
                   </th>
 
                   <th
                     onClick={() => handleSort("refresh")}
-                    className="py-3 px-3 font-bold cursor-pointer hover:text-white transition-colors min-w-[100px]"
+                    className="py-3 px-3 font-bold cursor-pointer hover:text-emerald-400 transition-colors min-w-[110px]"
                   >
                     <div className="flex items-center gap-1.5">
-                      <span>Refresh</span>
-                      <ArrowUpDown className="w-3 h-3 text-[#787774]" />
+                      <span>[ 06 // REFRESH ]</span>
+                      <ArrowUpDown className="w-3 h-3 text-zinc-500" />
                     </div>
                   </th>
                 </tr>
               </thead>
 
-              <tbody className="divide-y divide-[#262626]">
+              <tbody className="divide-y divide-zinc-800/80">
                 {sortedMonitors.map((monitor) => {
                   const isSelected = selectedMonitorId === monitor.id;
 
@@ -210,11 +211,11 @@ export function NotionTableView({
                       onClick={() => onSelectMonitor(monitor)}
                       className={`cursor-pointer transition-all ${
                         isSelected
-                          ? "bg-[#202020] ring-1 ring-[#2383e2] ring-inset"
-                          : "hover:bg-[#202020]"
+                          ? "bg-[#151a24] ring-1 ring-cyan-500/80 ring-inset"
+                          : "hover:bg-[#121217]"
                       }`}
                     >
-                      <td className="py-3 px-4 font-mono font-medium text-[#d4d4d4] whitespace-nowrap">
+                      <td className="py-3 px-4 font-mono font-bold text-emerald-400 whitespace-nowrap">
                         {formatRupiah(monitor.price)}
                       </td>
 
@@ -222,8 +223,8 @@ export function NotionTableView({
                         <div className="flex items-center gap-2">
                           <span className="text-base">🖥️</span>
                           <span
-                            className={`font-semibold transition-colors ${
-                              isSelected ? "text-[#58a6ff]" : "text-white hover:text-[#58a6ff]"
+                            className={`font-bold transition-colors ${
+                              isSelected ? "text-cyan-400" : "text-white hover:text-emerald-400"
                             }`}
                           >
                             {monitor.fullName}
@@ -233,25 +234,31 @@ export function NotionTableView({
 
                       <td className="py-3 px-3">
                         <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className="px-2 py-0.5 rounded bg-[#203c2b] text-[#52ba69] text-[10px] font-medium whitespace-nowrap">
+                          <span className="px-2 py-0.5 rounded bg-[#0b2413] text-[#00e676] border border-[#00e676]/30 text-[10px] font-mono font-bold whitespace-nowrap shadow-[1px_1px_0px_#000]">
                             {monitor.responseTimeData?.toleranceNew || "Toleransi Baru"}
                           </span>
-                          <span className="px-2 py-0.5 rounded bg-[#442224] text-[#eb5757] text-[10px] font-medium whitespace-nowrap">
+                          <span className="px-2 py-0.5 rounded bg-[#2b1012] text-[#ff5252] border border-[#ff5252]/30 text-[10px] font-mono font-bold whitespace-nowrap shadow-[1px_1px_0px_#000]">
                             {monitor.responseTimeData?.toleranceOld || "Toleransi Lama"}
                           </span>
                         </div>
                       </td>
 
-                      <td className="py-3 px-3 text-[#9b9a97] whitespace-nowrap">
-                        {monitor.specs.display.size} {monitor.specs.display.panelType}
+                      <td className="py-3 px-3 text-zinc-300 font-medium whitespace-nowrap">
+                        <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-700/80 font-mono text-[11px]">
+                          {monitor.specs.display.size} {monitor.specs.display.panelType}
+                        </span>
                       </td>
 
-                      <td className="py-3 px-3 font-mono text-[#9b9a97] whitespace-nowrap">
-                        {monitor.specs.display.resolution}
+                      <td className="py-3 px-3 font-mono text-zinc-300 whitespace-nowrap">
+                        <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-700/80 text-[11px]">
+                          {monitor.specs.display.resolution}
+                        </span>
                       </td>
 
-                      <td className="py-3 px-3 font-mono text-[#58a6ff] whitespace-nowrap font-semibold">
-                        {monitor.specs.display.refreshRate}Hz
+                      <td className="py-3 px-3 whitespace-nowrap">
+                        <span className="px-2 py-0.5 rounded bg-[#10192b] text-[#38bdf8] border border-[#38bdf8]/30 font-mono font-bold text-[11px] shadow-[1px_1px_0px_#000]">
+                          {monitor.specs.display.refreshRate}Hz
+                        </span>
                       </td>
                     </tr>
                   );

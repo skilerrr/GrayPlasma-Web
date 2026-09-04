@@ -33,6 +33,7 @@ import {
   DatabaseService,
 } from "@/lib/db-service";
 import { NotionRichEditor } from "@/components/admin/notion-rich-editor";
+import { WordFullpageEditor } from "@/components/admin/word-fullpage-editor";
 import { Button } from "@/components/ui/button";
 
 interface GuidesKnowledgeManagerProps {
@@ -727,68 +728,37 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
         )}
       </div>
 
-      {/* FAQ Edit Modal */}
+      {/* Full-Page Word Editor for FAQ */}
       {isFaqModalOpen && editingFaq && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-[#0c0c0e] border border-zinc-800 rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl relative">
-            <h3 className="text-base font-bold text-white">Edit Pertanyaan FAQ</h3>
-            <form onSubmit={handleSaveFaq} className="space-y-3 text-xs">
-              <div>
-                <label className="text-zinc-400 block mb-1">Pertanyaan (Question)</label>
-                <input
-                  type="text"
-                  required
-                  value={editingFaq.question}
-                  onChange={(e) => setEditingFaq({ ...editingFaq, question: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-400 font-bold"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <label className="text-zinc-400 block mb-1">Kategori</label>
-                  <input
-                    type="text"
-                    value={editingFaq.category || ""}
-                    onChange={(e) => setEditingFaq({ ...editingFaq, category: e.target.value })}
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-400"
-                  />
-                </div>
-                <div className="flex items-center pt-5">
-                  <label className="flex items-center gap-2 text-zinc-300 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={editingFaq.important || false}
-                      onChange={(e) => setEditingFaq({ ...editingFaq, important: e.target.checked })}
-                      className="rounded border-zinc-700 bg-zinc-900 text-emerald-500"
-                    />
-                    <span>Highlight / Featured</span>
-                  </label>
-                </div>
-              </div>
-
-              <div>
-                <label className="text-zinc-400 block mb-1">Jawaban Lengkap (Answer)</label>
-                <textarea
-                  rows={5}
-                  required
-                  value={editingFaq.answer}
-                  onChange={(e) => setEditingFaq({ ...editingFaq, answer: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-zinc-200 focus:outline-none focus:border-emerald-400 leading-relaxed"
-                />
-              </div>
-
-              <div className="flex items-center justify-end gap-2 pt-2">
-                <Button type="button" variant="outline" size="sm" onClick={() => setIsFaqModalOpen(false)}>
-                  Batal
-                </Button>
-                <Button type="submit" variant="cyber" size="sm" className="font-bold">
-                  Simpan FAQ
-                </Button>
-              </div>
-            </form>
-          </div>
-        </div>
+        <WordFullpageEditor
+          isOpen={isFaqModalOpen}
+          documentTypeLabel="FAQ KNOWLEDGEBASE"
+          initialData={{
+            id: editingFaq.id,
+            title: editingFaq.question,
+            category: editingFaq.category || "Panduan Memilih",
+            isImportant: editingFaq.important || false,
+            content: editingFaq.answer,
+          }}
+          onSave={(savedDoc) => {
+            const updatedFaq: FAQItem = {
+              id: savedDoc.id || editingFaq.id,
+              question: savedDoc.title,
+              category: savedDoc.category || "General",
+              important: savedDoc.isImportant || false,
+              answer: savedDoc.content,
+            };
+            const updated = DatabaseService.saveFAQ(updatedFaq);
+            setFaqList(updated);
+            setIsFaqModalOpen(false);
+            setEditingFaq(null);
+            showNotice(`FAQ "${updatedFaq.question.substring(0, 30)}..." berhasil disimpan.`);
+          }}
+          onClose={() => {
+            setIsFaqModalOpen(false);
+            setEditingFaq(null);
+          }}
+        />
       )}
 
       {/* Desk Guide Modal */}
@@ -924,61 +894,42 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
         </div>
       )}
 
-      {/* GrayNote Modal */}
+      {/* Full-Page Word Editor for GrayNote */}
       {isGraynoteModalOpen && editingGraynote && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-[#0c0c0e] border border-zinc-800 rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl relative">
-            <h3 className="text-base font-bold text-white">Edit Catatan GrayNote</h3>
-            <form onSubmit={handleSaveGraynote} className="space-y-3 text-xs">
-              <div>
-                <label className="text-zinc-400 block mb-1">Judul Catatan</label>
-                <input
-                  type="text"
-                  required
-                  value={editingGraynote.title}
-                  onChange={(e) => setEditingGraynote({ ...editingGraynote, title: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white font-bold focus:outline-none focus:border-pink-400"
-                />
-              </div>
-              <div>
-                <label className="text-zinc-400 block mb-1">Kategori</label>
-                <input
-                  type="text"
-                  value={editingGraynote.category}
-                  onChange={(e) => setEditingGraynote({ ...editingGraynote, category: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-pink-400"
-                />
-              </div>
-              <div>
-                <label className="text-zinc-400 block mb-1">Ringkasan</label>
-                <textarea
-                  rows={2}
-                  value={editingGraynote.summary}
-                  onChange={(e) => setEditingGraynote({ ...editingGraynote, summary: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-zinc-300 focus:outline-none focus:border-pink-400"
-                />
-              </div>
-              <div>
-                <label className="text-zinc-400 block mb-1">Rekomendasi</label>
-                <input
-                  type="text"
-                  value={editingGraynote.recommendation}
-                  onChange={(e) => setEditingGraynote({ ...editingGraynote, recommendation: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-emerald-400 focus:outline-none focus:border-pink-400"
-                />
-              </div>
-
-              <div className="flex items-center justify-end gap-2 pt-2">
-                <Button type="button" variant="outline" size="sm" onClick={() => setIsGraynoteModalOpen(false)}>
-                  Batal
-                </Button>
-                <Button type="submit" variant="cyber" size="sm" className="font-bold">
-                  Simpan GrayNote
-                </Button>
-              </div>
-            </form>
-          </div>
-        </div>
+        <WordFullpageEditor
+          isOpen={isGraynoteModalOpen}
+          documentTypeLabel="GRAYNOTE TECHNICAL ARTICLE"
+          initialData={{
+            id: editingGraynote.id,
+            title: editingGraynote.title,
+            category: editingGraynote.category || "DisplayPort vs HDMI",
+            content: editingGraynote.summary,
+          }}
+          onSave={(savedDoc) => {
+            const updatedGn: GrayNoteItem = {
+              id: savedDoc.id || editingGraynote.id,
+              title: savedDoc.title,
+              category: savedDoc.category || "DisplayPort vs HDMI",
+              summary: savedDoc.content,
+              details: editingGraynote.details || [],
+              warning: editingGraynote.warning || "",
+              recommendation: editingGraynote.recommendation || "",
+            };
+            const copy = [...graynotes];
+            const idx = copy.findIndex((g) => g.id === updatedGn.id);
+            if (idx >= 0) copy[idx] = updatedGn;
+            else copy.push(updatedGn);
+            DatabaseService.saveGrayNotes(copy);
+            setGraynotes(copy);
+            setIsGraynoteModalOpen(false);
+            setEditingGraynote(null);
+            showNotice(`GrayNote "${updatedGn.title}" berhasil disimpan.`);
+          }}
+          onClose={() => {
+            setIsGraynoteModalOpen(false);
+            setEditingGraynote(null);
+          }}
+        />
       )}
 
       {/* Avoid Brand Modal */}

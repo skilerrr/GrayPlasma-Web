@@ -154,6 +154,33 @@ export function DeskSidePanel({ desk, isOpen, onClose }: DeskSidePanelProps) {
                 </div>
               </div>
             )}
+
+            {/* Custom Variables / Parameters */}
+            {desk.customVariables && desk.customVariables.length > 0 && (
+              <div className="grid grid-cols-12 gap-2 items-start py-2 border-t border-zinc-800/60 pt-2">
+                <span className="col-span-5 text-zinc-500 font-medium">Variabel Tambahan</span>
+                <div className="col-span-7 space-y-1.5">
+                  {desk.customVariables.map((v) => (
+                    <div
+                      key={v.id}
+                      className="flex justify-between items-center bg-black/40 border border-zinc-800 px-2.5 py-1 rounded-lg text-xs"
+                    >
+                      <div className="flex items-center gap-1.5 truncate">
+                        {v.category && (
+                          <span className="text-[9px] font-mono font-bold text-amber-400 uppercase bg-zinc-800 px-1 rounded">
+                            {v.category}
+                          </span>
+                        )}
+                        <span className="text-zinc-400 font-medium truncate">{v.label}</span>
+                      </div>
+                      <span className="text-emerald-400 font-mono font-bold ml-2">
+                        {v.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Full Markdown Guide Content */}

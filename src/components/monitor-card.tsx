@@ -64,17 +64,17 @@ export function MonitorCard({
   return (
     <div
       onClick={() => onSelectMonitor(monitor)}
-      className={`group relative bg-gp-blueprintCard/95 hover:bg-surface-elevated border transition-all duration-300 rounded-2xl p-4 sm:p-5 flex flex-col justify-between cursor-pointer hover:shadow-card-hover ${
+      className={`group relative bg-[#09090d] hover:bg-[#0e0e14] border-2 transition-all duration-200 rounded-lg p-4 sm:p-5 flex flex-col justify-between cursor-pointer shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_rgba(0,230,118,0.35)] hover:-translate-y-0.5 ${
         isCompared
-          ? "border-gp-emerald shadow-[0_0_20px_rgba(0,230,118,0.2)] ring-1 ring-gp-emerald/50"
-          : "border-border-blueprint hover:border-zinc-700"
+          ? "border-emerald-400 shadow-[0_0_20px_rgba(0,230,118,0.2)] ring-1 ring-emerald-500/50"
+          : "border-zinc-800 hover:border-emerald-500/80"
       }`}
     >
       {/* Top Header: Brand, Tier Badge & VS Comparator Pin Button */}
       <div className="flex items-center justify-between gap-2 mb-3">
         <div className="flex items-center gap-1.5">
-          <span className="text-[11px] font-black tracking-widest text-zinc-300 uppercase bg-black/60 px-2.5 py-0.5 rounded border border-zinc-800">
-            {monitor.brand}
+          <span className="text-[10px] font-mono font-bold tracking-widest text-zinc-300 uppercase bg-black px-2 py-0.5 rounded border border-zinc-700 shadow-[1px_1px_0px_#000]">
+            [ {monitor.brand} ]
           </span>
           <TierBadge tier={monitor.tier} />
         </div>
@@ -84,21 +84,21 @@ export function MonitorCard({
           <button
             type="button"
             onClick={handleCompareClick}
-            className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-extrabold tracking-wider uppercase transition-all ${
+            className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-bold tracking-wider uppercase transition-all shadow-[1px_1px_0px_#000] ${
               isCompared
-                ? "bg-gp-emerald text-black font-black shadow-neon-gp-emerald"
-                : "bg-zinc-900/90 text-zinc-400 hover:text-white border border-zinc-800 hover:border-zinc-600"
+                ? "bg-emerald-400 text-black font-black"
+                : "bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-700 hover:border-zinc-500"
             }`}
             title={isCompared ? "Hapus dari komparasi" : "Pin untuk bandingkan"}
           >
             <Scale className="w-3 h-3" />
-            <span>{isCompared ? "PINNED VS" : "+ VS"}</span>
+            <span>{isCompared ? "[PINNED]" : "[+VS]"}</span>
           </button>
         )}
       </div>
 
       {/* Product Image Thumbnail with Tech Grid Ambient */}
-      <div className="relative w-full aspect-[16/10] mb-3.5 bg-zinc-950 rounded-xl overflow-hidden border border-zinc-900 flex items-center justify-center group-hover:border-zinc-800 transition-colors">
+      <div className="relative w-full aspect-[16/10] mb-3.5 bg-black rounded-md overflow-hidden border border-zinc-800 flex items-center justify-center group-hover:border-zinc-700 transition-colors">
         <Image
           src={monitor.thumbnail}
           alt={monitor.fullName}
@@ -111,16 +111,16 @@ export function MonitorCard({
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
 
         {/* Quick View Button overlay on hover */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/50 backdrop-blur-[2px]">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900/95 border border-zinc-700 text-xs font-semibold text-white shadow-xl">
-            <Info className="w-3.5 h-3.5 text-gp-emerald" />
-            Quick View Spek
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 backdrop-blur-[2px]">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-zinc-900 border border-zinc-600 text-xs font-mono font-bold text-white shadow-[2px_2px_0px_#000]">
+            <Info className="w-3.5 h-3.5 text-emerald-400" />
+            <span>[ QUICK_VIEW_SPEK ]</span>
           </span>
         </div>
 
         {/* Refresh rate tag badge in bottom-left corner */}
         <div className="absolute bottom-2 left-2 z-10">
-          <span className="inline-flex items-center gap-1 text-[10px] font-black bg-black/85 text-gp-emerald border border-gp-emerald/40 px-2 py-0.5 rounded-md backdrop-blur-md shadow-sm">
+          <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold bg-black/90 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded shadow-[1px_1px_0px_#000]">
             <Zap className="w-2.5 h-2.5" />
             {monitor.specs.display.refreshRate}Hz
           </span>
@@ -129,7 +129,7 @@ export function MonitorCard({
         {/* Deeper Black / Contrast ratio tag if high contrast */}
         {monitor.specs.display.contrastRatio && (
           <div className="absolute bottom-2 right-2 z-10">
-            <span className="inline-flex items-center gap-1 text-[10px] font-bold bg-black/85 text-zinc-300 border border-zinc-700/80 px-2 py-0.5 rounded-md backdrop-blur-md">
+            <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold bg-black/90 text-zinc-300 border border-zinc-700 px-2 py-0.5 rounded shadow-[1px_1px_0px_#000]">
               {monitor.specs.display.contrastRatio}
             </span>
           </div>
@@ -138,17 +138,17 @@ export function MonitorCard({
 
       {/* Monitor Name */}
       <div className="mb-2.5">
-        <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-gp-emerald transition-colors line-clamp-2 leading-snug tracking-tight">
+        <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-emerald-400 transition-colors line-clamp-2 leading-snug tracking-tight">
           {monitor.fullName}
         </h3>
       </div>
 
       {/* Spec Pills Row */}
-      <div className="flex flex-wrap gap-1.5 mb-3">
+      <div className="flex flex-wrap gap-1 mb-3">
         {specPills.map((spec, idx) => (
           <span
             key={idx}
-            className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-black/40 text-zinc-300 border border-zinc-800/80 group-hover:border-zinc-700 transition-colors"
+            className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold uppercase tracking-wider bg-black/60 text-zinc-300 border border-zinc-800 group-hover:border-zinc-700 transition-colors"
           >
             {spec}
           </span>
@@ -156,19 +156,19 @@ export function MonitorCard({
       </div>
 
       {/* Price & Action Section */}
-      <div className="pt-2.5 border-t border-zinc-800/80 flex flex-col gap-2">
+      <div className="pt-3 border-t border-zinc-800 flex flex-col gap-2">
         {/* Lowest Price Tag */}
         <div className="flex items-baseline justify-between">
           <div>
-            <span className="text-[9px] uppercase font-bold tracking-wider text-zinc-500 block">
-              Harga Termurah
+            <span className="text-[9px] font-mono uppercase font-bold tracking-wider text-zinc-500 block">
+              // HARGA_TERMURAH
             </span>
             <div className="flex items-baseline gap-2">
-              <span className="text-base sm:text-lg font-black text-white tracking-tight tabular-nums">
+              <span className="text-base sm:text-lg font-black text-white tracking-tight tabular-nums font-mono">
                 {formatRupiah(monitor.price)}
               </span>
               {monitor.originalPrice && monitor.originalPrice > monitor.price && (
-                <span className="text-xs text-zinc-500 line-through tabular-nums">
+                <span className="text-xs text-zinc-500 line-through tabular-nums font-mono">
                   {formatRupiah(monitor.originalPrice)}
                 </span>
               )}
@@ -181,7 +181,7 @@ export function MonitorCard({
           <a
             href={`/monitor/${monitor.slug}`}
             onClick={(e) => e.stopPropagation()}
-            className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-white transition-colors"
+            className="p-2 rounded bg-zinc-900 border border-zinc-700 hover:border-zinc-500 text-zinc-400 hover:text-white transition-colors shadow-[1px_1px_0px_#000]"
             title="Buka Detail Monitor"
           >
             <ExternalLink className="w-3.5 h-3.5" />
@@ -192,10 +192,10 @@ export function MonitorCard({
               variant="cyber"
               size="sm"
               onClick={(e) => handleMarketplaceClick(e, bestDeal)}
-              className="flex-1 flex items-center justify-center gap-1.5 text-xs py-2 font-bold group/btn bg-gp-emerald text-black hover:bg-emerald-400 font-sans"
+              className="flex-1 flex items-center justify-center gap-1.5 text-xs py-2 font-mono font-bold group/btn bg-emerald-500 text-black hover:bg-emerald-400 shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px]"
             >
               <ShoppingBag className="w-3.5 h-3.5" />
-              <span>Beli di {bestDeal.marketplace}</span>
+              <span>BELI DI {bestDeal.marketplace.toUpperCase()}</span>
             </Button>
           ) : (
             <Button

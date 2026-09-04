@@ -189,6 +189,14 @@ export interface Monitor {
   vrrSpecs?: VRRSpecs;
   overshootData?: OvershootData;
   labTestingMatrix?: LabTestingMatrixRow[];
+  customVariables?: CustomDataVariable[];
+}
+
+export interface CustomDataVariable {
+  id: string;
+  label: string;
+  value: string;
+  category?: string;
 }
 
 export interface FilterState {

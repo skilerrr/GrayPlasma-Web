@@ -35,6 +35,7 @@ import {
 } from "@/lib/db-service";
 import { compressImage } from "@/lib/image-compressor";
 import { Button } from "@/components/ui/button";
+import { isSupabaseConfigured, createCollaboratorAccount } from "@/lib/supabase";
 
 interface AdminHierarchyManagerProps {
   admins: AdminUser[];
@@ -177,11 +178,29 @@ export function AdminHierarchyManager({
     setIsModalOpen(true);
   };
 
-  const handleSaveAdmin = (e: React.FormEvent) => {
+  const handleSaveAdmin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name.trim() || !formData.pinCode.trim()) {
-      alert("Nama dan PIN wajib diisi!");
+    const cleanEmail = (formData.email || "").trim();
+    if (!formData.name.trim() || !cleanEmail || !formData.pinCode.trim()) {
+      alert("Nama, Email, dan Password/PIN wajib diisi!");
       return;
+    }
+
+    // If creating a brand new admin and Supabase is configured, create the real account
+    if (isSupabaseConfigured && !editingAdmin) {
+      const res = await createCollaboratorAccount({
+        email: cleanEmail,
+        password: formData.pinCode,
+        name: formData.name,
+        role: formData.role,
+        roleTitle: formData.roleTitle,
+        permissions: formData.permissions,
+      });
+      if (!res.success) {
+        alert(`Perhatian Supabase: ${res.message}\nAkun tetap disimpan ke cache lokal.`);
+      } else {
+        showNotice(res.message);
+      }
     }
 
     const updated = DatabaseService.saveAdminUser(formData);
@@ -638,6 +657,18 @@ export function AdminHierarchyManager({
                     className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400"
                   />
                 </div>
+              </div>
+
+              <div>
+                <label className="text-zinc-400 block mb-1">Email Akun (Digunakan untuk Login) *</label>
+                <input
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  placeholder="collaborator@grayplasma.id"
+                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400 font-mono text-xs"
+                />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

@@ -106,3 +106,398 @@ input[type="range"]::-moz-range-thumb {
   box-shadow: 0 0 10px rgba(0, 230, 118, 0.5);
   border: 2px solid #ffffff;
 }
+
+/* ========================================================================== */
+/* NOTION PROSE & WYSIWYG EDITORIAL SYSTEM                                     */
+/* ========================================================================== */
+.notion-prose {
+  color: #d4d4d8;
+  line-height: 1.7;
+  font-size: 0.875rem;
+}
+
+.notion-prose h1 {
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.025em;
+  margin-top: 1.5rem;
+  margin-bottom: 0.625rem;
+  line-height: 1.3;
+}
+
+.notion-prose h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #f4f4f5;
+  letter-spacing: -0.015em;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.35rem;
+}
+
+.notion-prose h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #e4e4e7;
+  margin-top: 1rem;
+  margin-bottom: 0.375rem;
+}
+
+.notion-prose p {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.65;
+}
+
+.notion-prose u,
+.notion-prose ins {
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+.notion-prose s,
+.notion-prose del {
+  text-decoration: line-through;
+  opacity: 0.65;
+}
+
+.notion-prose mark {
+  background-color: rgba(234, 179, 8, 0.25);
+  color: #fef08a;
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+}
+
+.notion-prose ul:not(.notion-task-list) {
+  list-style-type: disc;
+  padding-left: 1.25rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.notion-prose ol {
+  list-style-type: decimal;
+  padding-left: 1.25rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.notion-prose li {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.notion-prose .notion-task-list {
+  list-style-type: none;
+  padding-left: 0.25rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.notion-prose .notion-task-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-top: 0.35rem;
+  margin-bottom: 0.35rem;
+}
+
+.notion-prose .notion-task-list input[type="checkbox"] {
+  margin-top: 0.25rem;
+  accent-color: #10b981;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.notion-prose blockquote {
+  border-left: 3px solid #3b82f6;
+  background: rgba(59, 130, 246, 0.05);
+  padding: 0.75rem 1rem;
+  border-radius: 0 0.75rem 0.75rem 0;
+  margin-top: 0.85rem;
+  margin-bottom: 0.85rem;
+  color: #93c5fd;
+  font-style: normal;
+}
+
+.notion-prose hr {
+  border: none;
+  border-top: 1px solid #27272a;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.notion-prose pre {
+  background: #111116;
+  border: 1px solid #27272a;
+  border-radius: 0.75rem;
+  padding: 0.875rem 1rem;
+  overflow-x: auto;
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: #60a5fa;
+  margin-top: 0.85rem;
+  margin-bottom: 0.85rem;
+}
+
+.notion-prose code:not(pre code) {
+  background: #1f1f26;
+  border: 1px solid #2e2e38;
+  color: #f472b6;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.375rem;
+  font-family: monospace;
+  font-size: 0.825em;
+}
+
+.notion-prose a {
+  color: #38bdf8;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s;
+}
+
+.notion-prose a:hover {
+  color: #7dd3fc;
+}
+
+.notion-prose img {
+  max-width: 100%;
+  border-radius: 0.875rem;
+  border: 1px solid #27272a;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Notion Callout Box */
+.notion-prose .notion-callout,
+.notion-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  padding: 1rem 1.125rem;
+  border-radius: 1rem;
+  margin-top: 0.875rem;
+  margin-bottom: 0.875rem;
+  border: 1px solid;
+  background: rgba(24, 24, 27, 0.6);
+}
+
+.notion-callout-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.notion-callout-amber {
+  border-color: rgba(245, 158, 11, 0.35);
+  background: rgba(245, 158, 11, 0.08);
+  color: #fef3c7;
+}
+
+.notion-callout-emerald {
+  border-color: rgba(16, 185, 129, 0.35);
+  background: rgba(16, 185, 129, 0.08);
+  color: #d1fae5;
+}
+
+.notion-callout-cyan {
+  border-color: rgba(6, 182, 212, 0.35);
+  background: rgba(6, 182, 212, 0.08);
+  color: #cffafe;
+}
+
+.notion-callout-crimson {
+  border-color: rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.08);
+  color: #fee2e2;
+}
+
+.notion-callout-purple {
+  border-color: rgba(168, 85, 247, 0.35);
+  background: rgba(168, 85, 247, 0.08);
+  color: #f3e8ff;
+}
+
+/* Notion Visual Table */
+.notion-prose table,
+.notion-visual-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #27272a;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  font-size: 0.8rem;
+}
+
+.notion-prose th,
+.notion-visual-table th {
+  background: #18181f;
+  border: 1px solid #27272a;
+  padding: 0.625rem 0.875rem;
+  text-align: left;
+  font-weight: 700;
+  color: #f4f4f5;
+  text-transform: uppercase;
+  font-size: 0.725rem;
+  letter-spacing: 0.05em;
+}
+
+.notion-prose td,
+.notion-visual-table td {
+  border: 1px solid #27272a;
+  padding: 0.625rem 0.875rem;
+  color: #d4d4d8;
+  vertical-align: top;
+}
+
+.notion-prose tr:nth-child(even),
+.notion-visual-table tr:nth-child(even) {
+  background: rgba(24, 24, 31, 0.4);
+}
+
+.notion-prose tr:hover,
+.notion-visual-table tr:hover {
+  background: rgba(39, 39, 49, 0.5);
+}
+
+/* ==============================================================================
+   INDUSTRIAL-HUD / TECH-BRUTALISM STYLING UTILITIES
+   Retains Metropolis overall font with monospaced tech readouts & sharp framing
+   ============================================================================== */
+
+/* Sharp Tech-Brutalist Frame Panel */
+.hud-panel {
+  position: relative;
+  background-color: #0d0d11;
+  border: 1px solid #27272a;
+  border-radius: 0.75rem;
+}
+
+.hud-panel:hover {
+  border-color: #3f3f46;
+}
+
+/* Corner Notch Crosshair Accents */
+.hud-crosshair {
+  position: relative;
+}
+.hud-crosshair::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid #00e676;
+  border-left: 2px solid #00e676;
+  pointer-events: none;
+}
+.hud-crosshair::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 6px;
+  height: 6px;
+  border-bottom: 2px solid #00e676;
+  border-right: 2px solid #00e676;
+  pointer-events: none;
+}
+
+/* High-Contrast Industrial Tag / Pill */
+.hud-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.125rem 0.5rem;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: #000000;
+  border: 1px solid #3f3f46;
+  border-radius: 0.25rem;
+  color: #e4e4e7;
+}
+
+.hud-tag-emerald {
+  border-color: rgba(0, 230, 118, 0.4);
+  color: #00e676;
+}
+
+.hud-tag-cyan {
+  border-color: rgba(0, 210, 255, 0.4);
+  color: #00d2ff;
+}
+
+.hud-tag-amber {
+  border-color: rgba(255, 179, 0, 0.4);
+  color: #ffb300;
+}
+
+/* Hard Drop Shadow (Tactile Tech Brutalism) */
+.hud-shadow {
+  box-shadow: 2px 2px 0px 0px rgba(255, 255, 255, 0.06);
+}
+
+.hud-shadow-hard {
+  box-shadow: 3px 3px 0px 0px #000000;
+}
+
+.hud-shadow-emerald {
+  box-shadow: 3px 3px 0px 0px rgba(0, 230, 118, 0.4);
+}
+
+.hud-card-tactile {
+  background-color: #0b0b0e;
+  border: 1px solid #27272a;
+  box-shadow: 3px 3px 0px 0px #000000;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hud-card-tactile:hover {
+  border-color: #00e676;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px 0px rgba(0, 230, 118, 0.35);
+}
+
+.hud-button {
+  transition: transform 0.1s ease, border-color 0.15s ease;
+}
+.hud-button:active {
+  transform: translate(1px, 1px);
+}
+
+/* Bracketed Telemetry Text */
+.hud-bracket {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  letter-spacing: 0.04em;
+}
+.hud-bracket::before {
+  content: "[ ";
+  opacity: 0.6;
+}
+.hud-bracket::after {
+  content: " ]";
+  opacity: 0.6;
+}
+
+/* Stark Industrial Header Bar */
+.hud-header-bar {
+  background: #08080b;
+  border-top: 1px solid #3f3f46;
+  border-bottom: 2px solid #27272a;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+

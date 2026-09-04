@@ -32,14 +32,18 @@ export type {
 import { SiteHierarchyNode } from "@/types/site-hierarchy";
 import { DEFAULT_SITE_HIERARCHY } from "@/data/site-hierarchy";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { NOTION_AFTERSALES_CARDS } from "@/data/notion-aftersales-board-data";
+import { NotionBoardCard } from "@/components/notion-kanban-board";
 
 const STORAGE_KEYS = {
   MONITORS: "gp_db_monitors_v1",
   DESKS: "gp_db_desks_v1",
   PERIPHERALS: "gp_db_peripherals_v1",
   AFTERSALES: "gp_db_aftersales_v1",
+  AFTERSALES_CARDS: "gp_db_aftersales_cards_v1",
   HIERARCHY: "gp_db_hierarchy_v1",
   PAGE_BANNERS: "gp_db_page_banners_v1",
+  HOMEPAGE_SETTINGS: "gp_db_homepage_settings_v1",
   SITE_SETTINGS: "gp_db_site_settings_v1",
   FAQ_ITEMS: "gp_db_faq_items_v1",
   DESK_GUIDES: "gp_db_desk_guides_v1",
@@ -69,6 +73,332 @@ export const DEFAULT_BANNER_SETTINGS: PageBannerSettings = {
   guideBannerUrl: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1600&auto=format&fit=crop",
   monitorBannerUrl: "",
 };
+
+export interface SubpageCardItem {
+  id: string;
+  groupId: string;
+  groupTitle: string;
+  groupEmoji: string;
+  title: string;
+  desc: string;
+  path: string;
+  icon: string;
+  color: string;
+  order: number;
+  isVisible: boolean;
+}
+
+export interface HomepageSettings {
+  heroCoverUrl: string;
+  pageIcon: string;
+  pageTitle: string;
+  statusBadge: string;
+  disclaimerTitle: string;
+  disclaimerPoints: string[];
+  disclaimerMarkdown?: string;
+  subpageCards: SubpageCardItem[];
+  sectionTitles: {
+    monitorsTitle: string;
+    monitorsSubtitle: string;
+    desksTitle: string;
+    desksSubtitle: string;
+    peripheralsTitle: string;
+    peripheralsSubtitle: string;
+  };
+  sectionVisibility: {
+    showMonitors: boolean;
+    showDesks: boolean;
+    showPeripherals: boolean;
+    showFaq: boolean;
+  };
+}
+
+export const DEFAULT_HOMEPAGE_SUBPAGES: SubpageCardItem[] = [
+  // GROUP 1: REKOMENDASI MONITOR
+  {
+    id: "sub-1080p",
+    groupId: "group-1",
+    groupTitle: "1. REKOMENDASI MONITOR PILIHAN UTAMA",
+    groupEmoji: "🌟",
+    title: "REKOMENDASI MONITOR 1080P (FHD BUDGET)",
+    desc: "Katalog pilihan 1080p Fast IPS budget & esport 180Hz+",
+    path: "/guide/1080p",
+    icon: "🖥️",
+    color: "hover:border-[#52ba69] text-[#52ba69]",
+    order: 1,
+    isVisible: true,
+  },
+  {
+    id: "sub-1440p",
+    groupId: "group-1",
+    groupTitle: "1. REKOMENDASI MONITOR PILIHAN UTAMA",
+    groupEmoji: "🌟",
+    title: "REKOMENDASI MONITOR 1440P (2K SWEETSPOT)",
+    desc: "Pilihan monitor 2K 144Hz - 240Hz visual tajam",
+    path: "/guide/1440p",
+    icon: "🖥️",
+    color: "hover:border-[#58a6ff] text-[#58a6ff]",
+    order: 2,
+    isVisible: true,
+  },
+  {
+    id: "sub-4k",
+    groupId: "group-1",
+    groupTitle: "1. REKOMENDASI MONITOR PILIHAN UTAMA",
+    groupEmoji: "🌟",
+    title: "REKOMENDASI MONITOR 4K UHD & CREATOR",
+    desc: "Monitor resolusi tinggi untuk productivity & visual",
+    path: "/guide/4k",
+    icon: "🖥️",
+    color: "hover:border-[#ff9f43] text-[#ff9f43]",
+    order: 3,
+    isVisible: true,
+  },
+  {
+    id: "sub-oled",
+    groupId: "group-1",
+    groupTitle: "1. REKOMENDASI MONITOR PILIHAN UTAMA",
+    groupEmoji: "🌟",
+    title: "REKOMENDASI MONITOR OLED & FLAGSHIP",
+    desc: "Panel QD-OLED & WOLED contrast tanpa tanding",
+    path: "/guide/oled",
+    icon: "✨",
+    color: "hover:border-[#d157eb] text-[#d157eb]",
+    order: 4,
+    isVisible: true,
+  },
+
+  // GROUP 2: EVALUASI BRAND & AFTERSALES
+  {
+    id: "sub-aftersales",
+    groupId: "group-2",
+    groupTitle: "2. EVALUASI BRAND & AFTERSALES (OEM / ODM LIST)",
+    groupEmoji: "🛡️",
+    title: "LIST AFTERSALES (BRAND MONITOR OEM)",
+    desc: "Database komprehensif sistem klaim garansi, track record RMA distributor resmi, dan tiering brand di Indonesia.",
+    path: "/guide/brand/aftersales-rma",
+    icon: "🛡️",
+    color: "hover:border-[#52ba69] text-[#52ba69]",
+    order: 5,
+    isVisible: true,
+  },
+  {
+    id: "sub-odm",
+    groupId: "group-2",
+    groupTitle: "2. EVALUASI BRAND & AFTERSALES (OEM / ODM LIST)",
+    groupEmoji: "🛡️",
+    title: "LIST BRAND MONITOR ODM / OEM LAYAK BELI",
+    desc: "Panduan membeli monitor rebadge/ODM (KTC, Titan Army, Xiaomi, Skyworth) dengan risiko minimal dan garansi jelas.",
+    path: "/guide/brand/odm-layak-dibeli",
+    icon: "⚠️",
+    color: "hover:border-amber-400 text-amber-400",
+    order: 6,
+    isVisible: true,
+  },
+
+  // GROUP 3: GLOSARIUM GTID & KALIBRASI
+  {
+    id: "sub-glossary",
+    groupId: "group-3",
+    groupTitle: "3. GLOSARIUM & PANDUAN KALIBRASI WARNA (GTID TECH)",
+    groupEmoji: "🎨",
+    title: "HOW TO READ GTID GLOSSARY",
+    desc: "Cara membaca skor deITP, Delta E, gamut, dan response time.",
+    path: "/guide/sdr/glossary",
+    icon: "📄",
+    color: "hover:border-[#58a6ff] text-[#58a6ff]",
+    order: 7,
+    isVisible: true,
+  },
+  {
+    id: "sub-d65-p3",
+    groupId: "group-3",
+    groupTitle: "3. GLOSARIUM & PANDUAN KALIBRASI WARNA (GTID TECH)",
+    groupEmoji: "🎨",
+    title: "AKURASI D65-P3 VS UNDERSATURATED",
+    desc: "Mengapa monitor Delta E rendah bisa kurang warna di Rec.2020.",
+    path: "/guide/warna/akurasi-d65-p3",
+    icon: "🎯",
+    color: "hover:border-[#58a6ff] text-[#58a6ff]",
+    order: 8,
+    isVisible: true,
+  },
+  {
+    id: "sub-bandwidth",
+    groupId: "group-3",
+    groupTitle: "3. GLOSARIUM & PANDUAN KALIBRASI WARNA (GTID TECH)",
+    groupEmoji: "🎨",
+    title: "BANDWIDTH DP VS HDMI 2.0 / 2.1",
+    desc: "Panduan kabel agar monitor tembus refresh rate maksimal tanpa kompresi.",
+    path: "/guide/display/bandwidth-dp-hdmi",
+    icon: "🔌",
+    color: "hover:border-[#58a6ff] text-[#58a6ff]",
+    order: 9,
+    isVisible: true,
+  },
+  {
+    id: "sub-oled-care",
+    groupId: "group-3",
+    groupTitle: "3. GLOSARIUM & PANDUAN KALIBRASI WARNA (GTID TECH)",
+    groupEmoji: "🎨",
+    title: "PERAWATAN MONITOR OLED",
+    desc: "Tips pencegahan burn-in, pixel cleaning, dan kebiasaan pemakaian.",
+    path: "/guide/oled/perawatan-burn-in",
+    icon: "✨",
+    color: "hover:border-[#d157eb] text-[#d157eb]",
+    order: 10,
+    isVisible: true,
+  },
+
+  // GROUP 4: QNA & GRAYNOTES
+  {
+    id: "sub-faq-build",
+    groupId: "group-4",
+    groupTitle: "4. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)",
+    groupEmoji: "❓",
+    title: "Build Quality Panel & Ketahanan",
+    desc: "Penjelasan umur panel dan dead-lines.",
+    path: "/guide/faq/build-quality-panel",
+    icon: "❓",
+    color: "hover:border-[#ff9f43] text-[#ff9f43]",
+    order: 11,
+    isVisible: true,
+  },
+  {
+    id: "sub-faq-ideal",
+    groupId: "group-4",
+    groupTitle: "4. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)",
+    groupEmoji: "❓",
+    title: "Menentukan Monitor Ideal",
+    desc: "3 faktor utama sebelum checkout monitor.",
+    path: "/guide/faq/menentukan-monitor-ideal",
+    icon: "❓",
+    color: "hover:border-[#ff9f43] text-[#ff9f43]",
+    order: 12,
+    isVisible: true,
+  },
+  {
+    id: "sub-faq-luasan",
+    groupId: "group-4",
+    groupTitle: "4. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)",
+    groupEmoji: "❓",
+    title: "Luasan vs Akurasi Warna",
+    desc: "Mengapa 100% sRGB belum tentu akurat.",
+    path: "/guide/faq/luasan-vs-akurasi-warna",
+    icon: "❓",
+    color: "hover:border-[#ff9f43] text-[#ff9f43]",
+    order: 13,
+    isVisible: true,
+  },
+  {
+    id: "sub-faq-ips",
+    groupId: "group-4",
+    groupTitle: "4. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)",
+    groupEmoji: "❓",
+    title: "IPS vs VA vs TN di 2026",
+    desc: "Perbandingan teknologi panel modern.",
+    path: "/guide/faq/ips-vs-va-vs-tn",
+    icon: "❓",
+    color: "hover:border-[#ff9f43] text-[#ff9f43]",
+    order: 14,
+    isVisible: true,
+  },
+  {
+    id: "sub-faq-skyworth",
+    groupId: "group-4",
+    groupTitle: "4. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)",
+    groupEmoji: "❓",
+    title: "Ikut PO Skyworth Apakah Worth-It?",
+    desc: "Kelebihan dan estimasi waktu PO.",
+    path: "/guide/faq/skyworth-po",
+    icon: "❓",
+    color: "hover:border-[#ff9f43] text-[#ff9f43]",
+    order: 15,
+    isVisible: true,
+  },
+  {
+    id: "sub-faq-online",
+    groupId: "group-4",
+    groupTitle: "4. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)",
+    groupEmoji: "❓",
+    title: "Beli Monitor Online Aman",
+    desc: "SOP unboxing dan proteksi asuransi kurir.",
+    path: "/guide/faq/beli-monitor-online-aman",
+    icon: "❓",
+    color: "hover:border-[#ff9f43] text-[#ff9f43]",
+    order: 16,
+    isVisible: true,
+  },
+
+  // GROUP 5: SETUP MEJA, AUTHOR & CONSULTATION
+  {
+    id: "sub-meja-ergonomi",
+    groupId: "group-5",
+    groupTitle: "5. SETUP MEJA, AUTHOR & CONSULTATION",
+    groupEmoji: "🪑",
+    title: "Panduan Meja & Ergonomi",
+    desc: "Ukuran kedalaman meja vs inch monitor & rekomendasi gas spring arm.",
+    path: "/guide/setup/meja-ergonomi",
+    icon: "🪑",
+    color: "hover:border-[#58a6ff] text-[#58a6ff]",
+    order: 17,
+    isVisible: true,
+  },
+  {
+    id: "sub-about",
+    groupId: "group-5",
+    groupTitle: "5. SETUP MEJA, AUTHOR & CONSULTATION",
+    groupEmoji: "🪑",
+    title: "Tentang Penulis (Joel Gray)",
+    desc: "Biodata, latar belakang kurasi independen, dan komitmen evaluasi monitor.",
+    path: "/guide/about",
+    icon: "👤",
+    color: "hover:border-[#52ba69] text-[#52ba69]",
+    order: 18,
+    isVisible: true,
+  },
+  {
+    id: "sub-consultation",
+    groupId: "group-5",
+    groupTitle: "5. SETUP MEJA, AUTHOR & CONSULTATION",
+    groupEmoji: "🪑",
+    title: "Konsultasi & Support",
+    desc: "Konsultasi pemilihan monitor via Discord GTID / WA dan dukungan donasi.",
+    path: "/guide/consultation",
+    icon: "🎧",
+    color: "hover:border-[#d157eb] text-[#d157eb]",
+    order: 19,
+    isVisible: true,
+  },
+];
+
+export const DEFAULT_HOMEPAGE_SETTINGS: HomepageSettings = {
+  heroCoverUrl: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1600&auto=format&fit=crop",
+  pageIcon: "🖥️",
+  pageTitle: "GRAYPLASMAID - REKOMENDASI MONITOR",
+  statusBadge: "AKAN DILENGKAPI",
+  disclaimerTitle: "CATATAN PENTING :",
+  disclaimerPoints: [
+    "SELURUH LIST YANG ADA DI WEB INI PERLU DITANYAKAN KEMBALI KEPADA PENULIS, dikarenakan perlu mempertimbangkan aspek spesifikasi PC Desktop / Laptop, ukuran meja, dan kebutuhan Anda.",
+    "Mulai 15 Agustus 2026, link Tokopedia dan TikTok Shop akan dialihkan jika terjadi error. Jika butuh link khusus, silakan DM Discord GrayPlasma atau WhatsApp 0851-7979-4019 a/n Joel Gray."
+  ],
+  subpageCards: DEFAULT_HOMEPAGE_SUBPAGES,
+  sectionTitles: {
+    monitorsTitle: "DATABASE REKOMENDASI MONITOR LENGKAP",
+    monitorsSubtitle: "Tabel interaktif & katalog pengujian GTID Tech (9 monitor per halaman).",
+    desksTitle: "DATABASE REKOMENDASI MEJA & SETUP ERGONOMI",
+    desksSubtitle: "Tabel kurasi daun meja plywood solid & standing desk elektrik (Klik baris untuk melihat side panel ulasan).",
+    peripheralsTitle: "DATABASE REKOMENDASI AKSESORIS & PERIPHERALS",
+    peripheralsSubtitle: "Tabel kurasi bracket gas spring arm, screenbar lightbar, & cable management.",
+  },
+  sectionVisibility: {
+    showMonitors: true,
+    showDesks: true,
+    showPeripherals: true,
+    showFaq: true,
+  },
+};
+
 
 export interface AnnouncementBarSettings {
   isEnabled: boolean;
@@ -288,6 +618,38 @@ export class DatabaseService {
     return getLocalData<AdminUser[]>(STORAGE_KEYS.ADMIN_USERS, DEFAULT_ADMIN_USERS);
   }
 
+  static async getAdminUsersAsync(): Promise<AdminUser[]> {
+    if (isSupabaseConfigured && supabase) {
+      try {
+        const { data, error } = await supabase
+          .from("admin_profiles")
+          .select("*")
+          .order("created_at", { ascending: true });
+        if (!error && data && data.length > 0) {
+          const mapped: AdminUser[] = data.map((d: any) => ({
+            id: d.id,
+            name: d.name,
+            username: d.email?.split("@")[0] || d.name.toLowerCase().replace(/\s+/g, ""),
+            role: d.role || "editor",
+            roleTitle: d.role_title || "Collaborator",
+            avatar: d.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
+            pinCode: "gp2026",
+            email: d.email,
+            bio: d.bio,
+            permissions: d.permissions || ["guides", "faq"],
+            createdAt: d.created_at?.substring(0, 10) || "2026-01-01",
+            lastLogin: d.last_login?.substring(0, 10) || "2026-08-30",
+          }));
+          setLocalData(STORAGE_KEYS.ADMIN_USERS, mapped);
+          return mapped;
+        }
+      } catch (err) {
+        console.warn("Supabase admin_profiles fetch failed, using local", err);
+      }
+    }
+    return getLocalData<AdminUser[]>(STORAGE_KEYS.ADMIN_USERS, DEFAULT_ADMIN_USERS);
+  }
+
   static saveAdminUser(user: AdminUser): AdminUser[] {
     let current = getLocalData<AdminUser[]>(STORAGE_KEYS.ADMIN_USERS, DEFAULT_ADMIN_USERS);
     const idx = current.findIndex((u) => u.id === user.id);
@@ -299,6 +661,23 @@ export class DatabaseService {
       DatabaseService.logActivity("create", "admin", user.name, `Menambahkan anggota admin baru: ${user.role}`);
     }
     setLocalData(STORAGE_KEYS.ADMIN_USERS, current);
+
+    if (isSupabaseConfigured && supabase) {
+      supabase.from("admin_profiles").upsert({
+        id: user.id.length === 36 ? user.id : undefined, // only UUIDs for Supabase
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        role_title: user.roleTitle,
+        avatar: user.avatar,
+        bio: user.bio,
+        permissions: user.permissions,
+        is_active: true,
+      }).then(({ error }) => {
+        if (error) console.error("Supabase admin profile upsert error", error);
+      });
+    }
+
     return current;
   }
 
@@ -410,6 +789,12 @@ export class DatabaseService {
     return current;
   }
 
+  static async reorderMonitors(newOrder: Monitor[]): Promise<Monitor[]> {
+    setLocalData(STORAGE_KEYS.MONITORS, newOrder);
+    DatabaseService.logActivity("update", "monitor", "Urutan Database", `Mengatur ulang urutan ${newOrder.length} monitor via drag-and-drop.`);
+    return newOrder;
+  }
+
   static resetMonitorsToDefault(): Monitor[] {
     setLocalData(STORAGE_KEYS.MONITORS, MONITORS_DATA);
     DatabaseService.logActivity("reset", "monitor", "55 Monitor Bawaan", "Reset monitor ke default Notion.");
@@ -471,6 +856,12 @@ export class DatabaseService {
       }
     }
     return current;
+  }
+
+  static async reorderDesks(newOrder: DeskItem[]): Promise<DeskItem[]> {
+    setLocalData(STORAGE_KEYS.DESKS, newOrder);
+    DatabaseService.logActivity("update", "desk", "Urutan Meja", `Mengatur ulang urutan ${newOrder.length} meja via drag-and-drop.`);
+    return newOrder;
   }
 
   static resetDesksToDefault(): DeskItem[] {
@@ -751,9 +1142,149 @@ export class DatabaseService {
   }
 
   // ==========================================
+  // 7B. HOMEPAGE SETTINGS & SUBPAGES CRUD
+  // ==========================================
+  static async getHomepageSettings(): Promise<HomepageSettings> {
+    if (isSupabaseConfigured && supabase) {
+      try {
+        const { data, error } = await supabase
+          .from("site_settings")
+          .select("value")
+          .eq("key", "homepage_settings")
+          .single();
+        if (!error && data && data.value) {
+          return data.value as HomepageSettings;
+        }
+      } catch (err) {
+        console.warn("Supabase homepage settings fetch failed", err);
+      }
+    }
+    return getLocalData<HomepageSettings>(STORAGE_KEYS.HOMEPAGE_SETTINGS, DEFAULT_HOMEPAGE_SETTINGS);
+  }
+
+  static async saveHomepageSettings(settings: HomepageSettings): Promise<HomepageSettings> {
+    setLocalData(STORAGE_KEYS.HOMEPAGE_SETTINGS, settings);
+    DatabaseService.logActivity("update", "settings", "Homepage Settings", "Update hero, disclaimer, dan kartu navigasi beranda.");
+
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from("site_settings").upsert({
+          key: "homepage_settings",
+          value: settings,
+          updated_at: new Date().toISOString(),
+        });
+      } catch (err) {
+        console.error("Supabase homepage settings upsert error", err);
+      }
+    }
+
+    return settings;
+  }
+
+  static resetHomepageSettings(): HomepageSettings {
+    setLocalData(STORAGE_KEYS.HOMEPAGE_SETTINGS, DEFAULT_HOMEPAGE_SETTINGS);
+    DatabaseService.logActivity("reset", "settings", "Homepage Settings", "Reset konfigurasi beranda ke default.");
+    return DEFAULT_HOMEPAGE_SETTINGS;
+  }
+
+  // ==========================================
+  // 7C. AFTERSALES KANBAN CARDS CRUD
+  // ==========================================
+  static async getAftersalesCards(): Promise<NotionBoardCard[]> {
+    if (isSupabaseConfigured && supabase) {
+      try {
+        const { data, error } = await supabase
+          .from("aftersales_cards")
+          .select("*");
+        if (!error && data && data.length > 0) {
+          return data as NotionBoardCard[];
+        }
+      } catch (err) {
+        console.warn("Supabase aftersales cards fetch failed", err);
+      }
+    }
+    return getLocalData<NotionBoardCard[]>(STORAGE_KEYS.AFTERSALES_CARDS, NOTION_AFTERSALES_CARDS);
+  }
+
+  static async saveAftersalesCard(card: NotionBoardCard): Promise<NotionBoardCard[]> {
+    let current = getLocalData<NotionBoardCard[]>(STORAGE_KEYS.AFTERSALES_CARDS, NOTION_AFTERSALES_CARDS);
+    const idx = current.findIndex((c) => c.id === card.id);
+    if (idx >= 0) {
+      current[idx] = card;
+      DatabaseService.logActivity("update", "aftersales", card.title, `Kolom: ${card.columnId}`);
+    } else {
+      current = [card, ...current];
+      DatabaseService.logActivity("create", "aftersales", card.title, `Kolom: ${card.columnId}`);
+    }
+
+    setLocalData(STORAGE_KEYS.AFTERSALES_CARDS, current);
+
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from("aftersales_cards").upsert(card);
+      } catch (err) {
+        console.error("Supabase aftersales card upsert error", err);
+      }
+    }
+
+    return current;
+  }
+
+  static async deleteAftersalesCard(cardId: string): Promise<NotionBoardCard[]> {
+    let current = getLocalData<NotionBoardCard[]>(STORAGE_KEYS.AFTERSALES_CARDS, NOTION_AFTERSALES_CARDS);
+    const target = current.find((c) => c.id === cardId);
+    if (target) {
+      DatabaseService.logActivity("delete", "aftersales", target.title);
+    }
+    current = current.filter((c) => c.id !== cardId);
+    setLocalData(STORAGE_KEYS.AFTERSALES_CARDS, current);
+
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from("aftersales_cards").delete().eq("id", cardId);
+      } catch (err) {
+        console.error("Supabase aftersales card delete error", err);
+      }
+    }
+
+    return current;
+  }
+
+  static async saveAftersalesCards(cards: NotionBoardCard[]): Promise<NotionBoardCard[]> {
+    setLocalData(STORAGE_KEYS.AFTERSALES_CARDS, cards);
+    DatabaseService.logActivity("update", "aftersales", "Semua Kartu Kanban Aftersales", `Total: ${cards.length} kartu`);
+    return cards;
+  }
+
+  static resetAftersalesCards(): NotionBoardCard[] {
+    setLocalData(STORAGE_KEYS.AFTERSALES_CARDS, NOTION_AFTERSALES_CARDS);
+    DatabaseService.logActivity("reset", "aftersales", "Aftersales Kanban Cards", "Reset kartu aftersales ke default.");
+    return NOTION_AFTERSALES_CARDS;
+  }
+
+
+  // ==========================================
   // 8. FAQ KNOWLEDGEBASE CRUD
   // ==========================================
   static getFAQ(): FAQItem[] {
+    return getLocalData<FAQItem[]>(STORAGE_KEYS.FAQ_ITEMS, FAQ_LIST);
+  }
+
+  static async getFAQAsync(): Promise<FAQItem[]> {
+    if (isSupabaseConfigured && supabase) {
+      try {
+        const { data, error } = await supabase
+          .from("faq_items")
+          .select("*")
+          .order("order", { ascending: true });
+        if (!error && data && data.length > 0) {
+          setLocalData(STORAGE_KEYS.FAQ_ITEMS, data);
+          return data as FAQItem[];
+        }
+      } catch (err) {
+        console.warn("Supabase FAQ fetch failed, fallback to local", err);
+      }
+    }
     return getLocalData<FAQItem[]>(STORAGE_KEYS.FAQ_ITEMS, FAQ_LIST);
   }
 
@@ -768,6 +1299,13 @@ export class DatabaseService {
       DatabaseService.logActivity("create", "faq", item.question);
     }
     setLocalData(STORAGE_KEYS.FAQ_ITEMS, current);
+
+    if (isSupabaseConfigured && supabase) {
+      supabase.from("faq_items").upsert(item).then(({ error }) => {
+        if (error) console.error("Supabase FAQ upsert error", error);
+      });
+    }
+
     return current;
   }
 
@@ -777,6 +1315,13 @@ export class DatabaseService {
     if (target) DatabaseService.logActivity("delete", "faq", target.question);
     current = current.filter((f) => f.id !== id);
     setLocalData(STORAGE_KEYS.FAQ_ITEMS, current);
+
+    if (isSupabaseConfigured && supabase) {
+      supabase.from("faq_items").delete().eq("id", id).then(({ error }) => {
+        if (error) console.error("Supabase FAQ delete error", error);
+      });
+    }
+
     return current;
   }
 
@@ -854,8 +1399,10 @@ export class DatabaseService {
       desks: getLocalData(STORAGE_KEYS.DESKS, DESK_DATABASE),
       peripherals: getLocalData(STORAGE_KEYS.PERIPHERALS, PERIPHERALS_DATABASE),
       aftersales: getLocalData(STORAGE_KEYS.AFTERSALES, AFTERSALES_DATA),
+      aftersalesCards: getLocalData(STORAGE_KEYS.AFTERSALES_CARDS, NOTION_AFTERSALES_CARDS),
       hierarchy: getLocalData(STORAGE_KEYS.HIERARCHY, DEFAULT_SITE_HIERARCHY),
       pageBanners: getLocalData(STORAGE_KEYS.PAGE_BANNERS, DEFAULT_BANNER_SETTINGS),
+      homepageSettings: getLocalData(STORAGE_KEYS.HOMEPAGE_SETTINGS, DEFAULT_HOMEPAGE_SETTINGS),
       siteSettings: getLocalData(STORAGE_KEYS.SITE_SETTINGS, DEFAULT_SITE_SETTINGS),
       faqItems: getLocalData(STORAGE_KEYS.FAQ_ITEMS, FAQ_LIST),
       deskGuides: getLocalData(STORAGE_KEYS.DESK_GUIDES, DESK_GUIDES),
@@ -882,8 +1429,10 @@ export class DatabaseService {
       if (data.desks) setLocalData(STORAGE_KEYS.DESKS, data.desks);
       if (data.peripherals) setLocalData(STORAGE_KEYS.PERIPHERALS, data.peripherals);
       if (data.aftersales) setLocalData(STORAGE_KEYS.AFTERSALES, data.aftersales);
+      if (data.aftersalesCards) setLocalData(STORAGE_KEYS.AFTERSALES_CARDS, data.aftersalesCards);
       if (data.hierarchy) setLocalData(STORAGE_KEYS.HIERARCHY, data.hierarchy);
       if (data.pageBanners) setLocalData(STORAGE_KEYS.PAGE_BANNERS, data.pageBanners);
+      if (data.homepageSettings) setLocalData(STORAGE_KEYS.HOMEPAGE_SETTINGS, data.homepageSettings);
       if (data.siteSettings) setLocalData(STORAGE_KEYS.SITE_SETTINGS, data.siteSettings);
       if (data.faqItems) setLocalData(STORAGE_KEYS.FAQ_ITEMS, data.faqItems);
       if (data.deskGuides) setLocalData(STORAGE_KEYS.DESK_GUIDES, data.deskGuides);

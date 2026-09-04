@@ -1,0 +1,1474 @@
+"use client";
+
+import React, { useState } from "react";
+import {
+  Plus,
+  Trash2,
+  Copy,
+  Save,
+  RotateCcw,
+  Search,
+  ExternalLink,
+  Sparkles,
+  Eye,
+  SlidersHorizontal,
+  Table as TableIcon,
+  ShoppingBag,
+  Ruler,
+  ShieldCheck,
+  CheckCircle2,
+  ChevronDown,
+  ChevronUp,
+  GripVertical,
+  FileSpreadsheet,
+  Download,
+  Edit2,
+} from "lucide-react";
+import { DeskItem } from "@/data/grayplasma-desk-peripherals";
+import { DatabaseService } from "@/lib/db-service";
+import { formatRupiah } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { NotionRichEditor } from "@/components/admin/notion-rich-editor";
+import { ModularTableBuilder } from "@/components/admin/modular-table-builder";
+import { NotionBlockRenderer } from "@/components/notion-block-renderer";
+
+interface DeskLiveStudioProps {
+  desks: DeskItem[];
+  onUpdateDesks: (newDesks: DeskItem[]) => void;
+  onPreviewSidePanel?: (desk: DeskItem) => void;
+}
+
+const DESK_CATEGORIES: DeskItem["category"][] = [
+  "Daun Meja",
+  "Meja Standar",
+  "Meja Elektrik (Standing Desk)",
+  "Meja L-Shaped",
+  "Meja Nakas",
+  "Meja Lesehan",
+];
+
+export function DeskLiveStudio({
+  desks,
+  onUpdateDesks,
+  onPreviewSidePanel,
+}: DeskLiveStudioProps) {
+  const [selectedDesk, setSelectedDesk] = useState<DeskItem | null>(desks[0] || null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState<string>("all");
+  const [notice, setNotice] = useState<string | null>(null);
+  const [isSpecsExpanded, setIsSpecsExpanded] = useState(false);
+  const [isTableBuilderOpen, setIsTableBuilderOpen] = useState(false);
+  const [newVarLabel, setNewVarLabel] = useState("");
+  const [newVarValue, setNewVarValue] = useState("");
+  const [newVarCategory, setNewVarCategory] = useState("Material & Frame");
+  const [viewMode, setViewMode] = useState<"excel" | "studio">("excel");
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
+
+  // Helper to convert desk review to document HTML
+  const getInitialDoc = (desk: Partial<DeskItem> | null) => {
+    if (!desk) return "<p>Mulai ketik ulasan, uji ketebalan meja, atau verdict kelayakan arm gas-spring di sini...</p>";
+    if (desk.markdownContent && desk.markdownContent.trim().length > 0) {
+      return desk.markdownContent;
+    }
+    let doc = "";
+    if (desk.notes) {
+      doc += `<div class="notion-callout notion-callout-amber"><span class="notion-callout-icon">💡</span><div class="notion-callout-content"><strong>Catatan Penting GrayPlasma:</strong><br>${desk.notes}</div></div>`;
+    }
+    if (desk.description) {
+      doc += `<h2>Karakteristik & Uji Kekuatan Daun Meja</h2><p>${desk.description}</p>`;
+    }
+    doc += `<h3>Uji Kelayakan Jepit Bracket Arm Gas-Spring</h3>`;
+    if (desk.specs?.armSupport) {
+      doc += `<p>✅ Daun meja berbahan <strong>${desk.specs.material}</strong> dengan ketebalan <strong>${desk.specs.thickness}</strong> telah lolos verifikasi uji clamp arm tanpa memerlukan plat protektor tambahan.</p>`;
+    } else {
+      doc += `<p>⚠️ Perhatian: Ketebalan atau material meja ini disarankan menggunakan <em>Steel Protector Plate (seperti Oximus EV-06)</em> untuk mencegah retak pada titik tumpu jepit.</p>`;
+    }
+    return doc;
+  };
+
+  const [docContent, setDocContent] = useState<string>(() => getInitialDoc(selectedDesk));
+
+  // Form State for Active Desk
+  const [formData, setFormData] = useState<Partial<DeskItem>>(
+    selectedDesk || {
+      name: "Meja Rekomendasi Baru",
+      category: "Daun Meja",
+      keterangan: ["Daun Meja", "Multiplek"],
+      price: 450000,
+      type: "NON L SHAPED",
+      catatanBadge: "ADA (DISARANKAN MEMBACA NYA)",
+      description: "Daun meja multiplek berkualitas tinggi tahan clamp monitor arm.",
+      notes: "Gunakan ketebalan minimal 18mm untuk bracket arm dual monitor.",
+      shopeeUrl: "https://shopee.co.id",
+      specs: {
+        material: "Multiplek / Plywood Full HPL",
+        thickness: "2.4 cm (24 mm)",
+        armSupport: true,
+        dimensions: "120 x 60 cm",
+      },
+    }
+  );
+
+  const showNotification = (msg: string) => {
+    setNotice(msg);
+    setTimeout(() => setNotice(null), 3000);
+  };
+
+  // Switch Selected Desk
+  const handleSelectDesk = (d: DeskItem) => {
+    setSelectedDesk(d);
+    setFormData(d);
+    setDocContent(getInitialDoc(d));
+  };
+
+  // Create New Desk
+  const handleCreateNew = () => {
+    const newDesk: DeskItem = {
+      id: `desk-${Date.now()}`,
+      name: "Meja Baru (Kustom / Rekomendasi)",
+      category: "Daun Meja",
+      keterangan: ["Daun Meja", "Custom"],
+      price: 500000,
+      type: "NON L SHAPED",
+      catatanBadge: "ADA (DISARANKAN MEMBACA NYA)",
+      description: "Deskripsi ulasan ulasan dan pengujian meja.",
+      notes: "Catatan penting untuk pembaca ulasan.",
+      shopeeUrl: "",
+      specs: {
+        material: "Multiplek Full Plywood HPL",
+        thickness: "2.4 cm",
+        armSupport: true,
+        dimensions: "120 x 60 cm",
+      },
+      markdownContent: "",
+    };
+    setSelectedDesk(newDesk);
+    setFormData(newDesk);
+    setDocContent(getInitialDoc(newDesk));
+    showNotification("Draft meja baru siap disunting.");
+  };
+
+  // Duplicate Desk
+  const handleDuplicate = async () => {
+    if (!formData.name) return;
+    const duplicated: DeskItem = {
+      ...(formData as DeskItem),
+      id: `desk-${Date.now()}`,
+      name: `${formData.name} (Salinan)`,
+    };
+    const updated = await DatabaseService.saveDesk(duplicated);
+    onUpdateDesks(updated);
+    setSelectedDesk(duplicated);
+    setFormData(duplicated);
+    showNotification(`Meja "${duplicated.name}" berhasil diduplikat.`);
+  };
+
+  // Delete Desk
+  const handleDelete = async () => {
+    if (!selectedDesk) return;
+    if (confirm(`Yakin ingin menghapus rekomendasi meja "${formData.name}"?`)) {
+      const updated = await DatabaseService.deleteDesk(selectedDesk.id);
+      onUpdateDesks(updated);
+      setSelectedDesk(updated[0] || null);
+      if (updated[0]) {
+        setFormData(updated[0]);
+        setDocContent(getInitialDoc(updated[0]));
+      }
+      showNotification("Data meja telah dihapus.");
+    }
+  };
+
+  // Save Desk
+  const handleSave = async () => {
+    if (!formData.name?.trim()) {
+      alert("Nama meja wajib diisi.");
+      return;
+    }
+
+    const itemToSave: DeskItem = {
+      id: formData.id || `desk-${Date.now()}`,
+      name: formData.name,
+      category: formData.category || "Daun Meja",
+      keterangan: formData.keterangan || [formData.category || "Daun Meja"],
+      price: Number(formData.price) || 0,
+      type: formData.type || "NON L SHAPED",
+      catatanBadge: formData.catatanBadge || "ADA (DISARANKAN MEMBACA NYA)",
+      description: formData.description || "",
+      notes: formData.notes || "",
+      shopeeUrl: formData.shopeeUrl || "",
+      specs: {
+        material: formData.specs?.material || "Multiplek / Plywood",
+        thickness: formData.specs?.thickness || "2.4 cm",
+        armSupport: formData.specs?.armSupport ?? true,
+        dimensions: formData.specs?.dimensions || "120 x 60 cm",
+      },
+      markdownContent: docContent,
+      customVariables: formData.customVariables || [],
+    };
+
+    const updatedList = await DatabaseService.saveDesk(itemToSave);
+    onUpdateDesks(updatedList);
+    setSelectedDesk(itemToSave);
+    setFormData(itemToSave);
+    showNotification(`Data meja "${itemToSave.name}" berhasil disimpan.`);
+  };
+
+  // Drag and Drop Row Reordering for Desks
+  const handleRowDrop = async (targetIdx: number) => {
+    if (draggedIndex === null || draggedIndex === targetIdx) return;
+    const newDesks = [...desks];
+    const [moved] = newDesks.splice(draggedIndex, 1);
+    newDesks.splice(targetIdx, 0, moved);
+    const updated = await DatabaseService.reorderDesks(newDesks);
+    onUpdateDesks(updated);
+    setDraggedIndex(null);
+    setDragOverIndex(null);
+    showNotification(`Urutan meja diperbarui! #${targetIdx + 1}: ${moved.name}`);
+  };
+
+  // Quick edit price in Excel view
+  const handleQuickEditPrice = async (desk: DeskItem, newPrice: number) => {
+    const updated: DeskItem = { ...desk, price: newPrice };
+    const list = await DatabaseService.saveDesk(updated);
+    onUpdateDesks(list);
+    showNotification(`Harga meja ${desk.name} diubah ke ${formatRupiah(newPrice)}`);
+  };
+
+  // Quick edit arm support
+  const handleQuickEditArmSupport = async (desk: DeskItem, armSupport: boolean) => {
+    const updated: DeskItem = {
+      ...desk,
+      specs: { ...desk.specs, armSupport },
+    };
+    const list = await DatabaseService.saveDesk(updated);
+    onUpdateDesks(list);
+    showNotification(`Status arm support "${desk.name}" diperbarui.`);
+  };
+
+  // Export CSV format
+  const handleExportCSV = () => {
+    const headers = ["No", "Nama", "Kategori", "Harga", "Tipe", "Bahan", "Tebal", "Dimensi", "ArmSupport", "ShopeeUrl"];
+    const rows = desks.map((d, idx) => [
+      idx + 1,
+      `"${(d.name || '').replace(/"/g, '""')}"`,
+      `"${d.category}"`,
+      d.price,
+      `"${d.type || ''}"`,
+      `"${d.specs?.material || ''}"`,
+      `"${d.specs?.thickness || ''}"`,
+      `"${d.specs?.dimensions || ''}"`,
+      d.specs?.armSupport ? "Lolos" : "Perlu Plat",
+      `"${d.shopeeUrl || ''}"`,
+    ]);
+    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `grayplasma_desks_${Date.now()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showNotification("Data meja berhasil diekspor ke CSV.");
+  };
+
+  // Filtered desks
+  const filteredDesks = desks.filter((d) => {
+    const matchesSearch =
+      !searchQuery.trim() ||
+      `${d.name} ${d.category} ${d.specs?.material || ""} ${d.specs?.dimensions || ""}`
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+    const matchesCategory = categoryFilter === "all" || d.category === categoryFilter;
+    return matchesSearch && matchesCategory;
+  });
+
+  return (
+    <div className="space-y-4 font-sans text-white">
+      {/* Toast Notice */}
+      {notice && (
+        <div className="p-3 bg-emerald-950/90 border border-emerald-500 rounded-xl text-xs text-emerald-200 font-semibold flex items-center gap-2 shadow-lg">
+          <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+          <span>{notice}</span>
+        </div>
+      )}
+
+      {/* Main Studio Header */}
+      <div className="p-5 rounded-3xl bg-[#14141a] border border-[#2f2f38] flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-xl">
+        <div className="space-y-1">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs font-bold">
+            <TableIcon className="w-3.5 h-3.5" />
+            <span>Katalog Meja, Daun Meja & Standing Desk Studio</span>
+          </div>
+          <h2 className="text-xl font-extrabold text-white tracking-tight">
+            Live Database Rekomendasi Meja & Uji Arm Gas-Spring
+          </h2>
+          <p className="text-xs text-zinc-400 max-w-2xl leading-relaxed">
+            Kelola rekomendasi meja dengan tampilan Excel Spreadsheet (Drag & Drop) atau 3-Kolom Studio.
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2 flex-wrap">
+          {/* View Mode Switcher */}
+          <div className="flex items-center gap-1 p-1 bg-[#0e0e14] border border-zinc-750 rounded-xl shadow-inner">
+            <button
+              type="button"
+              onClick={() => setViewMode("excel")}
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+                viewMode === "excel"
+                  ? "bg-amber-500 text-black shadow-[2px_2px_0px_#000]"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-800"
+              }`}
+            >
+              <FileSpreadsheet className="w-3.5 h-3.5" />
+              <span>[ 📊 EXCEL GRID (DRAG & DROP) ]</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode("studio")}
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+                viewMode === "studio"
+                  ? "bg-cyan-500 text-black shadow-[2px_2px_0px_#000]"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-800"
+              }`}
+            >
+              <SlidersHorizontal className="w-3.5 h-3.5" />
+              <span>[ 📝 3-KOLOM STUDIO ]</span>
+            </button>
+          </div>
+
+          <Button
+            type="button"
+            variant="cyber"
+            size="sm"
+            onClick={handleCreateNew}
+            className="text-xs font-bold flex items-center gap-1.5"
+          >
+            <Plus className="w-4 h-4" />
+            <span>+ Meja Baru</span>
+          </Button>
+
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              if (window.confirm("Reset data meja ke daftar default?")) {
+                const reset = DatabaseService.resetDesksToDefault();
+                onUpdateDesks(reset);
+                setSelectedDesk(reset[0] || null);
+                if (reset[0]) {
+                  setFormData(reset[0]);
+                  setDocContent(getInitialDoc(reset[0]));
+                }
+                showNotification("Database meja direset ke template bawaan.");
+              }
+            }}
+            className="text-xs text-zinc-400 hover:text-white"
+          >
+            <RotateCcw className="w-3.5 h-3.5" />
+            <span>Reset</span>
+          </Button>
+        </div>
+      </div>
+
+      {/* RENDER EXCEL VIEW OR 3-COLUMN STUDIO */}
+      {viewMode === "excel" ? (
+        <div className="space-y-4 font-sans">
+          {/* Excel Controls Bar */}
+          <div className="p-4 rounded-2xl bg-[#121217] border-2 border-zinc-800 flex flex-wrap items-center justify-between gap-3 shadow-[4px_4px_0px_#000]">
+            <div className="flex items-center gap-3 flex-1 min-w-[280px]">
+              {/* Search */}
+              <div className="relative flex-1">
+                <Search className="w-4 h-4 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder="Cari nama meja, material, dimensi..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-750 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500 font-mono"
+                />
+              </div>
+
+              {/* Category Filter */}
+              <select
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value)}
+                className="bg-zinc-900 border border-zinc-750 rounded-xl px-3 py-1.5 text-xs text-amber-400 font-mono focus:outline-none"
+              >
+                <option value="all">Semua Kategori Meja</option>
+                {DESK_CATEGORIES.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={handleExportCSV}
+                className="text-xs font-mono text-amber-400 border-amber-500/40 hover:bg-amber-500/10 flex items-center gap-1.5"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Export CSV</span>
+              </Button>
+
+              <Button
+                type="button"
+                variant="cyber"
+                size="sm"
+                onClick={handleCreateNew}
+                className="text-xs font-mono font-bold flex items-center gap-1.5"
+              >
+                <Plus className="w-4 h-4" />
+                <span>+ Tambah Baris Meja</span>
+              </Button>
+            </div>
+          </div>
+
+          {/* Drag Hint Banner */}
+          <div className="px-4 py-2.5 bg-amber-950/40 border border-amber-500/30 rounded-xl flex flex-wrap items-center justify-between gap-2 text-xs text-amber-300 font-mono">
+            <div className="flex items-center gap-2">
+              <GripVertical className="w-4 h-4 text-amber-400" />
+              <span>
+                <strong>MODE EXCEL AKTIF:</strong> Klik dan geser (drag) handle <strong>⠿</strong> pada kolom paling kiri untuk mengatur urutan rekomendasi meja di website.
+              </span>
+            </div>
+            <span className="text-[11px] text-zinc-400">Menampilkan {filteredDesks.length} Meja</span>
+          </div>
+
+          {/* Interactive Excel Spreadsheet Grid */}
+          <div className="border-2 border-zinc-800 rounded-2xl overflow-hidden bg-[#0c0c11] shadow-[5px_5px_0px_#000]">
+            <div className="overflow-x-auto max-h-[calc(100vh-280px)] no-scrollbar">
+              <table className="w-full text-left text-xs border-collapse min-w-[1100px]">
+                <thead className="bg-[#050508] text-zinc-300 uppercase text-[10px] font-mono tracking-wider border-b-2 border-zinc-700 sticky top-0 z-20">
+                  <tr>
+                    <th className="py-3 px-3 w-12 text-center text-zinc-500 font-bold">[ DRAG ]</th>
+                    <th className="py-3 px-3 w-12 text-zinc-500 font-bold">[ # ]</th>
+                    <th className="py-3 px-4 font-bold min-w-[170px] text-emerald-400">[ 01 // KISARAN HARGA ]</th>
+                    <th className="py-3 px-4 font-bold min-w-[260px] text-white">[ 02 // NAMA REKOMENDASI MEJA ]</th>
+                    <th className="py-3 px-3 font-bold min-w-[150px] text-amber-400">[ 03 // KATEGORI ]</th>
+                    <th className="py-3 px-3 font-bold min-w-[130px] text-zinc-300">[ 04 // TIPE ]</th>
+                    <th className="py-3 px-3 font-bold min-w-[160px] text-zinc-300">[ 05 // BAHAN & TEBAL ]</th>
+                    <th className="py-3 px-3 font-bold min-w-[140px] text-zinc-300">[ 06 // DIMENSI ]</th>
+                    <th className="py-3 px-3 font-bold min-w-[150px] text-emerald-400">[ 07 // ARM GAS-SPRING ]</th>
+                    <th className="py-3 px-3 font-bold min-w-[130px] text-purple-400">[ 08 // VARIABEL KUSTOM ]</th>
+                    <th className="py-3 px-4 font-bold min-w-[180px] text-center sticky right-0 bg-[#050508] z-30">[ AKSI ]</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-zinc-800/80 font-sans">
+                  {filteredDesks.map((d, idx) => {
+                    const originalIndex = desks.findIndex((item) => item.id === d.id);
+                    const isDragging = draggedIndex === originalIndex;
+                    const isDragOver = dragOverIndex === originalIndex;
+
+                    return (
+                      <tr
+                        key={d.id}
+                        draggable
+                        onDragStart={(e) => {
+                          setDraggedIndex(originalIndex);
+                          e.dataTransfer.setData("text/plain", `${originalIndex}`);
+                          e.dataTransfer.effectAllowed = "move";
+                        }}
+                        onDragOver={(e) => {
+                          e.preventDefault();
+                          if (dragOverIndex !== originalIndex) setDragOverIndex(originalIndex);
+                        }}
+                        onDragLeave={() => {
+                          if (dragOverIndex === originalIndex) setDragOverIndex(null);
+                        }}
+                        onDrop={(e) => {
+                          e.preventDefault();
+                          handleRowDrop(originalIndex);
+                        }}
+                        onDragEnd={() => {
+                          setDraggedIndex(null);
+                          setDragOverIndex(null);
+                        }}
+                        className={`group transition-all hover:bg-zinc-800/40 ${
+                          isDragging ? "opacity-30 border-2 border-dashed border-amber-400 bg-amber-950/40" : ""
+                        } ${isDragOver ? "border-t-4 border-t-amber-400 bg-amber-950/20" : ""}`}
+                      >
+                        {/* Drag Handle */}
+                        <td className="py-2.5 px-3 text-center border-r border-zinc-800/60">
+                          <div
+                            className="cursor-grab active:cursor-grabbing p-1.5 text-zinc-500 hover:text-amber-400 transition-colors inline-flex rounded-lg hover:bg-zinc-800"
+                            title="Klik dan geser (drag) untuk memindahkan urutan meja"
+                          >
+                            <GripVertical className="w-4 h-4" />
+                          </div>
+                        </td>
+
+                        {/* Row Number */}
+                        <td className="py-2.5 px-3 font-mono text-[11px] text-zinc-500 font-bold border-r border-zinc-800/60 text-center">
+                          #{idx + 1}
+                        </td>
+
+                        {/* Harga */}
+                        <td className="py-2.5 px-4 font-mono font-bold text-emerald-400 border-r border-zinc-800/60 whitespace-nowrap">
+                          <input
+                            type="number"
+                            defaultValue={d.price}
+                            onBlur={(e) => {
+                              const newP = Number(e.target.value);
+                              if (newP !== d.price && newP >= 0) {
+                                handleQuickEditPrice(d, newP);
+                              }
+                            }}
+                            className="w-28 bg-zinc-900/80 border border-zinc-750 hover:border-emerald-500 focus:border-emerald-500 rounded-md px-2 py-1 text-xs text-emerald-400 font-mono font-bold focus:outline-none"
+                          />
+                        </td>
+
+                        {/* Nama Meja */}
+                        <td className="py-2.5 px-4 border-r border-zinc-800/60">
+                          <div className="flex items-center gap-2">
+                            <span className="text-base">🪑</span>
+                            <div>
+                              <div
+                                onClick={() => {
+                                  setSelectedDesk(d);
+                                  setFormData(d);
+                                  setDocContent(getInitialDoc(d));
+                                  setViewMode("studio");
+                                }}
+                                className="font-bold text-white hover:text-amber-400 cursor-pointer transition-colors"
+                                title="Buka di 3-Kolom Studio"
+                              >
+                                {d.name}
+                              </div>
+                              <span className="text-[10px] font-mono text-zinc-500">{d.category} • {d.specs?.dimensions || "120x60"}</span>
+                            </div>
+                          </div>
+                        </td>
+
+                        {/* Kategori */}
+                        <td className="py-2.5 px-3 border-r border-zinc-800/60 whitespace-nowrap">
+                          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/10 text-amber-300 border border-amber-500/30">
+                            {d.category}
+                          </span>
+                        </td>
+
+                        {/* Tipe */}
+                        <td className="py-2.5 px-3 text-zinc-300 font-mono text-[11px] border-r border-zinc-800/60 whitespace-nowrap">
+                          <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-750">
+                            {d.type || "NON L SHAPED"}
+                          </span>
+                        </td>
+
+                        {/* Bahan & Tebal */}
+                        <td className="py-2.5 px-3 text-zinc-300 font-mono text-[11px] border-r border-zinc-800/60 whitespace-nowrap">
+                          <div>{d.specs?.material || "-"}</div>
+                          <div className="text-[10px] text-zinc-500">Tebal: {d.specs?.thickness || "-"}</div>
+                        </td>
+
+                        {/* Dimensi */}
+                        <td className="py-2.5 px-3 font-mono text-zinc-300 text-[11px] border-r border-zinc-800/60 whitespace-nowrap">
+                          {d.specs?.dimensions || "-"}
+                        </td>
+
+                        {/* Arm Support */}
+                        <td className="py-2.5 px-3 border-r border-zinc-800/60 whitespace-nowrap">
+                          <button
+                            type="button"
+                            onClick={() => handleQuickEditArmSupport(d, !(d.specs?.armSupport ?? true))}
+                            className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border transition-colors ${
+                              d.specs?.armSupport
+                                ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/25"
+                                : "bg-amber-500/15 text-amber-400 border-amber-500/30 hover:bg-amber-500/25"
+                            }`}
+                            title="Klik untuk ubah status kelayakan clamp arm"
+                          >
+                            {d.specs?.armSupport ? "✓ Lolos Clamp" : "⚠️ Perlu Plat"}
+                          </button>
+                        </td>
+
+                        {/* Variabel Kustom */}
+                        <td className="py-2.5 px-3 border-r border-zinc-800/60">
+                          {d.customVariables && d.customVariables.length > 0 ? (
+                            <div className="flex items-center gap-1 flex-wrap">
+                              {d.customVariables.slice(0, 2).map((v) => (
+                                <span
+                                  key={v.id}
+                                  className="px-1.5 py-0.5 rounded bg-zinc-800 text-amber-300 text-[9px] font-mono font-bold border border-zinc-700"
+                                  title={`${v.label}: ${v.value}`}
+                                >
+                                  {v.label}
+                                </span>
+                              ))}
+                              {d.customVariables.length > 2 && (
+                                <span className="text-[9px] font-mono text-zinc-500">
+                                  +{d.customVariables.length - 2}
+                                </span>
+                              )}
+                            </div>
+                          ) : (
+                            <span className="text-zinc-600 font-mono text-[10px]">-</span>
+                          )}
+                        </td>
+
+                        {/* Aksi Sticky */}
+                        <td className="py-2.5 px-4 sticky right-0 bg-[#0c0c11] group-hover:bg-[#14141c] z-10">
+                          <div className="flex items-center justify-center gap-1.5">
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              onClick={() => {
+                                setSelectedDesk(d);
+                                setFormData(d);
+                                setDocContent(getInitialDoc(d));
+                                setViewMode("studio");
+                              }}
+                              className="text-[11px] font-mono font-bold text-amber-400 border-amber-500/40 hover:bg-amber-500/10 h-7 px-2"
+                              title="Buka 3-Kolom Studio"
+                            >
+                              <Edit2 className="w-3 h-3 mr-1" />
+                              <span>Studio</span>
+                            </Button>
+
+                            {onPreviewSidePanel && (
+                              <button
+                                type="button"
+                                onClick={() => onPreviewSidePanel(d)}
+                                className="p-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-emerald-400"
+                                title="Preview Side Panel"
+                              >
+                                <Eye className="w-3.5 h-3.5" />
+                              </button>
+                            )}
+
+                            <button
+                              type="button"
+                              onClick={() => handleDuplicate()}
+                              className="p-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white"
+                              title="Duplikat Meja"
+                            >
+                              <Copy className="w-3.5 h-3.5" />
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={() => handleDelete()}
+                              className="p-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-500 hover:text-rose-400"
+                              title="Hapus Meja"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      ) : (
+        /* 3-COLUMN STUDIO LAYOUT */
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        {/* ============================================================ */}
+        {/* COLUMN 1: DESK SELECTOR & SEARCH SIDEBAR (lg:col-span-3) */}
+        {/* ============================================================ */}
+        <div className="lg:col-span-3 bg-[#0d0d12] border-2 border-zinc-800 rounded-2xl p-4 space-y-3.5 shadow-[4px_4px_0px_#000]">
+          {/* Header Controls */}
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-wider">
+              // DAFTAR MEJA ({filteredDesks.length})
+            </span>
+            <Button
+              type="button"
+              variant="cyber"
+              size="sm"
+              onClick={handleCreateNew}
+              className="text-[11px] font-bold py-1 px-2.5 flex items-center gap-1 font-mono shadow-[2px_2px_0px_#000]"
+            >
+              <Plus className="w-3 h-3" />
+              <span>+ Baru</span>
+            </Button>
+          </div>
+
+          {/* Search Input */}
+          <div className="relative">
+            <Search className="w-3.5 h-3.5 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Cari nama, ukuran, material..."
+              className="w-full bg-zinc-900 border border-zinc-750 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500 font-sans"
+            />
+          </div>
+
+          {/* Category Filter Chips */}
+          <div className="flex flex-wrap gap-1 pb-1">
+            <button
+              type="button"
+              onClick={() => setCategoryFilter("all")}
+              className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase transition-colors ${
+                categoryFilter === "all"
+                  ? "bg-amber-500 text-black"
+                  : "bg-zinc-900 text-zinc-400 hover:text-white"
+              }`}
+            >
+              Semua
+            </button>
+            {DESK_CATEGORIES.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setCategoryFilter(cat)}
+                className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase transition-colors truncate max-w-[120px] ${
+                  categoryFilter === cat
+                    ? "bg-amber-500 text-black"
+                    : "bg-zinc-900 text-zinc-400 hover:text-white"
+                }`}
+                title={cat}
+              >
+                {cat.replace("Meja Elektrik (Standing Desk)", "Standing Desk")}
+              </button>
+            ))}
+          </div>
+
+          {/* Desk Items List */}
+          <div className="space-y-2 max-h-[calc(100vh-320px)] overflow-y-auto no-scrollbar pr-1">
+            {filteredDesks.length === 0 ? (
+              <div className="p-4 text-center text-xs text-zinc-500 font-mono">
+                Tidak ada meja yang sesuai pencarian.
+              </div>
+            ) : (
+              filteredDesks.map((d) => {
+                const isSelected = selectedDesk?.id === d.id;
+                return (
+                  <div
+                    key={d.id}
+                    onClick={() => handleSelectDesk(d)}
+                    className={`p-3 rounded-xl cursor-pointer transition-all duration-150 border text-left ${
+                      isSelected
+                        ? "bg-[#161622] border-amber-500 shadow-[3px_3px_0px_rgba(245,158,11,0.3)] translate-x-1"
+                        : "bg-zinc-950 border-zinc-800 hover:border-zinc-700 hover:bg-zinc-900/60"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-1 mb-1">
+                      <span className="text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                        [ {d.category} ]
+                      </span>
+                      <span className="text-[10px] font-mono text-zinc-500">
+                        {d.specs?.dimensions || "Custom"}
+                      </span>
+                    </div>
+
+                    <h4 className="text-xs font-bold text-white line-clamp-1 group-hover:text-amber-400">
+                      {d.name}
+                    </h4>
+
+                    <div className="flex items-baseline justify-between mt-2 pt-1 border-t border-zinc-800/60">
+                      <span className="text-xs font-mono font-bold text-emerald-400">
+                        {d.price > 0 ? formatRupiah(d.price) : "Custom Size"}
+                      </span>
+                      <span
+                        className={`text-[9px] font-mono ${
+                          d.specs?.armSupport ? "text-emerald-400" : "text-amber-400"
+                        }`}
+                      >
+                        {d.specs?.armSupport ? "✓ Arm Ok" : "! Cek Tebal"}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+
+          {/* Reset Action */}
+          <div className="pt-2 border-t border-zinc-800">
+            <button
+              type="button"
+              onClick={() => {
+                if (confirm("Reset seluruh data meja ke 10 model rekomendasi Notion?")) {
+                  const res = DatabaseService.resetDesksToDefault();
+                  onUpdateDesks(res);
+                  setSelectedDesk(res[0]);
+                  setFormData(res[0]);
+                  setDocContent(getInitialDoc(res[0]));
+                  showNotification("Database meja telah di-reset ke 10 model bawaan.");
+                }
+              }}
+              className="w-full py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 text-[11px] font-mono text-zinc-400 hover:text-zinc-200 flex items-center justify-center gap-1.5"
+            >
+              <RotateCcw className="w-3 h-3" />
+              <span>Reset ke 10 Model Bawaan</span>
+            </button>
+          </div>
+        </div>
+
+        {/* ============================================================ */}
+        {/* COLUMN 2: NOTION / WORD DOCUMENT STUDIO CANVAS (lg:col-span-5) */}
+        {/* ============================================================ */}
+        <div className="lg:col-span-5 bg-[#0c0c11] border-2 border-zinc-800 rounded-2xl p-5 space-y-5 shadow-[4px_4px_0px_#000]">
+          {/* Header Action Bar */}
+          <div className="flex items-center justify-between border-b border-zinc-800 pb-3 gap-2">
+            <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-wider">
+              // WORKSPACE // NOTION_CANVAS
+            </span>
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={handleDuplicate}
+                className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-amber-400 text-xs flex items-center gap-1"
+                title="Duplikat Meja Ini"
+              >
+                <Copy className="w-3.5 h-3.5" />
+                <span className="text-[11px] hidden sm:inline">Duplikat</span>
+              </button>
+              <button
+                type="button"
+                onClick={handleDelete}
+                className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-rose-400 text-xs flex items-center gap-1"
+                title="Hapus Meja"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span className="text-[11px] hidden sm:inline">Hapus</span>
+              </button>
+              <Button
+                type="button"
+                variant="cyber"
+                size="sm"
+                onClick={handleSave}
+                className="text-xs font-bold font-mono px-3.5 py-1.5 flex items-center gap-1.5 shadow-[2px_2px_0px_#000]"
+              >
+                <Save className="w-3.5 h-3.5" />
+                <span>Simpan Meja</span>
+              </Button>
+            </div>
+          </div>
+
+          {/* 1. Large Notion Document Page Title */}
+          <div className="space-y-1">
+            <input
+              type="text"
+              value={formData.name || ""}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              placeholder="# Nama Meja Rekomendasi..."
+              className="w-full bg-transparent text-lg sm:text-xl font-black text-white placeholder-zinc-600 focus:outline-none focus:border-b border-amber-500 tracking-tight leading-snug py-1"
+            />
+          </div>
+
+          {/* 2. Notion Properties Block (Compact Key-Value Matrix) */}
+          <div className="p-3.5 rounded-xl bg-[#121219] border border-zinc-800 space-y-2.5 text-xs font-sans">
+            <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-widest block">
+              // PROPERTI_NOTION
+            </span>
+
+            {/* Category & Type */}
+            <div className="grid grid-cols-12 gap-2 items-center">
+              <span className="col-span-4 text-zinc-400 font-mono text-[11px]">Kategori:</span>
+              <div className="col-span-8">
+                <select
+                  value={formData.category}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      category: e.target.value as DeskItem["category"],
+                    })
+                  }
+                  className="w-full bg-zinc-900 border border-zinc-750 rounded-lg px-2.5 py-1 text-xs text-amber-400 font-mono font-bold focus:outline-none focus:border-amber-500"
+                >
+                  {DESK_CATEGORIES.map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Shape / Type */}
+            <div className="grid grid-cols-12 gap-2 items-center">
+              <span className="col-span-4 text-zinc-400 font-mono text-[11px]">Bentuk / Tipe:</span>
+              <div className="col-span-8 flex gap-1.5">
+                {["NON L SHAPED", "L SHAPED"].map((t) => (
+                  <button
+                    key={t}
+                    type="button"
+                    onClick={() => setFormData({ ...formData, type: t })}
+                    className={`flex-1 py-1 rounded text-[10px] font-mono font-bold border transition-colors ${
+                      formData.type === t
+                        ? "bg-amber-500/20 text-amber-300 border-amber-500/50"
+                        : "bg-zinc-900 text-zinc-400 border-zinc-800"
+                    }`}
+                  >
+                    [ {t} ]
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Price Input */}
+            <div className="grid grid-cols-12 gap-2 items-center">
+              <span className="col-span-4 text-zinc-400 font-mono text-[11px]">Harga (Rp):</span>
+              <div className="col-span-8 flex items-center gap-2">
+                <input
+                  type="number"
+                  value={formData.price || 0}
+                  onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
+                  className="w-36 bg-zinc-900 border border-zinc-750 rounded-lg px-2.5 py-1 text-xs text-emerald-400 font-mono font-bold focus:outline-none focus:border-emerald-500"
+                />
+                <span className="text-[11px] font-mono text-zinc-400">
+                  {formatRupiah(formData.price || 0)}
+                </span>
+              </div>
+            </div>
+
+            {/* Dimensions & Thickness */}
+            <div className="grid grid-cols-12 gap-2 items-center">
+              <span className="col-span-4 text-zinc-400 font-mono text-[11px]">Dimensi (P x L):</span>
+              <div className="col-span-8 flex gap-2">
+                <input
+                  type="text"
+                  value={formData.specs?.dimensions || ""}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      specs: {
+                        ...(formData.specs as any),
+                        dimensions: e.target.value,
+                      },
+                    })
+                  }
+                  placeholder="120 x 60 cm"
+                  className="flex-1 bg-zinc-900 border border-zinc-750 rounded-lg px-2.5 py-1 text-xs text-white font-mono focus:outline-none focus:border-amber-500"
+                />
+                <input
+                  type="text"
+                  value={formData.specs?.thickness || ""}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      specs: {
+                        ...(formData.specs as any),
+                        thickness: e.target.value,
+                      },
+                    })
+                  }
+                  placeholder="Tebal: 2.4 cm"
+                  className="w-28 bg-zinc-900 border border-zinc-750 rounded-lg px-2.5 py-1 text-xs text-white font-mono focus:outline-none focus:border-amber-500"
+                />
+              </div>
+            </div>
+
+            {/* Arm Support Toggle */}
+            <div className="grid grid-cols-12 gap-2 items-center">
+              <span className="col-span-4 text-zinc-400 font-mono text-[11px]">Dukungan Arm:</span>
+              <div className="col-span-8 flex items-center gap-3">
+                <label className="flex items-center gap-2 cursor-pointer text-xs">
+                  <input
+                    type="checkbox"
+                    checked={formData.specs?.armSupport ?? true}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        specs: {
+                          ...(formData.specs as any),
+                          armSupport: e.target.checked,
+                        },
+                      })
+                    }
+                    className="rounded border-zinc-700 bg-zinc-900 text-emerald-500"
+                  />
+                  <span
+                    className={
+                      formData.specs?.armSupport ? "text-emerald-400 font-bold" : "text-zinc-400"
+                    }
+                  >
+                    {formData.specs?.armSupport
+                      ? "✓ Lolos Clamp Arm Gas-Spring"
+                      : "✕ Perlu Plat Protektor Tambahan"}
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            {/* Material */}
+            <div className="grid grid-cols-12 gap-2 items-center">
+              <span className="col-span-4 text-zinc-400 font-mono text-[11px]">Material:</span>
+              <div className="col-span-8">
+                <input
+                  type="text"
+                  value={formData.specs?.material || ""}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      specs: {
+                        ...(formData.specs as any),
+                        material: e.target.value,
+                      },
+                    })
+                  }
+                  placeholder="Multiplek / Plywood Full HPL, Kayu Solid..."
+                  className="w-full bg-zinc-900 border border-zinc-750 rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-amber-500"
+                />
+              </div>
+            </div>
+
+            {/* Shopee URL */}
+            <div className="grid grid-cols-12 gap-2 items-center">
+              <span className="col-span-4 text-zinc-400 font-mono text-[11px]">Link Shopee:</span>
+              <div className="col-span-8 flex gap-1.5">
+                <input
+                  type="text"
+                  value={formData.shopeeUrl || ""}
+                  onChange={(e) => setFormData({ ...formData, shopeeUrl: e.target.value })}
+                  placeholder="https://shopee.co.id/..."
+                  className="flex-1 bg-zinc-900 border border-zinc-750 rounded-lg px-2.5 py-1 text-xs text-orange-400 font-mono focus:outline-none focus:border-orange-500 truncate"
+                />
+                {formData.shopeeUrl && (
+                  <a
+                    href={formData.shopeeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* 3. Collapsible Specifications Drawer */}
+          <div className="border border-zinc-800 rounded-xl overflow-hidden bg-[#101016]">
+            <button
+              type="button"
+              onClick={() => setIsSpecsExpanded(!isSpecsExpanded)}
+              className="w-full px-4 py-2.5 bg-zinc-900/90 hover:bg-zinc-850 flex items-center justify-between text-xs font-mono font-bold text-zinc-300 transition-colors"
+            >
+              <div className="flex items-center gap-2">
+                <SlidersHorizontal className="w-3.5 h-3.5 text-amber-400" />
+                <span>[ ⚙️ PARAMETER DETAIL & CATATAN KHUSUS MEJA ]</span>
+              </div>
+              {isSpecsExpanded ? (
+                <ChevronUp className="w-4 h-4 text-zinc-400" />
+              ) : (
+                <ChevronDown className="w-4 h-4 text-zinc-400" />
+              )}
+            </button>
+
+            {isSpecsExpanded && (
+              <div className="p-4 space-y-3 text-xs border-t border-zinc-800">
+                <div>
+                  <label className="text-[10px] font-mono text-zinc-400 uppercase block mb-1">
+                    Ringkasan Singkat (Description):
+                  </label>
+                  <textarea
+                    rows={2}
+                    value={formData.description || ""}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    placeholder="Ringkasan singkat ulasan meja..."
+                    className="w-full bg-zinc-900 border border-zinc-750 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-amber-500 font-sans"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-[10px] font-mono text-zinc-400 uppercase block mb-1">
+                    Catatan Penting Reviewer (Notes):
+                  </label>
+                  <textarea
+                    rows={2}
+                    value={formData.notes || ""}
+                    onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                    placeholder="Catatan ulasan meja..."
+                    className="w-full bg-zinc-900 border border-zinc-750 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-amber-500 font-sans"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-[10px] font-mono text-zinc-400 uppercase block mb-1">
+                    Badge Status Catatan:
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.catatanBadge || ""}
+                    onChange={(e) => setFormData({ ...formData, catatanBadge: e.target.value })}
+                    placeholder="ADA (DISARANKAN MEMBACA NYA)"
+                    className="w-full bg-zinc-900 border border-zinc-750 rounded-lg px-2.5 py-1 text-xs text-emerald-400 font-mono font-bold focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 4. Modular Table Builder Trigger */}
+          <div className="flex items-center justify-between p-3 rounded-xl bg-zinc-900/80 border border-zinc-800 text-xs">
+            <div>
+              <span className="font-bold text-white block">Tabel Spesifikasi Modular</span>
+              <span className="text-[11px] text-zinc-400">
+                Susun matriks hierarki pengujian meja (ketebalan, goyangan, motor).
+              </span>
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => setIsTableBuilderOpen(true)}
+              className="text-xs font-mono text-amber-400 border-amber-500/40 hover:bg-amber-500/10 flex items-center gap-1.5"
+            >
+              <TableIcon className="w-3.5 h-3.5" />
+              <span>+ Susun Tabel Modular</span>
+            </Button>
+          </div>
+
+          {/* 4.5. VARIABEL & KOLOM DATA MODULAR MEJA */}
+          <div className="p-4 rounded-xl bg-[#121219] border-2 border-zinc-800 space-y-3 shadow-[3px_3px_0px_#000]">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <TableIcon className="w-4 h-4 text-amber-400" />
+                <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">
+                  [ 📊 VARIABEL & KOLOM DATA MODULAR MEJA ]
+                </span>
+              </div>
+              <span className="text-[10px] font-mono text-zinc-500">
+                {(formData.customVariables || []).length} Variabel Kustom
+              </span>
+            </div>
+
+            <p className="text-[11px] text-zinc-400">
+              Tambahkan variabel atau parameter pengujian kustom untuk meja ini (misal: Beban Motor, Kecepatan Naik/Turun, Lebar Kaki, dll).
+            </p>
+
+            {/* Active Variables List */}
+            {(formData.customVariables || []).length > 0 && (
+              <div className="space-y-1.5 pt-1">
+                {formData.customVariables!.map((v, idx) => (
+                  <div
+                    key={v.id}
+                    className="flex items-center justify-between bg-zinc-900 border border-zinc-750 px-3 py-1.5 rounded-lg text-xs"
+                  >
+                    <div className="flex items-center gap-2 flex-1">
+                      <span className="px-1.5 py-0.5 rounded bg-zinc-800 text-[9px] font-mono text-amber-400 uppercase font-bold">
+                        {v.category || "Fitur"}
+                      </span>
+                      <span className="font-bold text-white font-mono">{v.label}:</span>
+                      <span className="text-emerald-400 font-semibold">{v.value}</span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const updated = (formData.customVariables || []).filter((_, i) => i !== idx);
+                        setFormData({ ...formData, customVariables: updated });
+                      }}
+                      className="text-zinc-500 hover:text-rose-400 p-1"
+                      title="Hapus Variabel Ini"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Add Variable Form Controls */}
+            <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 pt-2 border-t border-zinc-800/80">
+              <input
+                type="text"
+                placeholder="Nama Variabel / Kolom (e.g. Beban Maks Motor)..."
+                value={newVarLabel}
+                onChange={(e) => setNewVarLabel(e.target.value)}
+                className="sm:col-span-5 bg-zinc-900 border border-zinc-750 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-zinc-500 font-mono focus:outline-none focus:border-amber-500"
+              />
+              <input
+                type="text"
+                placeholder="Nilai Data (e.g. 80 kg, 25mm/s)..."
+                value={newVarValue}
+                onChange={(e) => setNewVarValue(e.target.value)}
+                className="sm:col-span-4 bg-zinc-900 border border-zinc-750 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-zinc-500 font-mono focus:outline-none focus:border-amber-500"
+              />
+              <select
+                value={newVarCategory}
+                onChange={(e) => setNewVarCategory(e.target.value)}
+                className="sm:col-span-3 bg-zinc-900 border border-zinc-750 rounded-lg px-2 py-1.5 text-xs text-amber-400 font-mono focus:outline-none"
+              >
+                <option value="Material & Frame">Rangka & Kayu</option>
+                <option value="Motor Standing">Motor Elektrik</option>
+                <option value="Clamp Arm">Uji Bracket Arm</option>
+                <option value="Ergonomi">Dimensi Ergonomi</option>
+              </select>
+            </div>
+
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1">
+              {/* Preset Quick Chips */}
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="text-[9px] font-mono text-zinc-500 font-bold uppercase">PRESET:</span>
+                {[
+                  { l: "Beban Maksimal", v: "100 kg (Dual Motor)", c: "Motor Standing" },
+                  { l: "Kecepatan Naik", v: "30 mm/detik", c: "Motor Standing" },
+                  { l: "Tebal Besi Hollow", v: "1.5 mm Tebal", c: "Material & Frame" },
+                  { l: "Garansi Rangka", v: "2 Tahun Garansi Resmi", c: "Material & Frame" },
+                ].map((p, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => {
+                      const newVar = {
+                        id: `var_${Date.now()}_${idx}`,
+                        label: p.l,
+                        value: p.v,
+                        category: p.c,
+                      };
+                      const updated = [...(formData.customVariables || []), newVar];
+                      setFormData({ ...formData, customVariables: updated });
+                      showNotification(`Variabel "${p.l}" berhasil ditambahkan.`);
+                    }}
+                    className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-900 border border-zinc-750 hover:border-amber-500/60 text-amber-300 transition-colors"
+                  >
+                    + {p.l}
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Button
+                  type="button"
+                  variant="cyber"
+                  size="sm"
+                  onClick={() => {
+                    if (!newVarLabel.trim() || !newVarValue.trim()) {
+                      alert("Harap isi nama variabel dan nilainya.");
+                      return;
+                    }
+                    const newVar = {
+                      id: `var_${Date.now()}`,
+                      label: newVarLabel.trim(),
+                      value: newVarValue.trim(),
+                      category: newVarCategory,
+                    };
+                    const updated = [...(formData.customVariables || []), newVar];
+                    setFormData({ ...formData, customVariables: updated });
+                    setNewVarLabel("");
+                    setNewVarValue("");
+                    showNotification(`Variabel "${newVar.label}" berhasil ditambahkan.`);
+                  }}
+                  className="text-xs font-mono font-bold px-3 py-1 flex items-center gap-1 shadow-sm"
+                >
+                  <Plus className="w-3 h-3" />
+                  <span>+ Tambah Variabel</span>
+                </Button>
+
+                {(formData.customVariables || []).length > 0 && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      const vars = formData.customVariables || [];
+                      if (vars.length === 0) return;
+                      const tableHtml = `
+<div class="notion-table-wrapper my-4 overflow-x-auto">
+  <table class="notion-visual-table w-full border-collapse rounded-xl overflow-hidden border border-zinc-800 shadow-[3px_3px_0px_#000] text-xs font-sans">
+    <thead>
+      <tr class="bg-[#050508] border-b-2 border-zinc-700 text-zinc-300 font-mono text-[11px] tracking-wider uppercase">
+        <th class="px-3.5 py-3 text-left font-bold border-r border-zinc-800">[ 01 // KATEGORI ]</th>
+        <th class="px-3.5 py-3 text-left font-bold border-r border-zinc-800">[ 02 // PARAMETER / VARIABEL ]</th>
+        <th class="px-3.5 py-3 text-left font-bold">[ 03 // NILAI SPESIFIKASI ]</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-zinc-800/80 bg-[#0c0c11]">
+      ${vars
+        .map(
+          (v) => `
+      <tr class="hover:bg-zinc-800/40 transition-colors">
+        <td class="px-3.5 py-2.5 border-r border-zinc-800/60 font-mono text-amber-400 font-bold uppercase text-[10px]">${
+          v.category || "Spesifikasi"
+        }</td>
+        <td class="px-3.5 py-2.5 border-r border-zinc-800/60 font-semibold text-white">${
+          v.label
+        }</td>
+        <td class="px-3.5 py-2.5 text-emerald-400 font-mono font-bold">${v.value}</td>
+      </tr>`
+        )
+        .join("")}
+    </tbody>
+  </table>
+</div>
+<p><br></p>`;
+                      setDocContent((prev) => prev + tableHtml);
+                      showNotification("Tabel variabel berhasil disisipkan ke ulasan meja.");
+                    }}
+                    className="text-xs font-mono text-emerald-400 border-emerald-500/40 hover:bg-emerald-500/10 flex items-center gap-1"
+                  >
+                    <TableIcon className="w-3 h-3" />
+                    <span>Sisipkan ke Dokumen</span>
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* 5. Document Canvas Editor (NotionRichEditor) */}
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider block">
+              // DOKUMEN ULASAN MEJA (WORD / NOTION CANVAS):
+            </span>
+            <NotionRichEditor
+              value={docContent}
+              onChange={(val) => setDocContent(val)}
+              minHeight="min-h-[360px]"
+              placeholder="Tulis ulasan teknis ulasan meja, uji goyangan saat mengetik, dan kompatibilitas bracket monitor arm..."
+            />
+          </div>
+        </div>
+
+        {/* ============================================================ */}
+        {/* COLUMN 3: REAL-TIME LIVE SIDE-PEEK PREVIEW (lg:col-span-4) */}
+        {/* ============================================================ */}
+        <div className="lg:col-span-4 bg-[#121216] border-2 border-zinc-800 rounded-2xl p-5 space-y-4 shadow-[4px_4px_0px_#000] sticky top-4">
+          <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+            <div className="flex items-center gap-2">
+              <Eye className="w-4 h-4 text-emerald-400" />
+              <span className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">
+                [ LIVE_SIDE_PANEL_PREVIEW ]
+              </span>
+            </div>
+            <span className="text-[10px] font-mono text-zinc-500">REALTIME SYNC</span>
+          </div>
+
+          {/* Simulated Side-Panel Drawer Container */}
+          <div className="rounded-xl border border-zinc-800 bg-[#16161d] p-5 space-y-4 max-h-[calc(100vh-220px)] overflow-y-auto no-scrollbar">
+            {/* Drawer Top Bar */}
+            <div className="flex items-center justify-between gap-2 pb-3 border-b border-zinc-800">
+              <div className="flex items-center gap-2 truncate">
+                <span className="text-base">🪑</span>
+                <span className="font-bold text-white text-xs truncate">
+                  {formData.name || "Nama Meja"}
+                </span>
+              </div>
+              {formData.shopeeUrl && (
+                <span className="px-2 py-0.5 rounded bg-[#ee4d2d]/20 text-[#ee4d2d] font-bold text-[10px] flex items-center gap-1">
+                  <ShoppingBag className="w-3 h-3" />
+                  <span>Shopee</span>
+                </span>
+              )}
+            </div>
+
+            {/* Title & Desc */}
+            <div>
+              <h3 className="text-base font-black text-white leading-snug">
+                {formData.name || "Nama Meja"}
+              </h3>
+              {formData.description && (
+                <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                  {formData.description}
+                </p>
+              )}
+            </div>
+
+            {/* Properties Matrix */}
+            <div className="p-3 rounded-xl bg-[#121217] border border-zinc-800/80 space-y-2 text-xs">
+              <div className="flex justify-between items-center py-0.5">
+                <span className="text-zinc-500">Bentuk / Tipe</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-zinc-900 text-zinc-200 border border-zinc-800">
+                  {formData.type || "NON L SHAPED"}
+                </span>
+              </div>
+
+              <div className="flex justify-between items-center py-0.5">
+                <span className="text-zinc-500">Status Catatan</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                  {formData.catatanBadge || "ADA"}
+                </span>
+              </div>
+
+              <div className="flex justify-between items-center py-0.5">
+                <span className="text-zinc-500">Kategori</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                  {formData.category}
+                </span>
+              </div>
+
+              <div className="flex justify-between items-center pt-1 border-t border-zinc-800/60">
+                <span className="text-zinc-500">Kisaran Harga</span>
+                <span className="font-mono font-black text-emerald-400 text-sm">
+                  {formData.price && formData.price > 0
+                    ? formatRupiah(formData.price)
+                    : "Custom Size"}
+                </span>
+              </div>
+            </div>
+
+            {/* Spek Box */}
+            <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1 text-xs">
+              <div className="text-zinc-300">
+                <strong>Material:</strong> {formData.specs?.material || "-"} (Tebal:{" "}
+                {formData.specs?.thickness || "-"})
+              </div>
+              <div className="text-zinc-300">
+                <strong>Dimensi:</strong> {formData.specs?.dimensions || "-"}
+              </div>
+              <div className="text-zinc-300">
+                <strong>Arm Gas-Spring:</strong>{" "}
+                {formData.specs?.armSupport ? (
+                  <span className="text-emerald-400 font-bold">✓ Ya, Aman Dijepit</span>
+                ) : (
+                  <span className="text-amber-400 font-bold">⚠️ Perlu Plat Tambahan</span>
+                )}
+              </div>
+            </div>
+
+            {/* Custom Modular Variables Badges */}
+            {(formData.customVariables || []).length > 0 && (
+              <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1.5 text-xs">
+                <span className="text-[10px] font-mono font-bold text-amber-400 uppercase tracking-wider block">
+                  // VARIABEL & PARAMETER MODULAR MEJA:
+                </span>
+                <div className="grid grid-cols-1 gap-1.5">
+                  {formData.customVariables!.map((v) => (
+                    <div
+                      key={v.id}
+                      className="flex justify-between items-center text-[11px] bg-zinc-950/60 px-2.5 py-1 rounded-lg border border-zinc-800"
+                    >
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[9px] font-mono font-bold text-amber-400 uppercase bg-zinc-800 px-1 rounded">
+                          {v.category || "Fitur"}
+                        </span>
+                        <span className="text-zinc-400">{v.label}:</span>
+                      </div>
+                      <span className="text-emerald-400 font-mono font-bold">{v.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Live Ulasan Markdown / HTML Renderer */}
+            <div className="pt-2 border-t border-zinc-800">
+              <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-wider block mb-2">
+                // ULASAN & VERDICT:
+              </span>
+              <div
+                dangerouslySetInnerHTML={{ __html: docContent }}
+                className="prose prose-invert prose-xs max-w-none text-zinc-300 leading-relaxed text-xs space-y-2"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      )}
+
+      {/* Modular Table Builder Dialog */}
+      <ModularTableBuilder
+        isOpen={isTableBuilderOpen}
+        onClose={() => setIsTableBuilderOpen(false)}
+        onInsertTable={(tableHtml) => {
+          setDocContent((prev) => prev + tableHtml);
+          showNotification("Tabel modular berhasil disisipkan ke dokumen ulasan meja.");
+        }}
+        initialPreset="desk"
+      />
+    </div>
+  );
+}

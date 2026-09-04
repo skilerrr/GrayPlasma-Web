@@ -149,29 +149,29 @@ export function FilterBar({
   const content = (
     <div className="space-y-6">
       {/* Filter Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-zinc-800/80">
+      <div className="flex items-center justify-between pb-3 border-b border-zinc-700/80">
         <div className="flex items-center gap-2">
           <SlidersHorizontal className="w-4 h-4 text-emerald-400" />
-          <h3 className="text-sm font-bold text-white uppercase tracking-wider">
-            Filter Spesifikasi
+          <h3 className="text-xs font-mono font-bold text-white uppercase tracking-wider">
+            // PARAMETERS & TELEMETRY
           </h3>
         </div>
         {hasActiveFilters && (
           <button
             onClick={onResetFilters}
-            className="text-xs text-zinc-400 hover:text-emerald-400 flex items-center gap-1 transition-colors group"
+            className="text-[10px] font-mono font-bold text-zinc-400 hover:text-emerald-400 px-2 py-0.5 rounded bg-zinc-900 border border-zinc-700 hover:border-emerald-500 shadow-[1px_1px_0px_#000] flex items-center gap-1 transition-colors group"
           >
             <RotateCcw className="w-3 h-3 group-hover:-rotate-45 transition-transform" />
-            <span>Reset</span>
+            <span>[RESET]</span>
           </button>
         )}
       </div>
 
       {/* 1. Budget Range & Quick Select */}
       <div className="space-y-3">
-        <label className="text-xs font-semibold text-zinc-400 tracking-wider uppercase flex items-center gap-1.5">
+        <label className="text-xs font-mono font-bold text-zinc-400 tracking-wider uppercase flex items-center gap-1.5">
           <CircleDollarSign className="w-3.5 h-3.5 text-amber-400" />
-          <span>Budget Harga Maksimal</span>
+          <span>[ 01 // BUDGET_MAKSIMAL ]</span>
         </label>
         
         {/* Quick presets */}
@@ -182,10 +182,10 @@ export function FilterBar({
               <button
                 key={preset.id}
                 onClick={() => handleBudgetPreset(preset)}
-                className={`text-xs py-1.5 px-2.5 rounded-lg border font-medium text-left transition-all flex items-center justify-between ${
+                className={`text-xs py-1.5 px-2.5 rounded border font-mono font-bold text-left transition-all flex items-center justify-between shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] ${
                   isSelected
-                    ? "bg-amber-500/15 border-amber-400/60 text-amber-300 font-semibold shadow-[0_0_10px_rgba(245,158,11,0.15)]"
-                    : "bg-surface border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
+                    ? "bg-amber-500/20 border-amber-400 text-amber-300 shadow-[2px_2px_0px_#f59e0b]"
+                    : "bg-[#0b0b0f] border-zinc-700/80 text-zinc-400 hover:text-zinc-200 hover:border-zinc-500"
                 }`}
               >
                 <span>{preset.label}</span>
@@ -199,9 +199,9 @@ export function FilterBar({
         <div className="pt-2">
           <div className="flex justify-between text-xs text-zinc-400 mb-1.5 font-mono">
             <span>Rp 0</span>
-            <span className="text-emerald-400 font-semibold">
+            <span className="text-emerald-400 font-bold">
               {filterState.budgetRange[1] >= 25000000
-                ? "Semua Harga"
+                ? "[ SEMUA HARGA ]"
                 : `≤ ${formatRupiah(filterState.budgetRange[1])}`}
             </span>
           </div>
@@ -219,9 +219,9 @@ export function FilterBar({
 
       {/* 2. Rating Tier */}
       <div className="space-y-2.5">
-        <label className="text-xs font-semibold text-zinc-400 tracking-wider uppercase flex items-center gap-1.5">
+        <label className="text-xs font-mono font-bold text-zinc-400 tracking-wider uppercase flex items-center gap-1.5">
           <Award className="w-3.5 h-3.5 text-emerald-400" />
-          <span>Tier Rekomendasi</span>
+          <span>[ 02 // TIER_REKOMENDASI ]</span>
         </label>
         <div className="flex flex-wrap gap-1.5">
           {TIER_OPTIONS.map((tier) => {
@@ -230,19 +230,19 @@ export function FilterBar({
               <button
                 key={tier}
                 onClick={() => toggleTier(tier)}
-                className={`text-xs py-1 px-2.5 rounded-lg border font-semibold transition-all ${
+                className={`text-xs py-1 px-2.5 rounded border font-mono font-bold transition-all shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] ${
                   isSelected
                     ? tier === "S-TIER"
-                      ? "bg-emerald-500/20 text-emerald-300 border-emerald-400/80 shadow-[0_0_12px_rgba(16,185,129,0.25)]"
+                      ? "bg-emerald-500/20 text-emerald-300 border-emerald-400"
                       : tier === "BEST VALUE"
-                      ? "bg-amber-500/20 text-amber-300 border-amber-400/80 shadow-[0_0_12px_rgba(245,158,11,0.25)]"
+                      ? "bg-amber-500/20 text-amber-300 border-amber-400"
                       : tier === "RECOMMENDED"
-                      ? "bg-cyan-500/20 text-cyan-300 border-cyan-400/80"
-                      : "bg-rose-500/20 text-rose-300 border-rose-400/80"
-                    : "bg-surface border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
+                      ? "bg-cyan-500/20 text-cyan-300 border-cyan-400"
+                      : "bg-rose-500/20 text-rose-300 border-rose-400"
+                    : "bg-[#0b0b0f] border-zinc-700/80 text-zinc-400 hover:text-zinc-200 hover:border-zinc-500"
                 }`}
               >
-                {tier}
+                [ {tier} ]
               </button>
             );
           })}

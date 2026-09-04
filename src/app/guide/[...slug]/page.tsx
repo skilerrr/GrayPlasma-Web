@@ -27,7 +27,8 @@ import {
 } from "lucide-react";
 import { SiteHierarchyNode } from "@/types/site-hierarchy";
 import { DEFAULT_SITE_HIERARCHY } from "@/data/site-hierarchy";
-import { DatabaseService } from "@/lib/db-service";
+import { DatabaseService, GlobalSiteSettings, DEFAULT_SITE_SETTINGS } from "@/lib/db-service";
+import { ABOUT_NOTION_CONTENT } from "@/data/grayplasma-content";
 import { MONITORS_DATA } from "@/data/monitors";
 import { Monitor } from "@/types/monitor";
 import { Navbar } from "@/components/navbar";
@@ -75,6 +76,9 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
   const [monitors, setMonitors] = useState<Monitor[]>(MONITORS_DATA);
   const [desks, setDesks] = useState<DeskItem[]>(DESK_DATABASE);
   const [aftersalesCards, setAftersalesCards] = useState<NotionBoardCard[]>(NOTION_AFTERSALES_CARDS);
+  const [faqs, setFaqs] = useState<typeof FAQ_LIST>(FAQ_LIST);
+  const [siteSettings, setSiteSettings] = useState<GlobalSiteSettings>(DEFAULT_SITE_SETTINGS);
+  const [aboutContent, setAboutContent] = useState(ABOUT_NOTION_CONTENT);
   const [copiedDiscord, setCopiedDiscord] = useState(false);
   const [copiedUrl, setCopiedUrl] = useState(false);
 
@@ -93,14 +97,24 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
   useEffect(() => {
     async function load() {
       try {
-        const loadedNodes = await DatabaseService.getHierarchyNodes();
+        const [loadedNodes, loadedMonitors, loadedDesks, loadedCards, loadedSettings] = await Promise.all([
+          DatabaseService.getHierarchyNodes(),
+          DatabaseService.getMonitors(),
+          DatabaseService.getDesks(),
+          DatabaseService.getAftersalesCards(),
+          DatabaseService.getSiteSettings(),
+        ]);
         if (loadedNodes && loadedNodes.length > 0) setNodes(loadedNodes);
-
-        const loadedMonitors = await DatabaseService.getMonitors();
         if (loadedMonitors && loadedMonitors.length > 0) setMonitors(loadedMonitors);
-
-        const loadedDesks = await DatabaseService.getDesks();
         if (loadedDesks && loadedDesks.length > 0) setDesks(loadedDesks);
+        if (loadedCards && loadedCards.length > 0) setAftersalesCards(loadedCards);
+        if (loadedSettings) setSiteSettings(loadedSettings);
+
+        const loadedFaqs = await DatabaseService.getFAQAsync();
+        if (loadedFaqs && loadedFaqs.length > 0) setFaqs(loadedFaqs);
+
+        const loadedAbout = DatabaseService.getAboutContent();
+        if (loadedAbout) setAboutContent(loadedAbout);
       } catch (e) {
         console.error("Failed to load guide data", e);
       }
@@ -351,10 +365,8 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
         }
       />
 
-      {/* Main Notion Page Container with dynamic rearrangement when Side-Peek opens */}
-      <main className={`transition-all duration-300 px-4 sm:px-8 md:px-12 py-8 sm:py-12 flex-1 w-full space-y-8 ${
-        selectedMonitorForPanel ? "lg:mr-[620px] xl:mr-[680px] lg:max-w-[calc(100vw-640px)] xl:max-w-[calc(100vw-700px)]" : "max-w-6xl mx-auto"
-      }`}>
+      {/* Main Notion Page Container */}
+      <main className="transition-all duration-300 px-4 sm:px-8 md:px-12 py-8 sm:py-12 flex-1 w-full space-y-8 max-w-6xl mx-auto">
         {/* Notion Hero Cover Banner */}
         <div className="relative w-full h-48 sm:h-60 rounded-3xl overflow-hidden border border-[#2f2f2f] bg-[#202020] mb-2 shadow-2xl">
           <Image
@@ -445,7 +457,7 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
           /* CASE 2: FAQ NOTION COLLECTION LIST INDEX                                  */
           /* ========================================================================= */
           <div className="space-y-4 pt-2">
-            {FAQ_LIST.map((faq) => {
+            {(faqs.length > 0 ? faqs : FAQ_LIST).map((faq) => {
               const slug = faq.id.replace(/^faq-/, "");
               const subPath = `/guide/faq/${slug}`;
 
@@ -512,66 +524,78 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
           </div>
         ) : isAboutPage ? (
           /* ========================================================================= */
-          /* CASE 3: ABOUT NOTION PAGE                                                 */
+          /* CASE 3: ABOUT NOTION PAGE (DYNAMIC)                                       */
           /* ========================================================================= */
           <div className="p-6 sm:p-8 rounded-2xl bg-[#202020] border border-[#2f2f2f] space-y-6">
             <NotionBlockRenderer
-              content={`# TENTANG GRAYPLASMAID & JOEL GRAY
+              content={
+                matchedNode?.contentMarkdown ||
+                `# ${aboutContent?.title || "TENTANG GRAYPLASMAID & JOEL GRAY"}
 
-> Platform independen kurasi rekomendasi monitor & analisis data pengujian laboratorium GTID Tech.
+> ${aboutContent?.subtitle || "Platform independen kurasi rekomendasi monitor & analisis data pengujian laboratorium GTID Tech."}
 
 ---
 
 ## Siapa di Balik GrayPlasma?
-- **Joel Gray (@gray1plasma):** Penulis & Kurator Utama Rekomendasi Monitor. Meninjau unit berdasarkan ergonomi, build quality, dan kebutuhan nyata pengguna.
-- **GlaciK:** Pengembang Web & Database Engine.
+- **${aboutContent?.author || "Joel Gray (@gray1plasma)"}:** Penulis & Kurator Utama Rekomendasi Monitor. Meninjau unit berdasarkan ergonomi, build quality, dan kebutuhan nyata pengguna.
+- **${aboutContent?.collaborator || "@GlaciK"}:** Pengembang Web & Database Engine.
 - **GTID Tech:** Sumber data pengujian laboratorium independen (Akurasi deITP Calman, Response Time GTG, Motion Clarity).
 
 ---
 
-## Visi & Misi Kami:
-- Memberikan panduan jujur tanpa sponsor terselubung.
-- Membantu calon pembeli memilih monitor yang sesuai spesifikasi PC & ukuran meja kerja.`}
+## Latar Belakang Riset & Kurasi:
+${aboutContent?.latarBelakang || "Dimulai dari 2024, inisiatif merangkum data pengetesan GTID agar mudah dipahami masyarakat luas."}
+
+---
+
+## Catatan Penulis:
+${aboutContent?.biodataPenulis || "Terima kasih atas seluruh dukungan komunitas yang membuat panduan ini tetap independen!"}`
+              }
             />
           </div>
         ) : isSupportPage ? (
           /* ========================================================================= */
-          /* CASE 4: SUPPORT & DONASI PAGE                                             */
+          /* CASE 4: SUPPORT & DONASI PAGE (DYNAMIC)                                   */
           /* ========================================================================= */
           <div className="p-6 sm:p-8 rounded-2xl bg-[#202020] border border-[#2f2f2f] space-y-6">
             <NotionBlockRenderer
-              content={`# SUPPORT & DONASI PENULIS
+              content={
+                matchedNode?.contentMarkdown ||
+                `# SUPPORT & DONASI PENULIS
 
 > Dukung kelangsungan riset independen, pengujian unit monitor baru, dan pengembangan website GrayPlasma.
 
 ---
 
 ## Cara Memberikan Dukungan:
-1. **Saweria / Trakteer:** Dukung langsung melalui donasi sukarela untuk dana pengujian monitor.
-2. **Follow Social Media:**
-   - TikTok: **[@gray1plasma](https://www.tiktok.com/@gray1plasma)**
-   - Discord: **[discord.gg/joingtid](https://discord.gg/joingtid)**
-   - YouTube: **[GTiD Tech](https://www.youtube.com/c/GTiDtech/videos)**
+1. **Saweria / Trakteer:** Dukung langsung melalui donasi sukarela untuk dana pengujian unit monitor baru.
+2. **Follow Komunitas & Social Media:**
+   - TikTok: [${siteSettings.consultation?.tiktok || "@gray1plasma"}](${siteSettings.consultation?.tiktokUrl || "https://www.tiktok.com/@gray1plasma"})
+   - Discord: [${siteSettings.consultation?.discordUrl || "discord.gg/joingtid"}](${siteSettings.consultation?.discordUrl || "https://discord.gg/joingtid"})
+   - YouTube: [GTiD Tech](${siteSettings.consultation?.youtubeUrl || "https://www.youtube.com/c/GTiDtech/videos"})
 
-> Terima kasih atas seluruh dukungan komunitas yang membuat panduan ini tetap bebas dari pengaruh sponsor!`}
+> Terima kasih atas seluruh dukungan komunitas yang membuat panduan ini tetap independen dan bebas sponsor!`
+              }
             />
           </div>
         ) : isConsultationPage ? (
           /* ========================================================================= */
-          /* CASE 5: KONSULTASI PAGE                                                   */
+          /* CASE 5: KONSULTASI PAGE (DYNAMIC)                                         */
           /* ========================================================================= */
           <div className="p-6 sm:p-8 rounded-2xl bg-[#202020] border border-[#2f2f2f] space-y-6">
             <NotionBlockRenderer
-              content={`# KONSULTASI PEMILIHAN MONITOR DENGAN JOEL GRAY
+              content={
+                matchedNode?.contentMarkdown ||
+                `# KONSULTASI PEMILIHAN MONITOR DENGAN ${siteSettings.consultation?.author || "JOEL GRAY (@GRAY1PLASMA)"}
 
 > Dapatkan saran pemilihan monitor terbaik yang disesuaikan dengan spek GPU PC, ukuran meja, dan anggaran Anda.
 
 ---
 
 ## Kontak Resmi Konsultasi:
-- **WhatsApp:** [0851-7979-4019](https://wa.me/6285179794019) (a.n Joel Gray)
-- **Discord:** [discord.gg/joingtid](https://discord.gg/joingtid) (Respon Lebih Cepat)
-- **TikTok:** [@gray1plasma](https://www.tiktok.com/@gray1plasma)
+- **WhatsApp:** [${siteSettings.consultation?.whatsapp || "0851-7979-4019"}](${siteSettings.consultation?.whatsappUrl || "https://wa.me/6285179794019"}) (a.n Joel Gray)
+- **Discord:** [${siteSettings.consultation?.discordUrl || "discord.gg/joingtid"}](${siteSettings.consultation?.discordUrl || "https://discord.gg/joingtid"}) (Respon Lebih Cepat)
+- **TikTok:** [${siteSettings.consultation?.tiktok || "@gray1plasma"}](${siteSettings.consultation?.tiktokUrl || "https://www.tiktok.com/@gray1plasma"})
 
 ---
 
@@ -579,7 +603,13 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
 1. Spesifikasi PC / Laptop (Model GPU & CPU).
 2. Kedalaman meja kerja (50cm, 60cm, atau 80cm).
 3. Kebutuhan utama (Game FPS kompetitif, Editing video, atau Browsing santai).
-4. Anggaran maksimal.`}
+4. Anggaran maksimal.
+
+---
+
+## Catatan Penting:
+${siteSettings.consultation?.disclaimer || "Seluruh konsultasi disesuaikan dengan kebutuhan pribadi dan spesifikasi perangkat Anda."}`
+              }
             />
           </div>
         ) : matchedMonitor ? (

@@ -121,13 +121,36 @@ export function Navbar({
     currentKey === "consultation";
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-black/92 backdrop-blur-xl border-b border-zinc-800/80 transition-all">
+    <header className="sticky top-0 z-40 w-full bg-[#07070a]/95 backdrop-blur-xl border-b border-zinc-800 transition-all">
+      {/* Top HUD Telemetry Strip */}
+      <div className="w-full bg-[#050508] border-b border-zinc-800/80 px-4 py-1 text-[10px] font-mono text-zinc-500 hidden sm:flex items-center justify-between">
+        <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="inline-flex items-center gap-1.5 text-emerald-400 font-bold">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>[SYS // GP_ONLINE]</span>
+            </span>
+            <span className="text-zinc-700 hidden md:inline">|</span>
+            <span className="hidden md:inline text-zinc-400">DATABASE: GTID_LAB_TESTED</span>
+            <span className="text-zinc-700 hidden lg:inline">|</span>
+            <span className="hidden lg:inline text-zinc-400">CORE: METROPOLIS_TYPO</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-zinc-400">
+              REKOMENDASI: <strong className="text-white font-mono">{totalMonitorsCount}</strong> MODEL
+            </span>
+            <span className="text-zinc-700">•</span>
+            <span className="text-cyan-400 font-semibold">[ LATENCY: &lt;15ms ]</span>
+          </div>
+        </div>
+      </div>
+
       {/* Dynamic Announcement Ribbon */}
       {siteSettings.announcement?.isEnabled && siteSettings.announcement.text && (
-        <div className="w-full bg-gradient-to-r from-emerald-950 via-zinc-950 to-emerald-950 border-b border-emerald-500/20 px-4 py-1.5 text-xs flex items-center justify-center gap-2.5 text-emerald-200">
+        <div className="w-full bg-gradient-to-r from-emerald-950 via-zinc-950 to-emerald-950 border-b border-emerald-500/30 px-4 py-1.5 text-xs flex items-center justify-center gap-2.5 text-emerald-200">
           {siteSettings.announcement.badgeText && (
-            <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-black text-[10px] border border-emerald-500/40">
-              {siteSettings.announcement.badgeText}
+            <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono font-bold text-[10px] border border-emerald-500/40">
+              [ {siteSettings.announcement.badgeText} ]
             </span>
           )}
           <span className="font-medium text-[11px] sm:text-xs">
@@ -153,36 +176,38 @@ export function Navbar({
             onClick={() => onMenuSelect("home")}
             className="flex items-center gap-3 cursor-pointer group select-none flex-shrink-0"
           >
-            <GPLogo className="w-9 h-9 sm:w-10 sm:h-10" />
+            <div className="p-1 rounded-lg bg-[#0d0d12] border border-zinc-700/80 shadow-[2px_2px_0px_#000] group-hover:border-emerald-500/80 transition-colors">
+              <GPLogo className="w-8 h-8 sm:w-9 sm:h-9" />
+            </div>
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-base sm:text-lg font-black tracking-tight text-white uppercase">
-                  {siteSettings.brandName || "GRAYPLASMA"}<span className="text-emerald-400">ID</span>
+                  {siteSettings.brandName || "GRAYPLASMA"}<span className="text-emerald-400 font-mono">ID</span>
                 </span>
                 <Link
                   href="/guide/sdr/glossary"
                   onClick={(e) => e.stopPropagation()}
-                  className="text-[9px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20 hover:border-emerald-400 transition-colors hidden sm:inline-flex items-center gap-1 shadow-sm"
+                  className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/40 text-emerald-400 hover:bg-emerald-500/20 hover:border-emerald-400 transition-colors hidden sm:inline-flex items-center gap-1 shadow-[2px_2px_0px_#000]"
                   title="Lihat Glosarium & Standar Pengujian GTID"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>GTID TESTED</span>
+                  <span>[ GTID TESTED ]</span>
                 </Link>
               </div>
-              <p className="text-[11px] text-zinc-400 hidden lg:block">
+              <p className="text-[11px] text-zinc-400 hidden lg:block font-medium">
                 {siteSettings.brandTagline || "Katalog & Panduan Rekomendasi Monitor"}
               </p>
             </div>
           </div>
 
           {/* Nav Dropdown Menus (Desktop) */}
-          <nav className="hidden md:flex items-center gap-1 bg-zinc-950/90 border border-zinc-800 rounded-xl p-1">
+          <nav className="hidden md:flex items-center gap-1 bg-[#0b0b0f] border border-zinc-700/80 rounded-lg p-1 shadow-[2px_2px_0px_#000]">
             {/* Beranda */}
             <Link
               href="/"
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
                 currentKey === "home"
-                  ? "bg-zinc-800 text-white shadow-sm"
+                  ? "bg-zinc-800 text-white shadow-sm border border-zinc-700 font-bold"
                   : "text-zinc-400 hover:text-zinc-200"
               }`}
             >
@@ -193,9 +218,9 @@ export function Navbar({
             <div className="relative" onClick={(e) => e.stopPropagation()}>
               <button
                 onClick={() => setOpenDropdown(openDropdown === "catalog" ? null : "catalog")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all flex items-center gap-1.5 ${
                   isCatalogActive
-                    ? "bg-zinc-800 text-white shadow-sm"
+                    ? "bg-zinc-800 text-white shadow-sm border border-zinc-700 font-bold"
                     : "text-zinc-400 hover:text-zinc-200"
                 }`}
               >
@@ -466,7 +491,7 @@ export function Navbar({
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
                 placeholder="Cari monitor (contoh: 24G4, G24i, OLED, 1440p)..."
-                className="w-full bg-zinc-950/90 border border-zinc-800 rounded-xl pl-9 pr-14 py-2 text-xs sm:text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/60 focus:ring-1 focus:ring-emerald-500/50 transition-all shadow-inner"
+                className="w-full bg-[#08080c] border border-zinc-700/80 rounded-lg pl-9 pr-14 py-2 text-xs sm:text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-400 shadow-[2px_2px_0px_#000] transition-all"
               />
               <div className="absolute inset-y-0 right-0 pr-2 flex items-center gap-1 pointer-events-none">
                 {searchQuery ? (
@@ -481,8 +506,8 @@ export function Navbar({
                     <X className="w-3.5 h-3.5" />
                   </button>
                 ) : (
-                  <kbd className="hidden sm:inline-flex items-center text-[10px] font-mono text-zinc-400 bg-zinc-900 border border-zinc-800 px-1.5 py-0.5 rounded">
-                    Ctrl K
+                  <kbd className="hidden sm:inline-flex items-center text-[10px] font-mono text-emerald-400 bg-[#141419] border border-zinc-700 px-1.5 py-0.5 rounded shadow-[1px_1px_0px_#000]">
+                    [ / ]
                   </kbd>
                 )}
               </div>
@@ -495,7 +520,7 @@ export function Navbar({
               variant="outline"
               size="sm"
               onClick={onToggleMobileFilter}
-              className="lg:hidden flex items-center gap-1.5 border-zinc-800 bg-zinc-950"
+              className="lg:hidden flex items-center gap-1.5 border-zinc-700 bg-[#0d0d12] shadow-[2px_2px_0px_#000]"
             >
               <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
               {activeFilterCount > 0 && (
@@ -509,10 +534,10 @@ export function Navbar({
               href={CONSULTATION_DATA.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 hover:border-emerald-400 text-xs font-bold text-emerald-400 hover:bg-emerald-500/20 transition-all"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/40 hover:border-emerald-400 text-xs font-mono font-bold text-emerald-400 hover:bg-emerald-500 hover:text-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all"
             >
               <MessageCircle className="w-3.5 h-3.5" />
-              <span>Tanya Joel</span>
+              <span>[ TANYA JOEL ]</span>
             </a>
           </div>
         </div>

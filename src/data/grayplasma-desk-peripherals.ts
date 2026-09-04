@@ -18,6 +18,12 @@ export interface DeskItem {
     armSupport: boolean;
     dimensions: string;
   };
+  customVariables?: {
+    id: string;
+    label: string;
+    value: string;
+    category?: string;
+  }[];
 }
 
 export interface PeripheralItem {

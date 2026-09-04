@@ -52,16 +52,19 @@ import {
   DEFAULT_SITE_SETTINGS,
   DEFAULT_ADMIN_USERS,
 } from "@/lib/db-service";
-import { isSupabaseConfigured } from "@/lib/supabase";
+import { isSupabaseConfigured, signInAdminWithSupabase, signOutAdminFromSupabase } from "@/lib/supabase";
 import { compressImage, formatFileSize, CompressedImageResult } from "@/lib/image-compressor";
 import { MonitorFormModal } from "@/components/admin/monitor-form-modal";
 import { MonitorLiveStudio } from "@/components/admin/monitor-live-studio";
 import { DeskFormModal } from "@/components/admin/desk-form-modal";
+import { DeskLiveStudio } from "@/components/admin/desk-live-studio";
+import { PeripheralFormModal } from "@/components/admin/peripheral-form-modal";
 import { AftersalesFormModal } from "@/components/admin/aftersales-form-modal";
 import { HierarchySandboxManager } from "@/components/admin/hierarchy-sandbox-manager";
 import { AdminHierarchyManager } from "@/components/admin/admin-hierarchy-manager";
 import { SiteElementsManager } from "@/components/admin/site-elements-manager";
 import { GuidesKnowledgeManager } from "@/components/admin/guides-knowledge-manager";
+import { AdminAftersalesKanbanManager } from "@/components/admin/admin-aftersales-kanban-manager";
 import { BackupMigrationManager } from "@/components/admin/backup-migration-manager";
 import { MonitorSidePanel } from "@/components/monitor-side-panel";
 import { Button } from "@/components/ui/button";
@@ -81,9 +84,11 @@ type AdminActiveTab =
   | "compressor";
 
 export default function AdminDashboardPage() {
-  // Authentication state
+  // Authentication state (Multi-Account)
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [pinInput, setPinInput] = useState("");
+  const [emailInput, setEmailInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [authError, setAuthError] = useState("");
   const [currentAdmin, setCurrentAdmin] = useState<AdminUser | null>(null);
 
@@ -107,10 +112,11 @@ export default function AdminDashboardPage() {
   const [isMonitorModalOpen, setIsMonitorModalOpen] = useState(false);
   const [testSidePanelMonitor, setTestSidePanelMonitor] = useState<Monitor | null>(null);
 
-  const [deskModalType, setDeskModalType] = useState<"desk" | "peripheral">("desk");
   const [selectedDesk, setSelectedDesk] = useState<DeskItem | null>(null);
-  const [selectedPeripheral, setSelectedPeripheral] = useState<PeripheralItem | null>(null);
   const [isDeskModalOpen, setIsDeskModalOpen] = useState(false);
+
+  const [selectedPeripheral, setSelectedPeripheral] = useState<PeripheralItem | null>(null);
+  const [isPeripheralModalOpen, setIsPeripheralModalOpen] = useState(false);
 
   const [selectedAftersales, setSelectedAftersales] = useState<AftersalesBrand | null>(null);
   const [isAftersalesModalOpen, setIsAftersalesModalOpen] = useState(false);
@@ -162,28 +168,78 @@ export default function AdminDashboardPage() {
     }
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const adminList = DatabaseService.getAdminUsers();
-    const cleanPin = pinInput.trim();
+    setIsLoggingIn(true);
+    setAuthError("");
 
-    // Check against all registered admins PIN or master fallback
+    const cleanEmail = emailInput.trim();
+    const cleanPass = passwordInput.trim();
+
+    if (!cleanEmail || !cleanPass) {
+      setAuthError("Email / Username dan Password wajib diisi.");
+      setIsLoggingIn(false);
+      return;
+    }
+
+    // 1. Try Supabase Auth first if configured
+    if (isSupabaseConfigured) {
+      const res = await signInAdminWithSupabase(cleanEmail, cleanPass);
+      if (res.profile && !res.error) {
+        const adminUser: AdminUser = {
+          id: res.profile.id,
+          name: res.profile.name,
+          username: res.profile.email.split("@")[0],
+          role: res.profile.role,
+          roleTitle: res.profile.role_title || "Administrator",
+          avatar: res.profile.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
+          pinCode: cleanPass,
+          email: res.profile.email,
+          bio: res.profile.bio,
+          permissions: res.profile.permissions || ["*"],
+          createdAt: "2026-01-01",
+          lastLogin: new Date().toISOString().substring(0, 10),
+        };
+        setIsAuthenticated(true);
+        setCurrentAdmin(adminUser);
+        DatabaseService.setCurrentAdminSession(adminUser);
+        setIsLoggingIn(false);
+        return;
+      }
+    }
+
+    // 2. Local fallback verification for offline/dev testing
+    const adminList = DatabaseService.getAdminUsers();
     const matchedAdmin = adminList.find(
-      (a) => a.pinCode === cleanPin || (cleanPin === "admin" && a.role === "super_admin")
+      (a) =>
+        (a.email?.toLowerCase() === cleanEmail.toLowerCase() ||
+          a.username?.toLowerCase() === cleanEmail.toLowerCase() ||
+          cleanEmail.toLowerCase() === "admin") &&
+        (a.pinCode === cleanPass || cleanPass === "admin" || cleanPass === "grayplasma2026")
     );
 
-    if (matchedAdmin || cleanPin === "grayplasma2026" || cleanPin === "admin") {
+    if (matchedAdmin || (cleanEmail === "admin" && cleanPass === "admin") || cleanPass === "grayplasma2026") {
       const adminToSet = matchedAdmin || adminList[0];
       setIsAuthenticated(true);
       setCurrentAdmin(adminToSet);
       DatabaseService.setCurrentAdminSession(adminToSet);
       setAuthError("");
     } else {
-      setAuthError("PIN / Password salah. Coba: grayplasma2026 atau glacik2026");
+      setAuthError("Email atau Password salah. (Contoh: joel@grayplasma.id / gp2026)");
     }
+    setIsLoggingIn(false);
   };
 
-  const handleLogout = () => {
+  const handleQuickDemoLogin = (role: "super_admin" | "lead_reviewer" | "editor" = "super_admin") => {
+    const adminList = DatabaseService.getAdminUsers();
+    const target = adminList.find((a) => a.role === role) || adminList[0];
+    setIsAuthenticated(true);
+    setCurrentAdmin(target);
+    DatabaseService.setCurrentAdminSession(target);
+  };
+
+  const handleLogout = async () => {
+    await signOutAdminFromSupabase();
     setIsAuthenticated(false);
     DatabaseService.setCurrentAdminSession(null);
     setCurrentAdmin(null);
@@ -286,56 +342,113 @@ export default function AdminDashboardPage() {
     }
   };
 
-  // If not authenticated, render login form
+  // If not authenticated, render Industrial-HUD login form
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-[#070709] flex items-center justify-center p-4">
-        {/* Admin Login Dialog */}
-        <div className="max-w-md w-full bg-zinc-950 border border-zinc-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative overflow-hidden">
-          <div className="space-y-2 text-center">
-            <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto">
-              <Lock className="w-6 h-6" />
+      <div className="min-h-screen bg-[#070709] flex items-center justify-center p-4 relative font-sans">
+        {/* Ambient subtle tech grid */}
+        <div className="absolute inset-0 bg-blueprint-grid opacity-30 pointer-events-none" />
+
+        {/* Industrial-HUD Login Window */}
+        <div className="max-w-md w-full bg-[#0d0d11] border border-zinc-800 rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl relative z-10">
+          {/* Top HUD Header */}
+          <div className="space-y-3 text-center border-b border-zinc-800 pb-5">
+            <div className="flex items-center justify-center gap-2">
+              <span className="px-2.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[10px] font-bold tracking-widest uppercase">
+                [SYS//SECURITY_GATEWAY]
+              </span>
+              <span className="px-2.5 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-[10px] font-bold tracking-widest uppercase">
+                RBAC_V2
+              </span>
             </div>
-            <h2 className="text-xl font-black text-white uppercase tracking-tight">
-              Admin Access Verification
-            </h2>
-            <p className="text-xs text-zinc-400">
-              Masukkan PIN atau Password Admin untuk membuka Master Workspace.
-            </p>
+
+            <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-emerald-400 flex items-center justify-center mx-auto">
+              <Lock className="w-5 h-5" />
+            </div>
+
+            <div>
+              <h2 className="text-lg font-bold text-white uppercase tracking-tight">
+                GrayPlasma Admin Workspace
+              </h2>
+              <p className="text-xs text-zinc-400 mt-1">
+                Silakan masuk dengan akun individu masing-masing (Owner & Collaborators).
+              </p>
+            </div>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
-            <div className="space-y-1.5">
+            <div className="space-y-1.5 text-left">
+              <label className="text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider">
+                Email / Username Akun
+              </label>
               <input
-                type="password"
-                value={pinInput}
-                onChange={(e) => setPinInput(e.target.value)}
-                placeholder="Masukkan PIN Admin..."
-                className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-center text-lg font-mono tracking-widest text-amber-400 focus:outline-none focus:border-amber-400"
+                type="text"
+                required
+                value={emailInput}
+                onChange={(e) => setEmailInput(e.target.value)}
+                placeholder="nama@grayplasma.id atau admin"
+                className="w-full bg-zinc-900 border border-zinc-750 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500 font-mono transition-colors"
                 autoFocus
               />
+            </div>
+
+            <div className="space-y-1.5 text-left">
+              <label className="text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider">
+                Kata Sandi / Password
+              </label>
+              <input
+                type="password"
+                required
+                value={passwordInput}
+                onChange={(e) => setPasswordInput(e.target.value)}
+                placeholder="••••••••••••"
+                className="w-full bg-zinc-900 border border-zinc-750 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500 font-mono transition-colors"
+              />
               {authError && (
-                <p className="text-xs text-rose-400 text-center">{authError}</p>
+                <p className="text-xs text-rose-400 pt-1 text-center font-medium">{authError}</p>
               )}
             </div>
 
             <Button
               type="submit"
-              variant="cyber"
-              className="w-full font-bold uppercase tracking-wider text-xs py-5"
+              disabled={isLoggingIn}
+              className="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-bold uppercase tracking-wider text-xs py-5 rounded-xl font-mono flex items-center justify-center gap-2"
             >
-              <Unlock className="w-4 h-4 mr-2" />
-              <span>Verifikasi Masuk</span>
+              <Unlock className="w-4 h-4" />
+              <span>{isLoggingIn ? "[MEMVERIFIKASI...]" : "[VERIFIKASI_AKUN]"}</span>
             </Button>
           </form>
 
-          <div className="pt-4 border-t border-zinc-900 text-center">
+          {/* Quick Demo Login Triggers for offline / developer testing */}
+          <div className="pt-4 border-t border-zinc-800 space-y-2 text-center">
+            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block">
+              -- QUICK TESTING LOGIN (OFFLINE / DEV) --
+            </span>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => handleQuickDemoLogin("super_admin")}
+                className="px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-amber-500/50 text-[11px] text-amber-400 font-mono transition-colors"
+              >
+                👑 Owner / Super Admin
+              </button>
+              <button
+                type="button"
+                onClick={() => handleQuickDemoLogin("editor")}
+                className="px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-emerald-500/50 text-[11px] text-emerald-400 font-mono transition-colors"
+              >
+                ✍️ Content Editor
+              </button>
+            </div>
+          </div>
+
+          <div className="pt-2 text-center">
             <Link
               href="/"
-              className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors inline-flex items-center gap-1"
+              className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors inline-flex items-center gap-1.5"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Kembali ke Beranda GrayPlasma</span>
+              <span>Kembali ke Beranda Katalog</span>
             </Link>
           </div>
         </div>
@@ -788,88 +901,15 @@ export default function AdminDashboardPage() {
             />
           )}
 
-          {/* 4. DESKS CATALOG */}
+          {/* 4. DESKS LIVE STUDIO */}
           {activeTab === "desks" && (
-            <div className="space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-dark border border-zinc-800 rounded-2xl p-4">
-                <div>
-                  <h3 className="text-sm font-bold text-white">Daftar Meja Rekomendasi ({desks.length} Meja)</h3>
-                  <p className="text-xs text-zinc-400">Kelola katalog daun meja, standing desk elektrik, meja nakas, dan spesifikasi ketebalan.</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      if (confirm("Reset seluruh data meja ke 10 model rekomendasi bawaan Notion?")) {
-                        const res = DatabaseService.resetDesksToDefault();
-                        setDesks(res);
-                        showNotice("Database meja telah di-reset ke 10 model bawaan Notion.");
-                      }
-                    }}
-                    className="text-xs border-zinc-700"
-                  >
-                    <RotateCcw className="w-3.5 h-3.5 mr-1" />
-                    <span>Reset 10 Meja</span>
-                  </Button>
-                  <Button
-                    variant="cyber"
-                    size="sm"
-                    onClick={() => {
-                      setDeskModalType("desk");
-                      setSelectedDesk(null);
-                      setIsDeskModalOpen(true);
-                    }}
-                    className="text-xs font-bold"
-                  >
-                    <Plus className="w-4 h-4 mr-1" />
-                    <span>Tambah Meja Baru</span>
-                  </Button>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {desks.map((d) => (
-                  <div key={d.id} className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <span className="text-[10px] px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold uppercase">
-                          {d.category}
-                        </span>
-                        <h4 className="text-base font-bold text-white mt-1">{d.name}</h4>
-                        <div className="text-xs text-emerald-400 font-mono font-bold mt-0.5">
-                          {formatRupiah(d.price)}
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <button
-                          onClick={() => {
-                            setDeskModalType("desk");
-                            setSelectedDesk(d);
-                            setIsDeskModalOpen(true);
-                          }}
-                          className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-emerald-400"
-                        >
-                          <Edit2 className="w-3.5 h-3.5" />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteDesk(d.id, d.name)}
-                          className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-rose-400"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="text-xs text-zinc-300 space-y-1 bg-zinc-900/60 p-3 rounded-xl">
-                      <div><strong>Material:</strong> {d.specs.material} (Tebal: {d.specs.thickness})</div>
-                      <div><strong>Ukuran:</strong> {d.specs.dimensions}</div>
-                      <div className="text-zinc-400">{d.notes}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <DeskLiveStudio
+              desks={desks}
+              onUpdateDesks={(newDesks) => {
+                setDesks(newDesks);
+                showNotice("Database ulasan & rekomendasi meja berhasil diperbarui.");
+              }}
+            />
           )}
 
           {/* 5. PERIPHERALS CATALOG */}
@@ -884,9 +924,8 @@ export default function AdminDashboardPage() {
                   variant="cyber"
                   size="sm"
                   onClick={() => {
-                    setDeskModalType("peripheral");
                     setSelectedPeripheral(null);
-                    setIsDeskModalOpen(true);
+                    setIsPeripheralModalOpen(true);
                   }}
                   className="text-xs font-bold"
                 >
@@ -900,7 +939,7 @@ export default function AdminDashboardPage() {
                   <div key={p.id} className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3">
                     <div className="flex items-start justify-between">
                       <div>
-                        <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 font-bold uppercase">
+                        <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 font-bold uppercase font-mono">
                           {p.category}
                         </span>
                         <h4 className="text-base font-bold text-white mt-1">{p.name}</h4>
@@ -911,9 +950,8 @@ export default function AdminDashboardPage() {
                       <div className="flex items-center gap-1.5">
                         <button
                           onClick={() => {
-                            setDeskModalType("peripheral");
                             setSelectedPeripheral(p);
-                            setIsDeskModalOpen(true);
+                            setIsPeripheralModalOpen(true);
                           }}
                           className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-emerald-400"
                         >
@@ -937,70 +975,9 @@ export default function AdminDashboardPage() {
             </div>
           )}
 
-          {/* 6. AFTERSALES BRAND */}
+          {/* 6. AFTERSALES BRAND KANBAN STUDIO */}
           {activeTab === "aftersales" && (
-            <div className="space-y-4">
-              <div className="flex items-center justify-between bg-surface-dark border border-zinc-800 rounded-2xl p-4">
-                <div>
-                  <h3 className="text-sm font-bold text-white">Evaluasi Aftersales Brand</h3>
-                  <p className="text-xs text-zinc-400">Kelola tier garansi dan catatan waktu tunggu RMA distributor.</p>
-                </div>
-                <Button
-                  variant="cyber"
-                  size="sm"
-                  onClick={() => {
-                    setSelectedAftersales(null);
-                    setIsAftersalesModalOpen(true);
-                  }}
-                  className="text-xs font-bold"
-                >
-                  <Plus className="w-4 h-4 mr-1" />
-                  <span>Tambah Aftersales Brand</span>
-                </Button>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {aftersales.map((b) => (
-                  <div key={b.brand} className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <h4 className="text-base font-black text-white">{b.brand}</h4>
-                          <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500 text-black font-bold">
-                            Tier {b.rating}
-                          </span>
-                        </div>
-                        <span className="text-[11px] text-zinc-400 mt-0.5 block">
-                          {b.distributor} • {b.warrantyPeriod}
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-1.5">
-                        <button
-                          onClick={() => {
-                            setSelectedAftersales(b);
-                            setIsAftersalesModalOpen(true);
-                          }}
-                          className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-emerald-400"
-                        >
-                          <Edit2 className="w-3.5 h-3.5" />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteAftersales(b.brand)}
-                          className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-rose-400"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    </div>
-
-                    <p className="text-xs text-zinc-300 bg-zinc-900/60 p-3 rounded-xl">
-                      {b.summary}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <AdminAftersalesKanbanManager onRefresh={loadAllData} />
           )}
 
           {/* 7. KNOWLEDGE HUB */}
@@ -1092,13 +1069,19 @@ export default function AdminDashboardPage() {
       />
 
       <DeskFormModal
-        type={deskModalType}
+        type="desk"
         initialDesk={selectedDesk}
-        initialPeripheral={selectedPeripheral}
         isOpen={isDeskModalOpen}
         onClose={() => setIsDeskModalOpen(false)}
         onSaveDesk={handleSaveDesk}
         onSavePeripheral={handleSavePeripheral}
+      />
+
+      <PeripheralFormModal
+        initialData={selectedPeripheral}
+        isOpen={isPeripheralModalOpen}
+        onClose={() => setIsPeripheralModalOpen(false)}
+        onSave={handleSavePeripheral}
       />
 
       <AftersalesFormModal

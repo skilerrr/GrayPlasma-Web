@@ -21,12 +21,19 @@ import {
   ArrowRight,
   Upload,
   CheckCircle2,
+  Table as TableIcon,
+  GripVertical,
+  FileSpreadsheet,
+  ArrowUpDown,
+  Download,
 } from "lucide-react";
 import { Monitor, TierRating } from "@/types/monitor";
 import { DatabaseService } from "@/lib/db-service";
 import { formatRupiah } from "@/lib/utils";
 import { compressImage, formatFileSize, CompressedImageResult } from "@/lib/image-compressor";
 import { Button } from "@/components/ui/button";
+import { NotionRichEditor } from "@/components/admin/notion-rich-editor";
+import { ModularTableBuilder } from "@/components/admin/modular-table-builder";
 import Image from "next/image";
 
 interface MonitorLiveStudioProps {
@@ -48,7 +55,42 @@ export function MonitorLiveStudio({
   const [isCompressing, setIsCompressing] = useState(false);
   const [compressionStats, setCompressionStats] = useState<CompressedImageResult | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
-  const [activeSubTab, setActiveSubTab] = useState<"identity" | "specs" | "review" | "stores">("identity");
+  const [isSpecsExpanded, setIsSpecsExpanded] = useState(false);
+  const [isTableBuilderOpen, setIsTableBuilderOpen] = useState(false);
+  const [newVarLabel, setNewVarLabel] = useState("");
+  const [newVarValue, setNewVarValue] = useState("");
+  const [newVarCategory, setNewVarCategory] = useState("Display & Panel");
+  const [viewMode, setViewMode] = useState<"excel" | "studio">("excel");
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
+
+  // Helper to convert monitor ulasan & verdict to Notion/Word document HTML
+  const getInitialDoc = (mon: Partial<Monitor> | null) => {
+    if (!mon) return "<p>Mulai ketik ulasan atau verdict monitor di sini...</p>";
+    if (mon.deepDiveDescription && mon.deepDiveDescription.trim().length > 0) {
+      return mon.deepDiveDescription;
+    }
+    let doc = "";
+    if (mon.expertVerdict) {
+      doc += `<div class="notion-callout notion-callout-amber"><span class="notion-callout-icon">💡</span><div class="notion-callout-content"><strong>GTID Tech Verdict:</strong><br>${mon.expertVerdict}</div></div>`;
+    }
+    if (mon.introduction) {
+      doc += `<h2>Ulasan & Karakteristik Layar</h2><p>${mon.introduction}</p>`;
+    }
+    if ((mon.pros && mon.pros.length > 0) || (mon.cons && mon.cons.length > 0)) {
+      doc += `<h3>Kelebihan & Kekurangan</h3><ul class="notion-task-list">`;
+      (mon.pros || []).forEach((p) => {
+        doc += `<li class="notion-task-item"><span class="notion-checkbox checked">☑</span><span><strong>[PLUS]</strong> ${p}</span></li>`;
+      });
+      (mon.cons || []).forEach((c) => {
+        doc += `<li class="notion-task-item"><span class="notion-checkbox">☐</span><span><strong>[MINUS]</strong> ${c}</span></li>`;
+      });
+      doc += `</ul>`;
+    }
+    return doc || "<p>Mulai ketik ulasan atau verdict monitor di sini...</p>";
+  };
+
+  const [docContent, setDocContent] = useState<string>(() => getInitialDoc(selectedMonitor));
 
   // Form State initialized with selected monitor
   const [formData, setFormData] = useState<Partial<Monitor>>(
@@ -126,6 +168,7 @@ export function MonitorLiveStudio({
   const handleSelectMonitor = (mon: Monitor) => {
     setSelectedMonitor(mon);
     setFormData({ ...mon });
+    setDocContent(getInitialDoc(mon));
     setCompressionStats(null);
   };
 
@@ -204,6 +247,7 @@ export function MonitorLiveStudio({
 
     setSelectedMonitor(newMon);
     setFormData(newMon);
+    setDocContent(getInitialDoc(newMon));
     showNotification("Membuat entri monitor baru. Silakan sesuaikan data lalu klik Simpan.");
   };
 
@@ -220,6 +264,7 @@ export function MonitorLiveStudio({
     onUpdateMonitors(updated);
     setSelectedMonitor(duplicated);
     setFormData(duplicated);
+    setDocContent(getInitialDoc(duplicated));
     showNotification(`Berhasil menduplikasi: ${duplicated.fullName}`);
   };
 
@@ -229,10 +274,69 @@ export function MonitorLiveStudio({
       onUpdateMonitors(updated);
       if (selectedMonitor?.id === id) {
         setSelectedMonitor(updated[0] || null);
-        if (updated[0]) setFormData(updated[0]);
+        if (updated[0]) {
+          setFormData(updated[0]);
+          setDocContent(getInitialDoc(updated[0]));
+        }
       }
       showNotification("Monitor berhasil dihapus!");
     }
+  };
+
+  // Drag and Drop Row Reordering for Excel Table View
+  const handleRowDrop = async (targetIdx: number) => {
+    if (draggedIndex === null || draggedIndex === targetIdx) return;
+    const newMonitors = [...monitors];
+    const [moved] = newMonitors.splice(draggedIndex, 1);
+    newMonitors.splice(targetIdx, 0, moved);
+    const updated = await DatabaseService.reorderMonitors(newMonitors);
+    onUpdateMonitors(updated);
+    setDraggedIndex(null);
+    setDragOverIndex(null);
+    showNotification(`Urutan monitor diperbarui! #${targetIdx + 1}: ${moved.fullName}`);
+  };
+
+  // Quick Inline Edit for Price in Excel View
+  const handleQuickEditPrice = async (mon: Monitor, newPrice: number) => {
+    const updatedMon: Monitor = { ...mon, price: newPrice };
+    const list = await DatabaseService.saveMonitor(updatedMon);
+    onUpdateMonitors(list);
+    showNotification(`Harga ${mon.brand} diubah ke ${formatRupiah(newPrice)}`);
+  };
+
+  // Quick Inline Edit for Tier in Excel View
+  const handleQuickEditTier = async (mon: Monitor, newTier: TierRating) => {
+    const updatedMon: Monitor = { ...mon, tier: newTier };
+    const list = await DatabaseService.saveMonitor(updatedMon);
+    onUpdateMonitors(list);
+    showNotification(`Tier ${mon.brand} diubah ke ${newTier}`);
+  };
+
+  // Export CSV format
+  const handleExportCSV = () => {
+    const headers = ["No", "Brand", "Model", "Harga", "Tier", "Panel", "Size", "Resolusi", "RefreshRate", "ToleransiBaru", "ToleransiLama"];
+    const rows = monitors.map((m, idx) => [
+      idx + 1,
+      `"${(m.brand || '').replace(/"/g, '""')}"`,
+      `"${(m.fullName || '').replace(/"/g, '""')}"`,
+      m.price,
+      `"${m.tier}"`,
+      `"${m.specs?.display?.panelType || ''}"`,
+      `"${m.specs?.display?.size || ''}"`,
+      `"${m.specs?.display?.resolution || ''}"`,
+      m.specs?.display?.refreshRate || 0,
+      `"${m.responseTimeData?.toleranceNew || ''}"`,
+      `"${m.responseTimeData?.toleranceOld || ''}"`,
+    ]);
+    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `grayplasma_monitors_${Date.now()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showNotification("Data monitor berhasil diekspor ke CSV.");
   };
 
   const handleSave = async (e?: React.FormEvent) => {
@@ -269,6 +373,11 @@ export function MonitorLiveStudio({
       frontImage: formData.frontImage || formData.thumbnail,
       rearImage: formData.rearImage,
       gallery: formData.gallery || [formData.thumbnail || ""],
+      gtidReviewUrl: formData.gtidReviewUrl,
+      statusReason: formData.statusReason,
+      introduction: formData.introduction,
+      deepDiveTitle: formData.deepDiveTitle,
+      deepDiveDescription: docContent || formData.deepDiveDescription,
       quickSpecs: [
         formData.specs?.display?.size || "24 Inch or 23.8 Inch",
         formData.specs?.display?.panelType || "IPS",
@@ -286,16 +395,12 @@ export function MonitorLiveStudio({
         `${formData.specs?.display?.refreshRate || 180}Hz`,
         formData.specs?.display?.resolution || "FHD",
       ],
-      statusReason: formData.statusReason,
-      gtidReviewUrl: formData.gtidReviewUrl,
-      introduction: formData.introduction,
       bannerImage: formData.bannerImage,
-      deepDiveTitle: formData.deepDiveTitle,
-      deepDiveDescription: formData.deepDiveDescription,
       deepDiveNote: formData.deepDiveNote,
       accessoriesIncluded: formData.accessoriesIncluded,
       additionalStores: formData.additionalStores,
       responseTimeData: formData.responseTimeData,
+      customVariables: formData.customVariables || [],
       createdAt: formData.createdAt || new Date().toISOString(),
     };
 
@@ -361,6 +466,34 @@ export function MonitorLiveStudio({
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
+          {/* View Mode Toggle: Excel Grid vs 3-Column Studio */}
+          <div className="flex items-center gap-1 p-1 bg-[#121216] border border-zinc-750 rounded-xl shadow-inner">
+            <button
+              type="button"
+              onClick={() => setViewMode("excel")}
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+                viewMode === "excel"
+                  ? "bg-emerald-500 text-black shadow-[2px_2px_0px_#000]"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-800"
+              }`}
+            >
+              <FileSpreadsheet className="w-3.5 h-3.5" />
+              <span>[ 📊 EXCEL GRID (DRAG & DROP) ]</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode("studio")}
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+                viewMode === "studio"
+                  ? "bg-cyan-500 text-black shadow-[2px_2px_0px_#000]"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-800"
+              }`}
+            >
+              <SlidersHorizontal className="w-3.5 h-3.5" />
+              <span>[ 📝 3-KOLOM STUDIO ]</span>
+            </button>
+          </div>
+
           <Button
             variant="cyber"
             size="sm"
@@ -391,8 +524,311 @@ export function MonitorLiveStudio({
         </div>
       </div>
 
-      {/* Main 3-Column Studio Workspace */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      {/* RENDER EXCEL VIEW OR 3-COLUMN STUDIO */}
+      {viewMode === "excel" ? (
+        <div className="space-y-4 font-sans">
+          {/* Excel Controls Bar */}
+          <div className="p-4 rounded-2xl bg-[#121217] border-2 border-zinc-800 flex flex-wrap items-center justify-between gap-3 shadow-[4px_4px_0px_#000]">
+            <div className="flex items-center gap-3 flex-1 min-w-[280px]">
+              {/* Search */}
+              <div className="relative flex-1">
+                <Search className="w-4 h-4 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder="Cari brand, model, panel, resolusi..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-750 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500 font-mono"
+                />
+              </div>
+
+              {/* Tier Filter */}
+              <select
+                value={tierFilter}
+                onChange={(e) => setTierFilter(e.target.value)}
+                className="bg-zinc-900 border border-zinc-750 rounded-xl px-3 py-1.5 text-xs text-emerald-400 font-mono focus:outline-none"
+              >
+                <option value="all">Semua Tier Rating</option>
+                <option value="BEST VALUE">BEST VALUE</option>
+                <option value="TOP TIER">TOP TIER</option>
+                <option value="VALUE ENTRY">VALUE ENTRY</option>
+                <option value="HONORABLE MENTION">HONORABLE MENTION</option>
+                <option value="NOT RECOMMENDED">NOT RECOMMENDED</option>
+              </select>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={handleExportCSV}
+                className="text-xs font-mono text-emerald-400 border-emerald-500/40 hover:bg-emerald-500/10 flex items-center gap-1.5"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Export CSV</span>
+              </Button>
+
+              <Button
+                type="button"
+                variant="cyber"
+                size="sm"
+                onClick={handleCreateNew}
+                className="text-xs font-mono font-bold flex items-center gap-1.5"
+              >
+                <Plus className="w-4 h-4" />
+                <span>+ Tambah Baris Monitor</span>
+              </Button>
+            </div>
+          </div>
+
+          {/* Drag Hint Banner */}
+          <div className="px-4 py-2.5 bg-emerald-950/40 border border-emerald-500/30 rounded-xl flex flex-wrap items-center justify-between gap-2 text-xs text-emerald-300 font-mono">
+            <div className="flex items-center gap-2">
+              <GripVertical className="w-4 h-4 text-emerald-400" />
+              <span>
+                <strong>MODE EXCEL AKTIF:</strong> Klik dan geser (drag) handle <strong>⠿</strong> pada kolom paling kiri untuk mengatur urutan rekomendasi. Urutan di tabel web pengunjung akan otomatis mengikuti urutan ini.
+              </span>
+            </div>
+            <span className="text-[11px] text-zinc-400">Menampilkan {filteredMonitors.length} Monitor</span>
+          </div>
+
+          {/* Interactive Excel Spreadsheet Grid */}
+          <div className="border-2 border-zinc-800 rounded-2xl overflow-hidden bg-[#0c0c11] shadow-[5px_5px_0px_#000]">
+            <div className="overflow-x-auto max-h-[calc(100vh-280px)] no-scrollbar">
+              <table className="w-full text-left text-xs border-collapse min-w-[1150px]">
+                <thead className="bg-[#050508] text-zinc-300 uppercase text-[10px] font-mono tracking-wider border-b-2 border-zinc-700 sticky top-0 z-20">
+                  <tr>
+                    <th className="py-3 px-3 w-12 text-center text-zinc-500 font-bold">[ DRAG ]</th>
+                    <th className="py-3 px-3 w-12 text-zinc-500 font-bold">[ # ]</th>
+                    <th className="py-3 px-4 font-bold min-w-[170px] text-emerald-400">[ 01 // KISARAN HARGA ]</th>
+                    <th className="py-3 px-4 font-bold min-w-[260px] text-white">[ 02 // BRAND & MODEL ]</th>
+                    <th className="py-3 px-3 font-bold min-w-[140px] text-amber-400">[ 03 // TIER ]</th>
+                    <th className="py-3 px-3 font-bold min-w-[200px] text-zinc-300">[ 04 // GTID TOLERANSI ]</th>
+                    <th className="py-3 px-3 font-bold min-w-[140px] text-zinc-300">[ 05 // PANEL & SIZE ]</th>
+                    <th className="py-3 px-3 font-bold min-w-[130px] text-zinc-300">[ 06 // RESOLUSI ]</th>
+                    <th className="py-3 px-3 font-bold min-w-[110px] text-cyan-400">[ 07 // REFRESH ]</th>
+                    <th className="py-3 px-3 font-bold min-w-[140px] text-purple-400">[ 08 // VARIABEL KUSTOM ]</th>
+                    <th className="py-3 px-4 font-bold min-w-[180px] text-center sticky right-0 bg-[#050508] z-30">[ AKSI ]</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-zinc-800/80 font-sans">
+                  {filteredMonitors.map((m, idx) => {
+                    const originalIndex = monitors.findIndex((item) => item.id === m.id);
+                    const isDragging = draggedIndex === originalIndex;
+                    const isDragOver = dragOverIndex === originalIndex;
+
+                    return (
+                      <tr
+                        key={m.id}
+                        draggable
+                        onDragStart={(e) => {
+                          setDraggedIndex(originalIndex);
+                          e.dataTransfer.setData("text/plain", `${originalIndex}`);
+                          e.dataTransfer.effectAllowed = "move";
+                        }}
+                        onDragOver={(e) => {
+                          e.preventDefault();
+                          if (dragOverIndex !== originalIndex) setDragOverIndex(originalIndex);
+                        }}
+                        onDragLeave={() => {
+                          if (dragOverIndex === originalIndex) setDragOverIndex(null);
+                        }}
+                        onDrop={(e) => {
+                          e.preventDefault();
+                          handleRowDrop(originalIndex);
+                        }}
+                        onDragEnd={() => {
+                          setDraggedIndex(null);
+                          setDragOverIndex(null);
+                        }}
+                        className={`group transition-all hover:bg-zinc-800/40 ${
+                          isDragging ? "opacity-30 border-2 border-dashed border-emerald-400 bg-emerald-950/40" : ""
+                        } ${isDragOver ? "border-t-4 border-t-emerald-400 bg-emerald-950/20" : ""}`}
+                      >
+                        {/* Drag Handle */}
+                        <td className="py-2.5 px-3 text-center border-r border-zinc-800/60">
+                          <div
+                            className="cursor-grab active:cursor-grabbing p-1.5 text-zinc-500 hover:text-emerald-400 transition-colors inline-flex rounded-lg hover:bg-zinc-800"
+                            title="Klik dan geser (drag) untuk memindahkan urutan rekomendasi"
+                          >
+                            <GripVertical className="w-4 h-4" />
+                          </div>
+                        </td>
+
+                        {/* Row Number */}
+                        <td className="py-2.5 px-3 font-mono text-[11px] text-zinc-500 font-bold border-r border-zinc-800/60 text-center">
+                          #{idx + 1}
+                        </td>
+
+                        {/* Harga */}
+                        <td className="py-2.5 px-4 font-mono font-bold text-emerald-400 border-r border-zinc-800/60 whitespace-nowrap">
+                          <input
+                            type="number"
+                            defaultValue={m.price}
+                            onBlur={(e) => {
+                              const newP = Number(e.target.value);
+                              if (newP !== m.price && newP >= 0) {
+                                handleQuickEditPrice(m, newP);
+                              }
+                            }}
+                            className="w-28 bg-zinc-900/80 border border-zinc-750 hover:border-emerald-500 focus:border-emerald-500 rounded-md px-2 py-1 text-xs text-emerald-400 font-mono font-bold focus:outline-none"
+                          />
+                        </td>
+
+                        {/* Brand & Model */}
+                        <td className="py-2.5 px-4 border-r border-zinc-800/60">
+                          <div className="flex items-center gap-2">
+                            <span className="text-base">🖥️</span>
+                            <div>
+                              <div
+                                onClick={() => {
+                                  setSelectedMonitor(m);
+                                  setFormData(m);
+                                  setDocContent(getInitialDoc(m));
+                                  setViewMode("studio");
+                                }}
+                                className="font-bold text-white hover:text-cyan-400 cursor-pointer transition-colors"
+                                title="Buka di 3-Kolom Studio"
+                              >
+                                {m.fullName}
+                              </div>
+                              <span className="text-[10px] font-mono text-zinc-500 uppercase">{m.brand} • {m.slug}</span>
+                            </div>
+                          </div>
+                        </td>
+
+                        {/* Tier Rating */}
+                        <td className="py-2.5 px-3 border-r border-zinc-800/60 whitespace-nowrap">
+                          <select
+                            value={m.tier}
+                            onChange={(e) => handleQuickEditTier(m, e.target.value as TierRating)}
+                            className="bg-zinc-900 border border-zinc-750 rounded-md px-2 py-1 text-[11px] font-mono font-bold text-amber-300 focus:outline-none cursor-pointer"
+                          >
+                            <option value="BEST VALUE">BEST VALUE</option>
+                            <option value="TOP TIER">TOP TIER</option>
+                            <option value="VALUE ENTRY">VALUE ENTRY</option>
+                            <option value="HONORABLE MENTION">HONORABLE MENTION</option>
+                            <option value="NOT RECOMMENDED">NOT RECOMMENDED</option>
+                          </select>
+                        </td>
+
+                        {/* Toleransi GTID */}
+                        <td className="py-2.5 px-3 border-r border-zinc-800/60 whitespace-nowrap">
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <span className="px-2 py-0.5 rounded bg-[#0b2413] text-[#00e676] border border-[#00e676]/30 text-[10px] font-mono font-bold">
+                              {m.responseTimeData?.toleranceNew || "Toleransi Baru"}
+                            </span>
+                            <span className="px-2 py-0.5 rounded bg-[#2b1012] text-[#ff5252] border border-[#ff5252]/30 text-[10px] font-mono font-bold">
+                              {m.responseTimeData?.toleranceOld || "Toleransi Lama"}
+                            </span>
+                          </div>
+                        </td>
+
+                        {/* Panel & Size */}
+                        <td className="py-2.5 px-3 text-zinc-300 font-mono text-[11px] border-r border-zinc-800/60 whitespace-nowrap">
+                          <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-750">
+                            {m.specs?.display?.size || "-"} {m.specs?.display?.panelType || ""}
+                          </span>
+                        </td>
+
+                        {/* Resolusi */}
+                        <td className="py-2.5 px-3 font-mono text-zinc-300 text-[11px] border-r border-zinc-800/60 whitespace-nowrap">
+                          <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-750">
+                            {m.specs?.display?.resolution || "FHD"}
+                          </span>
+                        </td>
+
+                        {/* Refresh Rate */}
+                        <td className="py-2.5 px-3 border-r border-zinc-800/60 whitespace-nowrap">
+                          <span className="px-2 py-0.5 rounded bg-[#10192b] text-[#38bdf8] border border-[#38bdf8]/30 font-mono font-bold text-[11px]">
+                            {m.specs?.display?.refreshRate || 60}Hz
+                          </span>
+                        </td>
+
+                        {/* Variabel Kustom */}
+                        <td className="py-2.5 px-3 border-r border-zinc-800/60">
+                          {m.customVariables && m.customVariables.length > 0 ? (
+                            <div className="flex items-center gap-1 flex-wrap">
+                              {m.customVariables.slice(0, 2).map((v) => (
+                                <span
+                                  key={v.id}
+                                  className="px-1.5 py-0.5 rounded bg-zinc-800 text-amber-300 text-[9px] font-mono font-bold border border-zinc-700"
+                                  title={`${v.label}: ${v.value}`}
+                                >
+                                  {v.label}
+                                </span>
+                              ))}
+                              {m.customVariables.length > 2 && (
+                                <span className="text-[9px] font-mono text-zinc-500">
+                                  +{m.customVariables.length - 2}
+                                </span>
+                              )}
+                            </div>
+                          ) : (
+                            <span className="text-zinc-600 font-mono text-[10px]">-</span>
+                          )}
+                        </td>
+
+                        {/* Aksi Sticky */}
+                        <td className="py-2.5 px-4 sticky right-0 bg-[#0c0c11] group-hover:bg-[#14141c] z-10">
+                          <div className="flex items-center justify-center gap-1.5">
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              onClick={() => {
+                                setSelectedMonitor(m);
+                                setFormData(m);
+                                setDocContent(getInitialDoc(m));
+                                setViewMode("studio");
+                              }}
+                              className="text-[11px] font-mono font-bold text-cyan-400 border-cyan-500/40 hover:bg-cyan-500/10 h-7 px-2"
+                              title="Buka 3-Kolom Studio"
+                            >
+                              <Edit2 className="w-3 h-3 mr-1" />
+                              <span>Studio</span>
+                            </Button>
+
+                            <button
+                              type="button"
+                              onClick={() => onPreviewSidePanel(m)}
+                              className="p-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-emerald-400"
+                              title="Preview Side Panel"
+                            >
+                              <Eye className="w-3.5 h-3.5" />
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={() => handleDuplicate(m)}
+                              className="p-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white"
+                              title="Duplikat Baris"
+                            >
+                              <Copy className="w-3.5 h-3.5" />
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={() => handleDelete(m.id)}
+                              className="p-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-500 hover:text-rose-400"
+                              title="Hapus Monitor"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      ) : (
+        /* Main 3-Column Studio Workspace */
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* ========================================================================= */}
         {/* COLUMN 1: MONITOR LIST SELECTOR (3 Cols)                                   */}
         {/* ========================================================================= */}
@@ -483,577 +919,679 @@ export function MonitorLiveStudio({
         </div>
 
         {/* ========================================================================= */}
-        {/* COLUMN 2: LIVE SPEC & PROPERTY EDIT FORM (5 Cols)                         */}
+        {/* COLUMN 2: NOTION / WORD DOCUMENT-CENTRIC RECOMMENDATION STUDIO (5 Cols)   */}
         {/* ========================================================================= */}
         <div className="lg:col-span-5 rounded-2xl bg-[#171717] border border-[#2a2a2a] p-5 space-y-4 shadow-lg">
-          {/* Header Action Row */}
-          <div className="flex items-center justify-between border-b border-[#2a2a2a] pb-3">
-            <div className="flex items-center gap-2">
-              <span className="text-lg">🖥️</span>
-              <h3 className="text-xs font-black text-white uppercase tracking-wider">
-                Editor: {formData.fullName || "Monitor"}
-              </h3>
-            </div>
+          {/* 1. Header Action Row & Notion Page Title */}
+          <div className="space-y-2 border-b border-[#2a2a2a] pb-3">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <span className="text-xl">🖥️</span>
+                <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded">
+                  Notion / Word Document Mode
+                </span>
+              </div>
 
-            <div className="flex items-center gap-1.5">
-              {selectedMonitor && (
-                <>
-                  <button
-                    type="button"
-                    onClick={() => handleDuplicate(selectedMonitor)}
-                    className="p-1.5 rounded-lg bg-[#202020] hover:bg-[#2c2c2c] text-[#9b9a97] hover:text-[#58a6ff] transition-colors"
-                    title="Duplikat Monitor"
-                  >
-                    <Copy className="w-3.5 h-3.5" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleDelete(selectedMonitor.id)}
-                    className="p-1.5 rounded-lg bg-[#202020] hover:bg-[#2c2c2c] text-[#9b9a97] hover:text-rose-400 transition-colors"
-                    title="Hapus Monitor"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </button>
-                </>
-              )}
-              <Button
-                size="sm"
-                variant="cyber"
-                onClick={handleSave}
-                className="text-xs font-bold flex items-center gap-1"
-              >
-                <Save className="w-3.5 h-3.5" />
-                <span>Simpan</span>
-              </Button>
-            </div>
-          </div>
-
-          {/* Sub-Tab Navigation */}
-          <div className="flex items-center gap-1 bg-[#121212] p-1 rounded-xl border border-[#262626]">
-            {[
-              { key: "identity", label: "1. Identitas & Harga" },
-              { key: "specs", label: "2. 21 Properti Layar" },
-              { key: "review", label: "3. Ulasan GTID & Foto" },
-              { key: "stores", label: "4. Toko Affiliate" },
-            ].map((tab) => (
-              <button
-                key={tab.key}
-                type="button"
-                onClick={() => setActiveSubTab(tab.key as any)}
-                className={`flex-1 py-1 px-2 rounded-lg text-[10px] font-bold transition-colors text-center ${
-                  activeSubTab === tab.key
-                    ? "bg-[#252525] text-white shadow-sm border border-[#3a3a3a]"
-                    : "text-[#787774] hover:text-[#d4d4d4]"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Form Content Area */}
-          <form onSubmit={handleSave} className="space-y-4 max-h-[640px] overflow-y-auto pr-1 text-xs">
-            {/* SUB-TAB 1: IDENTITAS & HARGA */}
-            {activeSubTab === "identity" && (
-              <div className="space-y-3">
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-[#9b9a97] font-medium block mb-1">Brand</label>
-                    <input
-                      type="text"
-                      value={formData.brand || ""}
-                      onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-                      placeholder="Xiaomi, AOC, Dell, dll."
-                      className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#58a6ff]"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="text-[#9b9a97] font-medium block mb-1">Tier / Rekomendasi</label>
-                    <select
-                      value={formData.tier || "RECOMMENDED"}
-                      onChange={(e) => setFormData({ ...formData, tier: e.target.value as TierRating })}
-                      className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#58a6ff]"
+              <div className="flex items-center gap-1.5">
+                {selectedMonitor && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => handleDuplicate(selectedMonitor)}
+                      className="p-1.5 rounded-lg bg-[#202020] hover:bg-[#2c2c2c] text-[#9b9a97] hover:text-[#58a6ff] transition-colors"
+                      title="Duplikat Monitor"
                     >
-                      <option value="S-TIER">S-TIER (Terbaik)</option>
-                      <option value="BEST VALUE">BEST VALUE (Paling Worth It)</option>
-                      <option value="RECOMMENDED">RECOMMENDED (Bagus)</option>
-                      <option value="PASS">PASS (Tidak Disarankan)</option>
-                    </select>
-                  </div>
-                </div>
+                      <Copy className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(selectedMonitor.id)}
+                      className="p-1.5 rounded-lg bg-[#202020] hover:bg-[#2c2c2c] text-[#9b9a97] hover:text-rose-400 transition-colors"
+                      title="Hapus Monitor"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </>
+                )}
+                <Button
+                  size="sm"
+                  variant="cyber"
+                  onClick={handleSave}
+                  className="text-xs font-bold flex items-center gap-1 bg-emerald-500 hover:bg-emerald-400 text-black shadow-md"
+                >
+                  <Save className="w-3.5 h-3.5" />
+                  <span>Simpan</span>
+                </Button>
+              </div>
+            </div>
 
-                <div>
-                  <label className="text-[#9b9a97] font-medium block mb-1">Nama Lengkap Model</label>
+            {/* Notion Big Title Input */}
+            <div>
+              <input
+                type="text"
+                value={formData.fullName || ""}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    fullName: e.target.value,
+                    model: e.target.value,
+                  })
+                }
+                placeholder="Judul Monitor (contoh: LG UltraGear 27GP850-B)..."
+                className="w-full bg-transparent text-base sm:text-lg font-black text-white placeholder-zinc-600 focus:outline-none focus:border-b focus:border-emerald-500 py-1"
+                required
+              />
+            </div>
+          </div>
+
+          {/* 2. Compact Notion Properties Block */}
+          <div className="bg-[#121214] border border-[#262626] rounded-xl p-3 space-y-2.5 text-xs">
+            <div className="flex items-center justify-between text-[10px] font-bold text-[#787774] uppercase tracking-wider pb-1 border-b border-[#222]">
+              <span>PROPERTI REKOMENDASI (NOTION FIELDS)</span>
+              <span className="font-mono text-zinc-500">Auto-Synced</span>
+            </div>
+
+            {/* Brand & Tier */}
+            <div className="grid grid-cols-12 items-center gap-2">
+              <span className="col-span-4 text-[#9b9a97] font-medium flex items-center gap-1">
+                <span>🏷️</span>
+                <span>Brand</span>
+              </span>
+              <div className="col-span-8">
+                <input
+                  type="text"
+                  value={formData.brand || ""}
+                  onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
+                  placeholder="Xiaomi, AOC, LG, Asus..."
+                  className="w-full bg-[#1b1b1e] border border-[#2e2e33] rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-emerald-500"
+                />
+              </div>
+            </div>
+
+            {/* Tier Selector Pills */}
+            <div className="grid grid-cols-12 items-center gap-2">
+              <span className="col-span-4 text-[#9b9a97] font-medium flex items-center gap-1">
+                <span>⭐</span>
+                <span>Tier Rekomendasi</span>
+              </span>
+              <div className="col-span-8 flex items-center gap-1.5 flex-wrap">
+                {(["S-TIER", "BEST VALUE", "RECOMMENDED", "PASS"] as TierRating[]).map((t) => (
+                  <button
+                    key={t}
+                    type="button"
+                    onClick={() => setFormData({ ...formData, tier: t })}
+                    className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all ${
+                      formData.tier === t
+                        ? t === "S-TIER"
+                          ? "bg-emerald-500 text-black shadow-sm font-black"
+                          : t === "BEST VALUE"
+                          ? "bg-amber-500 text-black shadow-sm font-black"
+                          : t === "RECOMMENDED"
+                          ? "bg-cyan-500 text-black shadow-sm font-black"
+                          : "bg-rose-500 text-white shadow-sm font-black"
+                        : "bg-[#1b1b1e] text-[#787774] border border-[#2e2e33] hover:text-white"
+                    }`}
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Harga & Target */}
+            <div className="grid grid-cols-12 items-center gap-2">
+              <span className="col-span-4 text-[#9b9a97] font-medium flex items-center gap-1">
+                <span>💵</span>
+                <span>Harga Pasar & Target</span>
+              </span>
+              <div className="col-span-8 grid grid-cols-2 gap-2">
+                <div className="relative">
+                  <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-[#787774]">Rp</span>
                   <input
-                    type="text"
-                    value={formData.fullName || ""}
-                    onChange={(e) =>
-                      setFormData({ ...formData, fullName: e.target.value, model: e.target.value })
-                    }
-                    placeholder="Xiaomi G24i (2024)"
-                    className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#58a6ff]"
+                    type="number"
+                    value={formData.price || ""}
+                    onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
+                    placeholder="Harga pasar"
+                    className="w-full bg-[#1b1b1e] border border-emerald-500/40 rounded-lg pl-6 pr-2 py-1 text-xs font-mono font-bold text-emerald-400 focus:outline-none focus:border-emerald-400"
                     required
                   />
                 </div>
-
-                <div className="grid grid-cols-3 gap-3">
-                  <div>
-                    <label className="text-[#52ba69] font-bold block mb-1">Kisaran Harga (Rp)</label>
-                    <input
-                      type="number"
-                      value={formData.price || ""}
-                      onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
-                      className="w-full bg-[#202020] border border-[#52ba69]/40 rounded-xl px-3 py-2 text-[#52ba69] font-mono font-bold focus:outline-none focus:border-[#52ba69]"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="text-[#9b9a97] font-medium block mb-1">Harga Normal (Rp)</label>
-                    <input
-                      type="number"
-                      value={formData.originalPrice || ""}
-                      onChange={(e) => setFormData({ ...formData, originalPrice: Number(e.target.value) })}
-                      className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-2 text-[#d4d4d4] font-mono focus:outline-none focus:border-[#58a6ff]"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-[#58a6ff] font-medium block mb-1">Target Rekomendasi (Rp)</label>
-                    <input
-                      type="number"
-                      value={formData.recommendedPrice || ""}
-                      onChange={(e) => setFormData({ ...formData, recommendedPrice: Number(e.target.value) })}
-                      placeholder="e.g. 1500000"
-                      className="w-full bg-[#202020] border border-[#58a6ff]/40 rounded-xl px-3 py-2 text-[#58a6ff] font-mono focus:outline-none focus:border-[#58a6ff]"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="text-[#9b9a97] font-medium block mb-1">Deskripsi Singkat Tier</label>
-                  <textarea
-                    rows={2}
-                    value={formData.tierDescription || ""}
-                    onChange={(e) => setFormData({ ...formData, tierDescription: e.target.value })}
-                    placeholder="Rekomendasi GrayPlasma untuk kelas entry esport..."
-                    className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl p-2.5 text-white focus:outline-none focus:border-[#58a6ff]"
+                <div className="relative">
+                  <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-[#787774]">Rp</span>
+                  <input
+                    type="number"
+                    value={formData.recommendedPrice || ""}
+                    onChange={(e) => setFormData({ ...formData, recommendedPrice: Number(e.target.value) })}
+                    placeholder="Target beli"
+                    className="w-full bg-[#1b1b1e] border border-cyan-500/40 rounded-lg pl-6 pr-2 py-1 text-xs font-mono font-bold text-cyan-400 focus:outline-none focus:border-cyan-400"
                   />
                 </div>
               </div>
-            )}
+            </div>
 
-            {/* SUB-TAB 2: 21 PROPERTI LAYAR NOTION */}
-            {activeSubTab === "specs" && (
-              <div className="space-y-3">
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-[#9b9a97] font-medium block mb-1">Ukuran Layar (Panel Size)</label>
-                    <input
-                      type="text"
-                      value={formData.specs?.display?.size || "24 Inch or 23.8 Inch"}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          specs: {
-                            ...formData.specs!,
-                            display: { ...formData.specs!.display, size: e.target.value },
-                          },
-                        })
-                      }
-                      placeholder="24 Inch or 23.8 Inch"
-                      className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-1.5 text-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-[#9b9a97] font-medium block mb-1">Panel Type</label>
-                    <input
-                      type="text"
-                      value={formData.specs?.display?.panelType || "IPS"}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          specs: {
-                            ...formData.specs!,
-                            display: { ...formData.specs!.display, panelType: e.target.value },
-                          },
-                        })
-                      }
-                      placeholder="IPS / Fast IPS / OLED / VA"
-                      className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-1.5 text-white"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-[#9b9a97] font-medium block mb-1">Resolusi (Pixel)</label>
-                    <input
-                      type="text"
-                      value={formData.specs?.display?.resolution || "1920x1080 (FHD)"}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          specs: {
-                            ...formData.specs!,
-                            display: { ...formData.specs!.display, resolution: e.target.value },
-                          },
-                        })
-                      }
-                      placeholder="1920x1080 (FHD)"
-                      className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-1.5 text-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-[#9b9a97] font-medium block mb-1">Refresh Rate (Hz)</label>
-                    <input
-                      type="number"
-                      value={formData.specs?.display?.refreshRate || 180}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          specs: {
-                            ...formData.specs!,
-                            display: { ...formData.specs!.display, refreshRate: Number(e.target.value) },
-                          },
-                        })
-                      }
-                      className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-1.5 text-white font-mono"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-[#9b9a97] font-medium block mb-1">Aspect Ratio</label>
-                    <input
-                      type="text"
-                      value={formData.aspectRatio || "16:9 (Wide)"}
-                      onChange={(e) => setFormData({ ...formData, aspectRatio: e.target.value })}
-                      placeholder="16:9 (Wide) / 21:9"
-                      className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-1.5 text-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-[#9b9a97] font-medium block mb-1">Curvature</label>
-                    <input
-                      type="text"
-                      value={formData.curvature || "None"}
-                      onChange={(e) => setFormData({ ...formData, curvature: e.target.value })}
-                      placeholder="None / 1500R"
-                      className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-1.5 text-white"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-[#9b9a97] font-medium block mb-1">Panel Bit Depth</label>
-                    <input
-                      type="text"
-                      value={formData.panelBitDepth || "8 Bit"}
-                      onChange={(e) => setFormData({ ...formData, panelBitDepth: e.target.value })}
-                      placeholder="8 Bit / 10 Bit"
-                      className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-1.5 text-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-[#9b9a97] font-medium block mb-1">Market Class</label>
-                    <input
-                      type="text"
-                      value={formData.marketClass || "144Hz+"}
-                      onChange={(e) => setFormData({ ...formData, marketClass: e.target.value })}
-                      placeholder="144Hz+ / 100Hz"
-                      className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-1.5 text-white"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-[#9b9a97] font-medium block mb-1">Stand Capability</label>
-                    <input
-                      type="text"
-                      value={formData.standCapability || "Tilt"}
-                      onChange={(e) => setFormData({ ...formData, standCapability: e.target.value })}
-                      placeholder="Tilt / HAS"
-                      className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-1.5 text-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-[#9b9a97] font-medium block mb-1">USB Hub</label>
-                    <input
-                      type="text"
-                      value={formData.usbHub || "None"}
-                      onChange={(e) => setFormData({ ...formData, usbHub: e.target.value })}
-                      placeholder="None / USB 3.0"
-                      className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-1.5 text-white"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-[#9b9a97] font-medium block mb-1">VESA Mount</label>
-                    <input
-                      type="text"
-                      value={formData.specs?.ergonomics?.vesaMount || "75x75 mm"}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          specs: {
-                            ...formData.specs!,
-                            ergonomics: { ...formData.specs!.ergonomics, vesaMount: e.target.value },
-                          },
-                        })
-                      }
-                      placeholder="75x75 mm / 100x100 mm"
-                      className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-1.5 text-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-[#9b9a97] font-medium block mb-1">Display Inputs (Koma)</label>
-                    <input
-                      type="text"
-                      value={(formData.displayInputs || ["HDMI 1.4", "HDMI 2.0"]).join(", ")}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          displayInputs: e.target.value.split(",").map((s) => s.trim()).filter(Boolean),
-                        })
-                      }
-                      placeholder="HDMI 1.4, HDMI 2.0"
-                      className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-1.5 text-white"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3 pt-1">
-                  <div>
-                    <label className="text-[#52ba69] font-medium block mb-1">Toleransi Baru (Data Baru GTID)</label>
-                    <input
-                      type="text"
-                      value={formData.responseTimeData?.toleranceNew || "Toleransi Baru (5 RGB)"}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          responseTimeData: {
-                            ...formData.responseTimeData,
-                            toleranceNew: e.target.value,
-                          },
-                        })
-                      }
-                      className="w-full bg-[#202020] border border-[#52ba69]/30 rounded-xl px-3 py-1.5 text-[#52ba69]"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-[#eb5757] font-medium block mb-1">Toleransi Lama (Data Lama GTID)</label>
-                    <input
-                      type="text"
-                      value={formData.responseTimeData?.toleranceOld || "Toleransi Lama (10 RGB)"}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          responseTimeData: {
-                            ...formData.responseTimeData,
-                            toleranceOld: e.target.value,
-                          },
-                        })
-                      }
-                      className="w-full bg-[#202020] border border-[#eb5757]/30 rounded-xl px-3 py-1.5 text-[#eb5757]"
-                    />
-                  </div>
-                </div>
+            {/* Toko Affiliate Links */}
+            <div className="grid grid-cols-12 items-center gap-2">
+              <span className="col-span-4 text-[#9b9a97] font-medium flex items-center gap-1">
+                <span>🛒</span>
+                <span>Link Toko Affiliate</span>
+              </span>
+              <div className="col-span-8 grid grid-cols-2 gap-2">
+                <input
+                  type="text"
+                  value={formData.linkShopee || ""}
+                  onChange={(e) => setFormData({ ...formData, linkShopee: e.target.value })}
+                  placeholder="URL Shopee..."
+                  className="w-full bg-[#1b1b1e] border border-[#2e2e33] rounded-lg px-2 py-1 text-xs text-orange-300 focus:outline-none focus:border-orange-400"
+                />
+                <input
+                  type="text"
+                  value={formData.linkTokopedia || ""}
+                  onChange={(e) => setFormData({ ...formData, linkTokopedia: e.target.value })}
+                  placeholder="URL Tokopedia..."
+                  className="w-full bg-[#1b1b1e] border border-[#2e2e33] rounded-lg px-2 py-1 text-xs text-emerald-300 focus:outline-none focus:border-emerald-400"
+                />
               </div>
-            )}
+            </div>
 
-            {/* SUB-TAB 3: ULASAN GTID & FOTO */}
-            {activeSubTab === "review" && (
-              <div className="space-y-3">
-                {/* Photo URLs with WebP compression & Paste */}
-                <div className="p-3 rounded-xl bg-[#121212] border border-[#262626] space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold text-white uppercase block">Foto Monitor Depan & Belakang</span>
-                    <label className="text-[10px] text-emerald-400 hover:text-emerald-300 font-bold cursor-pointer flex items-center gap-1">
-                      <span>+ Upload / Paste WebP</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={async (e) => {
-                          const file = e.target.files?.[0];
-                          if (!file) return;
-                          showNotification("Mengompres foto ke WebP...");
-                          try {
-                            const { uploadOrProcessImage } = await import("@/lib/image-compressor");
-                            const { url } = await uploadOrProcessImage(file, "monitors");
-                            setFormData({ ...formData, frontImage: url, thumbnail: url });
-                            showNotification("Foto berhasil diupload!");
-                          } catch (err: any) {
-                            showNotification("Gagal upload: " + err.message);
-                          }
-                        }}
-                      />
-                    </label>
-                  </div>
+            {/* Video Review GTID */}
+            <div className="grid grid-cols-12 items-center gap-2">
+              <span className="col-span-4 text-[#9b9a97] font-medium flex items-center gap-1">
+                <span>📺</span>
+                <span>Review YouTube GTID</span>
+              </span>
+              <div className="col-span-8">
+                <input
+                  type="text"
+                  value={formData.gtidReviewUrl || ""}
+                  onChange={(e) => setFormData({ ...formData, gtidReviewUrl: e.target.value })}
+                  placeholder="https://youtube.com/watch?v=..."
+                  className="w-full bg-[#1b1b1e] border border-[#2e2e33] rounded-lg px-2.5 py-1 text-xs text-zinc-300 focus:outline-none focus:border-rose-400"
+                />
+              </div>
+            </div>
+
+            {/* Foto Monitor Depan & Belakang with Upload / Paste */}
+            <div className="grid grid-cols-12 items-center gap-2 pt-1">
+              <span className="col-span-4 text-[#9b9a97] font-medium flex items-center gap-1">
+                <span>🖼️</span>
+                <span>Foto Depan & Belakang</span>
+              </span>
+              <div className="col-span-8 grid grid-cols-2 gap-2">
+                <input
+                  type="text"
+                  value={formData.frontImage || ""}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      frontImage: e.target.value,
+                      thumbnail: e.target.value,
+                    })
+                  }
+                  placeholder="Tampak depan (URL / Ctrl+V)"
+                  className="w-full bg-[#1b1b1e] border border-[#2e2e33] rounded-lg px-2 py-1 text-[11px] text-zinc-300 focus:outline-none"
+                />
+                <input
+                  type="text"
+                  value={formData.rearImage || ""}
+                  onChange={(e) => setFormData({ ...formData, rearImage: e.target.value })}
+                  placeholder="Tampak belakang (URL / Ctrl+V)"
+                  className="w-full bg-[#1b1b1e] border border-[#2e2e33] rounded-lg px-2 py-1 text-[11px] text-zinc-300 focus:outline-none"
+                />
+              </div>
+            </div>
+
+            {/* Collapsible Accordion: 21 Specs & Toleransi GTID */}
+            <div className="pt-1.5 border-t border-[#222]">
+              <button
+                type="button"
+                onClick={() => setIsSpecsExpanded(!isSpecsExpanded)}
+                className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-[#1b1b1e] hover:bg-[#252529] text-zinc-300 hover:text-white transition-colors text-xs font-semibold border border-[#2e2e33]"
+              >
+                <div className="flex items-center gap-2">
+                  <span>⚙️</span>
+                  <span>21 Parameter Spesifikasi Layar & Data GTID</span>
+                </div>
+                <span className="text-[10px] text-emerald-400 font-mono font-bold">
+                  {isSpecsExpanded ? "▲ [ Tutup Spek ]" : "▼ [ Buka 21 Spek ]"}
+                </span>
+              </button>
+
+              {isSpecsExpanded && (
+                <div className="mt-2 p-3 rounded-xl bg-black/60 border border-[#2a2a2a] space-y-2.5 animate-in fade-in slide-in-from-top-1 text-xs">
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="text-[10px] text-[#787774] block mb-0.5">Tampak Depan (URL / Paste)</label>
+                      <label className="text-[10px] text-zinc-500 block mb-0.5">Ukuran Panel</label>
                       <input
                         type="text"
-                        value={formData.frontImage || ""}
-                        onChange={(e) => setFormData({ ...formData, frontImage: e.target.value, thumbnail: e.target.value })}
-                        onPaste={async (e) => {
-                          const { handleClipboardImagePaste } = await import("@/lib/image-compressor");
-                          await handleClipboardImagePaste(e as any, {
-                            folder: "monitors",
-                            onStart: () => showNotification("Memproses paste gambar (WebP)..."),
-                            onSuccess: (_, url) => {
-                              setFormData({ ...formData, frontImage: url, thumbnail: url });
-                              showNotification("Foto tampak depan berhasil di-paste!");
+                        value={formData.specs?.display?.size || "24 Inch"}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            specs: {
+                              ...formData.specs!,
+                              display: { ...formData.specs!.display, size: e.target.value },
                             },
-                          });
-                        }}
-                        placeholder="https://... atau Ctrl+V gambar"
-                        className="w-full bg-[#202020] border border-[#2f2f2f] rounded-lg px-2 py-1 text-xs text-white"
+                          })
+                        }
+                        placeholder="24 Inch or 27 Inch"
+                        className="w-full bg-[#171717] border border-[#2a2a2a] rounded-lg px-2 py-1 text-xs text-white"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] text-[#787774] block mb-0.5">Tampak Belakang (URL / Paste)</label>
+                      <label className="text-[10px] text-zinc-500 block mb-0.5">Resolusi</label>
                       <input
                         type="text"
-                        value={formData.rearImage || ""}
-                        onChange={(e) => setFormData({ ...formData, rearImage: e.target.value })}
-                        onPaste={async (e) => {
-                          const { handleClipboardImagePaste } = await import("@/lib/image-compressor");
-                          await handleClipboardImagePaste(e as any, {
-                            folder: "monitors",
-                            onStart: () => showNotification("Memproses paste gambar (WebP)..."),
-                            onSuccess: (_, url) => {
-                              setFormData({ ...formData, rearImage: url });
-                              showNotification("Foto tampak belakang berhasil di-paste!");
+                        value={formData.specs?.display?.resolution || "1920x1080 (FHD)"}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            specs: {
+                              ...formData.specs!,
+                              display: { ...formData.specs!.display, resolution: e.target.value },
                             },
-                          });
-                        }}
-                        placeholder="https://... atau Ctrl+V gambar"
-                        className="w-full bg-[#202020] border border-[#2f2f2f] rounded-lg px-2 py-1 text-xs text-white"
+                          })
+                        }
+                        placeholder="1920x1080 (FHD)"
+                        className="w-full bg-[#171717] border border-[#2a2a2a] rounded-lg px-2 py-1 text-xs text-white"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className="text-[10px] text-zinc-500 block mb-0.5">Tipe Panel</label>
+                      <input
+                        type="text"
+                        value={formData.specs?.display?.panelType || "Fast IPS"}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            specs: {
+                              ...formData.specs!,
+                              display: { ...formData.specs!.display, panelType: e.target.value },
+                            },
+                          })
+                        }
+                        placeholder="Fast IPS / OLED / VA"
+                        className="w-full bg-[#171717] border border-[#2a2a2a] rounded-lg px-2 py-1 text-xs text-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] text-zinc-500 block mb-0.5">Refresh Rate (Hz)</label>
+                      <input
+                        type="number"
+                        value={formData.specs?.display?.refreshRate || 180}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            specs: {
+                              ...formData.specs!,
+                              display: { ...formData.specs!.display, refreshRate: Number(e.target.value) },
+                            },
+                          })
+                        }
+                        className="w-full bg-[#171717] border border-[#2a2a2a] rounded-lg px-2 py-1 text-xs text-white font-mono"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className="text-[10px] text-emerald-400 block mb-0.5">Toleransi Baru (Data Baru GTID)</label>
+                      <input
+                        type="text"
+                        value={formData.responseTimeData?.toleranceNew || "Toleransi Baru (5 RGB)"}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            responseTimeData: {
+                              ...formData.responseTimeData,
+                              toleranceNew: e.target.value,
+                            },
+                          })
+                        }
+                        className="w-full bg-[#171717] border border-emerald-500/40 rounded-lg px-2 py-1 text-xs text-emerald-400 font-mono"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] text-rose-400 block mb-0.5">Toleransi Lama (Data Lama GTID)</label>
+                      <input
+                        type="text"
+                        value={formData.responseTimeData?.toleranceOld || "Toleransi Lama (10 RGB)"}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            responseTimeData: {
+                              ...formData.responseTimeData,
+                              toleranceOld: e.target.value,
+                            },
+                          })
+                        }
+                        className="w-full bg-[#171717] border border-rose-500/40 rounded-lg px-2 py-1 text-xs text-rose-400 font-mono"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2">
+                    <div>
+                      <label className="text-[10px] text-zinc-500 block mb-0.5">Aspect Ratio</label>
+                      <input
+                        type="text"
+                        value={formData.aspectRatio || "16:9 (Wide)"}
+                        onChange={(e) => setFormData({ ...formData, aspectRatio: e.target.value })}
+                        className="w-full bg-[#171717] border border-[#2a2a2a] rounded-lg px-2 py-1 text-[11px] text-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] text-zinc-500 block mb-0.5">Curvature</label>
+                      <input
+                        type="text"
+                        value={formData.curvature || "None"}
+                        onChange={(e) => setFormData({ ...formData, curvature: e.target.value })}
+                        className="w-full bg-[#171717] border border-[#2a2a2a] rounded-lg px-2 py-1 text-[11px] text-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] text-zinc-500 block mb-0.5">Panel Bit Depth</label>
+                      <input
+                        type="text"
+                        value={formData.panelBitDepth || "8 Bit"}
+                        onChange={(e) => setFormData({ ...formData, panelBitDepth: e.target.value })}
+                        className="w-full bg-[#171717] border border-[#2a2a2a] rounded-lg px-2 py-1 text-[11px] text-white"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className="text-[10px] text-zinc-500 block mb-0.5">Stand Capability</label>
+                      <input
+                        type="text"
+                        value={formData.standCapability || "Tilt"}
+                        onChange={(e) => setFormData({ ...formData, standCapability: e.target.value })}
+                        placeholder="Tilt / HAS"
+                        className="w-full bg-[#171717] border border-[#2a2a2a] rounded-lg px-2 py-1 text-[11px] text-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] text-zinc-500 block mb-0.5">Display Inputs (Koma)</label>
+                      <input
+                        type="text"
+                        value={(formData.displayInputs || ["HDMI 1.4", "HDMI 2.0"]).join(", ")}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            displayInputs: e.target.value.split(",").map((s) => s.trim()).filter(Boolean),
+                          })
+                        }
+                        placeholder="HDMI 2.0, DP 1.4"
+                        className="w-full bg-[#171717] border border-[#2a2a2a] rounded-lg px-2 py-1 text-[11px] text-white"
                       />
                     </div>
                   </div>
                 </div>
+              )}
+            </div>
+          </div>
 
-                {/* Video Review URL & Status Banner */}
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-[#9b9a97] font-medium block mb-1">URL Review YouTube GTID</label>
-                    <input
-                      type="text"
-                      value={formData.gtidReviewUrl || ""}
-                      onChange={(e) => setFormData({ ...formData, gtidReviewUrl: e.target.value })}
-                      placeholder="https://www.youtube.com/watch?v=..."
-                      className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-1.5 text-white"
-                    />
+          {/* 2.5. VARIABEL & KOLOM DATA MODULAR MONITOR */}
+          <div className="p-4 rounded-xl bg-[#121219] border-2 border-zinc-800 space-y-3 shadow-[3px_3px_0px_#000]">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <TableIcon className="w-4 h-4 text-cyan-400" />
+                <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">
+                  [ 📊 VARIABEL & KOLOM DATA MODULAR MONITOR ]
+                </span>
+              </div>
+              <span className="text-[10px] font-mono text-zinc-500">
+                {(formData.customVariables || []).length} Variabel Kustom
+              </span>
+            </div>
+
+            <p className="text-[11px] text-zinc-400">
+              Tambahkan variabel/kolom data baru untuk monitor ini (misal: KVM Switch, Type-C 65W PD, Mini-LED 1152 Zones, Coating Layar, dll).
+            </p>
+
+            {/* Active Variables List */}
+            {(formData.customVariables || []).length > 0 && (
+              <div className="space-y-1.5 pt-1">
+                {formData.customVariables!.map((v, idx) => (
+                  <div
+                    key={v.id}
+                    className="flex items-center justify-between bg-zinc-900 border border-zinc-750 px-3 py-1.5 rounded-lg text-xs"
+                  >
+                    <div className="flex items-center gap-2 flex-1">
+                      <span className="px-1.5 py-0.5 rounded bg-zinc-800 text-[9px] font-mono text-cyan-400 uppercase font-bold">
+                        {v.category || "Fitur"}
+                      </span>
+                      <span className="font-bold text-white font-mono">{v.label}:</span>
+                      <span className="text-emerald-400 font-semibold">{v.value}</span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const updated = (formData.customVariables || []).filter((_, i) => i !== idx);
+                        setFormData({ ...formData, customVariables: updated });
+                      }}
+                      className="text-zinc-500 hover:text-rose-400 p-1"
+                      title="Hapus Variabel Ini"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
                   </div>
-                  <div>
-                    <label className="text-rose-400 font-medium block mb-1">Status Banner Alert / Catatan Verdict</label>
-                    <input
-                      type="text"
-                      value={formData.statusReason || ""}
-                      onChange={(e) => setFormData({ ...formData, statusReason: e.target.value })}
-                      placeholder="e.g. TIDAK DISARANKAN KARENA..."
-                      className="w-full bg-[#202020] border border-rose-500/30 rounded-xl px-3 py-1.5 text-rose-300"
-                    />
-                  </div>
-                </div>
+                ))}
+              </div>
+            )}
 
-                <div>
-                  <label className="text-[#9b9a97] font-medium block mb-1">Paragraf Pendahuluan</label>
-                  <textarea
-                    rows={2}
-                    value={formData.introduction || ""}
-                    onChange={(e) => setFormData({ ...formData, introduction: e.target.value })}
-                    placeholder="Ulasan pengantar performa monitor..."
-                    className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl p-2.5 text-white"
-                  />
-                </div>
+            {/* Add Variable Form Controls */}
+            <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 pt-2 border-t border-zinc-800/80">
+              <input
+                type="text"
+                placeholder="Nama Variabel / Kolom (e.g. KVM Switch)..."
+                value={newVarLabel}
+                onChange={(e) => setNewVarLabel(e.target.value)}
+                className="sm:col-span-5 bg-zinc-900 border border-zinc-750 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-zinc-500 font-mono focus:outline-none focus:border-cyan-500"
+              />
+              <input
+                type="text"
+                placeholder="Nilai Data (e.g. Ya (2 PC), 65W PD)..."
+                value={newVarValue}
+                onChange={(e) => setNewVarValue(e.target.value)}
+                className="sm:col-span-4 bg-zinc-900 border border-zinc-750 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-zinc-500 font-mono focus:outline-none focus:border-cyan-500"
+              />
+              <select
+                value={newVarCategory}
+                onChange={(e) => setNewVarCategory(e.target.value)}
+                className="sm:col-span-3 bg-zinc-900 border border-zinc-750 rounded-lg px-2 py-1.5 text-xs text-amber-400 font-mono focus:outline-none"
+              >
+                <option value="Display & Panel">Display</option>
+                <option value="Konektivitas">Port / Colokan</option>
+                <option value="Fitur Gaming">Gaming</option>
+                <option value="Uji Lab GTID">Lab GTID</option>
+                <option value="Ergonomi">Ergonomi</option>
+              </select>
+            </div>
 
-                <div>
-                  <label className="text-[#9b9a97] font-medium block mb-1">Judul Ulasan Mendalam</label>
-                  <input
-                    type="text"
-                    value={formData.deepDiveTitle || ""}
-                    onChange={(e) => setFormData({ ...formData, deepDiveTitle: e.target.value })}
-                    placeholder="e.g. Akurat di D65-P3 tapi kok Undersaturated?"
-                    className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-1.5 text-white"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-[#9b9a97] font-medium block mb-1">Paragraf Analisis Reviewer (Support Ctrl+V Paste Gambar)</label>
-                  <textarea
-                    rows={3}
-                    value={formData.deepDiveDescription || ""}
-                    onChange={(e) => setFormData({ ...formData, deepDiveDescription: e.target.value })}
-                    onPaste={async (e) => {
-                      const { handleClipboardImagePaste } = await import("@/lib/image-compressor");
-                      await handleClipboardImagePaste(e, {
-                        folder: "monitors",
-                        onStart: () => showNotification("Memproses gambar clipboard (WebP)..."),
-                        onSuccess: (snippet) => {
-                          const target = e.currentTarget;
-                          const start = target.selectionStart || 0;
-                          const end = target.selectionEnd || 0;
-                          const curr = formData.deepDiveDescription || "";
-                          const updated = curr.substring(0, start) + snippet + curr.substring(end);
-                          setFormData({ ...formData, deepDiveDescription: updated });
-                          showNotification("Gambar berhasil disisipkan!");
-                        },
-                      });
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1">
+              {/* Preset Quick Chips */}
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="text-[9px] font-mono text-zinc-500 font-bold uppercase">PRESET:</span>
+                {[
+                  { l: "KVM Switch", v: "Support (2 PC)", c: "Fitur Gaming" },
+                  { l: "Type-C PD", v: "65W PD + DP Alt", c: "Konektivitas" },
+                  { l: "Mini-LED Zones", v: "1152 Zones", c: "Display & Panel" },
+                  { l: "Coating Layar", v: "Matte 3H Anti-Glare", c: "Display & Panel" },
+                ].map((p, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => {
+                      const newVar = {
+                        id: `var_${Date.now()}_${idx}`,
+                        label: p.l,
+                        value: p.v,
+                        category: p.c,
+                      };
+                      const updated = [...(formData.customVariables || []), newVar];
+                      setFormData({ ...formData, customVariables: updated });
+                      showNotification(`Variabel "${p.l}" berhasil ditambahkan.`);
                     }}
-                    placeholder="Penjelasan detail hasil uji lab... (Bisa Ctrl+V paste gambar)"
-                    className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl p-2.5 text-white"
-                  />
-                </div>
+                    className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-900 border border-zinc-750 hover:border-cyan-500/60 text-cyan-300 transition-colors"
+                  >
+                    + {p.l}
+                  </button>
+                ))}
               </div>
-            )}
 
-            {/* SUB-TAB 4: TOKO AFFILIATE */}
-            {activeSubTab === "stores" && (
-              <div className="space-y-3">
-                <div>
-                  <label className="text-[#58a6ff] font-medium block mb-1">Link Shopee (Direct)</label>
-                  <input
-                    type="text"
-                    value={formData.linkShopee || ""}
-                    onChange={(e) => setFormData({ ...formData, linkShopee: e.target.value })}
-                    placeholder="https://shopee.co.id/..."
-                    className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-2 text-white"
-                  />
-                </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  type="button"
+                  variant="cyber"
+                  size="sm"
+                  onClick={() => {
+                    if (!newVarLabel.trim() || !newVarValue.trim()) {
+                      alert("Harap isi nama variabel dan nilainya.");
+                      return;
+                    }
+                    const newVar = {
+                      id: `var_${Date.now()}`,
+                      label: newVarLabel.trim(),
+                      value: newVarValue.trim(),
+                      category: newVarCategory,
+                    };
+                    const updated = [...(formData.customVariables || []), newVar];
+                    setFormData({ ...formData, customVariables: updated });
+                    setNewVarLabel("");
+                    setNewVarValue("");
+                    showNotification(`Variabel "${newVar.label}" berhasil ditambahkan.`);
+                  }}
+                  className="text-xs font-mono font-bold px-3 py-1 flex items-center gap-1 shadow-sm"
+                >
+                  <Plus className="w-3 h-3" />
+                  <span>+ Tambah Variabel</span>
+                </Button>
 
-                <div>
-                  <label className="text-[#58a6ff] font-medium block mb-1">Link Tokopedia (Direct)</label>
-                  <input
-                    type="text"
-                    value={formData.linkTokopedia || ""}
-                    onChange={(e) => setFormData({ ...formData, linkTokopedia: e.target.value })}
-                    placeholder="https://tokopedia.com/..."
-                    className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-2 text-white"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-[#58a6ff] font-medium block mb-1">Link TikTok Shop (Direct)</label>
-                  <input
-                    type="text"
-                    value={formData.linkTiktokShop || ""}
-                    onChange={(e) => setFormData({ ...formData, linkTiktokShop: e.target.value })}
-                    placeholder="https://tiktok.com/..."
-                    className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl px-3 py-2 text-white"
-                  />
-                </div>
+                {(formData.customVariables || []).length > 0 && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      const vars = formData.customVariables || [];
+                      if (vars.length === 0) return;
+                      const tableHtml = `
+<div class="notion-table-wrapper my-4 overflow-x-auto">
+  <table class="notion-visual-table w-full border-collapse rounded-xl overflow-hidden border border-zinc-800 shadow-[3px_3px_0px_#000] text-xs font-sans">
+    <thead>
+      <tr class="bg-[#050508] border-b-2 border-zinc-700 text-zinc-300 font-mono text-[11px] tracking-wider uppercase">
+        <th class="px-3.5 py-3 text-left font-bold border-r border-zinc-800">[ 01 // KATEGORI ]</th>
+        <th class="px-3.5 py-3 text-left font-bold border-r border-zinc-800">[ 02 // PARAMETER / VARIABEL ]</th>
+        <th class="px-3.5 py-3 text-left font-bold">[ 03 // NILAI SPESIFIKASI ]</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-zinc-800/80 bg-[#0c0c11]">
+      ${vars
+        .map(
+          (v) => `
+      <tr class="hover:bg-zinc-800/40 transition-colors">
+        <td class="px-3.5 py-2.5 border-r border-zinc-800/60 font-mono text-cyan-400 font-bold uppercase text-[10px]">${
+          v.category || "Spesifikasi"
+        }</td>
+        <td class="px-3.5 py-2.5 border-r border-zinc-800/60 font-semibold text-white">${
+          v.label
+        }</td>
+        <td class="px-3.5 py-2.5 text-emerald-400 font-mono font-bold">${v.value}</td>
+      </tr>`
+        )
+        .join("")}
+    </tbody>
+  </table>
+</div>
+<p><br></p>`;
+                      setDocContent((prev) => prev + tableHtml);
+                      setFormData((prev) => ({
+                        ...prev,
+                        deepDiveDescription: (prev.deepDiveDescription || "") + tableHtml,
+                      }));
+                      showNotification("Tabel variabel berhasil disisipkan ke dokumen ulasan.");
+                    }}
+                    className="text-xs font-mono text-emerald-400 border-emerald-500/40 hover:bg-emerald-500/10 flex items-center gap-1"
+                  >
+                    <TableIcon className="w-3 h-3" />
+                    <span>Sisipkan ke Dokumen</span>
+                  </Button>
+                )}
               </div>
-            )}
-          </form>
+            </div>
+          </div>
+
+          {/* 3. Word / Notion Document Canvas (Main Body) */}
+          <div className="space-y-2 pt-1">
+            <div className="flex items-center justify-between text-xs">
+              <div className="flex items-center gap-2 font-bold text-white uppercase tracking-wider text-[11px]">
+                <span>📝</span>
+                <span>Dokumen Ulasan & Verdict (Word / Notion Canvas)</span>
+              </div>
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const snippet = `<div class="notion-callout notion-callout-amber"><span class="notion-callout-icon">💡</span><div class="notion-callout-content"><strong>GTID Tech Verdict:</strong><br>Motion clarity sangat baik pada toleransi 5 RGB, akurasi warna tinggi di mode sRGB.</div></div><p><br></p>`;
+                    setDocContent((prev) => prev + snippet);
+                    setFormData((prev) => ({
+                      ...prev,
+                      deepDiveDescription: (prev.deepDiveDescription || "") + snippet,
+                    }));
+                  }}
+                  className="text-[10px] px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/40 text-amber-300 hover:bg-amber-500/25 font-semibold transition-colors"
+                >
+                  + Verdict Callout
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const snippet = `<ul class="notion-task-list"><li class="notion-task-item"><span class="notion-checkbox checked">☑</span><span><strong>[PLUS]</strong> Panel Fast IPS responsif & warna akurat</span></li><li class="notion-task-item"><span class="notion-checkbox">☐</span><span><strong>[MINUS]</strong> Stand bawaan belum height adjustable</span></li></ul><p><br></p>`;
+                    setDocContent((prev) => prev + snippet);
+                    setFormData((prev) => ({
+                      ...prev,
+                      deepDiveDescription: (prev.deepDiveDescription || "") + snippet,
+                    }));
+                  }}
+                  className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/25 font-semibold transition-colors"
+                >
+                  + Pros/Cons Checklist
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsTableBuilderOpen(true)}
+                  className="text-[10px] px-2 py-0.5 rounded bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/25 font-semibold font-mono transition-colors flex items-center gap-1"
+                >
+                  <TableIcon className="w-3 h-3" />
+                  <span>+ Modular Tabel GTID</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Notion Rich Editor Component (WYSIWYG Word/Notion Canvas) */}
+            <div className="border border-[#2a2a2a] rounded-xl overflow-hidden bg-black shadow-inner">
+              <NotionRichEditor
+                value={docContent}
+                onChange={(val) => {
+                  setDocContent(val);
+                  setFormData((prev) => ({
+                    ...prev,
+                    deepDiveDescription: val,
+                  }));
+                }}
+                minHeight="min-h-[380px]"
+                placeholder="Ketik ulasan, verdict, atau analisis lab di sini layaknya dokumen Word / Notion... (Bisa langsung Ctrl+V paste gambar hasil tes lab)"
+                allowImageUpload={true}
+              />
+            </div>
+            <p className="text-[10px] text-[#787774]">
+              💡 Tips: Blok teks untuk styling cepat, ketik <kbd className="px-1 py-0.5 rounded bg-[#202020] text-zinc-300">/</kbd> untuk menu cepat, atau tekan <kbd className="px-1 py-0.5 rounded bg-[#202020] text-zinc-300">Ctrl+V</kbd> untuk paste gambar pengujian lab langsung.
+            </p>
+          </div>
         </div>
 
         {/* ========================================================================= */}
@@ -1175,6 +1713,27 @@ export function MonitorLiveStudio({
                 </span>
               </div>
             </div>
+
+            {/* Render Custom Variables in Preview if present */}
+            {formData.customVariables && formData.customVariables.length > 0 && (
+              <div className="pt-2 border-t border-zinc-800 space-y-1">
+                <span className="text-[9px] font-mono font-bold text-cyan-400 uppercase tracking-wider block mb-1">
+                  // VARIABEL & FITUR MODULAR:
+                </span>
+                {formData.customVariables.map((v) => (
+                  <div key={v.id} className="grid grid-cols-12 items-center gap-2 py-0.5">
+                    <span className="col-span-5 text-zinc-400 font-medium truncate text-[11px]" title={v.label}>
+                      {v.label}
+                    </span>
+                    <div className="col-span-7">
+                      <span className="px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[10px] font-mono font-bold">
+                        {v.value}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Photo Gallery Section */}
@@ -1216,6 +1775,22 @@ export function MonitorLiveStudio({
           )}
         </div>
       </div>
+      )}
+
+      {/* Modular Table Builder Dialog */}
+      <ModularTableBuilder
+        isOpen={isTableBuilderOpen}
+        onClose={() => setIsTableBuilderOpen(false)}
+        onInsertTable={(tableHtml) => {
+          setDocContent((prev) => prev + tableHtml);
+          setFormData((prev) => ({
+            ...prev,
+            deepDiveDescription: (prev.deepDiveDescription || "") + tableHtml,
+          }));
+          showNotification("Tabel modular laboratorium GTID berhasil disisipkan.");
+        }}
+        initialPreset="monitor"
+      />
     </div>
   );
 }
