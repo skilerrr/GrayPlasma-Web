@@ -11,9 +11,12 @@ import {
   List,
   SlidersHorizontal,
   Search,
+  GripVertical,
 } from "lucide-react";
 import { Monitor, TierRating } from "@/types/monitor";
 import { formatRupiah } from "@/lib/utils";
+import { useDraggableTable, TableColumnDef } from "@/hooks/use-draggable-table";
+import { TableColumnManagerModal } from "@/components/ui/table-column-manager-modal";
 
 interface NotionTableViewProps {
   monitors: Monitor[];
@@ -29,39 +32,210 @@ export function NotionTableView({
   onSelectMonitor,
 }: NotionTableViewProps) {
   const [activeTab, setActiveTab] = useState<TableViewTab>("table");
-  const [sortField, setSortField] = useState<"price" | "name" | "refresh" | "size">("price");
-  const [sortAsc, setSortAsc] = useState(true);
+  const [isColManagerOpen, setIsColManagerOpen] = useState(false);
 
-  const sortedMonitors = [...monitors].sort((a, b) => {
-    if (sortField === "price") {
-      return sortAsc ? a.price - b.price : b.price - a.price;
-    }
-    if (sortField === "name") {
-      return sortAsc
-        ? a.fullName.localeCompare(b.fullName)
-        : b.fullName.localeCompare(a.fullName);
-    }
-    if (sortField === "refresh") {
-      return sortAsc
-        ? a.specs.display.refreshRate - b.specs.display.refreshRate
-        : b.specs.display.refreshRate - a.specs.display.refreshRate;
-    }
-    if (sortField === "size") {
-      return sortAsc
-        ? a.specs.display.size.localeCompare(b.specs.display.size)
-        : b.specs.display.size.localeCompare(a.specs.display.size);
-    }
-    return 0;
+  // Column definitions for public table
+  const publicColumns = React.useMemo<TableColumnDef<Monitor>[]>(() => [
+    {
+      id: "price",
+      label: "[ 01 // KISARAN_HARGA ]",
+      shortLabel: "Harga",
+      minWidth: "min-w-[160px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Finansial",
+      getValue: (m) => m.price,
+      renderCell: (m) => (
+        <span className="font-mono font-bold text-emerald-400 whitespace-nowrap">
+          {formatRupiah(m.price)}
+        </span>
+      ),
+    },
+    {
+      id: "name",
+      label: "[ 02 // BRAND & MODEL ]",
+      shortLabel: "Brand & Model",
+      minWidth: "min-w-[250px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Identitas",
+      getValue: (m) => m.fullName,
+      renderCell: (m) => (
+        <div className="flex items-center gap-2">
+          <span className="text-base">🖥️</span>
+          <span
+            className={`font-bold transition-colors ${
+              selectedMonitorId === m.id ? "text-cyan-400" : "text-white hover:text-emerald-400"
+            }`}
+          >
+            {m.fullName}
+          </span>
+        </div>
+      ),
+    },
+    {
+      id: "gtidTolerance",
+      label: "[ 03 // GTID_TOLERANSI ]",
+      shortLabel: "Toleransi GTID",
+      minWidth: "min-w-[220px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Uji GTID",
+      getValue: (m) => m.responseTimeData?.toleranceNew || "",
+      renderCell: (m) => (
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <span className="px-2 py-0.5 rounded bg-[#0b2413] text-[#00e676] border border-[#00e676]/30 text-[10px] font-mono font-bold whitespace-nowrap shadow-[1px_1px_0px_#000]">
+            {m.responseTimeData?.toleranceNew || "Toleransi Baru"}
+          </span>
+          <span className="px-2 py-0.5 rounded bg-[#2b1012] text-[#ff5252] border border-[#ff5252]/30 text-[10px] font-mono font-bold whitespace-nowrap shadow-[1px_1px_0px_#000]">
+            {m.responseTimeData?.toleranceOld || "Toleransi Lama"}
+          </span>
+        </div>
+      ),
+    },
+    {
+      id: "panelSize",
+      label: "[ 04 // PANEL_SIZE ]",
+      shortLabel: "Panel & Size",
+      minWidth: "min-w-[140px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Display",
+      getValue: (m) => `${m.specs.display.size} ${m.specs.display.panelType}`,
+      renderCell: (m) => (
+        <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-700/80 font-mono text-[11px] whitespace-nowrap">
+          {m.specs.display.size} {m.specs.display.panelType}
+        </span>
+      ),
+    },
+    {
+      id: "resolution",
+      label: "[ 05 // RESOLUSI ]",
+      shortLabel: "Resolusi",
+      minWidth: "min-w-[150px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Display",
+      getValue: (m) => m.specs.display.resolution,
+      renderCell: (m) => (
+        <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-700/80 font-mono text-[11px] whitespace-nowrap">
+          {m.specs.display.resolution}
+        </span>
+      ),
+    },
+    {
+      id: "refresh",
+      label: "[ 06 // REFRESH ]",
+      shortLabel: "Refresh",
+      minWidth: "min-w-[110px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Display",
+      getValue: (m) => m.specs.display.refreshRate,
+      renderCell: (m) => (
+        <span className="px-2 py-0.5 rounded bg-[#10192b] text-[#38bdf8] border border-[#38bdf8]/30 font-mono font-bold text-[11px] whitespace-nowrap shadow-[1px_1px_0px_#000]">
+          {m.specs.display.refreshRate}Hz
+        </span>
+      ),
+    },
+    {
+      id: "tier",
+      label: "[ 07 // TIER_RATING ]",
+      shortLabel: "Tier",
+      minWidth: "min-w-[140px]",
+      sortable: true,
+      isDefaultVisible: false,
+      category: "Peringkat",
+      getValue: (m) => m.tier,
+      renderCell: (m) => (
+        <span className="px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30 text-amber-300 font-mono text-[10px] font-bold whitespace-nowrap">
+          {m.tier}
+        </span>
+      ),
+    },
+    {
+      id: "subpixel",
+      label: "[ 08 // SUBPIXEL ]",
+      shortLabel: "Subpixel",
+      minWidth: "min-w-[130px]",
+      sortable: true,
+      isDefaultVisible: false,
+      category: "Panel",
+      getValue: (m) => m.panelBitDepth || "RGB",
+      renderCell: (m) => (
+        <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-700 font-mono text-[11px] whitespace-nowrap">
+          {m.panelBitDepth || "Standard RGB"}
+        </span>
+      ),
+    },
+    {
+      id: "vrr",
+      label: "[ 09 // VRR_SYNC ]",
+      shortLabel: "VRR",
+      minWidth: "min-w-[140px]",
+      sortable: true,
+      isDefaultVisible: false,
+      category: "Fitur",
+      getValue: (m) => m.specs.features?.syncTech || "Adaptive-Sync",
+      renderCell: (m) => (
+        <span className="text-cyan-400 font-mono text-[11px] whitespace-nowrap">
+          {m.specs.features?.syncTech || "Adaptive-Sync"}
+        </span>
+      ),
+    },
+    {
+      id: "gamut",
+      label: "[ 10 // COLOR_GAMUT ]",
+      shortLabel: "Gamut",
+      minWidth: "min-w-[150px]",
+      sortable: true,
+      isDefaultVisible: false,
+      category: "Warna",
+      getValue: (m) => m.specs.display?.colorGamut || "",
+      renderCell: (m) => (
+        <span className="text-zinc-300 font-mono text-[11px] whitespace-nowrap">
+          {m.specs.display?.colorGamut || "99% sRGB"}
+        </span>
+      ),
+    },
+    {
+      id: "warranty",
+      label: "[ 11 // GARANSI ]",
+      shortLabel: "Garansi",
+      minWidth: "min-w-[140px]",
+      sortable: true,
+      isDefaultVisible: false,
+      category: "Garansi",
+      getValue: (m) => m.specs.features?.warranty || "",
+      renderCell: (m) => (
+        <span className="text-emerald-400 font-mono text-[11px] whitespace-nowrap">
+          {m.specs.features?.warranty || "3 Tahun"}
+        </span>
+      ),
+    },
+    {
+      id: "ports",
+      label: "[ 12 // PORTS ]",
+      shortLabel: "Ports",
+      minWidth: "min-w-[160px]",
+      sortable: false,
+      isDefaultVisible: false,
+      category: "Koneksi",
+      getValue: (m) => (m.displayInputs || []).join(", "),
+      renderCell: (m) => (
+        <span className="text-zinc-400 text-xs truncate max-w-[150px] block" title={(m.displayInputs || []).join(", ")}>
+          {(m.displayInputs || []).join(", ") || "HDMI + DP"}
+        </span>
+      ),
+    },
+  ], [selectedMonitorId]);
+
+  const tableManager = useDraggableTable<Monitor>({
+    storageKey: "monitor_public_v2",
+    columns: publicColumns,
   });
 
-  const handleSort = (field: "price" | "name" | "refresh" | "size") => {
-    if (sortField === field) {
-      setSortAsc(!sortAsc);
-    } else {
-      setSortField(field);
-      setSortAsc(true);
-    }
-  };
+  const displayMonitors = tableManager.getSortedData(monitors);
 
   return (
     <div className="space-y-4 font-sans text-xs text-[#d4d4d4]">
@@ -90,11 +264,7 @@ export function NotionTableView({
             </button>
 
             <button
-              onClick={() => {
-                setActiveTab("price");
-                setSortField("price");
-                setSortAsc(true);
-              }}
+              onClick={() => setActiveTab("price")}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
                 activeTab === "price"
                   ? "bg-zinc-800 text-white border border-zinc-600 shadow-[2px_2px_0px_#000]"
@@ -106,11 +276,7 @@ export function NotionTableView({
             </button>
 
             <button
-              onClick={() => {
-                setActiveTab("size");
-                setSortField("size");
-                setSortAsc(true);
-              }}
+              onClick={() => setActiveTab("size")}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
                 activeTab === "size"
                   ? "bg-zinc-800 text-white border border-zinc-600 shadow-[2px_2px_0px_#000]"
@@ -134,9 +300,19 @@ export function NotionTableView({
             </button>
           </div>
 
-          <div className="text-[11px] font-mono text-zinc-500 hidden sm:flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>[ {monitors.length} MODEL REKOMENDASI AKTIF ]</span>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setIsColManagerOpen(true)}
+              className="px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 border border-zinc-700 bg-zinc-900 text-zinc-300 hover:border-cyan-500 hover:text-white"
+            >
+              <SlidersHorizontal className="w-3.5 h-3.5 text-cyan-400" />
+              <span>[ KELOLA KOLOM ({tableManager.visibleColumns.length}) ]</span>
+            </button>
+            <div className="text-[11px] font-mono text-zinc-500 hidden sm:flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>[ {monitors.length} MODEL REKOMENDASI AKTIF ]</span>
+            </div>
           </div>
         </div>
       </div>
@@ -150,59 +326,56 @@ export function NotionTableView({
             <table className="w-full text-left text-xs border-collapse min-w-[950px]">
               <thead className="bg-[#050508] text-zinc-300 uppercase text-[10px] font-mono tracking-wider border-b-2 border-zinc-700 sticky top-0 z-20">
                 <tr>
-                  <th
-                    onClick={() => handleSort("price")}
-                    className="py-3 px-4 font-bold cursor-pointer hover:text-emerald-400 transition-colors w-[160px]"
-                  >
-                    <div className="flex items-center gap-1.5">
-                      <span>[ 01 // KISARAN_HARGA ]</span>
-                      <ArrowUpDown className="w-3 h-3 text-zinc-500" />
-                    </div>
-                  </th>
+                  {tableManager.visibleColumns.map((col) => {
+                    const isSorted = tableManager.sortField === col.id;
+                    const isDragging = tableManager.draggedColId === col.id;
+                    const isOver = tableManager.dragOverColId === col.id;
 
-                  <th
-                    onClick={() => handleSort("name")}
-                    className="py-3 px-4 font-bold text-zinc-200 cursor-pointer hover:text-cyan-400 transition-colors min-w-[250px]"
-                  >
-                    <div className="flex items-center gap-1.5">
-                      <Tv className="w-3.5 h-3.5 text-zinc-500" />
-                      <span>[ 02 // BRAND & MODEL ]</span>
-                      <ArrowUpDown className="w-3 h-3 text-zinc-500" />
-                    </div>
-                  </th>
-
-                  <th className="py-3 px-3 font-bold text-zinc-300 min-w-[220px]">
-                    [ 03 // GTID_TOLERANSI ]
-                  </th>
-
-                  <th
-                    onClick={() => handleSort("size")}
-                    className="py-3 px-3 font-bold cursor-pointer hover:text-amber-400 transition-colors min-w-[140px]"
-                  >
-                    <div className="flex items-center gap-1.5">
-                      <span>[ 04 // PANEL_SIZE ]</span>
-                      <ArrowUpDown className="w-3 h-3 text-zinc-500" />
-                    </div>
-                  </th>
-
-                  <th className="py-3 px-3 font-bold min-w-[150px]">
-                    [ 05 // RESOLUSI ]
-                  </th>
-
-                  <th
-                    onClick={() => handleSort("refresh")}
-                    className="py-3 px-3 font-bold cursor-pointer hover:text-emerald-400 transition-colors min-w-[110px]"
-                  >
-                    <div className="flex items-center gap-1.5">
-                      <span>[ 06 // REFRESH ]</span>
-                      <ArrowUpDown className="w-3 h-3 text-zinc-500" />
-                    </div>
-                  </th>
+                    return (
+                      <th
+                        key={col.id}
+                        draggable
+                        onDragStart={(e) => tableManager.handleColumnDragStart(col.id, e)}
+                        onDragOver={(e) => tableManager.handleColumnDragOver(col.id, e)}
+                        onDrop={() => tableManager.handleColumnDrop(col.id)}
+                        onClick={() => col.sortable !== false && tableManager.handleSort(col.id)}
+                        className={`py-3 px-3 font-mono font-bold text-xs uppercase cursor-pointer select-none transition-colors border-r border-zinc-800 ${
+                          col.minWidth || "min-w-[140px]"
+                        } ${
+                          isDragging
+                            ? "opacity-40 bg-cyan-500/20"
+                            : isOver
+                            ? "border-l-2 border-l-cyan-400 bg-cyan-500/10"
+                            : "hover:bg-zinc-800/80"
+                        }`}
+                        title="Klik untuk sort (Asc/Desc/Reset), atau Drag untuk memindahkan urutan kolom"
+                      >
+                        <div className="flex items-center justify-between gap-1.5">
+                          <div className="flex items-center gap-1.5 min-w-0">
+                            <span
+                              className="cursor-grab active:cursor-grabbing text-zinc-500 hover:text-cyan-400"
+                              title="Drag kolom"
+                            >
+                              <GripVertical className="w-3.5 h-3.5" />
+                            </span>
+                            <span className="truncate">{col.label}</span>
+                          </div>
+                          {isSorted ? (
+                            <span className="text-cyan-400 font-bold text-[11px] flex-shrink-0">
+                              {tableManager.sortDirection === "asc" ? "▲" : "▼"}
+                            </span>
+                          ) : col.sortable !== false ? (
+                            <span className="text-zinc-600 text-[10px] opacity-40 hover:opacity-100 flex-shrink-0">↕</span>
+                          ) : null}
+                        </div>
+                      </th>
+                    );
+                  })}
                 </tr>
               </thead>
 
               <tbody className="divide-y divide-zinc-800/80">
-                {sortedMonitors.map((monitor) => {
+                {displayMonitors.map((monitor, idx) => {
                   const isSelected = selectedMonitorId === monitor.id;
 
                   return (
@@ -215,51 +388,11 @@ export function NotionTableView({
                           : "hover:bg-[#121217]"
                       }`}
                     >
-                      <td className="py-3 px-4 font-mono font-bold text-emerald-400 whitespace-nowrap">
-                        {formatRupiah(monitor.price)}
-                      </td>
-
-                      <td className="py-3 px-4">
-                        <div className="flex items-center gap-2">
-                          <span className="text-base">🖥️</span>
-                          <span
-                            className={`font-bold transition-colors ${
-                              isSelected ? "text-cyan-400" : "text-white hover:text-emerald-400"
-                            }`}
-                          >
-                            {monitor.fullName}
-                          </span>
-                        </div>
-                      </td>
-
-                      <td className="py-3 px-3">
-                        <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className="px-2 py-0.5 rounded bg-[#0b2413] text-[#00e676] border border-[#00e676]/30 text-[10px] font-mono font-bold whitespace-nowrap shadow-[1px_1px_0px_#000]">
-                            {monitor.responseTimeData?.toleranceNew || "Toleransi Baru"}
-                          </span>
-                          <span className="px-2 py-0.5 rounded bg-[#2b1012] text-[#ff5252] border border-[#ff5252]/30 text-[10px] font-mono font-bold whitespace-nowrap shadow-[1px_1px_0px_#000]">
-                            {monitor.responseTimeData?.toleranceOld || "Toleransi Lama"}
-                          </span>
-                        </div>
-                      </td>
-
-                      <td className="py-3 px-3 text-zinc-300 font-medium whitespace-nowrap">
-                        <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-700/80 font-mono text-[11px]">
-                          {monitor.specs.display.size} {monitor.specs.display.panelType}
-                        </span>
-                      </td>
-
-                      <td className="py-3 px-3 font-mono text-zinc-300 whitespace-nowrap">
-                        <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-700/80 text-[11px]">
-                          {monitor.specs.display.resolution}
-                        </span>
-                      </td>
-
-                      <td className="py-3 px-3 whitespace-nowrap">
-                        <span className="px-2 py-0.5 rounded bg-[#10192b] text-[#38bdf8] border border-[#38bdf8]/30 font-mono font-bold text-[11px] shadow-[1px_1px_0px_#000]">
-                          {monitor.specs.display.refreshRate}Hz
-                        </span>
-                      </td>
+                      {tableManager.visibleColumns.map((col) => (
+                        <td key={col.id} className="py-3 px-3 border-r border-zinc-800/60 align-middle">
+                          {col.renderCell(monitor, idx)}
+                        </td>
+                      ))}
                     </tr>
                   );
                 })}
@@ -296,7 +429,7 @@ export function NotionTableView({
               color: "border-rose-500/40 text-rose-400",
             },
           ].map((group, idx) => {
-            const groupMonitors = sortedMonitors.filter(group.filter);
+            const groupMonitors = displayMonitors.filter(group.filter);
             if (groupMonitors.length === 0) return null;
 
             return (
@@ -314,7 +447,7 @@ export function NotionTableView({
                   <div className="overflow-x-auto">
                     <table className="w-full text-left text-xs border-collapse min-w-[750px]">
                       <tbody className="divide-y divide-[#262626]">
-                        {groupMonitors.map((monitor) => {
+                        {groupMonitors.map((monitor: Monitor) => {
                           const isSelected = selectedMonitorId === monitor.id;
                           return (
                             <tr
@@ -389,7 +522,7 @@ export function NotionTableView({
               color: "text-rose-400",
             },
           ].map((group, idx) => {
-            const groupMonitors = sortedMonitors.filter(group.filter);
+            const groupMonitors = displayMonitors.filter(group.filter);
             if (groupMonitors.length === 0) return null;
 
             return (
@@ -407,7 +540,7 @@ export function NotionTableView({
                   <div className="overflow-x-auto">
                     <table className="w-full text-left text-xs border-collapse min-w-[750px]">
                       <tbody className="divide-y divide-[#262626]">
-                        {groupMonitors.map((monitor) => {
+                        {groupMonitors.map((monitor: Monitor) => {
                           const isSelected = selectedMonitorId === monitor.id;
                           return (
                             <tr
@@ -452,7 +585,7 @@ export function NotionTableView({
       {/* ========================================================================= */}
       {activeTab === "gallery" && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {sortedMonitors.map((monitor) => {
+          {displayMonitors.map((monitor: Monitor) => {
             const isSelected = selectedMonitorId === monitor.id;
             const photo = monitor.frontImage || monitor.thumbnail || "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop";
 
@@ -514,6 +647,19 @@ export function NotionTableView({
           })}
         </div>
       )}
+
+      {/* Column Manager Modal for Public Table */}
+      <TableColumnManagerModal
+        isOpen={isColManagerOpen}
+        onClose={() => setIsColManagerOpen(false)}
+        title="Pengaturan Kolom Tabel Monitor"
+        columns={tableManager.columns}
+        columnOrder={tableManager.columnOrder}
+        columnVisibility={tableManager.columnVisibility}
+        onToggleVisibility={tableManager.toggleColumnVisibility}
+        onMoveColumn={tableManager.moveColumn}
+        onResetColumns={tableManager.resetColumns}
+      />
     </div>
   );
 }

@@ -20,11 +20,14 @@ import {
   ArrowRight,
   Maximize2,
   Sparkles,
+  GripVertical,
 } from "lucide-react";
 import { DeskItem, DESK_DATABASE } from "@/data/grayplasma-desk-peripherals";
 import { formatRupiah } from "@/lib/utils";
 import { NotionBlockRenderer } from "@/components/notion-block-renderer";
 import { Button } from "@/components/ui/button";
+import { useDraggableTable, TableColumnDef } from "@/hooks/use-draggable-table";
+import { TableColumnManagerModal } from "@/components/ui/table-column-manager-modal";
 
 interface DeskRecommendationsViewProps {
   desks?: DeskItem[];
@@ -45,6 +48,7 @@ export function DeskRecommendationsView({
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedShape, setSelectedShape] = useState<string>("all");
+  const [isColManagerOpen, setIsColManagerOpen] = useState(false);
 
   const categories = [
     { id: "all", label: "Semua Meja" },
@@ -84,6 +88,167 @@ export function DeskRecommendationsView({
     if (t.includes("TACOSHEET") || t.includes("PLYWOOD")) return "bg-[#3f2020] text-[#fca5a5] border-[#fca5a5]/30";
     return "bg-[#1e293b] text-[#93c5fd] border-blue-500/30";
   };
+
+  const publicDeskColumns = React.useMemo<TableColumnDef<DeskItem>[]>(() => [
+    {
+      id: "name",
+      label: "Aa NAMA TOKO / MEJA",
+      shortLabel: "Nama Meja",
+      minWidth: "min-w-[240px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Identitas",
+      getValue: (d) => d.name,
+      renderCell: (desk) => (
+        <div className="flex items-center gap-2.5">
+          <span className="text-base text-zinc-400 group-hover:text-emerald-400 transition-colors">
+            📄
+          </span>
+          <span className="underline-offset-4 group-hover:underline font-bold text-sm text-white">
+            {desk.name}
+          </span>
+        </div>
+      ),
+    },
+    {
+      id: "keterangan",
+      label: ":= KETERANGAN",
+      shortLabel: "Keterangan",
+      minWidth: "min-w-[200px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Klasifikasi",
+      getValue: (d) => d.category,
+      renderCell: (desk) => (
+        <div className="flex items-center gap-1.5 flex-wrap">
+          {(desk.keterangan && desk.keterangan.length > 0
+            ? desk.keterangan
+            : [desk.category]
+          ).map((tag, tIdx) => (
+            <span
+              key={tIdx}
+              className={`px-2 py-0.5 rounded text-[10px] font-bold border uppercase tracking-wider ${getTagColor(
+                tag
+              )}`}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      ),
+    },
+    {
+      id: "type",
+      label: "⏱ TIPE SHAPED",
+      shortLabel: "Tipe",
+      minWidth: "min-w-[140px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Bentuk",
+      getValue: (d) => d.type || "NON L SHAPED",
+      renderCell: (desk) => (
+        <span
+          className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider whitespace-nowrap ${
+            desk.type?.includes("NON") || !desk.type?.includes("L SHAPED")
+              ? "bg-[#202020] text-zinc-300 border border-zinc-700"
+              : "bg-[#3b1a45] text-purple-300 border border-purple-500/40"
+          }`}
+        >
+          {desk.type || "NON L SHAPED"}
+        </span>
+      ),
+    },
+    {
+      id: "catatanBadge",
+      label: "🎯 CATATAN",
+      shortLabel: "Catatan",
+      minWidth: "min-w-[180px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Status",
+      getValue: (d) => d.catatanBadge || "",
+      renderCell: (desk) => (
+        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#143322] text-[#34d399] border border-[#34d399]/40 uppercase tracking-wider inline-flex items-center gap-1 whitespace-nowrap">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#34d399] animate-pulse" />
+          <span>{desk.catatanBadge || "ADA (DISARANKAN MEMBACA NYA)"}</span>
+        </span>
+      ),
+    },
+    {
+      id: "price",
+      label: "# KISARAN HARGA",
+      shortLabel: "Harga",
+      minWidth: "min-w-[140px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Finansial",
+      getValue: (d) => d.price,
+      renderCell: (desk) => (
+        <span className="font-mono font-bold text-xs text-emerald-400 whitespace-nowrap">
+          {desk.price > 0 ? `IDR ${desk.price.toLocaleString("id-ID")}` : "IDR 0 (Custom)"}
+        </span>
+      ),
+    },
+    {
+      id: "material",
+      label: "BAHAN & TEBAL",
+      shortLabel: "Material",
+      minWidth: "min-w-[150px]",
+      sortable: true,
+      isDefaultVisible: false,
+      category: "Spesifikasi",
+      getValue: (d) => `${d.specs?.material || ""} ${d.specs?.thickness || ""}`,
+      renderCell: (desk) => (
+        <div className="font-mono text-xs text-zinc-300 whitespace-nowrap">
+          <div>{desk.specs?.material || "-"}</div>
+          <div className="text-[10px] text-zinc-500">Tebal: {desk.specs?.thickness || "-"}</div>
+        </div>
+      ),
+    },
+    {
+      id: "dimensions",
+      label: "DIMENSI",
+      shortLabel: "Dimensi",
+      minWidth: "min-w-[130px]",
+      sortable: true,
+      isDefaultVisible: false,
+      category: "Spesifikasi",
+      getValue: (d) => d.specs?.dimensions || "",
+      renderCell: (desk) => (
+        <span className="font-mono text-xs text-zinc-300 whitespace-nowrap">
+          {desk.specs?.dimensions || "-"}
+        </span>
+      ),
+    },
+    {
+      id: "armSupport",
+      label: "ARM SUPPORT",
+      shortLabel: "Arm Support",
+      minWidth: "min-w-[140px]",
+      sortable: true,
+      isDefaultVisible: false,
+      category: "Uji GTID",
+      getValue: (d) => (d.specs?.armSupport ? 1 : 0),
+      renderCell: (desk) => (
+        <span
+          className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border whitespace-nowrap ${
+            desk.specs?.armSupport
+              ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/30"
+              : "bg-amber-500/15 text-amber-400 border-amber-500/30"
+          }`}
+        >
+          {desk.specs?.armSupport ? "✓ Lolos Clamp" : "⚠️ Perlu Plat"}
+        </span>
+      ),
+    },
+  ], []);
+
+  const tableManager = useDraggableTable<DeskItem>({
+    storageKey: "desk_public_v2",
+    columns: publicDeskColumns,
+  });
+
+  const displayDesks = tableManager.getSortedData(filteredDesks);
 
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
@@ -188,21 +353,32 @@ export function DeskRecommendationsView({
           </div>
         </div>
 
-        {/* Category Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-2 border-t border-[#2f2f2f]/60">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
-                selectedCategory === cat.id
-                  ? "bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 shadow-sm"
-                  : "bg-[#202020] border border-[#2f2f2f] text-zinc-400 hover:text-white hover:bg-[#282828]"
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
+        {/* Category Pills & Column Manager */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-2 border-t border-[#2f2f2f]/60">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                  selectedCategory === cat.id
+                    ? "bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 shadow-sm"
+                    : "bg-[#202020] border border-[#2f2f2f] text-zinc-400 hover:text-white hover:bg-[#282828]"
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setIsColManagerOpen(true)}
+            className="px-3 py-1.5 rounded-xl text-xs font-mono font-bold border border-zinc-700 bg-[#202020] text-zinc-300 hover:text-white hover:border-emerald-500 transition-all flex items-center gap-1.5 whitespace-nowrap self-start sm:self-auto"
+          >
+            <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
+            <span>[ KELOLA KOLOM ({tableManager.visibleColumns.length}) ]</span>
+          </button>
         </div>
       </div>
 
@@ -212,27 +388,56 @@ export function DeskRecommendationsView({
           <table className="w-full text-left text-xs border-collapse min-w-[950px]">
             <thead className="bg-[#1e1e1e] text-[#9b9a97] uppercase text-[11px] font-bold tracking-wider border-b border-[#2f2f2f] select-none sticky top-0 z-20">
               <tr>
-                <th className="py-3 px-4 min-w-[240px] text-white flex items-center gap-1.5">
-                  <span>Aa</span>
-                  <span>NAMA TOKO / MEJA</span>
-                </th>
-                <th className="py-3 px-3 min-w-[220px]">
-                  <span>:= KETERANGAN</span>
-                </th>
-                <th className="py-3 px-3 min-w-[150px]">
-                  <span>⏱ L SHAPED ATAU NON L SHAPED</span>
-                </th>
-                <th className="py-3 px-3 min-w-[180px]">
-                  <span>🎯 CATATAN</span>
-                </th>
-                <th className="py-3 px-4 min-w-[140px] text-right font-mono text-emerald-400">
-                  <span># KISARAN HARGA</span>
-                </th>
-                <th className="py-3 px-3 text-center min-w-[120px]">AKSI / DETAIL</th>
+                {tableManager.visibleColumns.map((col) => {
+                  const isSorted = tableManager.sortField === col.id;
+                  const isDragging = tableManager.draggedColId === col.id;
+                  const isOver = tableManager.dragOverColId === col.id;
+
+                  return (
+                    <th
+                      key={col.id}
+                      draggable
+                      onDragStart={(e) => tableManager.handleColumnDragStart(col.id, e)}
+                      onDragOver={(e) => tableManager.handleColumnDragOver(col.id, e)}
+                      onDrop={() => tableManager.handleColumnDrop(col.id)}
+                      onClick={() => col.sortable !== false && tableManager.handleSort(col.id)}
+                      className={`py-3 px-3 font-mono font-bold text-xs uppercase cursor-pointer select-none transition-colors border-r border-[#2f2f2f] ${
+                        col.minWidth || "min-w-[140px]"
+                      } ${
+                        isDragging
+                          ? "opacity-40 bg-emerald-500/20"
+                          : isOver
+                          ? "border-l-2 border-l-emerald-400 bg-emerald-500/10"
+                          : "hover:bg-[#282828]"
+                      }`}
+                      title="Klik untuk sort (Asc/Desc/Reset), atau Drag untuk memindahkan urutan kolom"
+                    >
+                      <div className="flex items-center justify-between gap-1.5">
+                        <div className="flex items-center gap-1.5 min-w-0">
+                          <span
+                            className="cursor-grab active:cursor-grabbing text-zinc-500 hover:text-emerald-400"
+                            title="Drag kolom"
+                          >
+                            <GripVertical className="w-3.5 h-3.5" />
+                          </span>
+                          <span className="truncate">{col.label}</span>
+                        </div>
+                        {isSorted ? (
+                          <span className="text-emerald-400 font-bold text-[11px] flex-shrink-0">
+                            {tableManager.sortDirection === "asc" ? "▲" : "▼"}
+                          </span>
+                        ) : col.sortable !== false ? (
+                          <span className="text-zinc-600 text-[10px] opacity-40 hover:opacity-100 flex-shrink-0">↕</span>
+                        ) : null}
+                      </div>
+                    </th>
+                  );
+                })}
+                <th className="py-3 px-3 text-center min-w-[120px] bg-[#1e1e1e]">AKSI / DETAIL</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#262626]">
-              {filteredDesks.map((desk, idx) => (
+              {displayDesks.map((desk, idx) => (
                 <tr
                   key={desk.id || idx}
                   onClick={() => setSelectedDesk(desk)}
@@ -240,62 +445,11 @@ export function DeskRecommendationsView({
                     idx % 2 === 0 ? "bg-[#191919]" : "bg-[#1c1c1c]"
                   }`}
                 >
-                  {/* Nama Toko / Meja */}
-                  <td className="py-3.5 px-4 font-semibold text-white">
-                    <div className="flex items-center gap-2.5">
-                      <span className="text-base text-zinc-400 group-hover:text-emerald-400 transition-colors">
-                        📄
-                      </span>
-                      <span className="underline-offset-4 group-hover:underline font-bold text-sm">
-                        {desk.name}
-                      </span>
-                    </div>
-                  </td>
-
-                  {/* Keterangan Tags */}
-                  <td className="py-3.5 px-3">
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      {(desk.keterangan && desk.keterangan.length > 0
-                        ? desk.keterangan
-                        : [desk.category]
-                      ).map((tag, tIdx) => (
-                        <span
-                          key={tIdx}
-                          className={`px-2 py-0.5 rounded text-[10px] font-bold border uppercase tracking-wider ${getTagColor(
-                            tag
-                          )}`}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </td>
-
-                  {/* L Shaped vs Non L-Shaped */}
-                  <td className="py-3.5 px-3">
-                    <span
-                      className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
-                        desk.type?.includes("NON") || !desk.type?.includes("L SHAPED")
-                          ? "bg-[#202020] text-zinc-300 border border-zinc-700"
-                          : "bg-[#3b1a45] text-purple-300 border border-purple-500/40"
-                      }`}
-                    >
-                      {desk.type || "NON L SHAPED"}
-                    </span>
-                  </td>
-
-                  {/* Catatan Badge */}
-                  <td className="py-3.5 px-3">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#143322] text-[#34d399] border border-[#34d399]/40 uppercase tracking-wider inline-flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#34d399] animate-pulse" />
-                      <span>{desk.catatanBadge || "ADA (DISARANKAN MEMBACA NYA)"}</span>
-                    </span>
-                  </td>
-
-                  {/* Kisaran Harga */}
-                  <td className="py-3.5 px-4 text-right font-mono font-bold text-xs text-emerald-400">
-                    {desk.price > 0 ? `IDR ${desk.price.toLocaleString("id-ID")}` : "IDR 0 (Custom)"}
-                  </td>
+                  {tableManager.visibleColumns.map((col) => (
+                    <td key={col.id} className="py-3.5 px-3 border-r border-[#262626] align-middle">
+                      {col.renderCell(desk, idx)}
+                    </td>
+                  ))}
 
                   {/* Action */}
                   <td className="py-3.5 px-3 text-center" onClick={(e) => e.stopPropagation()}>
@@ -347,7 +501,7 @@ export function DeskRecommendationsView({
           </table>
         </div>
 
-        {filteredDesks.length === 0 && (
+        {displayDesks.length === 0 && (
           <div className="p-12 text-center space-y-2">
             <Info className="w-8 h-8 text-zinc-600 mx-auto" />
             <p className="text-sm text-zinc-400 font-medium">Tidak ada data meja yang sesuai dengan filter.</p>
@@ -511,6 +665,19 @@ export function DeskRecommendationsView({
           </div>
         </div>
       )}
+
+      {/* Column Manager Modal for Public Desk Table */}
+      <TableColumnManagerModal
+        isOpen={isColManagerOpen}
+        onClose={() => setIsColManagerOpen(false)}
+        title="Pengaturan Kolom Tabel Meja"
+        columns={tableManager.columns}
+        columnOrder={tableManager.columnOrder}
+        columnVisibility={tableManager.columnVisibility}
+        onToggleVisibility={tableManager.toggleColumnVisibility}
+        onMoveColumn={tableManager.moveColumn}
+        onResetColumns={tableManager.resetColumns}
+      />
     </div>
   );
 }

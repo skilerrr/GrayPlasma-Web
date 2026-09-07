@@ -31,6 +31,9 @@ import { Button } from "@/components/ui/button";
 import { NotionRichEditor } from "@/components/admin/notion-rich-editor";
 import { ModularTableBuilder } from "@/components/admin/modular-table-builder";
 import { NotionBlockRenderer } from "@/components/notion-block-renderer";
+import { useDraggableTable, TableColumnDef } from "@/hooks/use-draggable-table";
+import { TableColumnManagerModal } from "@/components/ui/table-column-manager-modal";
+import { WordDocsStudio } from "@/components/admin/word-docs-studio";
 
 interface DeskLiveStudioProps {
   desks: DeskItem[];
@@ -64,6 +67,8 @@ export function DeskLiveStudio({
   const [viewMode, setViewMode] = useState<"excel" | "studio">("excel");
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
+  const [isColManagerOpen, setIsColManagerOpen] = useState(false);
+  const [isWordDocsOpen, setIsWordDocsOpen] = useState(false);
 
   // Helper to convert desk review to document HTML
   const getInitialDoc = (desk: Partial<DeskItem> | null) => {
@@ -283,6 +288,246 @@ export function DeskLiveStudio({
     return matchesSearch && matchesCategory;
   });
 
+  // Table Column Definitions for Draggable & Sortable Table Management
+  const deskColumns = React.useMemo<TableColumnDef<DeskItem>[]>(() => [
+    {
+      id: "price",
+      label: "[ 01 // KISARAN HARGA ]",
+      shortLabel: "Harga",
+      minWidth: "min-w-[170px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Finansial",
+      getValue: (d) => d.price,
+      renderCell: (d) => (
+        <div className="font-mono font-bold text-emerald-400 whitespace-nowrap">
+          <input
+            type="number"
+            defaultValue={d.price}
+            onBlur={(e) => {
+              const newP = Number(e.target.value);
+              if (newP !== d.price && newP >= 0) {
+                handleQuickEditPrice(d, newP);
+              }
+            }}
+            className="w-28 bg-zinc-900/80 border border-zinc-750 hover:border-emerald-500 focus:border-emerald-500 rounded-md px-2 py-1 text-xs text-emerald-400 font-mono font-bold focus:outline-none"
+          />
+        </div>
+      ),
+    },
+    {
+      id: "name",
+      label: "[ 02 // NAMA REKOMENDASI MEJA ]",
+      shortLabel: "Nama Meja",
+      minWidth: "min-w-[260px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Identitas",
+      getValue: (d) => d.name,
+      renderCell: (d) => (
+        <div className="flex items-center gap-2">
+          <span className="text-base">🪑</span>
+          <div>
+            <div
+              onClick={() => {
+                setSelectedDesk(d);
+                setFormData(d);
+                setDocContent(getInitialDoc(d));
+                setViewMode("studio");
+              }}
+              className="font-bold text-white hover:text-amber-400 cursor-pointer transition-colors"
+              title="Buka di 3-Kolom Studio"
+            >
+              {d.name}
+            </div>
+            <span className="text-[10px] font-mono text-zinc-500">
+              {d.category} • {d.specs?.dimensions || "120x60"}
+            </span>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: "category",
+      label: "[ 03 // KATEGORI ]",
+      shortLabel: "Kategori",
+      minWidth: "min-w-[150px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Klasifikasi",
+      getValue: (d) => d.category,
+      renderCell: (d) => (
+        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/10 text-amber-300 border border-amber-500/30 whitespace-nowrap">
+          {d.category}
+        </span>
+      ),
+    },
+    {
+      id: "type",
+      label: "[ 04 // TIPE ]",
+      shortLabel: "Tipe",
+      minWidth: "min-w-[130px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Bentuk",
+      getValue: (d) => d.type || "NON L SHAPED",
+      renderCell: (d) => (
+        <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-750 font-mono text-[11px] text-zinc-300 whitespace-nowrap">
+          {d.type || "NON L SHAPED"}
+        </span>
+      ),
+    },
+    {
+      id: "material",
+      label: "[ 05 // BAHAN & TEBAL ]",
+      shortLabel: "Material",
+      minWidth: "min-w-[160px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Spesifikasi",
+      getValue: (d) => `${d.specs?.material || ""} ${d.specs?.thickness || ""}`,
+      renderCell: (d) => (
+        <div className="font-mono text-[11px] text-zinc-300 whitespace-nowrap">
+          <div>{d.specs?.material || "-"}</div>
+          <div className="text-[10px] text-zinc-500">Tebal: {d.specs?.thickness || "-"}</div>
+        </div>
+      ),
+    },
+    {
+      id: "dimensions",
+      label: "[ 06 // DIMENSI ]",
+      shortLabel: "Dimensi",
+      minWidth: "min-w-[140px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Spesifikasi",
+      getValue: (d) => d.specs?.dimensions || "",
+      renderCell: (d) => (
+        <span className="font-mono text-zinc-300 text-[11px] whitespace-nowrap">
+          {d.specs?.dimensions || "-"}
+        </span>
+      ),
+    },
+    {
+      id: "armSupport",
+      label: "[ 07 // ARM GAS-SPRING ]",
+      shortLabel: "Arm Support",
+      minWidth: "min-w-[150px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Uji GTID",
+      getValue: (d) => (d.specs?.armSupport ? 1 : 0),
+      renderCell: (d) => (
+        <button
+          type="button"
+          onClick={() => handleQuickEditArmSupport(d, !(d.specs?.armSupport ?? true))}
+          className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border transition-colors whitespace-nowrap ${
+            d.specs?.armSupport
+              ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/25"
+              : "bg-amber-500/15 text-amber-400 border-amber-500/30 hover:bg-amber-500/25"
+          }`}
+          title="Klik untuk ubah status kelayakan clamp arm"
+        >
+          {d.specs?.armSupport ? "✓ Lolos Clamp" : "⚠️ Perlu Plat"}
+        </button>
+      ),
+    },
+    {
+      id: "customVariables",
+      label: "[ 08 // VARIABEL KUSTOM ]",
+      shortLabel: "Variabel",
+      minWidth: "min-w-[140px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Parameter",
+      getValue: (d) => (d.customVariables || []).length,
+      renderCell: (d) =>
+        d.customVariables && d.customVariables.length > 0 ? (
+          <div className="flex items-center gap-1 flex-wrap">
+            {d.customVariables.slice(0, 2).map((v) => (
+              <span
+                key={v.id}
+                className="px-1.5 py-0.5 rounded bg-zinc-800 text-amber-300 text-[9px] font-mono font-bold border border-zinc-700"
+                title={`${v.label}: ${v.value}`}
+              >
+                {v.label}
+              </span>
+            ))}
+            {d.customVariables.length > 2 && (
+              <span className="text-[9px] font-mono text-zinc-500">
+                +{d.customVariables.length - 2}
+              </span>
+            )}
+          </div>
+        ) : (
+          <span className="text-zinc-600 font-mono text-[10px]">-</span>
+        ),
+    },
+    {
+      id: "notes",
+      label: "[ 09 // CATATAN REVIEWER ]",
+      shortLabel: "Catatan",
+      minWidth: "min-w-[200px]",
+      sortable: true,
+      isDefaultVisible: false,
+      category: "Ulasan",
+      getValue: (d) => d.notes || "",
+      renderCell: (d) => (
+        <span className="text-zinc-300 text-xs line-clamp-2" title={d.notes}>
+          {d.notes || "-"}
+        </span>
+      ),
+    },
+    {
+      id: "description",
+      label: "[ 10 // DESKRIPSI SINGKAT ]",
+      shortLabel: "Deskripsi",
+      minWidth: "min-w-[220px]",
+      sortable: true,
+      isDefaultVisible: false,
+      category: "Ulasan",
+      getValue: (d) => d.description || "",
+      renderCell: (d) => (
+        <span className="text-zinc-400 text-xs line-clamp-2" title={d.description}>
+          {d.description || "-"}
+        </span>
+      ),
+    },
+    {
+      id: "shopeeUrl",
+      label: "[ 11 // LINK TOKO / SHOPEE ]",
+      shortLabel: "Marketplace",
+      minWidth: "min-w-[150px]",
+      sortable: false,
+      isDefaultVisible: false,
+      category: "Marketplace",
+      getValue: (d) => d.shopeeUrl || "",
+      renderCell: (d) =>
+        d.shopeeUrl ? (
+          <a
+            href={d.shopeeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-orange-500/10 text-orange-400 border border-orange-500/30 text-[10px] font-mono hover:bg-orange-500/20"
+          >
+            <ExternalLink className="w-3 h-3" />
+            <span>Shopee</span>
+          </a>
+        ) : (
+          <span className="text-zinc-600 font-mono text-[10px]">-</span>
+        ),
+    },
+  ], [handleQuickEditPrice, handleQuickEditArmSupport]);
+
+  // Draggable Table Hook for Desk Management
+  const tableManager = useDraggableTable<DeskItem>({
+    storageKey: "desk_admin_v2",
+    columns: deskColumns,
+  });
+
+  const displayDesks = tableManager.getSortedData(filteredDesks);
+
   return (
     <div className="space-y-4 font-sans text-white">
       {/* Toast Notice */}
@@ -410,6 +655,17 @@ export function DeskLiveStudio({
                 type="button"
                 variant="outline"
                 size="sm"
+                onClick={() => setIsColManagerOpen(true)}
+                className="text-xs font-mono text-zinc-300 border-zinc-700 hover:border-amber-500 hover:text-white flex items-center gap-1.5"
+              >
+                <SlidersHorizontal className="w-3.5 h-3.5 text-amber-400" />
+                <span>Kelola Kolom ({tableManager.visibleColumns.length})</span>
+              </Button>
+
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
                 onClick={handleExportCSV}
                 className="text-xs font-mono text-amber-400 border-amber-500/40 hover:bg-amber-500/10 flex items-center gap-1.5"
               >
@@ -435,10 +691,12 @@ export function DeskLiveStudio({
             <div className="flex items-center gap-2">
               <GripVertical className="w-4 h-4 text-amber-400" />
               <span>
-                <strong>MODE EXCEL AKTIF:</strong> Klik dan geser (drag) handle <strong>⠿</strong> pada kolom paling kiri untuk mengatur urutan rekomendasi meja di website.
+                <strong>MODE EXCEL AKTIF:</strong> Klik header untuk <strong>Sort (Asc/Desc/Reset)</strong>, Drag header kolom untuk <strong>Reorder Kolom</strong>, atau Drag handle <strong>⠿</strong> untuk urutan baris meja.
               </span>
             </div>
-            <span className="text-[11px] text-zinc-400">Menampilkan {filteredDesks.length} Meja</span>
+            <span className="text-[11px] text-zinc-400">
+              Menampilkan {displayDesks.length} Meja {tableManager.sortField && `(Sorted by: ${tableManager.sortField})`}
+            </span>
           </div>
 
           {/* Interactive Excel Spreadsheet Grid */}
@@ -447,21 +705,58 @@ export function DeskLiveStudio({
               <table className="w-full text-left text-xs border-collapse min-w-[1100px]">
                 <thead className="bg-[#050508] text-zinc-300 uppercase text-[10px] font-mono tracking-wider border-b-2 border-zinc-700 sticky top-0 z-20">
                   <tr>
-                    <th className="py-3 px-3 w-12 text-center text-zinc-500 font-bold">[ DRAG ]</th>
-                    <th className="py-3 px-3 w-12 text-zinc-500 font-bold">[ # ]</th>
-                    <th className="py-3 px-4 font-bold min-w-[170px] text-emerald-400">[ 01 // KISARAN HARGA ]</th>
-                    <th className="py-3 px-4 font-bold min-w-[260px] text-white">[ 02 // NAMA REKOMENDASI MEJA ]</th>
-                    <th className="py-3 px-3 font-bold min-w-[150px] text-amber-400">[ 03 // KATEGORI ]</th>
-                    <th className="py-3 px-3 font-bold min-w-[130px] text-zinc-300">[ 04 // TIPE ]</th>
-                    <th className="py-3 px-3 font-bold min-w-[160px] text-zinc-300">[ 05 // BAHAN & TEBAL ]</th>
-                    <th className="py-3 px-3 font-bold min-w-[140px] text-zinc-300">[ 06 // DIMENSI ]</th>
-                    <th className="py-3 px-3 font-bold min-w-[150px] text-emerald-400">[ 07 // ARM GAS-SPRING ]</th>
-                    <th className="py-3 px-3 font-bold min-w-[130px] text-purple-400">[ 08 // VARIABEL KUSTOM ]</th>
+                    <th className="py-3 px-3 w-12 text-center text-zinc-500 font-bold border-r border-zinc-800">[ DRAG ]</th>
+                    <th className="py-3 px-3 w-12 text-zinc-500 font-bold border-r border-zinc-800 text-center">[ # ]</th>
+                    {tableManager.visibleColumns.map((col) => {
+                      const isSorted = tableManager.sortField === col.id;
+                      const isDragging = tableManager.draggedColId === col.id;
+                      const isOver = tableManager.dragOverColId === col.id;
+
+                      return (
+                        <th
+                          key={col.id}
+                          draggable
+                          onDragStart={(e) => tableManager.handleColumnDragStart(col.id, e)}
+                          onDragOver={(e) => tableManager.handleColumnDragOver(col.id, e)}
+                          onDrop={() => tableManager.handleColumnDrop(col.id)}
+                          onClick={() => col.sortable !== false && tableManager.handleSort(col.id)}
+                          className={`py-3 px-3 font-mono font-bold text-xs uppercase cursor-pointer select-none transition-colors border-r border-zinc-800 ${
+                            col.minWidth || "min-w-[140px]"
+                          } ${
+                            isDragging
+                              ? "opacity-40 bg-amber-500/20"
+                              : isOver
+                              ? "border-l-2 border-l-amber-400 bg-amber-500/10"
+                              : "hover:bg-zinc-800/80"
+                          }`}
+                          title="Klik untuk sort (Asc/Desc/Reset), atau Drag untuk memindahkan urutan kolom"
+                        >
+                          <div className="flex items-center justify-between gap-1.5">
+                            <div className="flex items-center gap-1.5 min-w-0">
+                              <span
+                                className="cursor-grab active:cursor-grabbing text-zinc-500 hover:text-amber-400"
+                                title="Drag kolom"
+                              >
+                                <GripVertical className="w-3.5 h-3.5" />
+                              </span>
+                              <span className="truncate">{col.label}</span>
+                            </div>
+                            {isSorted ? (
+                              <span className="text-amber-400 font-bold text-[11px] flex-shrink-0">
+                                {tableManager.sortDirection === "asc" ? "▲" : "▼"}
+                              </span>
+                            ) : col.sortable !== false ? (
+                              <span className="text-zinc-600 text-[10px] opacity-40 hover:opacity-100 flex-shrink-0">↕</span>
+                            ) : null}
+                          </div>
+                        </th>
+                      );
+                    })}
                     <th className="py-3 px-4 font-bold min-w-[180px] text-center sticky right-0 bg-[#050508] z-30">[ AKSI ]</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-800/80 font-sans">
-                  {filteredDesks.map((d, idx) => {
+                  {displayDesks.map((d, idx) => {
                     const originalIndex = desks.findIndex((item) => item.id === d.id);
                     const isDragging = draggedIndex === originalIndex;
                     const isDragOver = dragOverIndex === originalIndex;
@@ -469,13 +764,15 @@ export function DeskLiveStudio({
                     return (
                       <tr
                         key={d.id}
-                        draggable
+                        draggable={tableManager.sortField === null}
                         onDragStart={(e) => {
+                          if (tableManager.sortField !== null) return;
                           setDraggedIndex(originalIndex);
                           e.dataTransfer.setData("text/plain", `${originalIndex}`);
                           e.dataTransfer.effectAllowed = "move";
                         }}
                         onDragOver={(e) => {
+                          if (tableManager.sortField !== null) return;
                           e.preventDefault();
                           if (dragOverIndex !== originalIndex) setDragOverIndex(originalIndex);
                         }}
@@ -483,6 +780,7 @@ export function DeskLiveStudio({
                           if (dragOverIndex === originalIndex) setDragOverIndex(null);
                         }}
                         onDrop={(e) => {
+                          if (tableManager.sortField !== null) return;
                           e.preventDefault();
                           handleRowDrop(originalIndex);
                         }}
@@ -497,8 +795,16 @@ export function DeskLiveStudio({
                         {/* Drag Handle */}
                         <td className="py-2.5 px-3 text-center border-r border-zinc-800/60">
                           <div
-                            className="cursor-grab active:cursor-grabbing p-1.5 text-zinc-500 hover:text-amber-400 transition-colors inline-flex rounded-lg hover:bg-zinc-800"
-                            title="Klik dan geser (drag) untuk memindahkan urutan meja"
+                            className={`p-1.5 text-zinc-500 hover:text-amber-400 transition-colors inline-flex rounded-lg hover:bg-zinc-800 ${
+                              tableManager.sortField !== null
+                                ? "opacity-30 cursor-not-allowed"
+                                : "cursor-grab active:cursor-grabbing"
+                            }`}
+                            title={
+                              tableManager.sortField !== null
+                                ? "Reset sorting kolom untuk mengatur urutan baris manual"
+                                : "Klik dan geser (drag) untuk memindahkan urutan meja"
+                            }
                           >
                             <GripVertical className="w-4 h-4" />
                           </div>
@@ -509,107 +815,12 @@ export function DeskLiveStudio({
                           #{idx + 1}
                         </td>
 
-                        {/* Harga */}
-                        <td className="py-2.5 px-4 font-mono font-bold text-emerald-400 border-r border-zinc-800/60 whitespace-nowrap">
-                          <input
-                            type="number"
-                            defaultValue={d.price}
-                            onBlur={(e) => {
-                              const newP = Number(e.target.value);
-                              if (newP !== d.price && newP >= 0) {
-                                handleQuickEditPrice(d, newP);
-                              }
-                            }}
-                            className="w-28 bg-zinc-900/80 border border-zinc-750 hover:border-emerald-500 focus:border-emerald-500 rounded-md px-2 py-1 text-xs text-emerald-400 font-mono font-bold focus:outline-none"
-                          />
-                        </td>
-
-                        {/* Nama Meja */}
-                        <td className="py-2.5 px-4 border-r border-zinc-800/60">
-                          <div className="flex items-center gap-2">
-                            <span className="text-base">🪑</span>
-                            <div>
-                              <div
-                                onClick={() => {
-                                  setSelectedDesk(d);
-                                  setFormData(d);
-                                  setDocContent(getInitialDoc(d));
-                                  setViewMode("studio");
-                                }}
-                                className="font-bold text-white hover:text-amber-400 cursor-pointer transition-colors"
-                                title="Buka di 3-Kolom Studio"
-                              >
-                                {d.name}
-                              </div>
-                              <span className="text-[10px] font-mono text-zinc-500">{d.category} • {d.specs?.dimensions || "120x60"}</span>
-                            </div>
-                          </div>
-                        </td>
-
-                        {/* Kategori */}
-                        <td className="py-2.5 px-3 border-r border-zinc-800/60 whitespace-nowrap">
-                          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/10 text-amber-300 border border-amber-500/30">
-                            {d.category}
-                          </span>
-                        </td>
-
-                        {/* Tipe */}
-                        <td className="py-2.5 px-3 text-zinc-300 font-mono text-[11px] border-r border-zinc-800/60 whitespace-nowrap">
-                          <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-750">
-                            {d.type || "NON L SHAPED"}
-                          </span>
-                        </td>
-
-                        {/* Bahan & Tebal */}
-                        <td className="py-2.5 px-3 text-zinc-300 font-mono text-[11px] border-r border-zinc-800/60 whitespace-nowrap">
-                          <div>{d.specs?.material || "-"}</div>
-                          <div className="text-[10px] text-zinc-500">Tebal: {d.specs?.thickness || "-"}</div>
-                        </td>
-
-                        {/* Dimensi */}
-                        <td className="py-2.5 px-3 font-mono text-zinc-300 text-[11px] border-r border-zinc-800/60 whitespace-nowrap">
-                          {d.specs?.dimensions || "-"}
-                        </td>
-
-                        {/* Arm Support */}
-                        <td className="py-2.5 px-3 border-r border-zinc-800/60 whitespace-nowrap">
-                          <button
-                            type="button"
-                            onClick={() => handleQuickEditArmSupport(d, !(d.specs?.armSupport ?? true))}
-                            className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border transition-colors ${
-                              d.specs?.armSupport
-                                ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/25"
-                                : "bg-amber-500/15 text-amber-400 border-amber-500/30 hover:bg-amber-500/25"
-                            }`}
-                            title="Klik untuk ubah status kelayakan clamp arm"
-                          >
-                            {d.specs?.armSupport ? "✓ Lolos Clamp" : "⚠️ Perlu Plat"}
-                          </button>
-                        </td>
-
-                        {/* Variabel Kustom */}
-                        <td className="py-2.5 px-3 border-r border-zinc-800/60">
-                          {d.customVariables && d.customVariables.length > 0 ? (
-                            <div className="flex items-center gap-1 flex-wrap">
-                              {d.customVariables.slice(0, 2).map((v) => (
-                                <span
-                                  key={v.id}
-                                  className="px-1.5 py-0.5 rounded bg-zinc-800 text-amber-300 text-[9px] font-mono font-bold border border-zinc-700"
-                                  title={`${v.label}: ${v.value}`}
-                                >
-                                  {v.label}
-                                </span>
-                              ))}
-                              {d.customVariables.length > 2 && (
-                                <span className="text-[9px] font-mono text-zinc-500">
-                                  +{d.customVariables.length - 2}
-                                </span>
-                              )}
-                            </div>
-                          ) : (
-                            <span className="text-zinc-600 font-mono text-[10px]">-</span>
-                          )}
-                        </td>
+                        {/* Dynamic Draggable & Sortable Columns */}
+                        {tableManager.visibleColumns.map((col) => (
+                          <td key={col.id} className="py-2.5 px-3 border-r border-zinc-800/60 align-middle">
+                            {col.renderCell(d, idx)}
+                          </td>
+                        ))}
 
                         {/* Aksi Sticky */}
                         <td className="py-2.5 px-4 sticky right-0 bg-[#0c0c11] group-hover:bg-[#14141c] z-10">
@@ -1309,11 +1520,23 @@ export function DeskLiveStudio({
             </div>
           </div>
 
-          {/* 5. Document Canvas Editor (NotionRichEditor) */}
+          {/* 5. Document Canvas Editor (NotionRichEditor / WordDocsStudio) */}
           <div className="space-y-2">
-            <span className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider block">
-              // DOKUMEN ULASAN MEJA (WORD / NOTION CANVAS):
-            </span>
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider block">
+                // DOKUMEN ULASAN MEJA (WORD / NOTION CANVAS):
+              </span>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setIsWordDocsOpen(true)}
+                className="text-xs font-mono font-bold text-amber-300 border-amber-500/40 hover:bg-amber-500/10 flex items-center gap-1.5 h-7 px-2.5"
+              >
+                <FileSpreadsheet className="w-3 h-3" />
+                <span>[ 📝 Buka di Word / Docs Studio ]</span>
+              </Button>
+            </div>
             <NotionRichEditor
               value={docContent}
               onChange={(val) => setDocContent(val)}
@@ -1469,6 +1692,45 @@ export function DeskLiveStudio({
         }}
         initialPreset="desk"
       />
+
+      {/* Table Column Manager Modal */}
+      <TableColumnManagerModal
+        isOpen={isColManagerOpen}
+        onClose={() => setIsColManagerOpen(false)}
+        title="Manajemen Kolom Tabel Meja"
+        columns={tableManager.columns}
+        columnOrder={tableManager.columnOrder}
+        columnVisibility={tableManager.columnVisibility}
+        onToggleVisibility={tableManager.toggleColumnVisibility}
+        onMoveColumn={tableManager.moveColumn}
+        onResetColumns={tableManager.resetColumns}
+      />
+
+      {/* Full Word / Google Docs Canvas Studio */}
+      {isWordDocsOpen && (
+        <WordDocsStudio
+          isOpen={isWordDocsOpen}
+          modeType="guide"
+          initialData={{
+            id: formData.id || `desk-${Date.now()}`,
+            title: formData.name || "Ulasan Meja",
+            category: formData.category || "Daun Meja",
+            content: docContent,
+            tags: formData.keterangan || [],
+            description: formData.description || "",
+          }}
+          onSave={(savedDoc) => {
+            setDocContent(savedDoc.content);
+            if (savedDoc.title) {
+              setFormData((prev) => ({ ...prev, name: savedDoc.title }));
+            }
+            setIsWordDocsOpen(false);
+            showNotification("Dokumen ulasan meja berhasil diperbarui.");
+          }}
+          onClose={() => setIsWordDocsOpen(false)}
+          availableCategories={DESK_CATEGORIES}
+        />
+      )}
     </div>
   );
 }

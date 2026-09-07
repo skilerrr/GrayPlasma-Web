@@ -32,8 +32,8 @@ import {
   BandwidthGuidance,
   DatabaseService,
 } from "@/lib/db-service";
-import { NotionRichEditor } from "@/components/admin/notion-rich-editor";
-import { WordFullpageEditor } from "@/components/admin/word-fullpage-editor";
+import { WordDocsStudio } from "@/components/admin/word-docs-studio";
+import { NotionBlockRenderer } from "@/components/notion-block-renderer";
 import { Button } from "@/components/ui/button";
 
 interface GuidesKnowledgeManagerProps {
@@ -387,9 +387,9 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                       </div>
 
                       <h4 className="text-sm font-black text-white">{faq.question}</h4>
-                      <p className="text-xs text-zinc-300 leading-relaxed bg-zinc-900/60 p-3 rounded-xl">
-                        {faq.answer}
-                      </p>
+                      <div className="text-xs text-zinc-300 leading-relaxed bg-zinc-900/60 p-3 rounded-xl max-h-40 overflow-y-auto">
+                        <NotionBlockRenderer content={faq.answer} />
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -568,9 +568,9 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                     </div>
                   </div>
 
-                  <p className="text-xs text-zinc-300 bg-zinc-900/60 p-3 rounded-xl">
-                    {gn.summary}
-                  </p>
+                  <div className="text-xs text-zinc-300 bg-zinc-900/60 p-3 rounded-xl max-h-40 overflow-y-auto">
+                    <NotionBlockRenderer content={gn.summary} />
+                  </div>
                 </div>
               ))}
             </div>
@@ -728,11 +728,11 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
         )}
       </div>
 
-      {/* Full-Page Word Editor for FAQ */}
+      {/* Full-Page Word Docs Studio for FAQ */}
       {isFaqModalOpen && editingFaq && (
-        <WordFullpageEditor
+        <WordDocsStudio
           isOpen={isFaqModalOpen}
-          documentTypeLabel="FAQ KNOWLEDGEBASE"
+          modeType="faq"
           initialData={{
             id: editingFaq.id,
             title: editingFaq.question,
@@ -894,16 +894,17 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
         </div>
       )}
 
-      {/* Full-Page Word Editor for GrayNote */}
+      {/* Full-Page Word Docs Studio for GrayNote */}
       {isGraynoteModalOpen && editingGraynote && (
-        <WordFullpageEditor
+        <WordDocsStudio
           isOpen={isGraynoteModalOpen}
-          documentTypeLabel="GRAYNOTE TECHNICAL ARTICLE"
+          modeType="guide"
           initialData={{
             id: editingGraynote.id,
             title: editingGraynote.title,
             category: editingGraynote.category || "DisplayPort vs HDMI",
             content: editingGraynote.summary,
+            description: editingGraynote.warning || editingGraynote.recommendation || "",
           }}
           onSave={(savedDoc) => {
             const updatedGn: GrayNoteItem = {

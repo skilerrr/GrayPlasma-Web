@@ -34,6 +34,9 @@ import { compressImage, formatFileSize, CompressedImageResult } from "@/lib/imag
 import { Button } from "@/components/ui/button";
 import { NotionRichEditor } from "@/components/admin/notion-rich-editor";
 import { ModularTableBuilder } from "@/components/admin/modular-table-builder";
+import { useDraggableTable, TableColumnDef } from "@/hooks/use-draggable-table";
+import { TableColumnManagerModal } from "@/components/ui/table-column-manager-modal";
+import { WordDocsStudio } from "@/components/admin/word-docs-studio";
 import Image from "next/image";
 
 interface MonitorLiveStudioProps {
@@ -63,6 +66,8 @@ export function MonitorLiveStudio({
   const [viewMode, setViewMode] = useState<"excel" | "studio">("excel");
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
+  const [isColManagerOpen, setIsColManagerOpen] = useState(false);
+  const [isWordDocsOpen, setIsWordDocsOpen] = useState(false);
 
   // Helper to convert monitor ulasan & verdict to Notion/Word document HTML
   const getInitialDoc = (mon: Partial<Monitor> | null) => {
@@ -440,6 +445,298 @@ export function MonitorLiveStudio({
     return matchesSearch && matchesTier;
   });
 
+  // Table Column Definitions for Draggable & Sortable Monitor Management
+  const monitorColumns = React.useMemo<TableColumnDef<Monitor>[]>(() => [
+    {
+      id: "price",
+      label: "[ 01 // KISARAN HARGA ]",
+      shortLabel: "Harga",
+      minWidth: "min-w-[170px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Finansial",
+      getValue: (m) => m.price,
+      renderCell: (m) => (
+        <div className="font-mono font-bold text-emerald-400 whitespace-nowrap">
+          <input
+            type="number"
+            defaultValue={m.price}
+            onBlur={(e) => {
+              const newP = Number(e.target.value);
+              if (newP !== m.price && newP >= 0) {
+                handleQuickEditPrice(m, newP);
+              }
+            }}
+            className="w-28 bg-zinc-900/80 border border-zinc-750 hover:border-emerald-500 focus:border-emerald-500 rounded-md px-2 py-1 text-xs text-emerald-400 font-mono font-bold focus:outline-none"
+          />
+        </div>
+      ),
+    },
+    {
+      id: "model",
+      label: "[ 02 // BRAND & MODEL ]",
+      shortLabel: "Brand & Model",
+      minWidth: "min-w-[260px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Identitas",
+      getValue: (m) => m.fullName,
+      renderCell: (m) => (
+        <div className="flex items-center gap-2">
+          <span className="text-base">🖥️</span>
+          <div>
+            <div
+              onClick={() => {
+                setSelectedMonitor(m);
+                setFormData(m);
+                setDocContent(getInitialDoc(m));
+                setViewMode("studio");
+              }}
+              className="font-bold text-white hover:text-cyan-400 cursor-pointer transition-colors"
+              title="Buka di 3-Kolom Studio"
+            >
+              {m.fullName}
+            </div>
+            <span className="text-[10px] font-mono text-zinc-500 uppercase">
+              {m.brand} • {m.slug}
+            </span>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: "tier",
+      label: "[ 03 // TIER ]",
+      shortLabel: "Tier",
+      minWidth: "min-w-[140px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Peringkat",
+      getValue: (m) => m.tier,
+      renderCell: (m) => (
+        <select
+          value={m.tier}
+          onChange={(e) => handleQuickEditTier(m, e.target.value as TierRating)}
+          className="bg-zinc-900 border border-zinc-750 rounded-md px-2 py-1 text-[11px] font-mono font-bold text-amber-300 focus:outline-none cursor-pointer"
+        >
+          <option value="BEST VALUE">BEST VALUE</option>
+          <option value="TOP TIER">TOP TIER</option>
+          <option value="VALUE ENTRY">VALUE ENTRY</option>
+          <option value="HONORABLE MENTION">HONORABLE MENTION</option>
+          <option value="NOT RECOMMENDED">NOT RECOMMENDED</option>
+        </select>
+      ),
+    },
+    {
+      id: "gtidTolerance",
+      label: "[ 04 // GTID TOLERANSI ]",
+      shortLabel: "Toleransi GTID",
+      minWidth: "min-w-[200px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Uji GTID",
+      getValue: (m) => m.responseTimeData?.toleranceNew || "",
+      renderCell: (m) => (
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <span className="px-2 py-0.5 rounded bg-[#0b2413] text-[#00e676] border border-[#00e676]/30 text-[10px] font-mono font-bold">
+            {m.responseTimeData?.toleranceNew || "Toleransi Baru"}
+          </span>
+          <span className="px-2 py-0.5 rounded bg-[#2b1012] text-[#ff5252] border border-[#ff5252]/30 text-[10px] font-mono font-bold">
+            {m.responseTimeData?.toleranceOld || "Toleransi Lama"}
+          </span>
+        </div>
+      ),
+    },
+    {
+      id: "panelSize",
+      label: "[ 05 // PANEL & SIZE ]",
+      shortLabel: "Panel & Size",
+      minWidth: "min-w-[140px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Display",
+      getValue: (m) => `${m.specs?.display?.size || ""} ${m.specs?.display?.panelType || ""}`,
+      renderCell: (m) => (
+        <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-750 font-mono text-[11px] text-zinc-300 whitespace-nowrap">
+          {m.specs?.display?.size || "-"} {m.specs?.display?.panelType || ""}
+        </span>
+      ),
+    },
+    {
+      id: "resolution",
+      label: "[ 06 // RESOLUSI ]",
+      shortLabel: "Resolusi",
+      minWidth: "min-w-[130px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Display",
+      getValue: (m) => m.specs?.display?.resolution || "",
+      renderCell: (m) => (
+        <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-750 font-mono text-[11px] text-zinc-300 whitespace-nowrap">
+          {m.specs?.display?.resolution || "FHD"}
+        </span>
+      ),
+    },
+    {
+      id: "refreshRate",
+      label: "[ 07 // REFRESH ]",
+      shortLabel: "Refresh",
+      minWidth: "min-w-[110px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Display",
+      getValue: (m) => m.specs?.display?.refreshRate || 0,
+      renderCell: (m) => (
+        <span className="px-2 py-0.5 rounded bg-[#10192b] text-[#38bdf8] border border-[#38bdf8]/30 font-mono font-bold text-[11px] whitespace-nowrap">
+          {m.specs?.display?.refreshRate || 60}Hz
+        </span>
+      ),
+    },
+    {
+      id: "customVariables",
+      label: "[ 08 // VARIABEL KUSTOM ]",
+      shortLabel: "Variabel",
+      minWidth: "min-w-[140px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Parameter",
+      getValue: (m) => (m.customVariables || []).length,
+      renderCell: (m) =>
+        m.customVariables && m.customVariables.length > 0 ? (
+          <div className="flex items-center gap-1 flex-wrap">
+            {m.customVariables.slice(0, 2).map((v) => (
+              <span
+                key={v.id}
+                className="px-1.5 py-0.5 rounded bg-zinc-800 text-amber-300 text-[9px] font-mono font-bold border border-zinc-700"
+                title={`${v.label}: ${v.value}`}
+              >
+                {v.label}
+              </span>
+            ))}
+            {m.customVariables.length > 2 && (
+              <span className="text-[9px] font-mono text-zinc-500">
+                +{m.customVariables.length - 2}
+              </span>
+            )}
+          </div>
+        ) : (
+          <span className="text-zinc-600 font-mono text-[10px]">-</span>
+        ),
+    },
+    {
+      id: "subpixel",
+      label: "[ 09 // SUBPIXEL LAYOUT ]",
+      shortLabel: "Subpixel",
+      minWidth: "min-w-[140px]",
+      sortable: true,
+      isDefaultVisible: false,
+      category: "Panel",
+      getValue: (m) => m.panelBitDepth || "RGB",
+      renderCell: (m) => (
+        <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-750 font-mono text-[11px] text-zinc-300 whitespace-nowrap">
+          {m.panelBitDepth || "Standard RGB"}
+        </span>
+      ),
+    },
+    {
+      id: "coating",
+      label: "[ 10 // COATING LAYAR ]",
+      shortLabel: "Coating",
+      minWidth: "min-w-[130px]",
+      sortable: true,
+      isDefaultVisible: false,
+      category: "Optik",
+      getValue: (m) => m.aspectRatio || "Matte (Anti-Glare)",
+      renderCell: (m) => (
+        <span className="text-zinc-300 font-mono text-xs whitespace-nowrap">
+          Matte 3H (Anti-Glare)
+        </span>
+      ),
+    },
+    {
+      id: "vrr",
+      label: "[ 11 // VRR / SYNC TECH ]",
+      shortLabel: "VRR",
+      minWidth: "min-w-[150px]",
+      sortable: true,
+      isDefaultVisible: false,
+      category: "Gaming",
+      getValue: (m) => m.specs?.features?.syncTech || "Adaptive-Sync",
+      renderCell: (m) => (
+        <span className="text-cyan-400 font-mono text-[11px] whitespace-nowrap">
+          {m.specs?.features?.syncTech || "Adaptive-Sync"}
+        </span>
+      ),
+    },
+    {
+      id: "colorGamut",
+      label: "[ 12 // COLOR GAMUT ]",
+      shortLabel: "Gamut",
+      minWidth: "min-w-[160px]",
+      sortable: true,
+      isDefaultVisible: false,
+      category: "Warna",
+      getValue: (m) => m.specs?.display?.colorGamut || "",
+      renderCell: (m) => (
+        <span className="text-zinc-300 font-mono text-[11px] whitespace-nowrap">
+          {m.specs?.display?.colorGamut || "99% sRGB"}
+        </span>
+      ),
+    },
+    {
+      id: "ports",
+      label: "[ 13 // DISPLAY INPUTS ]",
+      shortLabel: "Ports",
+      minWidth: "min-w-[170px]",
+      sortable: false,
+      isDefaultVisible: false,
+      category: "Konektivitas",
+      getValue: (m) => (m.displayInputs || []).join(", "),
+      renderCell: (m) => (
+        <span className="text-zinc-400 text-xs truncate max-w-[160px] block" title={(m.displayInputs || []).join(", ")}>
+          {(m.displayInputs || []).join(", ") || "HDMI + DP"}
+        </span>
+      ),
+    },
+    {
+      id: "warranty",
+      label: "[ 14 // GARANSI RESMI ]",
+      shortLabel: "Garansi",
+      minWidth: "min-w-[150px]",
+      sortable: true,
+      isDefaultVisible: false,
+      category: "Purna Jual",
+      getValue: (m) => m.specs?.features?.warranty || "",
+      renderCell: (m) => (
+        <span className="text-emerald-400 font-mono text-[11px] whitespace-nowrap">
+          {m.specs?.features?.warranty || "3 Tahun"}
+        </span>
+      ),
+    },
+    {
+      id: "expertVerdict",
+      label: "[ 15 // EXPERT VERDICT GTID ]",
+      shortLabel: "Verdict",
+      minWidth: "min-w-[220px]",
+      sortable: true,
+      isDefaultVisible: false,
+      category: "Ulasan",
+      getValue: (m) => m.expertVerdict || "",
+      renderCell: (m) => (
+        <span className="text-zinc-300 text-xs line-clamp-2" title={m.expertVerdict}>
+          {m.expertVerdict || "-"}
+        </span>
+      ),
+    },
+  ], [handleQuickEditPrice, handleQuickEditTier]);
+
+  const tableManager = useDraggableTable<Monitor>({
+    storageKey: "monitor_admin_v2",
+    columns: monitorColumns,
+  });
+
+  const displayMonitors = tableManager.getSortedData(filteredMonitors);
+
   return (
     <div className="space-y-6">
       {/* Top Banner Notice */}
@@ -562,6 +859,17 @@ export function MonitorLiveStudio({
                 type="button"
                 variant="outline"
                 size="sm"
+                onClick={() => setIsColManagerOpen(true)}
+                className="text-xs font-mono text-zinc-300 border-zinc-700 hover:border-emerald-500 hover:text-white flex items-center gap-1.5"
+              >
+                <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Kelola Kolom ({tableManager.visibleColumns.length})</span>
+              </Button>
+
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
                 onClick={handleExportCSV}
                 className="text-xs font-mono text-emerald-400 border-emerald-500/40 hover:bg-emerald-500/10 flex items-center gap-1.5"
               >
@@ -587,10 +895,12 @@ export function MonitorLiveStudio({
             <div className="flex items-center gap-2">
               <GripVertical className="w-4 h-4 text-emerald-400" />
               <span>
-                <strong>MODE EXCEL AKTIF:</strong> Klik dan geser (drag) handle <strong>⠿</strong> pada kolom paling kiri untuk mengatur urutan rekomendasi. Urutan di tabel web pengunjung akan otomatis mengikuti urutan ini.
+                <strong>MODE EXCEL AKTIF:</strong> Klik header untuk <strong>Sort (Asc/Desc/Reset)</strong>, Drag header kolom untuk <strong>Reorder Kolom</strong>, atau Drag handle <strong>⠿</strong> untuk urutan baris rekomendasi.
               </span>
             </div>
-            <span className="text-[11px] text-zinc-400">Menampilkan {filteredMonitors.length} Monitor</span>
+            <span className="text-[11px] text-zinc-400">
+              Menampilkan {displayMonitors.length} Monitor {tableManager.sortField && `(Sorted by: ${tableManager.sortField})`}
+            </span>
           </div>
 
           {/* Interactive Excel Spreadsheet Grid */}
@@ -599,21 +909,58 @@ export function MonitorLiveStudio({
               <table className="w-full text-left text-xs border-collapse min-w-[1150px]">
                 <thead className="bg-[#050508] text-zinc-300 uppercase text-[10px] font-mono tracking-wider border-b-2 border-zinc-700 sticky top-0 z-20">
                   <tr>
-                    <th className="py-3 px-3 w-12 text-center text-zinc-500 font-bold">[ DRAG ]</th>
-                    <th className="py-3 px-3 w-12 text-zinc-500 font-bold">[ # ]</th>
-                    <th className="py-3 px-4 font-bold min-w-[170px] text-emerald-400">[ 01 // KISARAN HARGA ]</th>
-                    <th className="py-3 px-4 font-bold min-w-[260px] text-white">[ 02 // BRAND & MODEL ]</th>
-                    <th className="py-3 px-3 font-bold min-w-[140px] text-amber-400">[ 03 // TIER ]</th>
-                    <th className="py-3 px-3 font-bold min-w-[200px] text-zinc-300">[ 04 // GTID TOLERANSI ]</th>
-                    <th className="py-3 px-3 font-bold min-w-[140px] text-zinc-300">[ 05 // PANEL & SIZE ]</th>
-                    <th className="py-3 px-3 font-bold min-w-[130px] text-zinc-300">[ 06 // RESOLUSI ]</th>
-                    <th className="py-3 px-3 font-bold min-w-[110px] text-cyan-400">[ 07 // REFRESH ]</th>
-                    <th className="py-3 px-3 font-bold min-w-[140px] text-purple-400">[ 08 // VARIABEL KUSTOM ]</th>
+                    <th className="py-3 px-3 w-12 text-center text-zinc-500 font-bold border-r border-zinc-800">[ DRAG ]</th>
+                    <th className="py-3 px-3 w-12 text-zinc-500 font-bold border-r border-zinc-800 text-center">[ # ]</th>
+                    {tableManager.visibleColumns.map((col) => {
+                      const isSorted = tableManager.sortField === col.id;
+                      const isDragging = tableManager.draggedColId === col.id;
+                      const isOver = tableManager.dragOverColId === col.id;
+
+                      return (
+                        <th
+                          key={col.id}
+                          draggable
+                          onDragStart={(e) => tableManager.handleColumnDragStart(col.id, e)}
+                          onDragOver={(e) => tableManager.handleColumnDragOver(col.id, e)}
+                          onDrop={() => tableManager.handleColumnDrop(col.id)}
+                          onClick={() => col.sortable !== false && tableManager.handleSort(col.id)}
+                          className={`py-3 px-3 font-mono font-bold text-xs uppercase cursor-pointer select-none transition-colors border-r border-zinc-800 ${
+                            col.minWidth || "min-w-[140px]"
+                          } ${
+                            isDragging
+                              ? "opacity-40 bg-emerald-500/20"
+                              : isOver
+                              ? "border-l-2 border-l-emerald-400 bg-emerald-500/10"
+                              : "hover:bg-zinc-800/80"
+                          }`}
+                          title="Klik untuk sort (Asc/Desc/Reset), atau Drag untuk memindahkan urutan kolom"
+                        >
+                          <div className="flex items-center justify-between gap-1.5">
+                            <div className="flex items-center gap-1.5 min-w-0">
+                              <span
+                                className="cursor-grab active:cursor-grabbing text-zinc-500 hover:text-emerald-400"
+                                title="Drag kolom"
+                              >
+                                <GripVertical className="w-3.5 h-3.5" />
+                              </span>
+                              <span className="truncate">{col.label}</span>
+                            </div>
+                            {isSorted ? (
+                              <span className="text-emerald-400 font-bold text-[11px] flex-shrink-0">
+                                {tableManager.sortDirection === "asc" ? "▲" : "▼"}
+                              </span>
+                            ) : col.sortable !== false ? (
+                              <span className="text-zinc-600 text-[10px] opacity-40 hover:opacity-100 flex-shrink-0">↕</span>
+                            ) : null}
+                          </div>
+                        </th>
+                      );
+                    })}
                     <th className="py-3 px-4 font-bold min-w-[180px] text-center sticky right-0 bg-[#050508] z-30">[ AKSI ]</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-800/80 font-sans">
-                  {filteredMonitors.map((m, idx) => {
+                  {displayMonitors.map((m, idx) => {
                     const originalIndex = monitors.findIndex((item) => item.id === m.id);
                     const isDragging = draggedIndex === originalIndex;
                     const isDragOver = dragOverIndex === originalIndex;
@@ -621,13 +968,15 @@ export function MonitorLiveStudio({
                     return (
                       <tr
                         key={m.id}
-                        draggable
+                        draggable={tableManager.sortField === null}
                         onDragStart={(e) => {
+                          if (tableManager.sortField !== null) return;
                           setDraggedIndex(originalIndex);
                           e.dataTransfer.setData("text/plain", `${originalIndex}`);
                           e.dataTransfer.effectAllowed = "move";
                         }}
                         onDragOver={(e) => {
+                          if (tableManager.sortField !== null) return;
                           e.preventDefault();
                           if (dragOverIndex !== originalIndex) setDragOverIndex(originalIndex);
                         }}
@@ -635,6 +984,7 @@ export function MonitorLiveStudio({
                           if (dragOverIndex === originalIndex) setDragOverIndex(null);
                         }}
                         onDrop={(e) => {
+                          if (tableManager.sortField !== null) return;
                           e.preventDefault();
                           handleRowDrop(originalIndex);
                         }}
@@ -649,8 +999,16 @@ export function MonitorLiveStudio({
                         {/* Drag Handle */}
                         <td className="py-2.5 px-3 text-center border-r border-zinc-800/60">
                           <div
-                            className="cursor-grab active:cursor-grabbing p-1.5 text-zinc-500 hover:text-emerald-400 transition-colors inline-flex rounded-lg hover:bg-zinc-800"
-                            title="Klik dan geser (drag) untuk memindahkan urutan rekomendasi"
+                            className={`p-1.5 text-zinc-500 hover:text-emerald-400 transition-colors inline-flex rounded-lg hover:bg-zinc-800 ${
+                              tableManager.sortField !== null
+                                ? "opacity-30 cursor-not-allowed"
+                                : "cursor-grab active:cursor-grabbing"
+                            }`}
+                            title={
+                              tableManager.sortField !== null
+                                ? "Reset sorting kolom untuk mengatur urutan baris manual"
+                                : "Klik dan geser (drag) untuk memindahkan urutan rekomendasi"
+                            }
                           >
                             <GripVertical className="w-4 h-4" />
                           </div>
@@ -661,114 +1019,12 @@ export function MonitorLiveStudio({
                           #{idx + 1}
                         </td>
 
-                        {/* Harga */}
-                        <td className="py-2.5 px-4 font-mono font-bold text-emerald-400 border-r border-zinc-800/60 whitespace-nowrap">
-                          <input
-                            type="number"
-                            defaultValue={m.price}
-                            onBlur={(e) => {
-                              const newP = Number(e.target.value);
-                              if (newP !== m.price && newP >= 0) {
-                                handleQuickEditPrice(m, newP);
-                              }
-                            }}
-                            className="w-28 bg-zinc-900/80 border border-zinc-750 hover:border-emerald-500 focus:border-emerald-500 rounded-md px-2 py-1 text-xs text-emerald-400 font-mono font-bold focus:outline-none"
-                          />
-                        </td>
-
-                        {/* Brand & Model */}
-                        <td className="py-2.5 px-4 border-r border-zinc-800/60">
-                          <div className="flex items-center gap-2">
-                            <span className="text-base">🖥️</span>
-                            <div>
-                              <div
-                                onClick={() => {
-                                  setSelectedMonitor(m);
-                                  setFormData(m);
-                                  setDocContent(getInitialDoc(m));
-                                  setViewMode("studio");
-                                }}
-                                className="font-bold text-white hover:text-cyan-400 cursor-pointer transition-colors"
-                                title="Buka di 3-Kolom Studio"
-                              >
-                                {m.fullName}
-                              </div>
-                              <span className="text-[10px] font-mono text-zinc-500 uppercase">{m.brand} • {m.slug}</span>
-                            </div>
-                          </div>
-                        </td>
-
-                        {/* Tier Rating */}
-                        <td className="py-2.5 px-3 border-r border-zinc-800/60 whitespace-nowrap">
-                          <select
-                            value={m.tier}
-                            onChange={(e) => handleQuickEditTier(m, e.target.value as TierRating)}
-                            className="bg-zinc-900 border border-zinc-750 rounded-md px-2 py-1 text-[11px] font-mono font-bold text-amber-300 focus:outline-none cursor-pointer"
-                          >
-                            <option value="BEST VALUE">BEST VALUE</option>
-                            <option value="TOP TIER">TOP TIER</option>
-                            <option value="VALUE ENTRY">VALUE ENTRY</option>
-                            <option value="HONORABLE MENTION">HONORABLE MENTION</option>
-                            <option value="NOT RECOMMENDED">NOT RECOMMENDED</option>
-                          </select>
-                        </td>
-
-                        {/* Toleransi GTID */}
-                        <td className="py-2.5 px-3 border-r border-zinc-800/60 whitespace-nowrap">
-                          <div className="flex items-center gap-1.5 flex-wrap">
-                            <span className="px-2 py-0.5 rounded bg-[#0b2413] text-[#00e676] border border-[#00e676]/30 text-[10px] font-mono font-bold">
-                              {m.responseTimeData?.toleranceNew || "Toleransi Baru"}
-                            </span>
-                            <span className="px-2 py-0.5 rounded bg-[#2b1012] text-[#ff5252] border border-[#ff5252]/30 text-[10px] font-mono font-bold">
-                              {m.responseTimeData?.toleranceOld || "Toleransi Lama"}
-                            </span>
-                          </div>
-                        </td>
-
-                        {/* Panel & Size */}
-                        <td className="py-2.5 px-3 text-zinc-300 font-mono text-[11px] border-r border-zinc-800/60 whitespace-nowrap">
-                          <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-750">
-                            {m.specs?.display?.size || "-"} {m.specs?.display?.panelType || ""}
-                          </span>
-                        </td>
-
-                        {/* Resolusi */}
-                        <td className="py-2.5 px-3 font-mono text-zinc-300 text-[11px] border-r border-zinc-800/60 whitespace-nowrap">
-                          <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-750">
-                            {m.specs?.display?.resolution || "FHD"}
-                          </span>
-                        </td>
-
-                        {/* Refresh Rate */}
-                        <td className="py-2.5 px-3 border-r border-zinc-800/60 whitespace-nowrap">
-                          <span className="px-2 py-0.5 rounded bg-[#10192b] text-[#38bdf8] border border-[#38bdf8]/30 font-mono font-bold text-[11px]">
-                            {m.specs?.display?.refreshRate || 60}Hz
-                          </span>
-                        </td>
-
-                        {/* Variabel Kustom */}
-                        <td className="py-2.5 px-3 border-r border-zinc-800/60">
-                          {m.customVariables && m.customVariables.length > 0 ? (
-                            <div className="flex items-center gap-1 flex-wrap">
-                              {m.customVariables.slice(0, 2).map((v) => (
-                                <span
-                                  key={v.id}
-                                  className="px-1.5 py-0.5 rounded bg-zinc-800 text-amber-300 text-[9px] font-mono font-bold border border-zinc-700"
-                                  title={`${v.label}: ${v.value}`}
-                                >
-                                  {v.label}
-                                </span>
-                              ))}
-                              {m.customVariables.length > 2 && (
-                                <span className="text-[9px] font-mono text-zinc-500">
-                                  +{m.customVariables.length - 2}
-                                </span>
-                              )}
-                            </div>
-                          ) : (
-                            <span className="text-zinc-600 font-mono text-[10px]">-</span>
-                          )}
-                        </td>
+                        {/* Dynamic Draggable & Sortable Columns */}
+                        {tableManager.visibleColumns.map((col) => (
+                          <td key={col.id} className="py-2.5 px-3 border-r border-zinc-800/60 align-middle">
+                            {col.renderCell(m, idx)}
+                          </td>
+                        ))}
 
                         {/* Aksi Sticky */}
                         <td className="py-2.5 px-4 sticky right-0 bg-[#0c0c11] group-hover:bg-[#14141c] z-10">
@@ -1569,6 +1825,14 @@ export function MonitorLiveStudio({
                   <TableIcon className="w-3 h-3" />
                   <span>+ Modular Tabel GTID</span>
                 </button>
+                <button
+                  type="button"
+                  onClick={() => setIsWordDocsOpen(true)}
+                  className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/25 font-semibold font-mono transition-colors flex items-center gap-1"
+                >
+                  <FileSpreadsheet className="w-3 h-3" />
+                  <span>[ 📝 Word / Docs Canvas ]</span>
+                </button>
               </div>
             </div>
 
@@ -1791,6 +2055,45 @@ export function MonitorLiveStudio({
         }}
         initialPreset="monitor"
       />
+
+      {/* Table Column Manager Modal */}
+      <TableColumnManagerModal
+        isOpen={isColManagerOpen}
+        onClose={() => setIsColManagerOpen(false)}
+        title="Manajemen Kolom Tabel Monitor"
+        columns={tableManager.columns}
+        columnOrder={tableManager.columnOrder}
+        columnVisibility={tableManager.columnVisibility}
+        onToggleVisibility={tableManager.toggleColumnVisibility}
+        onMoveColumn={tableManager.moveColumn}
+        onResetColumns={tableManager.resetColumns}
+      />
+
+      {/* Full Word / Google Docs Canvas Studio */}
+      {isWordDocsOpen && (
+        <WordDocsStudio
+          isOpen={isWordDocsOpen}
+          modeType="guide"
+          initialData={{
+            id: formData.id || `mon-${Date.now()}`,
+            title: formData.fullName || "Ulasan Monitor",
+            category: formData.tier || "BEST VALUE",
+            content: docContent,
+            tags: formData.tags || [],
+            description: formData.introduction || "",
+          }}
+          onSave={(savedDoc) => {
+            setDocContent(savedDoc.content);
+            if (savedDoc.title) {
+              setFormData((prev) => ({ ...prev, fullName: savedDoc.title }));
+            }
+            setIsWordDocsOpen(false);
+            showNotification("Dokumen ulasan monitor berhasil diperbarui.");
+          }}
+          onClose={() => setIsWordDocsOpen(false)}
+          availableCategories={["BEST VALUE", "TOP TIER", "VALUE ENTRY", "HONORABLE MENTION", "NOT RECOMMENDED"]}
+        />
+      )}
     </div>
   );
 }
