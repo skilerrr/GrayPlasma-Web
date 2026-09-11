@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import {
   RotateCcw,
   SlidersHorizontal,
@@ -11,7 +11,8 @@ import {
   Tv,
   Award,
   CircleDollarSign,
-  X
+  X,
+  Sparkles,
 } from "lucide-react";
 import {
   FilterState,
@@ -20,17 +21,19 @@ import {
   ScreenSizeCategory,
   ResolutionCategory,
   TierRating,
-  BudgetCategory
+  BudgetCategory,
 } from "@/types/monitor";
 import { Button } from "@/components/ui/button";
 import { formatRupiah } from "@/lib/utils";
 
-interface FilterBarProps {
+export interface FilterBarProps {
   filterState: FilterState;
   onFilterChange: (updater: (prev: FilterState) => FilterState) => void;
   onResetFilters: () => void;
-  isMobileDrawerOpen: boolean;
-  onCloseMobileDrawer: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
+  isMobileDrawerOpen?: boolean;
+  onCloseMobileDrawer?: () => void;
   totalFilteredCount: number;
 }
 
@@ -51,10 +54,38 @@ export function FilterBar({
   filterState,
   onFilterChange,
   onResetFilters,
+  isOpen,
+  onClose,
   isMobileDrawerOpen,
   onCloseMobileDrawer,
   totalFilteredCount,
 }: FilterBarProps) {
+  const isModalOpen = isOpen ?? isMobileDrawerOpen ?? false;
+  const handleClose = onClose ?? onCloseMobileDrawer ?? (() => {});
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isModalOpen) {
+        handleClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isModalOpen, handleClose]);
+
+  // Prevent background scrolling when modal is open
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isModalOpen]);
+
   // Toggle helpers
   const togglePanel = (panel: PanelType) => {
     onFilterChange((prev) => {
@@ -136,7 +167,6 @@ export function FilterBar({
     }));
   };
 
-  // Check if any filters are active
   const hasActiveFilters =
     filterState.panelTypes.length > 0 ||
     filterState.refreshRates.length > 0 ||
@@ -146,283 +176,475 @@ export function FilterBar({
     filterState.budgetPreset !== null ||
     filterState.budgetRange[1] < 25000000;
 
-  const content = (
-    <div className="space-y-6">
-      {/* Filter Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-zinc-700/80">
-        <div className="flex items-center gap-2">
-          <SlidersHorizontal className="w-4 h-4 text-emerald-400" />
-          <h3 className="text-xs font-mono font-bold text-white uppercase tracking-wider">
-            // PARAMETERS & TELEMETRY
-          </h3>
-        </div>
-        {hasActiveFilters && (
-          <button
-            onClick={onResetFilters}
-            className="text-[10px] font-mono font-bold text-zinc-400 hover:text-emerald-400 px-2 py-0.5 rounded bg-zinc-900 border border-zinc-700 hover:border-emerald-500 shadow-[1px_1px_0px_#000] flex items-center gap-1 transition-colors group"
-          >
-            <RotateCcw className="w-3 h-3 group-hover:-rotate-45 transition-transform" />
-            <span>[RESET]</span>
-          </button>
-        )}
-      </div>
+  if (!isModalOpen) return null;
 
-      {/* 1. Budget Range & Quick Select */}
-      <div className="space-y-3">
-        <label className="text-xs font-mono font-bold text-zinc-400 tracking-wider uppercase flex items-center gap-1.5">
-          <CircleDollarSign className="w-3.5 h-3.5 text-amber-400" />
-          <span>[ 01 // BUDGET_MAKSIMAL ]</span>
-        </label>
-        
-        {/* Quick presets */}
-        <div className="grid grid-cols-2 gap-1.5">
-          {BUDGET_PRESETS.map((preset) => {
-            const isSelected = filterState.budgetPreset === preset.id;
-            return (
-              <button
-                key={preset.id}
-                onClick={() => handleBudgetPreset(preset)}
-                className={`text-xs py-1.5 px-2.5 rounded border font-mono font-bold text-left transition-all flex items-center justify-between shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] ${
-                  isSelected
-                    ? "bg-amber-500/20 border-amber-400 text-amber-300 shadow-[2px_2px_0px_#f59e0b]"
-                    : "bg-[#0b0b0f] border-zinc-700/80 text-zinc-400 hover:text-zinc-200 hover:border-zinc-500"
-                }`}
-              >
-                <span>{preset.label}</span>
-                {isSelected && <Check className="w-3 h-3 text-amber-400" />}
-              </button>
-            );
-          })}
-        </div>
+  return (
+    <div className="fixed inset-0 z-50 flex justify-end animate-in fade-in duration-200">
+      {/* Backdrop */}
+      <div
+        className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+        onClick={handleClose}
+        aria-hidden="true"
+      />
 
-        {/* Range Slider */}
-        <div className="pt-2">
-          <div className="flex justify-between text-xs text-zinc-400 mb-1.5 font-mono">
-            <span>Rp 0</span>
-            <span className="text-emerald-400 font-bold">
-              {filterState.budgetRange[1] >= 25000000
-                ? "[ SEMUA HARGA ]"
-                : `≤ ${formatRupiah(filterState.budgetRange[1])}`}
-            </span>
+      {/* Drawer / Modal Content Sheet */}
+      <div
+        className="relative z-10 w-full max-w-lg md:max-w-xl h-full bg-[#0d0d12] border-l border-zinc-800 shadow-2xl flex flex-col animate-in slide-in-from-right duration-300"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Modal Header */}
+        <div className="px-5 sm:px-6 py-4 border-b border-zinc-800 flex items-center justify-between bg-[#12131a]">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+              <SlidersHorizontal className="w-4 h-4" />
+            </div>
+            <div>
+              <h2 className="text-xs sm:text-sm font-mono font-bold text-white uppercase tracking-wider">
+                // PARAMETERS & TELEMETRY
+              </h2>
+              <p className="text-[11px] text-zinc-400 font-mono">
+                Atur filter & kriteria pencarian monitor
+              </p>
+            </div>
           </div>
-          <input
-            type="range"
-            min={1000000}
-            max={25000000}
-            step={500000}
-            value={filterState.budgetRange[1]}
-            onChange={handleSliderChange}
-            className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-400 focus:outline-none"
-          />
-        </div>
-      </div>
 
-      {/* 2. Rating Tier */}
-      <div className="space-y-2.5">
-        <label className="text-xs font-mono font-bold text-zinc-400 tracking-wider uppercase flex items-center gap-1.5">
-          <Award className="w-3.5 h-3.5 text-emerald-400" />
-          <span>[ 02 // TIER_REKOMENDASI ]</span>
-        </label>
-        <div className="flex flex-wrap gap-1.5">
-          {TIER_OPTIONS.map((tier) => {
-            const isSelected = filterState.tiers.includes(tier);
-            return (
+          <div className="flex items-center gap-2">
+            {hasActiveFilters && (
               <button
-                key={tier}
-                onClick={() => toggleTier(tier)}
-                className={`text-xs py-1 px-2.5 rounded border font-mono font-bold transition-all shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] ${
-                  isSelected
-                    ? tier === "S-TIER"
-                      ? "bg-emerald-500/20 text-emerald-300 border-emerald-400"
-                      : tier === "BEST VALUE"
-                      ? "bg-amber-500/20 text-amber-300 border-amber-400"
-                      : tier === "RECOMMENDED"
-                      ? "bg-cyan-500/20 text-cyan-300 border-cyan-400"
-                      : "bg-rose-500/20 text-rose-300 border-rose-400"
-                    : "bg-[#0b0b0f] border-zinc-700/80 text-zinc-400 hover:text-zinc-200 hover:border-zinc-500"
-                }`}
+                onClick={onResetFilters}
+                className="text-[10px] font-mono font-bold text-zinc-400 hover:text-emerald-400 px-2.5 py-1 rounded bg-zinc-900 border border-zinc-700 hover:border-emerald-500 flex items-center gap-1 transition-colors"
+                title="Reset semua filter"
               >
-                [ {tier} ]
+                <RotateCcw className="w-3 h-3" />
+                <span>[RESET]</span>
               </button>
-            );
-          })}
+            )}
+            <button
+              onClick={handleClose}
+              className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition-colors"
+              title="Tutup panel (Esc)"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
         </div>
-      </div>
 
-      {/* 3. Panel Type (Multi-checkbox) */}
-      <div className="space-y-2.5">
-        <label className="text-xs font-semibold text-zinc-400 tracking-wider uppercase flex items-center gap-1.5">
-          <Layers className="w-3.5 h-3.5 text-cyan-400" />
-          <span>Tipe Panel</span>
-        </label>
-        <div className="space-y-1.5">
-          {PANEL_OPTIONS.map((panel) => {
-            const isSelected = filterState.panelTypes.includes(panel);
-            return (
-              <label
-                key={panel}
-                onClick={() => togglePanel(panel)}
-                className={`flex items-center justify-between p-2 rounded-lg border cursor-pointer select-none transition-all ${
-                  isSelected
-                    ? "bg-zinc-900 border-emerald-500/50 text-white"
-                    : "bg-surface/60 border-zinc-800/80 text-zinc-400 hover:bg-zinc-900/60 hover:text-zinc-200"
-                }`}
-              >
-                <span className="text-xs font-medium">{panel}</span>
-                <div
-                  className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${
-                    isSelected
-                      ? "bg-emerald-500 border-emerald-500 text-black"
-                      : "border-zinc-700 bg-zinc-900"
-                  }`}
-                >
-                  {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
-                </div>
+        {/* Scrollable Filter Options */}
+        <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6 text-xs text-zinc-300">
+          {/* 1. Budget Range & Quick Select */}
+          <div className="space-y-3 bg-[#111117] p-4 rounded-xl border border-zinc-800/80">
+            <label className="text-xs font-semibold text-zinc-200 flex items-center gap-1.5">
+              <CircleDollarSign className="w-3.5 h-3.5 text-amber-400" />
+              <span>Budget Maksimal</span>
+            </label>
+
+            {/* Quick presets */}
+            <div className="grid grid-cols-2 gap-1.5">
+              {BUDGET_PRESETS.map((preset) => {
+                const isSelected = filterState.budgetPreset === preset.id;
+                return (
+                  <button
+                    key={preset.id}
+                    onClick={() => handleBudgetPreset(preset)}
+                    className={`text-xs py-2 px-3 rounded-lg border font-mono font-bold text-left transition-all flex items-center justify-between ${
+                      isSelected
+                        ? "bg-amber-500/15 border-amber-500/60 text-amber-300 shadow-tech-subtle"
+                        : "bg-[#09090d] border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
+                    }`}
+                  >
+                    <span>{preset.label}</span>
+                    {isSelected && <Check className="w-3.5 h-3.5 text-amber-400" />}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Range Slider */}
+            <div className="pt-2">
+              <div className="flex justify-between text-xs text-zinc-400 mb-2 font-mono">
+                <span>Rp 0</span>
+                <span className="text-emerald-400 font-medium bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
+                  {filterState.budgetRange[1] >= 25000000
+                    ? "Semua Harga"
+                    : `≤ ${formatRupiah(filterState.budgetRange[1])}`}
+                </span>
+              </div>
+              <input
+                type="range"
+                min={1000000}
+                max={25000000}
+                step={500000}
+                value={filterState.budgetRange[1]}
+                onChange={handleSliderChange}
+                className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-400 focus:outline-none"
+              />
+            </div>
+          </div>
+
+          {/* 2. Rating Tier */}
+          <div className="space-y-2.5 bg-[#111117] p-4 rounded-xl border border-zinc-800/80">
+            <label className="text-xs font-semibold text-zinc-200 flex items-center gap-1.5">
+              <Award className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Tier Rekomendasi</span>
+            </label>
+            <div className="grid grid-cols-2 gap-1.5">
+              {TIER_OPTIONS.map((tier) => {
+                const isSelected = filterState.tiers.includes(tier);
+                return (
+                  <button
+                    key={tier}
+                    onClick={() => toggleTier(tier)}
+                    className={`text-xs py-2 px-3 rounded-lg border font-mono font-bold transition-all flex items-center justify-between ${
+                      isSelected
+                        ? tier === "S-TIER"
+                          ? "bg-emerald-500/20 text-emerald-300 border-emerald-400 shadow-tech-subtle"
+                          : tier === "BEST VALUE"
+                          ? "bg-amber-500/20 text-amber-300 border-amber-400 shadow-tech-subtle"
+                          : tier === "RECOMMENDED"
+                          ? "bg-cyan-500/20 text-cyan-300 border-cyan-400 shadow-tech-subtle"
+                          : "bg-rose-500/20 text-rose-300 border-rose-400 shadow-tech-subtle"
+                        : "bg-[#09090d] border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
+                    }`}
+                  >
+                    <span>[ {tier} ]</span>
+                    {isSelected && <Check className="w-3.5 h-3.5" />}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 3. Panel Type */}
+          <div className="space-y-2.5 bg-[#111117] p-4 rounded-xl border border-zinc-800/80">
+            <label className="text-xs font-semibold text-zinc-200 flex items-center gap-1.5">
+              <Layers className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Tipe Panel</span>
+            </label>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
+              {PANEL_OPTIONS.map((panel) => {
+                const isSelected = filterState.panelTypes.includes(panel);
+                return (
+                  <button
+                    key={panel}
+                    onClick={() => togglePanel(panel)}
+                    className={`text-xs py-2 px-3 rounded-lg border font-mono font-bold text-left transition-all flex items-center justify-between ${
+                      isSelected
+                        ? "bg-cyan-500/15 border-cyan-500/60 text-cyan-300 shadow-tech-subtle"
+                        : "bg-[#09090d] border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
+                    }`}
+                  >
+                    <span>{panel}</span>
+                    {isSelected && <Check className="w-3.5 h-3.5 text-cyan-400" />}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 4. Refresh Rate */}
+          <div className="space-y-2.5 bg-[#111117] p-4 rounded-xl border border-zinc-800/80">
+            <label className="text-xs font-semibold text-zinc-200 flex items-center gap-1.5">
+              <Zap className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Refresh Rate</span>
+            </label>
+            <div className="grid grid-cols-2 gap-1.5">
+              {REFRESH_OPTIONS.map((rate) => {
+                const isSelected = filterState.refreshRates.includes(rate);
+                return (
+                  <button
+                    key={rate}
+                    onClick={() => toggleRefresh(rate)}
+                    className={`text-xs py-2 px-3 rounded-lg border font-mono font-bold text-left transition-all flex items-center justify-between ${
+                      isSelected
+                        ? "bg-emerald-500/15 border-emerald-500/60 text-emerald-300 shadow-tech-subtle"
+                        : "bg-[#09090d] border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
+                    }`}
+                  >
+                    <span>{rate}</span>
+                    {isSelected && <Check className="w-3.5 h-3.5 text-emerald-400" />}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 5. Screen Size & Resolution Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Screen Size */}
+            <div className="space-y-2.5 bg-[#111117] p-4 rounded-xl border border-zinc-800/80">
+              <label className="text-xs font-semibold text-zinc-200 flex items-center gap-1.5">
+                <Maximize className="w-3.5 h-3.5 text-amber-400" />
+                <span>Ukuran Layar</span>
               </label>
-            );
-          })}
-        </div>
-      </div>
+              <div className="space-y-1.5">
+                {SCREEN_SIZE_OPTIONS.map((size) => {
+                  const isSelected = filterState.screenSizes.includes(size);
+                  return (
+                    <button
+                      key={size}
+                      onClick={() => toggleScreenSize(size)}
+                      className={`w-full text-xs py-1.5 px-3 rounded-lg border font-mono font-bold text-left transition-all flex items-center justify-between ${
+                        isSelected
+                          ? "bg-amber-500/15 border-amber-500/60 text-amber-300"
+                          : "bg-[#09090d] border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
+                      }`}
+                    >
+                      <span>{size}</span>
+                      {isSelected && <Check className="w-3 h-3 text-amber-400" />}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
 
-      {/* 4. Refresh Rate */}
-      <div className="space-y-2.5">
-        <label className="text-xs font-semibold text-zinc-400 tracking-wider uppercase flex items-center gap-1.5">
-          <Zap className="w-3.5 h-3.5 text-amber-400" />
-          <span>Refresh Rate</span>
-        </label>
-        <div className="grid grid-cols-2 gap-1.5">
-          {REFRESH_OPTIONS.map((rate) => {
-            const isSelected = filterState.refreshRates.includes(rate);
-            return (
-              <button
-                key={rate}
-                onClick={() => toggleRefresh(rate)}
-                className={`text-xs py-1.5 px-2 rounded-lg border font-medium transition-all ${
-                  isSelected
-                    ? "bg-emerald-500/15 border-emerald-400/70 text-emerald-300 font-semibold"
-                    : "bg-surface border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
-                }`}
-              >
-                {rate}
-              </button>
-            );
-          })}
+            {/* Resolution */}
+            <div className="space-y-2.5 bg-[#111117] p-4 rounded-xl border border-zinc-800/80">
+              <label className="text-xs font-semibold text-zinc-200 flex items-center gap-1.5">
+                <Tv className="w-3.5 h-3.5 text-violet-400" />
+                <span>Resolusi</span>
+              </label>
+              <div className="space-y-1.5">
+                {RESOLUTION_OPTIONS.map((res) => {
+                  const isSelected = filterState.resolutions.includes(res);
+                  return (
+                    <button
+                      key={res}
+                      onClick={() => toggleResolution(res)}
+                      className={`w-full text-xs py-1.5 px-3 rounded-lg border font-mono font-bold text-left transition-all flex items-center justify-between ${
+                        isSelected
+                          ? "bg-violet-500/15 border-violet-500/60 text-violet-300"
+                          : "bg-[#09090d] border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
+                      }`}
+                    >
+                      <span>{res}</span>
+                      {isSelected && <Check className="w-3 h-3 text-violet-400" />}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* 5. Screen Size */}
-      <div className="space-y-2.5">
-        <label className="text-xs font-semibold text-zinc-400 tracking-wider uppercase flex items-center gap-1.5">
-          <Maximize className="w-3.5 h-3.5 text-violet-400" />
-          <span>Ukuran Layar</span>
-        </label>
-        <div className="grid grid-cols-2 gap-1.5">
-          {SCREEN_SIZE_OPTIONS.map((size) => {
-            const isSelected = filterState.screenSizes.includes(size);
-            return (
-              <button
-                key={size}
-                onClick={() => toggleScreenSize(size)}
-                className={`text-xs py-1.5 px-2 rounded-lg border font-medium transition-all ${
-                  isSelected
-                    ? "bg-zinc-100 text-black font-semibold border-white"
-                    : "bg-surface border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
-                }`}
-              >
-                {size}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* 6. Resolution */}
-      <div className="space-y-2.5">
-        <label className="text-xs font-semibold text-zinc-400 tracking-wider uppercase flex items-center gap-1.5">
-          <Tv className="w-3.5 h-3.5 text-rose-400" />
-          <span>Resolusi</span>
-        </label>
-        <div className="space-y-1.5">
-          {RESOLUTION_OPTIONS.map((res) => {
-            const isSelected = filterState.resolutions.includes(res);
-            return (
-              <button
-                key={res}
-                onClick={() => toggleResolution(res)}
-                className={`w-full text-xs py-1.5 px-3 rounded-lg border font-medium text-left transition-all flex items-center justify-between ${
-                  isSelected
-                    ? "bg-zinc-100 text-black font-semibold border-white"
-                    : "bg-surface border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
-                }`}
-              >
-                <span>{res}</span>
-                {isSelected && <Check className="w-3 h-3" />}
-              </button>
-            );
-          })}
+        {/* Modal Bottom Actions */}
+        <div className="p-4 sm:p-5 border-t border-zinc-800 bg-[#12131a] flex gap-3">
+          {hasActiveFilters && (
+            <Button
+              variant="outline"
+              onClick={onResetFilters}
+              className="text-xs font-mono font-bold"
+            >
+              Reset Semua
+            </Button>
+          )}
+          <Button
+            variant="cyber"
+            onClick={handleClose}
+            className="flex-1 text-xs font-mono font-bold py-2.5"
+          >
+            Tampilkan {totalFilteredCount} Monitor
+          </Button>
         </div>
       </div>
     </div>
   );
+}
+
+/**
+ * ActiveFilterPills: Displays removable chips of active filters above full-width table or grid
+ */
+export function ActiveFilterPills({
+  filterState,
+  onFilterChange,
+  onResetFilters,
+  onOpenFilter,
+}: {
+  filterState: FilterState;
+  onFilterChange: (updater: (prev: FilterState) => FilterState) => void;
+  onResetFilters: () => void;
+  onOpenFilter: () => void;
+}) {
+  const hasActiveFilters =
+    filterState.panelTypes.length > 0 ||
+    filterState.refreshRates.length > 0 ||
+    filterState.screenSizes.length > 0 ||
+    filterState.resolutions.length > 0 ||
+    filterState.tiers.length > 0 ||
+    filterState.budgetPreset !== null ||
+    filterState.budgetRange[1] < 25000000 ||
+    Boolean(filterState.searchQuery);
+
+  if (!hasActiveFilters) return null;
 
   return (
-    <>
-      {/* Desktop Sidebar Sticky */}
-      <aside className="hidden lg:block w-72 flex-shrink-0">
-        <div className="sticky top-28 bg-surface-dark border border-zinc-800/90 rounded-2xl p-5 shadow-xl shadow-black/50">
-          {content}
-        </div>
-      </aside>
+    <div className="flex items-center gap-2 flex-wrap py-2 px-3 rounded-xl bg-surface-dark border border-zinc-800/80 text-xs font-mono">
+      <span className="text-zinc-500 text-[11px] uppercase tracking-wider font-bold">
+        Filter Aktif:
+      </span>
 
-      {/* Mobile Drawer (Bottom Sheet / Side Sheet) */}
-      {isMobileDrawerOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden flex flex-col justify-end">
-          {/* Overlay */}
-          <div
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
-            onClick={onCloseMobileDrawer}
-          />
-          {/* Sheet Body */}
-          <div className="relative z-10 w-full max-h-[85vh] bg-surface-dark border-t border-zinc-800 rounded-t-3xl p-6 overflow-y-auto shadow-2xl flex flex-col">
-            {/* Sheet Handle */}
-            <div className="w-12 h-1.5 bg-zinc-700 rounded-full mx-auto mb-4" />
-
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-base font-bold text-white uppercase tracking-wider">
-                Filter Rekomendasi
-              </h2>
-              <button
-                onClick={onCloseMobileDrawer}
-                className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="flex-1 overflow-y-auto pb-6">{content}</div>
-
-            {/* Bottom Actions */}
-            <div className="pt-4 border-t border-zinc-800 flex gap-3">
-              {hasActiveFilters && (
-                <Button
-                  variant="outline"
-                  onClick={onResetFilters}
-                  className="flex-1 text-xs"
-                >
-                  Reset
-                </Button>
-              )}
-              <Button
-                variant="cyber"
-                onClick={onCloseMobileDrawer}
-                className="flex-1 text-xs font-bold"
-              >
-                Tampilkan {totalFilteredCount} Monitor
-              </Button>
-            </div>
-          </div>
-        </div>
+      {/* Budget Pill */}
+      {(filterState.budgetPreset || filterState.budgetRange[1] < 25000000) && (
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px]">
+          <span>
+            Budget: ≤ {formatRupiah(filterState.budgetRange[1])}
+          </span>
+          <button
+            onClick={() =>
+              onFilterChange((prev) => ({
+                ...prev,
+                budgetPreset: null,
+                budgetRange: [0, 25000000],
+              }))
+            }
+            className="hover:text-white"
+            title="Hapus filter budget"
+          >
+            <X className="w-3 h-3" />
+          </button>
+        </span>
       )}
-    </>
+
+      {/* Tiers */}
+      {filterState.tiers.map((tier) => (
+        <span
+          key={tier}
+          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-[11px]"
+        >
+          <span>Tier: {tier}</span>
+          <button
+            onClick={() =>
+              onFilterChange((prev) => ({
+                ...prev,
+                tiers: prev.tiers.filter((t) => t !== tier),
+              }))
+            }
+            className="hover:text-white"
+            title={`Hapus filter ${tier}`}
+          >
+            <X className="w-3 h-3" />
+          </button>
+        </span>
+      ))}
+
+      {/* Panels */}
+      {filterState.panelTypes.map((panel) => (
+        <span
+          key={panel}
+          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[11px]"
+        >
+          <span>{panel}</span>
+          <button
+            onClick={() =>
+              onFilterChange((prev) => ({
+                ...prev,
+                panelTypes: prev.panelTypes.filter((p) => p !== panel),
+              }))
+            }
+            className="hover:text-white"
+            title={`Hapus filter ${panel}`}
+          >
+            <X className="w-3 h-3" />
+          </button>
+        </span>
+      ))}
+
+      {/* Refresh Rates */}
+      {filterState.refreshRates.map((rate) => (
+        <span
+          key={rate}
+          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-[11px]"
+        >
+          <span>{rate}</span>
+          <button
+            onClick={() =>
+              onFilterChange((prev) => ({
+                ...prev,
+                refreshRates: prev.refreshRates.filter((r) => r !== rate),
+              }))
+            }
+            className="hover:text-white"
+            title={`Hapus filter ${rate}`}
+          >
+            <X className="w-3 h-3" />
+          </button>
+        </span>
+      ))}
+
+      {/* Resolutions */}
+      {filterState.resolutions.map((res) => (
+        <span
+          key={res}
+          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-violet-500/10 border border-violet-500/30 text-violet-300 text-[11px]"
+        >
+          <span>{res}</span>
+          <button
+            onClick={() =>
+              onFilterChange((prev) => ({
+                ...prev,
+                resolutions: prev.resolutions.filter((r) => r !== res),
+              }))
+            }
+            className="hover:text-white"
+            title={`Hapus filter ${res}`}
+          >
+            <X className="w-3 h-3" />
+          </button>
+        </span>
+      ))}
+
+      {/* Screen Sizes */}
+      {filterState.screenSizes.map((size) => (
+        <span
+          key={size}
+          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px]"
+        >
+          <span>{size}</span>
+          <button
+            onClick={() =>
+              onFilterChange((prev) => ({
+                ...prev,
+                screenSizes: prev.screenSizes.filter((s) => s !== size),
+              }))
+            }
+            className="hover:text-white"
+            title={`Hapus filter ${size}`}
+          >
+            <X className="w-3 h-3" />
+          </button>
+        </span>
+      ))}
+
+      {/* Search Query */}
+      {filterState.searchQuery && (
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-zinc-800 border border-zinc-700 text-zinc-200 text-[11px]">
+          <span>Cari: &ldquo;{filterState.searchQuery}&rdquo;</span>
+          <button
+            onClick={() =>
+              onFilterChange((prev) => ({ ...prev, searchQuery: "" }))
+            }
+            className="hover:text-white"
+            title="Hapus pencarian"
+          >
+            <X className="w-3 h-3" />
+          </button>
+        </span>
+      )}
+
+      {/* Edit filter button */}
+      <button
+        onClick={onOpenFilter}
+        className="text-[11px] text-zinc-400 hover:text-white underline underline-offset-2 ml-1"
+      >
+        + Edit
+      </button>
+
+      {/* Reset All */}
+      <button
+        onClick={onResetFilters}
+        className="text-[11px] text-rose-400 hover:text-rose-300 ml-auto font-bold"
+      >
+        [Reset Semua]
+      </button>
+    </div>
   );
 }

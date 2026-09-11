@@ -69,7 +69,7 @@ import {
 import { PERIPHERALS_DATABASE } from "@/data/grayplasma-desk-peripherals";
 import { formatRupiah } from "@/lib/utils";
 import { Navbar, NavMenuKey } from "@/components/navbar";
-import { FilterBar } from "@/components/filter-bar";
+import { FilterBar, ActiveFilterPills } from "@/components/filter-bar";
 import { MonitorCard } from "@/components/monitor-card";
 import { MonitorModal } from "@/components/monitor-modal";
 import { MonitorSidePanel } from "@/components/monitor-side-panel";
@@ -91,13 +91,19 @@ import { PaginationBar } from "@/components/ui/pagination-bar";
 import { DeskCard } from "@/components/desk-card";
 import { PeripheralCard } from "@/components/peripheral-card";
 import { DeskSidePanel } from "@/components/desk-side-panel";
-import { PeripheralItem } from "@/data/grayplasma-desk-peripherals";
+import { PeripheralItem, ChairItem, DEFAULT_CHAIRS_DATABASE } from "@/data/grayplasma-desk-peripherals";
 import { PeripheralSidePanel } from "@/components/peripheral-side-panel";
+import { BannerCarousel } from "@/components/banner-carousel";
 import {
   DatabaseService,
   HomepageSettings,
   DEFAULT_HOMEPAGE_SETTINGS,
+  AdBannerItem,
+  DEFAULT_AD_BANNERS,
+  GlobalSiteSettings,
+  DEFAULT_SITE_SETTINGS,
 } from "@/lib/db-service";
+import { AnnouncementBar } from "@/components/announcement-bar";
 
 const INITIAL_FILTER_STATE: FilterState = {
   searchQuery: "",
@@ -116,9 +122,15 @@ function CatalogPageContent() {
   const [monitorsData, setMonitorsData] = useState<Monitor[]>(MONITORS_DATA);
   const [desksData, setDesksData] = useState<DeskItem[]>(DESK_DATABASE);
   const [peripheralsData, setPeripheralsData] = useState<PeripheralItem[]>(PERIPHERALS_DATABASE);
+  const [chairsData, setChairsData] = useState<ChairItem[]>(DEFAULT_CHAIRS_DATABASE);
   const [homepageSettings, setHomepageSettings] = useState<HomepageSettings>(DEFAULT_HOMEPAGE_SETTINGS);
   const [aftersalesCards, setAftersalesCards] = useState<NotionBoardCard[]>(NOTION_AFTERSALES_CARDS);
   const [faqs, setFaqs] = useState<typeof FAQ_LIST>(FAQ_LIST);
+  const [deskGuides, setDeskGuides] = useState<typeof DESK_GUIDES>(DESK_GUIDES);
+  const [hdrGuides, setHdrGuides] = useState<typeof HDR_GUIDES>(HDR_GUIDES);
+  const [graynotes, setGraynotes] = useState<typeof GRAYNOTES_LIST>(GRAYNOTES_LIST);
+  const [bandwidthGuides, setBandwidthGuides] = useState<typeof BANDWIDTH_GUIDANCES>(BANDWIDTH_GUIDANCES);
+  const [siteSettings, setSiteSettings] = useState<GlobalSiteSettings>(DEFAULT_SITE_SETTINGS);
   const [filterState, setFilterState] = useState<FilterState>(INITIAL_FILTER_STATE);
   const [selectedMonitor, setSelectedMonitor] = useState<Monitor | null>(null);
   const [selectedDesk, setSelectedDesk] = useState<DeskItem | null>(null);
@@ -127,7 +139,28 @@ function CatalogPageContent() {
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [activeMenuKey, setActiveMenuKey] = useState<NavMenuKey | "home">("home");
-  const [viewMode, setViewMode] = useState<"table" | "grid">("table");
+  const [viewMode, setViewMode] = useState<"table" | "grid">("grid");
+
+  // Default to gallery/grid view for first-time visitors, while remembering user preference
+  useEffect(() => {
+    try {
+      const savedMode = localStorage.getItem("gp_monitor_view_mode");
+      if (savedMode === "table" || savedMode === "grid") {
+        setViewMode(savedMode);
+      }
+    } catch (e) {
+      // ignore localStorage errors (e.g. incognito/SSR)
+    }
+  }, []);
+
+  const handleSetViewMode = (mode: "table" | "grid") => {
+    setViewMode(mode);
+    try {
+      localStorage.setItem("gp_monitor_view_mode", mode);
+    } catch (e) {
+      // ignore
+    }
+  };
   const comparator = useMonitorComparator(monitorsData);
   
   // Pagination & Filter States for Homepage Databases
@@ -138,25 +171,32 @@ function CatalogPageContent() {
   const [peripheralPage, setPeripheralPage] = useState(1);
   const [peripheralCategory, setPeripheralCategory] = useState<string>("all");
   const [peripheralSearch, setPeripheralSearch] = useState<string>("");
+  const [chairPage, setChairPage] = useState(1);
+  const [chairCategory, setChairCategory] = useState<string>("all");
+  const [chairSearch, setChairSearch] = useState<string>("");
 
   const [bannerSettings, setBannerSettings] = useState<any>({
     homeBannerUrl: "",
     homeBannerTitle: "Katalog & Database Rekomendasi Monitor",
     homeBannerSubtitle: "Kurasi monitor independen kolaborasi Joel Gray (@gray1plasma) x GlaciK dengan pengujian laboratorium GTID Tech.",
   });
+  const [adBanners, setAdBanners] = useState<AdBannerItem[]>(DEFAULT_AD_BANNERS);
   const [selectedAftersalesCard, setSelectedAftersalesCard] = useState<NotionBoardCard | null>(null);
   const [isAftersalesPanelOpen, setIsAftersalesPanelOpen] = useState(false);
 
   useEffect(() => {
     async function loadData() {
       try {
-        const [loadedMonitors, loadedBanners, loadedDesks, loadedHp, loadedPeriphs, loadedCards] = await Promise.all([
+        const [loadedMonitors, loadedBanners, loadedDesks, loadedHp, loadedPeriphs, loadedCards, loadedAdBanners, loadedSiteSettings, loadedChairs] = await Promise.all([
           DatabaseService.getMonitors(),
           DatabaseService.getBannerSettings(),
           DatabaseService.getDesks(),
           DatabaseService.getHomepageSettings(),
           DatabaseService.getPeripherals(),
           DatabaseService.getAftersalesCards(),
+          DatabaseService.getAdBanners(),
+          DatabaseService.getSiteSettings(),
+          DatabaseService.getChairsAsync(),
         ]);
         setMonitorsData(loadedMonitors);
         if (loadedBanners) setBannerSettings(loadedBanners);
@@ -164,8 +204,19 @@ function CatalogPageContent() {
         if (loadedHp) setHomepageSettings(loadedHp);
         if (loadedPeriphs && loadedPeriphs.length > 0) setPeripheralsData(loadedPeriphs);
         if (loadedCards && loadedCards.length > 0) setAftersalesCards(loadedCards);
+        if (loadedAdBanners && loadedAdBanners.length > 0) setAdBanners(loadedAdBanners);
+        if (loadedSiteSettings) setSiteSettings(loadedSiteSettings);
+        if (loadedChairs && loadedChairs.length > 0) setChairsData(loadedChairs);
         const loadedFaqs = DatabaseService.getFAQ();
-        if (loadedFaqs && loadedFaqs.length > 0) setFaqs(loadedFaqs);
+        if (loadedFaqs && loadedFaqs.length > 0) setFaqs(loadedFaqs.filter((f) => f.isPublished !== false));
+        const loadedDeskGuides = DatabaseService.getDeskGuides();
+        if (loadedDeskGuides && loadedDeskGuides.length > 0) setDeskGuides(loadedDeskGuides.filter((g) => g.isPublished !== false));
+        const loadedHdrGuides = DatabaseService.getHDRGuides();
+        if (loadedHdrGuides && loadedHdrGuides.length > 0) setHdrGuides(loadedHdrGuides.filter((g) => g.isPublished !== false));
+        const loadedGraynotes = DatabaseService.getGrayNotes();
+        if (loadedGraynotes && loadedGraynotes.length > 0) setGraynotes(loadedGraynotes.filter((g) => g.isPublished !== false));
+        const loadedBandwidths = DatabaseService.getBandwidthGuides();
+        if (loadedBandwidths && loadedBandwidths.length > 0) setBandwidthGuides(loadedBandwidths.filter((g) => g.isPublished !== false));
       } catch (e) {
         console.error("Failed to load dynamic data", e);
       } finally {
@@ -308,6 +359,18 @@ function CatalogPageContent() {
 
   const ITEMS_PER_PAGE = 9;
 
+  const activeFilterCount = useMemo(() => {
+    let count = 0;
+    if (filterState.panelTypes.length > 0) count += filterState.panelTypes.length;
+    if (filterState.refreshRates.length > 0) count += filterState.refreshRates.length;
+    if (filterState.screenSizes.length > 0) count += filterState.screenSizes.length;
+    if (filterState.resolutions.length > 0) count += filterState.resolutions.length;
+    if (filterState.tiers.length > 0) count += filterState.tiers.length;
+    if (filterState.budgetPreset !== null || filterState.budgetRange[1] < 25000000) count += 1;
+    if (filterState.searchQuery) count += 1;
+    return count;
+  }, [filterState]);
+
   // Paginated Monitors
   const totalMonitorPages = Math.max(1, Math.ceil(filteredMonitors.length / ITEMS_PER_PAGE));
   const paginatedMonitors = useMemo(() => {
@@ -380,23 +443,51 @@ function CatalogPageContent() {
     return filteredPeripherals.slice(start, start + ITEMS_PER_PAGE);
   }, [filteredPeripherals, peripheralPage]);
 
+  // Filtered & Paginated Chairs (Ergonomic & Gaming - Q2 2027)
+  const chairCategories = [
+    { id: "all", label: "Semua Kursi" },
+    { id: "Ergonomic Full Mesh", label: "Full Mesh" },
+    { id: "Ergonomic Fabric", label: "Fabric / Busa" },
+    { id: "Gaming Ergonomic", label: "Gaming Ergonomic" },
+    { id: "Office Mid-Back", label: "Office Mid-Back" },
+  ];
+
+  const filteredChairs = useMemo(() => {
+    return chairsData
+      .filter((c) => c.isPublished !== false)
+      .filter((c) => {
+        if (chairSearch.trim()) {
+          const q = chairSearch.toLowerCase();
+          const match =
+            c.name.toLowerCase().includes(q) ||
+            c.brand.toLowerCase().includes(q) ||
+            c.verdict?.toLowerCase().includes(q) ||
+            c.lumbarSupport?.toLowerCase().includes(q);
+          if (!match) return false;
+        }
+        if (chairCategory !== "all" && !c.category.toLowerCase().includes(chairCategory.toLowerCase())) {
+          return false;
+        }
+        return true;
+      });
+  }, [chairsData, chairSearch, chairCategory]);
+
+  const totalChairPages = Math.max(1, Math.ceil(filteredChairs.length / ITEMS_PER_PAGE));
+  const paginatedChairs = useMemo(() => {
+    const start = (chairPage - 1) * ITEMS_PER_PAGE;
+    return filteredChairs.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredChairs, chairPage]);
+
   // Featured top picks
   const featuredMonitors = useMemo(() => {
     return monitorsData.filter((m) => m.tier === "S-TIER" || m.tier === "BEST VALUE").slice(0, 6);
   }, [monitorsData]);
-
-  const activeFilterCount =
-    (filterState.panelTypes.length > 0 ? 1 : 0) +
-    (filterState.refreshRates.length > 0 ? 1 : 0) +
-    (filterState.screenSizes.length > 0 ? 1 : 0) +
-    (filterState.resolutions.length > 0 ? 1 : 0) +
-    (filterState.tiers.length > 0 ? 1 : 0) +
-    (filterState.budgetPreset !== null || filterState.budgetRange[1] < 25000000 ? 1 : 0);
-
   const isCatalog = activeMenuKey.startsWith("catalog");
+  const consult = siteSettings.consultation || CONSULTATION_DATA;
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col selection:bg-emerald-500 selection:text-black font-sans">
+      <AnnouncementBar settings={siteSettings?.announcement} />
       {/* Sticky Header */}
       <Navbar
         searchQuery={filterState.searchQuery}
@@ -415,57 +506,33 @@ function CatalogPageContent() {
         onMenuSelect={handleMenuSelect}
       />
 
+      {/* Edge-to-Edge Full-Width Ad Banner Carousel */}
+      <BannerCarousel banners={adBanners} intervalMs={5000} />
+
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex-1 w-full space-y-8">
         {/* ========================================================================= */}
-        {/* SECTION 1: TECH-BRUTALIST HUD HERO COVER & TITLE BLOCK                    */}
+        {/* SECTION 1: TITLE BLOCK & DISCLAIMER                                       */}
         {/* ========================================================================= */}
         <section className="space-y-6">
-          {/* Notion Hero Cover Banner with HUD framing */}
-          <div className="relative w-full h-48 sm:h-64 rounded-xl overflow-hidden border-2 border-zinc-800 bg-[#09090d] shadow-[3px_3px_0px_#000]">
-            <Image
-              src={
-                homepageSettings.heroCoverUrl ||
-                bannerSettings.homeBannerUrl ||
-                "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1600&auto=format&fit=crop"
-              }
-              alt="GrayPlasma Banner"
-              fill
-              className="object-cover opacity-60"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#09090d] via-transparent to-transparent" />
-
-            {/* Corner Tech Telemetry */}
-            <div className="absolute top-3 right-3 z-10 hidden sm:flex items-center gap-2 font-mono text-[10px] text-emerald-400 bg-black/80 border border-zinc-700 px-2.5 py-1 rounded shadow-[2px_2px_0px_#000]">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span>[ GP_SYS // CORE_CATALOG_2026 ]</span>
-            </div>
-          </div>
-
-          {/* Notion Page Icon & Header */}
-          <div className="space-y-4 -mt-14 relative z-10 px-2 sm:px-4">
-            <div className="text-4xl sm:text-5xl p-2.5 rounded-xl bg-[#0b0b0f] border-2 border-zinc-700 w-fit shadow-[3px_3px_0px_#000]">
-              {homepageSettings.pageIcon || "🖥️"}
-            </div>
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/40 px-2 py-0.5 rounded">
-                  [ STATUS: REKOMENDASI_RESMI ]
-                </span>
-                <span className="text-zinc-600">•</span>
-                <span className="text-[10px] font-mono text-zinc-400">GTID_STANDARDIZED</span>
+          <div className="space-y-4">
+            {/* Title & Notion-style Page Icon */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 flex-shrink-0 shadow-tech-card">
+                <Tv className="w-6 h-6 text-zinc-300" />
               </div>
-              <h1 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
-                {homepageSettings.pageTitle || "GRAYPLASMAID - REKOMENDASI MONITOR"}
-              </h1>
-              <p className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-400">
-                {homepageSettings.statusBadge || "[ AKAN_DILENGKAPI_SECARA_BERKALA ]"}
-              </p>
+              <div>
+                <h1 className="text-xl sm:text-3xl font-black text-white tracking-tight uppercase">
+                  {homepageSettings.pageTitle || "GRAYPLASMA DATABASE & REKOMENDASI"}
+                </h1>
+                <p className="text-xs text-zinc-400 mt-1 max-w-3xl font-sans">
+                  {homepageSettings.pageSubtitle || "Kurasi monitor gaming, standing desk, & setup kerja terbaik di Indonesia."}
+                </p>
+              </div>
             </div>
 
             {/* Tech-Brutalist Callout / Disclaimer Box */}
-            <div className="p-4 sm:p-5 rounded-lg border-l-4 border-l-amber-400 border-y border-r border-zinc-800 bg-[#0c0c11] text-xs text-zinc-300 space-y-2.5 shadow-[3px_3px_0px_#000]">
+            <div className="p-4 sm:p-5 rounded-lg border-l-4 border-l-amber-400 border-y border-r border-zinc-800 bg-[#0c0c11] text-xs text-zinc-300 space-y-2.5 shadow-tech-subtle">
               <div className="flex items-center gap-2 font-mono font-bold text-amber-400 uppercase tracking-wide">
                 <AlertTriangle className="w-4 h-4 text-amber-400" />
                 <span>// {homepageSettings.disclaimerTitle || "CATATAN PENTING & STANDAR PENGUJIAN :"}</span>
@@ -498,21 +565,21 @@ function CatalogPageContent() {
               }, {} as Record<string, { emoji: string; cards: typeof homepageSettings.subpageCards }>)
           ).map(([groupTitle, groupData]) => (
             <div key={groupTitle} className="space-y-3">
-              <div className="flex items-center gap-2 text-xs font-mono font-bold text-zinc-300 uppercase tracking-wider">
-                <span>{groupData.emoji}</span>
-                <span>[ // {groupTitle.toUpperCase()} ]</span>
+              <div className="flex items-center gap-2 text-xs font-bold text-zinc-300 uppercase tracking-wider">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span>{groupTitle}</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {groupData.cards.map((card) => (
                   <Link
                     key={card.id}
                     href={card.path}
-                    className={`p-3.5 rounded-lg bg-[#09090d] border border-zinc-800 transition-all space-y-1.5 group block shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_rgba(0,230,118,0.25)] hover:border-emerald-500/80 hover:-translate-y-0.5 ${
+                    className={`p-3.5 rounded-lg bg-[#09090d] border border-zinc-800 transition-all space-y-1.5 group block shadow-tech-card hover:border-zinc-700 ${
                       card.color || "hover:border-emerald-500 text-emerald-400"
                     }`}
                   >
                     <div className="flex items-center gap-2 font-bold text-white text-xs group-hover:text-emerald-400 transition-colors">
-                      <span>{card.icon}</span>
+                      <FileText className="w-3.5 h-3.5 text-zinc-500 group-hover:text-emerald-400 transition-colors flex-shrink-0" />
                       <span className="truncate">{card.title}</span>
                     </div>
                     <p className="text-[11px] text-zinc-400 line-clamp-2 leading-relaxed font-sans">
@@ -534,102 +601,126 @@ function CatalogPageContent() {
         {(activeMenuKey === "home" ? homepageSettings.sectionVisibility.showMonitors : isCatalog) && (
           <section className="space-y-6 pt-10 border-t border-zinc-800 animate-in fade-in duration-200">
             {/* Database Header Title & View Switcher */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
               <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <span className="text-xl">🖥️</span>
-                  <h2 className="text-lg sm:text-2xl font-black text-white tracking-tight">
-                    [ 01 // {homepageSettings.sectionTitles?.monitorsTitle || "DATABASE REKOMENDASI MONITOR"} ]
+                <div className="flex items-center gap-2.5">
+                  <span className="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 flex items-center justify-center font-mono text-xs font-bold shrink-0">
+                    01
+                  </span>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                    {homepageSettings.sectionTitles?.monitorsTitle || "Database Rekomendasi Monitor"}
                   </h2>
                 </div>
-                <p className="text-xs text-zinc-400 font-sans">
-                  {homepageSettings.sectionTitles?.monitorsSubtitle || "Tabel interaktif & katalog pengujian GTID Tech (9 monitor per halaman)."}
+                <p className="text-xs text-zinc-400 font-sans pl-9.5">
+                  {homepageSettings.sectionTitles?.monitorsSubtitle || "Tabel interaktif & kurasi monitor hasil pengujian laboratorium GTID Tech."}
                 </p>
               </div>
 
-              <div className="flex items-center gap-2.5">
-                {/* View Mode Toggle */}
-                <div className="flex items-center gap-1 bg-[#09090d] p-1 rounded-lg border border-zinc-700 shadow-[2px_2px_0px_#000]">
+              <div className="flex items-center gap-2 flex-wrap">
+                {/* Parameter & Filter Button */}
+                <button
+                  type="button"
+                  onClick={() => setIsMobileDrawerOpen(true)}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all border ${
+                    activeFilterCount > 0
+                      ? "bg-emerald-500/15 border-emerald-500/50 text-emerald-300"
+                      : "bg-zinc-900 border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700"
+                  }`}
+                  title="Buka panel parameter & filter"
+                >
+                  <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Filter {activeFilterCount > 0 ? `(${activeFilterCount})` : ""}</span>
+                </button>
+
+                {/* View Mode Segmented Control */}
+                <div className="flex items-center p-0.5 rounded-lg bg-zinc-900 border border-zinc-800">
                   <button
                     type="button"
-                    onClick={() => setViewMode("grid")}
-                    className={`px-3 py-1 rounded text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+                    onClick={() => handleSetViewMode("grid")}
+                    className={`px-3 py-1 rounded-md text-xs font-medium flex items-center gap-1.5 transition-all ${
                       viewMode === "grid"
-                        ? "bg-emerald-500 text-black shadow-sm"
+                        ? "bg-zinc-800 text-white shadow-sm font-semibold"
                         : "text-zinc-400 hover:text-white"
                     }`}
+                    title="Tampilan Galeri"
                   >
                     <LayoutGrid className="w-3.5 h-3.5" />
-                    <span>[ GRID ]</span>
+                    <span>Galeri</span>
                   </button>
                   <button
                     type="button"
-                    onClick={() => setViewMode("table")}
-                    className={`px-3 py-1 rounded text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+                    onClick={() => handleSetViewMode("table")}
+                    className={`px-3 py-1 rounded-md text-xs font-medium flex items-center gap-1.5 transition-all ${
                       viewMode === "table"
-                        ? "bg-zinc-800 text-white shadow-sm border border-zinc-600"
+                        ? "bg-zinc-800 text-white shadow-sm font-semibold"
                         : "text-zinc-400 hover:text-white"
                     }`}
+                    title="Tampilan Tabel"
                   >
                     <Table className="w-3.5 h-3.5" />
-                    <span>[ TABEL ]</span>
+                    <span>Tabel</span>
                   </button>
                 </div>
 
-                <span className="px-3 py-1 rounded border border-emerald-500/40 bg-emerald-500/10 text-xs font-mono text-emerald-400 font-bold shadow-[2px_2px_0px_#000]">
-                  [ {filteredMonitors.length} MODEL ]
+                <span className="px-2.5 py-1 rounded-full border border-zinc-800 bg-zinc-900 text-xs text-zinc-300 font-medium">
+                  {filteredMonitors.length} Monitor
                 </span>
               </div>
             </div>
 
-            {/* Core 2-Column Database Layout: Left FilterBar + Right Content */}
-            <div className="flex flex-col lg:flex-row gap-6 items-start">
-              {/* Left Sidebar Filter Section */}
-              <div className="w-full lg:w-72 xl:w-80 flex-shrink-0">
-                <FilterBar
-                  filterState={filterState}
-                  onFilterChange={setFilterState}
-                  onResetFilters={handleResetFilters}
-                  isMobileDrawerOpen={isMobileDrawerOpen}
-                  onCloseMobileDrawer={() => setIsMobileDrawerOpen(false)}
-                  totalFilteredCount={filteredMonitors.length}
-                />
-              </div>
+            {/* Active Filter Chips */}
+            <ActiveFilterPills
+              filterState={filterState}
+              onFilterChange={setFilterState}
+              onResetFilters={handleResetFilters}
+              onOpenFilter={() => setIsMobileDrawerOpen(true)}
+            />
 
-              {/* Right Main Content */}
-              <div className="flex-1 w-full min-w-0 space-y-6">
-                {viewMode === "grid" ? (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4.5 animate-in fade-in duration-200">
-                    {paginatedMonitors.map((monitor) => (
-                      <MonitorCard
-                        key={monitor.id}
-                        monitor={monitor}
-                        onSelectMonitor={(m) => setSelectedMonitor(m)}
-                        onCompareToggle={(m) => comparator.togglePin(m)}
-                        isCompared={comparator.isPinned(monitor)}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    <NotionTableView
-                      monitors={paginatedMonitors}
-                      selectedMonitorId={selectedMonitor?.id}
+            {/* Main Content - Full 100% Width */}
+            <div className="w-full min-w-0 space-y-6">
+              {viewMode === "grid" ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4.5 animate-in fade-in duration-200">
+                  {paginatedMonitors.map((monitor) => (
+                    <MonitorCard
+                      key={monitor.id}
+                      monitor={monitor}
                       onSelectMonitor={(m) => setSelectedMonitor(m)}
+                      onCompareToggle={(m) => comparator.togglePin(m)}
+                      isCompared={comparator.isPinned(monitor)}
                     />
-                  </div>
-                )}
+                  ))}
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <NotionTableView
+                    monitors={paginatedMonitors}
+                    selectedMonitorId={selectedMonitor?.id}
+                    onSelectMonitor={(m) => setSelectedMonitor(m)}
+                    onOpenFilter={() => setIsMobileDrawerOpen(true)}
+                    activeFilterCount={activeFilterCount}
+                  />
+                </div>
+              )}
 
-                {/* Monitor Pagination Bar (Active for both Grid and Table view) */}
-                <PaginationBar
-                  currentPage={monitorPage}
-                  totalPages={totalMonitorPages}
-                  totalItems={filteredMonitors.length}
-                  itemsPerPage={ITEMS_PER_PAGE}
-                  onPageChange={setMonitorPage}
-                />
-              </div>
+              {/* Monitor Pagination Bar (Active for both Grid and Table view) */}
+              <PaginationBar
+                currentPage={monitorPage}
+                totalPages={totalMonitorPages}
+                totalItems={filteredMonitors.length}
+                itemsPerPage={ITEMS_PER_PAGE}
+                onPageChange={setMonitorPage}
+              />
             </div>
+
+            {/* FilterBar as Slide-Over Modal */}
+            <FilterBar
+              filterState={filterState}
+              onFilterChange={setFilterState}
+              onResetFilters={handleResetFilters}
+              isOpen={isMobileDrawerOpen}
+              onClose={() => setIsMobileDrawerOpen(false)}
+              totalFilteredCount={filteredMonitors.length}
+            />
           </section>
         )}
 
@@ -638,26 +729,28 @@ function CatalogPageContent() {
         {/* ========================================================================= */}
         {activeMenuKey === "home" && homepageSettings.sectionVisibility.showDesks && (
           <section className="space-y-6 pt-12 border-t border-zinc-800 animate-in fade-in duration-200">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
               <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <span className="text-xl">🪑</span>
-                  <h2 className="text-lg sm:text-2xl font-black text-white tracking-tight">
-                    [ 02 // {homepageSettings.sectionTitles?.desksTitle || "DATABASE REKOMENDASI MEJA & SETUP ERGONOMI"} ]
+                <div className="flex items-center gap-2.5">
+                  <span className="w-7 h-7 rounded-lg bg-orange-500/10 border border-orange-500/25 text-orange-400 flex items-center justify-center font-mono text-xs font-bold shrink-0">
+                    02
+                  </span>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                    {homepageSettings.sectionTitles?.desksTitle || "Database Rekomendasi Meja & Setup Ergonomi"}
                   </h2>
                 </div>
-                <p className="text-xs text-zinc-400 font-sans">
-                  {homepageSettings.sectionTitles?.desksSubtitle || "Tabel kurasi daun meja plywood solid & standing desk elektrik (Klik baris untuk melihat side panel ulasan)."}
+                <p className="text-xs text-zinc-400 font-sans pl-9.5">
+                  {homepageSettings.sectionTitles?.desksSubtitle || "Tabel kurasi daun meja plywood solid & standing desk elektrik (Klik baris untuk melihat ulasan)."}
                 </p>
               </div>
 
-              <span className="px-3 py-1 rounded border border-amber-500/40 bg-amber-500/10 text-xs font-mono text-amber-400 font-bold self-start sm:self-auto shadow-[2px_2px_0px_#000]">
-                [ {filteredDesks.length} PILIHAN MEJA ]
+              <span className="px-2.5 py-1 rounded-full border border-zinc-800 bg-zinc-900 text-xs text-zinc-300 font-medium self-start sm:self-auto">
+                {filteredDesks.length} Pilihan Meja
               </span>
             </div>
 
             {/* Category Filter Pills & Search */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#09090d] p-3 rounded-lg border border-zinc-700/80 shadow-[2px_2px_0px_#000]">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#0c0c10] p-2.5 rounded-xl border border-zinc-800">
               <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
                 {deskCategories.map((cat) => (
                   <button
@@ -667,13 +760,13 @@ function CatalogPageContent() {
                       setDeskCategory(cat.id);
                       setDeskPage(1);
                     }}
-                    className={`px-3 py-1 rounded text-xs font-mono font-bold whitespace-nowrap transition-all shadow-[1px_1px_0px_#000] ${
+                    className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
                       deskCategory === cat.id
-                        ? "bg-amber-500 text-black font-black"
-                        : "bg-[#141419] text-zinc-400 hover:text-white border border-zinc-700"
+                        ? "bg-zinc-100 text-black font-semibold shadow-sm"
+                        : "bg-[#141419] text-zinc-400 hover:text-white border border-zinc-800"
                     }`}
                   >
-                    [ {cat.label} ]
+                    {cat.label}
                   </button>
                 ))}
               </div>
@@ -686,21 +779,21 @@ function CatalogPageContent() {
                   setDeskPage(1);
                 }}
                 placeholder="Cari meja..."
-                className="px-3.5 py-1.5 rounded-lg bg-[#141419] border border-zinc-700 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-400 w-full sm:w-56 shadow-inner"
+                className="px-3.5 py-1.5 rounded-lg bg-[#141419] border border-zinc-800 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-500 w-full sm:w-56"
               />
             </div>
 
             {/* Desks Table View */}
-            <div className="relative rounded-lg border-2 border-zinc-800 bg-[#09090d] overflow-hidden shadow-[3px_3px_0px_#000]">
+            <div className="relative rounded-xl border border-zinc-800 bg-[#09090d] overflow-hidden shadow-tech-card">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse min-w-[850px]">
                   <thead className="bg-[#050508] text-zinc-300 uppercase text-[10px] font-mono tracking-wider border-b-2 border-zinc-700 select-none">
                     <tr>
-                      <th className="py-3 px-4 min-w-[220px] text-white">[ 01 // NAMA_MEJA_MODEL ]</th>
-                      <th className="py-3 px-3 min-w-[180px]">[ 02 // KATEGORI ]</th>
-                      <th className="py-3 px-3 min-w-[140px]">[ 03 // TIPE_BENTUK ]</th>
-                      <th className="py-3 px-3 min-w-[160px]">[ 04 // STATUS_CATATAN ]</th>
-                      <th className="py-3 px-4 min-w-[140px] text-right font-mono text-emerald-400">[ ESTIMASI_BUDGET ]</th>
+                      <th className="py-3 px-4 min-w-[220px] text-white">[ NAMA MEJA & MODEL ]</th>
+                      <th className="py-3 px-3 min-w-[180px]">[ KATEGORI ]</th>
+                      <th className="py-3 px-3 min-w-[140px]">[ TIPE & BENTUK ]</th>
+                      <th className="py-3 px-3 min-w-[160px]">[ STATUS CATATAN ]</th>
+                      <th className="py-3 px-4 min-w-[140px] text-right font-mono text-emerald-400">[ ESTIMASI BUDGET ]</th>
                       <th className="py-3 px-3 text-center min-w-[110px]">[ AKSI ]</th>
                     </tr>
                   </thead>
@@ -776,26 +869,28 @@ function CatalogPageContent() {
         {/* ========================================================================= */}
         {activeMenuKey === "home" && homepageSettings.sectionVisibility.showPeripherals && (
           <section className="space-y-6 pt-12 border-t border-zinc-800 animate-in fade-in duration-200">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
               <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <span className="text-xl">🎧</span>
-                  <h2 className="text-lg sm:text-2xl font-black text-white tracking-tight">
-                    [ 03 // {homepageSettings.sectionTitles?.peripheralsTitle || "DATABASE REKOMENDASI AKSESORIS & PERIPHERALS"} ]
+                <div className="flex items-center gap-2.5">
+                  <span className="w-7 h-7 rounded-lg bg-cyan-500/10 border border-cyan-500/25 text-cyan-400 flex items-center justify-center font-mono text-xs font-bold shrink-0">
+                    03
+                  </span>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                    {homepageSettings.sectionTitles?.peripheralsTitle || "Database Rekomendasi Aksesoris & Peripherals"}
                   </h2>
                 </div>
-                <p className="text-xs text-zinc-400 font-sans">
+                <p className="text-xs text-zinc-400 font-sans pl-9.5">
                   {homepageSettings.sectionTitles?.peripheralsSubtitle || "Tabel kurasi bracket gas spring arm, screenbar lightbar, & cable management."}
                 </p>
               </div>
 
-              <span className="px-3 py-1 rounded border border-cyan-500/40 bg-cyan-500/10 text-xs font-mono text-cyan-400 font-bold self-start sm:self-auto shadow-[2px_2px_0px_#000]">
-                [ {filteredPeripherals.length} AKSESORIS ]
+              <span className="px-2.5 py-1 rounded-full border border-zinc-800 bg-zinc-900 text-xs text-zinc-300 font-medium self-start sm:self-auto">
+                {filteredPeripherals.length} Aksesoris
               </span>
             </div>
 
             {/* Category Filter Pills & Search */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#09090d] p-3 rounded-lg border border-zinc-700/80 shadow-[2px_2px_0px_#000]">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#09090d] p-2.5 rounded-xl border border-zinc-800">
               <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
                 {peripheralCategories.map((cat) => (
                   <button
@@ -805,13 +900,13 @@ function CatalogPageContent() {
                       setPeripheralCategory(cat.id);
                       setPeripheralPage(1);
                     }}
-                    className={`px-3 py-1 rounded text-xs font-mono font-bold whitespace-nowrap transition-all shadow-[1px_1px_0px_#000] ${
+                    className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
                       peripheralCategory === cat.id
-                        ? "bg-cyan-400 text-black font-black"
-                        : "bg-[#141419] text-zinc-400 hover:text-white border border-zinc-700"
+                        ? "bg-zinc-100 text-black font-semibold shadow-sm"
+                        : "bg-[#141419] text-zinc-400 hover:text-white border border-zinc-800"
                     }`}
                   >
-                    [ {cat.label} ]
+                    {cat.label}
                   </button>
                 ))}
               </div>
@@ -824,21 +919,21 @@ function CatalogPageContent() {
                   setPeripheralPage(1);
                 }}
                 placeholder="Cari aksesoris..."
-                className="px-3.5 py-1.5 rounded-lg bg-[#141419] border border-zinc-700 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-400 w-full sm:w-56 shadow-inner"
+                className="px-3.5 py-1.5 rounded-lg bg-[#141419] border border-zinc-800 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-500 w-full sm:w-56"
               />
             </div>
 
             {/* Peripherals Table View */}
-            <div className="relative rounded-lg border-2 border-zinc-800 bg-[#09090d] overflow-hidden shadow-[3px_3px_0px_#000]">
+            <div className="relative rounded-xl border border-zinc-800 bg-[#09090d] overflow-hidden shadow-tech-card">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse min-w-[850px]">
                   <thead className="bg-[#050508] text-zinc-300 uppercase text-[10px] font-mono tracking-wider border-b-2 border-zinc-700 select-none">
                     <tr>
-                      <th className="py-3 px-4 min-w-[220px] text-white">[ 01 // NAMA_AKSESORIS ]</th>
-                      <th className="py-3 px-3 min-w-[160px]">[ 02 // KATEGORI ]</th>
-                      <th className="py-3 px-3 min-w-[130px]">[ 03 // BRAND ]</th>
-                      <th className="py-3 px-3 min-w-[140px]">[ 04 // GARANSI_SPEK ]</th>
-                      <th className="py-3 px-4 min-w-[140px] text-right font-mono text-cyan-400">[ KISARAN_HARGA ]</th>
+                      <th className="py-3 px-4 min-w-[220px] text-white">[ NAMA AKSESORIS ]</th>
+                      <th className="py-3 px-3 min-w-[160px]">[ KATEGORI ]</th>
+                      <th className="py-3 px-3 min-w-[130px]">[ BRAND ]</th>
+                      <th className="py-3 px-3 min-w-[140px]">[ GARANSI & SPEK ]</th>
+                      <th className="py-3 px-4 min-w-[140px] text-right font-mono text-cyan-400">[ KISARAN HARGA ]</th>
                       <th className="py-3 px-3 text-center min-w-[130px]">[ AKSI ]</th>
                     </tr>
                   </thead>
@@ -923,62 +1018,222 @@ function CatalogPageContent() {
           </section>
         )}
 
+        {/* ========================================================================= */}
+        {/* SECTION 4: DATABASE REKOMENDASI KURSI ERGONOMIS & GAMING (Q2 2027)          */}
+        {/* ========================================================================= */}
+        {activeMenuKey === "home" && homepageSettings.sectionVisibility.showChairs && (
+          <section className="space-y-6 pt-12 border-t border-zinc-800 animate-in fade-in duration-200">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2.5">
+                  <span className="w-7 h-7 rounded-lg bg-purple-500/10 border border-purple-500/25 text-purple-400 flex items-center justify-center font-mono text-xs font-bold shrink-0">
+                    04
+                  </span>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                    {homepageSettings.sectionTitles?.chairsTitle || "Database Rekomendasi Kursi Ergonomis & Gaming"}
+                  </h2>
+                </div>
+                <p className="text-xs text-zinc-400 font-sans pl-9.5">
+                  {homepageSettings.sectionTitles?.chairsSubtitle || "Kurasi kursi ergonomis breathable mesh, lumbar support presisi, dan gas lift Class 4."}
+                </p>
+              </div>
+
+              <span className="px-2.5 py-1 rounded-full border border-zinc-800 bg-zinc-900 text-xs text-zinc-300 font-medium self-start sm:self-auto">
+                {filteredChairs.length} Pilihan Kursi
+              </span>
+            </div>
+
+            {/* Category Filter Pills & Search */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#09090d] p-2.5 rounded-xl border border-zinc-800">
+              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+                {chairCategories.map((cat) => (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => {
+                      setChairCategory(cat.id);
+                      setChairPage(1);
+                    }}
+                    className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+                      chairCategory === cat.id
+                        ? "bg-zinc-100 text-black font-semibold shadow-sm"
+                        : "bg-[#141419] text-zinc-400 hover:text-white border border-zinc-800"
+                    }`}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+
+              <input
+                type="text"
+                value={chairSearch}
+                onChange={(e) => {
+                  setChairSearch(e.target.value);
+                  setChairPage(1);
+                }}
+                placeholder="Cari kursi ergonomis..."
+                className="px-3.5 py-1.5 rounded-lg bg-[#141419] border border-zinc-800 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-500 w-full sm:w-56"
+              />
+            </div>
+
+            {/* Chairs Grid Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {paginatedChairs.map((chair) => {
+                return (
+                  <div
+                    key={chair.id}
+                    className="p-5 rounded-2xl bg-[#0e0e12] border border-zinc-800/90 hover:border-purple-500/40 transition-all flex flex-col justify-between space-y-4 group"
+                  >
+                    <div className="space-y-2.5">
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
+                            {chair.brand} • {chair.category}
+                          </span>
+                          <h3 className="text-base font-black text-white group-hover:text-purple-300 transition-colors mt-1">
+                            {chair.name}
+                          </h3>
+                        </div>
+                        <span className="text-xs font-mono font-bold text-white tabular-nums bg-zinc-900 px-2.5 py-1 rounded border border-zinc-800 shrink-0">
+                          {chair.price > 0 ? formatRupiah(chair.price) : "Cek Toko"}
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-1.5 text-[11px] font-mono">
+                        <div className="bg-zinc-900/80 px-2 py-1 rounded border border-zinc-800/80 text-zinc-300 truncate">
+                          <span className="text-zinc-500">Lumbar:</span> {chair.lumbarSupport}
+                        </div>
+                        <div className="bg-zinc-900/80 px-2 py-1 rounded border border-zinc-800/80 text-zinc-300 truncate">
+                          <span className="text-zinc-500">Armrest:</span> {chair.armrest}
+                        </div>
+                        <div className="bg-zinc-900/80 px-2 py-1 rounded border border-zinc-800/80 text-zinc-300 truncate">
+                          <span className="text-zinc-500">Gaslift:</span> {chair.gasLift}
+                        </div>
+                        <div className="bg-zinc-900/80 px-2 py-1 rounded border border-zinc-800/80 text-zinc-300 truncate">
+                          <span className="text-zinc-500">Max Beban:</span> {chair.maxWeightCapacity}
+                        </div>
+                      </div>
+
+                      {chair.verdict && (
+                        <p className="text-xs text-zinc-400 leading-relaxed bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800/60">
+                          💡 <strong className="text-zinc-300">GrayPlasma Verdict:</strong> {chair.verdict}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="pt-2 border-t border-zinc-900 flex items-center justify-between gap-2">
+                      <span className="text-[10px] text-zinc-500">
+                        {chair.recommendedHeight}
+                      </span>
+                      <div className="flex items-center gap-1.5">
+                        {chair.shopeeUrl && (
+                          <a
+                            href={chair.shopeeUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-2.5 py-1 rounded-lg bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 border border-orange-500/30 text-[11px] font-bold transition-colors"
+                          >
+                            Shopee
+                          </a>
+                        )}
+                        {chair.tokopediaUrl && (
+                          <a
+                            href={chair.tokopediaUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-2.5 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold transition-colors"
+                          >
+                            Tokopedia
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <PaginationBar
+              currentPage={chairPage}
+              totalPages={totalChairPages}
+              totalItems={filteredChairs.length}
+              itemsPerPage={ITEMS_PER_PAGE}
+              onPageChange={setChairPage}
+            />
+          </section>
+        )}
+
 
         {/* ========================================================================= */}
         {/* VIEW: LIST AFTERSALES (AUTHENTIC NOTION KANBAN BOARD)                     */}
         {/* ========================================================================= */}
         {activeMenuKey === "aftersales-tier" && (
-          <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in duration-200">
-            {/* Breadcrumb */}
-            <div className="flex items-center justify-between bg-[#202020] border border-[#2f2f2f] rounded-xl px-4 py-2.5 text-xs text-[#9b9a97]">
-              <button
-                onClick={() => setActiveMenuKey("home")}
-                className="hover:text-white flex items-center gap-1.5 transition-colors"
-              >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Kembali ke Beranda</span>
-              </button>
-              <span className="text-[#e0e0e0] font-medium">
-                🖥️ LIST AFTERSALES (BRAND MONITOR OEM)
-              </span>
+          homepageSettings.sectionVisibility.showAftersales === false ? (
+            <div className="max-w-4xl mx-auto my-12 p-8 rounded-2xl bg-[#0e0e12] border border-amber-500/30 text-center space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto">
+                <ShieldAlert className="w-6 h-6" />
+              </div>
+              <h2 className="text-lg font-bold text-white uppercase tracking-tight">[ // BOARD AFTERSALES SEDANG DIARSIPKAN SEMENTARA ]</h2>
+              <p className="text-xs text-zinc-400 max-w-md mx-auto">Section evaluasi aftersales brand saat ini dinonaktifkan oleh tim admin untuk peninjauan kebijakan RMA.</p>
+              <button onClick={() => setActiveMenuKey("home")} className="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs text-white font-bold transition-colors">Kembali ke Beranda</button>
             </div>
+          ) : (
+            <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in duration-200">
+              {/* Breadcrumb */}
+              <div className="flex items-center justify-between bg-[#202020] border border-[#2f2f2f] rounded-xl px-4 py-2.5 text-xs text-[#9b9a97]">
+                <button
+                  onClick={() => setActiveMenuKey("home")}
+                  className="hover:text-white flex items-center gap-1.5 transition-colors"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Kembali ke Beranda</span>
+                </button>
+                <span className="text-white font-medium flex items-center gap-1.5">
+                  <ShieldAlert className="w-4 h-4 text-amber-400" />
+                  LIST AFTERSALES (BRAND MONITOR OEM)
+                </span>
+              </div>
 
-            {/* Notion Header & Icon Block */}
-            <div className="space-y-4 pt-2">
-              <div className="text-4xl">🖥️</div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-[#ffffff] tracking-tight">
-                LIST AFTERSALES (BRAND MONITOR OEM)
-              </h1>
+              {/* Notion Header & Icon Block */}
+              <div className="space-y-4 pt-2">
+                <div className="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 w-fit text-amber-400">
+                  <ShieldAlert className="w-8 h-8" />
+                </div>
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-[#ffffff] tracking-tight">
+                  LIST AFTERSALES (BRAND MONITOR OEM)
+                </h1>
 
-              {/* Subtitle / Catatan Section (Exact match to Image 2) */}
-              <div className="space-y-2 text-xs text-[#9b9a97]">
-                <p className="font-semibold uppercase tracking-wider text-[#787774]">
-                  AKAN DILENGKAPI
-                </p>
-                <div className="space-y-1">
-                  <span className="font-bold text-[#d4d4d4] uppercase">CATATAN :</span>
-                  <ul className="list-disc pl-5 space-y-1 text-[#b4b4b4]">
-                    <li>
-                      PENULIS TIDAK BERTANGGUNG JAWAB JIKA BRAND ANDA TERSINGGUNG DENGAN TULISAN DIBAWAH
-                    </li>
-                  </ul>
+                {/* Subtitle / Catatan Section (Exact match to Image 2) */}
+                <div className="space-y-2 text-xs text-[#9b9a97]">
+                  <p className="font-semibold uppercase tracking-wider text-[#787774]">
+                    AKAN DILENGKAPI
+                  </p>
+                  <div className="space-y-1">
+                    <span className="font-bold text-[#d4d4d4] uppercase">CATATAN :</span>
+                    <ul className="list-disc pl-5 space-y-1 text-[#b4b4b4]">
+                      <li>
+                        PENULIS TIDAK BERTANGGUNG JAWAB JIKA BRAND ANDA TERSINGGUNG DENGAN TULISAN DIBAWAH
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Authentic Notion Kanban Board */}
-            <div className="pt-2">
-              <NotionKanbanBoard
-                columns={NOTION_AFTERSALES_COLUMNS}
-                cards={aftersalesCards}
-                selectedCardId={selectedAftersalesCard?.id}
-                onSelectCard={(card) => {
-                  setSelectedAftersalesCard(card);
-                  setIsAftersalesPanelOpen(true);
-                }}
-              />
+              {/* Authentic Notion Kanban Board */}
+              <div className="pt-2">
+                <NotionKanbanBoard
+                  columns={NOTION_AFTERSALES_COLUMNS}
+                  cards={aftersalesCards}
+                  selectedCardId={selectedAftersalesCard?.id}
+                  onSelectCard={(card) => {
+                    setSelectedAftersalesCard(card);
+                    setIsAftersalesPanelOpen(true);
+                  }}
+                />
+              </div>
             </div>
-          </div>
+          )
         )}
 
         {/* ========================================================================= */}
@@ -1036,7 +1291,7 @@ function CatalogPageContent() {
                   <span className="font-bold text-white">@GrayPlasma (Penulis) & @GlaciK • Data GTID Tech</span>
                 </div>
                 <a
-                  href={CONSULTATION_DATA.youtubeUrl}
+                  href={consult.youtubeUrl || CONSULTATION_DATA.youtubeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-3 py-1.5 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/20 font-bold text-xs transition-colors flex items-center gap-1.5"
@@ -1159,7 +1414,7 @@ function CatalogPageContent() {
               {/* Business Inquiries */}
               <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800 text-xs text-zinc-300 max-w-md mx-auto">
                 <strong className="text-white block mb-1">Business Inquiries & Konsultasi:</strong>
-                <span>WhatsApp: {CONSULTATION_DATA.whatsapp} (a.n Joel Gray)</span>
+                <span>WhatsApp: {consult.whatsapp || CONSULTATION_DATA.whatsapp} (a.n Joel Gray)</span>
               </div>
             </div>
           </div>
@@ -1189,226 +1444,158 @@ function CatalogPageContent() {
               </span>
             </div>
 
-            <div className="flex gap-8 items-start">
-              <FilterBar
-                filterState={filterState}
-                onFilterChange={setFilterState}
-                onResetFilters={handleResetFilters}
-                isMobileDrawerOpen={isMobileDrawerOpen}
-                onCloseMobileDrawer={() => setIsMobileDrawerOpen(false)}
-                totalFilteredCount={filteredMonitors.length}
-              />
+            {/* Active Filter Chips */}
+            <ActiveFilterPills
+              filterState={filterState}
+              onFilterChange={setFilterState}
+              onResetFilters={handleResetFilters}
+              onOpenFilter={() => setIsMobileDrawerOpen(true)}
+            />
 
-              <section className="flex-1 w-full min-w-0">
-                {/* Results Toolbar */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 bg-surface-dark border border-zinc-800 rounded-2xl p-4">
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm font-bold text-white">
-                      Menampilkan {filteredMonitors.length} Model Monitor
+            <section className="w-full min-w-0 space-y-6">
+              {/* Results Toolbar */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 bg-surface-dark border border-zinc-800 rounded-2xl p-4">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className="text-sm font-bold text-white">
+                    Menampilkan {filteredMonitors.length} Model Monitor
+                  </span>
+                  {filterState.searchQuery && (
+                    <span className="text-xs text-zinc-400">
+                      untuk &ldquo;<span className="text-emerald-400">{filterState.searchQuery}</span>&rdquo;
                     </span>
-                    {filterState.searchQuery && (
-                      <span className="text-xs text-zinc-400">
-                        untuk &ldquo;<span className="text-emerald-400">{filterState.searchQuery}</span>&rdquo;
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="flex items-center gap-3 self-end sm:self-auto">
-                    {/* View Mode Toggle */}
-                    <div className="flex items-center bg-zinc-900 border border-zinc-800 rounded-xl p-0.5">
-                      <button
-                        onClick={() => setViewMode("table")}
-                        className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${viewMode === "table"
-                            ? "bg-zinc-800 text-emerald-400 shadow-sm"
-                            : "text-zinc-400 hover:text-white"
-                          }`}
-                      >
-                        📋 Tabel Database
-                      </button>
-                      <button
-                        onClick={() => setViewMode("grid")}
-                        className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${viewMode === "grid"
-                            ? "bg-zinc-800 text-emerald-400 shadow-sm"
-                            : "text-zinc-400 hover:text-white"
-                          }`}
-                      >
-                        🔲 Kartu Grid
-                      </button>
-                    </div>
-
-                    <div className="flex items-center gap-1.5">
-                      <ArrowUpDown className="w-3.5 h-3.5 text-zinc-500" />
-                      <select
-                        value={filterState.sortBy}
-                        onChange={(e) =>
-                          setFilterState((prev) => ({
-                            ...prev,
-                            sortBy: e.target.value as FilterState["sortBy"],
-                          }))
-                        }
-                        className="bg-zinc-900 border border-zinc-800 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-white focus:outline-none focus:border-emerald-500 cursor-pointer"
-                      >
-                        <option value="tier">Tier Rekomendasi</option>
-                        <option value="price-asc">Harga Termurah</option>
-                        <option value="price-desc">Harga Tertinggi</option>
-                        <option value="refresh-desc">Refresh Rate Tertinggi</option>
-                      </select>
-                    </div>
-                  </div>
+                  )}
                 </div>
 
-                {/* View Content (Table or Grid) */}
-                {isLoading ? (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
-                    {[1, 2, 3, 4, 5, 6].map((n) => (
-                      <div
-                        key={n}
-                        className="bg-zinc-950 border border-zinc-900 rounded-2xl p-5 space-y-4 animate-pulse"
-                      >
-                        <div className="w-full aspect-[16/10] bg-zinc-900 rounded-xl" />
-                        <div className="w-3/4 h-5 bg-zinc-900 rounded" />
-                        <div className="w-full h-9 bg-zinc-900 rounded-xl" />
-                      </div>
-                    ))}
-                  </div>
-                ) : filteredMonitors.length > 0 ? (
-                  viewMode === "table" ? (
-                    <NotionTableView
-                      monitors={filteredMonitors}
-                      selectedMonitorId={selectedMonitor?.id}
-                      onSelectMonitor={(m) => setSelectedMonitor(m)}
-                    />
-                  ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
-                      {filteredMonitors.map((monitor) => (
-                        <MonitorCard
-                          key={monitor.id}
-                          monitor={monitor}
-                          onSelectMonitor={(m) => setSelectedMonitor(m)}
-                        />
-                      ))}
-                    </div>
-                  )
-                ) : (
-                  <div className="bg-surface-dark border border-zinc-800 rounded-3xl p-12 text-center flex flex-col items-center justify-center space-y-4 my-6">
-                    <SearchX className="w-10 h-10 text-zinc-500" />
-                    <div className="space-y-1 max-w-sm">
-                      <h3 className="text-base font-bold text-white uppercase tracking-wider">
-                        Tidak Ditemukan Monitor yang Cocok
-                      </h3>
-                      <p className="text-xs text-zinc-400">
-                        Coba sesuaikan filter atau reset kata kunci pencarian.
-                      </p>
-                    </div>
-                    <Button
-                      variant="cyber"
-                      size="sm"
-                      onClick={handleResetFilters}
-                      className="flex items-center gap-2 text-xs font-bold mt-2"
-                    >
-                      <RotateCcw className="w-3.5 h-3.5" />
-                      <span>Reset Filter</span>
-                    </Button>
-                  </div>
-                )}
-              </section>
-            </div>
-          </div>
-        )}
-
-        {/* ========================================================================= */}
-        {/* VIEW: AFTERSALES BRAND TIER LIST                                          */}
-        {/* ========================================================================= */}
-        {activeMenuKey === "aftersales-tier" && (
-          <div className="space-y-6 animate-in fade-in duration-200">
-            {/* Breadcrumb */}
-            <div className="flex items-center justify-between bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5">
-              <button
-                onClick={() => setActiveMenuKey("home")}
-                className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
-              >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Kembali ke Beranda Utama Notion</span>
-              </button>
-              <span className="text-xs text-zinc-500">Aftersales & Garansi Brand</span>
-            </div>
-
-            <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-6">
-              <div className="flex items-center gap-2.5 mb-2">
-                <ShieldAlert className="w-5 h-5 text-amber-400" />
-                <h2 className="text-lg font-black text-white uppercase tracking-tight">
-                  Tinjauan Kualitas Aftersales & Garansi Brand Monitor di Indonesia
-                </h2>
-              </div>
-              <p className="text-xs text-zinc-400 leading-relaxed max-w-3xl">
-                Catatan jujur berdasarkan rekam jejak garansi distributor, kecepatan perbaikan, ketersediaan suku cadang, dan kemudahan klaim di Indonesia.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {AFTERSALES_DATA.map((brand, idx) => (
-                <div
-                  key={idx}
-                  className={`bg-zinc-950/90 border rounded-2xl p-5 space-y-3 transition-all ${brand.rating === "S"
-                      ? "border-emerald-500/40 shadow-[0_0_15px_rgba(16,185,129,0.1)]"
-                      : brand.rating === "A"
-                        ? "border-cyan-500/40"
-                        : brand.rating === "WARNING"
-                          ? "border-rose-500/50 bg-rose-950/10"
-                          : "border-zinc-800"
+                <div className="flex items-center gap-3 self-end sm:self-auto flex-wrap">
+                  {/* Parameter & Telemetry Modal Trigger */}
+                  <button
+                    type="button"
+                    onClick={() => setIsMobileDrawerOpen(true)}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-1.5 border ${
+                      activeFilterCount > 0
+                        ? "bg-emerald-500/15 border-emerald-500/60 text-emerald-300 shadow-tech-subtle"
+                        : "bg-zinc-900 border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700"
                     }`}
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <h3 className="text-base font-black text-white">{brand.brand}</h3>
-                        <span
-                          className={`text-[10px] font-black px-2 py-0.5 rounded ${brand.rating === "S"
-                              ? "bg-emerald-500 text-black"
-                              : brand.rating === "A"
-                                ? "bg-cyan-500 text-black"
-                                : brand.rating === "WARNING"
-                                  ? "bg-rose-500 text-white font-bold"
-                                  : "bg-zinc-800 text-zinc-200"
-                            }`}
-                        >
-                          Tier {brand.rating}
-                        </span>
-                      </div>
-                      <span className="text-[11px] text-zinc-400 block mt-0.5">
-                        Distributor: {brand.distributor} • Garansi: {brand.warrantyPeriod}
-                      </span>
-                    </div>
+                    title="Buka panel parameter filter"
+                  >
+                    <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>[ PARAMETER & FILTER {activeFilterCount > 0 ? `(${activeFilterCount})` : ""} ]</span>
+                  </button>
 
-                    <span
-                      className={`text-[10px] font-bold px-2 py-1 rounded-lg border ${brand.status === "Sangat Direkomendasikan"
-                          ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
-                          : brand.status === "Bagus & Aman"
-                            ? "bg-cyan-500/10 text-cyan-400 border-cyan-500/30"
-                            : brand.status === "Perlu Perhatian / Lama"
-                              ? "bg-rose-500/10 text-rose-400 border-rose-500/30"
-                              : "bg-zinc-900 text-zinc-400 border-zinc-800"
-                        }`}
+                  {/* View Mode Toggle */}
+                  <div className="flex items-center bg-zinc-900 border border-zinc-800 rounded-xl p-0.5">
+                    <button
+                      type="button"
+                      onClick={() => handleSetViewMode("grid")}
+                      className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                        viewMode === "grid"
+                          ? "bg-zinc-800 text-emerald-400 shadow-sm"
+                          : "text-zinc-400 hover:text-white"
+                      }`}
                     >
-                      {brand.status}
-                    </span>
+                      🔲 Galeri Grid
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleSetViewMode("table")}
+                      className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                        viewMode === "table"
+                          ? "bg-zinc-800 text-emerald-400 shadow-sm"
+                          : "text-zinc-400 hover:text-white"
+                      }`}
+                    >
+                      📋 Tabel Database
+                    </button>
                   </div>
 
-                  <p className="text-xs text-zinc-300 leading-relaxed bg-zinc-900/60 p-3 rounded-xl border border-zinc-800/80">
-                    {brand.summary}
-                  </p>
-
-                  <ul className="space-y-1.5 pt-1">
-                    {brand.points.map((pt, i) => (
-                      <li key={i} className="text-xs text-zinc-400 flex items-start gap-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-zinc-500 mt-0.5 flex-shrink-0" />
-                        <span>{pt}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="flex items-center gap-1.5">
+                    <ArrowUpDown className="w-3.5 h-3.5 text-zinc-500" />
+                    <select
+                      value={filterState.sortBy}
+                      onChange={(e) =>
+                        setFilterState((prev) => ({
+                          ...prev,
+                          sortBy: e.target.value as FilterState["sortBy"],
+                        }))
+                      }
+                      className="bg-zinc-900 border border-zinc-800 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-white focus:outline-none focus:border-emerald-500 cursor-pointer"
+                    >
+                      <option value="tier">Tier Rekomendasi</option>
+                      <option value="price-asc">Harga Termurah</option>
+                      <option value="price-desc">Harga Tertinggi</option>
+                      <option value="refresh-desc">Refresh Rate Tertinggi</option>
+                    </select>
+                  </div>
                 </div>
-              ))}
-            </div>
+              </div>
+
+              {/* View Content (Table or Grid) */}
+              {isLoading ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+                  {[1, 2, 3, 4, 5, 6].map((n) => (
+                    <div
+                      key={n}
+                      className="bg-zinc-950 border border-zinc-900 rounded-2xl p-5 space-y-4 animate-pulse"
+                    >
+                      <div className="w-full aspect-[16/10] bg-zinc-900 rounded-xl" />
+                      <div className="w-3/4 h-5 bg-zinc-900 rounded" />
+                      <div className="w-full h-9 bg-zinc-900 rounded-xl" />
+                    </div>
+                  ))}
+                </div>
+              ) : filteredMonitors.length > 0 ? (
+                viewMode === "table" ? (
+                  <NotionTableView
+                    monitors={filteredMonitors}
+                    selectedMonitorId={selectedMonitor?.id}
+                    onSelectMonitor={(m) => setSelectedMonitor(m)}
+                    onOpenFilter={() => setIsMobileDrawerOpen(true)}
+                    activeFilterCount={activeFilterCount}
+                  />
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                    {filteredMonitors.map((monitor) => (
+                      <MonitorCard
+                        key={monitor.id}
+                        monitor={monitor}
+                        onSelectMonitor={(m) => setSelectedMonitor(m)}
+                      />
+                    ))}
+                  </div>
+                )
+              ) : (
+                <div className="bg-surface-dark border border-zinc-800 rounded-3xl p-12 text-center flex flex-col items-center justify-center space-y-4 my-6">
+                  <SearchX className="w-10 h-10 text-zinc-500" />
+                  <div className="space-y-1 max-w-sm">
+                    <h3 className="text-base font-bold text-white uppercase tracking-wider">
+                      Tidak Ditemukan Monitor yang Cocok
+                    </h3>
+                    <p className="text-xs text-zinc-400">
+                      Coba sesuaikan filter atau reset kata kunci pencarian.
+                    </p>
+                  </div>
+                  <Button
+                    variant="cyber"
+                    size="sm"
+                    onClick={handleResetFilters}
+                    className="flex items-center gap-2 text-xs font-bold mt-2"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    <span>Reset Filter</span>
+                  </Button>
+                </div>
+              )}
+            </section>
+
+            {/* FilterBar as Modal */}
+            <FilterBar
+              filterState={filterState}
+              onFilterChange={setFilterState}
+              onResetFilters={handleResetFilters}
+              isOpen={isMobileDrawerOpen}
+              onClose={() => setIsMobileDrawerOpen(false)}
+              totalFilteredCount={filteredMonitors.length}
+            />
           </div>
         )}
 
@@ -1444,7 +1631,7 @@ function CatalogPageContent() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                {DESK_GUIDES.map((guide, idx) => (
+                {deskGuides.filter(g => g.isPublished !== false).map((guide, idx) => (
                   <div
                     key={idx}
                     className="bg-zinc-950 border border-zinc-800/90 rounded-2xl p-5 space-y-4 flex flex-col justify-between"
@@ -1472,7 +1659,12 @@ function CatalogPageContent() {
             </div>
 
             {/* Complete Desk & Peripherals Database Tables (Notion Collection) */}
-            <DeskPeripheralsView />
+            <DeskPeripheralsView
+              desks={desksData}
+              peripherals={peripheralsData}
+              chairs={chairsData}
+              showChairs={homepageSettings.sectionVisibility.showChairs ?? false}
+            />
           </div>
         )}
 
@@ -1506,11 +1698,11 @@ function CatalogPageContent() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {HDR_GUIDES.map((hdr, idx) => (
+              {hdrGuides.filter(h => h.isPublished !== false).map((hdr, idx) => (
                 <div
                   key={idx}
                   className={`bg-zinc-950 border rounded-2xl p-5 space-y-4 flex flex-col justify-between ${hdr.tier === "TRUE HDR"
-                      ? "border-emerald-500/50 shadow-[0_0_15px_rgba(16,185,129,0.15)]"
+                      ? "border-emerald-500/50 shadow-tech-card"
                       : hdr.tier === "DECENT HDR"
                         ? "border-amber-500/40"
                         : "border-zinc-800"
@@ -1587,7 +1779,7 @@ function CatalogPageContent() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {GRAYNOTES_LIST.map((note) => (
+              {graynotes.filter(n => n.isPublished !== false).map((note) => (
                 <div key={note.id} className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3.5">
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] font-black uppercase text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/30">
@@ -1668,7 +1860,7 @@ function CatalogPageContent() {
 
             {/* Notion Collection List */}
             <div className="space-y-3 pt-2">
-              {(faqs.length > 0 ? faqs : FAQ_LIST).map((faq) => {
+              {(faqs.length > 0 ? faqs : FAQ_LIST).filter(f => f.isPublished !== false).map((faq) => {
                 const slug = faq.id.replace(/^faq-/, "");
                 const subPath = `/guide/faq/${slug}`;
 
@@ -1752,7 +1944,7 @@ function CatalogPageContent() {
               <span className="text-white font-medium">🪑 REKOMENDASI MEJA</span>
             </div>
 
-            <DeskRecommendationsView />
+            <DeskRecommendationsView desks={desksData} />
           </div>
         )}
 
@@ -1798,7 +1990,7 @@ function CatalogPageContent() {
             </div>
 
             <div className="space-y-4 pt-2">
-              {BANDWIDTH_GUIDANCES.map((item, idx) => (
+              {bandwidthGuides.filter(b => b.isPublished !== false).map((item, idx) => (
                 <div key={idx} className="bg-[#202020] border border-[#2f2f2f] rounded-2xl p-6 space-y-3 shadow-sm">
                   <div className="flex items-center justify-between">
                     <h3 className="text-base font-bold text-white flex items-center gap-2">
@@ -1863,7 +2055,7 @@ function CatalogPageContent() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left pt-2">
                 <a
-                  href={CONSULTATION_DATA.feedbackFormUrl}
+                  href={consult.feedbackFormUrl || CONSULTATION_DATA.feedbackFormUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 hover:border-amber-500 hover:bg-amber-500/20 transition-all space-y-2 group"
@@ -1879,7 +2071,7 @@ function CatalogPageContent() {
                 </a>
 
                 <a
-                  href={CONSULTATION_DATA.discordUrl}
+                  href={consult.discordUrl || CONSULTATION_DATA.discordUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-cyan-500/60 hover:bg-zinc-900 transition-all space-y-2 group"
@@ -1895,7 +2087,7 @@ function CatalogPageContent() {
                 </a>
 
                 <a
-                  href={CONSULTATION_DATA.whatsappUrl}
+                  href={consult.whatsappUrl || CONSULTATION_DATA.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-emerald-500/60 hover:bg-zinc-900 transition-all space-y-2 group sm:col-span-2"
@@ -1906,7 +2098,7 @@ function CatalogPageContent() {
                   </div>
                   <h4 className="text-sm font-bold text-white">Chat Joel Gray (@gray1plasma)</h4>
                   <p className="text-xs text-zinc-400 leading-relaxed">
-                    Kirim pesan personal via WhatsApp ({CONSULTATION_DATA.whatsapp}) jika menemukan bug atau kesalahan data di website ini.
+                    Kirim pesan personal via WhatsApp ({consult.whatsapp || CONSULTATION_DATA.whatsapp}) jika menemukan bug atau kesalahan data di website ini.
                   </p>
                 </a>
               </div>
@@ -1946,33 +2138,33 @@ function CatalogPageContent() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {/* WhatsApp */}
               <a
-                href={CONSULTATION_DATA.whatsappUrl}
+                href={consult.whatsappUrl || CONSULTATION_DATA.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-emerald-500/60 hover:bg-zinc-900 transition-all text-center space-y-2 group"
               >
                 <PhoneCall className="w-6 h-6 text-emerald-400 mx-auto group-hover:scale-110 transition-transform" />
                 <h3 className="text-sm font-bold text-white">WhatsApp Langsung</h3>
-                <p className="text-xs text-zinc-400 font-mono">{CONSULTATION_DATA.whatsapp}</p>
+                <p className="text-xs text-zinc-400 font-mono">{consult.whatsapp || CONSULTATION_DATA.whatsapp}</p>
                 <span className="text-[11px] font-bold text-emerald-400 block pt-1">Chat Sekarang →</span>
               </a>
 
               {/* TikTok */}
               <a
-                href={CONSULTATION_DATA.tiktokUrl}
+                href={consult.tiktokUrl || CONSULTATION_DATA.tiktokUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-rose-500/60 hover:bg-zinc-900 transition-all text-center space-y-2 group"
               >
                 <Send className="w-6 h-6 text-rose-400 mx-auto group-hover:scale-110 transition-transform" />
                 <h3 className="text-sm font-bold text-white">TikTok</h3>
-                <p className="text-xs text-zinc-400">{CONSULTATION_DATA.tiktok}</p>
+                <p className="text-xs text-zinc-400">{consult.tiktok || CONSULTATION_DATA.tiktok}</p>
                 <span className="text-[11px] font-bold text-rose-400 block pt-1">Follow & Tanya di Live →</span>
               </a>
 
               {/* Discord */}
               <a
-                href={CONSULTATION_DATA.discordUrl}
+                href={consult.discordUrl || CONSULTATION_DATA.discordUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-cyan-500/60 hover:bg-zinc-900 transition-all text-center space-y-2 group"
@@ -2035,8 +2227,10 @@ export default function CatalogPage() {
     <Suspense
       fallback={
         <div className="min-h-screen bg-black flex flex-col items-center justify-center space-y-3 font-sans">
-          <div className="text-3xl animate-bounce">🖥️</div>
-          <p className="text-xs font-mono font-bold text-gp-emerald uppercase tracking-widest">
+          <div className="p-3 rounded-2xl bg-zinc-900 border border-zinc-800 text-emerald-400 animate-pulse">
+            <Tv className="w-8 h-8" />
+          </div>
+          <p className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">
             Memuat Katalog GrayPlasma...
           </p>
         </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { X, ShoppingBag, ExternalLink, Info, Check, Copy } from "lucide-react";
+import { X, ShoppingBag, ExternalLink, Info, Check, Copy, Layers } from "lucide-react";
 import { DeskItem } from "@/data/grayplasma-desk-peripherals";
 import { formatRupiah } from "@/lib/utils";
 import { NotionBlockRenderer } from "@/components/notion-block-renderer";
@@ -84,7 +84,9 @@ export function DeskSidePanel({ desk, isOpen, onClose }: DeskSidePanelProps) {
         <div className="flex-1 overflow-y-auto p-5 sm:p-7 space-y-6">
           {/* Header Title */}
           <div className="space-y-3 pb-4 border-b border-zinc-800">
-            <div className="text-3xl">📄</div>
+            <div className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 w-fit">
+              <Layers className="w-6 h-6 text-zinc-300" />
+            </div>
             <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight leading-snug">
               {desk.name}
             </h2>
@@ -150,7 +152,7 @@ export function DeskSidePanel({ desk, isOpen, onClose }: DeskSidePanelProps) {
                   <div><strong>Dimensi:</strong> {desk.specs.dimensions}</div>
                   <div><strong>Bahan:</strong> {desk.specs.material}</div>
                   <div><strong>Tebal:</strong> {desk.specs.thickness}</div>
-                  <div><strong>Support Arm:</strong> {desk.specs.armSupport ? "✅ YA (Kuat Jepit)" : "⚠️ Perlu Protektor"}</div>
+                  <div><strong>Support Arm:</strong> {desk.specs.armSupport ? "[YA - KUAT JEPIT]" : "[PERLU PLAT PROTEKTOR]"}</div>
                 </div>
               </div>
             )}

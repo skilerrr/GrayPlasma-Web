@@ -16,6 +16,7 @@ import {
   Globe,
   MapPin,
   HelpCircle,
+  ShieldAlert,
 } from "lucide-react";
 import { NotionBoardCard } from "@/components/notion-kanban-board";
 import { CONSULTATION_DATA } from "@/data/grayplasma-content";
@@ -147,7 +148,9 @@ Info: ${typeof window !== "undefined" ? window.location.href : ""}`;
         <div className="flex-1 overflow-y-auto px-6 sm:px-10 py-8 space-y-6 text-[#d4d4d4] text-xs leading-relaxed">
           {/* Notion Page Icon & Title */}
           <div className="space-y-3">
-            <div className="text-2xl">🖥️</div>
+            <div className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 w-fit">
+              <ShieldAlert className="w-6 h-6 text-zinc-300" />
+            </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-[#ffffff] tracking-tight">
               {card.title}
             </h1>

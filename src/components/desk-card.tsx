@@ -24,16 +24,16 @@ export function DeskCard({ desk, onSelectDesk }: DeskCardProps) {
       onClick={() => {
         if (onSelectDesk) onSelectDesk(desk);
       }}
-      className="group relative bg-[#0c0c10] hover:bg-[#111116] border-2 border-zinc-800 hover:border-amber-500/80 transition-all duration-200 rounded-lg p-4 sm:p-5 flex flex-col justify-between cursor-pointer shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_rgba(245,158,11,0.35)] hover:-translate-y-0.5"
+      className="group relative bg-[#0c0c10] hover:bg-[#111116] border border-zinc-800 hover:border-zinc-700 transition-all duration-200 rounded-xl p-4 sm:p-5 flex flex-col justify-between cursor-pointer shadow-tech-card"
     >
       {/* Top Header: Category & Type Badge */}
       <div className="flex items-center justify-between gap-2 mb-3">
-        <span className="text-[10px] font-mono font-bold tracking-widest text-amber-400 uppercase bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/40">
-          [ {desk.category} ]
+        <span className="text-[11px] font-bold tracking-wider text-amber-400 uppercase bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/30">
+          {desk.category}
         </span>
 
         {desk.type && (
-          <span className="text-[10px] font-mono font-semibold text-zinc-400 bg-zinc-900 px-2 py-0.5 rounded border border-zinc-800">
+          <span className="text-[11px] font-medium text-zinc-400 bg-zinc-900 px-2.5 py-0.5 rounded-full border border-zinc-800">
             {desk.type}
           </span>
         )}
@@ -56,7 +56,7 @@ export function DeskCard({ desk, onSelectDesk }: DeskCardProps) {
         {specPills.map((spec, idx) => (
           <span
             key={idx}
-            className="px-2 py-0.5 rounded text-[10px] font-mono font-medium uppercase tracking-wider bg-black/60 text-zinc-300 border border-zinc-800 group-hover:border-zinc-700 transition-colors"
+            className="px-2 py-0.5 rounded-md text-[11px] font-medium text-zinc-300 bg-zinc-800/50 border border-zinc-800/80"
           >
             {spec}
           </span>
@@ -64,13 +64,13 @@ export function DeskCard({ desk, onSelectDesk }: DeskCardProps) {
       </div>
 
       {/* Price & Action Section */}
-      <div className="pt-2.5 border-t border-zinc-800 flex flex-col gap-2">
+      <div className="pt-2.5 border-t border-zinc-800/70 flex flex-col gap-2">
         <div className="flex items-baseline justify-between">
           <div>
-            <span className="text-[9px] uppercase font-mono font-semibold tracking-wider text-zinc-500 block">
-              // ESTIMASI_BUDGET
+            <span className="text-[10px] text-zinc-500 font-medium block leading-none mb-1">
+              Estimasi Harga
             </span>
-            <span className="text-base sm:text-lg font-black text-white tracking-tight tabular-nums font-mono">
+            <span className="text-base sm:text-lg font-bold text-white tracking-tight tabular-nums">
               {desk.price > 0 ? formatRupiah(desk.price) : "Custom Size"}
             </span>
           </div>
@@ -87,10 +87,10 @@ export function DeskCard({ desk, onSelectDesk }: DeskCardProps) {
                 window.open(desk.shopeeUrl, "_blank", "noopener,noreferrer");
               }
             }}
-            className="flex-1 flex items-center justify-center gap-1.5 text-xs py-2 font-bold bg-[#ee4d2d] hover:bg-[#d43d1f] text-white rounded-md border border-orange-600 shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all uppercase tracking-wider font-mono"
+            className="flex-1 flex items-center justify-center gap-1.5 text-xs py-2 font-semibold bg-[#ee4d2d] hover:bg-[#d43d1f] text-white rounded-lg transition-all"
           >
             <ShoppingBag className="w-3.5 h-3.5" />
-            <span>[ BELI DI SHOPEE ]</span>
+            <span>Beli di Shopee</span>
           </Button>
         </div>
       </div>

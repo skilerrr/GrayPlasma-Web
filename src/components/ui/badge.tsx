@@ -16,21 +16,21 @@ export function Badge({
     <div
       className={cn(
         "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors",
-        variant === "default" && "bg-zinc-800 text-zinc-300 border border-zinc-700",
+        variant === "default" && "bg-zinc-900 text-zinc-300 border border-zinc-800 font-mono text-[11px]",
         variant === "tier-s" &&
-          "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.2)]",
+          "bg-emerald-500/10 text-emerald-400 border border-emerald-500/40 font-mono",
         variant === "tier-best-value" &&
-          "bg-emerald-400 text-black font-black border border-emerald-300 shadow-[0_0_14px_rgba(16,185,129,0.4)]",
+          "bg-emerald-400 text-zinc-950 font-bold border border-emerald-300 font-mono",
         variant === "tier-recommended" &&
-          "bg-cyan-500/10 text-cyan-400 border border-cyan-500/30",
+          "bg-zinc-800 text-zinc-200 border border-zinc-700 font-mono",
         variant === "tier-pass" &&
-          "bg-rose-500/10 text-rose-400 border border-rose-500/30",
+          "bg-zinc-900 text-zinc-500 border border-zinc-800 font-mono",
         variant === "amber" &&
-          "bg-amber-500/10 text-amber-400 border border-amber-500/30 shadow-[0_0_12px_rgba(245,158,11,0.2)]",
+          "bg-orange-500/10 text-orange-400 border border-orange-500/40 font-mono",
         variant === "outline" &&
-          "border border-zinc-800 text-zinc-400 bg-transparent",
+          "border border-zinc-800 text-zinc-400 bg-transparent font-mono",
         variant === "spec" &&
-          "bg-zinc-900/90 text-zinc-300 border border-zinc-800 font-normal normal-case tracking-normal px-2 py-0.5 text-[11px]",
+          "bg-zinc-900 text-zinc-300 border border-zinc-800 font-mono normal-case tracking-normal px-2 py-0.5 text-[11px] tabular-nums",
         className
       )}
       {...props}
@@ -43,29 +43,29 @@ export function Badge({
 export function TierBadge({ tier }: { tier: TierRating }) {
   if (tier === "S-TIER") {
     return (
-      <Badge variant="tier-s" className="font-extrabold text-[10px] tracking-widest gap-1">
-        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping inline-block mr-0.5" />
-        S-TIER
-      </Badge>
+      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+        S-Tier
+      </span>
     );
   }
   if (tier === "BEST VALUE") {
     return (
-      <Badge variant="tier-best-value" className="font-black text-[10px] tracking-widest bg-emerald-400 text-zinc-950">
-        ★ BEST VALUE
-      </Badge>
+      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-teal-500/10 text-teal-300 border border-teal-500/30">
+        Best Value
+      </span>
     );
   }
   if (tier === "RECOMMENDED") {
     return (
-      <Badge variant="tier-recommended" className="font-bold text-[10px] tracking-wider">
-        RECOMMENDED
-      </Badge>
+      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-zinc-800/80 text-zinc-300 border border-zinc-700/60">
+        Recommended
+      </span>
     );
   }
   return (
-    <Badge variant="tier-pass" className="font-bold text-[10px] tracking-wider">
-      PASS TIER
-    </Badge>
+    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-zinc-900 text-zinc-400 border border-zinc-800">
+      Pass Tier
+    </span>
   );
 }

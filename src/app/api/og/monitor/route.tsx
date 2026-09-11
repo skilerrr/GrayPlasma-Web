@@ -199,7 +199,7 @@ export async function GET(req: NextRequest) {
               }}
             >
               <span style={{ fontSize: "13px", color: "#d4d4d8", fontWeight: 600 }}>
-                💡 <strong>Verdict:</strong> {monitor.expertVerdict}
+                <strong>VERDICT //</strong> {monitor.expertVerdict}
               </span>
             </div>
           </div>

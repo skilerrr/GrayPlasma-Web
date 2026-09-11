@@ -1,14 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
-
-const metropolitan = Montserrat({
-  subsets: ["latin"],
-  variable: "--font-metropolitan",
-  weight: ["400", "500", "600", "700", "800"],
-  display: "swap",
-});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -17,7 +9,13 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "GRAYPLASMA • Rekomendasi Monitor Indonesia",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://grayplasma-web.vercel.app"
+  ),
+  title: {
+    default: "GRAYPLASMA • Rekomendasi Monitor Indonesia",
+    template: "%s | GRAYPLASMA",
+  },
   description:
     "Katalog kurasi dan rekomendasi monitor gaming dan produktivitas terpercaya oleh GRAYPLASMAID. Data pengujian GTID, panduan spesifikasi, perbandingan aftersales distributor, dan harga termurah.",
   keywords: [
@@ -32,6 +30,10 @@ export const metadata: Metadata = {
     "alienware oled",
   ],
   authors: [{ name: "GrayPlasmaID" }],
+  icons: {
+    icon: "/icon",
+    apple: "/icon",
+  },
 };
 
 export default function RootLayout({
@@ -40,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${metropolitan.variable} dark`}>
+    <html lang="id" className="dark">
       <body className="bg-black text-white antialiased min-h-screen font-sans">
         <NuqsAdapter>{children}</NuqsAdapter>
       </body>

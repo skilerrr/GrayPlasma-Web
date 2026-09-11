@@ -18,11 +18,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           variant === "default" &&
             "bg-zinc-900 text-white hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 shadow-sm",
           variant === "cyber" &&
-            "bg-emerald-500 text-black font-semibold hover:bg-emerald-400 shadow-neon-emerald hover:shadow-[0_0_25px_-2px_rgba(16,185,129,0.5)] border border-emerald-400/40",
+            "bg-emerald-500 text-zinc-950 font-bold hover:bg-emerald-400 border border-emerald-400/50 shadow-sm active:translate-y-[1px]",
           variant === "amber" &&
-            "bg-amber-500 text-black font-semibold hover:bg-amber-400 shadow-neon-amber hover:shadow-[0_0_25px_-2px_rgba(245,158,11,0.5)] border border-amber-400/40",
+            "bg-orange-500 text-zinc-950 font-bold hover:bg-orange-400 border border-orange-400/50 shadow-sm active:translate-y-[1px]",
           variant === "outline" &&
-            "border border-zinc-800 bg-black/40 text-zinc-300 hover:bg-zinc-900 hover:text-white hover:border-zinc-700",
+            "border border-zinc-800 bg-black/40 text-zinc-300 hover:bg-zinc-900 hover:text-white hover:border-zinc-750",
           variant === "ghost" &&
             "text-zinc-400 hover:text-white hover:bg-zinc-900/60",
           variant === "secondary" &&

@@ -24,11 +24,17 @@ import {
   LayoutGrid,
   Info,
   CheckCircle2,
+  Monitor as MonitorIcon,
+  Layers,
+  FileText,
+  User,
+  ShieldCheck,
 } from "lucide-react";
 import { SiteHierarchyNode } from "@/types/site-hierarchy";
 import { DEFAULT_SITE_HIERARCHY } from "@/data/site-hierarchy";
-import { DatabaseService, GlobalSiteSettings, DEFAULT_SITE_SETTINGS } from "@/lib/db-service";
+import { DatabaseService, GlobalSiteSettings, DEFAULT_SITE_SETTINGS, AvoidBrandItem } from "@/lib/db-service";
 import { ABOUT_NOTION_CONTENT } from "@/data/grayplasma-content";
+import { AnnouncementBar } from "@/components/announcement-bar";
 import { MONITORS_DATA } from "@/data/monitors";
 import { Monitor } from "@/types/monitor";
 import { Navbar } from "@/components/navbar";
@@ -42,7 +48,7 @@ import {
 } from "@/data/notion-aftersales-board-data";
 import { NotionBlockRenderer } from "@/components/notion-block-renderer";
 import { NotionTableView } from "@/components/notion-table-view";
-import { FilterBar } from "@/components/filter-bar";
+import { FilterBar, ActiveFilterPills } from "@/components/filter-bar";
 import {
   FilterState,
   INITIAL_FILTER_STATE,
@@ -79,6 +85,7 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
   const [faqs, setFaqs] = useState<typeof FAQ_LIST>(FAQ_LIST);
   const [siteSettings, setSiteSettings] = useState<GlobalSiteSettings>(DEFAULT_SITE_SETTINGS);
   const [aboutContent, setAboutContent] = useState(ABOUT_NOTION_CONTENT);
+  const [brandsAvoid, setBrandsAvoid] = useState<AvoidBrandItem[]>(DatabaseService.getBrandsToAvoid());
   const [copiedDiscord, setCopiedDiscord] = useState(false);
   const [copiedUrl, setCopiedUrl] = useState(false);
 
@@ -111,10 +118,13 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
         if (loadedSettings) setSiteSettings(loadedSettings);
 
         const loadedFaqs = await DatabaseService.getFAQAsync();
-        if (loadedFaqs && loadedFaqs.length > 0) setFaqs(loadedFaqs);
+        if (loadedFaqs && loadedFaqs.length > 0) setFaqs(loadedFaqs.filter((f) => f.isPublished !== false));
 
         const loadedAbout = DatabaseService.getAboutContent();
         if (loadedAbout) setAboutContent(loadedAbout);
+
+        const loadedBrands = DatabaseService.getBrandsToAvoid();
+        if (loadedBrands && loadedBrands.length > 0) setBrandsAvoid(loadedBrands.filter((b) => b.isPublished !== false));
       } catch (e) {
         console.error("Failed to load guide data", e);
       }
@@ -224,6 +234,18 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
     });
   }, [monitors, isCatalogPage, lastSlug, filterState]);
 
+  const activeFilterCount = useMemo(() => {
+    let count = 0;
+    if (filterState.panelTypes.length > 0) count += filterState.panelTypes.length;
+    if (filterState.refreshRates.length > 0) count += filterState.refreshRates.length;
+    if (filterState.screenSizes.length > 0) count += filterState.screenSizes.length;
+    if (filterState.resolutions.length > 0) count += filterState.resolutions.length;
+    if (filterState.tiers.length > 0) count += filterState.tiers.length;
+    if (filterState.budgetPreset !== null || filterState.budgetRange[1] < 25000000) count += 1;
+    if (filterState.searchQuery) count += 1;
+    return count;
+  }, [filterState]);
+
   // 3. Check if this matches a site hierarchy guide node
   const matchedNode = nodes.find((n) => {
     if (n.fullPath === fullPath) return true;
@@ -263,6 +285,11 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
     lastSlug === "konsultasi-joel-gray" ||
     lastSlug === "consultation" ||
     firstSlug === "consultation";
+
+  const isBrandsAvoidPage =
+    lastSlug === "odm-layak-dibeli" ||
+    lastSlug === "brands-to-avoid" ||
+    (firstSlug === "brand" && slugParts.includes("odm"));
 
   const pageTitle = isDeskPage
     ? "REKOMENDASI MEJA + KAKI (GRAYPLASMA)"
@@ -311,28 +338,29 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
   };
 
   const subpageBreadcrumbs: BreadcrumbItem[] = isDeskPage
-    ? [{ label: "REKOMENDASI MEJA", icon: "🪑" }]
+    ? [{ label: "REKOMENDASI MEJA", icon: <Layers className="w-3.5 h-3.5 text-orange-400" /> }]
     : isAftersalesPage
-    ? [{ label: "AFTERSALES BRAND MONITOR", icon: "🛡️" }]
+    ? [{ label: "AFTERSALES BRAND MONITOR", icon: <ShieldAlert className="w-3.5 h-3.5 text-amber-400" /> }]
     : isCatalogPage
     ? [
-        { label: "KATALOG MONITOR", href: "/", icon: "🖥️" },
-        { label: pageTitle, icon: "🏷️" },
+        { label: "KATALOG MONITOR", href: "/", icon: <MonitorIcon className="w-3.5 h-3.5 text-emerald-400" /> },
+        { label: pageTitle, icon: <FileText className="w-3.5 h-3.5 text-zinc-400" /> },
       ]
     : matchedMonitor
     ? [
-        { label: "REKOMENDASI MONITOR", href: "/", icon: "🖥️" },
-        { label: matchedMonitor.fullName, icon: "🔍" },
+        { label: "REKOMENDASI MONITOR", href: "/", icon: <MonitorIcon className="w-3.5 h-3.5 text-emerald-400" /> },
+        { label: matchedMonitor.fullName, icon: <Search className="w-3.5 h-3.5 text-zinc-400" /> },
       ]
     : slugParts.length > 1
     ? [
-        { label: slugParts[0].toUpperCase(), href: `/guide/${slugParts[0]}`, icon: "📚" },
-        { label: matchedNode?.title || pageTitle, icon: "📄" },
+        { label: slugParts[0].toUpperCase(), href: `/guide/${slugParts[0]}`, icon: <BookOpen className="w-3.5 h-3.5 text-zinc-400" /> },
+        { label: matchedNode?.title || pageTitle, icon: <FileText className="w-3.5 h-3.5 text-zinc-400" /> },
       ]
-    : [{ label: matchedNode?.title || pageTitle, icon: isFAQIndexPage ? "❓" : "📄" }];
+    : [{ label: matchedNode?.title || pageTitle, icon: isFAQIndexPage ? <HelpCircle className="w-3.5 h-3.5 text-amber-400" /> : <FileText className="w-3.5 h-3.5 text-zinc-400" /> }];
 
   return (
     <div className="min-h-screen bg-[#191919] text-[#d4d4d4] flex flex-col font-sans selection:bg-[#2383e2] selection:text-white">
+      <AnnouncementBar settings={siteSettings?.announcement} />
       {/* Unified Clean Subpage Navbar */}
       <SubpageNavbar
         breadcrumbs={subpageBreadcrumbs}
@@ -384,10 +412,22 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
 
         {/* Notion Page Icon & Header (Overlapping Cover) */}
         <div className="space-y-4 -mt-12 relative z-10 px-2 sm:px-4">
-          <div className="text-5xl sm:text-6xl p-2 rounded-2xl bg-[#191919] border border-[#2a2a2a] w-fit shadow-xl">
-            {isFAQIndexPage ? "❓" : isAftersalesPage ? "🛡️" : isAboutPage ? "👤" : isSupportPage ? "💖" : isConsultationPage ? "🎧" : "🖥️"}
+          <div className="p-3 rounded-2xl bg-[#121216] border border-zinc-800 w-fit shadow-2xl">
+            {isFAQIndexPage ? (
+              <HelpCircle className="w-8 h-8 text-amber-400" />
+            ) : isAftersalesPage ? (
+              <ShieldAlert className="w-8 h-8 text-amber-400" />
+            ) : isAboutPage ? (
+              <User className="w-8 h-8 text-zinc-300" />
+            ) : isSupportPage ? (
+              <Heart className="w-8 h-8 text-rose-400" />
+            ) : isConsultationPage ? (
+              <Headphones className="w-8 h-8 text-emerald-400" />
+            ) : (
+              <MonitorIcon className="w-8 h-8 text-emerald-400" />
+            )}
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-normal leading-tight uppercase">
+          <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-tight uppercase">
             {pageTitle}
           </h1>
 
@@ -411,6 +451,32 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
         </div>
 
         {/* ========================================================================= */}
+        {/* CHECK: UNPUBLISHED / ARCHIVED DRAFT PAGE NOTICE                           */}
+        {/* ========================================================================= */}
+        {matchedNode && matchedNode.isPublished === false ? (
+          <div className="my-12 p-8 rounded-2xl bg-[#202025] border border-amber-500/40 text-center space-y-4 max-w-2xl mx-auto shadow-2xl">
+            <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto">
+              <ShieldAlert className="w-7 h-7" />
+            </div>
+            <h2 className="text-xl font-bold text-white uppercase tracking-tight">
+              [ // PANDUAN INI SEDANG DIARSIPKAN SEMENTARA ]
+            </h2>
+            <p className="text-xs text-zinc-300 leading-relaxed max-w-lg mx-auto">
+              Halaman ulasan &ldquo;{matchedNode.title}&rdquo; saat ini dinonaktifkan oleh tim admin GrayPlasma untuk pembaruan data atau pengujian laboratorium berkala.
+            </p>
+            <div className="pt-2">
+              <Link
+                href="/"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs text-white font-bold transition-colors"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Kembali ke Beranda Katalog</span>
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <>
+        {/* ========================================================================= */}
         {/* CASE 0: CATALOG RECOMMENDATION DATABASE TABLE WITH LEFT FILTERBAR         */}
         {/* ========================================================================= */}
         {isDeskPage ? (
@@ -418,21 +484,37 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
             <DeskRecommendationsView desks={desks} />
           </div>
         ) : isCatalogPage ? (
-          <div className="flex flex-col lg:flex-row gap-6 items-start pt-2">
-            {/* Left Sidebar Filter Section */}
-            <div className="w-full lg:w-72 xl:w-80 flex-shrink-0">
-              <FilterBar
-                filterState={filterState}
-                onFilterChange={setFilterState}
-                onResetFilters={() => setFilterState(INITIAL_FILTER_STATE)}
-                isMobileDrawerOpen={isMobileFilterOpen}
-                onCloseMobileDrawer={() => setIsMobileFilterOpen(false)}
-                totalFilteredCount={filteredCatalogMonitors.length}
-              />
+          <div className="space-y-4 pt-2 w-full">
+            {/* Top Toolbar: Filter Trigger & Counter */}
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              <button
+                type="button"
+                onClick={() => setIsMobileFilterOpen(true)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-1.5 border ${
+                  activeFilterCount > 0
+                    ? "bg-emerald-500/15 border-emerald-500/60 text-emerald-300 shadow-tech-subtle"
+                    : "bg-[#12131a] border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700"
+                }`}
+              >
+                <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Filter {activeFilterCount > 0 ? `(${activeFilterCount})` : ""}</span>
+              </button>
+
+              <span className="text-xs text-zinc-400 font-medium">
+                {filteredCatalogMonitors.length} Model Ditemukan
+              </span>
             </div>
 
-            {/* Right Main Database Table */}
-            <div className="flex-1 w-full min-w-0">
+            {/* Active Filter Chips */}
+            <ActiveFilterPills
+              filterState={filterState}
+              onFilterChange={setFilterState}
+              onResetFilters={() => setFilterState(INITIAL_FILTER_STATE)}
+              onOpenFilter={() => setIsMobileFilterOpen(true)}
+            />
+
+            {/* Right Main Database Table - FULL 100% WIDTH */}
+            <div className="w-full min-w-0">
               <NotionTableView
                 monitors={filteredCatalogMonitors}
                 selectedMonitorId={selectedMonitorForPanel?.id}
@@ -440,8 +522,20 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
                   setSelectedMonitorForPanel(m);
                   setIsSidePanelOpen(true);
                 }}
+                onOpenFilter={() => setIsMobileFilterOpen(true)}
+                activeFilterCount={activeFilterCount}
               />
             </div>
+
+            {/* FilterBar as Modal */}
+            <FilterBar
+              filterState={filterState}
+              onFilterChange={setFilterState}
+              onResetFilters={() => setFilterState(INITIAL_FILTER_STATE)}
+              isOpen={isMobileFilterOpen}
+              onClose={() => setIsMobileFilterOpen(false)}
+              totalFilteredCount={filteredCatalogMonitors.length}
+            />
           </div>
         ) : isAftersalesPage ? (
           <div className="pt-4">
@@ -521,6 +615,41 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
                 </div>
               );
             })}
+          </div>
+        ) : isBrandsAvoidPage ? (
+          /* ========================================================================= */
+          /* CASE 2.5: BRANDS TO AVOID / ODM MONITOR LIST                              */
+          /* ========================================================================= */
+          <div className="space-y-4 pt-2">
+            <div className="p-4 rounded-xl bg-[#202020] border border-[#2f2f2f] text-xs text-[#b4b4b4] leading-relaxed">
+              <strong className="text-white block mb-1">Catatan Independen GrayPlasma:</strong>
+              Daftar brand berikut memiliki catatan riwayat terkait firmware overdrive generik ODM, modul daya internal, atau waktu inden servis klaim garansi di Indonesia.
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {brandsAvoid.filter(b => b.isPublished !== false).map((brand, idx) => (
+                <div key={idx} className="p-5 rounded-2xl bg-[#202020] border border-[#2f2f2f] space-y-3 shadow-sm">
+                  <div className="flex items-center justify-between gap-2 border-b border-[#2a2a2a] pb-2">
+                    <h3 className="font-bold text-white text-sm">{brand.brand}</h3>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                      {brand.category}
+                    </span>
+                  </div>
+                  <div className="text-xs text-rose-300 bg-rose-950/20 p-2.5 rounded-xl border border-rose-500/30 font-medium">
+                    ⚠️ {brand.issue}
+                  </div>
+                  <p className="text-xs text-[#d4d4d4] leading-relaxed">
+                    <strong>Evaluasi Joel:</strong> {brand.authorNote}
+                  </p>
+                  {brand.details && brand.details.length > 0 && (
+                    <ul className="space-y-1 text-xs text-[#9b9a97] list-disc pl-4 pt-1">
+                      {brand.details.map((d, i) => (
+                        <li key={i}>{d}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         ) : isAboutPage ? (
           /* ========================================================================= */
@@ -680,6 +809,8 @@ ${siteSettings.consultation?.disclaimer || "Seluruh konsultasi disesuaikan denga
               </button>
             </div>
           </article>
+        )}
+        </>
         )}
       </main>
 

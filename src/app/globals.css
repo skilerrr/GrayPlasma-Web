@@ -1,3 +1,9 @@
+@import "@fontsource/metropolis/400.css";
+@import "@fontsource/metropolis/500.css";
+@import "@fontsource/metropolis/600.css";
+@import "@fontsource/metropolis/700.css";
+@import "@fontsource/metropolis/800.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,12 +11,13 @@
 :root {
   --background: #09090b;
   --foreground: #ededed;
+  --font-metropolis: "Metropolis", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-metropolitan), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-metropolis);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -499,5 +506,20 @@ input[type="range"]::-moz-range-thumb {
   border-bottom: 2px solid #27272a;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
 }
+
+/* Banner Carousel 5s Progress Bar Animation */
+@keyframes banner-progress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animate-banner-progress {
+  animation: banner-progress linear forwards;
+}
+
 
 

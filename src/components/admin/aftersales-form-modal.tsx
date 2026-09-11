@@ -61,97 +61,114 @@ export function AftersalesFormModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-      <div className="bg-[#0c0c0e] border border-zinc-800 rounded-3xl w-full max-w-xl overflow-hidden shadow-2xl animate-in fade-in zoom-in-95">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-[#121216]">
-          <div className="flex items-center gap-2">
-            <ShieldAlert className="w-5 h-5 text-amber-400" />
-            <h3 className="text-base font-black text-white uppercase tracking-tight">
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+      <div className="bg-[#0f0f14] border border-zinc-700/80 rounded-2xl w-full max-w-xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95">
+        {/* Fixed Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-[#121217] flex-shrink-0">
+          <div className="flex items-center gap-2.5">
+            <div className="p-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400">
+              <ShieldAlert className="w-4 h-4" />
+            </div>
+            <h3 className="text-base font-bold text-white uppercase tracking-tight">
               {brand ? "Edit Aftersales Brand" : "Tambah Aftersales Brand"}
             </h3>
           </div>
-          <button onClick={onClose} className="text-zinc-400 hover:text-white p-1 rounded-lg hover:bg-zinc-800">
+          <button
+            type="button"
+            onClick={onClose}
+            className="p-1 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+          >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          <div className="grid grid-cols-2 gap-3">
+        {/* Form with Scrollable Body & Fixed Footer */}
+        <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0 overflow-hidden">
+          <div className="flex-1 overflow-y-auto p-6 space-y-4 text-xs">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="text-zinc-300 block mb-1 font-semibold">Nama Brand</label>
+                <input
+                  type="text"
+                  value={formData.brand}
+                  onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
+                  placeholder="Contoh: ASUS, Dell, Xiaomi"
+                  className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-amber-400 focus:outline-none placeholder:text-zinc-500 font-bold"
+                  required
+                />
+              </div>
+              <div>
+                <label className="text-zinc-300 block mb-1 font-semibold">Tier Rating</label>
+                <select
+                  value={formData.rating}
+                  onChange={(e) => setFormData({ ...formData, rating: e.target.value as AftersalesBrand["rating"] })}
+                  className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-amber-400 focus:outline-none font-bold"
+                >
+                  <option value="S">Tier S (Onsite / Terbaik)</option>
+                  <option value="A">Tier A (Bagus & Aman)</option>
+                  <option value="B">Tier B (Standar)</option>
+                  <option value="WARNING">Tier WARNING (Lama / Inden)</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="text-zinc-300 block mb-1 font-semibold">Distributor Resmi</label>
+                <input
+                  type="text"
+                  value={formData.distributor}
+                  onChange={(e) => setFormData({ ...formData, distributor: e.target.value })}
+                  placeholder="PT Synnex / Distributor Resmi"
+                  className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-amber-400 focus:outline-none placeholder:text-zinc-500"
+                />
+              </div>
+              <div>
+                <label className="text-zinc-300 block mb-1 font-semibold">Masa Garansi</label>
+                <input
+                  type="text"
+                  value={formData.warrantyPeriod}
+                  onChange={(e) => setFormData({ ...formData, warrantyPeriod: e.target.value })}
+                  placeholder="3 Tahun Penuh"
+                  className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-amber-400 focus:outline-none placeholder:text-zinc-500"
+                />
+              </div>
+            </div>
+
             <div>
-              <label className="text-[11px] text-zinc-400 block mb-1">Nama Brand</label>
+              <label className="text-zinc-300 block mb-1 font-semibold">Website / Kontak Service Center</label>
               <input
                 type="text"
-                value={formData.brand}
-                onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-                placeholder="Contoh: ASUS, Dell, Xiaomi"
-                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"
-                required
+                value={formData.contactUrl || ""}
+                onChange={(e) => setFormData({ ...formData, contactUrl: e.target.value })}
+                placeholder="https://..."
+                className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-sky-400 font-mono focus:border-amber-400 focus:outline-none placeholder:text-zinc-500"
               />
             </div>
-            <div>
-              <label className="text-[11px] text-zinc-400 block mb-1">Tier Rating</label>
-              <select
-                value={formData.rating}
-                onChange={(e) => setFormData({ ...formData, rating: e.target.value as AftersalesBrand["rating"] })}
-                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"
-              >
-                <option value="S">Tier S (Onsite / Terbaik)</option>
-                <option value="A">Tier A (Bagus & Aman)</option>
-                <option value="B">Tier B (Standar)</option>
-                <option value="WARNING">Tier WARNING (Lama / Inden)</option>
-              </select>
-            </div>
-          </div>
 
-          <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-[11px] text-zinc-400 block mb-1">Distributor Resmi</label>
-              <input
-                type="text"
-                value={formData.distributor}
-                onChange={(e) => setFormData({ ...formData, distributor: e.target.value })}
-                placeholder="PT Synnex / Distributor Resmi"
-                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"
-              />
-            </div>
-            <div>
-              <label className="text-[11px] text-zinc-400 block mb-1">Masa Garansi</label>
-              <input
-                type="text"
-                value={formData.warrantyPeriod}
-                onChange={(e) => setFormData({ ...formData, warrantyPeriod: e.target.value })}
-                placeholder="3 Tahun Penuh"
-                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"
+              <label className="text-zinc-300 block mb-1 font-semibold">Ringkasan Ulasan Aftersales</label>
+              <textarea
+                rows={3}
+                value={formData.summary}
+                onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
+                className="w-full bg-[#14141c] border border-zinc-700 rounded-xl p-3 text-xs text-zinc-200 focus:border-amber-400 focus:outline-none placeholder:text-zinc-500"
               />
             </div>
           </div>
 
-          <div>
-            <label className="text-[11px] text-zinc-400 block mb-1">Website / Kontak Service Center</label>
-            <input
-              type="text"
-              value={formData.contactUrl || ""}
-              onChange={(e) => setFormData({ ...formData, contactUrl: e.target.value })}
-              placeholder="https://..."
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"
-            />
-          </div>
-
-          <div>
-            <label className="text-[11px] text-zinc-400 block mb-1">Ringkasan Ulasan Aftersales</label>
-            <textarea
-              rows={3}
-              value={formData.summary}
-              onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-2.5 text-xs text-white"
-            />
-          </div>
-
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-zinc-800">
-            <Button type="button" variant="outline" size="sm" onClick={onClose}>
+          {/* Fixed Footer Actions */}
+          <div className="flex items-center justify-end gap-3 px-6 py-3.5 border-t border-zinc-800 bg-[#0a0a0e] flex-shrink-0">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={onClose}
+              className="border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-800"
+            >
               Batal
             </Button>
-            <Button type="submit" variant="cyber" size="sm" className="font-bold">
+            <Button type="submit" variant="cyber" size="sm" className="bg-amber-500 hover:bg-amber-400 text-black font-bold">
               Simpan Data Aftersales
             </Button>
           </div>

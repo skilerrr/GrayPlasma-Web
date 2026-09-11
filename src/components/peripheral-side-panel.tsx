@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { X, ShoppingBag, ExternalLink, ShieldCheck, Check, Copy, Info, Sparkles } from "lucide-react";
+import { X, ShoppingBag, ExternalLink, ShieldCheck, Check, Copy, Info, Sparkles, Headphones } from "lucide-react";
 import { PeripheralItem } from "@/data/grayplasma-desk-peripherals";
 import { formatRupiah } from "@/lib/utils";
 import { NotionBlockRenderer } from "@/components/notion-block-renderer";
@@ -47,7 +47,7 @@ export function PeripheralSidePanel({ peripheral, isOpen, onClose }: PeripheralS
         {/* Top Control Bar */}
         <div className="h-14 px-5 sm:px-6 border-b border-zinc-800 flex items-center justify-between bg-[#18181f] flex-shrink-0 text-xs text-zinc-400">
           <div className="flex items-center gap-2">
-            <span className="text-lg">🎧</span>
+            <Headphones className="w-4 h-4 text-zinc-400" />
             <span className="font-bold text-white uppercase tracking-tight truncate max-w-[240px] sm:max-w-[320px]">
               {peripheral.name}
             </span>
@@ -59,7 +59,7 @@ export function PeripheralSidePanel({ peripheral, isOpen, onClose }: PeripheralS
                 href={buyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500 border border-cyan-500/40 text-cyan-400 hover:text-black text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm"
+                className="px-3 py-1.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-tech-subtle"
               >
                 <ShoppingBag className="w-3.5 h-3.5" />
                 <span>Beli di {platform}</span>
@@ -81,7 +81,9 @@ export function PeripheralSidePanel({ peripheral, isOpen, onClose }: PeripheralS
         <div className="flex-1 overflow-y-auto p-5 sm:p-7 space-y-6">
           {/* Header Title */}
           <div className="space-y-3 pb-4 border-b border-zinc-800">
-            <div className="text-3xl">🎧</div>
+            <div className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 w-fit">
+              <Headphones className="w-6 h-6 text-zinc-300" />
+            </div>
             <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight leading-snug">
               {peripheral.name}
             </h2>

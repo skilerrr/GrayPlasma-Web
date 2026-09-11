@@ -112,7 +112,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
                       onClick={() => setSelectedImageIndex(idx)}
                       className={`relative w-20 h-14 rounded-lg overflow-hidden border-2 flex-shrink-0 transition-all ${
                         selectedImageIndex === idx
-                          ? "border-emerald-400 scale-95 shadow-[0_0_10px_rgba(16,185,129,0.4)]"
+                          ? "border-emerald-400 scale-95 shadow-tech-subtle"
                           : "border-zinc-800 hover:border-zinc-600 opacity-70 hover:opacity-100"
                       }`}
                     >

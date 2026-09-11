@@ -30,6 +30,11 @@ import {
   ChevronRight,
   Check,
   X,
+  Monitor,
+  Headphones,
+  ShieldAlert,
+  HelpCircle,
+  BookOpen,
 } from "lucide-react";
 import {
   GlobalSiteSettings,
@@ -276,7 +281,7 @@ export function SiteElementsManager({
             {/* Hero Cover & Icon */}
             <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-4">
               <h4 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                <span>🖥️</span>
+                <Monitor className="w-4 h-4 text-zinc-400" />
                 <span>Cover Banner Hero & Icon Beranda</span>
               </h4>
 
@@ -455,7 +460,7 @@ export function SiteElementsManager({
               {Object.entries(groupedCards).map(([groupTitle, cards]) => (
                 <div key={groupTitle} className="space-y-3 bg-zinc-950/60 border border-zinc-800/80 rounded-2xl p-4">
                   <div className="flex items-center gap-2 text-xs font-bold text-zinc-300 uppercase tracking-wider pb-2 border-b border-zinc-800">
-                    <span>📂</span>
+                    <Layers className="w-4 h-4 text-zinc-400" />
                     <span>{groupTitle}</span>
                     <span className="text-[10px] text-zinc-500 font-mono font-normal">({cards.length} kartu)</span>
                   </div>
@@ -545,7 +550,7 @@ export function SiteElementsManager({
                 <div className="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-white flex items-center gap-2">
-                      <span>🖥️</span>
+                      <Monitor className="w-4 h-4 text-zinc-400" />
                       <span>Section Database Monitor</span>
                     </span>
                     <label className="flex items-center gap-2 cursor-pointer">
@@ -591,7 +596,7 @@ export function SiteElementsManager({
                 <div className="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-white flex items-center gap-2">
-                      <span>🪑</span>
+                      <Layers className="w-4 h-4 text-zinc-400" />
                       <span>Section Database Meja</span>
                     </span>
                     <label className="flex items-center gap-2 cursor-pointer">
@@ -637,7 +642,7 @@ export function SiteElementsManager({
                 <div className="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-white flex items-center gap-2">
-                      <span>🎧</span>
+                      <Headphones className="w-4 h-4 text-zinc-400" />
                       <span>Section Database Aksesoris & Peripherals</span>
                     </span>
                     <label className="flex items-center gap-2 cursor-pointer">
@@ -677,6 +682,161 @@ export function SiteElementsManager({
                     }
                     className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-zinc-400"
                   />
+                </div>
+
+                {/* Section Kursi Ergonomis & Gaming (Staging Q2 2027) */}
+                <div className="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-white flex items-center gap-2">
+                      <span>🪑</span>
+                      <span>Katalog Kursi Ergonomis & Gaming</span>
+                      <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                        [STAGING / DRAFT Q2 2027]
+                      </span>
+                    </span>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={homepageForm.sectionVisibility.showChairs === true}
+                        onChange={(e) =>
+                          setHomepageForm({
+                            ...homepageForm,
+                            sectionVisibility: { ...homepageForm.sectionVisibility, showChairs: e.target.checked },
+                          })
+                        }
+                        className="rounded border-zinc-700 bg-zinc-900 text-emerald-500"
+                      />
+                      <span className="text-zinc-300">Tampilkan di Publik (Live)</span>
+                    </label>
+                  </div>
+                  <p className="text-xs text-zinc-500">
+                    Menampilkan tab ulasan rekomendasi kursi ergonomis & gaming di dalam modul Setup Meja & Peripherals. Jika nonaktif, data tetap aman tersimpan di admin dan tidak terlihat oleh publik.
+                  </p>
+                </div>
+
+                {/* Section Aftersales Kanban */}
+                <div className="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-white flex items-center gap-2">
+                      <ShieldAlert className="w-4 h-4 text-amber-400" />
+                      <span>Section Aftersales & Garansi Brand Kanban</span>
+                    </span>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={homepageForm.sectionVisibility.showAftersales !== false}
+                        onChange={(e) =>
+                          setHomepageForm({
+                            ...homepageForm,
+                            sectionVisibility: { ...homepageForm.sectionVisibility, showAftersales: e.target.checked },
+                          })
+                        }
+                        className="rounded border-zinc-700 bg-zinc-900 text-emerald-500"
+                      />
+                      <span className="text-zinc-300">Tampilkan</span>
+                    </label>
+                  </div>
+                  <p className="text-xs text-zinc-500">Menampilkan Kanban Board evaluasi klaim garansi RMA brand monitor di Indonesia.</p>
+                </div>
+
+                {/* Section FAQ & QnA */}
+                <div className="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-white flex items-center gap-2">
+                      <HelpCircle className="w-4 h-4 text-amber-400" />
+                      <span>Section Pertanyaan Umum (FAQ & QnA)</span>
+                    </span>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={homepageForm.sectionVisibility.showFaq !== false}
+                        onChange={(e) =>
+                          setHomepageForm({
+                            ...homepageForm,
+                            sectionVisibility: { ...homepageForm.sectionVisibility, showFaq: e.target.checked },
+                          })
+                        }
+                        className="rounded border-zinc-700 bg-zinc-900 text-emerald-500"
+                      />
+                      <span className="text-zinc-300">Tampilkan</span>
+                    </label>
+                  </div>
+                  <p className="text-xs text-zinc-500">Menampilkan list jawaban FAQ seputar build quality, overdrive, dan panel.</p>
+                </div>
+
+                {/* Section Edukasi & Guides */}
+                <div className="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-white flex items-center gap-2">
+                      <BookOpen className="w-4 h-4 text-cyan-400" />
+                      <span>Section Edukasi & Panduan (Desk / HDR / GrayNotes / Bandwidth)</span>
+                    </span>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={homepageForm.sectionVisibility.showGuides !== false}
+                        onChange={(e) =>
+                          setHomepageForm({
+                            ...homepageForm,
+                            sectionVisibility: { ...homepageForm.sectionVisibility, showGuides: e.target.checked },
+                          })
+                        }
+                        className="rounded border-zinc-700 bg-zinc-900 text-emerald-500"
+                      />
+                      <span className="text-zinc-300">Tampilkan</span>
+                    </label>
+                  </div>
+                  <p className="text-xs text-zinc-500">Mengontrol visibilitas subpage edukasi teknis monitor dan ergonomi meja.</p>
+                </div>
+
+                {/* Section Konsultasi & Kontak */}
+                <div className="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-white flex items-center gap-2">
+                      <PhoneCall className="w-4 h-4 text-emerald-400" />
+                      <span>Section Konsultasi Langsung & Dukungan Donasi</span>
+                    </span>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={homepageForm.sectionVisibility.showConsultation !== false}
+                        onChange={(e) =>
+                          setHomepageForm({
+                            ...homepageForm,
+                            sectionVisibility: { ...homepageForm.sectionVisibility, showConsultation: e.target.checked },
+                          })
+                        }
+                        className="rounded border-zinc-700 bg-zinc-900 text-emerald-500"
+                      />
+                      <span className="text-zinc-300">Tampilkan</span>
+                    </label>
+                  </div>
+                  <p className="text-xs text-zinc-500">Menampilkan opsi konsultasi WhatsApp/Discord dan Saweria/QRIS apresiasi penulis.</p>
+                </div>
+
+                {/* Section Form Feedback & Saran */}
+                <div className="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-white flex items-center gap-2">
+                      <MessageSquare className="w-4 h-4 text-orange-400" />
+                      <span>Section Form Kritik & Saran / Request Monitor</span>
+                    </span>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={homepageForm.sectionVisibility.showFeedback !== false}
+                        onChange={(e) =>
+                          setHomepageForm({
+                            ...homepageForm,
+                            sectionVisibility: { ...homepageForm.sectionVisibility, showFeedback: e.target.checked },
+                          })
+                        }
+                        className="rounded border-zinc-700 bg-zinc-900 text-emerald-500"
+                      />
+                      <span className="text-zinc-300">Tampilkan</span>
+                    </label>
+                  </div>
+                  <p className="text-xs text-zinc-500">Menampilkan tautan Google Form masukan publik dan request pengetesan monitor.</p>
                 </div>
               </div>
             </div>
@@ -871,9 +1031,9 @@ export function SiteElementsManager({
       {/* SUBPAGE CARD EDIT MODAL                                                   */}
       {/* ========================================================================= */}
       {isCardModalOpen && editingCard && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-[#121216] border border-zinc-700 rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl animate-in fade-in zoom-in-95">
-            <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+          <div className="bg-[#0f0f14] border border-zinc-700/80 rounded-2xl max-w-lg w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-[#121217] flex-shrink-0">
               <span className="font-bold text-white text-sm uppercase flex items-center gap-2">
                 <span>{editingCard.icon}</span>
                 <span>Edit Kartu Navigasi Sub-Page</span>
@@ -884,86 +1044,89 @@ export function SiteElementsManager({
                   setIsCardModalOpen(false);
                   setEditingCard(null);
                 }}
-                className="text-zinc-400 hover:text-white"
+                className="p-1 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleSaveCard} className="space-y-3 text-xs">
-              <div className="grid grid-cols-4 gap-2">
-                <div className="col-span-1">
-                  <label className="text-zinc-400 block mb-1 font-semibold">Icon</label>
-                  <input
-                    type="text"
-                    value={editingCard.icon}
-                    onChange={(e) => setEditingCard({ ...editingCard, icon: e.target.value })}
-                    className="w-full text-center text-lg bg-zinc-900 border border-zinc-800 rounded-xl p-2 text-white"
-                  />
+            <form onSubmit={handleSaveCard} className="flex flex-col flex-1 min-h-0 overflow-hidden">
+              <div className="flex-1 overflow-y-auto p-6 space-y-4 text-xs">
+                <div className="grid grid-cols-4 gap-2.5">
+                  <div className="col-span-1">
+                    <label className="text-zinc-300 block mb-1 font-semibold">Icon</label>
+                    <input
+                      type="text"
+                      value={editingCard.icon}
+                      onChange={(e) => setEditingCard({ ...editingCard, icon: e.target.value })}
+                      className="w-full text-center text-lg bg-[#14141c] border border-zinc-700 rounded-xl p-2 text-white focus:border-emerald-400 focus:outline-none"
+                    />
+                  </div>
+                  <div className="col-span-3">
+                    <label className="text-zinc-300 block mb-1 font-semibold">Judul Kartu</label>
+                    <input
+                      type="text"
+                      required
+                      value={editingCard.title}
+                      onChange={(e) => setEditingCard({ ...editingCard, title: e.target.value })}
+                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white font-bold focus:border-emerald-400 focus:outline-none placeholder:text-zinc-500"
+                    />
+                  </div>
                 </div>
-                <div className="col-span-3">
-                  <label className="text-zinc-400 block mb-1 font-semibold">Judul Kartu</label>
-                  <input
-                    type="text"
-                    required
-                    value={editingCard.title}
-                    onChange={(e) => setEditingCard({ ...editingCard, title: e.target.value })}
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white font-bold"
-                  />
-                </div>
-              </div>
 
-              <div>
-                <label className="text-zinc-400 block mb-1 font-semibold">Deskripsi Singkat</label>
-                <textarea
-                  rows={2}
-                  required
-                  value={editingCard.desc}
-                  onChange={(e) => setEditingCard({ ...editingCard, desc: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-2.5 text-zinc-300"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-zinc-400 block mb-1 font-semibold">Path Rute (/guide/...)</label>
-                  <input
-                    type="text"
+                  <label className="text-zinc-300 block mb-1 font-semibold">Deskripsi Singkat</label>
+                  <textarea
+                    rows={2}
                     required
-                    value={editingCard.path}
-                    onChange={(e) => setEditingCard({ ...editingCard, path: e.target.value })}
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-emerald-400 font-mono"
+                    value={editingCard.desc}
+                    onChange={(e) => setEditingCard({ ...editingCard, desc: e.target.value })}
+                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl p-3 text-zinc-200 focus:border-emerald-400 focus:outline-none placeholder:text-zinc-500"
                   />
                 </div>
-                <div>
-                  <label className="text-zinc-400 block mb-1 font-semibold">Grup Kategori</label>
-                  <select
-                    value={editingCard.groupTitle}
-                    onChange={(e) => setEditingCard({ ...editingCard, groupTitle: e.target.value })}
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white"
-                  >
-                    <option value="1. REKOMENDASI MONITOR PILIHAN UTAMA">1. Rekomendasi Monitor</option>
-                    <option value="2. EVALUASI BRAND & AFTERSALES (OEM / ODM LIST)">2. Evaluasi Brand & Aftersales</option>
-                    <option value="3. GLOSARIUM & PANDUAN KALIBRASI WARNA (GTID TECH)">3. Glosarium & Kalibrasi</option>
-                    <option value="4. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)">4. QnA & GrayNotes</option>
-                    <option value="5. SETUP MEJA, AUTHOR & CONSULTATION">5. Setup Meja & Support</option>
-                    <option value="Custom Lainnya">Custom Lainnya</option>
-                  </select>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-zinc-300 block mb-1 font-semibold">Path Rute (/guide/...)</label>
+                    <input
+                      type="text"
+                      required
+                      value={editingCard.path}
+                      onChange={(e) => setEditingCard({ ...editingCard, path: e.target.value })}
+                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-emerald-400 font-mono focus:border-emerald-400 focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-zinc-300 block mb-1 font-semibold">Grup Kategori</label>
+                    <select
+                      value={editingCard.groupTitle}
+                      onChange={(e) => setEditingCard({ ...editingCard, groupTitle: e.target.value })}
+                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:border-emerald-400 focus:outline-none"
+                    >
+                      <option value="1. REKOMENDASI MONITOR PILIHAN UTAMA">1. Rekomendasi Monitor</option>
+                      <option value="2. EVALUASI BRAND & AFTERSALES (OEM / ODM LIST)">2. Evaluasi Brand & Aftersales</option>
+                      <option value="3. GLOSARIUM & PANDUAN KALIBRASI WARNA (GTID TECH)">3. Glosarium & Kalibrasi</option>
+                      <option value="4. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)">4. QnA & GrayNotes</option>
+                      <option value="5. SETUP MEJA, AUTHOR & CONSULTATION">5. Setup Meja & Support</option>
+                      <option value="Custom Lainnya">Custom Lainnya</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-2 border-t border-zinc-800">
+              {/* Fixed Footer Actions */}
+              <div className="flex items-center justify-between px-6 py-3.5 border-t border-zinc-800 bg-[#0a0a0e] flex-shrink-0">
                 <label className="flex items-center gap-2 cursor-pointer text-zinc-300">
                   <input
                     type="checkbox"
                     checked={editingCard.isVisible}
                     onChange={(e) => setEditingCard({ ...editingCard, isVisible: e.target.checked })}
-                    className="rounded border-zinc-700 bg-zinc-900 text-emerald-500"
+                    className="rounded border-zinc-600 bg-zinc-800 text-emerald-500 focus:ring-0"
                   />
-                  <span>Tampilkan di Beranda</span>
+                  <span className="text-xs font-semibold">Tampilkan di Beranda</span>
                 </label>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2.5">
                   <Button
                     type="button"
                     variant="outline"
@@ -972,10 +1135,11 @@ export function SiteElementsManager({
                       setIsCardModalOpen(false);
                       setEditingCard(null);
                     }}
+                    className="border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-800"
                   >
                     Batal
                   </Button>
-                  <Button type="submit" variant="cyber" size="sm" className="bg-emerald-500 text-black font-bold">
+                  <Button type="submit" variant="cyber" size="sm" className="bg-emerald-500 hover:bg-emerald-400 text-black font-bold">
                     Simpan Kartu
                   </Button>
                 </div>

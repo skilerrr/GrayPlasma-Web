@@ -27,6 +27,7 @@ import { Button } from "@/components/ui/button";
 import { GPLogo } from "@/components/gp-logo";
 import { CONSULTATION_DATA } from "@/data/grayplasma-content";
 import { DatabaseService, GlobalSiteSettings, DEFAULT_SITE_SETTINGS } from "@/lib/db-service";
+import { AnnouncementBar } from "@/components/announcement-bar";
 
 export type NavMenuKey =
   | "catalog-all"
@@ -122,52 +123,7 @@ export function Navbar({
 
   return (
     <header className="sticky top-0 z-40 w-full bg-[#07070a]/95 backdrop-blur-xl border-b border-zinc-800 transition-all">
-      {/* Top HUD Telemetry Strip */}
-      <div className="w-full bg-[#050508] border-b border-zinc-800/80 px-4 py-1 text-[10px] font-mono text-zinc-500 hidden sm:flex items-center justify-between">
-        <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 text-emerald-400 font-bold">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span>[SYS // GP_ONLINE]</span>
-            </span>
-            <span className="text-zinc-700 hidden md:inline">|</span>
-            <span className="hidden md:inline text-zinc-400">DATABASE: GTID_LAB_TESTED</span>
-            <span className="text-zinc-700 hidden lg:inline">|</span>
-            <span className="hidden lg:inline text-zinc-400">CORE: METROPOLIS_TYPO</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="text-zinc-400">
-              REKOMENDASI: <strong className="text-white font-mono">{totalMonitorsCount}</strong> MODEL
-            </span>
-            <span className="text-zinc-700">•</span>
-            <span className="text-cyan-400 font-semibold">[ LATENCY: &lt;15ms ]</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Dynamic Announcement Ribbon */}
-      {siteSettings.announcement?.isEnabled && siteSettings.announcement.text && (
-        <div className="w-full bg-gradient-to-r from-emerald-950 via-zinc-950 to-emerald-950 border-b border-emerald-500/30 px-4 py-1.5 text-xs flex items-center justify-center gap-2.5 text-emerald-200">
-          {siteSettings.announcement.badgeText && (
-            <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono font-bold text-[10px] border border-emerald-500/40">
-              [ {siteSettings.announcement.badgeText} ]
-            </span>
-          )}
-          <span className="font-medium text-[11px] sm:text-xs">
-            {siteSettings.announcement.text}
-          </span>
-          {siteSettings.announcement.linkUrl && (
-            <Link
-              href={siteSettings.announcement.linkUrl}
-              className="text-emerald-400 hover:text-emerald-300 underline font-bold text-[11px] flex items-center gap-0.5 ml-1"
-            >
-              <span>{siteSettings.announcement.linkText || "Buka"}</span>
-              <ExternalLink className="w-3 h-3" />
-            </Link>
-          )}
-        </div>
-      )}
-
+      <AnnouncementBar settings={siteSettings?.announcement} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Navbar Row */}
         <div className="flex items-center justify-between h-16 sm:h-20 gap-3">
@@ -176,32 +132,24 @@ export function Navbar({
             onClick={() => onMenuSelect("home")}
             className="flex items-center gap-3 cursor-pointer group select-none flex-shrink-0"
           >
-            <div className="p-1 rounded-lg bg-[#0d0d12] border border-zinc-700/80 shadow-[2px_2px_0px_#000] group-hover:border-emerald-500/80 transition-colors">
+            <div className="p-1 rounded-lg bg-[#0d0d12] border border-zinc-800 group-hover:border-zinc-700 transition-colors">
               <GPLogo className="w-8 h-8 sm:w-9 sm:h-9" />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-base sm:text-lg font-black tracking-tight text-white uppercase">
-                  {siteSettings.brandName || "GRAYPLASMA"}<span className="text-emerald-400 font-mono">ID</span>
+                  {(siteSettings.brandName || "GRAYPLASMA ID").replace(/\s*ID$/i, "")}{" "}
+                  <span className="text-orange-500 font-mono">ID</span>
                 </span>
-                <Link
-                  href="/guide/sdr/glossary"
-                  onClick={(e) => e.stopPropagation()}
-                  className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/40 text-emerald-400 hover:bg-emerald-500/20 hover:border-emerald-400 transition-colors hidden sm:inline-flex items-center gap-1 shadow-[2px_2px_0px_#000]"
-                  title="Lihat Glosarium & Standar Pengujian GTID"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>[ GTID TESTED ]</span>
-                </Link>
               </div>
               <p className="text-[11px] text-zinc-400 hidden lg:block font-medium">
-                {siteSettings.brandTagline || "Katalog & Panduan Rekomendasi Monitor"}
+                {siteSettings.brandTagline || "Database Pengujian & Kurasi Monitor Independen"}
               </p>
             </div>
           </div>
 
           {/* Nav Dropdown Menus (Desktop) */}
-          <nav className="hidden md:flex items-center gap-1 bg-[#0b0b0f] border border-zinc-700/80 rounded-lg p-1 shadow-[2px_2px_0px_#000]">
+          <nav className="hidden md:flex items-center gap-1 bg-[#0c0c10] border border-zinc-800 rounded-lg p-1">
             {/* Beranda */}
             <Link
               href="/"
@@ -214,7 +162,7 @@ export function Navbar({
               Beranda
             </Link>
 
-            {/* Menu 1: Rekomendasi Monitor with Submenu */}
+            {/* Menu 1: Rekomendasi Monitor & Meja */}
             <div className="relative" onClick={(e) => e.stopPropagation()}>
               <button
                 onClick={() => setOpenDropdown(openDropdown === "catalog" ? null : "catalog")}
@@ -230,71 +178,49 @@ export function Navbar({
               </button>
 
               {openDropdown === "catalog" && (
-                <div className="absolute top-full left-0 mt-2 w-64 bg-[#202020] border border-[#2f2f2f] rounded-xl p-2 shadow-2xl z-50 animate-in fade-in zoom-in-95 space-y-1">
-                  <div className="text-[10px] font-bold text-[#787774] px-2 py-1 uppercase tracking-wider">
-                    Pilihan Kategori Rekomendasi
+                <div className="absolute top-full left-0 mt-2 w-72 bg-[#1c1c22] border border-zinc-800 rounded-xl p-2 shadow-2xl z-50 animate-in fade-in zoom-in-95 space-y-1">
+                  <div className="text-[10px] font-bold text-zinc-500 px-2 py-1 uppercase tracking-wider">
+                    Katalog Rekomendasi
                   </div>
                   <Link
                     href="/catalog/all"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-center justify-between group"
+                    onClick={() => {
+                      onMenuSelect("catalog-all");
+                      setOpenDropdown(null);
+                    }}
+                    className="w-full text-left px-2.5 py-2 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/80 transition-colors flex items-center justify-between group"
                   >
-                    <div>
-                      <span className="block font-semibold">Semua Monitor</span>
-                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/catalog/all</span>
+                    <div className="flex items-center gap-2.5">
+                      <div className="p-1.5 rounded-md bg-emerald-500/10 text-emerald-400">
+                        <Tv className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <span className="block font-semibold text-zinc-200 group-hover:text-white">Rekomendasi Monitor</span>
+                        <span className="text-[10px] text-zinc-500">Semua model hasil kurasi & tes lab</span>
+                      </div>
                     </div>
-                    <span className="text-[10px] text-zinc-500 font-mono">{totalMonitorsCount}</span>
+                    <span className="text-[10px] text-zinc-400 font-mono bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800">
+                      {totalMonitorsCount}
+                    </span>
                   </Link>
-                  <Link
-                    href="/catalog/1080p"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-center justify-between group"
-                  >
-                    <div>
-                      <span className="block font-semibold">1080p (FHD Budget & Esport)</span>
-                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/catalog/1080p</span>
-                    </div>
-                  </Link>
-                  <Link
-                    href="/catalog/1440p"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-center justify-between group"
-                  >
-                    <div>
-                      <span className="block font-semibold">1440p (2K Sweetspot)</span>
-                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/catalog/1440p</span>
-                    </div>
-                  </Link>
-                  <Link
-                    href="/catalog/oled"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-center justify-between group"
-                  >
-                    <div>
-                      <span className="block font-semibold">OLED & Flagship Tier</span>
-                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/catalog/oled</span>
-                    </div>
-                  </Link>
-                  <Link
-                    href="/catalog/4k"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#282828] transition-colors flex items-center justify-between group"
-                  >
-                    <div>
-                      <span className="block font-semibold">4K UHD & Creator Special</span>
-                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/catalog/4k</span>
-                    </div>
-                  </Link>
+
                   <Link
                     href="/catalog/desks"
                     onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-amber-300 hover:text-white hover:bg-[#282828] transition-colors flex items-center justify-between group border-t border-[#2f2f2f] pt-2"
+                    className="w-full text-left px-2.5 py-2 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/80 transition-colors flex items-center justify-between group"
                   >
-                    <div>
-                      <span className="block font-semibold">🪑 Rekomendasi Meja + Kaki</span>
-                      <span className="text-[10px] text-[#787774] font-mono group-hover:text-[#52ba69]">/catalog/desks</span>
+                    <div className="flex items-center gap-2.5">
+                      <div className="p-1.5 rounded-md bg-orange-500/10 text-orange-400">
+                        <Layers className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <span className="block font-semibold text-zinc-200 group-hover:text-white">Rekomendasi Meja + Kaki</span>
+                        <span className="text-[10px] text-zinc-500">Daun meja, standing desk, & arm</span>
+                      </div>
                     </div>
-                    <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-400 font-bold">10 Meja</span>
+                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-orange-500/10 border border-orange-500/30 text-orange-400 font-bold">
+                      10 Meja
+                    </span>
                   </Link>
                 </div>
               )}
@@ -491,7 +417,7 @@ export function Navbar({
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
                 placeholder="Cari monitor (contoh: 24G4, G24i, OLED, 1440p)..."
-                className="w-full bg-[#08080c] border border-zinc-700/80 rounded-lg pl-9 pr-14 py-2 text-xs sm:text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-400 shadow-[2px_2px_0px_#000] transition-all"
+                className="w-full bg-[#08080c] border border-zinc-800 rounded-lg pl-9 pr-14 py-2 text-xs sm:text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-600 transition-all"
               />
               <div className="absolute inset-y-0 right-0 pr-2 flex items-center gap-1 pointer-events-none">
                 {searchQuery ? (
@@ -506,7 +432,7 @@ export function Navbar({
                     <X className="w-3.5 h-3.5" />
                   </button>
                 ) : (
-                  <kbd className="hidden sm:inline-flex items-center text-[10px] font-mono text-emerald-400 bg-[#141419] border border-zinc-700 px-1.5 py-0.5 rounded shadow-[1px_1px_0px_#000]">
+                  <kbd className="hidden sm:inline-flex items-center text-[10px] font-mono text-zinc-400 bg-zinc-900 border border-zinc-800 px-1.5 py-0.5 rounded">
                     [ / ]
                   </kbd>
                 )}
@@ -520,7 +446,7 @@ export function Navbar({
               variant="outline"
               size="sm"
               onClick={onToggleMobileFilter}
-              className="lg:hidden flex items-center gap-1.5 border-zinc-700 bg-[#0d0d12] shadow-[2px_2px_0px_#000]"
+              className="lg:hidden flex items-center gap-1.5 border-zinc-800 bg-[#0d0d12]"
             >
               <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
               {activeFilterCount > 0 && (
@@ -531,13 +457,13 @@ export function Navbar({
             </Button>
 
             <a
-              href={CONSULTATION_DATA.whatsappUrl}
+              href={siteSettings.consultation?.whatsappUrl || CONSULTATION_DATA.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/40 hover:border-emerald-400 text-xs font-mono font-bold text-emerald-400 hover:bg-emerald-500 hover:text-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-orange-500/10 border border-orange-500/30 hover:border-orange-400 text-xs font-semibold text-orange-400 hover:bg-orange-500 hover:text-zinc-950 active:translate-y-[1px] transition-all"
             >
               <MessageCircle className="w-3.5 h-3.5" />
-              <span>[ TANYA JOEL ]</span>
+              <span>Tanya Joel</span>
             </a>
           </div>
         </div>

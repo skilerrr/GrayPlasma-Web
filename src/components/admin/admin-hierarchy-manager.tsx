@@ -480,8 +480,8 @@ export function AdminHierarchyManager({
                         </span>
                         <div className="flex flex-wrap gap-1">
                           {adm.permissions.includes("*") ? (
-                            <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold">
-                              ★ Full Super Admin
+                            <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 font-mono font-bold">
+                              [SUPER ADMIN - ALL ACCESS]
                             </span>
                           ) : (
                             adm.permissions.map((p) => (
@@ -611,9 +611,10 @@ export function AdminHierarchyManager({
 
       {/* Add / Edit Admin Modal Dialog */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-[#0c0c0e] border border-zinc-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl relative animate-in zoom-in-95">
-            <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+          <div className="bg-[#0f0f14] border border-zinc-700/80 rounded-2xl max-w-lg w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in zoom-in-95">
+            {/* Fixed Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-[#121217] flex-shrink-0">
               <div className="flex items-center gap-2.5">
                 <div className="p-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400">
                   <UserPlus className="w-4 h-4" />
@@ -626,173 +627,179 @@ export function AdminHierarchyManager({
                 </div>
               </div>
               <button
+                type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="p-1 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-white"
+                className="p-1 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <form onSubmit={handleSaveAdmin} className="space-y-4 text-xs">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="text-zinc-400 block mb-1">Nama Lengkap</label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Contoh: Joel Gray"
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-                <div>
-                  <label className="text-zinc-400 block mb-1">Username / Handle</label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.username}
-                    onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                    placeholder="gray1plasma"
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="text-zinc-400 block mb-1">Email Akun (Digunakan untuk Login) *</label>
-                <input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="collaborator@grayplasma.id"
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400 font-mono text-xs"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="text-zinc-400 block mb-1">Peran / Role Hierarki</label>
-                  <select
-                    value={formData.role}
-                    onChange={(e) => {
-                      const newRole = e.target.value as AdminRole;
-                      let roleTitle = "Content Editor";
-                      let perms = ["guides", "faq"];
-                      if (newRole === "super_admin") {
-                        roleTitle = "Super Admin (Owner)";
-                        perms = ["*"];
-                      } else if (newRole === "lead_reviewer") {
-                        roleTitle = "Lead Reviewer & Data Analyst";
-                        perms = ["monitors", "desks", "peripherals", "aftersales", "guides"];
-                      } else if (newRole === "contributor") {
-                        roleTitle = "Lab Contributor";
-                        perms = ["monitors"];
-                      }
-                      setFormData({ ...formData, role: newRole, roleTitle, permissions: perms });
-                    }}
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400"
-                  >
-                    <option value="super_admin">👑 Super Admin (Full Control)</option>
-                    <option value="lead_reviewer">🛡️ Lead Reviewer (Lab & Monitor)</option>
-                    <option value="editor">✍️ Content Editor (Articles & FAQ)</option>
-                    <option value="contributor">🧪 Lab Contributor / Tester</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="text-zinc-400 block mb-1">PIN Password Masuk</label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.pinCode}
-                    onChange={(e) => setFormData({ ...formData, pinCode: e.target.value })}
-                    placeholder="PIN / Password"
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-amber-400 font-mono font-bold focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <div className="flex items-center justify-between mb-1">
-                  <label className="text-zinc-400">Foto Profil (Avatar)</label>
-                  <label className="text-[11px] text-amber-400 hover:underline cursor-pointer flex items-center gap-1 font-semibold">
-                    <Upload className="w-3 h-3" />
-                    <span>Upload Foto Sendiri (WebP)</span>
+            {/* Form with Scrollable Body & Fixed Footer */}
+            <form onSubmit={handleSaveAdmin} className="flex flex-col flex-1 min-h-0 overflow-hidden">
+              <div className="flex-1 overflow-y-auto p-6 space-y-4 text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-zinc-300 block mb-1 font-semibold">Nama Lengkap</label>
                     <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleAvatarUploadForForm}
-                      className="hidden"
+                      type="text"
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="Contoh: Joel Gray"
+                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400 placeholder:text-zinc-500"
                     />
-                  </label>
+                  </div>
+                  <div>
+                    <label className="text-zinc-300 block mb-1 font-semibold">Username / Handle</label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.username}
+                      onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                      placeholder="gray1plasma"
+                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400 placeholder:text-zinc-500"
+                    />
+                  </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <img
-                    src={formData.avatar || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200&auto=format&fit=crop"}
-                    alt="Preview"
-                    className="w-10 h-10 rounded-xl object-cover border border-amber-500/50 flex-shrink-0"
-                  />
+
+                <div>
+                  <label className="text-zinc-300 block mb-1 font-semibold">Email Akun (Digunakan untuk Login) *</label>
                   <input
-                    type="text"
-                    value={formData.avatar}
-                    onChange={(e) => setFormData({ ...formData, avatar: e.target.value })}
-                    placeholder="https://... atau klik Upload Foto di samping"
-                    className="flex-1 bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-zinc-300 focus:outline-none focus:border-amber-400 font-mono text-[11px]"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    placeholder="collaborator@grayplasma.id"
+                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400 font-mono text-xs placeholder:text-zinc-500"
                   />
                 </div>
-              </div>
 
-              <div>
-                <label className="text-zinc-400 block mb-1">Bio Singkat</label>
-                <textarea
-                  rows={2}
-                  value={formData.bio || ""}
-                  onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                  placeholder="Deskripsi peran dan tanggung jawab admin..."
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-2.5 text-zinc-300 focus:outline-none focus:border-amber-400"
-                />
-              </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-zinc-300 block mb-1 font-semibold">Peran / Role Hierarki</label>
+                    <select
+                      value={formData.role}
+                      onChange={(e) => {
+                        const newRole = e.target.value as AdminRole;
+                        let roleTitle = "Content Editor";
+                        let perms = ["guides", "faq"];
+                        if (newRole === "super_admin") {
+                          roleTitle = "Super Admin (Owner)";
+                          perms = ["*"];
+                        } else if (newRole === "lead_reviewer") {
+                          roleTitle = "Lead Reviewer & Data Analyst";
+                          perms = ["monitors", "desks", "peripherals", "aftersales", "guides"];
+                        } else if (newRole === "contributor") {
+                          roleTitle = "Lab Contributor";
+                          perms = ["monitors"];
+                        }
+                        setFormData({ ...formData, role: newRole, roleTitle, permissions: perms });
+                      }}
+                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400"
+                    >
+                      <option value="super_admin">[SUPER ADMIN] Super Admin (Full Control)</option>
+                      <option value="lead_reviewer">[REVIEWER] Lead Reviewer (Lab & Monitor)</option>
+                      <option value="editor">[EDITOR] Content Editor (Articles & FAQ)</option>
+                      <option value="contributor">[CONTRIBUTOR] Lab Contributor / Tester</option>
+                    </select>
+                  </div>
 
-              {/* Granular Permissions Checklist */}
-              <div className="space-y-2 pt-2 border-t border-zinc-800">
-                <label className="text-zinc-400 font-bold block">
-                  Daftar Wewenang Modul (Granular Permissions):
-                </label>
-                <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto p-2 bg-zinc-950 rounded-xl border border-zinc-800">
-                  {ALL_AVAILABLE_PERMISSIONS.map((perm) => {
-                    const isChecked =
-                      formData.permissions.includes("*") || formData.permissions.includes(perm.id);
+                  <div>
+                    <label className="text-zinc-300 block mb-1 font-semibold">PIN Password Masuk</label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.pinCode}
+                      onChange={(e) => setFormData({ ...formData, pinCode: e.target.value })}
+                      placeholder="PIN / Password"
+                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-amber-400 font-mono font-bold focus:outline-none focus:border-amber-400 placeholder:text-zinc-500"
+                    />
+                  </div>
+                </div>
 
-                    return (
-                      <label
-                        key={perm.id}
-                        className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-zinc-900 cursor-pointer text-[11px] text-zinc-300"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          onChange={() => togglePermission(perm.id)}
-                          className="rounded border-zinc-700 bg-zinc-900 text-amber-500 focus:ring-0"
-                        />
-                        <span>{perm.label}</span>
-                      </label>
-                    );
-                  })}
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-zinc-300 font-semibold">Foto Profil (Avatar)</label>
+                    <label className="text-[11px] text-amber-400 hover:underline cursor-pointer flex items-center gap-1 font-semibold">
+                      <Upload className="w-3 h-3" />
+                      <span>Upload Foto Sendiri (WebP)</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleAvatarUploadForForm}
+                        className="hidden"
+                      />
+                    </label>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={formData.avatar || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200&auto=format&fit=crop"}
+                      alt="Preview"
+                      className="w-10 h-10 rounded-xl object-cover border border-amber-500/50 flex-shrink-0"
+                    />
+                    <input
+                      type="text"
+                      value={formData.avatar}
+                      onChange={(e) => setFormData({ ...formData, avatar: e.target.value })}
+                      placeholder="https://... atau klik Upload Foto di samping"
+                      className="flex-1 bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-zinc-300 focus:outline-none focus:border-amber-400 font-mono text-[11px] placeholder:text-zinc-500"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-zinc-300 block mb-1 font-semibold">Bio Singkat</label>
+                  <textarea
+                    rows={2}
+                    value={formData.bio || ""}
+                    onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+                    placeholder="Deskripsi peran dan tanggung jawab admin..."
+                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl p-2.5 text-zinc-200 focus:outline-none focus:border-amber-400 placeholder:text-zinc-500"
+                  />
+                </div>
+
+                {/* Granular Permissions Checklist */}
+                <div className="space-y-2 pt-2 border-t border-zinc-800">
+                  <label className="text-zinc-300 font-bold block">
+                    Daftar Wewenang Modul (Granular Permissions):
+                  </label>
+                  <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto p-2.5 bg-[#14141c] rounded-xl border border-zinc-700">
+                    {ALL_AVAILABLE_PERMISSIONS.map((perm) => {
+                      const isChecked =
+                        formData.permissions.includes("*") || formData.permissions.includes(perm.id);
+
+                      return (
+                        <label
+                          key={perm.id}
+                          className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-zinc-800 cursor-pointer text-[11px] text-zinc-300 transition-colors"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => togglePermission(perm.id)}
+                            className="rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-0"
+                          />
+                          <span>{perm.label}</span>
+                        </label>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-3">
+              {/* Fixed Footer Actions */}
+              <div className="flex items-center justify-end gap-3 px-6 py-3.5 border-t border-zinc-800 bg-[#0a0a0e] flex-shrink-0">
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   onClick={() => setIsModalOpen(false)}
+                  className="border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-800"
                 >
                   Batal
                 </Button>
-                <Button type="submit" variant="cyber" size="sm" className="font-bold">
+                <Button type="submit" variant="cyber" size="sm" className="bg-amber-500 hover:bg-amber-400 text-black font-bold">
                   Simpan Admin
                 </Button>
               </div>

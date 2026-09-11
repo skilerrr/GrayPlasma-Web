@@ -42,10 +42,7 @@ export function Footer() {
   const consult = siteSettings.consultation || CONSULTATION_DATA;
 
   return (
-    <footer className="border-t border-zinc-800/90 bg-[#09090b] text-zinc-400 text-xs mt-20 relative overflow-hidden">
-      {/* Subtle top neon ambient glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent" />
-
+    <footer className="border-t border-zinc-800 bg-[#09090b] text-zinc-400 text-xs mt-20 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-12">
         {/* Top 4-Column Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
@@ -55,7 +52,8 @@ export function Footer() {
               <GPLogo className="w-10 h-10 flex-shrink-0" />
               <div>
                 <span className="font-black text-white text-base tracking-tight uppercase block">
-                  {siteSettings.brandName || "GRAYPLASMA"}<span className="text-emerald-400">ID</span>
+                  {(siteSettings.brandName || "GRAYPLASMA ID").replace(/\s*ID$/i, "")}{" "}
+                  <span className="text-orange-500 font-mono">ID</span>
                 </span>
                 <span className="text-[11px] text-zinc-400">
                   {siteSettings.brandTagline || "Rekomendasi & Kurasi Monitor"}

@@ -12,6 +12,9 @@ import {
   SlidersHorizontal,
   Search,
   GripVertical,
+  Monitor as MonitorIcon,
+  Type,
+  Layers,
 } from "lucide-react";
 import { Monitor, TierRating } from "@/types/monitor";
 import { formatRupiah } from "@/lib/utils";
@@ -22,6 +25,8 @@ interface NotionTableViewProps {
   monitors: Monitor[];
   selectedMonitorId?: string;
   onSelectMonitor: (monitor: Monitor) => void;
+  onOpenFilter?: () => void;
+  activeFilterCount?: number;
 }
 
 export type TableViewTab = "table" | "price" | "size" | "gallery";
@@ -30,6 +35,8 @@ export function NotionTableView({
   monitors,
   selectedMonitorId,
   onSelectMonitor,
+  onOpenFilter,
+  activeFilterCount = 0,
 }: NotionTableViewProps) {
   const [activeTab, setActiveTab] = useState<TableViewTab>("table");
   const [isColManagerOpen, setIsColManagerOpen] = useState(false);
@@ -38,7 +45,7 @@ export function NotionTableView({
   const publicColumns = React.useMemo<TableColumnDef<Monitor>[]>(() => [
     {
       id: "price",
-      label: "[ 01 // KISARAN_HARGA ]",
+      label: "[ KISARAN HARGA ]",
       shortLabel: "Harga",
       minWidth: "min-w-[160px]",
       sortable: true,
@@ -53,7 +60,7 @@ export function NotionTableView({
     },
     {
       id: "name",
-      label: "[ 02 // BRAND & MODEL ]",
+      label: "[ BRAND & MODEL ]",
       shortLabel: "Brand & Model",
       minWidth: "min-w-[250px]",
       sortable: true,
@@ -62,10 +69,10 @@ export function NotionTableView({
       getValue: (m) => m.fullName,
       renderCell: (m) => (
         <div className="flex items-center gap-2">
-          <span className="text-base">🖥️</span>
+          <MonitorIcon className="w-3.5 h-3.5 text-zinc-500 group-hover:text-emerald-400 transition-colors flex-shrink-0" />
           <span
             className={`font-bold transition-colors ${
-              selectedMonitorId === m.id ? "text-cyan-400" : "text-white hover:text-emerald-400"
+              selectedMonitorId === m.id ? "text-emerald-400" : "text-white hover:text-emerald-400"
             }`}
           >
             {m.fullName}
@@ -75,7 +82,7 @@ export function NotionTableView({
     },
     {
       id: "gtidTolerance",
-      label: "[ 03 // GTID_TOLERANSI ]",
+      label: "[ GTID TOLERANSI ]",
       shortLabel: "Toleransi GTID",
       minWidth: "min-w-[220px]",
       sortable: true,
@@ -84,10 +91,10 @@ export function NotionTableView({
       getValue: (m) => m.responseTimeData?.toleranceNew || "",
       renderCell: (m) => (
         <div className="flex items-center gap-1.5 flex-wrap">
-          <span className="px-2 py-0.5 rounded bg-[#0b2413] text-[#00e676] border border-[#00e676]/30 text-[10px] font-mono font-bold whitespace-nowrap shadow-[1px_1px_0px_#000]">
+          <span className="px-2 py-0.5 rounded bg-[#0b2413] text-[#00e676] border border-[#00e676]/30 text-[10px] font-mono font-bold whitespace-nowrap">
             {m.responseTimeData?.toleranceNew || "Toleransi Baru"}
           </span>
-          <span className="px-2 py-0.5 rounded bg-[#2b1012] text-[#ff5252] border border-[#ff5252]/30 text-[10px] font-mono font-bold whitespace-nowrap shadow-[1px_1px_0px_#000]">
+          <span className="px-2 py-0.5 rounded bg-[#2b1012] text-[#ff5252] border border-[#ff5252]/30 text-[10px] font-mono font-bold whitespace-nowrap">
             {m.responseTimeData?.toleranceOld || "Toleransi Lama"}
           </span>
         </div>
@@ -95,7 +102,7 @@ export function NotionTableView({
     },
     {
       id: "panelSize",
-      label: "[ 04 // PANEL_SIZE ]",
+      label: "[ PANEL & SIZE ]",
       shortLabel: "Panel & Size",
       minWidth: "min-w-[140px]",
       sortable: true,
@@ -103,14 +110,14 @@ export function NotionTableView({
       category: "Display",
       getValue: (m) => `${m.specs.display.size} ${m.specs.display.panelType}`,
       renderCell: (m) => (
-        <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-700/80 font-mono text-[11px] whitespace-nowrap">
+        <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-800 font-mono text-[11px] whitespace-nowrap">
           {m.specs.display.size} {m.specs.display.panelType}
         </span>
       ),
     },
     {
       id: "resolution",
-      label: "[ 05 // RESOLUSI ]",
+      label: "[ RESOLUSI ]",
       shortLabel: "Resolusi",
       minWidth: "min-w-[150px]",
       sortable: true,
@@ -118,14 +125,14 @@ export function NotionTableView({
       category: "Display",
       getValue: (m) => m.specs.display.resolution,
       renderCell: (m) => (
-        <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-700/80 font-mono text-[11px] whitespace-nowrap">
+        <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-800 font-mono text-[11px] whitespace-nowrap">
           {m.specs.display.resolution}
         </span>
       ),
     },
     {
       id: "refresh",
-      label: "[ 06 // REFRESH ]",
+      label: "[ REFRESH RATE ]",
       shortLabel: "Refresh",
       minWidth: "min-w-[110px]",
       sortable: true,
@@ -133,14 +140,14 @@ export function NotionTableView({
       category: "Display",
       getValue: (m) => m.specs.display.refreshRate,
       renderCell: (m) => (
-        <span className="px-2 py-0.5 rounded bg-[#10192b] text-[#38bdf8] border border-[#38bdf8]/30 font-mono font-bold text-[11px] whitespace-nowrap shadow-[1px_1px_0px_#000]">
+        <span className="px-2 py-0.5 rounded bg-zinc-900 text-emerald-400 border border-zinc-800 font-mono font-bold text-[11px] tabular-nums whitespace-nowrap">
           {m.specs.display.refreshRate}Hz
         </span>
       ),
     },
     {
       id: "tier",
-      label: "[ 07 // TIER_RATING ]",
+      label: "[ TIER RATING ]",
       shortLabel: "Tier",
       minWidth: "min-w-[140px]",
       sortable: true,
@@ -155,7 +162,7 @@ export function NotionTableView({
     },
     {
       id: "subpixel",
-      label: "[ 08 // SUBPIXEL ]",
+      label: "[ SUBPIXEL LAYOUT ]",
       shortLabel: "Subpixel",
       minWidth: "min-w-[130px]",
       sortable: true,
@@ -170,7 +177,7 @@ export function NotionTableView({
     },
     {
       id: "vrr",
-      label: "[ 09 // VRR_SYNC ]",
+      label: "[ VRR / SYNC ]",
       shortLabel: "VRR",
       minWidth: "min-w-[140px]",
       sortable: true,
@@ -185,7 +192,7 @@ export function NotionTableView({
     },
     {
       id: "gamut",
-      label: "[ 10 // COLOR_GAMUT ]",
+      label: "[ COLOR GAMUT ]",
       shortLabel: "Gamut",
       minWidth: "min-w-[150px]",
       sortable: true,
@@ -200,7 +207,7 @@ export function NotionTableView({
     },
     {
       id: "warranty",
-      label: "[ 11 // GARANSI ]",
+      label: "[ GARANSI ]",
       shortLabel: "Garansi",
       minWidth: "min-w-[140px]",
       sortable: true,
@@ -215,7 +222,7 @@ export function NotionTableView({
     },
     {
       id: "ports",
-      label: "[ 12 // PORTS ]",
+      label: "[ PORTS / KONEKSI ]",
       shortLabel: "Ports",
       minWidth: "min-w-[160px]",
       sortable: false,
@@ -241,8 +248,10 @@ export function NotionTableView({
     <div className="space-y-4 font-sans text-xs text-[#d4d4d4]">
       {/* Title & View Mode Tabs Bar (Exact Notion styling from user screenshot) */}
       <div className="space-y-3">
-        <div className="flex items-center gap-2">
-          <span className="text-xl">🖥️</span>
+        <div className="flex items-center gap-2.5">
+          <span className="p-1 rounded-md bg-zinc-900 border border-zinc-800 text-emerald-400">
+            <MonitorIcon className="w-4 h-4" />
+          </span>
           <h2 className="text-lg font-bold text-white tracking-tight">
             List SDR Monitor (GTID Review & Database)
           </h2>
@@ -255,7 +264,7 @@ export function NotionTableView({
               onClick={() => setActiveTab("table")}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
                 activeTab === "table"
-                  ? "bg-zinc-800 text-white border border-zinc-600 shadow-[2px_2px_0px_#000]"
+                  ? "bg-zinc-800 text-white border border-zinc-700"
                   : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
               }`}
             >
@@ -267,11 +276,11 @@ export function NotionTableView({
               onClick={() => setActiveTab("price")}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
                 activeTab === "price"
-                  ? "bg-zinc-800 text-white border border-zinc-600 shadow-[2px_2px_0px_#000]"
+                  ? "bg-zinc-800 text-white border border-zinc-700"
                   : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
               }`}
             >
-              <List className="w-3.5 h-3.5 text-cyan-400" />
+              <List className="w-3.5 h-3.5 text-zinc-400" />
               <span>[ LIST HARGA ]</span>
             </button>
 
@@ -279,11 +288,11 @@ export function NotionTableView({
               onClick={() => setActiveTab("size")}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
                 activeTab === "size"
-                  ? "bg-zinc-800 text-white border border-zinc-600 shadow-[2px_2px_0px_#000]"
+                  ? "bg-zinc-800 text-white border border-zinc-700"
                   : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
               }`}
             >
-              <List className="w-3.5 h-3.5 text-amber-400" />
+              <List className="w-3.5 h-3.5 text-zinc-400" />
               <span>[ LIST UKURAN ]</span>
             </button>
 
@@ -291,22 +300,40 @@ export function NotionTableView({
               onClick={() => setActiveTab("gallery")}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
                 activeTab === "gallery"
-                  ? "bg-zinc-800 text-white border border-zinc-600 shadow-[2px_2px_0px_#000]"
+                  ? "bg-zinc-800 text-white border border-zinc-700"
                   : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
               }`}
             >
-              <LayoutGrid className="w-3.5 h-3.5 text-rose-400" />
+              <LayoutGrid className="w-3.5 h-3.5 text-zinc-400" />
               <span>[ GALLERY ]</span>
             </button>
           </div>
 
           <div className="flex items-center gap-2">
+            {onOpenFilter && (
+              <button
+                type="button"
+                onClick={onOpenFilter}
+                className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 border ${
+                  activeFilterCount > 0
+                    ? "border-emerald-500/60 bg-emerald-500/15 text-emerald-300 shadow-tech-subtle"
+                    : "border-zinc-750 bg-zinc-900 text-zinc-300 hover:border-emerald-500 hover:text-white"
+                }`}
+                title="Buka panel parameter filter"
+              >
+                <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
+                <span>
+                  [ FILTER {activeFilterCount > 0 ? `(${activeFilterCount})` : ""} ]
+                </span>
+              </button>
+            )}
+
             <button
               type="button"
               onClick={() => setIsColManagerOpen(true)}
-              className="px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 border border-zinc-700 bg-zinc-900 text-zinc-300 hover:border-cyan-500 hover:text-white"
+              className="px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 border border-zinc-750 bg-zinc-900 text-zinc-300 hover:border-emerald-500 hover:text-white"
             >
-              <SlidersHorizontal className="w-3.5 h-3.5 text-cyan-400" />
+              <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
               <span>[ KELOLA KOLOM ({tableManager.visibleColumns.length}) ]</span>
             </button>
             <div className="text-[11px] font-mono text-zinc-500 hidden sm:flex items-center gap-2">
@@ -321,7 +348,7 @@ export function NotionTableView({
       {/* VIEW 1: TECH-BRUTALIST NOTION DATABASE TABLE VIEW                         */}
       {/* ========================================================================= */}
       {activeTab === "table" && (
-        <div className="rounded-lg border-2 border-zinc-800 bg-[#09090d] overflow-hidden shadow-[3px_3px_0px_#000]">
+        <div className="rounded-xl border border-zinc-800 bg-[#09090d] overflow-hidden shadow-tech-card">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse min-w-[950px]">
               <thead className="bg-[#050508] text-zinc-300 uppercase text-[10px] font-mono tracking-wider border-b-2 border-zinc-700 sticky top-0 z-20">
@@ -409,22 +436,22 @@ export function NotionTableView({
         <div className="space-y-6">
           {[
             {
-              title: "💵 Budget Entry Level (< Rp 1.500.000)",
+              title: "Budget Entry Level (< Rp 1.500.000)",
               filter: (m: Monitor) => m.price < 1500000,
               color: "border-emerald-500/40 text-emerald-400",
             },
             {
-              title: "💵 Mid-Range Value (Rp 1.500.000 - Rp 3.000.000)",
+              title: "Mid-Range Value (Rp 1.500.000 - Rp 3.000.000)",
               filter: (m: Monitor) => m.price >= 1500000 && m.price <= 3000000,
               color: "border-cyan-500/40 text-cyan-400",
             },
             {
-              title: "💵 Sweetspot 1440p / 2K (Rp 3.000.000 - Rp 5.000.000)",
+              title: "Sweetspot 1440p / 2K (Rp 3.000.000 - Rp 5.000.000)",
               filter: (m: Monitor) => m.price > 3000000 && m.price <= 5000000,
               color: "border-amber-500/40 text-amber-400",
             },
             {
-              title: "💵 Enthusiast, 4K & OLED (> Rp 5.000.000)",
+              title: "Enthusiast, 4K & OLED (> Rp 5.000.000)",
               filter: (m: Monitor) => m.price > 5000000,
               color: "border-rose-500/40 text-rose-400",
             },
@@ -462,8 +489,8 @@ export function NotionTableView({
                               </td>
                               <td className="py-2.5 px-4">
                                 <div className="flex items-center gap-2">
-                                  <span>🖥️</span>
-                                  <span className="font-semibold text-white hover:text-[#58a6ff]">
+                                  <MonitorIcon className="w-3.5 h-3.5 text-zinc-500" />
+                                  <span className="font-semibold text-white hover:text-emerald-400">
                                     {monitor.fullName}
                                   </span>
                                 </div>
@@ -502,22 +529,22 @@ export function NotionTableView({
         <div className="space-y-6">
           {[
             {
-              title: '📐 24 Inch (FHD Budget & Compact Esports)',
+              title: '24 Inch (FHD Budget & Compact Esports)',
               filter: (m: Monitor) => m.specs.display.size.includes("24") || m.specs.display.size.includes("23.8"),
               color: "text-cyan-400",
             },
             {
-              title: '📐 27 Inch (Mainstream 1080p & 1440p 2K)',
+              title: '27 Inch (Mainstream 1080p & 1440p 2K)',
               filter: (m: Monitor) => m.specs.display.size.includes("27") || m.specs.display.size.includes("26.5"),
               color: "text-emerald-400",
             },
             {
-              title: '📐 32 Inch (Large Immersive & 4K Creation)',
+              title: '32 Inch (Large Immersive & 4K Creation)',
               filter: (m: Monitor) => m.specs.display.size.includes("32") || m.specs.display.size.includes("31.5"),
               color: "text-amber-400",
             },
             {
-              title: '📐 Ultrawide & Curved (21:9 Productivity)',
+              title: 'Ultrawide & Curved (21:9 Productivity)',
               filter: (m: Monitor) => m.specs.display.size.toLowerCase().includes("ultrawide") || m.specs.display.size.includes("34"),
               color: "text-rose-400",
             },
@@ -555,8 +582,8 @@ export function NotionTableView({
                               </td>
                               <td className="py-2.5 px-4">
                                 <div className="flex items-center gap-2">
-                                  <span>🖥️</span>
-                                  <span className="font-semibold text-white hover:text-[#58a6ff]">
+                                  <MonitorIcon className="w-3.5 h-3.5 text-zinc-500" />
+                                  <span className="font-semibold text-white hover:text-emerald-400">
                                     {monitor.fullName}
                                   </span>
                                 </div>

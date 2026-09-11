@@ -1,6 +1,13 @@
 import { Monitor } from "@/types/monitor";
 import { MONITORS_DATA } from "@/data/monitors";
-import { DESK_DATABASE, PERIPHERALS_DATABASE, DeskItem, PeripheralItem } from "@/data/grayplasma-desk-peripherals";
+import {
+  DESK_DATABASE,
+  PERIPHERALS_DATABASE,
+  DeskItem,
+  PeripheralItem,
+  ChairItem,
+  DEFAULT_CHAIRS_DATABASE,
+} from "@/data/grayplasma-desk-peripherals";
 import {
   AFTERSALES_DATA,
   AftersalesBrand,
@@ -28,6 +35,7 @@ export type {
   GrayNoteItem,
   AvoidBrandItem,
   BandwidthGuidance,
+  ChairItem,
 };
 import { SiteHierarchyNode } from "@/types/site-hierarchy";
 import { DEFAULT_SITE_HIERARCHY } from "@/data/site-hierarchy";
@@ -39,10 +47,12 @@ const STORAGE_KEYS = {
   MONITORS: "gp_db_monitors_v1",
   DESKS: "gp_db_desks_v1",
   PERIPHERALS: "gp_db_peripherals_v1",
+  CHAIRS: "gp_db_chairs_v1",
   AFTERSALES: "gp_db_aftersales_v1",
   AFTERSALES_CARDS: "gp_db_aftersales_cards_v1",
   HIERARCHY: "gp_db_hierarchy_v1",
   PAGE_BANNERS: "gp_db_page_banners_v1",
+  AD_BANNERS: "gp_db_ad_banners_v1",
   HOMEPAGE_SETTINGS: "gp_db_homepage_settings_v1",
   SITE_SETTINGS: "gp_db_site_settings_v1",
   FAQ_ITEMS: "gp_db_faq_items_v1",
@@ -57,6 +67,81 @@ const STORAGE_KEYS = {
   CURRENT_ADMIN_SESSION: "gp_current_admin_session",
   LAST_SYNC: "gp_db_last_sync",
 };
+
+export interface AdBannerItem {
+  id: string;
+  title: string;
+  subtitle?: string;
+  badge?: string;
+  badgeColor?: "emerald" | "amber" | "rose" | "cyan" | "violet" | "orange";
+  imageUrl: string;
+  mobileImageUrl?: string;
+  linkUrl: string;
+  targetBlank?: boolean;
+  ctaText?: string;
+  isActive: boolean;
+  order: number;
+  createdAt: string;
+}
+
+export const DEFAULT_AD_BANNERS: AdBannerItem[] = [
+  {
+    id: "banner-xiaomi-g24i",
+    title: "Xiaomi G24i 180Hz Fast IPS",
+    subtitle: "Rekomendasi monitor gaming budget terbaik 2026. Akurasi warna deITP 2.1 dengan panel Fast IPS 180Hz responsif hasil pengujian lab GTID.",
+    badge: "S-TIER BUDGET 2026",
+    badgeColor: "emerald",
+    imageUrl: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1920&auto=format&fit=crop",
+    linkUrl: "/monitor/xiaomi-g24i-2026-",
+    targetBlank: false,
+    ctaText: "Cek Data Pengujian",
+    isActive: true,
+    order: 1,
+    createdAt: "2026-08-01",
+  },
+  {
+    id: "banner-aftersales-tier",
+    title: "Aftersales & Garansi Brand Monitor",
+    subtitle: "Ketahui track record RMA, reputasi distributor resmi, dan kebijakan klaim dead pixel sebelum memutuskan membeli monitor impianmu.",
+    badge: "PANDUAN AFTERSALES",
+    badgeColor: "amber",
+    imageUrl: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1920&auto=format&fit=crop",
+    linkUrl: "/guide/brand/aftersales-rma",
+    targetBlank: false,
+    ctaText: "Lihat Tier List Brand",
+    isActive: true,
+    order: 2,
+    createdAt: "2026-08-02",
+  },
+  {
+    id: "banner-meja-setup",
+    title: "Kurasi Daun Meja & Standing Desk",
+    subtitle: "Pilihan meja ergonomis kokoh, solid wood, dan monitor arm anti-goyang untuk setup single maupun dual monitor kamu.",
+    badge: "REKOMENDASI SETUP",
+    badgeColor: "cyan",
+    imageUrl: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=1920&auto=format&fit=crop",
+    linkUrl: "/catalog/desks",
+    targetBlank: false,
+    ctaText: "Jelajahi Meja & Kaki",
+    isActive: true,
+    order: 3,
+    createdAt: "2026-08-03",
+  },
+  {
+    id: "banner-glossary-deitp",
+    title: "Standar Kalibrasi deITP & Akurasi Warna",
+    subtitle: "Pahami cara membaca laporan pengujian laboratorium GTID agar tidak tertipu klaim marketing '100% sRGB' palsu.",
+    badge: "STANDAR LAB GTID",
+    badgeColor: "violet",
+    imageUrl: "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?q=80&w=1920&auto=format&fit=crop",
+    linkUrl: "/guide/sdr/glossary",
+    targetBlank: false,
+    ctaText: "Pelajari Glosarium",
+    isActive: true,
+    order: 4,
+    createdAt: "2026-08-04",
+  },
+];
 
 export interface PageBannerSettings {
   homeBannerUrl?: string;
@@ -92,6 +177,7 @@ export interface HomepageSettings {
   heroCoverUrl: string;
   pageIcon: string;
   pageTitle: string;
+  pageSubtitle?: string;
   statusBadge: string;
   disclaimerTitle: string;
   disclaimerPoints: string[];
@@ -104,12 +190,19 @@ export interface HomepageSettings {
     desksSubtitle: string;
     peripheralsTitle: string;
     peripheralsSubtitle: string;
+    chairsTitle?: string;
+    chairsSubtitle?: string;
   };
   sectionVisibility: {
     showMonitors: boolean;
     showDesks: boolean;
     showPeripherals: boolean;
+    showChairs?: boolean;
+    showAftersales?: boolean;
     showFaq: boolean;
+    showGuides?: boolean;
+    showConsultation?: boolean;
+    showFeedback?: boolean;
   };
 }
 
@@ -374,7 +467,7 @@ export const DEFAULT_HOMEPAGE_SUBPAGES: SubpageCardItem[] = [
 
 export const DEFAULT_HOMEPAGE_SETTINGS: HomepageSettings = {
   heroCoverUrl: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1600&auto=format&fit=crop",
-  pageIcon: "🖥️",
+  pageIcon: "Tv",
   pageTitle: "GRAYPLASMAID - REKOMENDASI MONITOR",
   statusBadge: "AKAN DILENGKAPI",
   disclaimerTitle: "CATATAN PENTING :",
@@ -390,12 +483,19 @@ export const DEFAULT_HOMEPAGE_SETTINGS: HomepageSettings = {
     desksSubtitle: "Tabel kurasi daun meja plywood solid & standing desk elektrik (Klik baris untuk melihat side panel ulasan).",
     peripheralsTitle: "DATABASE REKOMENDASI AKSESORIS & PERIPHERALS",
     peripheralsSubtitle: "Tabel kurasi bracket gas spring arm, screenbar lightbar, & cable management.",
+    chairsTitle: "DATABASE REKOMENDASI KURSI ERGONOMIS & GAMING",
+    chairsSubtitle: "Kurasi kursi ergonomis breathable mesh, lumbar support presisi, dan gas lift Class 4.",
   },
   sectionVisibility: {
     showMonitors: true,
     showDesks: true,
     showPeripherals: true,
+    showChairs: false,
+    showAftersales: true,
     showFaq: true,
+    showGuides: true,
+    showConsultation: true,
+    showFeedback: true,
   },
 };
 
@@ -442,9 +542,9 @@ export const DEFAULT_SITE_SETTINGS: GlobalSiteSettings = {
     qrisImageUrl: "",
   },
   announcement: {
-    isEnabled: true,
-    text: "🔥 Update Database Laboratorium GTID 2026 telah aktif! Cek rekomendasi monitor dan panduan aftersales terbaru.",
-    badgeText: "UPDATE 2026",
+    isEnabled: false,
+    text: "Update Database Laboratorium GTID 2026 telah aktif! Cek rekomendasi monitor dan panduan aftersales terbaru.",
+    badgeText: "UPDATE",
     linkText: "Buka Panduan",
     linkUrl: "/guide/sdr/glossary",
     themeColor: "emerald",
@@ -519,7 +619,7 @@ export interface AdminActivityLog {
   adminName: string;
   adminRole: string;
   action: "create" | "update" | "delete" | "sync" | "reset" | "restore";
-  targetType: "monitor" | "desk" | "peripheral" | "aftersales" | "hierarchy" | "faq" | "guide" | "settings" | "admin" | "banner";
+  targetType: "monitor" | "desk" | "peripheral" | "chair" | "aftersales" | "hierarchy" | "faq" | "guide" | "settings" | "admin" | "banner";
   targetName: string;
   timestamp: string;
   details?: string;
@@ -926,6 +1026,76 @@ export class DatabaseService {
   }
 
   // ==========================================
+  // 3B. CHAIRS CRUD (Staging & Ergonomic Manager)
+  // ==========================================
+  static getChairs(): ChairItem[] {
+    return getLocalData<ChairItem[]>(STORAGE_KEYS.CHAIRS, DEFAULT_CHAIRS_DATABASE);
+  }
+
+  static async getChairsAsync(): Promise<ChairItem[]> {
+    if (isSupabaseConfigured && supabase) {
+      try {
+        const { data, error } = await supabase.from("chairs").select("*");
+        if (!error && data && data.length > 0) return data as ChairItem[];
+      } catch (err) {
+        console.warn("Supabase chair fetch failed", err);
+      }
+    }
+    return getLocalData<ChairItem[]>(STORAGE_KEYS.CHAIRS, DEFAULT_CHAIRS_DATABASE);
+  }
+
+  static async saveChair(item: ChairItem): Promise<ChairItem[]> {
+    let current = getLocalData<ChairItem[]>(STORAGE_KEYS.CHAIRS, DEFAULT_CHAIRS_DATABASE);
+    const idx = current.findIndex((c) => c.id === item.id);
+    if (idx >= 0) {
+      current[idx] = item;
+      DatabaseService.logActivity("update", "chair", item.name);
+    } else {
+      current = [item, ...current];
+      DatabaseService.logActivity("create", "chair", item.name);
+    }
+    setLocalData(STORAGE_KEYS.CHAIRS, current);
+
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from("chairs").upsert(item);
+      } catch (err) {
+        console.error("Supabase chair upsert error", err);
+      }
+    }
+    return current;
+  }
+
+  static async saveAllChairs(chairs: ChairItem[]): Promise<ChairItem[]> {
+    setLocalData(STORAGE_KEYS.CHAIRS, chairs);
+    DatabaseService.logActivity("update", "chair", "Katalog Kursi", `Memperbarui ${chairs.length} data kursi.`);
+    return chairs;
+  }
+
+  static async deleteChair(id: string): Promise<ChairItem[]> {
+    let current = getLocalData<ChairItem[]>(STORAGE_KEYS.CHAIRS, DEFAULT_CHAIRS_DATABASE);
+    const target = current.find((c) => c.id === id);
+    if (target) DatabaseService.logActivity("delete", "chair", target.name);
+    current = current.filter((c) => c.id !== id);
+    setLocalData(STORAGE_KEYS.CHAIRS, current);
+
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from("chairs").delete().eq("id", id);
+      } catch (err) {
+        console.error("Supabase chair delete error", err);
+      }
+    }
+    return current;
+  }
+
+  static resetChairsToDefault(): ChairItem[] {
+    setLocalData(STORAGE_KEYS.CHAIRS, DEFAULT_CHAIRS_DATABASE);
+    DatabaseService.logActivity("reset", "chair", "Template Kursi", "Reset katalog kursi ke default template.");
+    return DEFAULT_CHAIRS_DATABASE;
+  }
+
+  // ==========================================
   // 4. AFTERSALES CRUD
   // ==========================================
   static async getAftersales(): Promise<AftersalesBrand[]> {
@@ -1185,6 +1355,101 @@ export class DatabaseService {
     setLocalData(STORAGE_KEYS.HOMEPAGE_SETTINGS, DEFAULT_HOMEPAGE_SETTINGS);
     DatabaseService.logActivity("reset", "settings", "Homepage Settings", "Reset konfigurasi beranda ke default.");
     return DEFAULT_HOMEPAGE_SETTINGS;
+  }
+
+  // ==========================================
+  // 7B.2 AD BANNERS SLIDER (FULL-WIDTH ADS)
+  // ==========================================
+  static async getAdBanners(): Promise<AdBannerItem[]> {
+    if (isSupabaseConfigured && supabase) {
+      try {
+        const { data, error } = await supabase
+          .from("site_settings")
+          .select("value")
+          .eq("key", "ad_banners")
+          .single();
+        if (!error && data && Array.isArray(data.value)) {
+          return data.value as AdBannerItem[];
+        }
+      } catch (err) {
+        console.warn("Supabase ad banners fetch failed", err);
+      }
+    }
+    const local = getLocalData<AdBannerItem[]>(STORAGE_KEYS.AD_BANNERS, DEFAULT_AD_BANNERS);
+    return [...local].sort((a, b) => a.order - b.order);
+  }
+
+  static async saveAdBanner(banner: AdBannerItem): Promise<AdBannerItem[]> {
+    let current = getLocalData<AdBannerItem[]>(STORAGE_KEYS.AD_BANNERS, DEFAULT_AD_BANNERS);
+    const existingIndex = current.findIndex((b) => b.id === banner.id);
+    if (existingIndex >= 0) {
+      current[existingIndex] = { ...banner };
+      DatabaseService.logActivity("update", "banner", banner.title, `Target: ${banner.linkUrl}`);
+    } else {
+      current = [...current, { ...banner }];
+      DatabaseService.logActivity("create", "banner", banner.title, `Target: ${banner.linkUrl}`);
+    }
+    current.sort((a, b) => a.order - b.order);
+    setLocalData(STORAGE_KEYS.AD_BANNERS, current);
+
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from("site_settings").upsert({
+          key: "ad_banners",
+          value: current,
+          updated_at: new Date().toISOString(),
+        });
+      } catch (err) {
+        console.error("Supabase ad banners upsert error", err);
+      }
+    }
+    return current;
+  }
+
+  static async deleteAdBanner(id: string): Promise<AdBannerItem[]> {
+    let current = getLocalData<AdBannerItem[]>(STORAGE_KEYS.AD_BANNERS, DEFAULT_AD_BANNERS);
+    const target = current.find((b) => b.id === id);
+    if (target) DatabaseService.logActivity("delete", "banner", target.title);
+    current = current.filter((b) => b.id !== id);
+    setLocalData(STORAGE_KEYS.AD_BANNERS, current);
+
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from("site_settings").upsert({
+          key: "ad_banners",
+          value: current,
+          updated_at: new Date().toISOString(),
+        });
+      } catch (err) {
+        console.error("Supabase ad banners sync error", err);
+      }
+    }
+    return current;
+  }
+
+  static async reorderAdBanners(banners: AdBannerItem[]): Promise<AdBannerItem[]> {
+    const updated = banners.map((b, idx) => ({ ...b, order: idx + 1 }));
+    setLocalData(STORAGE_KEYS.AD_BANNERS, updated);
+    DatabaseService.logActivity("update", "banner", "Urutan Ad Banner", "Perbarui susunan banner beranda.");
+
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from("site_settings").upsert({
+          key: "ad_banners",
+          value: updated,
+          updated_at: new Date().toISOString(),
+        });
+      } catch (err) {
+        console.error("Supabase ad banners reorder sync error", err);
+      }
+    }
+    return updated;
+  }
+
+  static resetAdBannersToDefault(): AdBannerItem[] {
+    setLocalData(STORAGE_KEYS.AD_BANNERS, DEFAULT_AD_BANNERS);
+    DatabaseService.logActivity("reset", "banner", "Ad Banners", "Kembalikan banner ke default.");
+    return DEFAULT_AD_BANNERS;
   }
 
   // ==========================================

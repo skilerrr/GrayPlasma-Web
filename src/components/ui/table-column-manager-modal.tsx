@@ -75,9 +75,8 @@ export function TableColumnManagerModal<T>({
           </button>
         </div>
 
-        {/* Tip Banner */}
-        <div className="px-6 py-2.5 bg-zinc-900/60 border-b border-zinc-850 text-[11px] font-mono text-zinc-400 flex items-center gap-2">
-          <span className="text-cyan-400 font-bold">INFO:</span>
+        <div className="px-6 py-2 bg-zinc-900/40 border-b border-zinc-800 text-[11px] font-mono text-zinc-400 flex items-center gap-2">
+          <span className="text-emerald-400 font-bold">[INFO]</span>
           <span>Centang kolom yang ingin dilihat dan gunakan tombol panah untuk mengatur urutan tabel.</span>
         </div>
 

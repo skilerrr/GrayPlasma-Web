@@ -18,16 +18,31 @@ import {
 import {
   DESK_DATABASE,
   PERIPHERALS_DATABASE,
+  DEFAULT_CHAIRS_DATABASE,
   GIMMICK_MEJA_GAMING_CONTENT,
   CONSULTATION_RESULTS_DATABASE,
   DeskItem,
   PeripheralItem,
+  ChairItem,
 } from "@/data/grayplasma-desk-peripherals";
 import { formatRupiah } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
-export function DeskPeripheralsView() {
-  const [activeSubTab, setActiveSubTab] = useState<"meja" | "peripherals" | "gimmick" | "consultation-packages">("meja");
+interface DeskPeripheralsViewProps {
+  desks?: DeskItem[];
+  peripherals?: PeripheralItem[];
+  chairs?: ChairItem[];
+  showChairs?: boolean;
+}
+
+export function DeskPeripheralsView({
+  desks = DESK_DATABASE,
+  peripherals = PERIPHERALS_DATABASE,
+  chairs = DEFAULT_CHAIRS_DATABASE,
+  showChairs = false,
+}: DeskPeripheralsViewProps) {
+  const [activeSubTab, setActiveSubTab] = useState<"meja" | "peripherals" | "kursi" | "gimmick" | "consultation-packages">("meja");
+  const [chairCategoryFilter, setChairCategoryFilter] = useState<string>("all");
 
   return (
     <div className="space-y-8 animate-in fade-in duration-200">
@@ -70,8 +85,21 @@ export function DeskPeripheralsView() {
             }`}
           >
             <Wrench className="w-4 h-4" />
-            <span>Bracket Arm & Peripherals ({PERIPHERALS_DATABASE.length})</span>
+            <span>Bracket Arm & Peripherals ({peripherals.length})</span>
           </button>
+          {showChairs && (
+            <button
+              onClick={() => setActiveSubTab("kursi")}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
+                activeSubTab === "kursi"
+                  ? "bg-zinc-800 text-purple-400 border border-purple-500/40 shadow-sm"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-900"
+              }`}
+            >
+              <span>🪑</span>
+              <span>Kursi Ergonomis & Gaming ({chairs.filter((c) => c.isPublished !== false).length})</span>
+            </button>
+          )}
           <button
             onClick={() => setActiveSubTab("gimmick")}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
@@ -122,7 +150,7 @@ export function DeskPeripheralsView() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-900/80">
-                  {DESK_DATABASE.map((d, idx) => (
+                  {desks.map((d, idx) => (
                     <tr
                       key={d.id}
                       className={`hover:bg-zinc-900/60 transition-colors ${
@@ -202,7 +230,7 @@ export function DeskPeripheralsView() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-900/80">
-                  {PERIPHERALS_DATABASE.map((p, idx) => (
+                  {peripherals.map((p, idx) => (
                     <tr
                       key={p.id}
                       className={`hover:bg-zinc-900/60 transition-colors ${
@@ -265,6 +293,150 @@ export function DeskPeripheralsView() {
                 </tbody>
               </table>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* 2B. VIEW: REKOMENDASI KURSI ERGONOMIS & GAMING (STAGING Q2 2027) */}
+      {showChairs && activeSubTab === "kursi" && (
+        <div className="space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-zinc-950 border border-zinc-800 rounded-2xl p-4">
+            <div className="space-y-0.5">
+              <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                <span>🪑</span>
+                <span>Katalog Kurasi Kursi Ergonomis & Gaming</span>
+              </h3>
+              <p className="text-xs text-zinc-400">
+                Pilihan kursi dengan struktur penopang tulang belakang ergonomis, armrest 3D/4D, dan sertifikasi hidrolik Class 4 teruji.
+              </p>
+            </div>
+
+            {/* Category Filter */}
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1">
+              {["all", "Ergonomic Full Mesh", "Ergonomic Fabric", "Gaming Ergonomic"].map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setChairCategoryFilter(cat)}
+                  className={`px-3 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-all ${
+                    chairCategoryFilter === cat
+                      ? "bg-purple-950/50 text-purple-300 border border-purple-500/50 font-bold"
+                      : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
+                  }`}
+                >
+                  {cat === "all" ? "Semua Kategori" : cat}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {chairs
+              .filter((c) => c.isPublished !== false)
+              .filter((c) => chairCategoryFilter === "all" || c.category === chairCategoryFilter)
+              .map((chair) => (
+                <div
+                  key={chair.id}
+                  className="bg-zinc-950 border border-zinc-800 hover:border-purple-500/40 rounded-2xl p-6 space-y-4 flex flex-col justify-between transition-all"
+                >
+                  <div className="space-y-3">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/30">
+                            {chair.category}
+                          </span>
+                          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-900 text-zinc-400 border border-zinc-800">
+                            {chair.brand}
+                          </span>
+                        </div>
+                        <h4 className="text-lg font-black text-white mt-1.5">{chair.name}</h4>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-base font-black text-emerald-400 font-mono">
+                          {formatRupiah(chair.price)}
+                        </div>
+                        <span className="text-[10px] text-zinc-500 block">Estimasi Pasar</span>
+                      </div>
+                    </div>
+
+                    {/* Specs Grid */}
+                    <div className="grid grid-cols-2 gap-2 text-xs bg-zinc-900/60 p-3.5 rounded-xl border border-zinc-850">
+                      <div>
+                        <span className="text-zinc-500 block text-[10px] uppercase font-mono font-bold">Lumbar Support:</span>
+                        <span className="text-zinc-200 font-medium text-[11px] line-clamp-2" title={chair.lumbarSupport}>
+                          {chair.lumbarSupport}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-zinc-500 block text-[10px] uppercase font-mono font-bold">Armrest:</span>
+                        <span className="text-zinc-200 font-medium text-[11px] line-clamp-2" title={chair.armrest}>
+                          {chair.armrest}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-zinc-500 block text-[10px] uppercase font-mono font-bold">Gas Lift & Recline:</span>
+                        <span className="text-zinc-200 font-medium text-[11px] line-clamp-2" title={`${chair.gasLift} • ${chair.mechanism}`}>
+                          {chair.gasLift} ({chair.mechanism})
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-zinc-500 block text-[10px] uppercase font-mono font-bold">Beban & Tinggi User:</span>
+                        <span className="text-zinc-200 font-medium text-[11px]">
+                          {chair.maxWeightCapacity} ({chair.recommendedHeight})
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Verdict */}
+                    {chair.verdict && (
+                      <div className="text-xs bg-purple-950/20 border border-purple-500/20 p-3 rounded-xl leading-relaxed">
+                        <span className="text-purple-400 font-mono font-bold text-[10px] block uppercase mb-0.5">
+                          Verdict Ahli GrayPlasma:
+                        </span>
+                        <p className="text-[11px] text-zinc-300">{chair.verdict}</p>
+                      </div>
+                    )}
+
+                    {/* Notes */}
+                    {chair.notes && (
+                      <p className="text-[11px] text-zinc-400 italic">
+                        💡 {chair.notes}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Links */}
+                  <div className="flex items-center justify-between gap-3 pt-3 border-t border-zinc-850">
+                    <span className="text-[10px] text-zinc-500 font-mono">
+                      🛡️ {chair.warranty}
+                    </span>
+                    <div className="flex items-center gap-2">
+                      {chair.shopeeUrl && (
+                        <a
+                          href={chair.shopeeUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3 py-1.5 rounded-lg bg-orange-500/10 text-orange-400 border border-orange-500/30 hover:bg-orange-500/20 transition-colors flex items-center gap-1.5 font-bold text-xs"
+                        >
+                          <ShoppingBag className="w-3.5 h-3.5" />
+                          <span>Shopee</span>
+                        </a>
+                      )}
+                      {chair.tokopediaUrl && (
+                        <a
+                          href={chair.tokopediaUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20 transition-colors flex items-center gap-1.5 font-bold text-xs"
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                          <span>Tokopedia</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       )}

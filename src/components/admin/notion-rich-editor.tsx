@@ -986,7 +986,13 @@ export function NotionRichEditor({
       {/* 5. MAIN EDITING SURFACE (CONTENTEDITABLE / SOURCE / PREVIEW)              */}
       {/* ========================================================================= */}
       {viewMode === "visual" && (
-        <div className="p-4 sm:p-6 bg-black min-h-[300px] overflow-y-auto">
+        <div className="p-3 sm:p-4 bg-[#09090e] min-h-[260px] overflow-y-auto relative">
+          {/* Visual Placeholder when content is empty */}
+          {(!value || value === "<p><br></p>" || value.trim() === "") && (
+            <div className="absolute top-7 left-7 pointer-events-none text-xs text-zinc-500 font-sans select-none">
+              {placeholder}
+            </div>
+          )}
           <div
             ref={editableRef}
             contentEditable
@@ -994,38 +1000,40 @@ export function NotionRichEditor({
             onKeyUp={handleKeyUp}
             onMouseUp={updateBubblePosition}
             data-placeholder={placeholder}
-            className={`notion-prose focus:outline-none w-full leading-relaxed ${minHeight}`}
-            style={{ minHeight: "280px" }}
+            className={`notion-prose focus:outline-none w-full leading-relaxed p-4 rounded-xl bg-[#0e0e14] border border-zinc-750 focus:border-zinc-600 text-zinc-200 transition-colors shadow-inner ${minHeight}`}
+            style={{ minHeight: "220px" }}
           />
         </div>
       )}
 
       {viewMode === "code" && (
-        <div className="p-3 bg-zinc-950 flex flex-col">
+        <div className="p-3 bg-[#09090e] flex flex-col">
           <textarea
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder="Ketik kode HTML / Markdown mentah di sini..."
-            className={`w-full bg-transparent text-emerald-400 text-xs font-mono leading-relaxed p-2 focus:outline-none resize-y ${minHeight}`}
+            className={`w-full bg-[#0e0e14] border border-zinc-750 rounded-xl text-emerald-400 text-xs font-mono leading-relaxed p-3 focus:outline-none focus:border-emerald-500 resize-y ${minHeight}`}
           />
         </div>
       )}
 
       {viewMode === "preview" && (
-        <div className={`p-5 sm:p-7 bg-[#09090b] overflow-y-auto max-h-[600px] ${minHeight}`}>
-          <div className="flex items-center justify-between pb-2 mb-4 border-b border-zinc-800">
-            <span className="text-[10px] uppercase font-bold text-zinc-500 tracking-wider flex items-center gap-1">
-              <Eye className="w-3 h-3 text-cyan-400" />
+        <div className={`p-5 sm:p-7 bg-[#09090e] overflow-y-auto max-h-[600px] ${minHeight}`}>
+          <div className="flex items-center justify-between pb-2 mb-4 border-b border-zinc-750">
+            <span className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider flex items-center gap-1.5">
+              <Eye className="w-3.5 h-3.5 text-cyan-400" />
               <span>Live Rendered Notion View (Sisi Pengunjung)</span>
             </span>
-            <span className="text-[10px] text-zinc-500 font-mono">
+            <span className="text-[10px] text-zinc-400 font-mono">
               {value.length} karakter
             </span>
           </div>
           {value.trim() ? (
-            <NotionBlockRenderer content={value} />
+            <div className="p-4 rounded-xl bg-[#0e0e14] border border-zinc-800">
+              <NotionBlockRenderer content={value} />
+            </div>
           ) : (
-            <div className="text-zinc-600 text-xs italic py-8 text-center">
+            <div className="text-zinc-500 text-xs italic py-8 text-center bg-[#0e0e14] rounded-xl border border-zinc-800">
               Belum ada konten untuk ditampilkan.
             </div>
           )}
@@ -1033,16 +1041,16 @@ export function NotionRichEditor({
       )}
 
       {/* Bottom Status Bar */}
-      <div className="px-4 py-2 bg-[#0e0e12] border-t border-zinc-800 flex items-center justify-between text-[11px] text-zinc-500 font-mono">
+      <div className="px-4 py-2.5 bg-[#0e0e14] border-t border-zinc-750 flex items-center justify-between text-[11px] text-zinc-400 font-mono">
         <div className="flex items-center gap-3">
-          <span>Mode: <strong className="text-zinc-300 uppercase">{viewMode}</strong></span>
+          <span>Mode: <strong className="text-zinc-200 uppercase">{viewMode}</strong></span>
           <span>Tip: Ketik <strong>&quot;/&quot;</strong> untuk menu blok Notion</span>
         </div>
         <div>
           {isCompressing ? (
             <span className="text-pink-400 font-bold animate-pulse">Mengoptimasi WebP...</span>
           ) : (
-            <span className="text-emerald-500/80 font-semibold">Tersinkronisasi</span>
+            <span className="text-emerald-400 font-semibold">Tersinkronisasi</span>
           )}
         </div>
       </div>

@@ -13,6 +13,8 @@ import {
   ExternalLink,
   Layers,
   Sparkles,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 import { SiteHierarchyNode, RouteTriggerAction } from "@/types/site-hierarchy";
 import { DatabaseService } from "@/lib/db-service";
@@ -149,6 +151,23 @@ export function HierarchySandboxManager({
     }
   };
 
+  const handleTogglePublish = async (e: React.MouseEvent, node: SiteHierarchyNode) => {
+    e.stopPropagation();
+    const newStatus = node.isPublished === false ? true : false;
+    const nodeToSave: SiteHierarchyNode = {
+      ...node,
+      isPublished: newStatus,
+      updatedAt: new Date().toISOString().split("T")[0],
+    };
+    const updated = await DatabaseService.saveHierarchyNode(nodeToSave);
+    onUpdateNodes(updated);
+    showNotification(
+      newStatus
+        ? `Artikel "${node.title}" telah DIPUBLIKASIKAN (Aktif di website).`
+        : `Artikel "${node.title}" telah DISEMBUNYIKAN (Mode Draft publik - tidak tampil di web).`
+    );
+  };
+
   const filteredNodes =
     filterCategory === "all" ? nodes : nodes.filter((n) => n.category === filterCategory);
 
@@ -182,15 +201,15 @@ export function HierarchySandboxManager({
         {/* Top Control Header */}
         <div className="p-6 rounded-2xl bg-[#0c0c11] border border-zinc-800 flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-sm">
           <div className="space-y-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-bold">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-zinc-900 border border-zinc-750 text-cyan-400 text-[11px] font-mono font-bold">
               <FolderTree className="w-3.5 h-3.5" />
-              <span>Page Sandbox & Hierarchy Engine</span>
+              <span>Hierarki & Rute</span>
             </div>
             <h2 className="text-xl font-black text-white tracking-tight uppercase">
-              Manajemen Hierarki Rute & Word Studio Panduan
+              Manajemen Halaman & Panduan
             </h2>
             <p className="text-xs text-zinc-400 max-w-2xl leading-relaxed">
-              Tulis dan edit artikel ulasan mendalam menggunakan studio dokumen berstandar Word/Google Docs. Atur sub-path rute publik (/guide/...) dan aksi trigger secara fleksibel.
+              Kelola dokumen artikel ulasan teknis, panduan edukasi, serta kontrol publikasi rute website publik.
             </p>
           </div>
 
@@ -202,7 +221,7 @@ export function HierarchySandboxManager({
               className="text-xs font-bold font-mono flex items-center gap-1.5"
             >
               <Plus className="w-4 h-4" />
-              <span>[ TULIS PANDUAN BARU ]</span>
+              <span>Tulis Panduan Baru</span>
             </Button>
 
             <Button
@@ -233,7 +252,7 @@ export function HierarchySandboxManager({
                 : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
             }`}
           >
-            Semua Kategori ({nodes.length})
+            Semua ({nodes.length})
           </button>
           {categories.map((cat) => (
             <button
@@ -253,23 +272,26 @@ export function HierarchySandboxManager({
         {/* Hierarchy Nodes Table */}
         <div className="rounded-2xl border border-zinc-800 bg-[#0c0c11] overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse min-w-[900px] font-sans">
+            <table className="w-full text-left text-xs border-collapse min-w-[850px] font-sans">
               <thead className="bg-zinc-900/90 text-zinc-400 uppercase text-[10px] font-mono tracking-wider border-b border-zinc-800">
                 <tr>
                   <th className="py-3 px-4 w-12 text-center">#</th>
-                  <th className="py-3 px-4 font-bold text-white min-w-[260px]">Halaman / File Panduan</th>
-                  <th className="py-3 px-3 font-bold min-w-[190px]">Sub-Path URL Publik</th>
-                  <th className="py-3 px-3 font-bold min-w-[130px]">Trigger Action</th>
+                  <th className="py-3 px-4 font-bold text-white min-w-[280px]">Halaman / Panduan</th>
+                  <th className="py-3 px-3 font-bold min-w-[220px]">URL Publik</th>
                   <th className="py-3 px-3 font-bold min-w-[150px]">Kategori</th>
-                  <th className="py-3 px-4 font-bold text-center min-w-[200px]">Aksi Dokumen</th>
+                  <th className="py-3 px-3 font-bold text-center min-w-[120px]">Status</th>
+                  <th className="py-3 px-4 font-bold text-center min-w-[140px]">Aksi</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-850">
                 {filteredNodes.map((node, idx) => {
+                  const isLive = node.isPublished !== false;
                   return (
                     <tr
                       key={node.id}
-                      className="hover:bg-zinc-900/40 transition-colors group cursor-pointer"
+                      className={`hover:bg-zinc-900/40 transition-colors group cursor-pointer ${
+                        !isLive ? "opacity-75 bg-zinc-950/50" : ""
+                      }`}
                       onClick={() => handleStartEdit(node)}
                     >
                       <td className="py-3 px-4 text-center font-mono text-zinc-500">
@@ -278,40 +300,61 @@ export function HierarchySandboxManager({
 
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-2.5">
-                          <FileText className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                          <FileText className={`w-4 h-4 flex-shrink-0 ${!isLive ? "text-amber-500" : "text-cyan-400"}`} />
                           <div>
-                            <div className="font-bold text-white group-hover:text-cyan-400 transition-colors">
-                              {node.title}
+                            <div className="font-bold text-white group-hover:text-cyan-400 transition-colors flex items-center gap-2">
+                              <span>{node.title}</span>
+                              {!isLive && (
+                                <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                                  Draft
+                                </span>
+                              )}
                             </div>
-                            <div className="text-[11px] text-zinc-400 line-clamp-1 max-w-sm">
-                              {node.description}
-                            </div>
+                            {node.description && (
+                              <div className="text-[11px] text-zinc-400 line-clamp-1 max-w-sm mt-0.5">
+                                {node.description}
+                              </div>
+                            )}
                           </div>
                         </div>
                       </td>
 
-                      <td className="py-3 px-3 font-mono font-bold text-emerald-400 text-[11px]">
-                        {node.fullPath}
-                      </td>
-
                       <td className="py-3 px-3">
-                        <span
-                          className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded border uppercase ${
-                            node.onClickAction === "route"
-                              ? "bg-cyan-500/10 text-cyan-400 border-cyan-500/30"
-                              : node.onClickAction === "side-panel"
-                              ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
-                              : node.onClickAction === "modal"
-                              ? "bg-amber-500/10 text-amber-400 border-amber-500/30"
-                              : "bg-zinc-800 text-zinc-400 border-zinc-700"
-                          }`}
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onTestTrigger(node);
+                          }}
+                          className="inline-flex items-center gap-1.5 font-mono font-bold text-emerald-400 hover:text-emerald-300 hover:underline text-[11px] transition-colors"
+                          title="Buka rute publik"
                         >
-                          {node.onClickAction}
-                        </span>
+                          <span>{node.fullPath}</span>
+                          <ExternalLink className="w-3 h-3 opacity-60 group-hover:opacity-100" />
+                        </button>
                       </td>
 
                       <td className="py-3 px-3 text-zinc-300 font-medium">
                         {node.category}
+                      </td>
+
+                      <td className="py-3 px-3 text-center" onClick={(e) => e.stopPropagation()}>
+                        <button
+                          onClick={(e) => handleTogglePublish(e, node)}
+                          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono font-bold transition-all border ${
+                            isLive
+                              ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
+                              : "bg-zinc-900 text-zinc-400 border-zinc-750 hover:bg-zinc-800"
+                          }`}
+                          title={isLive ? "Klik untuk sembunyikan dari publik" : "Klik untuk tampilkan ke publik"}
+                        >
+                          <span
+                            className={`w-1.5 h-1.5 rounded-full ${
+                              isLive ? "bg-emerald-400 animate-pulse" : "bg-zinc-500"
+                            }`}
+                          />
+                          <span>{isLive ? "Aktif" : "Draft"}</span>
+                        </button>
                       </td>
 
                       <td
@@ -322,25 +365,16 @@ export function HierarchySandboxManager({
                           {/* Live Edit Button */}
                           <button
                             onClick={() => handleStartEdit(node)}
-                            className="px-2.5 py-1 rounded-lg bg-zinc-900 border border-zinc-750 hover:border-cyan-400 text-zinc-200 hover:text-white flex items-center gap-1 text-xs font-mono transition-colors"
+                            className="px-2.5 py-1 rounded-md bg-zinc-900 border border-zinc-750 hover:border-cyan-400 text-zinc-200 hover:text-white flex items-center gap-1.5 text-xs font-mono transition-colors"
                           >
-                            <Edit2 className="w-3.5 h-3.5 text-cyan-400" />
-                            <span>Edit Dokumen</span>
-                          </button>
-
-                          {/* Test Trigger Button */}
-                          <button
-                            onClick={() => onTestTrigger(node)}
-                            className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 text-emerald-400"
-                            title="Test Buka Rute"
-                          >
-                            <Play className="w-3.5 h-3.5" />
+                            <Edit2 className="w-3 h-3 text-cyan-400" />
+                            <span>Edit</span>
                           </button>
 
                           {/* Delete Button */}
                           <button
                             onClick={() => handleDelete(node.id)}
-                            className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:bg-rose-950/40 text-zinc-500 hover:text-rose-400"
+                            className="p-1.5 rounded-md bg-zinc-900 border border-zinc-800 hover:bg-rose-950/40 text-zinc-500 hover:text-rose-400 transition-colors"
                             title="Hapus Halaman"
                           >
                             <Trash2 className="w-3.5 h-3.5" />

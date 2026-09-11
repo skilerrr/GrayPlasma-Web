@@ -18,6 +18,7 @@ import {
   X,
   AlertTriangle,
   SlidersHorizontal,
+  FileText,
 } from "lucide-react";
 import {
   NotionBoardCard,
@@ -350,7 +351,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
                       {/* Deep-dive note indicator */}
                       {card.deepDiveNote && (
                         <div className="text-[10px] text-amber-400/90 italic flex items-center gap-1 pt-1">
-                          <span>📝</span>
+                          <FileText className="w-3 h-3 text-amber-400" />
                           <span>Ulasan mendalam tersedia</span>
                         </div>
                       )}
@@ -373,9 +374,10 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
       {/* AFTERSALES CARD EDIT MODAL WITH WYSIWYG EDITOR                             */}
       {/* ========================================================================= */}
       {isModalOpen && editingCard && (
-        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-[#121216] border border-zinc-700 rounded-3xl max-w-2xl w-full p-6 space-y-4 shadow-2xl animate-in fade-in zoom-in-95 my-8">
-            <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+          <div className="bg-[#0f0f14] border border-zinc-700/80 rounded-2xl max-w-3xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95">
+            {/* Fixed Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-[#121217] flex-shrink-0">
               <span className="font-bold text-white text-sm uppercase flex items-center gap-2">
                 <ShieldAlert className="w-4 h-4 text-amber-400" />
                 <span>{editingCard.title ? `Edit Evaluasi: ${editingCard.title}` : "Tambah Brand Evaluasi Baru"}</span>
@@ -386,121 +388,125 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
                   setIsModalOpen(false);
                   setEditingCard(null);
                 }}
-                className="text-zinc-400 hover:text-white"
+                className="p-1 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleSaveCard} className="space-y-4 text-xs">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {/* Form with Scrollable Body & Fixed Footer */}
+            <form onSubmit={handleSaveCard} className="flex flex-col flex-1 min-h-0 overflow-hidden">
+              <div className="flex-1 overflow-y-auto p-6 space-y-4 text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-zinc-300 block mb-1 font-semibold">Nama Brand & Entitas SC</label>
+                    <input
+                      type="text"
+                      required
+                      value={editingCard.title || ""}
+                      onChange={(e) => setEditingCard({ ...editingCard, title: e.target.value })}
+                      placeholder="Contoh: ASUS MONITOR (SC ASTRINDO)"
+                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2.5 text-white font-bold focus:outline-none focus:border-amber-400 placeholder:text-zinc-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-zinc-300 block mb-1 font-semibold">Kolom Kategori Kanban</label>
+                    <select
+                      value={editingCard.columnId || "baik"}
+                      onChange={(e) => setEditingCard({ ...editingCard, columnId: e.target.value })}
+                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-400 font-bold"
+                    >
+                      <option value="baik">BAIK (BARE MINIMUM) - Hijau</option>
+                      <option value="biasa">BIASA SAJA - Abu/Oranye</option>
+                      <option value="kurang">KURANG BAIK - Merah</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div>
+                    <label className="text-zinc-300 block mb-1 font-semibold">Sistem Klaim Garansi</label>
+                    <input
+                      type="text"
+                      value={editingCard.sistemKlaim || ""}
+                      onChange={(e) => setEditingCard({ ...editingCard, sistemKlaim: e.target.value })}
+                      placeholder="Contoh: GANTI BARU / SWAP UNIT"
+                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2.5 text-emerald-400 font-mono font-semibold focus:outline-none focus:border-amber-400 placeholder:text-zinc-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-zinc-300 block mb-1 font-semibold">Nomor Hotline / Telepon</label>
+                    <input
+                      type="text"
+                      value={editingCard.phoneNumber || ""}
+                      onChange={(e) => setEditingCard({ ...editingCard, phoneNumber: e.target.value })}
+                      placeholder="Contoh: 1500 128"
+                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2.5 text-white font-mono focus:outline-none focus:border-amber-400 placeholder:text-zinc-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-zinc-300 block mb-1 font-semibold">Tags (Pisahkan koma)</label>
+                    <input
+                      type="text"
+                      value={tagsInput}
+                      onChange={(e) => setTagsInput(e.target.value)}
+                      placeholder="BAIK, ONSITE, 3 TAHUN"
+                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-400 placeholder:text-zinc-500"
+                    />
+                  </div>
+                </div>
+
                 <div>
-                  <label className="text-zinc-400 block mb-1 font-semibold">Nama Brand & Entitas SC</label>
+                  <label className="text-zinc-300 block mb-1 font-semibold">URL Portal Service / Serial Checker</label>
                   <input
                     type="text"
-                    required
-                    value={editingCard.title || ""}
-                    onChange={(e) => setEditingCard({ ...editingCard, title: e.target.value })}
-                    placeholder="Contoh: ASUS MONITOR (SC ASTRINDO)"
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white font-bold focus:outline-none focus:border-amber-500"
+                    value={editingCard.contactUrl || ""}
+                    onChange={(e) => setEditingCard({ ...editingCard, contactUrl: e.target.value })}
+                    placeholder="https://www.asus.com/id/support/..."
+                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2.5 text-sky-400 font-mono focus:outline-none focus:border-amber-400 placeholder:text-zinc-500"
                   />
                 </div>
-                <div>
-                  <label className="text-zinc-400 block mb-1 font-semibold">Kolom Kategori Kanban</label>
-                  <select
-                    value={editingCard.columnId || "baik"}
-                    onChange={(e) => setEditingCard({ ...editingCard, columnId: e.target.value })}
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500 font-bold"
-                  >
-                    <option value="baik">BAIK (BARE MINIMUM) - Hijau</option>
-                    <option value="biasa">BIASA SAJA - Abu/Oranye</option>
-                    <option value="kurang">KURANG BAIK - Merah</option>
-                  </select>
-                </div>
-              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div>
-                  <label className="text-zinc-400 block mb-1 font-semibold">Sistem Klaim Garansi</label>
-                  <input
-                    type="text"
-                    value={editingCard.sistemKlaim || ""}
-                    onChange={(e) => setEditingCard({ ...editingCard, sistemKlaim: e.target.value })}
-                    placeholder="Contoh: GANTI BARU / SWAP UNIT"
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-emerald-400 font-mono"
-                  />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-emerald-400 block mb-1 font-semibold">Kelebihan / Pros (1 per baris):</label>
+                    <textarea
+                      rows={3}
+                      value={prosText}
+                      onChange={(e) => setProsText(e.target.value)}
+                      placeholder="Contoh: Proses klaim di bawah 7 hari kerja"
+                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl p-3 text-zinc-200 focus:outline-none focus:border-emerald-400 placeholder:text-zinc-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-rose-400 block mb-1 font-semibold">Kekurangan / Cons (1 per baris):</label>
+                    <textarea
+                      rows={3}
+                      value={consText}
+                      onChange={(e) => setConsText(e.target.value)}
+                      placeholder="Contoh: Wajib simpan dus dan nota asli"
+                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl p-3 text-zinc-200 focus:outline-none focus:border-rose-400 placeholder:text-zinc-500"
+                    />
+                  </div>
                 </div>
+
+                {/* Rich WYSIWYG Editor for Deep-Dive Analysis */}
                 <div>
-                  <label className="text-zinc-400 block mb-1 font-semibold">Nomor Hotline / Telepon</label>
-                  <input
-                    type="text"
-                    value={editingCard.phoneNumber || ""}
-                    onChange={(e) => setEditingCard({ ...editingCard, phoneNumber: e.target.value })}
-                    placeholder="Contoh: 1500 128"
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white font-mono"
-                  />
-                </div>
-                <div>
-                  <label className="text-zinc-400 block mb-1 font-semibold">Tags (Pisahkan koma)</label>
-                  <input
-                    type="text"
-                    value={tagsInput}
-                    onChange={(e) => setTagsInput(e.target.value)}
-                    placeholder="BAIK, ONSITE, 3 TAHUN"
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white"
+                  <label className="text-zinc-300 block mb-1.5 font-semibold flex items-center justify-between">
+                    <span>Ulasan Mendalam & Dokumen Analisis Lab (Notion/Word WYSIWYG):</span>
+                    <span className="text-[11px] text-amber-400 font-mono font-medium">Tampil pada Side Panel Ulasan</span>
+                  </label>
+                  <NotionRichEditor
+                    value={editingCard.deepDiveNote || ""}
+                    onChange={(val) => setEditingCard({ ...editingCard, deepDiveNote: val })}
+                    minHeight="min-h-[200px]"
+                    placeholder="Tulis ulasan mendalam seputar kebijakan RMA, garansi dead pixel, dan pengalaman pengguna..."
                   />
                 </div>
               </div>
 
-              <div>
-                <label className="text-zinc-400 block mb-1 font-semibold">URL Portal Service / Serial Checker</label>
-                <input
-                  type="text"
-                  value={editingCard.contactUrl || ""}
-                  onChange={(e) => setEditingCard({ ...editingCard, contactUrl: e.target.value })}
-                  placeholder="https://www.asus.com/id/support/..."
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-sky-400 font-mono"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="text-zinc-400 block mb-1 font-semibold text-emerald-400">Kelebihan / Pros (1 per baris):</label>
-                  <textarea
-                    rows={3}
-                    value={prosText}
-                    onChange={(e) => setProsText(e.target.value)}
-                    placeholder="Contoh: Proses klaim di bawah 7 hari kerja"
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-2.5 text-zinc-200"
-                  />
-                </div>
-                <div>
-                  <label className="text-zinc-400 block mb-1 font-semibold text-red-400">Kekurangan / Cons (1 per baris):</label>
-                  <textarea
-                    rows={3}
-                    value={consText}
-                    onChange={(e) => setConsText(e.target.value)}
-                    placeholder="Contoh: Wajib simpan dus dan nota asli"
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-2.5 text-zinc-200"
-                  />
-                </div>
-              </div>
-
-              {/* Rich WYSIWYG Editor for Deep-Dive Analysis */}
-              <div>
-                <label className="text-zinc-400 block mb-1 font-semibold flex items-center justify-between">
-                  <span>Ulasan Mendalam & Dokumen Analisis Lab (Notion/Word WYSIWYG):</span>
-                  <span className="text-[10px] text-amber-400">Tampil pada Side Panel Ulasan</span>
-                </label>
-                <NotionRichEditor
-                  value={editingCard.deepDiveNote || ""}
-                  onChange={(val) => setEditingCard({ ...editingCard, deepDiveNote: val })}
-                  minHeight="min-h-[200px]"
-                  placeholder="Tulis ulasan mendalam seputar kebijakan RMA, garansi dead pixel, dan pengalaman pengguna..."
-                />
-              </div>
-
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-zinc-800">
+              {/* Fixed Footer Actions */}
+              <div className="flex items-center justify-end gap-3 px-6 py-3.5 border-t border-zinc-800 bg-[#0a0a0e] flex-shrink-0">
                 <Button
                   type="button"
                   variant="outline"
@@ -509,10 +515,11 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
                     setIsModalOpen(false);
                     setEditingCard(null);
                   }}
+                  className="border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-800"
                 >
                   Batal
                 </Button>
-                <Button type="submit" variant="cyber" size="sm" className="bg-amber-500 text-black font-bold">
+                <Button type="submit" variant="cyber" size="sm" className="bg-amber-500 hover:bg-amber-400 text-black font-bold shadow-lg shadow-amber-500/10">
                   Simpan Kartu Aftersales
                 </Button>
               </div>

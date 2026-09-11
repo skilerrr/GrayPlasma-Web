@@ -108,20 +108,20 @@ export function NotionKanbanBoard({
                     <div
                       key={card.id}
                       onClick={() => onSelectCard(card)}
-                      className={`p-3.5 rounded-lg border transition-all cursor-pointer shadow-sm ${
+                      className={`p-3.5 rounded-lg border transition-all cursor-pointer shadow-tech-card ${
                         isSelected
-                          ? "bg-[#182638] border-[#2383e2] shadow-[0_0_0_1px_#2383e2]"
-                          : "bg-[#202020] hover:bg-[#252525] border-[#2f2f2f] hover:border-[#3f3f3f]"
+                          ? "bg-zinc-900 border-zinc-500"
+                          : "bg-[#202020] hover:bg-[#252525] border-[#2f2f2f] hover:border-zinc-700"
                       }`}
                     >
                       {/* Card Title & Icon */}
                       <div className="flex items-start gap-2 mb-2.5">
-                        <span className="text-xs text-[#9b9a97] mt-0.5 flex-shrink-0">
-                          🖥️
+                        <span className="text-zinc-400 mt-0.5 flex-shrink-0">
+                          <Tv className="w-3.5 h-3.5" />
                         </span>
                         <h4
                           className={`text-xs font-bold leading-tight ${
-                            isSelected ? "text-[#58a6ff]" : "text-[#ffffff]"
+                            isSelected ? "text-orange-400" : "text-[#ffffff]"
                           }`}
                         >
                           {card.title}

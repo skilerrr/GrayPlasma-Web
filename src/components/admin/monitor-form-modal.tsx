@@ -272,26 +272,30 @@ export function MonitorFormModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-[#0c0c0e] border border-zinc-800 rounded-3xl w-full max-w-3xl overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 my-8">
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+      <div className="bg-[#0f0f14] border border-zinc-700/80 rounded-2xl w-full max-w-3xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95">
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-[#121216]">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-[#121217] flex-shrink-0">
           <div className="flex items-center gap-2.5">
-            <Tv className="w-5 h-5 text-emerald-400" />
-            <h3 className="text-base font-black text-white uppercase tracking-tight">
+            <div className="p-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+              <Tv className="w-4 h-4" />
+            </div>
+            <h3 className="text-base font-bold text-white uppercase tracking-tight">
               {monitor ? "Edit Data Monitor" : "Tambah Monitor Baru"}
             </h3>
           </div>
           <button
+            type="button"
             onClick={onClose}
-            className="text-zinc-400 hover:text-white p-1 rounded-lg hover:bg-zinc-800"
+            className="p-1 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Modal Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-6 max-h-[80vh] overflow-y-auto">
+        {/* Modal Form with Scrollable Body & Fixed Footer */}
+        <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0 overflow-hidden">
+          <div className="flex-1 overflow-y-auto p-6 space-y-6 text-xs">
           {/* 1. Basic Info */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold text-emerald-400 uppercase tracking-wider">
@@ -838,12 +842,25 @@ export function MonitorFormModal({
             />
           </div>
 
-          {/* Footer Actions */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-zinc-800">
-            <Button type="button" variant="outline" size="sm" onClick={onClose}>
+          </div>
+
+          {/* Fixed Footer Actions */}
+          <div className="flex items-center justify-end gap-3 px-6 py-3.5 border-t border-zinc-800 bg-[#0a0a0e] flex-shrink-0">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={onClose}
+              className="border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-800"
+            >
               Batal
             </Button>
-            <Button type="submit" variant="cyber" size="sm" className="font-bold">
+            <Button
+              type="submit"
+              variant="cyber"
+              size="sm"
+              className="bg-emerald-500 hover:bg-emerald-400 text-black font-bold"
+            >
               Simpan Data Monitor
             </Button>
           </div>

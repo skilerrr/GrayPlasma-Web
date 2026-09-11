@@ -23,6 +23,7 @@ import {
   FileSpreadsheet,
   Download,
   Edit2,
+  Layers,
 } from "lucide-react";
 import { DeskItem } from "@/data/grayplasma-desk-peripherals";
 import { DatabaseService } from "@/lib/db-service";
@@ -78,16 +79,16 @@ export function DeskLiveStudio({
     }
     let doc = "";
     if (desk.notes) {
-      doc += `<div class="notion-callout notion-callout-amber"><span class="notion-callout-icon">💡</span><div class="notion-callout-content"><strong>Catatan Penting GrayPlasma:</strong><br>${desk.notes}</div></div>`;
+      doc += `<div class="notion-callout notion-callout-amber"><span class="notion-callout-icon font-mono font-bold text-xs">[NOTE]</span><div class="notion-callout-content"><strong>Catatan Penting GrayPlasma:</strong><br>${desk.notes}</div></div>`;
     }
     if (desk.description) {
       doc += `<h2>Karakteristik & Uji Kekuatan Daun Meja</h2><p>${desk.description}</p>`;
     }
     doc += `<h3>Uji Kelayakan Jepit Bracket Arm Gas-Spring</h3>`;
     if (desk.specs?.armSupport) {
-      doc += `<p>✅ Daun meja berbahan <strong>${desk.specs.material}</strong> dengan ketebalan <strong>${desk.specs.thickness}</strong> telah lolos verifikasi uji clamp arm tanpa memerlukan plat protektor tambahan.</p>`;
+      doc += `<p><strong>[LOLOS CLAMP]</strong> Daun meja berbahan <strong>${desk.specs.material}</strong> dengan ketebalan <strong>${desk.specs.thickness}</strong> telah lolos verifikasi uji clamp arm tanpa memerlukan plat protektor tambahan.</p>`;
     } else {
-      doc += `<p>⚠️ Perhatian: Ketebalan atau material meja ini disarankan menggunakan <em>Steel Protector Plate (seperti Oximus EV-06)</em> untuk mencegah retak pada titik tumpu jepit.</p>`;
+      doc += `<p><strong>[PERHATIAN]</strong> Ketebalan atau material meja ini disarankan menggunakan <em>Steel Protector Plate (seperti Oximus EV-06)</em> untuk mencegah retak pada titik tumpu jepit.</p>`;
     }
     return doc;
   };
@@ -292,7 +293,7 @@ export function DeskLiveStudio({
   const deskColumns = React.useMemo<TableColumnDef<DeskItem>[]>(() => [
     {
       id: "price",
-      label: "[ 01 // KISARAN HARGA ]",
+      label: "Harga",
       shortLabel: "Harga",
       minWidth: "min-w-[170px]",
       sortable: true,
@@ -317,7 +318,7 @@ export function DeskLiveStudio({
     },
     {
       id: "name",
-      label: "[ 02 // NAMA REKOMENDASI MEJA ]",
+      label: "Nama Meja",
       shortLabel: "Nama Meja",
       minWidth: "min-w-[260px]",
       sortable: true,
@@ -326,7 +327,7 @@ export function DeskLiveStudio({
       getValue: (d) => d.name,
       renderCell: (d) => (
         <div className="flex items-center gap-2">
-          <span className="text-base">🪑</span>
+          <Layers className="w-4 h-4 text-zinc-400 shrink-0" />
           <div>
             <div
               onClick={() => {
@@ -335,8 +336,8 @@ export function DeskLiveStudio({
                 setDocContent(getInitialDoc(d));
                 setViewMode("studio");
               }}
-              className="font-bold text-white hover:text-amber-400 cursor-pointer transition-colors"
-              title="Buka di 3-Kolom Studio"
+              className="font-bold text-white hover:text-orange-400 cursor-pointer transition-colors"
+              title="Buka di Detail Studio"
             >
               {d.name}
             </div>
@@ -349,7 +350,7 @@ export function DeskLiveStudio({
     },
     {
       id: "category",
-      label: "[ 03 // KATEGORI ]",
+      label: "Kategori",
       shortLabel: "Kategori",
       minWidth: "min-w-[150px]",
       sortable: true,
@@ -364,7 +365,7 @@ export function DeskLiveStudio({
     },
     {
       id: "type",
-      label: "[ 04 // TIPE ]",
+      label: "Tipe",
       shortLabel: "Tipe",
       minWidth: "min-w-[130px]",
       sortable: true,
@@ -379,7 +380,7 @@ export function DeskLiveStudio({
     },
     {
       id: "material",
-      label: "[ 05 // BAHAN & TEBAL ]",
+      label: "Bahan & Tebal",
       shortLabel: "Material",
       minWidth: "min-w-[160px]",
       sortable: true,
@@ -395,7 +396,7 @@ export function DeskLiveStudio({
     },
     {
       id: "dimensions",
-      label: "[ 06 // DIMENSI ]",
+      label: "Dimensi",
       shortLabel: "Dimensi",
       minWidth: "min-w-[140px]",
       sortable: true,
@@ -410,7 +411,7 @@ export function DeskLiveStudio({
     },
     {
       id: "armSupport",
-      label: "[ 07 // ARM GAS-SPRING ]",
+      label: "Arm Support",
       shortLabel: "Arm Support",
       minWidth: "min-w-[150px]",
       sortable: true,
@@ -428,13 +429,13 @@ export function DeskLiveStudio({
           }`}
           title="Klik untuk ubah status kelayakan clamp arm"
         >
-          {d.specs?.armSupport ? "✓ Lolos Clamp" : "⚠️ Perlu Plat"}
+          {d.specs?.armSupport ? "✓ LOLOS CLAMP" : "! PERLU PLAT"}
         </button>
       ),
     },
     {
       id: "customVariables",
-      label: "[ 08 // VARIABEL KUSTOM ]",
+      label: "Variabel Kustom",
       shortLabel: "Variabel",
       minWidth: "min-w-[140px]",
       sortable: true,
@@ -465,7 +466,7 @@ export function DeskLiveStudio({
     },
     {
       id: "notes",
-      label: "[ 09 // CATATAN REVIEWER ]",
+      label: "Catatan Reviewer",
       shortLabel: "Catatan",
       minWidth: "min-w-[200px]",
       sortable: true,
@@ -480,7 +481,7 @@ export function DeskLiveStudio({
     },
     {
       id: "description",
-      label: "[ 10 // DESKRIPSI SINGKAT ]",
+      label: "Deskripsi Singkat",
       shortLabel: "Deskripsi",
       minWidth: "min-w-[220px]",
       sortable: true,
@@ -495,7 +496,7 @@ export function DeskLiveStudio({
     },
     {
       id: "shopeeUrl",
-      label: "[ 11 // LINK TOKO / SHOPEE ]",
+      label: "Link Marketplace",
       shortLabel: "Marketplace",
       minWidth: "min-w-[150px]",
       sortable: false,
@@ -555,30 +556,30 @@ export function DeskLiveStudio({
 
         <div className="flex items-center gap-2 flex-wrap">
           {/* View Mode Switcher */}
-          <div className="flex items-center gap-1 p-1 bg-[#0e0e14] border border-zinc-750 rounded-xl shadow-inner">
+          <div className="flex items-center gap-1 p-1 bg-[#0e0e14] border border-zinc-800 rounded-lg">
             <button
               type="button"
               onClick={() => setViewMode("excel")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+              className={`px-3 py-1.5 rounded text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
                 viewMode === "excel"
-                  ? "bg-amber-500 text-black shadow-[2px_2px_0px_#000]"
-                  : "text-zinc-400 hover:text-white hover:bg-zinc-800"
+                  ? "bg-zinc-100 text-black shadow-tech-card"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-850"
               }`}
             >
               <FileSpreadsheet className="w-3.5 h-3.5" />
-              <span>[ 📊 EXCEL GRID (DRAG & DROP) ]</span>
+              <span>Tabel Data (Grid)</span>
             </button>
             <button
               type="button"
               onClick={() => setViewMode("studio")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+              className={`px-3 py-1.5 rounded text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
                 viewMode === "studio"
-                  ? "bg-cyan-500 text-black shadow-[2px_2px_0px_#000]"
-                  : "text-zinc-400 hover:text-white hover:bg-zinc-800"
+                  ? "bg-zinc-100 text-black shadow-tech-card"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-850"
               }`}
             >
               <SlidersHorizontal className="w-3.5 h-3.5" />
-              <span>[ 📝 3-KOLOM STUDIO ]</span>
+              <span>Detail Studio</span>
             </button>
           </div>
 
@@ -621,7 +622,7 @@ export function DeskLiveStudio({
       {viewMode === "excel" ? (
         <div className="space-y-4 font-sans">
           {/* Excel Controls Bar */}
-          <div className="p-4 rounded-2xl bg-[#121217] border-2 border-zinc-800 flex flex-wrap items-center justify-between gap-3 shadow-[4px_4px_0px_#000]">
+          <div className="p-4 rounded-xl bg-[#121217] border border-zinc-800 flex flex-wrap items-center justify-between gap-3 shadow-tech-card">
             <div className="flex items-center gap-3 flex-1 min-w-[280px]">
               {/* Search */}
               <div className="relative flex-1">
@@ -700,13 +701,13 @@ export function DeskLiveStudio({
           </div>
 
           {/* Interactive Excel Spreadsheet Grid */}
-          <div className="border-2 border-zinc-800 rounded-2xl overflow-hidden bg-[#0c0c11] shadow-[5px_5px_0px_#000]">
+          <div className="border border-zinc-800 rounded-xl overflow-hidden bg-[#0c0c11] shadow-tech-card">
             <div className="overflow-x-auto max-h-[calc(100vh-280px)] no-scrollbar">
               <table className="w-full text-left text-xs border-collapse min-w-[1100px]">
                 <thead className="bg-[#050508] text-zinc-300 uppercase text-[10px] font-mono tracking-wider border-b-2 border-zinc-700 sticky top-0 z-20">
                   <tr>
-                    <th className="py-3 px-3 w-12 text-center text-zinc-500 font-bold border-r border-zinc-800">[ DRAG ]</th>
-                    <th className="py-3 px-3 w-12 text-zinc-500 font-bold border-r border-zinc-800 text-center">[ # ]</th>
+                    <th className="py-3 px-3 w-12 text-center text-zinc-500 font-bold border-r border-zinc-800">Order</th>
+                    <th className="py-3 px-3 w-12 text-zinc-500 font-bold border-r border-zinc-800 text-center">#</th>
                     {tableManager.visibleColumns.map((col) => {
                       const isSorted = tableManager.sortField === col.id;
                       const isDragging = tableManager.draggedColId === col.id;
@@ -752,7 +753,7 @@ export function DeskLiveStudio({
                         </th>
                       );
                     })}
-                    <th className="py-3 px-4 font-bold min-w-[180px] text-center sticky right-0 bg-[#050508] z-30">[ AKSI ]</th>
+                    <th className="py-3 px-4 font-bold min-w-[180px] text-center sticky right-0 bg-[#050508] z-30">Aksi</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-800/80 font-sans">
@@ -886,7 +887,7 @@ export function DeskLiveStudio({
         {/* ============================================================ */}
         {/* COLUMN 1: DESK SELECTOR & SEARCH SIDEBAR (lg:col-span-3) */}
         {/* ============================================================ */}
-        <div className="lg:col-span-3 bg-[#0d0d12] border-2 border-zinc-800 rounded-2xl p-4 space-y-3.5 shadow-[4px_4px_0px_#000]">
+        <div className="lg:col-span-3 bg-[#0d0d12] border border-zinc-800 rounded-xl p-4 space-y-3.5 shadow-tech-card">
           {/* Header Controls */}
           <div className="flex items-center justify-between">
             <span className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-wider">
@@ -897,7 +898,7 @@ export function DeskLiveStudio({
               variant="cyber"
               size="sm"
               onClick={handleCreateNew}
-              className="text-[11px] font-bold py-1 px-2.5 flex items-center gap-1 font-mono shadow-[2px_2px_0px_#000]"
+              className="text-[11px] font-bold py-1 px-2.5 flex items-center gap-1 font-mono"
             >
               <Plus className="w-3 h-3" />
               <span>+ Baru</span>
@@ -959,35 +960,35 @@ export function DeskLiveStudio({
                   <div
                     key={d.id}
                     onClick={() => handleSelectDesk(d)}
-                    className={`p-3 rounded-xl cursor-pointer transition-all duration-150 border text-left ${
+                    className={`p-3 rounded-lg cursor-pointer transition-all duration-150 border text-left ${
                       isSelected
-                        ? "bg-[#161622] border-amber-500 shadow-[3px_3px_0px_rgba(245,158,11,0.3)] translate-x-1"
+                        ? "bg-zinc-900 border-zinc-500 shadow-tech-card"
                         : "bg-zinc-950 border-zinc-800 hover:border-zinc-700 hover:bg-zinc-900/60"
                     }`}
                   >
                     <div className="flex items-center justify-between gap-1 mb-1">
                       <span className="text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30">
-                        [ {d.category} ]
+                        {d.category}
                       </span>
                       <span className="text-[10px] font-mono text-zinc-500">
                         {d.specs?.dimensions || "Custom"}
                       </span>
                     </div>
 
-                    <h4 className="text-xs font-bold text-white line-clamp-1 group-hover:text-amber-400">
+                    <h4 className="text-xs font-bold text-white line-clamp-1 group-hover:text-orange-400">
                       {d.name}
                     </h4>
 
                     <div className="flex items-baseline justify-between mt-2 pt-1 border-t border-zinc-800/60">
-                      <span className="text-xs font-mono font-bold text-emerald-400">
+                      <span className="text-xs font-mono font-bold text-emerald-400 tabular-nums">
                         {d.price > 0 ? formatRupiah(d.price) : "Custom Size"}
                       </span>
                       <span
-                        className={`text-[9px] font-mono ${
+                        className={`text-[9px] font-mono font-bold ${
                           d.specs?.armSupport ? "text-emerald-400" : "text-amber-400"
                         }`}
                       >
-                        {d.specs?.armSupport ? "✓ Arm Ok" : "! Cek Tebal"}
+                        {d.specs?.armSupport ? "[ARM OK]" : "[CEK TEBAL]"}
                       </span>
                     </div>
                   </div>
@@ -1021,7 +1022,7 @@ export function DeskLiveStudio({
         {/* ============================================================ */}
         {/* COLUMN 2: NOTION / WORD DOCUMENT STUDIO CANVAS (lg:col-span-5) */}
         {/* ============================================================ */}
-        <div className="lg:col-span-5 bg-[#0c0c11] border-2 border-zinc-800 rounded-2xl p-5 space-y-5 shadow-[4px_4px_0px_#000]">
+        <div className="lg:col-span-5 bg-[#0c0c11] border border-zinc-800 rounded-xl p-5 space-y-5 shadow-tech-card">
           {/* Header Action Bar */}
           <div className="flex items-center justify-between border-b border-zinc-800 pb-3 gap-2">
             <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-wider">
@@ -1031,7 +1032,7 @@ export function DeskLiveStudio({
               <button
                 type="button"
                 onClick={handleDuplicate}
-                className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-amber-400 text-xs flex items-center gap-1"
+                className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-orange-400 text-xs flex items-center gap-1"
                 title="Duplikat Meja Ini"
               >
                 <Copy className="w-3.5 h-3.5" />
@@ -1051,7 +1052,7 @@ export function DeskLiveStudio({
                 variant="cyber"
                 size="sm"
                 onClick={handleSave}
-                className="text-xs font-bold font-mono px-3.5 py-1.5 flex items-center gap-1.5 shadow-[2px_2px_0px_#000]"
+                className="text-xs font-bold font-mono px-3.5 py-1.5 flex items-center gap-1.5"
               >
                 <Save className="w-3.5 h-3.5" />
                 <span>Simpan Meja</span>
@@ -1260,8 +1261,8 @@ export function DeskLiveStudio({
               className="w-full px-4 py-2.5 bg-zinc-900/90 hover:bg-zinc-850 flex items-center justify-between text-xs font-mono font-bold text-zinc-300 transition-colors"
             >
               <div className="flex items-center gap-2">
-                <SlidersHorizontal className="w-3.5 h-3.5 text-amber-400" />
-                <span>[ ⚙️ PARAMETER DETAIL & CATATAN KHUSUS MEJA ]</span>
+                <SlidersHorizontal className="w-3.5 h-3.5 text-zinc-400" />
+                <span>Parameter Detail & Catatan Meja</span>
               </div>
               {isSpecsExpanded ? (
                 <ChevronUp className="w-4 h-4 text-zinc-400" />
@@ -1335,12 +1336,12 @@ export function DeskLiveStudio({
           </div>
 
           {/* 4.5. VARIABEL & KOLOM DATA MODULAR MEJA */}
-          <div className="p-4 rounded-xl bg-[#121219] border-2 border-zinc-800 space-y-3 shadow-[3px_3px_0px_#000]">
+          <div className="p-4 rounded-xl bg-[#121219] border border-zinc-800 space-y-3 shadow-tech-card">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <TableIcon className="w-4 h-4 text-amber-400" />
+                <TableIcon className="w-4 h-4 text-orange-500" />
                 <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">
-                  [ 📊 VARIABEL & KOLOM DATA MODULAR MEJA ]
+                  [ VARIABEL & KOLOM DATA MODULAR MEJA ]
                 </span>
               </div>
               <span className="text-[10px] font-mono text-zinc-500">
@@ -1480,7 +1481,7 @@ export function DeskLiveStudio({
                       if (vars.length === 0) return;
                       const tableHtml = `
 <div class="notion-table-wrapper my-4 overflow-x-auto">
-  <table class="notion-visual-table w-full border-collapse rounded-xl overflow-hidden border border-zinc-800 shadow-[3px_3px_0px_#000] text-xs font-sans">
+  <table class="notion-visual-table w-full border-collapse rounded-xl overflow-hidden border border-zinc-800 shadow-tech-card text-xs font-sans">
     <thead>
       <tr class="bg-[#050508] border-b-2 border-zinc-700 text-zinc-300 font-mono text-[11px] tracking-wider uppercase">
         <th class="px-3.5 py-3 text-left font-bold border-r border-zinc-800">[ 01 // KATEGORI ]</th>
@@ -1531,10 +1532,10 @@ export function DeskLiveStudio({
                 variant="outline"
                 size="sm"
                 onClick={() => setIsWordDocsOpen(true)}
-                className="text-xs font-mono font-bold text-amber-300 border-amber-500/40 hover:bg-amber-500/10 flex items-center gap-1.5 h-7 px-2.5"
+                className="text-xs font-mono font-bold text-zinc-300 border-zinc-800 hover:bg-zinc-800 flex items-center gap-1.5 h-7 px-2.5"
               >
                 <FileSpreadsheet className="w-3 h-3" />
-                <span>[ 📝 Buka di Word / Docs Studio ]</span>
+                <span>[ BUKA DI WORD / DOCS STUDIO ]</span>
               </Button>
             </div>
             <NotionRichEditor
@@ -1549,7 +1550,7 @@ export function DeskLiveStudio({
         {/* ============================================================ */}
         {/* COLUMN 3: REAL-TIME LIVE SIDE-PEEK PREVIEW (lg:col-span-4) */}
         {/* ============================================================ */}
-        <div className="lg:col-span-4 bg-[#121216] border-2 border-zinc-800 rounded-2xl p-5 space-y-4 shadow-[4px_4px_0px_#000] sticky top-4">
+        <div className="lg:col-span-4 bg-[#121216] border border-zinc-800 rounded-xl p-5 space-y-4 shadow-tech-card sticky top-4">
           <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
             <div className="flex items-center gap-2">
               <Eye className="w-4 h-4 text-emerald-400" />
@@ -1565,7 +1566,7 @@ export function DeskLiveStudio({
             {/* Drawer Top Bar */}
             <div className="flex items-center justify-between gap-2 pb-3 border-b border-zinc-800">
               <div className="flex items-center gap-2 truncate">
-                <span className="text-base">🪑</span>
+                <Layers className="w-4 h-4 text-zinc-400 shrink-0" />
                 <span className="font-bold text-white text-xs truncate">
                   {formData.name || "Nama Meja"}
                 </span>
@@ -1635,9 +1636,9 @@ export function DeskLiveStudio({
               <div className="text-zinc-300">
                 <strong>Arm Gas-Spring:</strong>{" "}
                 {formData.specs?.armSupport ? (
-                  <span className="text-emerald-400 font-bold">✓ Ya, Aman Dijepit</span>
+                  <span className="text-emerald-400 font-mono font-bold">Aman Dijepit (Clamp OK)</span>
                 ) : (
-                  <span className="text-amber-400 font-bold">⚠️ Perlu Plat Tambahan</span>
+                  <span className="text-amber-400 font-mono font-bold">Perlu Plat Tambahan</span>
                 )}
               </div>
             </div>
@@ -1646,7 +1647,7 @@ export function DeskLiveStudio({
             {(formData.customVariables || []).length > 0 && (
               <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1.5 text-xs">
                 <span className="text-[10px] font-mono font-bold text-amber-400 uppercase tracking-wider block">
-                  // VARIABEL & PARAMETER MODULAR MEJA:
+                  Variabel & Parameter Modular:
                 </span>
                 <div className="grid grid-cols-1 gap-1.5">
                   {formData.customVariables!.map((v) => (
@@ -1670,7 +1671,7 @@ export function DeskLiveStudio({
             {/* Live Ulasan Markdown / HTML Renderer */}
             <div className="pt-2 border-t border-zinc-800">
               <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-wider block mb-2">
-                // ULASAN & VERDICT:
+                Ulasan & Verdict:
               </span>
               <div
                 dangerouslySetInnerHTML={{ __html: docContent }}

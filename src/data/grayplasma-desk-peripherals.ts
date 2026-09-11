@@ -41,6 +41,30 @@ export interface PeripheralItem {
   tokopediaUrl?: string;
   tiktokUrl?: string;
   recommendedFor?: string;
+  isPublished?: boolean;
+}
+
+export interface ChairItem {
+  id: string;
+  name: string;
+  brand: string;
+  category: "Ergonomic Full Mesh" | "Ergonomic Fabric" | "Gaming Ergonomic" | "Office Mid-Back" | "Lainnya";
+  price: number;
+  lumbarSupport: string;
+  armrest: string;
+  mechanism: string;
+  gasLift: string;
+  material: string;
+  recommendedHeight: string;
+  maxWeightCapacity: string;
+  warranty: string;
+  verdict: string;
+  notes: string;
+  shopeeUrl?: string;
+  tokopediaUrl?: string;
+  imageUrl?: string;
+  isPublished?: boolean;
+  order?: number;
 }
 
 export interface ConsultationResultItem {
@@ -830,4 +854,91 @@ export const CONSULTATION_RESULTS_DATABASE: ConsultationResultItem[] = [
       "Kabel: DisplayPort 1.4 VESA Certified (Rp 85k)"
     ]
   }
+];
+
+export const DEFAULT_CHAIRS_DATABASE: ChairItem[] = [
+  {
+    id: "chair-sihoo-c300",
+    name: "Sihoo Doro C300 Ergonomic Chair",
+    brand: "Sihoo",
+    category: "Ergonomic Full Mesh",
+    price: 4250000,
+    lumbarSupport: "Dynamic Self-Adaptive 3D Lumbar Support (Menyesuaikan lekuk punggung)",
+    armrest: "3D Coordinated Armrest (Sinkron saat recline rebah)",
+    mechanism: "Weight-Sensing Multi-Lock Synchronous Tilt (110°-138°)",
+    gasLift: "Class 4 TÜV & BIFMA Certified Heavy Duty",
+    material: "High Elastic Cloud Mesh Breathable (Full Sandaran & Dudukan)",
+    recommendedHeight: "160 cm - 188 cm",
+    maxWeightCapacity: "135 kg",
+    warranty: "3 Tahun Garansi Resmi Sparepart & Mekanisme",
+    verdict: "Rekomendasi mesh chair mid-tier terbaik untuk iklim tropis Indonesia. Lumbar support otomatis aktif bergerak mengikuti perubahan posisi duduk tanpa perlu disetel manual.",
+    notes: "Dudukan full mesh tanpa spons busa sehingga sirkulasi udara maksimal dan tidak gerah untuk sesi kerja marathon >8 jam.",
+    shopeeUrl: "https://shopee.co.id/search?keyword=sihoo%20doro%20c300",
+    tokopediaUrl: "https://www.tokopedia.com/search?q=sihoo%20doro%20c300",
+    isPublished: false, // Default staging
+    order: 1,
+  },
+  {
+    id: "chair-pexio-hervey",
+    name: "Pexio Hervey Ergonomic Chair",
+    brand: "Pexio",
+    category: "Ergonomic Full Mesh",
+    price: 2650000,
+    lumbarSupport: "2D Adjustable Lumbar Support (Atur ketinggian & tekanan maju-mundur)",
+    armrest: "3D Adjustable (Up-Down, Forward-Back, Pivot Sudut)",
+    mechanism: "Multi-angle Lock Synchro Tilt hingga 125°",
+    gasLift: "Class 3 Heavy Duty SGS Certified",
+    material: "Korean Wintex Mesh Back + High Density Molded Foam Seat Cushion",
+    recommendedHeight: "155 cm - 178 cm",
+    maxWeightCapacity: "120 kg",
+    warranty: "2 Tahun Garansi Gas Lift & Kaki Bintang",
+    verdict: "Sweet spot harga 2 jutaan untuk pekerja kantor / WFH yang butuh sandaran mesh sejuk namun tetap menyukai dudukan busa empuk yang ramah untuk paha.",
+    notes: "Pilihan paling aman bagi pengguna yang belum terbiasa dengan dudukan full mesh murni yang cenderung keras di awal adaptasi.",
+    shopeeUrl: "https://shopee.co.id/search?keyword=pexio%20hervey",
+    tokopediaUrl: "https://www.tokopedia.com/search?q=pexio%20hervey",
+    isPublished: false, // Default staging
+    order: 2,
+  },
+  {
+    id: "chair-fantech-oca258",
+    name: "Fantech OCA258 Pro Ergonomic Office Chair",
+    brand: "Fantech",
+    category: "Ergonomic Fabric",
+    price: 1199000,
+    lumbarSupport: "Integrated Ergonomic Back Spine Curve",
+    armrest: "Flip-Up 90° Padded Armrest (Bisa dilipat tegak)",
+    mechanism: "Standard Tilt Recline Mechanism (105°-120°)",
+    gasLift: "Class 3 Gas Spring BIFMA Standard",
+    material: "Breathable Mesh Back + High Density Fabric Foam Seat",
+    recommendedHeight: "150 cm - 175 cm",
+    maxWeightCapacity: "110 kg",
+    warranty: "1 Tahun Garansi Resmi",
+    verdict: "Budget king di rentang harga 1 jutaan. Fitur flip-up armrest sangat berguna untuk meja kerja berukuran kecil agar kursi bisa disorong masuk penuh ke bawah daun meja saat tidak dipakai.",
+    notes: "Belum mendukung lock recline di berbagai sudut bertingkat, tetapi ketebalan busa dudukan sangat memuaskan di kelas harga terjangkau.",
+    shopeeUrl: "https://shopee.co.id/search?keyword=fantech%20oca258",
+    tokopediaUrl: "https://www.tokopedia.com/search?q=fantech%20oca258",
+    isPublished: false, // Default staging
+    order: 3,
+  },
+  {
+    id: "chair-secretlab-titan-evo",
+    name: "Secretlab Titan Evo (Regular / SoftWeave Plus)",
+    brand: "Secretlab",
+    category: "Gaming Ergonomic",
+    price: 7990000,
+    lumbarSupport: "L-ADAPT 4-Way Integrated Internal Lumbar Support (In-Out & Up-Down Knob)",
+    armrest: "Full-Metal 4D Magnetic CloudSwap Armrest",
+    mechanism: "Multi-Tilt Mechanism dengan Recline Ekstrem hingga 165°",
+    gasLift: "Class 4 Heavy Duty Heavy-Gauge Steel",
+    material: "SoftWeave Plus Fabric Breathable (Tahan cakar & sirkulasi udara)",
+    recommendedHeight: "170 cm - 189 cm (Ukuran Regular)",
+    maxWeightCapacity: "130 kg",
+    warranty: "5 Tahun Extended International Manufacturer Warranty",
+    verdict: "Satu-satunya gaming chair bergaya racing bucket yang mengadopsi mekanisme lumbar support internal layaknya jok mobil premium tanpa bantal karet murahan yang sering kempes.",
+    notes: "Sangat disarankan memilih varian bahan SoftWeave Plus Fabric daripada PU Leather untuk penggunaan jangka panjang di iklim tropis non-AC agar tidak pecah-pecah/mengelupas.",
+    shopeeUrl: "https://shopee.co.id/search?keyword=secretlab%20titan%20evo",
+    tokopediaUrl: "https://www.tokopedia.com/search?q=secretlab%20titan%20evo",
+    isPublished: false, // Default staging
+    order: 4,
+  },
 ];

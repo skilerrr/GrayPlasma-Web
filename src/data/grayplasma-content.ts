@@ -6,6 +6,7 @@ export interface DeskGuide {
   viewingDistance: string;
   notes: string;
   monitorArmRecommendation: string;
+  isPublished?: boolean;
 }
 
 export interface HDRGuide {
@@ -16,6 +17,7 @@ export interface HDRGuide {
   dimmingZones: string;
   verdict: string;
   models: string[];
+  isPublished?: boolean;
 }
 
 export interface AftersalesBrand {
@@ -38,6 +40,7 @@ export interface GrayNoteItem {
   details: string[];
   warning?: string;
   recommendation: string;
+  isPublished?: boolean;
 }
 
 export const ABOUT_NOTION_CONTENT = {
@@ -238,6 +241,7 @@ export interface AvoidBrandItem {
   issue: string;
   authorNote: string;
   details: string[];
+  isPublished?: boolean;
 }
 
 export const BRANDS_TO_AVOID_DATA: AvoidBrandItem[] = [
@@ -435,6 +439,7 @@ export interface FAQItem {
   answer: string;
   category?: string;
   important?: boolean;
+  isPublished?: boolean;
 }
 
 export interface BandwidthGuidance {
@@ -444,6 +449,7 @@ export interface BandwidthGuidance {
   colorDepth: string;
   dscSupport: string;
   notes: string;
+  isPublished?: boolean;
 }
 
 export const BANDWIDTH_GUIDANCES: BandwidthGuidance[] = [

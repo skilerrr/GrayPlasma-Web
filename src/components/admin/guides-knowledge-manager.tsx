@@ -22,6 +22,8 @@ import {
   FileText,
   Flame,
   AlertTriangle,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 import {
   FAQItem,
@@ -176,6 +178,104 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
     e.preventDefault();
     DatabaseService.saveAboutContent(aboutContent);
     showNotice("Profil Joel Gray & latar belakang website disimpan.");
+  };
+
+  // Visibility Toggles (Hide / Publish without deletion)
+  const handleToggleFaqPublish = (faq: FAQItem) => {
+    const newStatus = faq.isPublished === false ? true : false;
+    const updated = DatabaseService.saveFAQ({
+      ...faq,
+      isPublished: newStatus,
+    });
+    setFaqList(updated);
+    showNotice(
+      newStatus
+        ? `FAQ "${faq.question.substring(0, 30)}..." telah diaktifkan ke publik.`
+        : `FAQ "${faq.question.substring(0, 30)}..." disembunyikan (Draft/Hide).`
+    );
+  };
+
+  const handleToggleDeskPublish = (idx: number) => {
+    const copy = [...deskGuides];
+    const newStatus = copy[idx].isPublished === false ? true : false;
+    copy[idx] = {
+      ...copy[idx],
+      isPublished: newStatus,
+    };
+    DatabaseService.saveDeskGuides(copy);
+    setDeskGuides(copy);
+    showNotice(
+      newStatus
+        ? `Pedoman meja "${copy[idx].deskDepth}" telah diaktifkan ke publik.`
+        : `Pedoman meja "${copy[idx].deskDepth}" disembunyikan (Draft/Hide).`
+    );
+  };
+
+  const handleDeleteDeskGuide = (idx: number) => {
+    if (confirm(`Hapus pedoman ukuran meja "${deskGuides[idx].deskDepth}"?`)) {
+      const copy = deskGuides.filter((_, i) => i !== idx);
+      DatabaseService.saveDeskGuides(copy);
+      setDeskGuides(copy);
+      showNotice("Pedoman meja dihapus.");
+    }
+  };
+
+  const handleToggleHdrPublish = (idx: number) => {
+    const copy = [...hdrGuides];
+    const newStatus = copy[idx].isPublished === false ? true : false;
+    copy[idx] = {
+      ...copy[idx],
+      isPublished: newStatus,
+    };
+    DatabaseService.saveHDRGuides(copy);
+    setHdrGuides(copy);
+    showNotice(
+      newStatus
+        ? `Panduan ${copy[idx].tier} telah diaktifkan ke publik.`
+        : `Panduan ${copy[idx].tier} disembunyikan (Draft/Hide).`
+    );
+  };
+
+  const handleToggleGraynotePublish = (note: GrayNoteItem) => {
+    const newStatus = note.isPublished === false ? true : false;
+    const copy = graynotes.map((g) =>
+      g.id === note.id ? { ...g, isPublished: newStatus } : g
+    );
+    DatabaseService.saveGrayNotes(copy);
+    setGraynotes(copy);
+    showNotice(
+      newStatus
+        ? `GrayNote "${note.title}" telah diaktifkan ke publik.`
+        : `GrayNote "${note.title}" disembunyikan (Draft/Hide).`
+    );
+  };
+
+  const handleToggleAvoidBrandPublish = (item: AvoidBrandItem) => {
+    const newStatus = item.isPublished === false ? true : false;
+    const copy = brandsAvoid.map((b) =>
+      b.brand === item.brand ? { ...b, isPublished: newStatus } : b
+    );
+    DatabaseService.saveBrandsToAvoid(copy);
+    setBrandsAvoid(copy);
+    showNotice(
+      newStatus
+        ? `Catatan waspada brand "${item.brand}" telah diaktifkan ke publik.`
+        : `Catatan waspada brand "${item.brand}" disembunyikan (Draft/Hide).`
+    );
+  };
+
+  const handleToggleBandwidthPublish = (item: BandwidthGuidance) => {
+    const newStatus = item.isPublished === false ? true : false;
+    const copy = bandwidths.map((bw) =>
+      bw.interface === item.interface ? { ...bw, isPublished: newStatus } : bw
+    );
+    DatabaseService.saveBandwidthGuides(copy);
+    setBandwidths(copy);
+    showNotice(
+      newStatus
+        ? `Panduan kabel "${item.interface}" telah diaktifkan ke publik.`
+        : `Panduan kabel "${item.interface}" disembunyikan (Draft/Hide).`
+    );
   };
 
   return (
@@ -352,22 +452,49 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                 .map((faq) => (
                   <div
                     key={faq.id}
-                    className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3 flex flex-col justify-between"
+                    className={`bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3 flex flex-col justify-between transition-all ${
+                      faq.isPublished === false ? "opacity-75 bg-zinc-950/60 border-amber-500/20" : ""
+                    }`}
                   >
                     <div className="space-y-2">
                       <div className="flex items-start justify-between gap-2">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
                           <span className="text-[10px] px-2 py-0.5 rounded bg-zinc-900 text-zinc-400 border border-zinc-800 font-bold uppercase">
                             {faq.category || "General"}
                           </span>
                           {faq.important && (
-                            <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">
-                              ★ Featured
+                            <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 font-mono font-bold">
+                              [FEATURED]
                             </span>
                           )}
+                          <button
+                            type="button"
+                            onClick={() => handleToggleFaqPublish(faq)}
+                            className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
+                              faq.isPublished !== false
+                                ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
+                                : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
+                            }`}
+                            title={faq.isPublished !== false ? "Klik untuk sembunyikan dari FAQ publik" : "Klik untuk publikasikan ke web"}
+                          >
+                            {faq.isPublished !== false ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
+                            <span>{faq.isPublished !== false ? "Live" : "Draft (Hide)"}</span>
+                          </button>
                         </div>
 
                         <div className="flex items-center gap-1">
+                          <button
+                            type="button"
+                            onClick={() => handleToggleFaqPublish(faq)}
+                            className={`p-1.5 rounded-lg border transition-colors ${
+                              faq.isPublished !== false
+                                ? "bg-zinc-900 border-zinc-800 hover:bg-amber-950/40 text-zinc-400 hover:text-amber-400"
+                                : "bg-amber-500/20 border-amber-500/40 text-amber-300 hover:bg-emerald-500/20 hover:text-emerald-300"
+                            }`}
+                            title={faq.isPublished !== false ? "Sembunyikan FAQ (Draft)" : "Aktifkan FAQ (Publish)"}
+                          >
+                            {faq.isPublished !== false ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                          </button>
                           <button
                             onClick={() => {
                               setEditingFaq(faq);
@@ -427,18 +554,59 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {deskGuides.map((guide, idx) => (
-                <div key={idx} className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3">
+                <div
+                  key={idx}
+                  className={`bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3 transition-all ${
+                    guide.isPublished === false ? "opacity-75 bg-zinc-950/60 border-amber-500/20" : ""
+                  }`}
+                >
                   <div className="flex items-start justify-between">
-                    <h4 className="text-sm font-black text-cyan-400">{guide.deskDepth}</h4>
-                    <button
-                      onClick={() => {
-                        setEditingDeskIndex(idx);
-                        setEditingDeskGuide({ ...guide });
-                      }}
-                      className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-cyan-400"
-                    >
-                      <Edit2 className="w-3.5 h-3.5" />
-                    </button>
+                    <div>
+                      <h4 className="text-sm font-black text-cyan-400">{guide.deskDepth}</h4>
+                      <button
+                        type="button"
+                        onClick={() => handleToggleDeskPublish(idx)}
+                        className={`mt-1 text-[10px] px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
+                          guide.isPublished !== false
+                            ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
+                            : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
+                        }`}
+                        title={guide.isPublished !== false ? "Sembunyikan dari tabel meja publik" : "Tampilkan kembali di web"}
+                      >
+                        {guide.isPublished !== false ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
+                        <span>{guide.isPublished !== false ? "Live" : "Draft (Hide)"}</span>
+                      </button>
+                    </div>
+
+                    <div className="flex items-center gap-1">
+                      <button
+                        type="button"
+                        onClick={() => handleToggleDeskPublish(idx)}
+                        className={`p-1.5 rounded-lg border transition-colors ${
+                          guide.isPublished !== false
+                            ? "bg-zinc-900 border-zinc-800 hover:bg-amber-950/40 text-zinc-400 hover:text-amber-400"
+                            : "bg-amber-500/20 border-amber-500/40 text-amber-300 hover:bg-emerald-500/20 hover:text-emerald-300"
+                        }`}
+                        title={guide.isPublished !== false ? "Sembunyikan dari publik" : "Publikasikan ke website"}
+                      >
+                        {guide.isPublished !== false ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                      </button>
+                      <button
+                        onClick={() => {
+                          setEditingDeskIndex(idx);
+                          setEditingDeskGuide({ ...guide });
+                        }}
+                        className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-cyan-400"
+                      >
+                        <Edit2 className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteDeskGuide(idx)}
+                        className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-rose-400"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
 
                   <div className="text-xs text-zinc-300 space-y-2 bg-zinc-900/60 p-3 rounded-xl">
@@ -474,26 +642,61 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {hdrGuides.map((hdr, idx) => (
-                <div key={hdr.tier} className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3">
+                <div
+                  key={hdr.tier}
+                  className={`bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3 transition-all ${
+                    hdr.isPublished === false ? "opacity-75 bg-zinc-950/60 border-amber-500/20" : ""
+                  }`}
+                >
                   <div className="flex items-start justify-between">
-                    <span className={`text-xs px-2.5 py-1 rounded-lg font-black ${
-                      hdr.tier === "TRUE HDR"
-                        ? "bg-amber-500 text-black"
-                        : hdr.tier === "DECENT HDR"
-                        ? "bg-cyan-500 text-black"
-                        : "bg-zinc-800 text-zinc-400"
-                    }`}>
-                      {hdr.tier}
-                    </span>
-                    <button
-                      onClick={() => {
-                        setEditingHdrIndex(idx);
-                        setEditingHdrGuide({ ...hdr });
-                      }}
-                      className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-amber-400"
-                    >
-                      <Edit2 className="w-3.5 h-3.5" />
-                    </button>
+                    <div>
+                      <span className={`text-xs px-2.5 py-1 rounded-lg font-black ${
+                        hdr.tier === "TRUE HDR"
+                          ? "bg-amber-500 text-black"
+                          : hdr.tier === "DECENT HDR"
+                          ? "bg-cyan-500 text-black"
+                          : "bg-zinc-800 text-zinc-400"
+                      }`}>
+                        {hdr.tier}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleToggleHdrPublish(idx)}
+                        className={`mt-2 text-[10px] px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
+                          hdr.isPublished !== false
+                            ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
+                            : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
+                        }`}
+                        title={hdr.isPublished !== false ? "Sembunyikan dari panduan HDR publik" : "Tampilkan kembali di web"}
+                      >
+                        {hdr.isPublished !== false ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
+                        <span>{hdr.isPublished !== false ? "Live" : "Draft (Hide)"}</span>
+                      </button>
+                    </div>
+
+                    <div className="flex items-center gap-1">
+                      <button
+                        type="button"
+                        onClick={() => handleToggleHdrPublish(idx)}
+                        className={`p-1.5 rounded-lg border transition-colors ${
+                          hdr.isPublished !== false
+                            ? "bg-zinc-900 border-zinc-800 hover:bg-amber-950/40 text-zinc-400 hover:text-amber-400"
+                            : "bg-amber-500/20 border-amber-500/40 text-amber-300 hover:bg-emerald-500/20 hover:text-emerald-300"
+                        }`}
+                        title={hdr.isPublished !== false ? "Sembunyikan dari publik" : "Publikasikan ke web"}
+                      >
+                        {hdr.isPublished !== false ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                      </button>
+                      <button
+                        onClick={() => {
+                          setEditingHdrIndex(idx);
+                          setEditingHdrGuide({ ...hdr });
+                        }}
+                        className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-amber-400"
+                      >
+                        <Edit2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
 
                   <div className="text-xs text-zinc-300 space-y-2 bg-zinc-900/60 p-3 rounded-xl">
@@ -541,15 +744,47 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {graynotes.map((gn) => (
-                <div key={gn.id} className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3">
+                <div
+                  key={gn.id}
+                  className={`bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3 transition-all ${
+                    gn.isPublished === false ? "opacity-75 bg-zinc-950/60 border-amber-500/20" : ""
+                  }`}
+                >
                   <div className="flex items-start justify-between">
                     <div>
-                      <span className="text-[10px] px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/30 font-bold uppercase">
-                        {gn.category}
-                      </span>
-                      <h4 className="text-sm font-bold text-white mt-1">{gn.title}</h4>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-[10px] px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/30 font-bold uppercase">
+                          {gn.category}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => handleToggleGraynotePublish(gn)}
+                          className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
+                            gn.isPublished !== false
+                              ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
+                              : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
+                          }`}
+                          title={gn.isPublished !== false ? "Sembunyikan GrayNote dari publik" : "Publikasikan ke web"}
+                        >
+                          {gn.isPublished !== false ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
+                          <span>{gn.isPublished !== false ? "Live" : "Draft (Hide)"}</span>
+                        </button>
+                      </div>
+                      <h4 className="text-sm font-bold text-white mt-1.5">{gn.title}</h4>
                     </div>
                     <div className="flex items-center gap-1">
+                      <button
+                        type="button"
+                        onClick={() => handleToggleGraynotePublish(gn)}
+                        className={`p-1.5 rounded-lg border transition-colors ${
+                          gn.isPublished !== false
+                            ? "bg-zinc-900 border-zinc-800 hover:bg-amber-950/40 text-zinc-400 hover:text-amber-400"
+                            : "bg-amber-500/20 border-amber-500/40 text-amber-300 hover:bg-emerald-500/20 hover:text-emerald-300"
+                        }`}
+                        title={gn.isPublished !== false ? "Sembunyikan dari publik" : "Publikasikan ke web"}
+                      >
+                        {gn.isPublished !== false ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                      </button>
                       <button
                         onClick={() => {
                           setEditingGraynote(gn);
@@ -607,15 +842,47 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {brandsAvoid.map((ba) => (
-                <div key={ba.brand} className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3">
+                <div
+                  key={ba.brand}
+                  className={`bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3 transition-all ${
+                    ba.isPublished === false ? "opacity-75 bg-zinc-950/60 border-amber-500/20" : ""
+                  }`}
+                >
                   <div className="flex items-start justify-between">
                     <div>
-                      <span className="text-[10px] px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/30 font-bold uppercase">
-                        {ba.category}
-                      </span>
-                      <h4 className="text-sm font-bold text-white mt-1">{ba.brand}</h4>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-[10px] px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/30 font-bold uppercase">
+                          {ba.category}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => handleToggleAvoidBrandPublish(ba)}
+                          className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
+                            ba.isPublished !== false
+                              ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
+                              : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
+                          }`}
+                          title={ba.isPublished !== false ? "Sembunyikan catatan brand dari publik" : "Publikasikan ke web"}
+                        >
+                          {ba.isPublished !== false ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
+                          <span>{ba.isPublished !== false ? "Live" : "Draft (Hide)"}</span>
+                        </button>
+                      </div>
+                      <h4 className="text-sm font-bold text-white mt-1.5">{ba.brand}</h4>
                     </div>
                     <div className="flex items-center gap-1">
+                      <button
+                        type="button"
+                        onClick={() => handleToggleAvoidBrandPublish(ba)}
+                        className={`p-1.5 rounded-lg border transition-colors ${
+                          ba.isPublished !== false
+                            ? "bg-zinc-900 border-zinc-800 hover:bg-amber-950/40 text-zinc-400 hover:text-amber-400"
+                            : "bg-amber-500/20 border-amber-500/40 text-amber-300 hover:bg-emerald-500/20 hover:text-emerald-300"
+                        }`}
+                        title={ba.isPublished !== false ? "Sembunyikan dari publik" : "Publikasikan ke web"}
+                      >
+                        {ba.isPublished !== false ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                      </button>
                       <button
                         onClick={() => {
                           setEditingAvoidBrand(ba);
@@ -653,8 +920,28 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {bandwidths.map((bw) => (
-                <div key={bw.interface} className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-2 text-xs">
-                  <h4 className="text-sm font-black text-violet-400">{bw.interface}</h4>
+                <div
+                  key={bw.interface}
+                  className={`bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-2 text-xs transition-all ${
+                    bw.isPublished === false ? "opacity-75 bg-zinc-950/60 border-amber-500/20" : ""
+                  }`}
+                >
+                  <div className="flex items-start justify-between">
+                    <h4 className="text-sm font-black text-violet-400">{bw.interface}</h4>
+                    <button
+                      type="button"
+                      onClick={() => handleToggleBandwidthPublish(bw)}
+                      className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
+                        bw.isPublished !== false
+                          ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
+                          : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
+                      }`}
+                      title={bw.isPublished !== false ? "Sembunyikan dari tabel bandwidth publik" : "Publikasikan ke web"}
+                    >
+                      {bw.isPublished !== false ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
+                      <span>{bw.isPublished !== false ? "Live" : "Draft (Hide)"}</span>
+                    </button>
+                  </div>
                   <div className="text-zinc-300 space-y-1 bg-zinc-900/60 p-3 rounded-xl">
                     <div><strong>Bandwidth:</strong> {bw.bandwidth}</div>
                     <div><strong>Resolusi Maksimal:</strong> {bw.maxResolutionHz}</div>
@@ -747,6 +1034,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
               category: savedDoc.category || "General",
               important: savedDoc.isImportant || false,
               answer: savedDoc.content,
+              isPublished: editingFaq.isPublished !== undefined ? editingFaq.isPublished : true,
             };
             const updated = DatabaseService.saveFAQ(updatedFaq);
             setFaqList(updated);
@@ -763,64 +1051,89 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
 
       {/* Desk Guide Modal */}
       {editingDeskGuide && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-[#0c0c0e] border border-zinc-800 rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl relative">
-            <h3 className="text-base font-bold text-white">Edit Pedoman Ukuran Meja</h3>
-            <form onSubmit={handleSaveDeskGuide} className="space-y-3 text-xs">
-              <div>
-                <label className="text-zinc-400 block mb-1">Rentang Kedalaman Meja</label>
-                <input
-                  type="text"
-                  required
-                  value={editingDeskGuide.deskDepth}
-                  onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, deskDepth: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-cyan-400 font-bold focus:outline-none focus:border-cyan-400"
-                />
-              </div>
-              <div>
-                <label className="text-zinc-400 block mb-1">Rekomendasi Ukuran Monitor</label>
-                <input
-                  type="text"
-                  required
-                  value={editingDeskGuide.recommendedSizes}
-                  onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, recommendedSizes: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-cyan-400"
-                />
-              </div>
-              <div>
-                <label className="text-zinc-400 block mb-1">Jarak Pandang Ideal</label>
-                <input
-                  type="text"
-                  required
-                  value={editingDeskGuide.viewingDistance}
-                  onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, viewingDistance: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-cyan-400"
-                />
-              </div>
-              <div>
-                <label className="text-zinc-400 block mb-1">Rekomendasi Monitor Arm</label>
-                <input
-                  type="text"
-                  value={editingDeskGuide.monitorArmRecommendation}
-                  onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, monitorArmRecommendation: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-emerald-400 focus:outline-none focus:border-cyan-400"
-                />
-              </div>
-              <div>
-                <label className="text-zinc-400 block mb-1">Catatan</label>
-                <textarea
-                  rows={2}
-                  value={editingDeskGuide.notes}
-                  onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, notes: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-zinc-300 focus:outline-none focus:border-cyan-400"
-                />
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+          <div className="bg-[#0f0f14] border border-zinc-700/80 rounded-2xl max-w-lg w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in zoom-in-95">
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-[#121217] flex-shrink-0">
+              <h3 className="text-base font-bold text-white uppercase tracking-tight">Edit Pedoman Ukuran Meja</h3>
+              <button
+                type="button"
+                onClick={() => setEditingDeskGuide(null)}
+                className="p-1 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveDeskGuide} className="flex flex-col flex-1 min-h-0 overflow-hidden">
+              <div className="flex-1 overflow-y-auto p-6 space-y-3.5 text-xs">
+                <div>
+                  <label className="text-zinc-300 block mb-1 font-semibold">Rentang Kedalaman Meja</label>
+                  <input
+                    type="text"
+                    required
+                    value={editingDeskGuide.deskDepth}
+                    onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, deskDepth: e.target.value })}
+                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-cyan-400 font-bold focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-zinc-300 block mb-1 font-semibold">Rekomendasi Ukuran Monitor</label>
+                  <input
+                    type="text"
+                    required
+                    value={editingDeskGuide.recommendedSizes}
+                    onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, recommendedSizes: e.target.value })}
+                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-zinc-300 block mb-1 font-semibold">Jarak Pandang Ideal</label>
+                  <input
+                    type="text"
+                    required
+                    value={editingDeskGuide.viewingDistance}
+                    onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, viewingDistance: e.target.value })}
+                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-zinc-300 block mb-1 font-semibold">Rekomendasi Monitor Arm</label>
+                  <input
+                    type="text"
+                    value={editingDeskGuide.monitorArmRecommendation}
+                    onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, monitorArmRecommendation: e.target.value })}
+                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-emerald-400 focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-zinc-300 block mb-1 font-semibold">Catatan Tambahan</label>
+                  <textarea
+                    rows={2}
+                    value={editingDeskGuide.notes}
+                    onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, notes: e.target.value })}
+                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl p-3 text-zinc-200 focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                  />
+                </div>
+
+                <div className="pt-1">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={editingDeskGuide.isPublished !== false}
+                      onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, isPublished: e.target.checked })}
+                      className="rounded border-zinc-600 bg-zinc-800 text-cyan-500 focus:ring-cyan-500"
+                    />
+                    <span className="text-zinc-300 text-xs font-semibold">Tampilkan di Publik (Live)</span>
+                  </label>
+                </div>
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-2">
-                <Button type="button" variant="outline" size="sm" onClick={() => setEditingDeskGuide(null)}>
+              <div className="flex items-center justify-end gap-3 px-6 py-3.5 border-t border-zinc-800 bg-[#0a0a0e] flex-shrink-0">
+                <Button type="button" variant="outline" size="sm" onClick={() => setEditingDeskGuide(null)} className="border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-800">
                   Batal
                 </Button>
-                <Button type="submit" variant="cyber" size="sm" className="font-bold">
+                <Button type="submit" variant="cyber" size="sm" className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold">
                   Simpan Pedoman
                 </Button>
               </div>
@@ -831,61 +1144,86 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
 
       {/* HDR Guide Modal */}
       {editingHdrGuide && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-[#0c0c0e] border border-zinc-800 rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl relative">
-            <h3 className="text-base font-bold text-white">Edit Klasifikasi HDR</h3>
-            <form onSubmit={handleSaveHdrGuide} className="space-y-3 text-xs">
-              <div>
-                <label className="text-zinc-400 block mb-1">Nama Tier HDR</label>
-                <input
-                  type="text"
-                  disabled
-                  value={editingHdrGuide.tier}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-amber-400 font-black"
-                />
-              </div>
-              <div>
-                <label className="text-zinc-400 block mb-1">Syarat Panel / Local Dimming</label>
-                <input
-                  type="text"
-                  value={editingHdrGuide.requirements}
-                  onChange={(e) => setEditingHdrGuide({ ...editingHdrGuide, requirements: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400"
-                />
-              </div>
-              <div>
-                <label className="text-zinc-400 block mb-1">Contrast Ratio</label>
-                <input
-                  type="text"
-                  value={editingHdrGuide.contrastRatio}
-                  onChange={(e) => setEditingHdrGuide({ ...editingHdrGuide, contrastRatio: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400"
-                />
-              </div>
-              <div>
-                <label className="text-zinc-400 block mb-1">Peak Brightness</label>
-                <input
-                  type="text"
-                  value={editingHdrGuide.peakBrightness}
-                  onChange={(e) => setEditingHdrGuide({ ...editingHdrGuide, peakBrightness: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400"
-                />
-              </div>
-              <div>
-                <label className="text-zinc-400 block mb-1">Verdict Ulasan</label>
-                <textarea
-                  rows={2}
-                  value={editingHdrGuide.verdict}
-                  onChange={(e) => setEditingHdrGuide({ ...editingHdrGuide, verdict: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-zinc-300 focus:outline-none focus:border-amber-400"
-                />
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+          <div className="bg-[#0f0f14] border border-zinc-700/80 rounded-2xl max-w-lg w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in zoom-in-95">
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-[#121217] flex-shrink-0">
+              <h3 className="text-base font-bold text-white uppercase tracking-tight">Edit Klasifikasi HDR</h3>
+              <button
+                type="button"
+                onClick={() => setEditingHdrGuide(null)}
+                className="p-1 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveHdrGuide} className="flex flex-col flex-1 min-h-0 overflow-hidden">
+              <div className="flex-1 overflow-y-auto p-6 space-y-3.5 text-xs">
+                <div>
+                  <label className="text-zinc-300 block mb-1 font-semibold">Nama Tier HDR</label>
+                  <input
+                    type="text"
+                    disabled
+                    value={editingHdrGuide.tier}
+                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-amber-400 font-black cursor-not-allowed"
+                  />
+                </div>
+                <div>
+                  <label className="text-zinc-300 block mb-1 font-semibold">Syarat Panel / Local Dimming</label>
+                  <input
+                    type="text"
+                    value={editingHdrGuide.requirements}
+                    onChange={(e) => setEditingHdrGuide({ ...editingHdrGuide, requirements: e.target.value })}
+                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400 placeholder:text-zinc-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-zinc-300 block mb-1 font-semibold">Contrast Ratio</label>
+                  <input
+                    type="text"
+                    value={editingHdrGuide.contrastRatio}
+                    onChange={(e) => setEditingHdrGuide({ ...editingHdrGuide, contrastRatio: e.target.value })}
+                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400 placeholder:text-zinc-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-zinc-300 block mb-1 font-semibold">Peak Brightness</label>
+                  <input
+                    type="text"
+                    value={editingHdrGuide.peakBrightness}
+                    onChange={(e) => setEditingHdrGuide({ ...editingHdrGuide, peakBrightness: e.target.value })}
+                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400 placeholder:text-zinc-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-zinc-300 block mb-1 font-semibold">Verdict Ulasan</label>
+                  <textarea
+                    rows={2}
+                    value={editingHdrGuide.verdict}
+                    onChange={(e) => setEditingHdrGuide({ ...editingHdrGuide, verdict: e.target.value })}
+                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl p-3 text-zinc-200 focus:outline-none focus:border-amber-400 placeholder:text-zinc-500"
+                  />
+                </div>
+
+                <div className="pt-1">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={editingHdrGuide.isPublished !== false}
+                      onChange={(e) => setEditingHdrGuide({ ...editingHdrGuide, isPublished: e.target.checked })}
+                      className="rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500"
+                    />
+                    <span className="text-zinc-300 text-xs font-semibold">Tampilkan di Publik (Live)</span>
+                  </label>
+                </div>
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-2">
-                <Button type="button" variant="outline" size="sm" onClick={() => setEditingHdrGuide(null)}>
+              <div className="flex items-center justify-end gap-3 px-6 py-3.5 border-t border-zinc-800 bg-[#0a0a0e] flex-shrink-0">
+                <Button type="button" variant="outline" size="sm" onClick={() => setEditingHdrGuide(null)} className="border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-800">
                   Batal
                 </Button>
-                <Button type="submit" variant="cyber" size="sm" className="font-bold">
+                <Button type="submit" variant="cyber" size="sm" className="bg-amber-500 hover:bg-amber-400 text-black font-bold">
                   Simpan Tier HDR
                 </Button>
               </div>
@@ -915,6 +1253,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
               details: editingGraynote.details || [],
               warning: editingGraynote.warning || "",
               recommendation: editingGraynote.recommendation || "",
+              isPublished: editingGraynote.isPublished !== undefined ? editingGraynote.isPublished : true,
             };
             const copy = [...graynotes];
             const idx = copy.findIndex((g) => g.id === updatedGn.id);
@@ -935,44 +1274,69 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
 
       {/* Avoid Brand Modal */}
       {isAvoidModalOpen && editingAvoidBrand && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-[#0c0c0e] border border-zinc-800 rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl relative">
-            <h3 className="text-base font-bold text-white">Edit Catatan Brand Waspada</h3>
-            <form onSubmit={handleSaveAvoidBrand} className="space-y-3 text-xs">
-              <div>
-                <label className="text-zinc-400 block mb-1">Nama Brand / Seri</label>
-                <input
-                  type="text"
-                  required
-                  value={editingAvoidBrand.brand}
-                  onChange={(e) => setEditingAvoidBrand({ ...editingAvoidBrand, brand: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-rose-400 font-bold focus:outline-none focus:border-rose-400"
-                />
-              </div>
-              <div>
-                <label className="text-zinc-400 block mb-1">Kategori Masalah</label>
-                <input
-                  type="text"
-                  value={editingAvoidBrand.category}
-                  onChange={(e) => setEditingAvoidBrand({ ...editingAvoidBrand, category: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-rose-400"
-                />
-              </div>
-              <div>
-                <label className="text-zinc-400 block mb-1">Poin Isu / Masalah Utama</label>
-                <textarea
-                  rows={2}
-                  value={editingAvoidBrand.issue}
-                  onChange={(e) => setEditingAvoidBrand({ ...editingAvoidBrand, issue: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-zinc-300 focus:outline-none focus:border-rose-400"
-                />
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+          <div className="bg-[#0f0f14] border border-zinc-700/80 rounded-2xl max-w-lg w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in zoom-in-95">
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-[#121217] flex-shrink-0">
+              <h3 className="text-base font-bold text-white uppercase tracking-tight">Edit Catatan Brand Waspada</h3>
+              <button
+                type="button"
+                onClick={() => setIsAvoidModalOpen(false)}
+                className="p-1 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveAvoidBrand} className="flex flex-col flex-1 min-h-0 overflow-hidden">
+              <div className="flex-1 overflow-y-auto p-6 space-y-3.5 text-xs">
+                <div>
+                  <label className="text-zinc-300 block mb-1 font-semibold">Nama Brand / Seri</label>
+                  <input
+                    type="text"
+                    required
+                    value={editingAvoidBrand.brand}
+                    onChange={(e) => setEditingAvoidBrand({ ...editingAvoidBrand, brand: e.target.value })}
+                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-rose-400 font-bold focus:outline-none focus:border-rose-400 placeholder:text-zinc-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-zinc-300 block mb-1 font-semibold">Kategori Masalah</label>
+                  <input
+                    type="text"
+                    value={editingAvoidBrand.category}
+                    onChange={(e) => setEditingAvoidBrand({ ...editingAvoidBrand, category: e.target.value })}
+                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-rose-400 placeholder:text-zinc-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-zinc-300 block mb-1 font-semibold">Poin Isu / Masalah Utama</label>
+                  <textarea
+                    rows={2}
+                    value={editingAvoidBrand.issue}
+                    onChange={(e) => setEditingAvoidBrand({ ...editingAvoidBrand, issue: e.target.value })}
+                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl p-3 text-zinc-200 focus:outline-none focus:border-rose-400 placeholder:text-zinc-500"
+                  />
+                </div>
+
+                <div className="pt-1">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={editingAvoidBrand.isPublished !== false}
+                      onChange={(e) => setEditingAvoidBrand({ ...editingAvoidBrand, isPublished: e.target.checked })}
+                      className="rounded border-zinc-600 bg-zinc-800 text-rose-500 focus:ring-rose-500"
+                    />
+                    <span className="text-zinc-300 text-xs font-semibold">Tampilkan di Publik (Live)</span>
+                  </label>
+                </div>
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-2">
-                <Button type="button" variant="outline" size="sm" onClick={() => setIsAvoidModalOpen(false)}>
+              <div className="flex items-center justify-end gap-3 px-6 py-3.5 border-t border-zinc-800 bg-[#0a0a0e] flex-shrink-0">
+                <Button type="button" variant="outline" size="sm" onClick={() => setIsAvoidModalOpen(false)} className="border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-800">
                   Batal
                 </Button>
-                <Button type="submit" variant="cyber" size="sm" className="font-bold">
+                <Button type="submit" variant="cyber" size="sm" className="bg-rose-500 hover:bg-rose-400 text-black font-bold">
                   Simpan Catatan
                 </Button>
               </div>

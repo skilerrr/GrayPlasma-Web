@@ -311,18 +311,18 @@ export function WordDocsStudio({
 <div class="my-5 p-4 rounded-xl bg-[#0e0e13] border border-zinc-800 space-y-3" contenteditable="true">
   <div class="flex items-center gap-2 text-xs font-mono font-bold text-zinc-400 uppercase tracking-wider" contenteditable="false">
     <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
-    <span>// MATRIKS KELEBIHAN & KEKURANGAN:</span>
+    <span>Matriks Kelebihan & Kekurangan</span>
   </div>
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
     <div class="p-3 rounded-lg bg-emerald-950/20 border border-emerald-500/30 space-y-1.5">
-      <span class="font-bold text-emerald-400 block font-mono text-[11px]">// KELEBIHAN (+)</span>
+      <span class="font-bold text-emerald-400 block font-mono text-[11px]">Kelebihan (+)</span>
       <ul class="space-y-1 text-zinc-300">
         <li>• Keunggulan performa atau akurasi warna 1</li>
         <li>• Keunggulan ergonomi atau kelengkapan port 2</li>
       </ul>
     </div>
     <div class="p-3 rounded-lg bg-rose-950/20 border border-rose-500/30 space-y-1.5">
-      <span class="font-bold text-rose-400 block font-mono text-[11px]">// KEKURANGAN (-)</span>
+      <span class="font-bold text-rose-400 block font-mono text-[11px]">Kekurangan (-)</span>
       <ul class="space-y-1 text-zinc-300">
         <li>• Catatan overshoot atau firmware OSD</li>
         <li>• Ketiadaan stand swivel atau garansi</li>
@@ -508,10 +508,10 @@ export function WordDocsStudio({
     try {
       const res = await compressImage(file, 1400, 0.85);
       const imgHtml = `
-<figure class="my-4 text-center">
-  <img src="${res.dataUrl}" alt="Grafik Pengujian Lab GTID" class="rounded-xl border border-zinc-800 shadow-md max-w-full inline-block" style="width: 90%;" />
-  <figcaption class="text-[11px] font-mono text-zinc-500 mt-1.5">// Dokumentasi Uji: ${file.name}</figcaption>
-</figure>
+  <figure class="my-4" contenteditable="false">
+    <img src="${res.dataUrl}" alt="Lab Test" class="rounded-xl border border-zinc-700 max-w-full h-auto cursor-pointer hover:border-cyan-400 transition-colors" style="width: 100%; display: block;" />
+    <figcaption class="text-[11px] font-mono text-zinc-500 mt-1.5">Dokumentasi: ${file.name}</figcaption>
+  </figure>
 <p><br></p>
 `;
       execFormat("insertHTML", imgHtml);
@@ -547,8 +547,8 @@ export function WordDocsStudio({
 
     const text =
       modeType === "faq"
-        ? `**[FAQ GRAYPLASMA] ${doc.title}**\n${plainAnswer}...\n🔗 ${targetUrl}`
-        : `**[PANDUAN GRAYPLASMA] ${doc.title}**\n${doc.description || plainAnswer}...\n🔗 ${targetUrl}`;
+        ? `**[FAQ GRAYPLASMA] ${doc.title}**\n${plainAnswer}...\n[LINK]: ${targetUrl}`
+        : `**[PANDUAN GRAYPLASMA] ${doc.title}**\n${doc.description || plainAnswer}...\n[LINK]: ${targetUrl}`;
 
     navigator.clipboard.writeText(text);
     setCopiedDiscord(true);
@@ -595,37 +595,30 @@ export function WordDocsStudio({
             className="px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-750 hover:border-zinc-500 text-zinc-300 hover:text-white text-xs font-mono font-bold flex items-center gap-1.5 transition-colors flex-shrink-0"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>[ KEMBALI ]</span>
+            <span>Kembali</span>
           </button>
 
           <div className="h-5 w-[1px] bg-zinc-800 hidden sm:block flex-shrink-0" />
 
           <div className="flex items-center gap-2 min-w-0">
-            <span className="px-2.5 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-[10px] font-bold tracking-widest uppercase flex-shrink-0">
-              [ {modeType === "faq" ? "FAQ KNOWLEDGEBASE" : "GUIDE ARTICLE STUDIO"} ]
+            <span className="px-2.5 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-[10px] font-bold tracking-wider uppercase flex-shrink-0">
+              {modeType === "faq" ? "FAQ Knowledgebase" : "Studio Panduan"}
             </span>
-            <span className="text-xs text-zinc-400 font-mono hidden md:inline truncate max-w-sm">
-              // {doc.title || "Dokumen Baru"}
+            <span className="text-xs text-zinc-300 font-medium hidden md:inline truncate max-w-sm">
+              {doc.title || "Dokumen Baru"}
             </span>
           </div>
         </div>
 
-        {/* Center: Live Stats & Indicator */}
+        {/* Center: Word Count & Save Status */}
         <div className="hidden lg:flex items-center gap-3 text-xs font-mono text-zinc-400">
-          <span className="inline-flex items-center gap-1.5 text-emerald-400 font-semibold">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>Word Studio Aktif</span>
-          </span>
-          <span>•</span>
-          <span className="tabular-nums">{wordCount} Kata</span>
+          <span className="tabular-nums font-semibold text-zinc-300">{wordCount} Kata</span>
           <span>•</span>
           <span className="tabular-nums">{charCount} Karakter</span>
-          <span>•</span>
-          <span className="tabular-nums">±{readingTimeMin} mnt baca</span>
           {lastAutosaveTime && (
             <>
               <span>•</span>
-              <span className="text-zinc-500 text-[11px]">Tersimpan {lastAutosaveTime}</span>
+              <span className="text-emerald-400 font-medium">Tersimpan {lastAutosaveTime}</span>
             </>
           )}
         </div>
@@ -671,7 +664,7 @@ export function WordDocsStudio({
             className="font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 font-mono shadow-sm active:translate-y-px"
           >
             <Save className="w-3.5 h-3.5" />
-            <span>[ SIMPAN ]</span>
+            <span>Simpan</span>
           </Button>
         </div>
       </header>
@@ -1267,8 +1260,8 @@ export function WordDocsStudio({
               {/* Title & Category Row */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-bold">
-                    // {modeType === "faq" ? "PERTANYAAN FAQ:" : "JUDUL DOKUMEN PANDUAN:"}
+                  <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider font-bold">
+                    {modeType === "faq" ? "Pertanyaan FAQ" : "Judul Panduan"}
                   </span>
 
                   {/* Mode specific tags */}
@@ -1280,7 +1273,7 @@ export function WordDocsStudio({
                         onChange={(e) => setDoc({ ...doc, isImportant: e.target.checked })}
                         className="rounded border-zinc-700 bg-zinc-900 text-emerald-500 accent-emerald-500"
                       />
-                      <span className="font-semibold text-amber-400 font-mono text-[11px]">★ Featured FAQ</span>
+                      <span className="font-semibold text-amber-400 font-mono text-[11px]">Featured FAQ</span>
                     </label>
                   ) : (
                     <label className="flex items-center gap-2 text-xs text-zinc-400 cursor-pointer select-none">
@@ -1386,11 +1379,11 @@ export function WordDocsStudio({
 
             {/* Document Body Label */}
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-bold">
-                // LEMBAR ISI DOKUMEN (WORD CANVAS):
+              <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider font-bold">
+                Isi Konten Dokumen
               </span>
-              <span className="text-[10px] font-mono text-zinc-500">
-                Tip: Paste gambar langsung (Ctrl+V) atau ketik isi panduan
+              <span className="text-[11px] font-mono text-zinc-500">
+                Paste gambar (Ctrl+V) atau ketik teks langsung
               </span>
             </div>
 
@@ -1415,7 +1408,7 @@ export function WordDocsStudio({
           <div className="w-full max-w-4xl bg-[#0c0c11] border border-zinc-800 rounded-2xl shadow-2xl p-6 my-auto flex flex-col space-y-4">
             <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
               <span className="text-xs font-mono font-bold text-zinc-400 uppercase">
-                // KODE SUMBER DOKUMEN (HTML / MARKDOWN):
+                Kode Sumber (HTML)
               </span>
               <button
                 type="button"
@@ -1442,8 +1435,8 @@ export function WordDocsStudio({
         {viewMode === "preview" && (
           <div className="w-full max-w-4xl bg-[#0c0c11] border border-zinc-800 rounded-2xl shadow-2xl p-6 sm:p-10 my-auto flex flex-col space-y-6">
             <div className="border-b border-zinc-800 pb-4">
-              <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest font-bold block mb-1">
-                // SIMULASI TAMPILAN PENGUNJUNG WEBSITE:
+              <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider font-bold block mb-1">
+                Pratinjau Halaman Publik
               </span>
               <h2 className="text-xl sm:text-2xl font-black text-white">{doc.title}</h2>
               {doc.category && (
@@ -1463,13 +1456,13 @@ export function WordDocsStudio({
       {/* 8. BOTTOM FOOTER STATUS BAR */}
       <footer className="h-10 px-4 sm:px-6 bg-[#0c0c11] border-t border-zinc-800 flex items-center justify-between text-xs font-mono text-zinc-500 z-20 flex-shrink-0">
         <div className="flex items-center gap-3">
-          <span className="text-zinc-400 font-semibold">// GP DOCS STUDIO ENGINE v2.0</span>
+          <span className="text-zinc-400 font-medium">Word & Docs Studio</span>
           <span>•</span>
-          <span className="text-zinc-500">Mode: {modeType.toUpperCase()}</span>
+          <span className="text-zinc-500">GrayPlasma Admin</span>
         </div>
         <div className="flex items-center gap-4">
           <span className="hidden sm:inline">Ctrl+B (Tebal) • Ctrl+I (Miring) • Ctrl+U (Garis Bawah)</span>
-          <span className="text-emerald-400 font-bold">Auto-Save: Aktif</span>
+          <span className="text-emerald-400 font-medium">Auto-Save Aktif</span>
         </div>
       </footer>
     </div>

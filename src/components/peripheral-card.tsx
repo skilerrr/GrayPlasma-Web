@@ -34,16 +34,16 @@ export function PeripheralCard({ item, onSelectItem }: PeripheralCardProps) {
       onClick={() => {
         if (onSelectItem) onSelectItem(item);
       }}
-      className="group relative bg-[#0c0c10] hover:bg-[#111116] border-2 border-zinc-800 hover:border-blue-500/80 transition-all duration-200 rounded-lg p-4 sm:p-5 flex flex-col justify-between cursor-pointer shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_rgba(59,130,246,0.35)] hover:-translate-y-0.5"
+      className="group relative bg-[#0c0c10] hover:bg-[#111116] border border-zinc-800 hover:border-zinc-700 transition-all duration-200 rounded-xl p-4 sm:p-5 flex flex-col justify-between cursor-pointer shadow-tech-card hover:-translate-y-0.5"
     >
       {/* Top Header: Brand & Category Badge */}
       <div className="flex items-center justify-between gap-2 mb-3">
-        <span className="text-[10px] font-mono font-bold tracking-widest text-blue-400 uppercase bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/40">
-          [ {item.category} ]
+        <span className="text-[11px] font-bold tracking-wider text-zinc-300 uppercase bg-zinc-900 px-2.5 py-0.5 rounded-full border border-zinc-800">
+          {item.category}
         </span>
 
         {item.brand && (
-          <span className="text-[10px] font-mono font-semibold text-zinc-400 bg-zinc-900 px-2 py-0.5 rounded border border-zinc-800 uppercase tracking-wider">
+          <span className="text-[11px] font-medium text-zinc-400 bg-zinc-950 px-2.5 py-0.5 rounded-full border border-zinc-800 uppercase tracking-wider">
             {item.brand}
           </span>
         )}
@@ -51,7 +51,7 @@ export function PeripheralCard({ item, onSelectItem }: PeripheralCardProps) {
 
       {/* Item Title */}
       <div className="mb-2.5">
-        <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-blue-400 transition-colors line-clamp-2 leading-snug tracking-tight">
+        <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-emerald-400 transition-colors line-clamp-2 leading-snug tracking-tight">
           {item.name}
         </h3>
         {item.verdict && (
@@ -66,7 +66,7 @@ export function PeripheralCard({ item, onSelectItem }: PeripheralCardProps) {
         {specPills.map((spec, idx) => (
           <span
             key={idx}
-            className="px-2 py-0.5 rounded text-[10px] font-mono font-medium uppercase tracking-wider bg-black/60 text-zinc-300 border border-zinc-800 group-hover:border-zinc-700 transition-colors"
+            className="px-2 py-0.5 rounded-md text-[11px] font-medium text-zinc-300 bg-zinc-800/50 border border-zinc-800/80"
           >
             {spec}
           </span>
@@ -74,13 +74,13 @@ export function PeripheralCard({ item, onSelectItem }: PeripheralCardProps) {
       </div>
 
       {/* Price & Action Section */}
-      <div className="pt-2.5 border-t border-zinc-800 flex flex-col gap-2">
+      <div className="pt-2.5 border-t border-zinc-800/70 flex flex-col gap-2">
         <div className="flex items-baseline justify-between">
           <div>
-            <span className="text-[9px] uppercase font-mono font-semibold tracking-wider text-zinc-500 block">
-              // HARGA_TERMURAH
+            <span className="text-[10px] text-zinc-500 font-medium block leading-none mb-1">
+              Harga Terbaik
             </span>
-            <span className="text-base sm:text-lg font-black text-white tracking-tight tabular-nums font-mono">
+            <span className="text-base sm:text-lg font-bold text-white tracking-tight tabular-nums">
               {item.price > 0 ? formatRupiah(item.price) : "Cek Marketplace"}
             </span>
           </div>
@@ -96,16 +96,16 @@ export function PeripheralCard({ item, onSelectItem }: PeripheralCardProps) {
                 e.stopPropagation();
                 window.open(purchaseUrl, "_blank", "noopener,noreferrer");
               }}
-              className={`flex-1 flex items-center justify-center gap-1.5 text-xs py-2 font-bold text-white rounded-md border shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all uppercase tracking-wider font-mono ${
+              className={`flex-1 flex items-center justify-center gap-1.5 text-xs py-2 font-semibold text-zinc-950 rounded-lg transition-all ${
                 storePlatform === "Shopee"
-                  ? "bg-[#ee4d2d] hover:bg-[#d43d1f] border-orange-600"
+                  ? "bg-orange-500 hover:bg-orange-400 text-zinc-950"
                   : storePlatform === "Tokopedia"
-                  ? "bg-[#00aa5b] hover:bg-[#008f4c] border-emerald-600"
-                  : "bg-zinc-800 hover:bg-zinc-700 border-zinc-600"
+                  ? "bg-emerald-500 hover:bg-emerald-400 text-zinc-950"
+                  : "bg-zinc-800 hover:bg-zinc-700 text-white"
               }`}
             >
               <ShoppingBag className="w-3.5 h-3.5" />
-              <span>[ BELI DI {storePlatform.toUpperCase()} ]</span>
+              <span>Beli di {storePlatform}</span>
             </Button>
           ) : (
             <Button

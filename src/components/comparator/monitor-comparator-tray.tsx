@@ -98,7 +98,7 @@ export function MonitorComparatorTray({
               variant="cyber"
               size="sm"
               onClick={() => onOpenChange(true)}
-              className="bg-gp-emerald text-black font-black hover:bg-emerald-400 text-xs px-3 sm:px-4 py-2 shadow-neon-gp-emerald"
+              className="bg-emerald-500 text-zinc-950 font-bold hover:bg-emerald-400 text-xs px-3 sm:px-4 py-2 border border-emerald-400/50 shadow-sm"
             >
               Bandingkan Head-to-Head
             </Button>

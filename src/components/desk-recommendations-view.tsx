@@ -21,6 +21,10 @@ import {
   Maximize2,
   Sparkles,
   GripVertical,
+  Monitor,
+  Layers,
+  FileText,
+  Clock,
 } from "lucide-react";
 import { DeskItem, DESK_DATABASE } from "@/data/grayplasma-desk-peripherals";
 import { formatRupiah } from "@/lib/utils";
@@ -92,7 +96,7 @@ export function DeskRecommendationsView({
   const publicDeskColumns = React.useMemo<TableColumnDef<DeskItem>[]>(() => [
     {
       id: "name",
-      label: "Aa NAMA TOKO / MEJA",
+      label: "[ NAMA TOKO & MEJA ]",
       shortLabel: "Nama Meja",
       minWidth: "min-w-[240px]",
       sortable: true,
@@ -101,9 +105,7 @@ export function DeskRecommendationsView({
       getValue: (d) => d.name,
       renderCell: (desk) => (
         <div className="flex items-center gap-2.5">
-          <span className="text-base text-zinc-400 group-hover:text-emerald-400 transition-colors">
-            📄
-          </span>
+          <FileText className="w-3.5 h-3.5 text-zinc-500 group-hover:text-emerald-400 transition-colors flex-shrink-0" />
           <span className="underline-offset-4 group-hover:underline font-bold text-sm text-white">
             {desk.name}
           </span>
@@ -112,7 +114,7 @@ export function DeskRecommendationsView({
     },
     {
       id: "keterangan",
-      label: ":= KETERANGAN",
+      label: "[ KETERANGAN ]",
       shortLabel: "Keterangan",
       minWidth: "min-w-[200px]",
       sortable: true,
@@ -127,7 +129,7 @@ export function DeskRecommendationsView({
           ).map((tag, tIdx) => (
             <span
               key={tIdx}
-              className={`px-2 py-0.5 rounded text-[10px] font-bold border uppercase tracking-wider ${getTagColor(
+              className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border uppercase tracking-wider ${getTagColor(
                 tag
               )}`}
             >
@@ -139,7 +141,7 @@ export function DeskRecommendationsView({
     },
     {
       id: "type",
-      label: "⏱ TIPE SHAPED",
+      label: "[ BENTUK & TIPE ]",
       shortLabel: "Tipe",
       minWidth: "min-w-[140px]",
       sortable: true,
@@ -148,10 +150,10 @@ export function DeskRecommendationsView({
       getValue: (d) => d.type || "NON L SHAPED",
       renderCell: (desk) => (
         <span
-          className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider whitespace-nowrap ${
+          className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider whitespace-nowrap ${
             desk.type?.includes("NON") || !desk.type?.includes("L SHAPED")
               ? "bg-[#202020] text-zinc-300 border border-zinc-700"
-              : "bg-[#3b1a45] text-purple-300 border border-purple-500/40"
+              : "bg-[#2a1b30] text-purple-300 border border-purple-500/40"
           }`}
         >
           {desk.type || "NON L SHAPED"}
@@ -160,7 +162,7 @@ export function DeskRecommendationsView({
     },
     {
       id: "catatanBadge",
-      label: "🎯 CATATAN",
+      label: "[ CATATAN GTID ]",
       shortLabel: "Catatan",
       minWidth: "min-w-[180px]",
       sortable: true,
@@ -168,15 +170,15 @@ export function DeskRecommendationsView({
       category: "Status",
       getValue: (d) => d.catatanBadge || "",
       renderCell: (desk) => (
-        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#143322] text-[#34d399] border border-[#34d399]/40 uppercase tracking-wider inline-flex items-center gap-1 whitespace-nowrap">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#34d399] animate-pulse" />
-          <span>{desk.catatanBadge || "ADA (DISARANKAN MEMBACA NYA)"}</span>
+        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 uppercase tracking-wider inline-flex items-center gap-1.5 whitespace-nowrap">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span>{desk.catatanBadge || "ADA CATATAN"}</span>
         </span>
       ),
     },
     {
       id: "price",
-      label: "# KISARAN HARGA",
+      label: "[ KISARAN HARGA ]",
       shortLabel: "Harga",
       minWidth: "min-w-[140px]",
       sortable: true,
@@ -184,14 +186,14 @@ export function DeskRecommendationsView({
       category: "Finansial",
       getValue: (d) => d.price,
       renderCell: (desk) => (
-        <span className="font-mono font-bold text-xs text-emerald-400 whitespace-nowrap">
+        <span className="font-mono font-bold text-xs text-emerald-400 whitespace-nowrap tabular-nums">
           {desk.price > 0 ? `IDR ${desk.price.toLocaleString("id-ID")}` : "IDR 0 (Custom)"}
         </span>
       ),
     },
     {
       id: "material",
-      label: "BAHAN & TEBAL",
+      label: "[ MATERIAL & TEBAL ]",
       shortLabel: "Material",
       minWidth: "min-w-[150px]",
       sortable: true,
@@ -207,7 +209,7 @@ export function DeskRecommendationsView({
     },
     {
       id: "dimensions",
-      label: "DIMENSI",
+      label: "[ DIMENSI MEJA ]",
       shortLabel: "Dimensi",
       minWidth: "min-w-[130px]",
       sortable: true,
@@ -215,14 +217,14 @@ export function DeskRecommendationsView({
       category: "Spesifikasi",
       getValue: (d) => d.specs?.dimensions || "",
       renderCell: (desk) => (
-        <span className="font-mono text-xs text-zinc-300 whitespace-nowrap">
+        <span className="font-mono text-xs text-zinc-300 whitespace-nowrap tabular-nums">
           {desk.specs?.dimensions || "-"}
         </span>
       ),
     },
     {
       id: "armSupport",
-      label: "ARM SUPPORT",
+      label: "[ MONITOR ARM CLAMP ]",
       shortLabel: "Arm Support",
       minWidth: "min-w-[140px]",
       sortable: true,
@@ -233,11 +235,11 @@ export function DeskRecommendationsView({
         <span
           className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border whitespace-nowrap ${
             desk.specs?.armSupport
-              ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/30"
-              : "bg-amber-500/15 text-amber-400 border-amber-500/30"
+              ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
+              : "bg-orange-500/10 text-orange-400 border-orange-500/30"
           }`}
         >
-          {desk.specs?.armSupport ? "✓ Lolos Clamp" : "⚠️ Perlu Plat"}
+          {desk.specs?.armSupport ? "[✓ LOLOS CLAMP]" : "[! PERLU PLAT]"}
         </span>
       ),
     },
@@ -255,11 +257,14 @@ export function DeskRecommendationsView({
       {/* 1. NOTION-STYLE PAGE HEADER */}
       <div className="bg-[#191919] border border-[#2f2f2f] rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-[#9b9a97] flex-wrap">
-          <span>🖥️</span>
-          <span>GRAYPLASMAID - REKOMENDASI MONITOR</span>
-          <span>/</span>
-          <span className="text-white font-medium">🪑 REKOMENDASI MEJA</span>
+        <div className="flex items-center gap-2 text-xs text-zinc-400 font-mono flex-wrap">
+          <Monitor className="w-3.5 h-3.5 text-zinc-500" />
+          <Link href="/" className="hover:text-white transition-colors">GRAYPLASMAID // MONITOR</Link>
+          <span className="text-zinc-600">/</span>
+          <span className="text-white font-bold flex items-center gap-1.5">
+            <Layers className="w-3.5 h-3.5 text-orange-400" />
+            REKOMENDASI MEJA
+          </span>
         </div>
 
         {/* Page Title & Intro */}
@@ -285,7 +290,7 @@ export function DeskRecommendationsView({
             className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500/20 hover:border-amber-400 transition-all font-bold text-xs sm:text-sm group shadow-sm"
           >
             <Ruler className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
-            <span>📐 UKURAN MEJA DAN MONITOR YANG IDEAL</span>
+            <span>[ GUIDELINE // UKURAN MEJA & MONITOR IDEAL ]</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </Link>
 
@@ -521,8 +526,8 @@ export function DeskRecommendationsView({
           >
             {/* Drawer Top Header */}
             <div className="sticky top-0 z-20 bg-[#191919]/95 backdrop-blur-md px-6 py-4 border-b border-[#2f2f2f] flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs text-[#9b9a97]">
-                <span>🪑</span>
+              <div className="flex items-center gap-2 text-xs text-zinc-400">
+                <Layers className="w-4 h-4 text-orange-400" />
                 <span className="truncate max-w-[280px] font-bold text-white uppercase tracking-tight">
                   {selectedDesk.name}
                 </span>
@@ -533,7 +538,7 @@ export function DeskRecommendationsView({
                     href={selectedDesk.shopeeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-400 text-xs font-bold transition-all shadow-sm"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/40 text-orange-400 text-xs font-bold transition-all shadow-sm"
                   >
                     <ShoppingBag className="w-3.5 h-3.5" />
                     <span>Beli di Shopee</span>
@@ -553,7 +558,9 @@ export function DeskRecommendationsView({
             <div className="p-6 sm:p-8 space-y-6 flex-1">
               {/* Title & Page Icon */}
               <div className="space-y-3">
-                <div className="text-4xl">📄</div>
+                <div className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 w-fit">
+                  <Layers className="w-8 h-8 text-zinc-300" />
+                </div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
                   {selectedDesk.name}
                 </h2>
@@ -564,7 +571,7 @@ export function DeskRecommendationsView({
                 {/* L Shaped */}
                 <div className="grid grid-cols-3 gap-2 items-center">
                   <span className="text-[#9b9a97] flex items-center gap-1.5">
-                    <span>⏱</span>
+                    <Clock className="w-3.5 h-3.5 text-zinc-400" />
                     <span>L SHAPED ATAU NON...</span>
                   </span>
                   <div className="col-span-2">
@@ -577,7 +584,7 @@ export function DeskRecommendationsView({
                 {/* Catatan Status */}
                 <div className="grid grid-cols-3 gap-2 items-center">
                   <span className="text-[#9b9a97] flex items-center gap-1.5">
-                    <span>🎯</span>
+                    <FileText className="w-3.5 h-3.5 text-zinc-400" />
                     <span>CATATAN</span>
                   </span>
                   <div className="col-span-2">

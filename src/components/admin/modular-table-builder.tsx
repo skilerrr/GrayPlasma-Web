@@ -50,7 +50,7 @@ const PRESET_DESK: { columns: TableColumn[]; rows: TableRowItem[] } = {
     {
       id: "grp_1",
       isHeaderGroup: true,
-      groupTitle: "📁 DIMENSI & MATERIAL DAUN MEJA",
+      groupTitle: "// DIMENSI & MATERIAL DAUN MEJA",
       cells: {},
     },
     {
@@ -86,7 +86,7 @@ const PRESET_DESK: { columns: TableColumn[]; rows: TableRowItem[] } = {
     {
       id: "grp_2",
       isHeaderGroup: true,
-      groupTitle: "📁 KEKUATAN CLAMP MONITOR ARM",
+      groupTitle: "// KEKUATAN CLAMP MONITOR ARM",
       cells: {},
     },
     {
@@ -112,7 +112,7 @@ const PRESET_DESK: { columns: TableColumn[]; rows: TableRowItem[] } = {
     {
       id: "grp_3",
       isHeaderGroup: true,
-      groupTitle: "📁 RANGKA KAKI & KESTABILAN",
+      groupTitle: "// RANGKA KAKI & KESTABILAN",
       cells: {},
     },
     {
@@ -139,7 +139,7 @@ const PRESET_MONITOR: { columns: TableColumn[]; rows: TableRowItem[] } = {
     {
       id: "grp_m1",
       isHeaderGroup: true,
-      groupTitle: "📁 MOTION CLARITY & RESPONSE TIME",
+      groupTitle: "// MOTION CLARITY & RESPONSE TIME",
       cells: {},
     },
     {
@@ -165,7 +165,7 @@ const PRESET_MONITOR: { columns: TableColumn[]; rows: TableRowItem[] } = {
     {
       id: "grp_m2",
       isHeaderGroup: true,
-      groupTitle: "📁 AKURASI WARNA & KALIBRASI CALMAN",
+      groupTitle: "// AKURASI WARNA & KALIBRASI CALMAN",
       cells: {},
     },
     {
@@ -202,7 +202,7 @@ const PRESET_COMPARISON: { columns: TableColumn[]; rows: TableRowItem[] } = {
     {
       id: "grp_c1",
       isHeaderGroup: true,
-      groupTitle: "📁 PERBANDINGAN HARGA & KELAS",
+      groupTitle: "// PERBANDINGAN HARGA & KELAS",
       cells: {},
     },
     {
@@ -218,7 +218,7 @@ const PRESET_COMPARISON: { columns: TableColumn[]; rows: TableRowItem[] } = {
     {
       id: "grp_c2",
       isHeaderGroup: true,
-      groupTitle: "📁 PERBANDINGAN ERGONOMI & BUILD",
+      groupTitle: "// PERBANDINGAN ERGONOMI & BUILD",
       cells: {},
     },
     {
@@ -250,7 +250,7 @@ export function ModularTableBuilder({
         { id: "col_2", label: "Kolom 2" },
       ],
       rows: [
-        { id: "grp_1", isHeaderGroup: true, groupTitle: "📁 SEKSI UTAMA", cells: {} },
+        { id: "grp_1", isHeaderGroup: true, groupTitle: "// SEKSI UTAMA", cells: {} },
         { id: "row_1", isHeaderGroup: false, cells: { col_1: "Data 1", col_2: "Data 2" } },
       ],
     };
@@ -295,7 +295,7 @@ export function ModularTableBuilder({
     const newRow: TableRowItem = {
       id: `grp_${Date.now()}`,
       isHeaderGroup: true,
-      groupTitle: `📁 SEKSI BARU (${rows.filter((r) => r.isHeaderGroup).length + 1})`,
+      groupTitle: `// SEKSI BARU (${rows.filter((r) => r.isHeaderGroup).length + 1})`,
       cells: {},
     };
     setRows([...rows, newRow]);
@@ -390,7 +390,7 @@ export function ModularTableBuilder({
         { id: "c2", label: "Keterangan" },
       ]);
       setRows([
-        { id: "g1", isHeaderGroup: true, groupTitle: "📁 SEKSI UTAMA", cells: {} },
+        { id: "g1", isHeaderGroup: true, groupTitle: "// SEKSI UTAMA", cells: {} },
         { id: "r1", isHeaderGroup: false, cells: { c1: "Contoh Fitur", c2: "Contoh Nilai" } },
       ]);
     }
@@ -401,15 +401,13 @@ export function ModularTableBuilder({
     const colCount = columns.length;
     let html = `
 <div class="notion-table-wrapper my-6 overflow-x-auto">
-  <table class="notion-visual-table w-full border-collapse rounded-xl overflow-hidden border border-zinc-800 shadow-[3px_3px_0px_#000] text-xs font-sans">
+  <table class="notion-visual-table w-full border-collapse rounded-xl overflow-hidden border border-zinc-800 shadow-tech-card text-xs font-sans">
     <thead>
       <tr class="bg-[#050508] border-b-2 border-zinc-700 text-zinc-300 font-mono text-[11px] tracking-wider uppercase">
         ${columns
           .map(
-            (c, i) =>
-              `<th class="px-3.5 py-3 text-left font-bold border-r border-zinc-800 last:border-r-0">[ ${String(
-                i + 1
-              ).padStart(2, "0")} // ${c.label.toUpperCase()} ]</th>`
+            (c) =>
+              `<th class="px-3.5 py-3 text-left font-bold border-r border-zinc-800 last:border-r-0">${c.label}</th>`
           )
           .join("")}
       </tr>
@@ -422,7 +420,7 @@ export function ModularTableBuilder({
         html += `
       <tr class="bg-zinc-900/90 border-t-2 border-b border-zinc-700/80">
         <td colspan="${colCount}" class="px-4 py-2 text-[11px] font-mono font-bold tracking-wider text-amber-400 uppercase">
-          ${row.groupTitle || "📁 SEKSI"}
+          ${row.groupTitle || "Seksi"}
         </td>
       </tr>
 `;
@@ -460,7 +458,7 @@ export function ModularTableBuilder({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200 font-sans">
-      <div className="bg-[#0b0b0f] border-2 border-zinc-700 rounded-2xl w-full max-w-5xl h-[92vh] flex flex-col shadow-[6px_6px_0px_#000] overflow-hidden">
+      <div className="bg-[#0b0b0f] border border-zinc-800 rounded-2xl w-full max-w-5xl h-[92vh] flex flex-col shadow-2xl overflow-hidden">
         {/* Top Header */}
         <div className="h-16 px-6 bg-[#101017] border-b-2 border-zinc-800 flex items-center justify-between flex-shrink-0">
           <div className="flex items-center gap-3">
@@ -470,11 +468,8 @@ export function ModularTableBuilder({
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="text-sm sm:text-base font-black text-white uppercase tracking-tight font-sans">
-                  Modular Hierarchical Table Builder
+                  Modular Table Builder
                 </h3>
-                <span className="px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/40 text-amber-400 font-mono text-[10px] font-bold">
-                  [ HUD_MATRIX_V2 ]
-                </span>
               </div>
               <p className="text-xs text-zinc-400">
                 Susun kolom teknis kustom dan baris berhierarki untuk ulasan rekomendasi GrayPlasma.
@@ -496,36 +491,36 @@ export function ModularTableBuilder({
         <div className="px-6 py-3 bg-[#0d0d12] border-b border-zinc-800/80 flex flex-wrap items-center justify-between gap-3 flex-shrink-0 text-xs">
           {/* Preset Buttons */}
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider font-bold">
-              // PRESET_TEMPLATES:
+            <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-bold">
+              Preset Template:
             </span>
             <button
               type="button"
               onClick={() => handleApplyPreset("desk")}
               className="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-700 hover:border-amber-500/60 text-amber-300 font-mono text-[11px] font-semibold transition-colors"
             >
-              🪵 Uji Meja & Arm
+              Uji Meja & Arm
             </button>
             <button
               type="button"
               onClick={() => handleApplyPreset("monitor")}
               className="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-700 hover:border-cyan-500/60 text-cyan-300 font-mono text-[11px] font-semibold transition-colors"
             >
-              🖥️ Lab Monitor GTID
+              Lab Monitor GTID
             </button>
             <button
               type="button"
               onClick={() => handleApplyPreset("comparison")}
               className="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-700 hover:border-violet-500/60 text-violet-300 font-mono text-[11px] font-semibold transition-colors"
             >
-              ⚖️ Perbandingan Model
+              [Perbandingan Model]
             </button>
             <button
               type="button"
               onClick={() => handleApplyPreset("blank")}
               className="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-700 hover:border-zinc-500 text-zinc-400 font-mono text-[11px] font-semibold transition-colors"
             >
-              📄 Kosong
+              [Kosong]
             </button>
           </div>
 
@@ -556,7 +551,7 @@ export function ModularTableBuilder({
 
         {/* Main Interactive Table Grid Canvas */}
         <div className="flex-1 overflow-auto p-6 bg-[#07070a]">
-          <div className="border-2 border-zinc-800 rounded-xl overflow-hidden shadow-[4px_4px_0px_#000] bg-[#0d0d12]">
+          <div className="border border-zinc-800 rounded-xl overflow-hidden shadow-tech-card bg-[#0d0d12]">
             {/* Table Headers (Columns with rename & delete controls) */}
             <div className="bg-[#050508] border-b-2 border-zinc-700 p-2.5 flex items-center justify-between gap-3 overflow-x-auto">
               <div className="flex items-center gap-2 min-w-max">
@@ -690,7 +685,7 @@ export function ModularTableBuilder({
                             value={row.groupTitle || ""}
                             onChange={(e) => handleUpdateGroupTitle(row.id, e.target.value)}
                             className="bg-transparent text-amber-400 font-mono font-bold text-xs uppercase tracking-wider focus:outline-none focus:text-white flex-1"
-                            placeholder="📁 NAMA SEKSI HIERARKI..."
+                            placeholder="// NAMA SEKSI HIERARKI..."
                           />
                         </div>
 
@@ -854,10 +849,10 @@ export function ModularTableBuilder({
               variant="cyber"
               size="sm"
               onClick={handleInsert}
-              className="font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-[2px_2px_0px_#000]"
+              className="font-bold text-xs uppercase tracking-wider flex items-center gap-1.5"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>[ 📥 MASUKKAN TABEL KE DOKUMEN ]</span>
+              <span>Masukkan Tabel ke Dokumen</span>
             </Button>
           </div>
         </div>

@@ -38,18 +38,21 @@ import {
   X,
   Eye,
   Award,
+  SlidersHorizontal,
 } from "lucide-react";
 import { Monitor } from "@/types/monitor";
-import { DeskItem, PeripheralItem } from "@/data/grayplasma-desk-peripherals";
+import { DeskItem, PeripheralItem, ChairItem } from "@/data/grayplasma-desk-peripherals";
 import { AftersalesBrand } from "@/data/grayplasma-content";
 import { SiteHierarchyNode } from "@/types/site-hierarchy";
 import {
   DatabaseService,
   PageBannerSettings,
   GlobalSiteSettings,
+  HomepageSettings,
   AdminUser,
   DEFAULT_BANNER_SETTINGS,
   DEFAULT_SITE_SETTINGS,
+  DEFAULT_HOMEPAGE_SETTINGS,
   DEFAULT_ADMIN_USERS,
 } from "@/lib/db-service";
 import { isSupabaseConfigured, signInAdminWithSupabase, signOutAdminFromSupabase } from "@/lib/supabase";
@@ -59,10 +62,12 @@ import { MonitorLiveStudio } from "@/components/admin/monitor-live-studio";
 import { DeskFormModal } from "@/components/admin/desk-form-modal";
 import { DeskLiveStudio } from "@/components/admin/desk-live-studio";
 import { PeripheralFormModal } from "@/components/admin/peripheral-form-modal";
+import { ChairLiveStudio } from "@/components/admin/chair-live-studio";
 import { AftersalesFormModal } from "@/components/admin/aftersales-form-modal";
 import { HierarchySandboxManager } from "@/components/admin/hierarchy-sandbox-manager";
 import { AdminHierarchyManager } from "@/components/admin/admin-hierarchy-manager";
 import { SiteElementsManager } from "@/components/admin/site-elements-manager";
+import { AdBannerManager } from "@/components/admin/ad-banner-manager";
 import { GuidesKnowledgeManager } from "@/components/admin/guides-knowledge-manager";
 import { AdminAftersalesKanbanManager } from "@/components/admin/admin-aftersales-kanban-manager";
 import { BackupMigrationManager } from "@/components/admin/backup-migration-manager";
@@ -74,9 +79,11 @@ import { formatRupiah } from "@/lib/utils";
 type AdminActiveTab =
   | "hierarchy"
   | "elements"
+  | "banners"
   | "monitors"
   | "desks"
   | "peripherals"
+  | "chairs"
   | "aftersales"
   | "knowledge"
   | "admins"
@@ -96,9 +103,11 @@ export default function AdminDashboardPage() {
   const [monitors, setMonitors] = useState<Monitor[]>([]);
   const [desks, setDesks] = useState<DeskItem[]>([]);
   const [peripherals, setPeripherals] = useState<PeripheralItem[]>([]);
+  const [chairs, setChairs] = useState<ChairItem[]>([]);
   const [aftersales, setAftersales] = useState<AftersalesBrand[]>([]);
   const [hierarchyNodes, setHierarchyNodes] = useState<SiteHierarchyNode[]>([]);
   const [bannerSettings, setBannerSettings] = useState<PageBannerSettings>(DEFAULT_BANNER_SETTINGS);
+  const [homepageSettings, setHomepageSettings] = useState<HomepageSettings>(DEFAULT_HOMEPAGE_SETTINGS);
   const [siteSettings, setSiteSettings] = useState<GlobalSiteSettings>(DEFAULT_SITE_SETTINGS);
   const [admins, setAdmins] = useState<AdminUser[]>(DEFAULT_ADMIN_USERS);
   const [isLoading, setIsLoading] = useState(true);
@@ -144,7 +153,7 @@ export default function AdminDashboardPage() {
   const loadAllData = async () => {
     setIsLoading(true);
     try {
-      const [mList, dList, pList, aList, hList, bSettings, sSettings] = await Promise.all([
+      const [mList, dList, pList, aList, hList, bSettings, sSettings, cList, hpSettings] = await Promise.all([
         DatabaseService.getMonitors(),
         DatabaseService.getDesks(),
         DatabaseService.getPeripherals(),
@@ -152,6 +161,8 @@ export default function AdminDashboardPage() {
         DatabaseService.getHierarchyNodes(),
         DatabaseService.getBannerSettings(),
         DatabaseService.getSiteSettings(),
+        DatabaseService.getChairsAsync(),
+        DatabaseService.getHomepageSettings(),
       ]);
       setMonitors(mList);
       setDesks(dList);
@@ -160,6 +171,8 @@ export default function AdminDashboardPage() {
       setHierarchyNodes(hList);
       setBannerSettings(bSettings);
       setSiteSettings(sSettings);
+      setChairs(cList);
+      if (hpSettings) setHomepageSettings(hpSettings);
       setAdmins(DatabaseService.getAdminUsers());
     } catch (e) {
       console.error("Failed to load admin data", e);
@@ -354,15 +367,12 @@ export default function AdminDashboardPage() {
           {/* Top HUD Header */}
           <div className="space-y-3 text-center border-b border-zinc-800 pb-5">
             <div className="flex items-center justify-center gap-2">
-              <span className="px-2.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[10px] font-bold tracking-widest uppercase">
-                [SYS//SECURITY_GATEWAY]
-              </span>
-              <span className="px-2.5 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-[10px] font-bold tracking-widest uppercase">
-                RBAC_V2
+              <span className="px-2.5 py-0.5 rounded bg-zinc-900 border border-zinc-750 text-emerald-400 font-mono text-[10px] font-bold uppercase tracking-wider">
+                Admin Security
               </span>
             </div>
 
-            <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-emerald-400 flex items-center justify-center mx-auto">
+            <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-750 text-emerald-400 flex items-center justify-center mx-auto">
               <Lock className="w-5 h-5" />
             </div>
 
@@ -415,29 +425,29 @@ export default function AdminDashboardPage() {
               className="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-bold uppercase tracking-wider text-xs py-5 rounded-xl font-mono flex items-center justify-center gap-2"
             >
               <Unlock className="w-4 h-4" />
-              <span>{isLoggingIn ? "[MEMVERIFIKASI...]" : "[VERIFIKASI_AKUN]"}</span>
+              <span>{isLoggingIn ? "Memverifikasi..." : "Verifikasi Masuk"}</span>
             </Button>
           </form>
 
           {/* Quick Demo Login Triggers for offline / developer testing */}
           <div className="pt-4 border-t border-zinc-800 space-y-2 text-center">
             <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block">
-              -- QUICK TESTING LOGIN (OFFLINE / DEV) --
+              Akses Pengujian Cepat
             </span>
             <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
                 onClick={() => handleQuickDemoLogin("super_admin")}
-                className="px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-amber-500/50 text-[11px] text-amber-400 font-mono transition-colors"
+                className="px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-[11px] text-zinc-300 font-mono transition-colors"
               >
-                👑 Owner / Super Admin
+                Admin / Owner
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickDemoLogin("editor")}
-                className="px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-emerald-500/50 text-[11px] text-emerald-400 font-mono transition-colors"
+                className="px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-[11px] text-zinc-300 font-mono transition-colors"
               >
-                ✍️ Content Editor
+                Editor Tim
               </button>
             </div>
           </div>
@@ -522,7 +532,7 @@ export default function AdminDashboardPage() {
           <div className="px-3 py-2 space-y-4 text-xs">
             {/* Section 1: HIERARCHY & ROUTING */}
             <div className="space-y-1">
-              <span className="text-[10px] font-bold text-zinc-400 px-2 uppercase tracking-wider">
+              <span className="text-[10px] font-mono font-bold text-zinc-500 px-2 uppercase tracking-widest">
                 Workspace & Hierarki
               </span>
               <button
@@ -532,12 +542,12 @@ export default function AdminDashboardPage() {
                 }}
                 className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
                   activeTab === "hierarchy"
-                    ? "bg-zinc-800 text-cyan-400 font-bold"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white"
+                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
+                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <Layers className="w-4 h-4 text-cyan-400" />
+                  <Layers className={`w-4 h-4 ${activeTab === "hierarchy" ? "text-white" : "text-zinc-400"}`} />
                   <span>Hierarki & Rute</span>
                 </div>
                 <span className="text-[10px] text-zinc-500 font-mono">{hierarchyNodes.length}</span>
@@ -550,21 +560,42 @@ export default function AdminDashboardPage() {
                 }}
                 className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
                   activeTab === "elements"
-                    ? "bg-zinc-800 text-amber-400 font-bold"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white"
+                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
+                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <Megaphone className="w-4 h-4 text-amber-400" />
-                  <span>Banner & Announcement</span>
+                  <Megaphone className={`w-4 h-4 ${activeTab === "elements" ? "text-white" : "text-zinc-400"}`} />
+                  <span>Elemen Beranda & Banners</span>
                 </div>
-                <span className="text-[10px] text-emerald-400 font-bold">Live</span>
+                <span className="flex items-center gap-1 text-[10px] font-mono text-emerald-400 font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                  Live
+                </span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setActiveTab("banners");
+                  setIsMobileSidebarOpen(false);
+                }}
+                className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
+                  activeTab === "banners"
+                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
+                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <SlidersHorizontal className={`w-4 h-4 ${activeTab === "banners" ? "text-emerald-400" : "text-zinc-400"}`} />
+                  <span>Ad Banners Slider</span>
+                </div>
+                <span className="text-[10px] font-mono text-zinc-500">5s</span>
               </button>
             </div>
 
             {/* Section 2: DATABASES */}
             <div className="space-y-1">
-              <span className="text-[10px] font-bold text-zinc-400 px-2 uppercase tracking-wider">
+              <span className="text-[10px] font-mono font-bold text-zinc-500 px-2 uppercase tracking-widest">
                 Databases (Katalog)
               </span>
               <button
@@ -574,12 +605,12 @@ export default function AdminDashboardPage() {
                 }}
                 className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
                   activeTab === "monitors"
-                    ? "bg-zinc-800 text-emerald-400 font-bold"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white"
+                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
+                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <Tv className="w-4 h-4 text-emerald-400" />
+                  <Tv className={`w-4 h-4 ${activeTab === "monitors" ? "text-emerald-400" : "text-zinc-400"}`} />
                   <span>Monitor Live Studio</span>
                 </div>
                 <span className="text-[10px] text-zinc-500 font-mono">{monitors.length}</span>
@@ -592,12 +623,12 @@ export default function AdminDashboardPage() {
                 }}
                 className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
                   activeTab === "desks"
-                    ? "bg-zinc-800 text-cyan-400 font-bold"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white"
+                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
+                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <LayoutGrid className="w-4 h-4 text-cyan-400" />
+                  <LayoutGrid className={`w-4 h-4 ${activeTab === "desks" ? "text-orange-400" : "text-zinc-400"}`} />
                   <span>Katalog Meja</span>
                 </div>
                 <span className="text-[10px] text-zinc-500 font-mono">{desks.length}</span>
@@ -610,15 +641,44 @@ export default function AdminDashboardPage() {
                 }}
                 className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
                   activeTab === "peripherals"
-                    ? "bg-zinc-800 text-amber-400 font-bold"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white"
+                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
+                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <Wrench className="w-4 h-4 text-amber-400" />
+                  <Wrench className={`w-4 h-4 ${activeTab === "peripherals" ? "text-white" : "text-zinc-400"}`} />
                   <span>Bracket & Aksesoris</span>
                 </div>
                 <span className="text-[10px] text-zinc-500 font-mono">{peripherals.length}</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setActiveTab("chairs");
+                  setIsMobileSidebarOpen(false);
+                }}
+                className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
+                  activeTab === "chairs"
+                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
+                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <span className="text-sm leading-none">🪑</span>
+                  <span>Kursi Ergonomis</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span
+                    className={`text-[9px] font-mono px-1.5 py-0.5 rounded font-bold ${
+                      homepageSettings.sectionVisibility?.showChairs
+                        ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
+                        : "bg-amber-500/20 text-amber-300 border border-amber-500/40"
+                    }`}
+                  >
+                    {homepageSettings.sectionVisibility?.showChairs ? "Live" : "Draft"}
+                  </span>
+                  <span className="text-[10px] text-zinc-500 font-mono">{chairs.length}</span>
+                </div>
               </button>
 
               <button
@@ -628,12 +688,12 @@ export default function AdminDashboardPage() {
                 }}
                 className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
                   activeTab === "aftersales"
-                    ? "bg-zinc-800 text-violet-400 font-bold"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white"
+                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
+                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <ShieldAlert className="w-4 h-4 text-violet-400" />
+                  <ShieldAlert className={`w-4 h-4 ${activeTab === "aftersales" ? "text-amber-400" : "text-zinc-400"}`} />
                   <span>Aftersales & Kanban</span>
                 </div>
                 <span className="text-[10px] text-zinc-500 font-mono">{aftersales.length}</span>
@@ -642,7 +702,7 @@ export default function AdminDashboardPage() {
 
             {/* Section 3: KNOWLEDGE & GUIDES */}
             <div className="space-y-1">
-              <span className="text-[10px] font-bold text-zinc-400 px-2 uppercase tracking-wider">
+              <span className="text-[10px] font-mono font-bold text-zinc-500 px-2 uppercase tracking-widest">
                 Knowledge & Edukasi
               </span>
               <button
@@ -652,21 +712,21 @@ export default function AdminDashboardPage() {
                 }}
                 className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
                   activeTab === "knowledge"
-                    ? "bg-zinc-800 text-yellow-400 font-bold"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white"
+                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
+                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <BookOpen className="w-4 h-4 text-yellow-400" />
+                  <BookOpen className={`w-4 h-4 ${activeTab === "knowledge" ? "text-white" : "text-zinc-400"}`} />
                   <span>Knowledge Hub & FAQ</span>
                 </div>
-                <span className="text-[10px] text-zinc-500">7 Submodul</span>
+                <span className="text-[10px] text-zinc-500 font-mono">7 Submodul</span>
               </button>
             </div>
 
             {/* Section 4: TEAM & SECURITY */}
             <div className="space-y-1">
-              <span className="text-[10px] font-bold text-zinc-400 px-2 uppercase tracking-wider">
+              <span className="text-[10px] font-mono font-bold text-zinc-500 px-2 uppercase tracking-widest">
                 Security & Team
               </span>
               <button
@@ -676,12 +736,12 @@ export default function AdminDashboardPage() {
                 }}
                 className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
                   activeTab === "admins"
-                    ? "bg-zinc-800 text-amber-400 font-bold"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white"
+                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
+                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-amber-400" />
+                  <Shield className={`w-4 h-4 ${activeTab === "admins" ? "text-white" : "text-zinc-400"}`} />
                   <span>Hierarki Admin (RBAC)</span>
                 </div>
                 <span className="text-[10px] text-zinc-500 font-mono">{admins.length}</span>
@@ -690,7 +750,7 @@ export default function AdminDashboardPage() {
 
             {/* Section 5: SYSTEM & CLOUD */}
             <div className="space-y-1">
-              <span className="text-[10px] font-bold text-zinc-400 px-2 uppercase tracking-wider">
+              <span className="text-[10px] font-mono font-bold text-zinc-500 px-2 uppercase tracking-widest">
                 Cloud & Utility
               </span>
               <button
@@ -700,15 +760,15 @@ export default function AdminDashboardPage() {
                 }}
                 className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
                   activeTab === "backup"
-                    ? "bg-zinc-800 text-cyan-400 font-bold"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white"
+                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
+                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <Server className="w-4 h-4 text-cyan-400" />
+                  <Server className={`w-4 h-4 ${activeTab === "backup" ? "text-white" : "text-zinc-400"}`} />
                   <span>Backup & Supabase Sync</span>
                 </div>
-                <span className="text-[10px] text-emerald-400">JSON</span>
+                <span className="text-[10px] font-mono text-zinc-500">JSON</span>
               </button>
 
               <button
@@ -718,12 +778,12 @@ export default function AdminDashboardPage() {
                 }}
                 className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
                   activeTab === "compressor"
-                    ? "bg-zinc-800 text-rose-400 font-bold"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white"
+                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
+                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-rose-400" />
+                  <Sparkles className={`w-4 h-4 ${activeTab === "compressor" ? "text-white" : "text-zinc-400"}`} />
                   <span>WebP Optimizer Lab</span>
                 </div>
               </button>
@@ -832,9 +892,9 @@ export default function AdminDashboardPage() {
             </div>
 
             <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-4 space-y-1">
-              <span className="text-[11px] text-zinc-400 uppercase font-bold">Katalog Meja & Arm</span>
-              <div className="text-2xl font-black text-cyan-400">{desks.length + peripherals.length} Item</div>
-              <span className="text-[10px] text-zinc-400">{desks.length} Meja • {peripherals.length} Aksesoris</span>
+              <span className="text-[11px] text-zinc-400 uppercase font-bold">Meja, Arm & Kursi</span>
+              <div className="text-2xl font-black text-cyan-400">{desks.length + peripherals.length + chairs.length} Item</div>
+              <span className="text-[10px] text-zinc-400">{desks.length} Meja • {peripherals.length} Arm • {chairs.length} Kursi</span>
             </div>
 
             <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-4 space-y-1">
@@ -887,6 +947,11 @@ export default function AdminDashboardPage() {
               onUpdateSiteSettings={(newSettings) => setSiteSettings(newSettings)}
               onUpdateBannerSettings={(newBanners) => setBannerSettings(newBanners)}
             />
+          )}
+
+          {/* 2B. AD BANNERS SLIDER MANAGER */}
+          {activeTab === "banners" && (
+            <AdBannerManager />
           )}
 
           {/* 3. MONITOR LIVE STUDIO */}
@@ -973,6 +1038,16 @@ export default function AdminDashboardPage() {
                 ))}
               </div>
             </div>
+          )}
+
+          {/* 5B. CHAIRS LIVE STUDIO (STAGING Q2 2027) */}
+          {activeTab === "chairs" && (
+            <ChairLiveStudio
+              chairs={chairs}
+              onUpdateChairs={(updated) => setChairs(updated)}
+              homepageSettings={homepageSettings}
+              onUpdateHomepageSettings={(newHp) => setHomepageSettings(newHp)}
+            />
           )}
 
           {/* 6. AFTERSALES BRAND KANBAN STUDIO */}

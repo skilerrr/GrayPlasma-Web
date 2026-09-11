@@ -57,8 +57,8 @@ export default function UkuranMejaMonitorIdealPage() {
       {/* Unified Subpage Navbar */}
       <SubpageNavbar
         breadcrumbs={[
-          { label: "REKOMENDASI MEJA", href: "/catalog/desks", icon: "🪑" },
-          { label: "UKURAN MEJA & MONITOR IDEAL", icon: "📐" },
+          { label: "REKOMENDASI MEJA", href: "/catalog/desks", icon: <Layers className="w-3.5 h-3.5 text-zinc-400" /> },
+          { label: "UKURAN MEJA & MONITOR IDEAL", icon: <Ruler className="w-3.5 h-3.5 text-zinc-400" /> },
         ]}
         backLink={{
           href: "/catalog/desks",
@@ -70,8 +70,10 @@ export default function UkuranMejaMonitorIdealPage() {
         {/* Page Hero Title */}
         <div className="bg-[#202020] border border-[#2f2f2f] rounded-3xl p-6 sm:p-10 space-y-6 shadow-2xl relative overflow-hidden">
           <div className="relative z-10 space-y-4">
-            <div className="text-4xl sm:text-5xl">📐</div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-normal uppercase">
+            <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+              <Ruler className="w-6 h-6" />
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight uppercase">
               UKURAN MEJA DAN MONITOR YANG IDEAL
             </h1>
             <p className="text-sm sm:text-base text-[#9b9a97] leading-relaxed max-w-3xl">
@@ -122,7 +124,7 @@ export default function UkuranMejaMonitorIdealPage() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-base sm:text-lg font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                <span>📊</span>
+                <Layers className="w-4 h-4 text-amber-400" />
                 <span>GAMBARAN KASAR (24 INCH)</span>
               </h2>
               <span className="text-xs text-[#9b9a97]">Data rekomendasi meja setup monitor 24"</span>
@@ -133,10 +135,10 @@ export default function UkuranMejaMonitorIdealPage() {
                 <table className="w-full text-left text-xs border-collapse min-w-[700px]">
                   <thead className="bg-[#202020] text-[#9b9a97] uppercase text-[11px] font-bold tracking-wider border-b border-[#2f2f2f]">
                     <tr>
-                      <th className="py-3 px-4 min-w-[160px] text-white">Aa UKURAN MONITOR</th>
-                      <th className="py-3 px-4 min-w-[220px]">:= DEVICE / SETUP</th>
-                      <th className="py-3 px-4 min-w-[160px] font-mono text-zinc-300">⏱ UKURAN MEJA (MINIMUM, CM)</th>
-                      <th className="py-3 px-4 min-w-[160px] font-mono text-emerald-400">⏱ UKURAN MEJA (IDEAL, CM)</th>
+                      <th className="py-3 px-4 min-w-[160px] text-white">UKURAN MONITOR</th>
+                      <th className="py-3 px-4 min-w-[220px]">DEVICE / SETUP</th>
+                      <th className="py-3 px-4 min-w-[160px] font-mono text-zinc-300">UKURAN MEJA (MINIMUM, CM)</th>
+                      <th className="py-3 px-4 min-w-[160px] font-mono text-emerald-400">UKURAN MEJA (IDEAL, CM)</th>
                       <th className="py-3 px-4 min-w-[140px]">BENTUK MEJA</th>
                     </tr>
                   </thead>
@@ -144,7 +146,7 @@ export default function UkuranMejaMonitorIdealPage() {
                     {IDEAL_DESK_MONITOR_SIZES.size24.map((item, idx) => (
                       <tr key={item.id} className={idx % 2 === 0 ? "bg-[#191919]" : "bg-[#1d1d1d]"}>
                         <td className="py-3.5 px-4 font-bold text-white flex items-center gap-2">
-                          <span className="text-zinc-500">📄</span>
+                          <Layers className="w-3.5 h-3.5 text-zinc-500 flex-shrink-0" />
                           <span>{item.monitorSize}</span>
                         </td>
                         <td className="py-3.5 px-4">
@@ -190,7 +192,7 @@ export default function UkuranMejaMonitorIdealPage() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-base sm:text-lg font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                <span>📊</span>
+                <Layers className="w-4 h-4 text-amber-400" />
                 <span>GAMBARAN KASAR (27 INCH, TERMASUK SECONDARY 24 INCH)</span>
               </h2>
               <span className="text-xs text-[#9b9a97]">Data rekomendasi meja setup monitor 27"</span>
@@ -201,10 +203,10 @@ export default function UkuranMejaMonitorIdealPage() {
                 <table className="w-full text-left text-xs border-collapse min-w-[700px]">
                   <thead className="bg-[#202020] text-[#9b9a97] uppercase text-[11px] font-bold tracking-wider border-b border-[#2f2f2f]">
                     <tr>
-                      <th className="py-3 px-4 min-w-[180px] text-white">Aa UKURAN MONITOR</th>
-                      <th className="py-3 px-4 min-w-[220px]">:= DEVICE / SETUP</th>
-                      <th className="py-3 px-4 min-w-[160px] font-mono text-zinc-300">⏱ UKURAN MEJA (MINIMUM, CM)</th>
-                      <th className="py-3 px-4 min-w-[160px] font-mono text-emerald-400">⏱ UKURAN MEJA (IDEAL, CM)</th>
+                      <th className="py-3 px-4 min-w-[180px] text-white">UKURAN MONITOR</th>
+                      <th className="py-3 px-4 min-w-[220px]">DEVICE / SETUP</th>
+                      <th className="py-3 px-4 min-w-[160px] font-mono text-zinc-300">UKURAN MEJA (MINIMUM, CM)</th>
+                      <th className="py-3 px-4 min-w-[160px] font-mono text-emerald-400">UKURAN MEJA (IDEAL, CM)</th>
                       <th className="py-3 px-4 min-w-[140px]">BENTUK MEJA</th>
                     </tr>
                   </thead>
@@ -212,7 +214,7 @@ export default function UkuranMejaMonitorIdealPage() {
                     {IDEAL_DESK_MONITOR_SIZES.size27.map((item, idx) => (
                       <tr key={item.id} className={idx % 2 === 0 ? "bg-[#191919]" : "bg-[#1d1d1d]"}>
                         <td className="py-3.5 px-4 font-bold text-white flex items-center gap-2">
-                          <span className="text-zinc-500">📄</span>
+                          <Layers className="w-3.5 h-3.5 text-zinc-500 flex-shrink-0" />
                           <span>{item.monitorSize}</span>
                         </td>
                         <td className="py-3.5 px-4">
@@ -302,9 +304,9 @@ export default function UkuranMejaMonitorIdealPage() {
                 </label>
                 <div className="grid grid-cols-3 gap-2">
                   {[
-                    { id: "pc-top", label: "PC Di Atas Meja", icon: "🖥️" },
-                    { id: "pc-bottom", label: "PC Di Bawah Meja", icon: "⬇️" },
-                    { id: "laptop", label: "Laptop / Docking", icon: "💻" },
+                    { id: "pc-top", label: "PC Di Atas Meja", icon: <MonitorIcon className="w-5 h-5 mx-auto" /> },
+                    { id: "pc-bottom", label: "PC Di Bawah Meja", icon: <Layers className="w-5 h-5 mx-auto" /> },
+                    { id: "laptop", label: "Laptop / Docking", icon: <Laptop className="w-5 h-5 mx-auto" /> },
                   ].map((opt) => (
                     <button
                       key={opt.id}
@@ -315,7 +317,7 @@ export default function UkuranMejaMonitorIdealPage() {
                           : "bg-[#202020] border-[#2f2f2f] text-zinc-400 hover:text-white"
                       }`}
                     >
-                      <span className="text-xl block mb-1">{opt.icon}</span>
+                      <div className="mb-1.5 flex justify-center text-zinc-300">{opt.icon}</div>
                       <span className="block font-bold text-xs">{opt.label}</span>
                     </button>
                   ))}
@@ -353,8 +355,9 @@ export default function UkuranMejaMonitorIdealPage() {
                 </div>
               </div>
 
-              <p className="text-xs text-zinc-300 italic pt-1">
-                💡 <span className="font-semibold text-white">Catatan Ergonomi:</span> {calcResult.notes}
+              <p className="text-xs text-zinc-300 italic pt-1 flex items-center gap-1.5">
+                <Info className="w-4 h-4 text-emerald-400 inline-block flex-shrink-0" />
+                <span><strong className="font-semibold text-white">Catatan Ergonomi:</strong> {calcResult.notes}</span>
               </p>
             </div>
           </div>
