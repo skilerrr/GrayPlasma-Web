@@ -155,6 +155,7 @@ export interface Monitor {
   createdAt: string;
   updatedAt?: string;
   versionId?: number;
+  isPublished?: boolean; // Visibility control: true = Live/Aktif, false = Draft/Disabled
 
   // Rich Notion Deep-Dive & Side-Panel Fields
   aspectRatio?: string; // e.g. "16:9 (Wide)", "21:9 (Ultrawide)"

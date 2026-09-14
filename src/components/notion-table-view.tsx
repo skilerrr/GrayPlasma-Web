@@ -685,6 +685,9 @@ export function NotionTableView({
         columnVisibility={tableManager.columnVisibility}
         onToggleVisibility={tableManager.toggleColumnVisibility}
         onMoveColumn={tableManager.moveColumn}
+        onReorderColumn={tableManager.reorderColumn}
+        onSetColumnOrderDirectly={tableManager.setColumnOrderDirectly}
+        onSetAllVisibility={tableManager.setAllColumnsVisibility}
         onResetColumns={tableManager.resetColumns}
       />
     </div>

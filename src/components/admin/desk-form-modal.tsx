@@ -54,8 +54,12 @@ export function DeskFormModal({
 
   useEffect(() => {
     if (type === "desk") {
-      if (initialDesk) setDeskData(initialDesk);
-      else {
+      if (initialDesk) {
+        setDeskData({
+          ...initialDesk,
+          isPublished: initialDesk.isPublished !== undefined ? initialDesk.isPublished : true,
+        });
+      } else {
         setDeskData({
           id: `desk-${Date.now()}`,
           name: "",
@@ -65,6 +69,7 @@ export function DeskFormModal({
           description: "",
           notes: "Kuat dijepit monitor arm.",
           shopeeUrl: "https://shopee.co.id",
+          isPublished: true,
           specs: {
             material: "Multiplek / Besi Hollow 4x4",
             thickness: "2.5 cm",
@@ -174,6 +179,35 @@ export function DeskFormModal({
           <div className="flex-1 overflow-y-auto p-6 space-y-4 text-xs">
             {type === "desk" ? (
               <>
+                {/* Status Visibility Toggle */}
+                <div className="p-3.5 rounded-xl bg-zinc-900/90 border border-zinc-800 flex items-center justify-between">
+                  <div>
+                    <span className="text-xs font-bold text-white block">Status Visibilitas Meja</span>
+                    <p className="text-[11px] text-zinc-400">
+                      {deskData.isPublished !== false
+                        ? "Meja ini AKTIF dan tampil di tabel & katalog web publik."
+                        : "Meja ini DRAFT / NONAKTIF, disembunyikan dari pengunjung publik."}
+                    </p>
+                  </div>
+                  <label className="flex items-center gap-2 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      checked={deskData.isPublished !== false}
+                      onChange={(e) => setDeskData({ ...deskData, isPublished: e.target.checked })}
+                      className="rounded border-zinc-700 bg-zinc-950 text-emerald-500 accent-emerald-500 w-4 h-4"
+                    />
+                    <span
+                      className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${
+                        deskData.isPublished !== false
+                          ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
+                          : "bg-zinc-800 text-zinc-400 border border-zinc-700"
+                      }`}
+                    >
+                      {deskData.isPublished !== false ? "LIVE (AKTIF)" : "DRAFT (NONAKTIF)"}
+                    </span>
+                  </label>
+                </div>
+
                 <div>
                   <label className="text-zinc-300 block mb-1 font-semibold">Nama Meja</label>
                   <input

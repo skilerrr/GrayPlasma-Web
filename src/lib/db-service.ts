@@ -188,6 +188,10 @@ export interface HomepageSettings {
     monitorsSubtitle: string;
     desksTitle: string;
     desksSubtitle: string;
+    armsTitle?: string;
+    armsSubtitle?: string;
+    bracketsTitle?: string;
+    bracketsSubtitle?: string;
     peripheralsTitle: string;
     peripheralsSubtitle: string;
     chairsTitle?: string;
@@ -196,6 +200,8 @@ export interface HomepageSettings {
   sectionVisibility: {
     showMonitors: boolean;
     showDesks: boolean;
+    showArms?: boolean;
+    showBrackets?: boolean;
     showPeripherals: boolean;
     showChairs?: boolean;
     showAftersales?: boolean;
@@ -481,16 +487,22 @@ export const DEFAULT_HOMEPAGE_SETTINGS: HomepageSettings = {
     monitorsSubtitle: "Tabel interaktif & katalog pengujian GTID Tech (9 monitor per halaman).",
     desksTitle: "DATABASE REKOMENDASI MEJA & SETUP ERGONOMI",
     desksSubtitle: "Tabel kurasi daun meja plywood solid & standing desk elektrik (Klik baris untuk melihat side panel ulasan).",
-    peripheralsTitle: "DATABASE REKOMENDASI AKSESORIS & PERIPHERALS",
-    peripheralsSubtitle: "Tabel kurasi bracket gas spring arm, screenbar lightbar, & cable management.",
+    armsTitle: "DATABASE REKOMENDASI MONITOR ARM (GAS SPRING)",
+    armsSubtitle: "Tabel kurasi lengan gas spring kokoh penahan monitor 24\" - 34\" ultra-fleksibel.",
+    bracketsTitle: "DATABASE REKOMENDASI BRACKET & MOUNT ADAPTER",
+    bracketsSubtitle: "Tabel plat protektor pelindung daun meja jepit, desk stand universal, & bracket dinding VESA.",
+    peripheralsTitle: "DATABASE REKOMENDASI AKSESORIS & KABEL DISPLAY",
+    peripheralsSubtitle: "Tabel kurasi kabel DP 1.4/2.1, HDMI 2.1, screenbar, & cable management.",
     chairsTitle: "DATABASE REKOMENDASI KURSI ERGONOMIS & GAMING",
     chairsSubtitle: "Kurasi kursi ergonomis breathable mesh, lumbar support presisi, dan gas lift Class 4.",
   },
   sectionVisibility: {
     showMonitors: true,
     showDesks: true,
+    showArms: true,
+    showBrackets: true,
     showPeripherals: true,
-    showChairs: false,
+    showChairs: false, // Default: false (Draft / Staging until officially released)
     showAftersales: true,
     showFaq: true,
     showGuides: true,

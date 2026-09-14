@@ -11,6 +11,7 @@ import {
   ExternalLink,
   Sparkles,
   Eye,
+  EyeOff,
   SlidersHorizontal,
   Table as TableIcon,
   ShoppingBag,
@@ -70,6 +71,7 @@ export function DeskLiveStudio({
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
   const [isColManagerOpen, setIsColManagerOpen] = useState(false);
   const [isWordDocsOpen, setIsWordDocsOpen] = useState(false);
+  const [statusFilter, setStatusFilter] = useState<"all" | "published" | "draft">("all");
 
   // Helper to convert desk review to document HTML
   const getInitialDoc = (desk: Partial<DeskItem> | null) => {
@@ -278,8 +280,24 @@ export function DeskLiveStudio({
     showNotification("Data meja berhasil diekspor ke CSV.");
   };
 
+  // 1-Click Quick Toggle Visibility for Desks
+  const handleToggleDeskPublish = (desk: DeskItem) => {
+    const newStatus = desk.isPublished === false ? true : false;
+    const updated = desks.map((d) => (d.id === desk.id ? { ...d, isPublished: newStatus } : d));
+    onUpdateDesks(updated);
+    showNotification(
+      newStatus
+        ? `✅ Meja "${desk.name}" sekarang AKTIF (Live di website publik).`
+        : `⏸️ Meja "${desk.name}" masuk DRAFT (Disembunyikan dari publik).`
+    );
+  };
+
   // Filtered desks
   const filteredDesks = desks.filter((d) => {
+    const isLive = d.isPublished !== false;
+    if (statusFilter === "published" && !isLive) return false;
+    if (statusFilter === "draft" && isLive) return false;
+
     const matchesSearch =
       !searchQuery.trim() ||
       `${d.name} ${d.category} ${d.specs?.material || ""} ${d.specs?.dimensions || ""}`
@@ -291,6 +309,37 @@ export function DeskLiveStudio({
 
   // Table Column Definitions for Draggable & Sortable Table Management
   const deskColumns = React.useMemo<TableColumnDef<DeskItem>[]>(() => [
+    {
+      id: "status",
+      label: "Status Publikasi",
+      shortLabel: "STATUS",
+      minWidth: "min-w-[120px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Visibilitas",
+      getValue: (d) => (d.isPublished !== false ? 1 : 0),
+      renderCell: (d) => {
+        const isLive = d.isPublished !== false;
+        return (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleToggleDeskPublish(d);
+            }}
+            className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold flex items-center gap-1.5 transition-all ${
+              isLive
+                ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20"
+                : "bg-zinc-800/80 text-zinc-400 border border-zinc-700 hover:text-white"
+            }`}
+            title={isLive ? "Klik untuk jadikan Draft (Sembunyikan)" : "Klik untuk Publikasikan (Aktif)"}
+          >
+            {isLive ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
+            <span>{isLive ? "LIVE" : "DRAFT"}</span>
+          </button>
+        );
+      },
+    },
     {
       id: "price",
       label: "Harga",
@@ -648,6 +697,17 @@ export function DeskLiveStudio({
                     {cat}
                   </option>
                 ))}
+              </select>
+
+              {/* Status Visibility Filter */}
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value as "all" | "published" | "draft")}
+                className="bg-zinc-900 border border-zinc-750 rounded-xl px-3 py-1.5 text-xs text-emerald-400 font-mono focus:outline-none"
+              >
+                <option value="all">Semua Status</option>
+                <option value="published">🟢 Hanya Aktif (Live)</option>
+                <option value="draft">⏸️ Hanya Nonaktif (Draft)</option>
               </select>
             </div>
 
@@ -1704,6 +1764,9 @@ export function DeskLiveStudio({
         columnVisibility={tableManager.columnVisibility}
         onToggleVisibility={tableManager.toggleColumnVisibility}
         onMoveColumn={tableManager.moveColumn}
+        onReorderColumn={tableManager.reorderColumn}
+        onSetColumnOrderDirectly={tableManager.setColumnOrderDirectly}
+        onSetAllVisibility={tableManager.setAllColumnsVisibility}
         onResetColumns={tableManager.resetColumns}
       />
 

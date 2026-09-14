@@ -61,7 +61,7 @@ import { MonitorFormModal } from "@/components/admin/monitor-form-modal";
 import { MonitorLiveStudio } from "@/components/admin/monitor-live-studio";
 import { DeskFormModal } from "@/components/admin/desk-form-modal";
 import { DeskLiveStudio } from "@/components/admin/desk-live-studio";
-import { PeripheralFormModal } from "@/components/admin/peripheral-form-modal";
+import { ArmBracketStudio } from "@/components/admin/arm-bracket-studio";
 import { ChairLiveStudio } from "@/components/admin/chair-live-studio";
 import { AftersalesFormModal } from "@/components/admin/aftersales-form-modal";
 import { HierarchySandboxManager } from "@/components/admin/hierarchy-sandbox-manager";
@@ -123,9 +123,6 @@ export default function AdminDashboardPage() {
 
   const [selectedDesk, setSelectedDesk] = useState<DeskItem | null>(null);
   const [isDeskModalOpen, setIsDeskModalOpen] = useState(false);
-
-  const [selectedPeripheral, setSelectedPeripheral] = useState<PeripheralItem | null>(null);
-  const [isPeripheralModalOpen, setIsPeripheralModalOpen] = useState(false);
 
   const [selectedAftersales, setSelectedAftersales] = useState<AftersalesBrand | null>(null);
   const [isAftersalesModalOpen, setIsAftersalesModalOpen] = useState(false);
@@ -646,8 +643,8 @@ export default function AdminDashboardPage() {
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <Wrench className={`w-4 h-4 ${activeTab === "peripherals" ? "text-white" : "text-zinc-400"}`} />
-                  <span>Bracket & Aksesoris</span>
+                  <Wrench className={`w-4 h-4 ${activeTab === "peripherals" ? "text-cyan-400" : "text-zinc-400"}`} />
+                  <span>Arm & Bracket Studio</span>
                 </div>
                 <span className="text-[10px] text-zinc-500 font-mono">{peripherals.length}</span>
               </button>
@@ -832,7 +829,7 @@ export default function AdminDashboardPage() {
                   {activeTab === "elements" && "Visual Elements & Banners"}
                   {activeTab === "monitors" && "Monitor Live Studio Database"}
                   {activeTab === "desks" && "Katalog Meja & Ergonomi"}
-                  {activeTab === "peripherals" && "Bracket & Aksesoris"}
+                  {activeTab === "peripherals" && "Arm & Bracket Studio"}
                   {activeTab === "aftersales" && "Evaluasi Aftersales Brand"}
                   {activeTab === "knowledge" && "Knowledge Hub & FAQ"}
                   {activeTab === "admins" && "Hierarki Admin (RBAC)"}
@@ -892,9 +889,11 @@ export default function AdminDashboardPage() {
             </div>
 
             <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-4 space-y-1">
-              <span className="text-[11px] text-zinc-400 uppercase font-bold">Meja, Arm & Kursi</span>
+              <span className="text-[11px] text-zinc-400 uppercase font-bold">Meja, Arm & Bracket</span>
               <div className="text-2xl font-black text-cyan-400">{desks.length + peripherals.length + chairs.length} Item</div>
-              <span className="text-[10px] text-zinc-400">{desks.length} Meja • {peripherals.length} Arm • {chairs.length} Kursi</span>
+              <span className="text-[10px] text-zinc-400">
+                {desks.length} Meja • {peripherals.filter(p => (p.category || "").toLowerCase().includes("arm") || (p.name || "").toLowerCase().includes("arm")).length} Arm • {peripherals.filter(p => (p.category || "").toLowerCase().includes("bracket") || (p.name || "").toLowerCase().includes("bracket")).length} Bracket • {chairs.length} Kursi
+              </span>
             </div>
 
             <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-4 space-y-1">
@@ -977,67 +976,12 @@ export default function AdminDashboardPage() {
             />
           )}
 
-          {/* 5. PERIPHERALS CATALOG */}
+          {/* 5. ARM & BRACKET STUDIO */}
           {activeTab === "peripherals" && (
-            <div className="space-y-4">
-              <div className="flex items-center justify-between bg-surface-dark border border-zinc-800 rounded-2xl p-4">
-                <div>
-                  <h3 className="text-sm font-bold text-white">Katalog Monitor Arm & Peripherals</h3>
-                  <p className="text-xs text-zinc-400">Kelola bracket gas spring (North Bayou/Oximus), screenbar, dan aksesoris.</p>
-                </div>
-                <Button
-                  variant="cyber"
-                  size="sm"
-                  onClick={() => {
-                    setSelectedPeripheral(null);
-                    setIsPeripheralModalOpen(true);
-                  }}
-                  className="text-xs font-bold"
-                >
-                  <Plus className="w-4 h-4 mr-1" />
-                  <span>Tambah Aksesoris</span>
-                </Button>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {peripherals.map((p) => (
-                  <div key={p.id} className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 font-bold uppercase font-mono">
-                          {p.category}
-                        </span>
-                        <h4 className="text-base font-bold text-white mt-1">{p.name}</h4>
-                        <div className="text-xs text-emerald-400 font-mono font-bold mt-0.5">
-                          {formatRupiah(p.price)}
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <button
-                          onClick={() => {
-                            setSelectedPeripheral(p);
-                            setIsPeripheralModalOpen(true);
-                          }}
-                          className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-emerald-400"
-                        >
-                          <Edit2 className="w-3.5 h-3.5" />
-                        </button>
-                        <button
-                          onClick={() => handleDeletePeripheral(p.id, p.name)}
-                          className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-rose-400"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    </div>
-
-                    <p className="text-xs text-zinc-300 bg-zinc-900/60 p-3 rounded-xl">
-                      {p.verdict}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <ArmBracketStudio
+              peripherals={peripherals}
+              onUpdatePeripherals={(updated) => setPeripherals(updated)}
+            />
           )}
 
           {/* 5B. CHAIRS LIVE STUDIO (STAGING Q2 2027) */}
@@ -1150,13 +1094,6 @@ export default function AdminDashboardPage() {
         onClose={() => setIsDeskModalOpen(false)}
         onSaveDesk={handleSaveDesk}
         onSavePeripheral={handleSavePeripheral}
-      />
-
-      <PeripheralFormModal
-        initialData={selectedPeripheral}
-        isOpen={isPeripheralModalOpen}
-        onClose={() => setIsPeripheralModalOpen(false)}
-        onSave={handleSavePeripheral}
       />
 
       <AftersalesFormModal

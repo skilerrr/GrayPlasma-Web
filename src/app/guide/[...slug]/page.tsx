@@ -29,6 +29,7 @@ import {
   FileText,
   User,
   ShieldCheck,
+  Wrench,
 } from "lucide-react";
 import { SiteHierarchyNode } from "@/types/site-hierarchy";
 import { DEFAULT_SITE_HIERARCHY } from "@/data/site-hierarchy";
@@ -60,8 +61,15 @@ import {
 } from "@/types/monitor";
 import { CONSULTATION_DATA, FAQ_LIST } from "@/data/grayplasma-content";
 import { formatRupiah } from "@/lib/utils";
-import { DeskRecommendationsView } from "@/components/desk-recommendations-view";
-import { DESK_DATABASE, DeskItem } from "@/data/grayplasma-desk-peripherals";
+import { DeskPeripheralsView } from "@/components/desk-peripherals-view";
+import {
+  DESK_DATABASE,
+  PERIPHERALS_DATABASE,
+  DEFAULT_CHAIRS_DATABASE,
+  DeskItem,
+  PeripheralItem,
+  ChairItem,
+} from "@/data/grayplasma-desk-peripherals";
 import { SubpageNavbar, BreadcrumbItem } from "@/components/subpage-navbar";
 
 interface GuideDynamicPageProps {
@@ -81,6 +89,8 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
   const [nodes, setNodes] = useState<SiteHierarchyNode[]>(DEFAULT_SITE_HIERARCHY);
   const [monitors, setMonitors] = useState<Monitor[]>(MONITORS_DATA);
   const [desks, setDesks] = useState<DeskItem[]>(DESK_DATABASE);
+  const [peripherals, setPeripherals] = useState<PeripheralItem[]>(PERIPHERALS_DATABASE);
+  const [chairs, setChairs] = useState<ChairItem[]>(DEFAULT_CHAIRS_DATABASE);
   const [aftersalesCards, setAftersalesCards] = useState<NotionBoardCard[]>(NOTION_AFTERSALES_CARDS);
   const [faqs, setFaqs] = useState<typeof FAQ_LIST>(FAQ_LIST);
   const [siteSettings, setSiteSettings] = useState<GlobalSiteSettings>(DEFAULT_SITE_SETTINGS);
@@ -101,21 +111,34 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
   const [selectedAftersalesCard, setSelectedAftersalesCard] = useState<NotionBoardCard | null>(null);
   const [isAftersalesPanelOpen, setIsAftersalesPanelOpen] = useState(false);
 
+  const [showChairs, setShowChairs] = useState(false);
+
   useEffect(() => {
     async function load() {
       try {
-        const [loadedNodes, loadedMonitors, loadedDesks, loadedCards, loadedSettings] = await Promise.all([
+        const [loadedNodes, loadedMonitors, loadedDesks, loadedCards, loadedSettings, loadedPeriphs, loadedChairs, loadedHp] = await Promise.all([
           DatabaseService.getHierarchyNodes(),
           DatabaseService.getMonitors(),
           DatabaseService.getDesks(),
           DatabaseService.getAftersalesCards(),
           DatabaseService.getSiteSettings(),
+          DatabaseService.getPeripherals(),
+          DatabaseService.getChairsAsync(),
+          DatabaseService.getHomepageSettings(),
         ]);
         if (loadedNodes && loadedNodes.length > 0) setNodes(loadedNodes);
         if (loadedMonitors && loadedMonitors.length > 0) setMonitors(loadedMonitors);
-        if (loadedDesks && loadedDesks.length > 0) setDesks(loadedDesks);
+        if (loadedDesks && loadedDesks.length > 0) setDesks(loadedDesks.filter((d) => d.isPublished !== false));
         if (loadedCards && loadedCards.length > 0) setAftersalesCards(loadedCards);
         if (loadedSettings) setSiteSettings(loadedSettings);
+        if (loadedPeriphs && loadedPeriphs.length > 0) setPeripherals(loadedPeriphs.filter((p) => p.isPublished !== false));
+        if (loadedChairs && loadedChairs.length > 0) {
+          const pubChairs = loadedChairs.filter((c) => c.isPublished !== false);
+          setChairs(pubChairs.length > 0 ? pubChairs : DEFAULT_CHAIRS_DATABASE);
+        }
+        if (loadedHp?.sectionVisibility) {
+          setShowChairs(Boolean(loadedHp.sectionVisibility.showChairs));
+        }
 
         const loadedFaqs = await DatabaseService.getFAQAsync();
         if (loadedFaqs && loadedFaqs.length > 0) setFaqs(loadedFaqs.filter((f) => f.isPublished !== false));
@@ -139,12 +162,44 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
     (m) => m.slug === targetMonitorSlug || m.id === targetMonitorSlug
   );
 
-  // 2. Check if this is a catalog recommendation category
+  // Peripheral & Hardware Categories
+  const isDeskPage =
+    lastSlug === "desks" ||
+    firstSlug === "desks" ||
+    lastSlug === "rekomendasi-meja" ||
+    firstSlug === "rekomendasi-meja" ||
+    fullPath.includes("/catalog/desks");
+
+  const isArmBracketPage =
+    lastSlug === "arms-brackets" ||
+    lastSlug === "arms" ||
+    lastSlug === "brackets" ||
+    lastSlug === "arm-bracket" ||
+    lastSlug === "monitor-arm" ||
+    fullPath.includes("/catalog/arms-brackets");
+
+  const isAccessoriesPage =
+    lastSlug === "accessories" ||
+    lastSlug === "aksesoris" ||
+    lastSlug === "peripherals" ||
+    fullPath.includes("/catalog/accessories");
+
+  const isChairsPage =
+    lastSlug === "chairs" ||
+    lastSlug === "kursi" ||
+    lastSlug === "kursi-ergonomis" ||
+    fullPath.includes("/catalog/chairs");
+
+  // 2. Check if this is a catalog recommendation category (Monitors only)
   const isCatalogPage =
-    firstSlug === "catalog" ||
-    slugParts.includes("catalog") ||
-    firstSlug === "recommendations" ||
-    firstSlug === "rekomendasi";
+    (firstSlug === "catalog" ||
+      slugParts.includes("catalog") ||
+      firstSlug === "recommendations" ||
+      firstSlug === "rekomendasi") &&
+    !isDeskPage &&
+    !isArmBracketPage &&
+    !isAccessoriesPage &&
+    !isChairsPage;
 
   const filteredCatalogMonitors = useMemo(() => {
     return monitors.filter((m) => {
@@ -254,13 +309,6 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
     return false;
   });
 
-  const isDeskPage =
-    lastSlug === "desks" ||
-    firstSlug === "desks" ||
-    lastSlug === "rekomendasi-meja" ||
-    firstSlug === "rekomendasi-meja" ||
-    fullPath.includes("/catalog/desks");
-
   const isAftersalesPage =
     lastSlug.includes("aftersales") ||
     firstSlug.includes("aftersales") ||
@@ -293,6 +341,12 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
 
   const pageTitle = isDeskPage
     ? "REKOMENDASI MEJA + KAKI (GRAYPLASMA)"
+    : isArmBracketPage
+    ? "DATABASE REKOMENDASI MONITOR ARM & BRACKET"
+    : isAccessoriesPage
+    ? "DATABASE REKOMENDASI AKSESORIS SETUP"
+    : isChairsPage
+    ? "DATABASE REKOMENDASI KURSI ERGONOMIS & GAMING [DRAFT]"
     : isCatalogPage
     ? lastSlug === "1080p"
       ? "REKOMENDASI MONITOR 1080P (FHD BUDGET & ESPORT)"
@@ -338,7 +392,25 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
   };
 
   const subpageBreadcrumbs: BreadcrumbItem[] = isDeskPage
-    ? [{ label: "REKOMENDASI MEJA", icon: <Layers className="w-3.5 h-3.5 text-orange-400" /> }]
+    ? [
+        { label: "KATALOG & DATABASE", href: "/", icon: <Layers className="w-3.5 h-3.5 text-orange-400" /> },
+        { label: "REKOMENDASI MEJA + KAKI", icon: <FileText className="w-3.5 h-3.5 text-zinc-400" /> },
+      ]
+    : isArmBracketPage
+    ? [
+        { label: "KATALOG & DATABASE", href: "/", icon: <Wrench className="w-3.5 h-3.5 text-cyan-400" /> },
+        { label: "ARM & BRACKET MONITOR", icon: <FileText className="w-3.5 h-3.5 text-zinc-400" /> },
+      ]
+    : isAccessoriesPage
+    ? [
+        { label: "KATALOG & DATABASE", href: "/", icon: <Sparkles className="w-3.5 h-3.5 text-blue-400" /> },
+        { label: "AKSESORIS SETUP", icon: <FileText className="w-3.5 h-3.5 text-zinc-400" /> },
+      ]
+    : isChairsPage
+    ? [
+        { label: "KATALOG & DATABASE", href: "/", icon: <LayoutGrid className="w-3.5 h-3.5 text-purple-400" /> },
+        { label: "KURSI ERGONOMIS", icon: <FileText className="w-3.5 h-3.5 text-zinc-400" /> },
+      ]
     : isAftersalesPage
     ? [{ label: "AFTERSALES BRAND MONITOR", icon: <ShieldAlert className="w-3.5 h-3.5 text-amber-400" /> }]
     : isCatalogPage
@@ -365,8 +437,8 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
       <SubpageNavbar
         breadcrumbs={subpageBreadcrumbs}
         backLink={{
-          href: isDeskPage ? "/catalog/desks" : "/",
-          label: isDeskPage ? "Ke Katalog Meja" : "Kembali ke Beranda",
+          href: "/",
+          label: "Kembali ke Beranda",
         }}
         rightActions={
           <div className="flex items-center gap-2">
@@ -423,6 +495,14 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
               <Heart className="w-8 h-8 text-rose-400" />
             ) : isConsultationPage ? (
               <Headphones className="w-8 h-8 text-emerald-400" />
+            ) : isDeskPage ? (
+              <Layers className="w-8 h-8 text-orange-400" />
+            ) : isArmBracketPage ? (
+              <Wrench className="w-8 h-8 text-cyan-400" />
+            ) : isAccessoriesPage ? (
+              <Sparkles className="w-8 h-8 text-blue-400" />
+            ) : isChairsPage ? (
+              <span className="text-3xl leading-none">🪑</span>
             ) : (
               <MonitorIcon className="w-8 h-8 text-emerald-400" />
             )}
@@ -432,22 +512,54 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
           </h1>
 
           {/* Subtitle / Catatan Section (Exact match to Notion) */}
-          <div className="space-y-3 text-xs text-[#9b9a97] pt-2">
-            <p className="font-semibold uppercase tracking-wider text-[#787774]">
-              AKAN DILENGKAPI
-            </p>
-            <div className="space-y-1">
-              <span className="font-bold text-[#d4d4d4] uppercase">CATATAN :</span>
-              <ul className="list-disc pl-5 space-y-1 text-[#b4b4b4]">
-                <li>
-                  PENULIS TIDAK BERTANGGUNG JAWAB JIKA BRAND ANDA TERSINGGUNG DENGAN TULISAN DIBAWAH
-                </li>
-                {matchedNode?.description && (
-                  <li>{matchedNode.description}</li>
-                )}
-              </ul>
+          {isDeskPage ? (
+            <div className="space-y-1 text-xs text-zinc-400 pt-1">
+              <p className="font-medium text-zinc-300">
+                Database kurasi rekomendasi daun meja, standing desk motorized, dan kaki meja kokoh anti getar & tahan jepit monitor arm.
+              </p>
             </div>
-          </div>
+          ) : isArmBracketPage ? (
+            <div className="space-y-1 text-xs text-zinc-400 pt-1">
+              <p className="font-medium text-zinc-300">
+                Database rekomendasi gas spring monitor arm, bracket dinding/tiang, dan VESA mount adapter teruji tahan beban dan stabil.
+              </p>
+            </div>
+          ) : isAccessoriesPage ? (
+            <div className="space-y-1 text-xs text-zinc-400 pt-1">
+              <p className="font-medium text-zinc-300">
+                Database rekomendasi aksesoris setup: monitor lightbar / screenbar, kabel DP & HDMI bersertifikasi, dan manajemen kabel.
+              </p>
+            </div>
+          ) : isChairsPage ? (
+            <div className="space-y-1 text-xs text-zinc-400 pt-1">
+              <p className="font-medium text-purple-300/90">
+                Database kurasi kursi ergonomis dan gaming dengan struktur penopang lumbar teruji dan hidrolik Class 4 [Draft Database].
+              </p>
+            </div>
+          ) : isCatalogPage ? (
+            <div className="space-y-1 text-xs text-zinc-400 pt-1">
+              <p className="font-medium text-zinc-300">
+                Database kurasi rekomendasi monitor hasil pengujian, tes lab, dan riset panel GrayPlasma.
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-3 text-xs text-[#9b9a97] pt-2">
+              <p className="font-semibold uppercase tracking-wider text-[#787774]">
+                AKAN DILENGKAPI
+              </p>
+              <div className="space-y-1">
+                <span className="font-bold text-[#d4d4d4] uppercase">CATATAN :</span>
+                <ul className="list-disc pl-5 space-y-1 text-[#b4b4b4]">
+                  <li>
+                    PENULIS TIDAK BERTANGGUNG JAWAB JIKA BRAND ANDA TERSINGGUNG DENGAN TULISAN DIBAWAH
+                  </li>
+                  {matchedNode?.description && (
+                    <li>{matchedNode.description}</li>
+                  )}
+                </ul>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* ========================================================================= */}
@@ -481,8 +593,43 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
         {/* ========================================================================= */}
         {isDeskPage ? (
           <div className="pt-2">
-            <DeskRecommendationsView desks={desks} />
+            <DeskPeripheralsView desks={desks} peripherals={peripherals} chairs={chairs} showChairs={false} hideHeaderCard={true} initialTab="meja" />
           </div>
+        ) : isArmBracketPage ? (
+          <div className="pt-2">
+            <DeskPeripheralsView desks={desks} peripherals={peripherals} chairs={chairs} showChairs={false} hideHeaderCard={true} initialTab="arms" />
+          </div>
+        ) : isAccessoriesPage ? (
+          <div className="pt-2">
+            <DeskPeripheralsView desks={desks} peripherals={peripherals} chairs={chairs} showChairs={false} hideHeaderCard={true} initialTab="accessories" />
+          </div>
+        ) : isChairsPage ? (
+          showChairs ? (
+            <div className="pt-2">
+              <DeskPeripheralsView desks={desks} peripherals={peripherals} chairs={chairs} showChairs={true} hideHeaderCard={true} initialTab="kursi" />
+            </div>
+          ) : (
+            <div className="my-12 p-8 rounded-2xl bg-[#202025] border border-purple-500/40 text-center space-y-4 max-w-2xl mx-auto shadow-2xl">
+              <div className="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/30 text-purple-400 flex items-center justify-center mx-auto text-2xl">
+                🪑
+              </div>
+              <h2 className="text-xl font-bold text-white uppercase tracking-tight">
+                [ // KATALOG KURSI MASIH BERSTATUS DRAFT / STAGING ]
+              </h2>
+              <p className="text-xs text-zinc-300 leading-relaxed max-w-lg mx-auto">
+                Katalog rekomendasi kursi ergonomis saat ini masih dalam tahap kurasi dan pengujian internal tim GrayPlasma. Akses publik akan dibuka secara resmi setelah status draft dilepas di Admin Studio.
+              </p>
+              <div className="pt-2">
+                <Link
+                  href="/"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs text-white font-bold transition-colors"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  <span>Kembali ke Beranda Katalog</span>
+                </Link>
+              </div>
+            </div>
+          )
         ) : isCatalogPage ? (
           <div className="space-y-4 pt-2 w-full">
             {/* Top Toolbar: Filter Trigger & Counter */}

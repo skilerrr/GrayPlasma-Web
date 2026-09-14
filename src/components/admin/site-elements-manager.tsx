@@ -638,12 +638,112 @@ export function SiteElementsManager({
                   />
                 </div>
 
-                {/* Section Peripherals */}
+                {/* Section Monitor Arm (Gas Spring) */}
+                <div className="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-white flex items-center gap-2">
+                      <span className="text-base">🦾</span>
+                      <span>Section Database Monitor Arm (Gas Spring)</span>
+                    </span>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={homepageForm.sectionVisibility.showArms !== false}
+                        onChange={(e) =>
+                          setHomepageForm({
+                            ...homepageForm,
+                            sectionVisibility: { ...homepageForm.sectionVisibility, showArms: e.target.checked },
+                          })
+                        }
+                        className="rounded border-zinc-700 bg-zinc-900 text-emerald-500"
+                      />
+                      <span className="text-zinc-300">
+                        {homepageForm.sectionVisibility.showArms !== false ? "Aktif (Live)" : "Nonaktif (Disabled)"}
+                      </span>
+                    </label>
+                  </div>
+                  <input
+                    type="text"
+                    value={homepageForm.sectionTitles.armsTitle || "DATABASE REKOMENDASI MONITOR ARM (GAS SPRING)"}
+                    onChange={(e) =>
+                      setHomepageForm({
+                        ...homepageForm,
+                        sectionTitles: { ...homepageForm.sectionTitles, armsTitle: e.target.value },
+                      })
+                    }
+                    placeholder="Judul Section Monitor Arm..."
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white font-bold"
+                  />
+                  <input
+                    type="text"
+                    value={homepageForm.sectionTitles.armsSubtitle || "Tabel kurasi lengan gas spring kokoh penahan monitor 24\" - 34\" ultra-fleksibel."}
+                    onChange={(e) =>
+                      setHomepageForm({
+                        ...homepageForm,
+                        sectionTitles: { ...homepageForm.sectionTitles, armsSubtitle: e.target.value },
+                      })
+                    }
+                    placeholder="Subjudul Section Monitor Arm..."
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-zinc-400"
+                  />
+                </div>
+
+                {/* Section Bracket & Mount */}
+                <div className="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-white flex items-center gap-2">
+                      <span className="text-base">🗜️</span>
+                      <span>Section Database Bracket & Mount Adapter</span>
+                    </span>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={homepageForm.sectionVisibility.showBrackets !== false}
+                        onChange={(e) =>
+                          setHomepageForm({
+                            ...homepageForm,
+                            sectionVisibility: { ...homepageForm.sectionVisibility, showBrackets: e.target.checked },
+                          })
+                        }
+                        className="rounded border-zinc-700 bg-zinc-900 text-emerald-500"
+                      />
+                      <span className="text-zinc-300">
+                        {homepageForm.sectionVisibility.showBrackets !== false ? "Aktif (Live)" : "Nonaktif (Disabled)"}
+                      </span>
+                    </label>
+                  </div>
+                  <input
+                    type="text"
+                    value={homepageForm.sectionTitles.bracketsTitle || "DATABASE REKOMENDASI BRACKET & MOUNT ADAPTER"}
+                    onChange={(e) =>
+                      setHomepageForm({
+                        ...homepageForm,
+                        sectionTitles: { ...homepageForm.sectionTitles, bracketsTitle: e.target.value },
+                      })
+                    }
+                    placeholder="Judul Section Bracket..."
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white font-bold"
+                  />
+                  <input
+                    type="text"
+                    value={homepageForm.sectionTitles.bracketsSubtitle || "Tabel plat protektor pelindung daun meja jepit, desk stand universal, & bracket dinding VESA."}
+                    onChange={(e) =>
+                      setHomepageForm({
+                        ...homepageForm,
+                        sectionTitles: { ...homepageForm.sectionTitles, bracketsSubtitle: e.target.value },
+                      })
+                    }
+                    placeholder="Subjudul Section Bracket..."
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-zinc-400"
+                  />
+                </div>
+
+                {/* Section Aksesoris & Kabel Peripherals */}
                 <div className="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-white flex items-center gap-2">
                       <Headphones className="w-4 h-4 text-zinc-400" />
-                      <span>Section Database Aksesoris & Peripherals</span>
+                      <span>Section Database Aksesoris & Kabel Display</span>
                     </span>
                     <label className="flex items-center gap-2 cursor-pointer">
                       <input
@@ -657,7 +757,9 @@ export function SiteElementsManager({
                         }
                         className="rounded border-zinc-700 bg-zinc-900 text-emerald-500"
                       />
-                      <span className="text-zinc-300">Tampilkan</span>
+                      <span className="text-zinc-300">
+                        {homepageForm.sectionVisibility.showPeripherals ? "Aktif (Live)" : "Nonaktif (Disabled)"}
+                      </span>
                     </label>
                   </div>
                   <input

@@ -14,13 +14,12 @@ interface PeripheralFormModalProps {
 }
 
 const COMMON_CATEGORIES = [
-  "Monitor Arm Gas Spring",
-  "Dual Monitor Arm",
-  "Screenbar Lightbar",
+  "Monitor Arm",
+  "Bracket & Mount",
+  "Kabel HDMI / DP",
+  "Screenbar & Lampu",
   "Cable Management & Tray",
-  "Desk Mat & Wrist Rest",
-  "Speaker & Audio Stand",
-  "Hub & Docking Station",
+  "Audio Stand & Aksesoris",
   "Lainnya",
 ];
 
@@ -33,33 +32,38 @@ export function PeripheralFormModal({
   const [formData, setFormData] = useState<PeripheralItem>({
     id: "",
     name: "",
-    category: "Monitor Arm Gas Spring",
+    category: "Monitor Arm",
     price: 200000,
     brand: "",
-    type: "Monitor Arm",
+    type: "Gas Spring Arm",
     warranty: "1 Tahun Resmi",
     verdict: "",
     notes: "",
     shopeeUrl: "",
     recommendedFor: "",
+    isPublished: true,
   });
 
   useEffect(() => {
     if (initialData) {
-      setFormData(initialData);
+      setFormData({
+        ...initialData,
+        isPublished: initialData.isPublished !== undefined ? initialData.isPublished : true,
+      });
     } else {
       setFormData({
         id: `periph-${Date.now()}`,
         name: "",
-        category: "Monitor Arm Gas Spring",
+        category: "Monitor Arm",
         price: 200000,
         brand: "",
-        type: "Monitor Arm",
+        type: "Gas Spring Arm",
         warranty: "1 Tahun Resmi",
         verdict: "",
         notes: "",
         shopeeUrl: "",
         recommendedFor: "",
+        isPublished: true,
       });
     }
   }, [initialData, isOpen]);
@@ -101,6 +105,35 @@ export function PeripheralFormModal({
         {/* Form with Scrollable Body & Fixed Footer */}
         <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0 overflow-hidden">
           <div className="flex-1 overflow-y-auto p-6 space-y-4 text-xs">
+            {/* Status Visibility Toggle */}
+            <div className="p-3.5 rounded-xl bg-zinc-900/90 border border-zinc-800 flex items-center justify-between">
+              <div>
+                <span className="text-xs font-bold text-white block">Status Visibilitas Produk</span>
+                <p className="text-[11px] text-zinc-400">
+                  {formData.isPublished !== false
+                    ? "Produk ini AKTIF dan akan langsung tampil di website publik."
+                    : "Produk ini NONAKTIF (Draft/Maintenance), hanya bisa dilihat di admin."}
+                </p>
+              </div>
+              <label className="flex items-center gap-2 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={formData.isPublished !== false}
+                  onChange={(e) => setFormData({ ...formData, isPublished: e.target.checked })}
+                  className="rounded border-zinc-700 bg-zinc-950 text-emerald-500 accent-emerald-500 w-4 h-4"
+                />
+                <span
+                  className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${
+                    formData.isPublished !== false
+                      ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
+                      : "bg-zinc-800 text-zinc-400 border border-zinc-700"
+                  }`}
+                >
+                  {formData.isPublished !== false ? "LIVE (AKTIF)" : "DRAFT (NONAKTIF)"}
+                </span>
+              </label>
+            </div>
+
             {/* Row 1: Name & Brand */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">

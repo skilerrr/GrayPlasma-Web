@@ -24,12 +24,22 @@ export interface DeskItem {
     value: string;
     category?: string;
   }[];
+  isPublished?: boolean; // Visibility control: true = Live/Aktif, false = Draft/Disabled
 }
+
+export type PeripheralCategory =
+  | "Monitor Arm"
+  | "Bracket & Mount"
+  | "Kabel HDMI / DP"
+  | "Screenbar & Lampu"
+  | "Cable Management & Tray"
+  | "Audio Stand & Aksesoris"
+  | "Lainnya";
 
 export interface PeripheralItem {
   id: string;
   name: string;
-  category: string;
+  category: PeripheralCategory | string;
   price: number;
   brand: string;
   type: string;
@@ -591,7 +601,7 @@ export const PERIPHERALS_DATABASE: PeripheralItem[] = [
   {
     id: "per-oximus-ev06",
     name: "Oximus EV06 (Protektor Bracket Meja)",
-    category: "Monitor Arm / Bracket",
+    category: "Bracket & Mount",
     price: 90000,
     brand: "Oximus",
     type: "Bracket Jepit Meja",
@@ -717,9 +727,24 @@ export const PERIPHERALS_DATABASE: PeripheralItem[] = [
     recommendedFor: "OLED TV & Flagship 4K Monitor"
   },
   {
+    id: "per-nb-f80",
+    name: "North Bayou NB F80 (Gas Spring Single Arm)",
+    category: "Monitor Arm",
+    price: 215000,
+    brand: "North Bayou",
+    type: "Gas Spring Single Arm",
+    versionDetail: "Monitor 17\" - 30\" (Hingga 9kg)",
+    warranty: "1 Tahun Resmi",
+    verdict: "Standar emas monitor arm sejuta umat di Indonesia dengan pegas gas spring fleksibel dan harga sangat terjangkau.",
+    notes: "Mendukung VESA 75x75 & 100x100, clamp meja atau grommet.",
+    shopeeUrl: "https://shopee.co.id",
+    recommendedFor: "Monitor 24\" - 27\" Esport & WFH",
+    isPublished: true
+  },
+  {
     id: "per-oximus-p100e",
     name: "Oximus P100E (Gas Spring Single Arm)",
-    category: "Monitor Arm / Bracket",
+    category: "Monitor Arm",
     price: 240000,
     brand: "Oximus",
     type: "Bracket Jepit Meja (Tiang)",
@@ -730,7 +755,23 @@ export const PERIPHERALS_DATABASE: PeripheralItem[] = [
     shopeeUrl: "https://s.shopee.co.id/7AKKJOXROP",
     tokopediaUrl: "https://tk.tokopedia.com/zSMm1uqdy/",
     tiktokUrl: "https://vt.tokopedia.com/t/Z...SiGum/",
-    recommendedFor: "Monitor 24\" - 27\" (AOC 24G4, KOORUI, LG)"
+    recommendedFor: "Monitor 24\" - 27\" (AOC 24G4, KOORUI, LG)",
+    isPublished: true
+  },
+  {
+    id: "per-nb-f100a",
+    name: "North Bayou NB F100A (Heavy Duty Arm)",
+    category: "Monitor Arm",
+    price: 385000,
+    brand: "North Bayou",
+    type: "Heavy Duty Gas Spring",
+    versionDetail: "Monitor 22\" - 35\" (Hingga 12kg)",
+    warranty: "1 Tahun Resmi",
+    verdict: "Lengan gas spring heavy-duty untuk monitor ultrawide atau layar 32-34 inci yang berat.",
+    notes: "Dilengkapi ekstensi port USB di base clamp.",
+    shopeeUrl: "https://shopee.co.id",
+    recommendedFor: "Monitor Ultrawide 34\" & Monitor 32\" Berat",
+    isPublished: true
   },
   {
     id: "per-cabletime-cc23",
@@ -746,7 +787,8 @@ export const PERIPHERALS_DATABASE: PeripheralItem[] = [
     shopeeUrl: "https://s.shopee.co.id/7paWxbIWGA",
     tokopediaUrl: "https://tk.tokopedia.com/zSMm1Ag7e/",
     tiktokUrl: "https://vt.tokopedia.com/t/Z...xAePg/",
-    recommendedFor: "Laptop Gaming & Handheld ROG Ally/Legion Go"
+    recommendedFor: "Laptop Gaming & Handheld ROG Ally/Legion Go",
+    isPublished: true
   },
   {
     id: "per-lindy-dp-anthra",
@@ -762,28 +804,45 @@ export const PERIPHERALS_DATABASE: PeripheralItem[] = [
     shopeeUrl: "https://s.shopee.co.id/1Y6Lr7MoW",
     tokopediaUrl: "https://tk.tokopedia.com/zSQ89VxrX/",
     tiktokUrl: "https://vt.tokopedia.com/t/Z...V3ecZ/",
-    recommendedFor: "Esport 240Hz/360Hz & Studio Color Grading"
+    recommendedFor: "Esport 240Hz/360Hz & Studio Color Grading",
+    isPublished: true
+  },
+  {
+    id: "per-oximus-lynx",
+    name: "Oximus Lynx Universal Wall Mount",
+    category: "Bracket & Mount",
+    price: 85000,
+    brand: "Oximus",
+    type: "Bracket Dinding / Wall Mount",
+    versionDetail: "VESA 75x75 & 100x100 Swivel",
+    warranty: "Non-Warranty",
+    verdict: "Bracket dinding kokoh untuk pemasangan monitor di dinding kamar atau studio tanpa makan tempat meja.",
+    notes: "Beban maksimal 15kg, sudut tilt ±15 derajat.",
+    shopeeUrl: "https://shopee.co.id",
+    recommendedFor: "Setup Meja Minimalis / Dinding Kamar",
+    isPublished: true
   },
   {
     id: "per-oximus-p810",
     name: "Oximus P810 Ergonomic Stand",
-    category: "Monitor Arm / Bracket",
+    category: "Bracket & Mount",
     price: 400000,
     brand: "Oximus",
     type: "Ergonomic Stand",
-    versionDetail: "Single Arm (Pegas)",
+    versionDetail: "Single Stand (Pegas Meja)",
     warranty: "Non-Warranty",
     verdict: "Stand monitor meja universal pengganti kaki monitor bawaan yang kaku.",
     notes: "Bisa tilt, swivel, pivot 90 derajat portrait tanpa jepit meja.",
     shopeeUrl: "https://s.shopee.co.id/6KorkC570M",
     tokopediaUrl: "https://tk.tokopedia.com/zSQ8Arral/",
     tiktokUrl: "https://vt.tokopedia.com/t/Z...D6Sp1/",
-    recommendedFor: "Meja Kaca/Tertutup yang tidak bisa dijepit Arm"
+    recommendedFor: "Meja Kaca/Tertutup yang tidak bisa dijepit Arm",
+    isPublished: true
   },
   {
     id: "per-oximus-p200e",
     name: "Oximus P200E Dual Arm Monitor Bracket",
-    category: "Monitor Arm / Bracket",
+    category: "Monitor Arm",
     price: 500000,
     brand: "Oximus",
     type: "Bracket Jepit Meja (Tiang)",
@@ -794,7 +853,8 @@ export const PERIPHERALS_DATABASE: PeripheralItem[] = [
     shopeeUrl: "https://s.shopee.co.id/3q734pzPu8",
     tokopediaUrl: "https://tk.tokopedia.com/zSQ8ARJPb/",
     tiktokUrl: "https://vt.tokopedia.com/t/Z...Oh1I6/",
-    recommendedFor: "Setup 2 Monitor Kerja, Coding, & Streamer"
+    recommendedFor: "Setup 2 Monitor Kerja, Coding, & Streamer",
+    isPublished: true
   },
   {
     id: "per-cabletime-ct40",
@@ -875,7 +935,7 @@ export const DEFAULT_CHAIRS_DATABASE: ChairItem[] = [
     notes: "Dudukan full mesh tanpa spons busa sehingga sirkulasi udara maksimal dan tidak gerah untuk sesi kerja marathon >8 jam.",
     shopeeUrl: "https://shopee.co.id/search?keyword=sihoo%20doro%20c300",
     tokopediaUrl: "https://www.tokopedia.com/search?q=sihoo%20doro%20c300",
-    isPublished: false, // Default staging
+    isPublished: true, // Draft catalog published
     order: 1,
   },
   {
@@ -896,7 +956,7 @@ export const DEFAULT_CHAIRS_DATABASE: ChairItem[] = [
     notes: "Pilihan paling aman bagi pengguna yang belum terbiasa dengan dudukan full mesh murni yang cenderung keras di awal adaptasi.",
     shopeeUrl: "https://shopee.co.id/search?keyword=pexio%20hervey",
     tokopediaUrl: "https://www.tokopedia.com/search?q=pexio%20hervey",
-    isPublished: false, // Default staging
+    isPublished: true, // Draft catalog published
     order: 2,
   },
   {
@@ -917,7 +977,7 @@ export const DEFAULT_CHAIRS_DATABASE: ChairItem[] = [
     notes: "Belum mendukung lock recline di berbagai sudut bertingkat, tetapi ketebalan busa dudukan sangat memuaskan di kelas harga terjangkau.",
     shopeeUrl: "https://shopee.co.id/search?keyword=fantech%20oca258",
     tokopediaUrl: "https://www.tokopedia.com/search?q=fantech%20oca258",
-    isPublished: false, // Default staging
+    isPublished: true, // Draft catalog published
     order: 3,
   },
   {
@@ -938,7 +998,7 @@ export const DEFAULT_CHAIRS_DATABASE: ChairItem[] = [
     notes: "Sangat disarankan memilih varian bahan SoftWeave Plus Fabric daripada PU Leather untuk penggunaan jangka panjang di iklim tropis non-AC agar tidak pecah-pecah/mengelupas.",
     shopeeUrl: "https://shopee.co.id/search?keyword=secretlab%20titan%20evo",
     tokopediaUrl: "https://www.tokopedia.com/search?q=secretlab%20titan%20evo",
-    isPublished: false, // Default staging
+    isPublished: true, // Draft catalog published
     order: 4,
   },
 ];

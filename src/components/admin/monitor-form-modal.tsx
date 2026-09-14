@@ -108,7 +108,10 @@ export function MonitorFormModal({
 
   useEffect(() => {
     if (monitor) {
-      setFormData(monitor);
+      setFormData({
+        ...monitor,
+        isPublished: monitor.isPublished !== undefined ? monitor.isPublished : true,
+      });
     } else {
       setFormData({
         id: `mon-${Date.now()}`,
@@ -119,6 +122,7 @@ export function MonitorFormModal({
         tierDescription: "Rekomendasi GrayPlasma",
         price: 1800000,
         originalPrice: 2100000,
+        isPublished: true,
         thumbnail: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop",
         gallery: [],
         quickSpecs: ["24\"", "Fast IPS", "180Hz", "1ms GtG"],
@@ -140,29 +144,37 @@ export function MonitorFormModal({
             curvature: "Flat",
           },
           connectivity: {
-            displayPort: "1x DisplayPort 1.4",
+            displayPort: "1x DP 1.4",
             hdmi: "1x HDMI 2.0",
             audioJack: true,
-            usbHub: "Tidak Ada",
           },
           ergonomics: {
             heightAdjustable: false,
-            tilt: "-5° ~ 15°",
-            swivel: "Tidak",
+            tilt: "-5° / +15°",
+            swivel: "None",
             pivot: false,
             vesaMount: "75 x 75 mm",
           },
           features: {
-            syncTech: "Adaptive-Sync / FreeSync",
+            syncTech: "FreeSync / G-Sync Compatible",
             builtInSpeakers: false,
-            powerConsumption: "28W",
-            warranty: "3 Tahun Garansi Distributor",
+            powerConsumption: "24W",
+            warranty: "3 Tahun Resmi",
           },
         },
         marketplaces: [
           {
             marketplace: "Shopee",
             url: "https://shopee.co.id",
+            price: 1800000,
+            isAffiliate: true,
+            storeName: "Xiaomi Official",
+            officialStore: true,
+            inStock: true,
+          },
+          {
+            marketplace: "Tokopedia",
+            url: "https://tokopedia.com",
             price: 1800000,
             isAffiliate: true,
             storeName: "Official Store",
@@ -217,26 +229,26 @@ export function MonitorFormModal({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.fullName || !formData.brand || !formData.price) {
-      alert("Mohon lengkapi Brand, Nama Monitor, dan Harga.");
+    if (!formData.fullName?.trim()) {
+      alert("Nama lengkap monitor wajib diisi!");
       return;
     }
 
     const finalItem: Monitor = {
-      id: formData.id || `mon-${Date.now()}-${formData.model?.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
-      slug: formData.slug || formData.model?.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "monitor",
+      id: formData.id || `mon-${Date.now()}`,
+      slug: formData.slug || formData.fullName.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
       brand: formData.brand || "Brand",
-      model: formData.model || formData.fullName || "Model",
-      fullName: formData.fullName || "Full Name",
-      tier: formData.tier || "RECOMMENDED",
-      tierDescription: formData.tierDescription || "Rekomendasi GrayPlasma",
+      model: formData.model || formData.fullName,
+      fullName: formData.fullName,
+      tier: (formData.tier as TierRating) || "RECOMMENDED",
+      tierDescription: formData.tierDescription,
       price: Number(formData.price) || 1500000,
-      originalPrice: Number(formData.originalPrice) || Math.round(Number(formData.price) * 1.15),
+      originalPrice: formData.originalPrice ? Number(formData.originalPrice) : undefined,
       recommendedPrice: formData.recommendedPrice ? Number(formData.recommendedPrice) : undefined,
       thumbnail: formData.thumbnail || "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop",
-      gallery: formData.gallery || [formData.thumbnail || ""],
+      gallery: formData.gallery || [],
       quickSpecs: [
-        formData.specs?.display?.size || "24 Inci",
+        formData.specs?.display?.size || "24 Inch",
         formData.specs?.display?.panelType || "Fast IPS",
         `${formData.specs?.display?.refreshRate || 180}Hz`,
         formData.specs?.display?.responseTime || "1ms GtG",
@@ -252,6 +264,7 @@ export function MonitorFormModal({
         `${formData.specs?.display?.refreshRate || 180}Hz`,
         formData.specs?.display?.resolution || "FHD",
       ],
+      isPublished: formData.isPublished !== undefined ? formData.isPublished : true,
       createdAt: formData.createdAt || new Date().toISOString(),
       frontImage: formData.frontImage || formData.thumbnail,
       rearImage: formData.rearImage,
@@ -296,6 +309,35 @@ export function MonitorFormModal({
         {/* Modal Form with Scrollable Body & Fixed Footer */}
         <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0 overflow-hidden">
           <div className="flex-1 overflow-y-auto p-6 space-y-6 text-xs">
+          {/* Status Visibility Toggle */}
+          <div className="p-3.5 rounded-xl bg-zinc-900/90 border border-zinc-800 flex items-center justify-between">
+            <div>
+              <span className="text-xs font-bold text-white block">Status Visibilitas Monitor</span>
+              <p className="text-[11px] text-zinc-400">
+                {formData.isPublished !== false
+                  ? "Monitor ini AKTIF dan tampil di tabel & katalog web publik."
+                  : "Monitor ini DRAFT / NONAKTIF, disembunyikan dari pengunjung publik."}
+              </p>
+            </div>
+            <label className="flex items-center gap-2 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={formData.isPublished !== false}
+                onChange={(e) => setFormData({ ...formData, isPublished: e.target.checked })}
+                className="rounded border-zinc-700 bg-zinc-950 text-emerald-500 accent-emerald-500 w-4 h-4"
+              />
+              <span
+                className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${
+                  formData.isPublished !== false
+                    ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
+                    : "bg-zinc-800 text-zinc-400 border border-zinc-700"
+                }`}
+              >
+                {formData.isPublished !== false ? "LIVE (AKTIF)" : "DRAFT (NONAKTIF)"}
+              </span>
+            </label>
+          </div>
+
           {/* 1. Basic Info */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold text-emerald-400 uppercase tracking-wider">

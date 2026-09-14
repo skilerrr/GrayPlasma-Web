@@ -15,6 +15,7 @@ import {
   ImageIcon,
   Sparkles,
   Eye,
+  EyeOff,
   SlidersHorizontal,
   Youtube,
   AlertTriangle,
@@ -73,6 +74,7 @@ export function MonitorLiveStudio({
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
   const [isColManagerOpen, setIsColManagerOpen] = useState(false);
   const [isWordDocsOpen, setIsWordDocsOpen] = useState(false);
+  const [statusFilter, setStatusFilter] = useState<"all" | "published" | "draft">("all");
 
   // Helper to convert monitor ulasan & verdict to Notion/Word document HTML
   const getInitialDoc = (mon: Partial<Monitor> | null) => {
@@ -411,6 +413,7 @@ export function MonitorLiveStudio({
       additionalStores: formData.additionalStores,
       responseTimeData: formData.responseTimeData,
       customVariables: formData.customVariables || [],
+      isPublished: formData.isPublished !== undefined ? formData.isPublished : true,
       createdAt: formData.createdAt || new Date().toISOString(),
     };
 
@@ -442,7 +445,24 @@ export function MonitorLiveStudio({
     }
   };
 
+  // 1-Click Quick Toggle Visibility for Monitors
+  const handleToggleMonitorPublish = async (monitor: Monitor) => {
+    const newStatus = monitor.isPublished === false ? true : false;
+    const updatedMonitor = { ...monitor, isPublished: newStatus };
+    const updatedList = await DatabaseService.saveMonitor(updatedMonitor);
+    onUpdateMonitors(updatedList);
+    showNotification(
+      newStatus
+        ? `✅ Monitor "${monitor.fullName}" sekarang AKTIF (Live di website publik).`
+        : `⏸️ Monitor "${monitor.fullName}" masuk DRAFT (Disembunyikan dari publik).`
+    );
+  };
+
   const filteredMonitors = monitors.filter((m) => {
+    const isLive = m.isPublished !== false;
+    if (statusFilter === "published" && !isLive) return false;
+    if (statusFilter === "draft" && isLive) return false;
+
     const matchesSearch =
       m.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       m.brand.toLowerCase().includes(searchQuery.toLowerCase());
@@ -452,6 +472,37 @@ export function MonitorLiveStudio({
 
   // Table Column Definitions for Draggable & Sortable Monitor Management
   const monitorColumns = React.useMemo<TableColumnDef<Monitor>[]>(() => [
+    {
+      id: "status",
+      label: "Status Publikasi",
+      shortLabel: "STATUS",
+      minWidth: "min-w-[120px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Visibilitas",
+      getValue: (m) => (m.isPublished !== false ? 1 : 0),
+      renderCell: (m) => {
+        const isLive = m.isPublished !== false;
+        return (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleToggleMonitorPublish(m);
+            }}
+            className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold flex items-center gap-1.5 transition-all ${
+              isLive
+                ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20"
+                : "bg-zinc-800/80 text-zinc-400 border border-zinc-700 hover:text-white"
+            }`}
+            title={isLive ? "Klik untuk jadikan Draft (Sembunyikan dari web)" : "Klik untuk Publikasikan (Live)"}
+          >
+            {isLive ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
+            <span>{isLive ? "LIVE" : "DRAFT"}</span>
+          </button>
+        );
+      },
+    },
     {
       id: "price",
       label: "Harga",
@@ -856,6 +907,17 @@ export function MonitorLiveStudio({
                 <option value="VALUE ENTRY">VALUE ENTRY</option>
                 <option value="HONORABLE MENTION">HONORABLE MENTION</option>
                 <option value="NOT RECOMMENDED">NOT RECOMMENDED</option>
+              </select>
+
+              {/* Status Visibility Filter */}
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value as "all" | "published" | "draft")}
+                className="bg-zinc-900 border border-zinc-750 rounded-xl px-3 py-1.5 text-xs text-cyan-400 font-mono focus:outline-none"
+              >
+                <option value="all">Semua Status</option>
+                <option value="published">🟢 Hanya Aktif (Live)</option>
+                <option value="draft">⏸️ Hanya Nonaktif (Draft)</option>
               </select>
             </div>
 
@@ -2073,6 +2135,9 @@ export function MonitorLiveStudio({
         columnVisibility={tableManager.columnVisibility}
         onToggleVisibility={tableManager.toggleColumnVisibility}
         onMoveColumn={tableManager.moveColumn}
+        onReorderColumn={tableManager.reorderColumn}
+        onSetColumnOrderDirectly={tableManager.setColumnOrderDirectly}
+        onSetAllVisibility={tableManager.setAllColumnsVisibility}
         onResetColumns={tableManager.resetColumns}
       />
 

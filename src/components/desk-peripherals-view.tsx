@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
   LayoutGrid,
   ShieldAlert,
@@ -14,6 +14,11 @@ import {
   ArrowRight,
   Maximize2,
   Tv,
+  Search,
+  SlidersHorizontal,
+  RotateCcw,
+  MonitorCheck,
+  Disc,
 } from "lucide-react";
 import {
   DESK_DATABASE,
@@ -27,112 +32,717 @@ import {
 } from "@/data/grayplasma-desk-peripherals";
 import { formatRupiah } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useDraggableTable, TableColumnDef } from "@/hooks/use-draggable-table";
+import { TableColumnManagerModal } from "@/components/ui/table-column-manager-modal";
 
 interface DeskPeripheralsViewProps {
   desks?: DeskItem[];
   peripherals?: PeripheralItem[];
   chairs?: ChairItem[];
   showChairs?: boolean;
+  initialTab?: SubTab;
+  hideHeaderCard?: boolean;
 }
+
+type SubTab =
+  | "meja"
+  | "arms"
+  | "brackets"
+  | "accessories"
+  | "kursi"
+  | "gimmick"
+  | "consultation-packages";
+
+// Default columns for Desk Table
+const initialDeskColumns: TableColumnDef<DeskItem>[] = [
+  {
+    id: "name",
+    label: "Nama Produk / Meja",
+    isDefaultVisible: true,
+    minWidth: "240px",
+    category: "Info Dasar",
+    renderCell: (d) => (
+      <div>
+        <span className="font-bold text-white block text-sm">{d.name}</span>
+        <span className="text-[11px] text-zinc-400 mt-0.5 block">{d.description}</span>
+      </div>
+    ),
+  },
+  {
+    id: "category",
+    label: "Kategori",
+    isDefaultVisible: true,
+    minWidth: "140px",
+    category: "Klasifikasi",
+    renderCell: (d) => (
+      <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300 text-[11px]">
+        {d.category}
+      </span>
+    ),
+  },
+  {
+    id: "price",
+    label: "Kisaran Harga",
+    isDefaultVisible: true,
+    minWidth: "130px",
+    category: "Harga",
+    renderCell: (d) => (
+      <span className="font-mono font-bold text-emerald-400 text-xs">
+        {formatRupiah(d.price)}
+      </span>
+    ),
+  },
+  {
+    id: "material",
+    label: "Material & Tebal",
+    isDefaultVisible: true,
+    minWidth: "180px",
+    category: "Spesifikasi",
+    renderCell: (d) => (
+      <div className="text-zinc-300">
+        <div>{d.specs?.material}</div>
+        <span className="text-[10px] text-emerald-400 font-semibold">
+          Tebal: {d.specs?.thickness}
+        </span>
+      </div>
+    ),
+  },
+  {
+    id: "dimensions",
+    label: "Ukuran Dimensi",
+    isDefaultVisible: true,
+    minWidth: "140px",
+    category: "Spesifikasi",
+    renderCell: (d) => (
+      <span className="text-zinc-300 font-mono text-[11px]">
+        {d.specs?.dimensions}
+      </span>
+    ),
+  },
+  {
+    id: "arm_support",
+    label: "Arm Support",
+    isDefaultVisible: true,
+    minWidth: "110px",
+    category: "Fitur",
+    renderCell: () => (
+      <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+        <CheckCircle2 className="w-3 h-3" />
+        <span>Aman Jepit</span>
+      </span>
+    ),
+  },
+  {
+    id: "shopee",
+    label: "Link Shopee",
+    isDefaultVisible: true,
+    minWidth: "130px",
+    category: "Marketplace",
+    renderCell: (d) => (
+      <a
+        href={d.shopeeUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500 hover:text-black text-amber-400 text-xs font-bold transition-all"
+      >
+        <ShoppingBag className="w-3 h-3" />
+        <span>Shopee</span>
+        <ExternalLink className="w-2.5 h-2.5" />
+      </a>
+    ),
+  },
+];
+
+// Default columns for Arm / Bracket / Peripheral Table
+const initialPeripheralColumns: TableColumnDef<PeripheralItem>[] = [
+  {
+    id: "name",
+    label: "Brand & Model Name",
+    isDefaultVisible: true,
+    minWidth: "220px",
+    category: "Info Dasar",
+    renderCell: (p) => (
+      <div>
+        <span className="font-bold text-white text-sm block">{p.name}</span>
+        <span className="text-[11px] text-zinc-400 mt-0.5 block">{p.verdict}</span>
+      </div>
+    ),
+  },
+  {
+    id: "price",
+    label: "Kisaran Harga*",
+    isDefaultVisible: true,
+    minWidth: "120px",
+    category: "Harga",
+    renderCell: (p) => (
+      <span className="font-mono font-bold text-emerald-400 text-xs">
+        {formatRupiah(p.price)}
+      </span>
+    ),
+  },
+  {
+    id: "category",
+    label: "Kategori / Tipe",
+    isDefaultVisible: true,
+    minWidth: "140px",
+    category: "Klasifikasi",
+    renderCell: (p) => (
+      <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300 text-[11px]">
+        {p.type || p.category}
+      </span>
+    ),
+  },
+  {
+    id: "versionDetail",
+    label: "Detail / Spek Beban",
+    isDefaultVisible: true,
+    minWidth: "160px",
+    category: "Spesifikasi",
+    renderCell: (p) => (
+      <span className="px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 font-mono text-[11px]">
+        {p.versionDetail || p.recommendedFor || "-"}
+      </span>
+    ),
+  },
+  {
+    id: "warranty",
+    label: "Garansi",
+    isDefaultVisible: true,
+    minWidth: "90px",
+    category: "Garansi",
+    renderCell: (p) => (
+      <span className="text-center text-zinc-400 text-xs font-mono">
+        {p.warranty || "2 Tahun"}
+      </span>
+    ),
+  },
+  {
+    id: "shopee",
+    label: "Shopee",
+    isDefaultVisible: true,
+    minWidth: "120px",
+    category: "Marketplace",
+    renderCell: (p) =>
+      p.shopeeUrl ? (
+        <a
+          href={p.shopeeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-orange-500/10 border border-orange-500/30 hover:bg-orange-500 hover:text-black text-orange-400 text-xs font-bold transition-all"
+        >
+          <ShoppingBag className="w-3 h-3" />
+          <span>Shopee</span>
+          <ExternalLink className="w-2.5 h-2.5" />
+        </a>
+      ) : (
+        <span className="text-zinc-600">-</span>
+      ),
+  },
+  {
+    id: "tokopedia",
+    label: "Tokopedia",
+    isDefaultVisible: true,
+    minWidth: "120px",
+    category: "Marketplace",
+    renderCell: (p) =>
+      p.tokopediaUrl ? (
+        <a
+          href={p.tokopediaUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 hover:bg-emerald-500 hover:text-black text-emerald-400 text-xs font-bold transition-all"
+        >
+          <span>Tokopedia</span>
+          <ExternalLink className="w-2.5 h-2.5" />
+        </a>
+      ) : (
+        <span className="text-zinc-600">-</span>
+      ),
+  },
+];
 
 export function DeskPeripheralsView({
   desks = DESK_DATABASE,
   peripherals = PERIPHERALS_DATABASE,
   chairs = DEFAULT_CHAIRS_DATABASE,
   showChairs = false,
+  initialTab,
+  hideHeaderCard = false,
 }: DeskPeripheralsViewProps) {
-  const [activeSubTab, setActiveSubTab] = useState<"meja" | "peripherals" | "kursi" | "gimmick" | "consultation-packages">("meja");
+  const [activeSubTab, setActiveSubTab] = useState<SubTab>(initialTab || "meja");
   const [chairCategoryFilter, setChairCategoryFilter] = useState<string>("all");
+  const [armBracketSubFilter, setArmBracketSubFilter] = useState<"all" | "arm" | "bracket">("all");
+  const [deskCategoryFilter, setDeskCategoryFilter] = useState<string>("all");
+  const [accessoryCategoryFilter, setAccessoryCategoryFilter] = useState<string>("all");
+
+  useEffect(() => {
+    if (initialTab) {
+      setActiveSubTab(initialTab);
+    }
+  }, [initialTab]);
+
+  // Search queries
+  const [deskSearch, setDeskSearch] = useState("");
+  const [peripheralSearch, setPeripheralSearch] = useState("");
+
+  // Column management modals
+  const [isDeskColModalOpen, setIsDeskColModalOpen] = useState(false);
+  const [isPeriColModalOpen, setIsPeriColModalOpen] = useState(false);
+
+  // Filter published only
+  const publishedDesks = useMemo(
+    () => desks.filter((d) => d.isPublished !== false),
+    [desks]
+  );
+  const publishedPeripherals = useMemo(
+    () => peripherals.filter((p) => p.isPublished !== false),
+    [peripherals]
+  );
+  const publishedChairs = useMemo(
+    () => chairs.filter((c) => c.isPublished !== false),
+    [chairs]
+  );
+
+  // Categorization helpers
+  const isArm = (p: PeripheralItem) => {
+    const cat = (p.category || "").toLowerCase();
+    const type = (p.type || "").toLowerCase();
+    const name = (p.name || "").toLowerCase();
+    return (
+      cat.includes("arm") ||
+      type.includes("arm") ||
+      name.includes("arm") ||
+      name.includes("p100e") ||
+      name.includes("p200e") ||
+      name.includes("f80") ||
+      name.includes("f100a")
+    );
+  };
+
+  const isBracket = (p: PeripheralItem) => {
+    const cat = (p.category || "").toLowerCase();
+    const type = (p.type || "").toLowerCase();
+    const name = (p.name || "").toLowerCase();
+    return (
+      (cat.includes("bracket") ||
+        type.includes("bracket") ||
+        name.includes("bracket") ||
+        name.includes("vesa") ||
+        name.includes("mount") ||
+        name.includes("dinding")) &&
+      !isArm(p)
+    );
+  };
+
+  const isAccessory = (p: PeripheralItem) => {
+    return !isArm(p) && !isBracket(p);
+  };
+
+  const armsList = useMemo(
+    () => publishedPeripherals.filter(isArm),
+    [publishedPeripherals]
+  );
+  const bracketsList = useMemo(
+    () => publishedPeripherals.filter(isBracket),
+    [publishedPeripherals]
+  );
+  const armsAndBracketsList = useMemo(
+    () => publishedPeripherals.filter((p) => isArm(p) || isBracket(p)),
+    [publishedPeripherals]
+  );
+  const accessoriesList = useMemo(
+    () => publishedPeripherals.filter(isAccessory),
+    [publishedPeripherals]
+  );
+
+  // Draggable columns hook
+  const deskTable = useDraggableTable<DeskItem>({
+    storageKey: "gp_public_desk_table_cols",
+    columns: initialDeskColumns,
+  });
+
+  const periTable = useDraggableTable<PeripheralItem>({
+    storageKey: "gp_public_peripheral_table_cols",
+    columns: initialPeripheralColumns,
+  });
+
+  // Filtered lists by search and category
+  const filteredDesks = useMemo(() => {
+    let list = publishedDesks;
+    if (deskCategoryFilter !== "all") {
+      list = list.filter((d) => d.category.toLowerCase().includes(deskCategoryFilter.toLowerCase()));
+    }
+    if (!deskSearch.trim()) return list;
+    const q = deskSearch.toLowerCase();
+    return list.filter(
+      (d) =>
+        d.name.toLowerCase().includes(q) ||
+        d.category.toLowerCase().includes(q) ||
+        d.specs.material.toLowerCase().includes(q) ||
+        (d.description || "").toLowerCase().includes(q)
+    );
+  }, [publishedDesks, deskCategoryFilter, deskSearch]);
+
+  const activePeripheralList = useMemo(() => {
+    if (activeSubTab === "arms") {
+      if (armBracketSubFilter === "arm") return armsList;
+      if (armBracketSubFilter === "bracket") return bracketsList;
+      return armsAndBracketsList;
+    }
+    if (activeSubTab === "brackets") return bracketsList;
+    if (activeSubTab === "accessories") {
+      if (accessoryCategoryFilter === "all") return accessoriesList;
+      return accessoriesList.filter(
+        (a) =>
+          a.category.toLowerCase().includes(accessoryCategoryFilter.toLowerCase()) ||
+          (a.type || "").toLowerCase().includes(accessoryCategoryFilter.toLowerCase())
+      );
+    }
+    return publishedPeripherals;
+  }, [
+    activeSubTab,
+    armBracketSubFilter,
+    armsList,
+    bracketsList,
+    armsAndBracketsList,
+    accessoryCategoryFilter,
+    accessoriesList,
+    publishedPeripherals,
+  ]);
+
+  const filteredPeripherals = useMemo(() => {
+    if (!peripheralSearch.trim()) return activePeripheralList;
+    const q = peripheralSearch.toLowerCase();
+    return activePeripheralList.filter(
+      (p) =>
+        p.name.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
+        (p.type || "").toLowerCase().includes(q) ||
+        (p.verdict || "").toLowerCase().includes(q) ||
+        (p.versionDetail || "").toLowerCase().includes(q)
+    );
+  }, [activePeripheralList, peripheralSearch]);
 
   return (
     <div className="space-y-8 animate-in fade-in duration-200">
-      {/* Header Info */}
-      <div className="bg-surface-dark border border-zinc-800 rounded-3xl p-6 sm:p-8 space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold mb-2">
-              <LayoutGrid className="w-3.5 h-3.5" />
-              <span>Panduan Meja & Peripherals Setup</span>
+      {/* Header Info: Conditionally rendered only when hideHeaderCard is false */}
+      {!hideHeaderCard && (
+        <div className="bg-surface-dark border border-zinc-800 rounded-3xl p-6 sm:p-8 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold mb-2">
+                <LayoutGrid className="w-3.5 h-3.5" />
+                <span>Panduan Meja & Peripherals Setup</span>
+              </div>
+              <h2 className="text-xl sm:text-3xl font-black text-white uppercase tracking-tight">
+                Rekomendasi Meja, Bracket, & Peripherals Setup
+              </h2>
+              <p className="text-xs sm:text-sm text-zinc-400 mt-1 max-w-2xl">
+                Kurasi meja kokoh tahan jepit monitor arm, gas spring bracket teruji, dan aksesoris setup dari riset forum GrayPlasma.
+              </p>
             </div>
-            <h2 className="text-xl sm:text-3xl font-black text-white uppercase tracking-tight">
-              Rekomendasi Meja, Bracket, & Peripherals Setup
-            </h2>
-            <p className="text-xs sm:text-sm text-zinc-400 mt-1 max-w-2xl">
-              Kurasi meja kokoh tahan jepit monitor arm, gas spring bracket, lampu screenbar, dan paket racikan setup dari forum GrayPlasma.
-            </p>
           </div>
-        </div>
 
-        {/* Sub Navigation Tabs */}
-        <div className="flex items-center gap-2 pt-2 border-t border-zinc-800 overflow-x-auto no-scrollbar">
-          <button
-            onClick={() => setActiveSubTab("meja")}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
-              activeSubTab === "meja"
-                ? "bg-zinc-800 text-cyan-400 border border-cyan-500/40 shadow-sm"
-                : "text-zinc-400 hover:text-white hover:bg-zinc-900"
-            }`}
-          >
-            <LayoutGrid className="w-4 h-4" />
-            <span>Daftar Meja Rekomendasi ({DESK_DATABASE.length})</span>
-          </button>
-          <button
-            onClick={() => setActiveSubTab("peripherals")}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
-              activeSubTab === "peripherals"
-                ? "bg-zinc-800 text-emerald-400 border border-emerald-500/40 shadow-sm"
-                : "text-zinc-400 hover:text-white hover:bg-zinc-900"
-            }`}
-          >
-            <Wrench className="w-4 h-4" />
-            <span>Bracket Arm & Peripherals ({peripherals.length})</span>
-          </button>
-          {showChairs && (
+          {/* Sub Navigation Tabs */}
+          <div className="flex items-center gap-2 pt-2 border-t border-zinc-800 overflow-x-auto no-scrollbar">
             <button
-              onClick={() => setActiveSubTab("kursi")}
+              onClick={() => setActiveSubTab("meja")}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
-                activeSubTab === "kursi"
-                  ? "bg-zinc-800 text-purple-400 border border-purple-500/40 shadow-sm"
+                activeSubTab === "meja"
+                  ? "bg-zinc-800 text-cyan-400 border border-cyan-500/40 shadow-sm"
                   : "text-zinc-400 hover:text-white hover:bg-zinc-900"
               }`}
             >
-              <span>🪑</span>
-              <span>Kursi Ergonomis & Gaming ({chairs.filter((c) => c.isPublished !== false).length})</span>
+              <LayoutGrid className="w-4 h-4" />
+              <span>Daftar Meja ({publishedDesks.length})</span>
             </button>
-          )}
-          <button
-            onClick={() => setActiveSubTab("gimmick")}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
-              activeSubTab === "gimmick"
-                ? "bg-zinc-800 text-amber-400 border border-amber-500/40 shadow-sm"
-                : "text-zinc-400 hover:text-white hover:bg-zinc-900"
-            }`}
-          >
-            <AlertTriangle className="w-4 h-4" />
-            <span>Gimmick Meja Gaming</span>
-          </button>
-          <button
-            onClick={() => setActiveSubTab("consultation-packages")}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
-              activeSubTab === "consultation-packages"
-                ? "bg-zinc-800 text-rose-400 border border-rose-500/40 shadow-sm"
-                : "text-zinc-400 hover:text-white hover:bg-zinc-900"
-            }`}
-          >
-            <Sparkles className="w-4 h-4" />
-            <span>Hasil Racikan Konsultasi ({CONSULTATION_RESULTS_DATABASE.length})</span>
-          </button>
-        </div>
-      </div>
 
-      {/* 1. VIEW: DAFTAR MEJA REKOMENDASI (TABEL WIDE NOTION) */}
+            <button
+              onClick={() => setActiveSubTab("arms")}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
+                activeSubTab === "arms"
+                  ? "bg-zinc-800 text-cyan-400 border border-cyan-500/40 shadow-sm"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-900"
+              }`}
+            >
+              <Tv className="w-4 h-4" />
+              <span>Monitor Arm ({armsList.length})</span>
+            </button>
+
+            <button
+              onClick={() => setActiveSubTab("brackets")}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
+                activeSubTab === "brackets"
+                  ? "bg-zinc-800 text-amber-400 border border-amber-500/40 shadow-sm"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-900"
+              }`}
+            >
+              <Wrench className="w-4 h-4" />
+              <span>Bracket & Mount ({bracketsList.length})</span>
+            </button>
+
+            <button
+              onClick={() => setActiveSubTab("accessories")}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
+                activeSubTab === "accessories"
+                  ? "bg-zinc-800 text-emerald-400 border border-emerald-500/40 shadow-sm"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-900"
+              }`}
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>Aksesoris & Kabel ({accessoriesList.length})</span>
+            </button>
+
+            {showChairs && (
+              <button
+                onClick={() => setActiveSubTab("kursi")}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
+                  activeSubTab === "kursi"
+                    ? "bg-zinc-800 text-purple-400 border border-purple-500/40 shadow-sm"
+                    : "text-zinc-400 hover:text-white hover:bg-zinc-900"
+                }`}
+              >
+                <span>🪑</span>
+                <span>Kursi Ergonomis [Draft] ({publishedChairs.length})</span>
+              </button>
+            )}
+
+            <button
+              onClick={() => setActiveSubTab("gimmick")}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
+                activeSubTab === "gimmick"
+                  ? "bg-zinc-800 text-amber-400 border border-amber-500/40 shadow-sm"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-900"
+              }`}
+            >
+              <AlertTriangle className="w-4 h-4" />
+              <span>Gimmick Meja Gaming</span>
+            </button>
+
+            <button
+              onClick={() => setActiveSubTab("consultation-packages")}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
+                activeSubTab === "consultation-packages"
+                  ? "bg-zinc-800 text-rose-400 border border-rose-500/40 shadow-sm"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-900"
+              }`}
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>Hasil Racikan Setup ({CONSULTATION_RESULTS_DATABASE.length})</span>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* 1. VIEW: DAFTAR MEJA REKOMENDASI */}
       {activeSubTab === "meja" && (
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-zinc-300 uppercase tracking-wider">
-              Tabel Database Meja Pilihan (Kuat Jepit Monitor Arm)
-            </h3>
-            <span className="text-xs text-zinc-500">Geser ke samping untuk melihat detail spesifikasi</span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-zinc-950/60 p-3.5 rounded-2xl border border-zinc-800/80">
+            <div className="flex items-center gap-3 flex-wrap">
+              <div className="relative flex-1 sm:w-64">
+                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
+                <input
+                  type="text"
+                  placeholder="Cari meja pilihan, bahan, atau ukuran..."
+                  value={deskSearch}
+                  onChange={(e) => setDeskSearch(e.target.value)}
+                  className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl bg-zinc-900 border border-zinc-800 text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-500 font-mono transition-colors"
+                />
+                {deskSearch && (
+                  <button
+                    onClick={() => setDeskSearch("")}
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-zinc-500 hover:text-white"
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+
+              {/* Category Pills for Meja */}
+              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+                {[
+                  { id: "all", label: `Semua Meja (${publishedDesks.length})` },
+                  { id: "daun meja", label: "Daun Meja Saja" },
+                  { id: "standing", label: "Standing Desk Motor" },
+                ].map((pill) => (
+                  <button
+                    key={pill.id}
+                    onClick={() => setDeskCategoryFilter(pill.id)}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-all ${
+                      deskCategoryFilter === pill.id
+                        ? "bg-orange-500/20 text-orange-300 border border-orange-500/40 font-bold"
+                        : "text-zinc-400 hover:text-white hover:bg-zinc-850"
+                    }`}
+                  >
+                    {pill.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 self-end sm:self-auto">
+              <button
+                onClick={() => setIsDeskColModalOpen(true)}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 text-xs font-bold text-zinc-300 hover:text-white transition-colors"
+                title="Atur kolom & urutan tabel meja"
+              >
+                <SlidersHorizontal className="w-3.5 h-3.5 text-orange-400" />
+                <span>Atur Kolom ({deskTable.visibleColumns.length})</span>
+              </button>
+            </div>
+          </div>
+
+          <div className="relative rounded-2xl border border-zinc-800 bg-[#09090b] overflow-hidden shadow-xl">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs border-collapse min-w-[950px]">
+                <thead className="bg-[#121215] text-zinc-400 uppercase text-[10px] tracking-wider border-b border-zinc-800 sticky top-0 z-20">
+                  <tr>
+                    {deskTable.visibleColumns.map((col) => (
+                      <th
+                        key={col.id}
+                        className={`py-3 px-3 font-bold ${
+                          col.id === "name"
+                            ? "text-zinc-300 min-w-[240px] px-4"
+                            : col.id === "price"
+                            ? "text-emerald-400 min-w-[130px]"
+                            : col.id === "arm_support" || col.id === "shopee"
+                            ? "text-center min-w-[120px]"
+                            : "min-w-[140px]"
+                        }`}
+                      >
+                        {col.label}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-zinc-900/80">
+                  {filteredDesks.map((d, idx) => (
+                    <tr
+                      key={d.id}
+                      className={`hover:bg-zinc-900/60 transition-colors ${
+                        idx % 2 === 0 ? "bg-black/40" : "bg-[#09090b]"
+                      }`}
+                    >
+                      {deskTable.visibleColumns.map((col) => (
+                        <td
+                          key={col.id}
+                          className={`py-3.5 px-3 ${
+                            col.id === "name"
+                              ? "px-4"
+                              : col.id === "arm_support" || col.id === "shopee"
+                              ? "text-center"
+                              : ""
+                          }`}
+                        >
+                          {col.renderCell(d, idx)}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                  {filteredDesks.length === 0 && (
+                    <tr>
+                      <td
+                        colSpan={deskTable.visibleColumns.length}
+                        className="py-12 text-center text-zinc-500"
+                      >
+                        Tidak ada meja yang cocok dengan pencarian &quot;{deskSearch}&quot;.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 2. VIEW: SEPARATED MONITOR ARM, BRACKET, OR ACCESSORIES */}
+      {(activeSubTab === "arms" || activeSubTab === "brackets" || activeSubTab === "accessories") && (
+        <div className="space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-zinc-950/60 p-3.5 rounded-2xl border border-zinc-800/80">
+            <div className="flex items-center gap-3 flex-wrap">
+              <div className="relative flex-1 sm:w-64">
+                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
+                <input
+                  type="text"
+                  placeholder={
+                    activeSubTab === "arms"
+                      ? "Cari monitor arm gas spring / mount..."
+                      : activeSubTab === "brackets"
+                      ? "Cari bracket dinding / VESA mount..."
+                      : "Cari kabel DP, HDMI, screenbar..."
+                  }
+                  value={peripheralSearch}
+                  onChange={(e) => setPeripheralSearch(e.target.value)}
+                  className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl bg-zinc-900 border border-zinc-800 text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-500 font-mono transition-colors"
+                />
+                {peripheralSearch && (
+                  <button
+                    onClick={() => setPeripheralSearch("")}
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-zinc-500 hover:text-white"
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+
+              {/* Sub-Pills for Arm & Bracket category */}
+              {activeSubTab === "arms" && (
+                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+                  {[
+                    { id: "all", label: `Semua Arm & Mount (${armsAndBracketsList.length})` },
+                    { id: "arm", label: `Monitor Arm (${armsList.length})` },
+                    { id: "bracket", label: `Bracket & Mount (${bracketsList.length})` },
+                  ].map((pill) => (
+                    <button
+                      key={pill.id}
+                      onClick={() => setArmBracketSubFilter(pill.id as any)}
+                      className={`px-2.5 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-all ${
+                        armBracketSubFilter === pill.id
+                          ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold"
+                          : "text-zinc-400 hover:text-white hover:bg-zinc-850"
+                      }`}
+                    >
+                      {pill.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Sub-Pills for Accessories category */}
+              {activeSubTab === "accessories" && (
+                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+                  {[
+                    { id: "all", label: `Semua Aksesoris (${accessoriesList.length})` },
+                    { id: "kabel", label: "Kabel DP & HDMI" },
+                    { id: "bracket", label: "Mount & Protektor" },
+                  ].map((pill) => (
+                    <button
+                      key={pill.id}
+                      onClick={() => setAccessoryCategoryFilter(pill.id)}
+                      className={`px-2.5 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-all ${
+                        accessoryCategoryFilter === pill.id
+                          ? "bg-blue-500/20 text-blue-300 border border-blue-500/40 font-bold"
+                          : "text-zinc-400 hover:text-white hover:bg-zinc-850"
+                      }`}
+                    >
+                      {pill.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="flex items-center gap-2 self-end sm:self-auto">
+              <button
+                onClick={() => setIsPeriColModalOpen(true)}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 text-xs font-bold text-zinc-300 hover:text-white transition-colors"
+                title="Atur kolom & urutan tabel"
+              >
+                <SlidersHorizontal className="w-3.5 h-3.5 text-cyan-400" />
+                <span>Atur Kolom ({periTable.visibleColumns.length})</span>
+              </button>
+            </div>
           </div>
 
           <div className="relative rounded-2xl border border-zinc-800 bg-[#09090b] overflow-hidden shadow-xl">
@@ -140,156 +750,58 @@ export function DeskPeripheralsView({
               <table className="w-full text-left text-xs border-collapse min-w-[1000px]">
                 <thead className="bg-[#121215] text-zinc-400 uppercase text-[10px] tracking-wider border-b border-zinc-800 sticky top-0 z-20">
                   <tr>
-                    <th className="py-3 px-4 font-bold text-zinc-300 min-w-[240px]">NAMA PRODUK / MEJA</th>
-                    <th className="py-3 px-3 font-bold min-w-[140px]">KATEGORI</th>
-                    <th className="py-3 px-4 font-bold text-emerald-400 min-w-[130px]">KISARAN HARGA</th>
-                    <th className="py-3 px-3 font-bold min-w-[180px]">MATERIAL & KETEBALAN</th>
-                    <th className="py-3 px-3 font-bold min-w-[140px]">UKURAN DIMENSI</th>
-                    <th className="py-3 px-3 font-bold text-center min-w-[110px]">ARM SUPPORT</th>
-                    <th className="py-3 px-4 font-bold text-center min-w-[130px]">LINK SHOPEE</th>
+                    {periTable.visibleColumns.map((col) => (
+                      <th
+                        key={col.id}
+                        className={`py-3 px-3 font-bold ${
+                          col.id === "name"
+                            ? "text-zinc-300 min-w-[220px] px-4"
+                            : col.id === "price"
+                            ? "text-emerald-400 min-w-[120px]"
+                            : col.id === "warranty" || col.id === "shopee" || col.id === "tokopedia"
+                            ? "text-center min-w-[110px]"
+                            : "min-w-[140px]"
+                        }`}
+                      >
+                        {col.label}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-900/80">
-                  {desks.map((d, idx) => (
-                    <tr
-                      key={d.id}
-                      className={`hover:bg-zinc-900/60 transition-colors ${
-                        idx % 2 === 0 ? "bg-black/40" : "bg-[#09090b]"
-                      }`}
-                    >
-                      <td className="py-3.5 px-4">
-                        <div>
-                          <span className="font-bold text-white block text-sm">{d.name}</span>
-                          <span className="text-[11px] text-zinc-400 mt-0.5 block">{d.description}</span>
-                        </div>
-                      </td>
-                      <td className="py-3.5 px-3">
-                        <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300 text-[11px]">
-                          {d.category}
-                        </span>
-                      </td>
-                      <td className="py-3.5 px-4 font-mono font-bold text-emerald-400 text-xs">
-                        {formatRupiah(d.price)}
-                      </td>
-                      <td className="py-3.5 px-3 text-zinc-300">
-                        <div>{d.specs.material}</div>
-                        <span className="text-[10px] text-emerald-400 font-semibold">Tebal: {d.specs.thickness}</span>
-                      </td>
-                      <td className="py-3.5 px-3 text-zinc-300 font-mono text-[11px]">
-                        {d.specs.dimensions}
-                      </td>
-                      <td className="py-3.5 px-3 text-center">
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-                          <CheckCircle2 className="w-3 h-3" />
-                          <span>Aman Jepit</span>
-                        </span>
-                      </td>
-                      <td className="py-3.5 px-4 text-center">
-                        <a
-                          href={d.shopeeUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500 hover:text-black text-amber-400 text-xs font-bold transition-all"
-                        >
-                          <ShoppingBag className="w-3 h-3" />
-                          <span>Beli di Shopee</span>
-                          <ExternalLink className="w-2.5 h-2.5" />
-                        </a>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 2. VIEW: BRACKET ARM & PERIPHERALS */}
-      {activeSubTab === "peripherals" && (
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-zinc-300 uppercase tracking-wider">
-              Tabel Monitor Arm, Screenbar, & Aksesoris Meja Teruji
-            </h3>
-            <span className="text-xs text-zinc-500">Geser ke samping untuk melihat detail spesifikasi</span>
-          </div>
-
-          <div className="relative rounded-2xl border border-zinc-800 bg-[#09090b] overflow-hidden shadow-xl">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs border-collapse min-w-[1100px]">
-                <thead className="bg-[#121215] text-zinc-400 uppercase text-[10px] tracking-wider border-b border-zinc-800 sticky top-0 z-20">
-                  <tr>
-                    <th className="py-3 px-4 font-bold text-zinc-300 min-w-[220px]">BRAND & MODEL NAME</th>
-                    <th className="py-3 px-4 font-bold text-emerald-400 min-w-[120px]">KISARAN HARGA*</th>
-                    <th className="py-3 px-3 font-bold min-w-[140px]">TYPE</th>
-                    <th className="py-3 px-3 font-bold min-w-[160px]">VERSION OR DETAIL</th>
-                    <th className="py-3 px-3 font-bold text-center min-w-[90px]">WARRANTY</th>
-                    <th className="py-3 px-4 font-bold text-center min-w-[120px]">SHOPEE</th>
-                    <th className="py-3 px-4 font-bold text-center min-w-[120px]">TOKOPEDIA</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-zinc-900/80">
-                  {peripherals.map((p, idx) => (
+                  {filteredPeripherals.map((p, idx) => (
                     <tr
                       key={p.id}
                       className={`hover:bg-zinc-900/60 transition-colors ${
                         idx % 2 === 0 ? "bg-black/40" : "bg-[#09090b]"
                       }`}
                     >
-                      <td className="py-3.5 px-4">
-                        <span className="font-bold text-white text-sm block">{p.name}</span>
-                        <span className="text-[11px] text-zinc-400 mt-0.5 block">{p.verdict}</span>
-                      </td>
-                      <td className="py-3.5 px-4 font-mono font-bold text-emerald-400 text-xs">
-                        {formatRupiah(p.price)}
-                      </td>
-                      <td className="py-3.5 px-3">
-                        <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300 text-[11px]">
-                          {p.type || p.category}
-                        </span>
-                      </td>
-                      <td className="py-3.5 px-3">
-                        <span className="px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 font-mono text-[11px]">
-                          {p.versionDetail || p.recommendedFor}
-                        </span>
-                      </td>
-                      <td className="py-3.5 px-3 text-center text-zinc-400 text-xs font-mono">
-                        {p.warranty || "2 Tahun"}
-                      </td>
-                      <td className="py-3.5 px-4 text-center">
-                        {p.shopeeUrl ? (
-                          <a
-                            href={p.shopeeUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-orange-500/10 border border-orange-500/30 hover:bg-orange-500 hover:text-black text-orange-400 text-xs font-bold transition-all"
-                          >
-                            <ShoppingBag className="w-3 h-3" />
-                            <span>Shopee</span>
-                            <ExternalLink className="w-2.5 h-2.5" />
-                          </a>
-                        ) : (
-                          <span className="text-zinc-600">-</span>
-                        )}
-                      </td>
-                      <td className="py-3.5 px-4 text-center">
-                        {p.tokopediaUrl ? (
-                          <a
-                            href={p.tokopediaUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 hover:bg-emerald-500 hover:text-black text-emerald-400 text-xs font-bold transition-all"
-                          >
-                            <span>Tokopedia</span>
-                            <ExternalLink className="w-2.5 h-2.5" />
-                          </a>
-                        ) : (
-                          <span className="text-zinc-600">-</span>
-                        )}
-                      </td>
+                      {periTable.visibleColumns.map((col) => (
+                        <td
+                          key={col.id}
+                          className={`py-3.5 px-3 ${
+                            col.id === "name"
+                              ? "px-4"
+                              : col.id === "warranty" || col.id === "shopee" || col.id === "tokopedia"
+                              ? "text-center"
+                              : ""
+                          }`}
+                        >
+                          {col.renderCell(p, idx)}
+                        </td>
+                      ))}
                     </tr>
                   ))}
+                  {filteredPeripherals.length === 0 && (
+                    <tr>
+                      <td
+                        colSpan={periTable.visibleColumns.length}
+                        className="py-12 text-center text-zinc-500"
+                      >
+                        Tidak ada produk yang cocok dengan pencarian &quot;{peripheralSearch}&quot;.
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -297,7 +809,7 @@ export function DeskPeripheralsView({
         </div>
       )}
 
-      {/* 2B. VIEW: REKOMENDASI KURSI ERGONOMIS & GAMING (STAGING Q2 2027) */}
+      {/* 3. VIEW: REKOMENDASI KURSI ERGONOMIS & GAMING */}
       {showChairs && activeSubTab === "kursi" && (
         <div className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-zinc-950 border border-zinc-800 rounded-2xl p-4">
@@ -330,8 +842,7 @@ export function DeskPeripheralsView({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {chairs
-              .filter((c) => c.isPublished !== false)
+            {publishedChairs
               .filter((c) => chairCategoryFilter === "all" || c.category === chairCategoryFilter)
               .map((chair) => (
                 <div
@@ -441,7 +952,7 @@ export function DeskPeripheralsView({
         </div>
       )}
 
-      {/* 3. VIEW: GIMMICK MEJA GAMING (ANALYSIS ARTICLE) */}
+      {/* 4. VIEW: GIMMICK MEJA GAMING */}
       {activeSubTab === "gimmick" && (
         <div className="bg-surface-dark border border-zinc-800 rounded-3xl p-6 sm:p-8 space-y-6">
           <div className="space-y-2 border-b border-zinc-800 pb-4">
@@ -488,7 +999,7 @@ export function DeskPeripheralsView({
         </div>
       )}
 
-      {/* 4. VIEW: HASIL KONSULTASI FORUM DISCORD */}
+      {/* 5. VIEW: HASIL KONSULTASI FORUM DISCORD */}
       {activeSubTab === "consultation-packages" && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
@@ -536,6 +1047,38 @@ export function DeskPeripheralsView({
           </div>
         </div>
       )}
+
+      {/* Desk Column Manager Modal */}
+      <TableColumnManagerModal
+        isOpen={isDeskColModalOpen}
+        onClose={() => setIsDeskColModalOpen(false)}
+        title="Tabel Database Meja"
+        columns={deskTable.columns}
+        columnOrder={deskTable.columnOrder}
+        columnVisibility={deskTable.columnVisibility}
+        onToggleVisibility={deskTable.toggleColumnVisibility}
+        onMoveColumn={deskTable.moveColumn}
+        onReorderColumn={deskTable.reorderColumn}
+        onSetColumnOrderDirectly={deskTable.setColumnOrderDirectly}
+        onSetAllVisibility={deskTable.setAllColumnsVisibility}
+        onResetColumns={deskTable.resetColumns}
+      />
+
+      {/* Peripheral Column Manager Modal */}
+      <TableColumnManagerModal
+        isOpen={isPeriColModalOpen}
+        onClose={() => setIsPeriColModalOpen(false)}
+        title="Tabel Monitor Arm, Bracket & Aksesoris"
+        columns={periTable.columns}
+        columnOrder={periTable.columnOrder}
+        columnVisibility={periTable.columnVisibility}
+        onToggleVisibility={periTable.toggleColumnVisibility}
+        onMoveColumn={periTable.moveColumn}
+        onReorderColumn={periTable.reorderColumn}
+        onSetColumnOrderDirectly={periTable.setColumnOrderDirectly}
+        onSetAllVisibility={periTable.setAllColumnsVisibility}
+        onResetColumns={periTable.resetColumns}
+      />
     </div>
   );
 }

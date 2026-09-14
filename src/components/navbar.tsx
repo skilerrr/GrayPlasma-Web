@@ -21,6 +21,7 @@ import {
   HelpCircle,
   Tv,
   Ruler,
+  Wrench,
 } from "lucide-react";
 import { QuickFilterTab } from "@/types/monitor";
 import { Button } from "@/components/ui/button";
@@ -73,12 +74,19 @@ export function Navbar({
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [openDropdown, setOpenDropdown] = useState<"catalog" | "aftersales" | "more" | null>(null);
   const [siteSettings, setSiteSettings] = useState<GlobalSiteSettings>(DEFAULT_SITE_SETTINGS);
+  const [showChairs, setShowChairs] = useState(false);
 
   useEffect(() => {
     async function loadSettings() {
       try {
-        const s = await DatabaseService.getSiteSettings();
+        const [s, hp] = await Promise.all([
+          DatabaseService.getSiteSettings(),
+          DatabaseService.getHomepageSettings(),
+        ]);
         if (s) setSiteSettings(s);
+        if (hp?.sectionVisibility) {
+          setShowChairs(Boolean(hp.sectionVisibility.showChairs));
+        }
       } catch (err) {
         console.error("Failed to load navbar site settings", err);
       }
@@ -222,6 +230,65 @@ export function Navbar({
                       10 Meja
                     </span>
                   </Link>
+
+                  <Link
+                    href="/catalog/arms-brackets"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-2 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/80 transition-colors flex items-center justify-between group"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <div className="p-1.5 rounded-md bg-cyan-500/10 text-cyan-400">
+                        <Wrench className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <span className="block font-semibold text-zinc-200 group-hover:text-white">Arm & Bracket Monitor</span>
+                        <span className="text-[10px] text-zinc-500">Gas spring arm & mount adapter</span>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold">
+                      Arm & Mount
+                    </span>
+                  </Link>
+
+                  <Link
+                    href="/catalog/accessories"
+                    onClick={() => setOpenDropdown(null)}
+                    className="w-full text-left px-2.5 py-2 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/80 transition-colors flex items-center justify-between group"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <div className="p-1.5 rounded-md bg-blue-500/10 text-blue-400">
+                        <Sparkles className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <span className="block font-semibold text-zinc-200 group-hover:text-white">Aksesoris Setup</span>
+                        <span className="text-[10px] text-zinc-500">Screenbar, kabel, & cable mgmt</span>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-500/10 border border-blue-500/30 text-blue-400 font-bold">
+                      Aksesoris
+                    </span>
+                  </Link>
+
+                  {showChairs && (
+                    <Link
+                      href="/catalog/chairs"
+                      onClick={() => setOpenDropdown(null)}
+                      className="w-full text-left px-2.5 py-2 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/80 transition-colors flex items-center justify-between group"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div className="p-1.5 rounded-md bg-purple-500/10 text-purple-400">
+                          <span className="text-xs">🪑</span>
+                        </div>
+                        <div>
+                          <span className="block font-semibold text-zinc-200 group-hover:text-white">Kursi Ergonomis</span>
+                          <span className="text-[10px] text-zinc-500">Kurasi mesh lumbar & gas lift</span>
+                        </div>
+                      </div>
+                      <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-purple-500/20 border border-purple-500/40 text-purple-300 font-bold">
+                        DRAFT
+                      </span>
+                    </Link>
+                  )}
                 </div>
               )}
             </div>

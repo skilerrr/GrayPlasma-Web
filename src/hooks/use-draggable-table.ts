@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 
-export interface TableColumnDef<T> {
+export interface TableColumnDef<T = any> {
   id: string;
   label: string;
   shortLabel?: string;
@@ -201,6 +201,40 @@ export function useDraggableTable<T>({
     [columnOrder, columnVisibility, sortField, sortDirection, savePreferences]
   );
 
+  // Direct Reordering (for Drag & Drop in modal / list)
+  const reorderColumn = useCallback(
+    (fromIndex: number, toIndex: number) => {
+      if (fromIndex === toIndex) return;
+      const copy = [...columnOrder];
+      const [removed] = copy.splice(fromIndex, 1);
+      copy.splice(toIndex, 0, removed);
+      setColumnOrder(copy);
+      savePreferences(copy, columnVisibility, sortField, sortDirection);
+    },
+    [columnOrder, columnVisibility, sortField, sortDirection, savePreferences]
+  );
+
+  const setColumnOrderDirectly = useCallback(
+    (newOrder: string[]) => {
+      setColumnOrder(newOrder);
+      savePreferences(newOrder, columnVisibility, sortField, sortDirection);
+    },
+    [columnVisibility, sortField, sortDirection, savePreferences]
+  );
+
+  // Bulk Visibility Toggle (Select All / Deselect All)
+  const setAllColumnsVisibility = useCallback(
+    (visible: boolean) => {
+      const updated: Record<string, boolean> = {};
+      columns.forEach((c) => {
+        updated[c.id] = visible;
+      });
+      setColumnVisibility(updated);
+      savePreferences(columnOrder, updated, sortField, sortDirection);
+    },
+    [columns, columnOrder, sortField, sortDirection, savePreferences]
+  );
+
   // Reset Columns to Default
   const resetColumns = useCallback(() => {
     setColumnOrder(defaultOrder);
@@ -263,6 +297,9 @@ export function useDraggableTable<T>({
     handleColumnDrop,
     toggleColumnVisibility,
     moveColumn,
+    reorderColumn,
+    setColumnOrderDirectly,
+    setAllColumnsVisibility,
     resetColumns,
     getSortedData,
   };

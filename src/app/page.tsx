@@ -162,15 +162,23 @@ function CatalogPageContent() {
     }
   };
   const comparator = useMonitorComparator(monitorsData);
-  
   // Pagination & Filter States for Homepage Databases
   const [monitorPage, setMonitorPage] = useState(1);
   const [deskPage, setDeskPage] = useState(1);
   const [deskCategory, setDeskCategory] = useState<string>("all");
   const [deskSearch, setDeskSearch] = useState<string>("");
-  const [peripheralPage, setPeripheralPage] = useState(1);
-  const [peripheralCategory, setPeripheralCategory] = useState<string>("all");
-  const [peripheralSearch, setPeripheralSearch] = useState<string>("");
+
+  // Arm & Bracket States
+  const [armBracketPage, setArmBracketPage] = useState(1);
+  const [armBracketFilter, setArmBracketFilter] = useState<string>("all");
+  const [armBracketSearch, setArmBracketSearch] = useState<string>("");
+
+  // Accessory States
+  const [accessoryPage, setAccessoryPage] = useState(1);
+  const [accessoryCategory, setAccessoryCategory] = useState<string>("all");
+  const [accessorySearch, setAccessorySearch] = useState<string>("");
+
+  // Chair States
   const [chairPage, setChairPage] = useState(1);
   const [chairCategory, setChairCategory] = useState<string>("all");
   const [chairSearch, setChairSearch] = useState<string>("");
@@ -198,15 +206,43 @@ function CatalogPageContent() {
           DatabaseService.getSiteSettings(),
           DatabaseService.getChairsAsync(),
         ]);
-        setMonitorsData(loadedMonitors);
+        if (loadedMonitors && loadedMonitors.length > 0) {
+          setMonitorsData(loadedMonitors.filter((m) => m.isPublished !== false));
+        }
         if (loadedBanners) setBannerSettings(loadedBanners);
-        if (loadedDesks && loadedDesks.length > 0) setDesksData(loadedDesks);
-        if (loadedHp) setHomepageSettings(loadedHp);
-        if (loadedPeriphs && loadedPeriphs.length > 0) setPeripheralsData(loadedPeriphs);
+        if (loadedDesks && loadedDesks.length > 0) {
+          setDesksData(loadedDesks.filter((d) => d.isPublished !== false));
+        } else {
+          setDesksData(DESK_DATABASE);
+        }
+        if (loadedHp) {
+          setHomepageSettings({
+            ...loadedHp,
+            sectionVisibility: {
+              ...loadedHp.sectionVisibility,
+              showMonitors: loadedHp.sectionVisibility?.showMonitors ?? true,
+              showDesks: loadedHp.sectionVisibility?.showDesks ?? true,
+              showArms: loadedHp.sectionVisibility?.showArms ?? true,
+              showBrackets: loadedHp.sectionVisibility?.showBrackets ?? true,
+              showPeripherals: loadedHp.sectionVisibility?.showPeripherals ?? true,
+              showChairs: Boolean(loadedHp.sectionVisibility?.showChairs),
+            },
+          });
+        }
+        if (loadedPeriphs && loadedPeriphs.length > 0) {
+          setPeripheralsData(loadedPeriphs.filter((p) => p.isPublished !== false));
+        } else {
+          setPeripheralsData(PERIPHERALS_DATABASE);
+        }
         if (loadedCards && loadedCards.length > 0) setAftersalesCards(loadedCards);
         if (loadedAdBanners && loadedAdBanners.length > 0) setAdBanners(loadedAdBanners);
         if (loadedSiteSettings) setSiteSettings(loadedSiteSettings);
-        if (loadedChairs && loadedChairs.length > 0) setChairsData(loadedChairs);
+        if (loadedChairs && loadedChairs.length > 0) {
+          const pubChairs = loadedChairs.filter((c) => c.isPublished !== false);
+          setChairsData(pubChairs.length > 0 ? pubChairs : DEFAULT_CHAIRS_DATABASE);
+        } else {
+          setChairsData(DEFAULT_CHAIRS_DATABASE);
+        }
         const loadedFaqs = DatabaseService.getFAQ();
         if (loadedFaqs && loadedFaqs.length > 0) setFaqs(loadedFaqs.filter((f) => f.isPublished !== false));
         const loadedDeskGuides = DatabaseService.getDeskGuides();
@@ -410,38 +446,120 @@ function CatalogPageContent() {
     return filteredDesks.slice(start, start + ITEMS_PER_PAGE);
   }, [filteredDesks, deskPage]);
 
-  // Filtered & Paginated Peripherals
-  const peripheralCategories = [
+  // Categorization helpers
+  const isArm = (p: PeripheralItem) => {
+    const cat = (p.category || "").toLowerCase();
+    const type = (p.type || "").toLowerCase();
+    const name = (p.name || "").toLowerCase();
+    return (
+      cat.includes("arm") ||
+      type.includes("arm") ||
+      name.includes("arm") ||
+      name.includes("p100e") ||
+      name.includes("p200e") ||
+      name.includes("f80") ||
+      name.includes("f100a")
+    );
+  };
+
+  const isBracket = (p: PeripheralItem) => {
+    const cat = (p.category || "").toLowerCase();
+    const type = (p.type || "").toLowerCase();
+    const name = (p.name || "").toLowerCase();
+    return (
+      (cat.includes("bracket") ||
+        type.includes("bracket") ||
+        name.includes("bracket") ||
+        name.includes("vesa") ||
+        name.includes("mount") ||
+        name.includes("dinding")) &&
+      !isArm(p)
+    );
+  };
+
+  const isArmOrBracket = (p: PeripheralItem) => isArm(p) || isBracket(p);
+
+  // 1. Arm & Bracket List
+  const armsBracketsData = useMemo(() => {
+    return peripheralsData.filter((p) => {
+      if (!isArmOrBracket(p)) return false;
+      if (homepageSettings.sectionVisibility?.showArms === false && isArm(p)) return false;
+      if (homepageSettings.sectionVisibility?.showBrackets === false && isBracket(p)) return false;
+      return true;
+    });
+  }, [peripheralsData, homepageSettings.sectionVisibility]);
+
+  const armBracketCategories = [
+    { id: "all", label: "Semua Arm & Bracket" },
+    { id: "arm", label: "Monitor Arm (Gas Spring)" },
+    { id: "bracket", label: "Bracket & VESA Mount" },
+  ];
+
+  const filteredArmsBrackets = useMemo(() => {
+    return armsBracketsData.filter((p) => {
+      if (armBracketSearch.trim()) {
+        const q = armBracketSearch.toLowerCase();
+        const match =
+          p.name.toLowerCase().includes(q) ||
+          (p.brand || "").toLowerCase().includes(q) ||
+          (p.verdict || "").toLowerCase().includes(q);
+        if (!match) return false;
+      }
+      if (armBracketFilter === "arm" && !isArm(p)) return false;
+      if (armBracketFilter === "bracket" && !isBracket(p)) return false;
+      return true;
+    });
+  }, [armsBracketsData, armBracketSearch, armBracketFilter]);
+
+  const totalArmBracketPages = Math.max(1, Math.ceil(filteredArmsBrackets.length / ITEMS_PER_PAGE));
+  const paginatedArmsBrackets = useMemo(() => {
+    const start = (armBracketPage - 1) * ITEMS_PER_PAGE;
+    return filteredArmsBrackets.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredArmsBrackets, armBracketPage]);
+
+  // 2. Accessories List (Non-Arm, Non-Bracket)
+  const accessoriesData = useMemo(() => {
+    return peripheralsData.filter((p) => {
+      if (isArmOrBracket(p)) return false;
+      if (homepageSettings.sectionVisibility?.showPeripherals === false) return false;
+      return true;
+    });
+  }, [peripheralsData, homepageSettings.sectionVisibility]);
+
+  const accessoryCategories = [
     { id: "all", label: "Semua Aksesoris" },
-    { id: "Bracket / Monitor Arm", label: "Monitor Arm" },
-    { id: "Cable Management", label: "Cable Management" },
     { id: "Screenbar / Lampu", label: "Screenbar / Lampu" },
+    { id: "Cable Management", label: "Kabel & Cable Mgmt" },
     { id: "Stand / Riser", label: "Stand / Riser" },
     { id: "Audio", label: "Audio & Headset" },
   ];
 
-  const filteredPeripherals = useMemo(() => {
-    return peripheralsData.filter((p) => {
-      if (peripheralSearch.trim()) {
-        const q = peripheralSearch.toLowerCase();
+  const filteredAccessories = useMemo(() => {
+    return accessoriesData.filter((p) => {
+      if (accessorySearch.trim()) {
+        const q = accessorySearch.toLowerCase();
         const match =
           p.name.toLowerCase().includes(q) ||
-          p.brand?.toLowerCase().includes(q) ||
-          p.verdict?.toLowerCase().includes(q);
+          (p.brand || "").toLowerCase().includes(q) ||
+          (p.verdict || "").toLowerCase().includes(q);
         if (!match) return false;
       }
-      if (peripheralCategory !== "all" && !p.category.toLowerCase().includes(peripheralCategory.toLowerCase())) {
-        return false;
+      if (accessoryCategory !== "all") {
+        const cat = (p.category || "").toLowerCase();
+        const type = (p.type || "").toLowerCase();
+        if (!cat.includes(accessoryCategory.toLowerCase()) && !type.includes(accessoryCategory.toLowerCase())) {
+          return false;
+        }
       }
       return true;
     });
-  }, [peripheralsData, peripheralSearch, peripheralCategory]);
+  }, [accessoriesData, accessorySearch, accessoryCategory]);
 
-  const totalPeripheralPages = Math.max(1, Math.ceil(filteredPeripherals.length / ITEMS_PER_PAGE));
-  const paginatedPeripherals = useMemo(() => {
-    const start = (peripheralPage - 1) * ITEMS_PER_PAGE;
-    return filteredPeripherals.slice(start, start + ITEMS_PER_PAGE);
-  }, [filteredPeripherals, peripheralPage]);
+  const totalAccessoryPages = Math.max(1, Math.ceil(filteredAccessories.length / ITEMS_PER_PAGE));
+  const paginatedAccessories = useMemo(() => {
+    const start = (accessoryPage - 1) * ITEMS_PER_PAGE;
+    return filteredAccessories.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredAccessories, accessoryPage]);
 
   // Filtered & Paginated Chairs (Ergonomic & Gaming - Q2 2027)
   const chairCategories = [
@@ -598,8 +716,10 @@ function CatalogPageContent() {
         {/* ========================================================================= */}
         {/* SECTION 3: DATABASE REKOMENDASI MONITOR (9 ITEMS PER PAGE)                */}
         {/* ========================================================================= */}
-        {(activeMenuKey === "home" ? homepageSettings.sectionVisibility.showMonitors : isCatalog) && (
-          <section className="space-y-6 pt-10 border-t border-zinc-800 animate-in fade-in duration-200">
+        {(activeMenuKey === "home"
+          ? homepageSettings.sectionVisibility?.showMonitors !== false
+          : isCatalog) && (
+          <section id="database-monitors" className="space-y-6 pt-12 border-t border-zinc-800 animate-in fade-in duration-200">
             {/* Database Header Title & View Switcher */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
               <div className="space-y-1">
@@ -617,6 +737,16 @@ function CatalogPageContent() {
               </div>
 
               <div className="flex items-center gap-2 flex-wrap">
+                {/* On-click Trigger to Open Monitor Database in Separate Page */}
+                <Link
+                  href="/catalog/all"
+                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all border bg-emerald-500/10 hover:bg-emerald-500/20 border-emerald-500/30 text-emerald-400 hover:text-emerald-300"
+                  title="Buka Database Rekomendasi Monitor di Halaman Terpisah"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Buka di Halaman Terpisah</span>
+                </Link>
+
                 {/* Parameter & Filter Button */}
                 <button
                   type="button"
@@ -727,8 +857,9 @@ function CatalogPageContent() {
         {/* ========================================================================= */}
         {/* SECTION 4: DATABASE REKOMENDASI MEJA & ERGONOMI (TABEL & 9 PER PAGE)      */}
         {/* ========================================================================= */}
-        {activeMenuKey === "home" && homepageSettings.sectionVisibility.showDesks && (
-          <section className="space-y-6 pt-12 border-t border-zinc-800 animate-in fade-in duration-200">
+        {activeMenuKey === "home" &&
+          homepageSettings.sectionVisibility?.showDesks !== false && (
+            <section id="database-desks" className="space-y-6 pt-12 border-t border-zinc-800 animate-in fade-in duration-200">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
               <div className="space-y-1">
                 <div className="flex items-center gap-2.5">
@@ -744,9 +875,19 @@ function CatalogPageContent() {
                 </p>
               </div>
 
-              <span className="px-2.5 py-1 rounded-full border border-zinc-800 bg-zinc-900 text-xs text-zinc-300 font-medium self-start sm:self-auto">
-                {filteredDesks.length} Pilihan Meja
-              </span>
+              <div className="flex items-center gap-2.5 flex-wrap self-start sm:self-auto">
+                <span className="px-2.5 py-1 rounded-full border border-zinc-800 bg-zinc-900 text-xs text-zinc-300 font-medium">
+                  {filteredDesks.length} Pilihan Meja
+                </span>
+                <Link
+                  href="/catalog/desks"
+                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all border bg-orange-500/10 hover:bg-orange-500/20 border-orange-500/30 text-orange-400 hover:text-orange-300"
+                  title="Buka Database Rekomendasi Meja di Halaman Terpisah"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Buka di Halaman Terpisah</span>
+                </Link>
+              </div>
             </div>
 
             {/* Category Filter Pills & Search */}
@@ -865,303 +1006,546 @@ function CatalogPageContent() {
         )}
 
         {/* ========================================================================= */}
-        {/* SECTION 5: DATABASE REKOMENDASI AKSESORIS & PERIPHERALS (TABEL & 9 PER P)  */}
+        {/* SECTION 5A: DATABASE REKOMENDASI ARM & BRACKET (TABEL & 9 PER PAGE)       */}
         {/* ========================================================================= */}
-        {activeMenuKey === "home" && homepageSettings.sectionVisibility.showPeripherals && (
-          <section className="space-y-6 pt-12 border-t border-zinc-800 animate-in fade-in duration-200">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2.5">
-                  <span className="w-7 h-7 rounded-lg bg-cyan-500/10 border border-cyan-500/25 text-cyan-400 flex items-center justify-center font-mono text-xs font-bold shrink-0">
-                    03
-                  </span>
-                  <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                    {homepageSettings.sectionTitles?.peripheralsTitle || "Database Rekomendasi Aksesoris & Peripherals"}
-                  </h2>
+        {activeMenuKey === "home" &&
+          (homepageSettings.sectionVisibility?.showArms !== false ||
+            homepageSettings.sectionVisibility?.showBrackets !== false) && (
+            <section
+              id="database-arms-brackets"
+              className="space-y-6 pt-12 border-t border-zinc-800 animate-in fade-in duration-200"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-7 h-7 rounded-lg bg-cyan-500/10 border border-cyan-500/25 text-cyan-400 flex items-center justify-center font-mono text-xs font-bold shrink-0">
+                      03
+                    </span>
+                    <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2 flex-wrap">
+                      <span>Database Rekomendasi Arm & Bracket</span>
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/25">
+                        GAS SPRING & MOUNT
+                      </span>
+                    </h2>
+                  </div>
+                  <p className="text-xs text-zinc-400 font-sans pl-9.5">
+                    Kurasi bracket monitor gas spring, desk mount, dinding, dan VESA adapter teruji kuat menahan beban monitor.
+                  </p>
                 </div>
-                <p className="text-xs text-zinc-400 font-sans pl-9.5">
-                  {homepageSettings.sectionTitles?.peripheralsSubtitle || "Tabel kurasi bracket gas spring arm, screenbar lightbar, & cable management."}
-                </p>
+
+              <div className="flex items-center gap-2.5 flex-wrap self-start sm:self-auto">
+                <span className="px-2.5 py-1 rounded-full border border-zinc-800 bg-zinc-900 text-xs text-zinc-300 font-medium">
+                  {filteredArmsBrackets.length} Arm & Bracket
+                </span>
+                <Link
+                  href="/catalog/arms-brackets"
+                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all border bg-cyan-500/10 hover:bg-cyan-500/20 border-cyan-500/30 text-cyan-400 hover:text-cyan-300"
+                  title="Buka Database Arm & Bracket di Halaman Terpisah"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Buka di Halaman Terpisah</span>
+                </Link>
+              </div>
               </div>
 
-              <span className="px-2.5 py-1 rounded-full border border-zinc-800 bg-zinc-900 text-xs text-zinc-300 font-medium self-start sm:self-auto">
-                {filteredPeripherals.length} Aksesoris
-              </span>
-            </div>
+              {/* Category Filter Pills & Search */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#09090d] p-2.5 rounded-xl border border-zinc-800">
+                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+                  {armBracketCategories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => {
+                        setArmBracketFilter(cat.id);
+                        setArmBracketPage(1);
+                      }}
+                      className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+                        armBracketFilter === cat.id
+                          ? "bg-cyan-500 text-black font-semibold shadow-sm"
+                          : "bg-[#141419] text-zinc-400 hover:text-white border border-zinc-800"
+                      }`}
+                    >
+                      {cat.label}
+                    </button>
+                  ))}
+                </div>
 
-            {/* Category Filter Pills & Search */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#09090d] p-2.5 rounded-xl border border-zinc-800">
-              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
-                {peripheralCategories.map((cat) => (
-                  <button
-                    key={cat.id}
-                    type="button"
-                    onClick={() => {
-                      setPeripheralCategory(cat.id);
-                      setPeripheralPage(1);
-                    }}
-                    className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
-                      peripheralCategory === cat.id
-                        ? "bg-zinc-100 text-black font-semibold shadow-sm"
-                        : "bg-[#141419] text-zinc-400 hover:text-white border border-zinc-800"
-                    }`}
-                  >
-                    {cat.label}
-                  </button>
-                ))}
+                <input
+                  type="text"
+                  value={armBracketSearch}
+                  onChange={(e) => {
+                    setArmBracketSearch(e.target.value);
+                    setArmBracketPage(1);
+                  }}
+                  placeholder="Cari arm atau bracket..."
+                  className="px-3.5 py-1.5 rounded-lg bg-[#141419] border border-zinc-800 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-500 w-full sm:w-56"
+                />
               </div>
 
-              <input
-                type="text"
-                value={peripheralSearch}
-                onChange={(e) => {
-                  setPeripheralSearch(e.target.value);
-                  setPeripheralPage(1);
-                }}
-                placeholder="Cari aksesoris..."
-                className="px-3.5 py-1.5 rounded-lg bg-[#141419] border border-zinc-800 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-500 w-full sm:w-56"
-              />
-            </div>
-
-            {/* Peripherals Table View */}
-            <div className="relative rounded-xl border border-zinc-800 bg-[#09090d] overflow-hidden shadow-tech-card">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs border-collapse min-w-[850px]">
-                  <thead className="bg-[#050508] text-zinc-300 uppercase text-[10px] font-mono tracking-wider border-b-2 border-zinc-700 select-none">
-                    <tr>
-                      <th className="py-3 px-4 min-w-[220px] text-white">[ NAMA AKSESORIS ]</th>
-                      <th className="py-3 px-3 min-w-[160px]">[ KATEGORI ]</th>
-                      <th className="py-3 px-3 min-w-[130px]">[ BRAND ]</th>
-                      <th className="py-3 px-3 min-w-[140px]">[ GARANSI & SPEK ]</th>
-                      <th className="py-3 px-4 min-w-[140px] text-right font-mono text-cyan-400">[ KISARAN HARGA ]</th>
-                      <th className="py-3 px-3 text-center min-w-[130px]">[ AKSI ]</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-zinc-800/80 font-sans">
-                    {paginatedPeripherals.map((item, idx) => {
-                      const buyUrl = item.shopeeUrl || item.tokopediaUrl || item.tiktokUrl;
-                      const platform = item.shopeeUrl ? "Shopee" : item.tokopediaUrl ? "Tokopedia" : item.tiktokUrl ? "TikTok" : "Marketplace";
-                      return (
-                        <tr
-                          key={item.id || idx}
-                          onClick={() => {
-                            setSelectedPeripheralForPanel(item);
-                            setIsPeripheralPanelOpen(true);
-                          }}
-                          className={`hover:bg-[#1c1c24] cursor-pointer transition-colors group ${
-                            idx % 2 === 0 ? "bg-[#141418]" : "bg-[#16161c]"
-                          }`}
-                        >
-                          <td className="py-3.5 px-4 font-bold text-white">
-                            <div className="flex items-center gap-2">
-                              <span className="text-base text-zinc-500 group-hover:text-cyan-400 transition-colors">🎧</span>
-                              <span className="group-hover:text-cyan-400 transition-colors">{item.name}</span>
-                            </div>
-                          </td>
-                          <td className="py-3.5 px-3">
-                            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/25">
-                              {item.category}
-                            </span>
-                          </td>
-                          <td className="py-3.5 px-3 font-semibold text-zinc-300">
-                            {item.brand}
-                          </td>
-                          <td className="py-3.5 px-3 text-zinc-400 font-mono text-[11px]">
-                            {item.warranty ? `Garansi ${item.warranty}` : item.type}
-                          </td>
-                          <td className="py-3.5 px-4 text-right font-mono font-bold text-white tabular-nums">
-                            {item.price > 0 ? formatRupiah(item.price) : "Cek Toko"}
-                          </td>
-                          <td className="py-3.5 px-3 text-center">
-                            <div className="flex items-center justify-center gap-1.5">
-                              <button
-                                type="button"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setSelectedPeripheralForPanel(item);
-                                  setIsPeripheralPanelOpen(true);
-                                }}
-                                className="px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-[11px] font-semibold transition-colors"
-                              >
-                                Detail →
-                              </button>
-                              {buyUrl && (
-                                <a
-                                  href={buyUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  onClick={(e) => e.stopPropagation()}
-                                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#ee4d2d]/15 hover:bg-[#ee4d2d] border border-[#ee4d2d]/40 text-[#ee4d2d] hover:text-white text-[11px] font-bold transition-all"
-                                >
-                                  <ShoppingBag className="w-3 h-3" />
-                                  <span>{platform}</span>
-                                </a>
-                              )}
-                            </div>
+              {/* Arm & Bracket Table View */}
+              <div className="relative rounded-xl border border-zinc-800 bg-[#09090d] overflow-hidden shadow-tech-card">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs border-collapse min-w-[850px]">
+                    <thead className="bg-[#050508] text-zinc-300 uppercase text-[10px] font-mono tracking-wider border-b-2 border-zinc-700 select-none">
+                      <tr>
+                        <th className="py-3 px-4 min-w-[240px] text-white">[ NAMA MODEL & ARM ]</th>
+                        <th className="py-3 px-3 min-w-[160px]">[ TIPE BRACKET ]</th>
+                        <th className="py-3 px-3 min-w-[130px]">[ BRAND ]</th>
+                        <th className="py-3 px-3 min-w-[160px]">[ SPESIFIKASI & GARANSI ]</th>
+                        <th className="py-3 px-4 min-w-[140px] text-right font-mono text-cyan-400">[ KISARAN HARGA ]</th>
+                        <th className="py-3 px-3 text-center min-w-[140px]">[ AKSI ]</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-zinc-800/80 font-sans">
+                      {paginatedArmsBrackets.length === 0 ? (
+                        <tr>
+                          <td colSpan={6} className="py-8 text-center text-zinc-500">
+                            Tidak ada arm atau bracket yang sesuai dengan pencarian.
                           </td>
                         </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                      ) : (
+                        paginatedArmsBrackets.map((item, idx) => {
+                          const buyUrl = item.shopeeUrl || item.tokopediaUrl || item.tiktokUrl;
+                          const platform = item.shopeeUrl ? "Shopee" : item.tokopediaUrl ? "Tokopedia" : item.tiktokUrl ? "TikTok" : "Marketplace";
+                          const isArmItem = isArm(item);
+                          return (
+                            <tr
+                              key={item.id || idx}
+                              onClick={() => {
+                                setSelectedPeripheralForPanel(item);
+                                setIsPeripheralPanelOpen(true);
+                              }}
+                              className={`hover:bg-[#1c1c24] cursor-pointer transition-colors group ${
+                                idx % 2 === 0 ? "bg-[#141418]" : "bg-[#16161c]"
+                              }`}
+                            >
+                              <td className="py-3.5 px-4 font-bold text-white">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-base group-hover:scale-110 transition-transform">
+                                    {isArmItem ? "🦾" : "📐"}
+                                  </span>
+                                  <span className="group-hover:text-cyan-400 transition-colors">{item.name}</span>
+                                </div>
+                              </td>
+                              <td className="py-3.5 px-3">
+                                <span
+                                  className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                                    isArmItem
+                                      ? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/25"
+                                      : "bg-amber-500/10 text-amber-400 border border-amber-500/25"
+                                  }`}
+                                >
+                                  {item.type || item.category}
+                                </span>
+                              </td>
+                              <td className="py-3.5 px-3 font-semibold text-zinc-300">{item.brand}</td>
+                              <td className="py-3.5 px-3 text-zinc-400 font-mono text-[11px]">
+                                {item.warranty ? `Garansi ${item.warranty}` : item.recommendedFor || "VESA Compatible"}
+                              </td>
+                              <td className="py-3.5 px-4 text-right font-mono font-bold text-white tabular-nums">
+                                {item.price > 0 ? formatRupiah(item.price) : "Cek Toko"}
+                              </td>
+                              <td className="py-3.5 px-3 text-center">
+                                <div className="flex items-center justify-center gap-1.5">
+                                  <button
+                                    type="button"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setSelectedPeripheralForPanel(item);
+                                      setIsPeripheralPanelOpen(true);
+                                    }}
+                                    className="px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-[11px] font-semibold transition-colors"
+                                  >
+                                    Detail →
+                                  </button>
+                                  {buyUrl && (
+                                    <a
+                                      href={buyUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      onClick={(e) => e.stopPropagation()}
+                                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#ee4d2d]/15 hover:bg-[#ee4d2d] border border-[#ee4d2d]/40 text-[#ee4d2d] hover:text-white text-[11px] font-bold transition-all"
+                                    >
+                                      <ShoppingBag className="w-3 h-3" />
+                                      <span>{platform}</span>
+                                    </a>
+                                  )}
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })
+                      )}
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
 
-            {/* Peripheral Pagination Bar */}
-            <PaginationBar
-              currentPage={peripheralPage}
-              totalPages={totalPeripheralPages}
-              totalItems={filteredPeripherals.length}
-              itemsPerPage={ITEMS_PER_PAGE}
-              onPageChange={setPeripheralPage}
-            />
-          </section>
+              {/* Arm & Bracket Pagination */}
+              <PaginationBar
+                currentPage={armBracketPage}
+                totalPages={totalArmBracketPages}
+                totalItems={filteredArmsBrackets.length}
+                itemsPerPage={ITEMS_PER_PAGE}
+                onPageChange={setArmBracketPage}
+              />
+            </section>
         )}
 
         {/* ========================================================================= */}
-        {/* SECTION 4: DATABASE REKOMENDASI KURSI ERGONOMIS & GAMING (Q2 2027)          */}
+        {/* SECTION 5B: DATABASE REKOMENDASI AKSESORIS SETUP (TABEL & 9 PER PAGE)     */}
         {/* ========================================================================= */}
-        {activeMenuKey === "home" && homepageSettings.sectionVisibility.showChairs && (
-          <section className="space-y-6 pt-12 border-t border-zinc-800 animate-in fade-in duration-200">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2.5">
-                  <span className="w-7 h-7 rounded-lg bg-purple-500/10 border border-purple-500/25 text-purple-400 flex items-center justify-center font-mono text-xs font-bold shrink-0">
-                    04
-                  </span>
-                  <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                    {homepageSettings.sectionTitles?.chairsTitle || "Database Rekomendasi Kursi Ergonomis & Gaming"}
-                  </h2>
+        {activeMenuKey === "home" &&
+          homepageSettings.sectionVisibility?.showPeripherals !== false && (
+            <section
+              id="database-accessories"
+              className="space-y-6 pt-12 border-t border-zinc-800 animate-in fade-in duration-200"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-7 h-7 rounded-lg bg-blue-500/10 border border-blue-500/25 text-blue-400 flex items-center justify-center font-mono text-xs font-bold shrink-0">
+                      04
+                    </span>
+                    <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2 flex-wrap">
+                      <span>Database Rekomendasi Aksesoris Setup</span>
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-500/10 text-blue-400 border border-blue-500/25">
+                        SCREENBAR, KABEL, STAND & AUDIO
+                      </span>
+                    </h2>
+                  </div>
+                  <p className="text-xs text-zinc-400 font-sans pl-9.5">
+                    Tabel kurasi screenbar anti-glare, kabel HDMI 2.1 / DP 1.4, cable management tray, dan audio setup.
+                  </p>
                 </div>
-                <p className="text-xs text-zinc-400 font-sans pl-9.5">
-                  {homepageSettings.sectionTitles?.chairsSubtitle || "Kurasi kursi ergonomis breathable mesh, lumbar support presisi, dan gas lift Class 4."}
+
+              <div className="flex items-center gap-2.5 flex-wrap self-start sm:self-auto">
+                <span className="px-2.5 py-1 rounded-full border border-zinc-800 bg-zinc-900 text-xs text-zinc-300 font-medium">
+                  {filteredAccessories.length} Aksesoris
+                </span>
+                <Link
+                  href="/catalog/accessories"
+                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all border bg-blue-500/10 hover:bg-blue-500/20 border-blue-500/30 text-blue-400 hover:text-blue-300"
+                  title="Buka Database Aksesoris di Halaman Terpisah"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Buka di Halaman Terpisah</span>
+                </Link>
+              </div>
+              </div>
+
+              {/* Category Filter Pills & Search */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#09090d] p-2.5 rounded-xl border border-zinc-800">
+                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+                  {accessoryCategories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => {
+                        setAccessoryCategory(cat.id);
+                        setAccessoryPage(1);
+                      }}
+                      className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+                        accessoryCategory === cat.id
+                          ? "bg-blue-500 text-white font-semibold shadow-sm"
+                          : "bg-[#141419] text-zinc-400 hover:text-white border border-zinc-800"
+                      }`}
+                    >
+                      {cat.label}
+                    </button>
+                  ))}
+                </div>
+
+                <input
+                  type="text"
+                  value={accessorySearch}
+                  onChange={(e) => {
+                    setAccessorySearch(e.target.value);
+                    setAccessoryPage(1);
+                  }}
+                  placeholder="Cari aksesoris setup..."
+                  className="px-3.5 py-1.5 rounded-lg bg-[#141419] border border-zinc-800 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500 w-full sm:w-56"
+                />
+              </div>
+
+              {/* Accessories Table View */}
+              <div className="relative rounded-xl border border-zinc-800 bg-[#09090d] overflow-hidden shadow-tech-card">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs border-collapse min-w-[850px]">
+                    <thead className="bg-[#050508] text-zinc-300 uppercase text-[10px] font-mono tracking-wider border-b-2 border-zinc-700 select-none">
+                      <tr>
+                        <th className="py-3 px-4 min-w-[220px] text-white">[ NAMA AKSESORIS ]</th>
+                        <th className="py-3 px-3 min-w-[160px]">[ KATEGORI ]</th>
+                        <th className="py-3 px-3 min-w-[130px]">[ BRAND ]</th>
+                        <th className="py-3 px-3 min-w-[150px]">[ GARANSI & SPEK ]</th>
+                        <th className="py-3 px-4 min-w-[140px] text-right font-mono text-blue-400">[ KISARAN HARGA ]</th>
+                        <th className="py-3 px-3 text-center min-w-[140px]">[ AKSI ]</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-zinc-800/80 font-sans">
+                      {paginatedAccessories.length === 0 ? (
+                        <tr>
+                          <td colSpan={6} className="py-8 text-center text-zinc-500">
+                            Tidak ada aksesoris yang sesuai dengan pencarian.
+                          </td>
+                        </tr>
+                      ) : (
+                        paginatedAccessories.map((item, idx) => {
+                          const buyUrl = item.shopeeUrl || item.tokopediaUrl || item.tiktokUrl;
+                          const platform = item.shopeeUrl ? "Shopee" : item.tokopediaUrl ? "Tokopedia" : item.tiktokUrl ? "TikTok" : "Marketplace";
+                          const itemIcon = (() => {
+                            const c = ((item.category || "") + " " + (item.type || "") + " " + item.name).toLowerCase();
+                            if (c.includes("screenbar") || c.includes("lampu")) return "💡";
+                            if (c.includes("kabel") || c.includes("cable") || c.includes("hdmi") || c.includes("dp")) return "🔌";
+                            if (c.includes("audio") || c.includes("headset") || c.includes("speaker")) return "🎧";
+                            if (c.includes("stand") || c.includes("riser")) return "📦";
+                            return "⚡";
+                          })();
+                          return (
+                            <tr
+                              key={item.id || idx}
+                              onClick={() => {
+                                setSelectedPeripheralForPanel(item);
+                                setIsPeripheralPanelOpen(true);
+                              }}
+                              className={`hover:bg-[#1c1c24] cursor-pointer transition-colors group ${
+                                idx % 2 === 0 ? "bg-[#141418]" : "bg-[#16161c]"
+                              }`}
+                            >
+                              <td className="py-3.5 px-4 font-bold text-white">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-base group-hover:scale-110 transition-transform">{itemIcon}</span>
+                                  <span className="group-hover:text-blue-400 transition-colors">{item.name}</span>
+                                </div>
+                              </td>
+                              <td className="py-3.5 px-3">
+                                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/25">
+                                  {item.category}
+                                </span>
+                              </td>
+                              <td className="py-3.5 px-3 font-semibold text-zinc-300">{item.brand}</td>
+                              <td className="py-3.5 px-3 text-zinc-400 font-mono text-[11px]">
+                                {item.warranty ? `Garansi ${item.warranty}` : item.type}
+                              </td>
+                              <td className="py-3.5 px-4 text-right font-mono font-bold text-white tabular-nums">
+                                {item.price > 0 ? formatRupiah(item.price) : "Cek Toko"}
+                              </td>
+                              <td className="py-3.5 px-3 text-center">
+                                <div className="flex items-center justify-center gap-1.5">
+                                  <button
+                                    type="button"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setSelectedPeripheralForPanel(item);
+                                      setIsPeripheralPanelOpen(true);
+                                    }}
+                                    className="px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-[11px] font-semibold transition-colors"
+                                  >
+                                    Detail →
+                                  </button>
+                                  {buyUrl && (
+                                    <a
+                                      href={buyUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      onClick={(e) => e.stopPropagation()}
+                                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#ee4d2d]/15 hover:bg-[#ee4d2d] border border-[#ee4d2d]/40 text-[#ee4d2d] hover:text-white text-[11px] font-bold transition-all"
+                                    >
+                                      <ShoppingBag className="w-3 h-3" />
+                                      <span>{platform}</span>
+                                    </a>
+                                  )}
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Accessories Pagination */}
+              <PaginationBar
+                currentPage={accessoryPage}
+                totalPages={totalAccessoryPages}
+                totalItems={filteredAccessories.length}
+                itemsPerPage={ITEMS_PER_PAGE}
+                onPageChange={setAccessoryPage}
+              />
+            </section>
+        )}
+
+        {/* ========================================================================= */}
+        {/* SECTION 6: DATABASE REKOMENDASI KURSI ERGONOMIS & GAMING [DRAFT Q2 2027]   */}
+        {/* ========================================================================= */}
+        {activeMenuKey === "home" &&
+          Boolean(homepageSettings.sectionVisibility?.showChairs) === true && (
+            <section
+              id="database-chairs"
+              className="space-y-6 pt-12 border-t border-zinc-800 animate-in fade-in duration-200"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-7 h-7 rounded-lg bg-purple-500/10 border border-purple-500/25 text-purple-400 flex items-center justify-center font-mono text-xs font-bold shrink-0">
+                      05
+                    </span>
+                    <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2 flex-wrap">
+                      <span>{homepageSettings.sectionTitles?.chairsTitle || "Database Rekomendasi Kursi Ergonomis & Gaming"}</span>
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/40">
+                        [ DRAFT / STAGING CATALOG ]
+                      </span>
+                    </h2>
+                  </div>
+                  <p className="text-xs text-zinc-400 font-sans pl-9.5">
+                    {homepageSettings.sectionTitles?.chairsSubtitle ||
+                      "Kurasi kursi ergonomis breathable mesh, lumbar support presisi, dan gas lift Class 4."}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2.5 flex-wrap self-start sm:self-auto">
+                  <span className="px-2.5 py-1 rounded-full border border-zinc-800 bg-zinc-900 text-xs text-zinc-300 font-medium">
+                    {filteredChairs.length} Pilihan Kursi (Draft)
+                  </span>
+                  <Link
+                    href="/catalog/chairs"
+                    className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all border bg-purple-500/10 hover:bg-purple-500/20 border-purple-500/30 text-purple-400 hover:text-purple-300"
+                    title="Buka Database Rekomendasi Kursi di Halaman Terpisah"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>Buka di Halaman Terpisah</span>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Staging Notice Alert */}
+              <div className="flex items-center gap-3 p-3.5 rounded-xl bg-purple-950/30 border border-purple-800/40 text-xs text-purple-200">
+                <AlertTriangle className="w-4 h-4 text-purple-400 shrink-0" />
+                <p>
+                  <strong>Draft Notice:</strong> Katalog kursi ini merupakan kurasi eksperimental tahap awal dari riset komunitas GrayPlasma. Peluncuran database resmi dijadwalkan pada Q2 2027 setelah pengujian laboratorium komprehensif.
                 </p>
               </div>
 
-              <span className="px-2.5 py-1 rounded-full border border-zinc-800 bg-zinc-900 text-xs text-zinc-300 font-medium self-start sm:self-auto">
-                {filteredChairs.length} Pilihan Kursi
-              </span>
-            </div>
+              {/* Category Filter Pills & Search */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#09090d] p-2.5 rounded-xl border border-zinc-800">
+                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+                  {chairCategories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => {
+                        setChairCategory(cat.id);
+                        setChairPage(1);
+                      }}
+                      className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+                        chairCategory === cat.id
+                          ? "bg-zinc-100 text-black font-semibold shadow-sm"
+                          : "bg-[#141419] text-zinc-400 hover:text-white border border-zinc-800"
+                      }`}
+                    >
+                      {cat.label}
+                    </button>
+                  ))}
+                </div>
 
-            {/* Category Filter Pills & Search */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#09090d] p-2.5 rounded-xl border border-zinc-800">
-              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
-                {chairCategories.map((cat) => (
-                  <button
-                    key={cat.id}
-                    type="button"
-                    onClick={() => {
-                      setChairCategory(cat.id);
-                      setChairPage(1);
-                    }}
-                    className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
-                      chairCategory === cat.id
-                        ? "bg-zinc-100 text-black font-semibold shadow-sm"
-                        : "bg-[#141419] text-zinc-400 hover:text-white border border-zinc-800"
-                    }`}
-                  >
-                    {cat.label}
-                  </button>
-                ))}
+                <input
+                  type="text"
+                  value={chairSearch}
+                  onChange={(e) => {
+                    setChairSearch(e.target.value);
+                    setChairPage(1);
+                  }}
+                  placeholder="Cari kursi ergonomis..."
+                  className="px-3.5 py-1.5 rounded-lg bg-[#141419] border border-zinc-800 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-purple-500 w-full sm:w-56"
+                />
               </div>
 
-              <input
-                type="text"
-                value={chairSearch}
-                onChange={(e) => {
-                  setChairSearch(e.target.value);
-                  setChairPage(1);
-                }}
-                placeholder="Cari kursi ergonomis..."
-                className="px-3.5 py-1.5 rounded-lg bg-[#141419] border border-zinc-800 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-500 w-full sm:w-56"
-              />
-            </div>
-
-            {/* Chairs Grid Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {paginatedChairs.map((chair) => {
-                return (
-                  <div
-                    key={chair.id}
-                    className="p-5 rounded-2xl bg-[#0e0e12] border border-zinc-800/90 hover:border-purple-500/40 transition-all flex flex-col justify-between space-y-4 group"
-                  >
-                    <div className="space-y-2.5">
-                      <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
-                            {chair.brand} • {chair.category}
+              {/* Chairs Grid Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {paginatedChairs.map((chair) => {
+                  return (
+                    <div
+                      key={chair.id}
+                      className="p-5 rounded-2xl bg-[#0e0e12] border border-zinc-800/90 hover:border-purple-500/40 transition-all flex flex-col justify-between space-y-4 group"
+                    >
+                      <div className="space-y-2.5">
+                        <div className="flex items-start justify-between gap-2">
+                          <div>
+                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
+                              {chair.brand} • {chair.category}
+                            </span>
+                            <h3 className="text-base font-black text-white group-hover:text-purple-300 transition-colors mt-1">
+                              {chair.name}
+                            </h3>
+                          </div>
+                          <span className="text-xs font-mono font-bold text-white tabular-nums bg-zinc-900 px-2.5 py-1 rounded border border-zinc-800 shrink-0">
+                            {chair.price > 0 ? formatRupiah(chair.price) : "Cek Toko"}
                           </span>
-                          <h3 className="text-base font-black text-white group-hover:text-purple-300 transition-colors mt-1">
-                            {chair.name}
-                          </h3>
                         </div>
-                        <span className="text-xs font-mono font-bold text-white tabular-nums bg-zinc-900 px-2.5 py-1 rounded border border-zinc-800 shrink-0">
-                          {chair.price > 0 ? formatRupiah(chair.price) : "Cek Toko"}
-                        </span>
-                      </div>
 
-                      <div className="grid grid-cols-2 gap-1.5 text-[11px] font-mono">
-                        <div className="bg-zinc-900/80 px-2 py-1 rounded border border-zinc-800/80 text-zinc-300 truncate">
-                          <span className="text-zinc-500">Lumbar:</span> {chair.lumbarSupport}
+                        <div className="grid grid-cols-2 gap-1.5 text-[11px] font-mono">
+                          <div className="bg-zinc-900/80 px-2 py-1 rounded border border-zinc-800/80 text-zinc-300 truncate">
+                            <span className="text-zinc-500">Lumbar:</span> {chair.lumbarSupport}
+                          </div>
+                          <div className="bg-zinc-900/80 px-2 py-1 rounded border border-zinc-800/80 text-zinc-300 truncate">
+                            <span className="text-zinc-500">Armrest:</span> {chair.armrest}
+                          </div>
+                          <div className="bg-zinc-900/80 px-2 py-1 rounded border border-zinc-800/80 text-zinc-300 truncate">
+                            <span className="text-zinc-500">Gaslift:</span> {chair.gasLift}
+                          </div>
+                          <div className="bg-zinc-900/80 px-2 py-1 rounded border border-zinc-800/80 text-zinc-300 truncate">
+                            <span className="text-zinc-500">Max Beban:</span> {chair.maxWeightCapacity}
+                          </div>
                         </div>
-                        <div className="bg-zinc-900/80 px-2 py-1 rounded border border-zinc-800/80 text-zinc-300 truncate">
-                          <span className="text-zinc-500">Armrest:</span> {chair.armrest}
-                        </div>
-                        <div className="bg-zinc-900/80 px-2 py-1 rounded border border-zinc-800/80 text-zinc-300 truncate">
-                          <span className="text-zinc-500">Gaslift:</span> {chair.gasLift}
-                        </div>
-                        <div className="bg-zinc-900/80 px-2 py-1 rounded border border-zinc-800/80 text-zinc-300 truncate">
-                          <span className="text-zinc-500">Max Beban:</span> {chair.maxWeightCapacity}
-                        </div>
-                      </div>
 
-                      {chair.verdict && (
-                        <p className="text-xs text-zinc-400 leading-relaxed bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800/60">
-                          💡 <strong className="text-zinc-300">GrayPlasma Verdict:</strong> {chair.verdict}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="pt-2 border-t border-zinc-900 flex items-center justify-between gap-2">
-                      <span className="text-[10px] text-zinc-500">
-                        {chair.recommendedHeight}
-                      </span>
-                      <div className="flex items-center gap-1.5">
-                        {chair.shopeeUrl && (
-                          <a
-                            href={chair.shopeeUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-2.5 py-1 rounded-lg bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 border border-orange-500/30 text-[11px] font-bold transition-colors"
-                          >
-                            Shopee
-                          </a>
-                        )}
-                        {chair.tokopediaUrl && (
-                          <a
-                            href={chair.tokopediaUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-2.5 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold transition-colors"
-                          >
-                            Tokopedia
-                          </a>
+                        {chair.verdict && (
+                          <p className="text-xs text-zinc-400 leading-relaxed bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800/60">
+                            💡 <strong className="text-zinc-300">GrayPlasma Verdict:</strong> {chair.verdict}
+                          </p>
                         )}
                       </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
 
-            <PaginationBar
-              currentPage={chairPage}
-              totalPages={totalChairPages}
-              totalItems={filteredChairs.length}
-              itemsPerPage={ITEMS_PER_PAGE}
-              onPageChange={setChairPage}
-            />
-          </section>
+                      <div className="pt-2 border-t border-zinc-900 flex items-center justify-between gap-2">
+                        <span className="text-[10px] text-zinc-500">{chair.recommendedHeight}</span>
+                        <div className="flex items-center gap-1.5">
+                          {chair.shopeeUrl && (
+                            <a
+                              href={chair.shopeeUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-2.5 py-1 rounded-lg bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 border border-orange-500/30 text-[11px] font-bold transition-colors"
+                            >
+                              Shopee
+                            </a>
+                          )}
+                          {chair.tokopediaUrl && (
+                            <a
+                              href={chair.tokopediaUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-2.5 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold transition-colors"
+                            >
+                              Tokopedia
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Chairs Pagination */}
+              <PaginationBar
+                currentPage={chairPage}
+                totalPages={totalChairPages}
+                totalItems={filteredChairs.length}
+                itemsPerPage={ITEMS_PER_PAGE}
+                onPageChange={setChairPage}
+              />
+            </section>
         )}
 
 
