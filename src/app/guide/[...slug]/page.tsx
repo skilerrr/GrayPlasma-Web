@@ -814,7 +814,7 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
 
 ## Siapa di Balik GrayPlasma?
 - **${aboutContent?.author || "Joel Gray (@gray1plasma)"}:** Penulis & Kurator Utama Rekomendasi Monitor. Meninjau unit berdasarkan ergonomi, build quality, dan kebutuhan nyata pengguna.
-- **${aboutContent?.collaborator || "@GlaciK"}:** Pengembang Web & Database Engine.
+- **Tim GrayPlasma:** Pengembang Web & Database Engine.
 - **GTID Tech:** Sumber data pengujian laboratorium independen (Akurasi deITP Calman, Response Time GTG, Motion Clarity).
 
 ---

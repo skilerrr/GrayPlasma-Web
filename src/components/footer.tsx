@@ -64,7 +64,7 @@ export function Footer() {
             <p className="text-xs text-zinc-400 leading-relaxed max-w-sm">
               Database Pengujian & Kurasi Monitor Independen kolaborasi{" "}
               <strong className="text-white">{consult.author || "Joel Gray (@gray1plasma)"}</strong> x{" "}
-              <strong className="text-white">{consult.collaborators || "GlaciK"}</strong> berdasarkan data pengetesan laboratorium{" "}
+              <strong className="text-white">{consult.collaborators || "Tim GrayPlasma"}</strong> berdasarkan data pengetesan laboratorium{" "}
               <strong className="text-white">GTID Tech</strong>.
             </p>
           </div>
@@ -229,7 +229,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-6 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
           <div className="text-zinc-500 text-center sm:text-left">
-            {siteSettings.copyrightText || "© 2026 GrayPlasma. Hak Cipta materi kurasi milik Joel Gray x GlaciK. Data pengujian milik GTID Tech."}
+            {siteSettings.copyrightText || "© 2026 GrayPlasma. Hak Cipta materi kurasi milik GrayPlasma. Data pengujian milik GTID Tech."}
           </div>
         </div>
       </div>

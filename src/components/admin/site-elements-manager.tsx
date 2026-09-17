@@ -399,7 +399,7 @@ export function SiteElementsManager({
 
                 <div>
                   <label className="text-zinc-400 block mb-1 font-semibold">
-                    Uraian Catatan Penting (Dukungan Penuh Visual Word/Notion):
+                    Uraian Catatan Penting (Dukungan Visual WYSIWYG):
                   </label>
                   <NotionRichEditor
                     value={

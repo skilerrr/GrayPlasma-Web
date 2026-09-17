@@ -56,6 +56,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { compressImage } from "@/lib/image-compressor";
 import { NotionBlockRenderer } from "@/components/notion-block-renderer";
+import { uploadImageToSupabase, isSupabaseConfigured } from "@/lib/supabase";
 
 export interface WordStudioDocument {
   id: string;
@@ -132,6 +133,13 @@ export function WordDocsStudio({
   // Table In-Canvas Active Context
   const [activeTableElement, setActiveTableElement] = useState<HTMLTableElement | null>(null);
   const [activeTableCell, setActiveTableCell] = useState<HTMLTableCellElement | null>(null);
+
+  // Active Block Element Context (Callout, Matrix, Table, Image, etc.)
+  const [activeBlock, setActiveBlock] = useState<{
+    element: HTMLElement;
+    type: "callout" | "matrix" | "table" | "image" | "blockquote" | "code" | "generic";
+    label: string;
+  } | null>(null);
 
   // Image Selection Context
   const [selectedImageElement, setSelectedImageElement] = useState<HTMLImageElement | null>(null);
@@ -291,9 +299,14 @@ export function WordDocsStudio({
     }
 
     const html = `
-<div class="my-5 p-4 rounded-xl border ${borderTheme} flex items-start gap-3.5 notion-callout" contenteditable="true">
-  <div class="px-2 py-0.5 rounded bg-black/40 border border-current font-mono text-[10px] font-bold tracking-wider uppercase flex-shrink-0" contenteditable="false">
-    ${iconLabel}
+<div class="my-5 p-4 rounded-xl border ${borderTheme} relative notion-callout transition-all" contenteditable="true">
+  <div class="flex items-center justify-between gap-3 mb-2" contenteditable="false">
+    <div class="px-2 py-0.5 rounded bg-black/40 border border-current font-mono text-[10px] font-bold tracking-wider uppercase flex-shrink-0">
+      ${iconLabel}
+    </div>
+    <button type="button" class="studio-delete-btn px-2 py-0.5 rounded bg-black/50 hover:bg-rose-950/80 border border-zinc-700 hover:border-rose-500/50 text-zinc-400 hover:text-rose-300 font-mono text-[10px] flex items-center gap-1 cursor-pointer transition-colors" title="Hapus Kotak Callout Ini">
+      ✕ Hapus
+    </button>
   </div>
   <div class="space-y-1 flex-1">
     <strong class="block font-bold text-sm tracking-tight text-white">${titleText}</strong>
@@ -308,10 +321,15 @@ export function WordDocsStudio({
   // Insert Checklist / Pros Cons Matrix
   const insertProsConsMatrix = () => {
     const html = `
-<div class="my-5 p-4 rounded-xl bg-[#0e0e13] border border-zinc-800 space-y-3" contenteditable="true">
-  <div class="flex items-center gap-2 text-xs font-mono font-bold text-zinc-400 uppercase tracking-wider" contenteditable="false">
-    <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
-    <span>Matriks Kelebihan & Kekurangan</span>
+<div class="my-5 p-4 rounded-xl bg-[#0e0e13] border border-zinc-800 space-y-3 relative notion-matrix transition-all" contenteditable="true">
+  <div class="flex items-center justify-between gap-2 text-xs font-mono font-bold text-zinc-400 uppercase tracking-wider" contenteditable="false">
+    <div class="flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+      <span>Matriks Kelebihan & Kekurangan</span>
+    </div>
+    <button type="button" class="studio-delete-btn px-2 py-0.5 rounded bg-black/50 hover:bg-rose-950/80 border border-zinc-700 hover:border-rose-500/50 text-zinc-400 hover:text-rose-300 font-mono text-[10px] flex items-center gap-1 cursor-pointer transition-colors" title="Hapus Matriks Ini">
+      ✕ Hapus
+    </button>
   </div>
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
     <div class="p-3 rounded-lg bg-emerald-950/20 border border-emerald-500/30 space-y-1.5">
@@ -355,7 +373,7 @@ export function WordDocsStudio({
     }
 
     const html = `
-<div class="my-5 overflow-x-auto rounded-xl border border-zinc-800 shadow-sm" contenteditable="true">
+<div class="my-5 overflow-x-auto rounded-xl border border-zinc-800 shadow-sm relative notion-table-wrapper" contenteditable="true">
   <table class="w-full text-xs border-collapse font-sans">
     <thead>
       <tr>${theadCols}</tr>
@@ -433,28 +451,147 @@ export function WordDocsStudio({
 
   const handleDeleteEntireTable = () => {
     if (!activeTableElement) return;
-    const container = activeTableElement.closest(".overflow-x-auto") || activeTableElement;
+    const container = activeTableElement.closest(".notion-table-wrapper, .overflow-x-auto") || activeTableElement;
     container.remove();
     setActiveTableElement(null);
     setActiveTableCell(null);
+    setActiveBlock(null);
+    if (editableRef.current && (!editableRef.current.innerHTML.trim() || editableRef.current.innerHTML === "<br>")) {
+      editableRef.current.innerHTML = "<p><br></p>";
+    }
     handleContentChange();
   };
 
-  // Image Click Handler inside editor
+  const handleDeleteActiveBlock = () => {
+    if (!activeBlock?.element) return;
+    const el = activeBlock.element;
+    const targetToRemove =
+      el.closest("figure, .notion-figure") ||
+      el.closest(".notion-table-wrapper") ||
+      el.closest(".overflow-x-auto") ||
+      el.closest(".notion-callout") ||
+      el.closest(".notion-matrix") ||
+      el;
+
+    targetToRemove.remove();
+    setActiveBlock(null);
+    setActiveTableElement(null);
+    setActiveTableCell(null);
+    setSelectedImageElement(null);
+
+    if (editableRef.current && (!editableRef.current.innerHTML.trim() || editableRef.current.innerHTML === "<br>")) {
+      editableRef.current.innerHTML = "<p><br></p>";
+    }
+    handleContentChange();
+  };
+
+  // Block & Image Click Handler inside editor
   const handleEditorClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
 
-    // Detect table context
+    // 1. Direct click on inline delete button (.studio-delete-btn)
+    const deleteBtn = target.closest(".studio-delete-btn, [data-studio-delete]") as HTMLElement | null;
+    if (deleteBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      const blockToDel = deleteBtn.closest(
+        ".notion-callout, .notion-matrix, .notion-table-wrapper, .overflow-x-auto, figure, .notion-figure, blockquote, pre"
+      );
+      if (blockToDel) {
+        blockToDel.remove();
+        setActiveBlock(null);
+        setActiveTableElement(null);
+        setActiveTableCell(null);
+        setSelectedImageElement(null);
+        if (editableRef.current && (!editableRef.current.innerHTML.trim() || editableRef.current.innerHTML === "<br>")) {
+          editableRef.current.innerHTML = "<p><br></p>";
+        }
+        handleContentChange();
+        return;
+      }
+    }
+
+    // 2. Detect table context
     const cell = target.closest("td, th") as HTMLTableCellElement | null;
     const table = target.closest("table") as HTMLTableElement | null;
     setActiveTableCell(cell);
     setActiveTableElement(table);
 
-    // Detect image context
+    // 3. Detect image context
     if (target.tagName.toLowerCase() === "img") {
       setSelectedImageElement(target as HTMLImageElement);
     } else {
       setSelectedImageElement(null);
+    }
+
+    // 4. Detect active block element (Callout, Matrix, Table, Figure, Blockquote, Pre)
+    const callout = target.closest(".notion-callout") as HTMLElement | null;
+    const matrix = target.closest(".notion-matrix") as HTMLElement | null;
+    const figure = target.closest("figure, .notion-figure") as HTMLElement | null;
+    const blockquote = target.closest("blockquote") as HTMLElement | null;
+    const pre = target.closest("pre") as HTMLElement | null;
+    const tableWrapper = target.closest(".notion-table-wrapper, .overflow-x-auto") as HTMLElement | null;
+
+    if (callout) {
+      setActiveBlock({ element: callout, type: "callout", label: "Callout Box" });
+    } else if (matrix) {
+      setActiveBlock({ element: matrix, type: "matrix", label: "Matriks Plus/Minus" });
+    } else if (table || tableWrapper) {
+      setActiveBlock({ element: (tableWrapper || table) as HTMLElement, type: "table", label: "Tabel Modular" });
+    } else if (figure || target.tagName.toLowerCase() === "img") {
+      setActiveBlock({ element: (figure || target) as HTMLElement, type: "image", label: "Gambar / Figure" });
+    } else if (blockquote) {
+      setActiveBlock({ element: blockquote, type: "blockquote", label: "Kutipan (Blockquote)" });
+    } else if (pre) {
+      setActiveBlock({ element: pre, type: "code", label: "Blok Kode" });
+    } else {
+      setActiveBlock(null);
+    }
+  };
+
+  // Keyboard Backspace / Delete handler on blocks
+  const handleEditorKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Backspace" || e.key === "Delete") {
+      const selection = window.getSelection();
+      if (!selection || !selection.anchorNode) return;
+
+      const anchorNode =
+        selection.anchorNode instanceof HTMLElement ? selection.anchorNode : selection.anchorNode.parentElement;
+      const block = anchorNode?.closest(
+        ".notion-callout, .notion-matrix, .notion-table-wrapper, .overflow-x-auto, figure, .notion-figure"
+      ) as HTMLElement | null;
+
+      if (block) {
+        // Clone block to evaluate remaining text excluding badges and delete buttons
+        const clone = block.cloneNode(true) as HTMLElement;
+        clone.querySelectorAll(".studio-delete-btn, [contenteditable='false']").forEach((n) => n.remove());
+        const textContent = clone.textContent?.trim() || "";
+
+        const isDefaultOrEmpty =
+          textContent === "" ||
+          textContent === "Tulis kesimpulan pengujian dan rekomendasi objektif di sini..." ||
+          textContent === "Catatan mengenai akurasi deITP, overdrive, atau sub-pixel rendering..." ||
+          textContent === "Waspadai firmware overdrive generik atau masa tunggu klaim suku cadang..." ||
+          textContent === "Unit terbaik di kelas harga ini berdasarkan rasio harga terhadap performa...";
+
+        if (isDefaultOrEmpty) {
+          e.preventDefault();
+          const p = document.createElement("p");
+          p.innerHTML = "<br>";
+          block.replaceWith(p);
+          setActiveBlock(null);
+          setActiveTableElement(null);
+          setActiveTableCell(null);
+          setSelectedImageElement(null);
+          handleContentChange();
+
+          const range = document.createRange();
+          range.setStart(p, 0);
+          range.collapse(true);
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+      }
     }
   };
 
@@ -481,9 +618,25 @@ export function WordDocsStudio({
           try {
             setIsCompressingImg(true);
             const compressed = await compressImage(blob, 1200, 0.84);
+            let finalSrc = compressed.dataUrl;
+
+            if (isSupabaseConfigured && compressed.file) {
+              try {
+                const uploaded = await uploadImageToSupabase(compressed.file, "banners");
+                if (uploaded?.url) finalSrc = uploaded.url;
+              } catch (err) {
+                console.warn("Upload gambar ke Supabase Storage gagal, fallback ke dataUrl", err);
+              }
+            }
+
             const imgHtml = `
-<figure class="my-4 text-center">
-  <img src="${compressed.dataUrl}" alt="Grafik Pengujian Lab GTID" class="rounded-xl border border-zinc-800 shadow-md max-w-full inline-block" style="width: 85%;" />
+<figure class="my-4 text-center notion-figure" contenteditable="false">
+  <div class="relative inline-block max-w-full">
+    <img src="${finalSrc}" alt="Grafik Pengujian Lab GTID" class="rounded-xl border border-zinc-800 shadow-md max-w-full inline-block cursor-pointer" style="width: 85%;" />
+    <button type="button" class="studio-delete-btn absolute top-2 right-2 px-2 py-0.5 rounded bg-black/80 hover:bg-rose-900 border border-zinc-700 text-rose-300 font-mono text-[10px] cursor-pointer shadow-md" title="Hapus Gambar Ini">
+      ✕ Hapus
+    </button>
+  </div>
   <figcaption class="text-[11px] font-mono text-zinc-500 mt-1.5">// Gambar Pengujian Laboratorium GTID Tech</figcaption>
 </figure>
 <p><br></p>
@@ -507,11 +660,27 @@ export function WordDocsStudio({
     setIsCompressingImg(true);
     try {
       const res = await compressImage(file, 1400, 0.85);
+      let finalSrc = res.dataUrl;
+
+      if (isSupabaseConfigured && res.file) {
+        try {
+          const uploaded = await uploadImageToSupabase(res.file, "banners");
+          if (uploaded?.url) finalSrc = uploaded.url;
+        } catch (err) {
+          console.warn("Upload gambar dokumen ke Supabase gagal, fallback ke dataUrl", err);
+        }
+      }
+
       const imgHtml = `
-  <figure class="my-4" contenteditable="false">
-    <img src="${res.dataUrl}" alt="Lab Test" class="rounded-xl border border-zinc-700 max-w-full h-auto cursor-pointer hover:border-cyan-400 transition-colors" style="width: 100%; display: block;" />
-    <figcaption class="text-[11px] font-mono text-zinc-500 mt-1.5">Dokumentasi: ${file.name}</figcaption>
-  </figure>
+<figure class="my-4 text-center notion-figure" contenteditable="false">
+  <div class="relative inline-block max-w-full">
+    <img src="${finalSrc}" alt="Lab Test" class="rounded-xl border border-zinc-700 max-w-full h-auto cursor-pointer hover:border-cyan-400 transition-colors" style="width: 100%; display: block;" />
+    <button type="button" class="studio-delete-btn absolute top-2 right-2 px-2 py-0.5 rounded bg-black/80 hover:bg-rose-900 border border-zinc-700 text-rose-300 font-mono text-[10px] cursor-pointer shadow-md" title="Hapus Gambar Ini">
+      ✕ Hapus
+    </button>
+  </div>
+  <figcaption class="text-[11px] font-mono text-zinc-500 mt-1.5">Dokumentasi: ${file.name}</figcaption>
+</figure>
 <p><br></p>
 `;
       execFormat("insertHTML", imgHtml);
@@ -565,7 +734,9 @@ export function WordDocsStudio({
   const handleSaveClick = () => {
     let finalContent = doc.content;
     if (viewMode === "document" && editableRef.current) {
-      finalContent = editableRef.current.innerHTML;
+      const clone = editableRef.current.cloneNode(true) as HTMLElement;
+      clone.querySelectorAll(".studio-delete-btn").forEach((btn) => btn.remove());
+      finalContent = clone.innerHTML;
     }
     onSave({
       ...doc,
@@ -1239,14 +1410,47 @@ export function WordDocsStudio({
           <button
             type="button"
             onClick={() => {
-              selectedImageElement.remove();
+              const figure = selectedImageElement.closest("figure, .notion-figure") || selectedImageElement;
+              figure.remove();
               setSelectedImageElement(null);
+              setActiveBlock(null);
+              if (editableRef.current && (!editableRef.current.innerHTML.trim() || editableRef.current.innerHTML === "<br>")) {
+                editableRef.current.innerHTML = "<p><br></p>";
+              }
               handleContentChange();
             }}
             className="px-2 py-1 rounded bg-rose-950/40 hover:bg-rose-900/60 border border-rose-500/40 text-rose-300 text-[11px]"
           >
             Hapus Gambar
           </button>
+        </div>
+      )}
+
+      {/* 6B. ACTIVE BLOCK ELEMENT TOOLBAR (Floats when user selects or clicks any block element) */}
+      {activeBlock && (
+        <div className="bg-[#181524] border-b border-rose-500/40 px-6 py-2 flex items-center justify-between gap-3 text-xs font-mono z-20 shadow-md animate-in fade-in duration-150">
+          <div className="flex items-center gap-2 text-rose-300 font-bold text-[11px]">
+            <Layers className="w-3.5 h-3.5 text-rose-400" />
+            <span>ELEMEN AKTIF TERPILIH: {activeBlock.label.toUpperCase()}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleDeleteActiveBlock}
+              className="px-2.5 py-1 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold flex items-center gap-1.5 text-[11px] shadow transition-colors active:scale-95"
+              title="Hapus elemen blok ini secara permanen"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              <span>Hapus {activeBlock.label}</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveBlock(null)}
+              className="px-2 py-1 rounded bg-zinc-900 border border-zinc-750 text-zinc-400 hover:text-white text-[11px]"
+            >
+              ✕
+            </button>
+          </div>
         </div>
       )}
 
@@ -1396,6 +1600,7 @@ export function WordDocsStudio({
               onBlur={handleContentChange}
               onMouseUp={saveCurrentSelection}
               onKeyUp={saveCurrentSelection}
+              onKeyDown={handleEditorKeyDown}
               onClick={handleEditorClick}
               onPaste={handlePaste}
               className="notion-prose min-h-[420px] focus:outline-none p-4 rounded-xl bg-zinc-950/30 border border-zinc-850 hover:border-zinc-800 focus:border-zinc-700 transition-colors"

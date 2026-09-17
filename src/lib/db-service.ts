@@ -154,7 +154,7 @@ export interface PageBannerSettings {
 export const DEFAULT_BANNER_SETTINGS: PageBannerSettings = {
   homeBannerUrl: "",
   homeBannerTitle: "Katalog & Database Rekomendasi Monitor",
-  homeBannerSubtitle: "Kurasi monitor independen kolaborasi Joel Gray (@gray1plasma) x GlaciK dengan pengujian laboratorium GTID Tech.",
+  homeBannerSubtitle: "Kurasi monitor independen oleh tim GrayPlasma (@gray1plasma) dengan pengujian laboratorium GTID Tech.",
   guideBannerUrl: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1600&auto=format&fit=crop",
   monitorBannerUrl: "",
 };
@@ -583,46 +583,18 @@ export interface AdminUser {
 
 export const DEFAULT_ADMIN_USERS: AdminUser[] = [
   {
-    id: "admin-joel",
-    name: "Joel Gray",
-    username: "gray1plasma",
+    id: "admin-grayplasma",
+    name: "Grayplasma",
+    username: "grayplasma",
     role: "super_admin",
-    roleTitle: "Founder & Master Admin",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
-    pinCode: "grayplasma2026",
-    email: "joel@grayplasma.id",
-    bio: "Penggagas dan kurator database ulasan independen GrayPlasma.",
+    roleTitle: "Master Administrator",
+    avatar: "/gp-logo.png",
+    pinCode: "test123",
+    email: "grayplasma@grayplasma.id",
+    bio: "Master Administrator GrayPlasma.",
     permissions: ["*"],
     createdAt: "2024-01-01",
-    lastLogin: "2026-08-31",
-  },
-  {
-    id: "admin-glacik",
-    name: "GlaciK",
-    username: "glacik",
-    role: "lead_reviewer",
-    roleTitle: "Lead Reviewer & Data Analyst",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
-    pinCode: "glacik2026",
-    email: "glacik@grayplasma.id",
-    bio: "Ko-kurator dan analis hasil pengujian lab GTID Tech.",
-    permissions: ["monitors", "desks", "peripherals", "aftersales", "guides", "faq"],
-    createdAt: "2024-06-01",
-    lastLogin: "2026-08-30",
-  },
-  {
-    id: "admin-editor",
-    name: "Content Moderator",
-    username: "editor",
-    role: "editor",
-    roleTitle: "Content & Community Editor",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
-    pinCode: "editor2026",
-    email: "editor@grayplasma.id",
-    bio: "Editor artikel edukasi, FAQ, dan banner.",
-    permissions: ["guides", "faq", "banners", "settings"],
-    createdAt: "2025-01-15",
-    lastLogin: "2026-08-28",
+    lastLogin: "2026-09-17",
   },
 ];
 
@@ -646,11 +618,11 @@ export const INITIAL_ACTIVITY_LOGS: AdminActivityLog[] = [
     targetType: "settings",
     targetName: "Sistem Master Workspace",
     timestamp: "2026-08-31 14:00",
-    details: "Inisialisasi sistem manajemen komprehensif Notion-style dan Hierarki Admin RBAC.",
+    details: "Inisialisasi sistem manajemen komprehensif Katalog Interaktif dan Hierarki Admin RBAC.",
   },
   {
     id: "log-init-2",
-    adminName: "GlaciK",
+    adminName: "Grayplasma",
     adminRole: "Lead Reviewer",
     action: "update",
     targetType: "monitor",
@@ -727,7 +699,15 @@ export class DatabaseService {
   // 0.1 ADMIN HIERARCHY & USERS (RBAC)
   // ==========================================
   static getAdminUsers(): AdminUser[] {
-    return getLocalData<AdminUser[]>(STORAGE_KEYS.ADMIN_USERS, DEFAULT_ADMIN_USERS);
+    const list = getLocalData<AdminUser[]>(STORAGE_KEYS.ADMIN_USERS, DEFAULT_ADMIN_USERS);
+    // Ensure old default admins (Joel, Glacik, Editor) are purged and only grayplasma is active
+    const hasGrayplasma = list.some((u) => u.username?.toLowerCase() === "grayplasma");
+    const hasOldAdmins = list.some((u) => u.id === "admin-joel" || u.username === "gray1plasma" || u.id === "admin-glacik" || u.id === "admin-editor");
+    if (!hasGrayplasma || hasOldAdmins) {
+      setLocalData(STORAGE_KEYS.ADMIN_USERS, DEFAULT_ADMIN_USERS);
+      return DEFAULT_ADMIN_USERS;
+    }
+    return list;
   }
 
   static async getAdminUsersAsync(): Promise<AdminUser[]> {
@@ -826,7 +806,12 @@ export class DatabaseService {
   }
 
   static getCurrentAdminSession(): AdminUser | null {
-    return getLocalData<AdminUser | null>(STORAGE_KEYS.CURRENT_ADMIN_SESSION, DEFAULT_ADMIN_USERS[0]);
+    const session = getLocalData<AdminUser | null>(STORAGE_KEYS.CURRENT_ADMIN_SESSION, DEFAULT_ADMIN_USERS[0]);
+    if (session && (session.id === "admin-joel" || session.username === "gray1plasma" || session.id === "admin-glacik")) {
+      setLocalData(STORAGE_KEYS.CURRENT_ADMIN_SESSION, DEFAULT_ADMIN_USERS[0]);
+      return DEFAULT_ADMIN_USERS[0];
+    }
+    return session || DEFAULT_ADMIN_USERS[0];
   }
 
   // ==========================================
@@ -909,7 +894,7 @@ export class DatabaseService {
 
   static resetMonitorsToDefault(): Monitor[] {
     setLocalData(STORAGE_KEYS.MONITORS, MONITORS_DATA);
-    DatabaseService.logActivity("reset", "monitor", "55 Monitor Bawaan", "Reset monitor ke default Notion.");
+    DatabaseService.logActivity("reset", "monitor", "55 Monitor Bawaan", "Reset monitor ke database default.");
     return MONITORS_DATA;
   }
 

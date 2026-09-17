@@ -5,19 +5,21 @@
 
 -- 1. EXTENSIONS
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 -- ==============================================================================
 -- 2. ADMIN PROFILES & ROLE-BASED ACCESS CONTROL (RBAC)
 -- ==============================================================================
 CREATE TABLE IF NOT EXISTS public.admin_profiles (
   id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  username TEXT UNIQUE,
   email TEXT NOT NULL UNIQUE,
   name TEXT NOT NULL,
   role TEXT NOT NULL DEFAULT 'editor' CHECK (role IN ('super_admin', 'lead_reviewer', 'editor', 'contributor')),
   role_title TEXT DEFAULT 'Content Editor',
   avatar TEXT,
   bio TEXT,
-  permissions JSONB DEFAULT '["guides", "faq"]'::jsonb,
+  permissions JSONB DEFAULT '["*"]'::jsonb,
   invited_by UUID REFERENCES auth.users(id) ON DELETE SET NULL,
   is_active BOOLEAN DEFAULT true,
   created_at TIMESTAMPTZ DEFAULT NOW(),
@@ -67,6 +69,65 @@ CREATE POLICY "Admins can update own profile" ON public.admin_profiles
   FOR UPDATE TO authenticated
   USING (id = auth.uid())
   WITH CHECK (id = auth.uid());
+
+-- ==============================================================================
+-- 2b. SEED DEFAULT SUPER ADMIN ACCOUNT (grayplasma / test123)
+-- Otomatis membuat akun super admin awal di auth.users dan admin_profiles.
+-- Tidak perlu registrasi manual! Cukup login dengan:
+-- Username: grayplasma
+-- Password: test123
+-- ==============================================================================
+INSERT INTO auth.users (
+  id,
+  instance_id,
+  aud,
+  role,
+  email,
+  encrypted_password,
+  email_confirmed_at,
+  raw_app_meta_data,
+  raw_user_meta_data,
+  created_at,
+  updated_at
+)
+SELECT
+  '00000000-0000-0000-0000-000000000001',
+  '00000000-0000-0000-0000-000000000000',
+  'authenticated',
+  'authenticated',
+  'grayplasma@grayplasma.local',
+  crypt('test123', gen_salt('bf')),
+  NOW(),
+  '{"provider":"email","providers":["email"],"role":"super_admin"}'::jsonb,
+  '{"name":"Grayplasma","username":"grayplasma"}'::jsonb,
+  NOW(),
+  NOW()
+WHERE NOT EXISTS (
+  SELECT 1 FROM auth.users WHERE email = 'grayplasma@grayplasma.local' OR id = '00000000-0000-0000-0000-000000000001'
+);
+
+INSERT INTO public.admin_profiles (
+  id,
+  username,
+  email,
+  name,
+  role,
+  role_title,
+  permissions,
+  is_active
+)
+SELECT
+  '00000000-0000-0000-0000-000000000001',
+  'grayplasma',
+  'grayplasma@grayplasma.local',
+  'Grayplasma',
+  'super_admin',
+  'Master Administrator',
+  '["*"]'::jsonb,
+  true
+WHERE NOT EXISTS (
+  SELECT 1 FROM public.admin_profiles WHERE username = 'grayplasma' OR id = '00000000-0000-0000-0000-000000000001'
+);
 
 -- ==============================================================================
 -- 3. MONITORS TABLE (GTID Lab Testing Specifications)

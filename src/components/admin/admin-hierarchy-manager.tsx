@@ -228,11 +228,11 @@ export function AdminHierarchyManager({
   };
 
   const handleResetAdmins = () => {
-    if (confirm("Reset seluruh daftar admin ke tim bawaan (Joel Gray, GlaciK, Editor)?")) {
+    if (confirm("Reset daftar admin ke akun bawaan (Grayplasma Master Admin)?")) {
       const res = DatabaseService.resetAdminUsers();
       onUpdateAdmins(res);
       setLogs(DatabaseService.getActivityLogs());
-      showNotice("Daftar admin telah di-reset ke akun bawaan.");
+      showNotice("Daftar admin telah di-reset ke akun bawaan (Grayplasma).");
     }
   };
 
@@ -281,7 +281,7 @@ export function AdminHierarchyManager({
               Manajemen Tim Admin & Hak Akses
             </h3>
             <p className="text-xs text-zinc-400 max-w-2xl">
-              Atur hierarki admin dari Super Admin (Joel Gray), Lead Reviewer (GlaciK), hingga Content Editor dan Contributor. Setiap anggota memiliki PIN dan wewenang khusus.
+              Atur hierarki admin dan wewenang akun (Super Admin Grayplasma, Reviewer, Editor, Contributor).
             </p>
           </div>
 
@@ -390,8 +390,8 @@ export function AdminHierarchyManager({
                     />
                   </label>
                   <div className="text-right hidden md:block">
-                    <span className="text-[10px] text-zinc-500 block">PIN Akses</span>
-                    <span className="text-xs font-mono text-zinc-300 font-bold">•••••• ({currentAdmin.pinCode})</span>
+                    <span className="text-[10px] text-zinc-500 block">Sandi Akses</span>
+                    <span className="text-xs font-mono text-zinc-400 font-bold">••••••••</span>
                   </div>
                 </div>
               </div>
@@ -500,7 +500,7 @@ export function AdminHierarchyManager({
                     {/* Bottom Action / Switch Session Button */}
                     <div className="pt-3 border-t border-zinc-900 flex items-center justify-between">
                       <div className="text-[10px] text-zinc-500">
-                        PIN: <span className="font-mono text-zinc-400 font-bold">{adm.pinCode}</span>
+                        Sandi: <span className="font-mono text-zinc-400 font-bold">••••••••</span>
                       </div>
 
                       {!isCurrent ? (

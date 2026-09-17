@@ -16,6 +16,7 @@ export const supabase = isSupabaseConfigured
 
 export interface SupabaseAdminProfile {
   id: string;
+  username?: string;
   email: string;
   name: string;
   role: "super_admin" | "lead_reviewer" | "editor" | "contributor";
@@ -29,9 +30,9 @@ export interface SupabaseAdminProfile {
 }
 
 /**
- * Sign in admin using official Supabase Auth (Email + Password)
+ * Sign in admin using official Supabase Auth (Username or Email + Password)
  */
-export async function signInAdminWithSupabase(email: string, password: string): Promise<{
+export async function signInAdminWithSupabase(usernameOrEmail: string, password: string): Promise<{
   user: any | null;
   profile: SupabaseAdminProfile | null;
   error: string | null;
@@ -41,9 +42,17 @@ export async function signInAdminWithSupabase(email: string, password: string): 
   }
 
   try {
+    const cleanInput = usernameOrEmail.trim().toLowerCase();
+    const cleanPassword = password.trim();
+
+    // Dukung username murni (misal: 'grayplasma') maupun format email
+    const emailToTry = cleanInput.includes("@")
+      ? cleanInput
+      : `${cleanInput}@grayplasma.local`;
+
     const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-      email: email.trim(),
-      password: password.trim(),
+      email: emailToTry,
+      password: cleanPassword,
     });
 
     if (authError || !authData.user) {
@@ -61,7 +70,8 @@ export async function signInAdminWithSupabase(email: string, password: string): 
       // Fallback: If profile row doesn't exist yet, check metadata or create one
       const fallbackProfile: SupabaseAdminProfile = {
         id: authData.user.id,
-        email: authData.user.email || email,
+        username: cleanInput,
+        email: authData.user.email || emailToTry,
         name: authData.user.user_metadata?.name || "Admin Member",
         role: (authData.user.app_metadata?.role as any) || "super_admin",
         role_title: "Administrator",

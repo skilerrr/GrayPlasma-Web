@@ -323,7 +323,7 @@ export function DeskFormModal({
 
                 <div>
                   <label className="text-zinc-300 block mb-1 font-semibold">
-                    Ulasan & Catatan Detail Setup Meja (Word/Notion WYSIWYG):
+                    Ulasan & Catatan Detail Setup Meja (Visual WYSIWYG):
                   </label>
                   <NotionRichEditor
                     value={deskData.markdownContent || deskData.notes || ""}
@@ -431,7 +431,7 @@ export function DeskFormModal({
 
                 <div>
                   <label className="text-zinc-300 block mb-1 font-semibold">
-                    Catatan Ulasan Lengkap Aksesoris (Word/Notion WYSIWYG):
+                    Catatan Ulasan Lengkap Aksesoris (Visual WYSIWYG):
                   </label>
                   <NotionRichEditor
                     value={periphData.notes || ""}

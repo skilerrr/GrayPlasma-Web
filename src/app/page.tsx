@@ -186,7 +186,7 @@ function CatalogPageContent() {
   const [bannerSettings, setBannerSettings] = useState<any>({
     homeBannerUrl: "",
     homeBannerTitle: "Katalog & Database Rekomendasi Monitor",
-    homeBannerSubtitle: "Kurasi monitor independen kolaborasi Joel Gray (@gray1plasma) x GlaciK dengan pengujian laboratorium GTID Tech.",
+    homeBannerSubtitle: "Kurasi monitor independen oleh tim GrayPlasma (@gray1plasma) dengan pengujian laboratorium GTID Tech.",
   });
   const [adBanners, setAdBanners] = useState<AdBannerItem[]>(DEFAULT_AD_BANNERS);
   const [selectedAftersalesCard, setSelectedAftersalesCard] = useState<NotionBoardCard | null>(null);
@@ -1632,7 +1632,7 @@ function CatalogPageContent() {
                 className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Kembali ke Beranda Utama Notion</span>
+                <span>Kembali ke Beranda Utama</span>
               </button>
               <span className="text-xs text-zinc-500">Tentang Penulis</span>
             </div>
@@ -1672,7 +1672,7 @@ function CatalogPageContent() {
               <div className="p-4 rounded-xl bg-zinc-900 border border-zinc-800 text-xs flex items-center justify-between">
                 <div>
                   <span className="text-zinc-400 block text-[10px] uppercase font-bold">Hasil Kerjasama:</span>
-                  <span className="font-bold text-white">@GrayPlasma (Penulis) & @GlaciK • Data GTID Tech</span>
+                  <span className="font-bold text-white">@GrayPlasma • Data Pengujian GTID Tech</span>
                 </div>
                 <a
                   href={consult.youtubeUrl || CONSULTATION_DATA.youtubeUrl}
@@ -1700,7 +1700,7 @@ function CatalogPageContent() {
                 className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Kembali ke Beranda Utama Notion</span>
+                <span>Kembali ke Beranda Utama</span>
               </button>
               <span className="text-xs text-zinc-500">How to Read Glossary</span>
             </div>
@@ -1764,7 +1764,7 @@ function CatalogPageContent() {
                 className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Kembali ke Beranda Utama Notion</span>
+                <span>Kembali ke Beranda Utama</span>
               </button>
               <span className="text-xs text-zinc-500">Support & Donasi</span>
             </div>
@@ -1995,7 +1995,7 @@ function CatalogPageContent() {
                 className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Kembali ke Beranda Utama Notion</span>
+                <span>Kembali ke Beranda Utama</span>
               </button>
               <span className="text-xs text-zinc-500">Panduan Meja & Peripherals</span>
             </div>
@@ -2064,7 +2064,7 @@ function CatalogPageContent() {
                 className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Kembali ke Beranda Utama Notion</span>
+                <span>Kembali ke Beranda Utama</span>
               </button>
               <span className="text-xs text-zinc-500">Monitor HDR Guide</span>
             </div>
@@ -2145,7 +2145,7 @@ function CatalogPageContent() {
                 className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Kembali ke Beranda Utama Notion</span>
+                <span>Kembali ke Beranda Utama</span>
               </button>
               <span className="text-xs text-zinc-500">GrayNotes Teknis</span>
             </div>
@@ -2235,7 +2235,7 @@ function CatalogPageContent() {
                   <span className="font-bold text-[#d4d4d4] uppercase">CATATAN :</span>
                   <ul className="list-disc pl-5 space-y-1 text-[#b4b4b4]">
                     <li>
-                      Seluruh ulasan dan panduan disusun independen oleh Joel Gray (@gray1plasma) x GlaciK berdasarkan pengujian laboratorium GTID Tech.
+                      Seluruh ulasan dan panduan disusun independen oleh GrayPlasma (@gray1plasma) berdasarkan pengujian laboratorium GTID Tech.
                     </li>
                   </ul>
                 </div>
@@ -2419,7 +2419,7 @@ function CatalogPageContent() {
                 className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Kembali ke Beranda Utama Notion</span>
+                <span>Kembali ke Beranda Utama</span>
               </button>
               <span className="text-xs text-zinc-500">Kritik & Saran</span>
             </div>
@@ -2502,7 +2502,7 @@ function CatalogPageContent() {
                 className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Kembali ke Beranda Utama Notion</span>
+                <span>Kembali ke Beranda Utama</span>
               </button>
               <span className="text-xs text-zinc-500">Kontak & Konsultasi</span>
             </div>

@@ -47,9 +47,9 @@ export const ABOUT_NOTION_CONTENT = {
   title: "TENTANG WEBSITE INI & PENULIS",
   subtitle: "Unofficial Website of GTID's Data Testing",
   author: "Joel Gray (@gray1plasma)",
-  collaborator: "@GlaciK",
-  latarBelakang: `Dimulai dari 2024, penulis (bukan resmi dari Tim GTID) sadar akan satu hal: Bahwa masih banyak orang yang kesulitan membaca data pengetesan GTID. Penulis berinisiatif untuk meringkas apa yang sudah GTID tes, namun masih banyak kekurangan, yakni masih dalam format google docs dan belum mendalami soal Aftersales. Tiba di akhir 2024, penulis berinisiatif untuk memindahkannya ke dalam Notion, yang awalnya berasal dari Google Docs, dan meningkatkannya menjadi Database untuk format kelebihan dan kekurangan setiap monitor. Tak luput juga penulis menambah dan mempelajari kondisi aftersales di tiap brand monitor. Dapat disimpulkan bahwa website ini bisa menjadi jembatan antara orang awam dengan orang yang sudah expert.`,
-  biodataPenulis: `Halo semuanya! Perkenalkan nama aku Joel, biasa disingkat El. Sorry ga formal buat perkenalannya. Sebenarnya ini cuma hobi aja sih menulis plus minus, karena kasihan juga masih banyak orang awam yang bingung dengan cara baca data pengetesan GTID, sembari cari cuan dari affiliate (jujur ga maksa sih, buat beli pakai link di Notion), cuma kok banyak waktu luang menjawab dan membantu di Discord GTID? Dikarenakan aku seorang lulusan SMK sedang gap year karena ada persoalan keluarga, sehingga baru berencana masuk kuliah di tahun 2027. Dan aku cuma mau bilang terima kasih yang sudah bertanya dan support melalui belanja menggunakan link affiliate atau memberikan donasi. Dan juga say sorry kalo ada yang nanya melalui Direct Messages Discord namun tidak dijawab.`
+  collaborator: "@GrayPlasma",
+  latarBelakang: `Dimulai dari 2024, penulis (bukan resmi dari Tim GTID) sadar akan satu hal: Bahwa masih banyak orang yang kesulitan membaca data pengetesan GTID. Penulis berinisiatif untuk meringkas apa yang sudah GTID tes, namun masih banyak kekurangan, yakni masih dalam format google docs dan belum mendalami soal Aftersales. Tiba di akhir 2024, penulis berinisiatif untuk mengembangkannya menjadi platform web mandiri, yang awalnya berasal dari ringkasan dokumen, dan meningkatkannya menjadi database terstruktur untuk format kelebihan dan kekurangan setiap monitor. Tak luput juga penulis menambah dan mempelajari kondisi aftersales di tiap brand monitor. Dapat disimpulkan bahwa website ini bisa menjadi jembatan antara orang awam dengan orang yang sudah expert.`,
+  biodataPenulis: `Halo semuanya! Perkenalkan nama aku Joel, biasa disingkat El. Sorry ga formal buat perkenalannya. Sebenarnya ini cuma hobi aja sih menulis plus minus, karena kasihan juga masih banyak orang awam yang bingung dengan cara baca data pengetesan GTID, sembari cari cuan dari affiliate (jujur ga maksa sih, buat belanja melalui link kurasi), cuma kok banyak waktu luang menjawab dan membantu di Discord GTID? Dikarenakan aku seorang lulusan SMK sedang gap year karena ada persoalan keluarga, sehingga baru berencana masuk kuliah di tahun 2027. Dan aku cuma mau bilang terima kasih yang sudah bertanya dan support melalui belanja menggunakan link affiliate atau memberikan donasi. Dan juga say sorry kalo ada yang nanya melalui Direct Messages Discord namun tidak dijawab.`
 };
 
 export const HOW_TO_READ_GLOSSARY = {
@@ -565,14 +565,14 @@ export const FAQ_LIST: FAQItem[] = [
   {
     id: "faq-logo-grayplasma",
     question: "KOK BANYAK LOGO GP (GRAYPLASMA?)",
-    answer: "Logo GP menandakan kurasi catatan dan anotasi khusus yang ditambahkan oleh Joel Gray (@gray1plasma) bersama GlaciK untuk melengkapi dan menyederhanakan data mentah pengetesan laboratorium GTID Tech.",
+    answer: "Logo GP menandakan kurasi catatan dan anotasi khusus yang ditambahkan oleh Joel Gray (@gray1plasma) oleh tim GrayPlasma untuk melengkapi dan menyederhanakan data mentah pengetesan laboratorium GTID Tech.",
     category: "Tentang GP"
   }
 ];
 
 export const CONSULTATION_DATA = {
   author: "Joel Gray (@gray1plasma)",
-  collaborators: "GlaciK & Data Pengujian GTID Tech",
+  collaborators: "Tim GrayPlasma & Data Pengujian GTID Tech",
   whatsapp: "0851-7979-4019",
   whatsappUrl: "https://wa.me/6285179794019",
   tiktok: "@gray1plasma",
@@ -581,6 +581,6 @@ export const CONSULTATION_DATA = {
   youtubeUrl: "https://www.youtube.com/c/GTiDtech/videos",
   notionUrl: "https://grayplasma.notion.site/GRAYPLASMAID-REKOMENDASI-MONITOR-4120d434aa8547d1a3626f9049b99c4e",
   feedbackFormUrl: "https://docs.google.com/forms/d/e/1FAIpQLSeMGUEruo05yP4fjQAKttC-gRXk0VFXsud9XupfOgzX38JIpw/viewform",
-  disclaimer: "DISCLAIMER : SELURUH LIST YANG ADA DI NOTION INI PERLU DITANYAKAN KEMBALI KEPADA PENULIS, DIKARENAKAN PERLU MEMPERTIMBANGKAN ASPEK SEPERTI SPESIFIKASI PC DESKTOP ATAU LAPTOP, UKURAN MEJA, DAN KEBUTUHAN NYA SEPERTI APA, DSB.\n\nMULAI 15 AGUSTUS 2026, LINK TOKOPEDIA DAN TIKTOKSHOP AKAN DIHAPUS, DIKARENAKAN TERKADANG ERROR. JIKA INGIN MEMINTA LINK TOKOPEDIA DAN TIKTOKSHOP, DM DISCORD GRAYPLASMA ATAU TIKTOK @GRAY1PLASMA ATAU BERTANYA MELALUI WHATSAPP 0851-7979-4019 A/N JOEL GRAY (RESPON LEBIH CEPAT DISCORD)"
+  disclaimer: "DISCLAIMER : SELURUH LIST YANG ADA DI WEBSITE KATALOG INI PERLU DITANYAKAN KEMBALI KEPADA PENULIS, DIKARENAKAN PERLU MEMPERTIMBANGKAN ASPEK SEPERTI SPESIFIKASI PC DESKTOP ATAU LAPTOP, UKURAN MEJA, DAN KEBUTUHAN NYA SEPERTI APA, DSB.\n\nMULAI 15 AGUSTUS 2026, LINK TOKOPEDIA DAN TIKTOKSHOP AKAN DIHAPUS, DIKARENAKAN TERKADANG ERROR. JIKA INGIN MEMINTA LINK TOKOPEDIA DAN TIKTOKSHOP, DM DISCORD GRAYPLASMA ATAU TIKTOK @GRAY1PLASMA ATAU BERTANYA MELALUI WHATSAPP 0851-7979-4019 A/N JOEL GRAY (RESPON LEBIH CEPAT DISCORD)"
 };
 

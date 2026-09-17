@@ -811,10 +811,10 @@ export function MonitorLiveStudio({
             <span>Monitor Studio & Live Specsheet Editor</span>
           </div>
           <h2 className="text-xl font-extrabold text-white tracking-tight">
-            Live Database Monitor & Notion Property Studio
+            Live Database Monitor & Studio Properti
           </h2>
           <p className="text-xs text-[#9b9a97] max-w-2xl leading-relaxed">
-            Kelola, edit, dan tambah monitor dengan live preview real-time. Semua 21 properti Notion, toleransi data GTID, dan section ulasan tersinkronisasi instan.
+            Kelola, edit, dan tambah monitor dengan live preview real-time. Semua 21 properti teknis, toleransi data GTID, dan section ulasan tersinkronisasi instan.
           </p>
         </div>
 
@@ -861,7 +861,7 @@ export function MonitorLiveStudio({
             variant="outline"
             size="sm"
             onClick={() => {
-              if (window.confirm("Reset seluruh data monitor ke bawaan Notion (55+ model)?")) {
+              if (window.confirm("Reset seluruh data monitor ke data bawaan (55+ model)?")) {
                 const reset = DatabaseService.resetMonitorsToDefault();
                 onUpdateMonitors(reset);
                 setSelectedMonitor(reset[0] || null);
@@ -1251,7 +1251,7 @@ export function MonitorLiveStudio({
               <div className="flex items-center gap-2">
                 <Tv className="w-5 h-5 text-zinc-400 shrink-0" />
                 <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded">
-                  Notion / Word Document Mode
+                  Word Document Mode
                 </span>
               </div>
 
@@ -1310,7 +1310,7 @@ export function MonitorLiveStudio({
           {/* 2. Compact Notion Properties Block */}
           <div className="bg-[#121214] border border-[#262626] rounded-xl p-3 space-y-2.5 text-xs">
             <div className="flex items-center justify-between text-[10px] font-bold text-[#787774] uppercase tracking-wider pb-1 border-b border-[#222]">
-              <span>PROPERTI REKOMENDASI (NOTION FIELDS)</span>
+              <span>PROPERTI REKOMENDASI LENGKAP</span>
               <span className="font-mono text-zinc-500">Auto-Synced</span>
             </div>
 
@@ -1853,7 +1853,7 @@ export function MonitorLiveStudio({
             <div className="flex items-center justify-between text-xs">
               <div className="flex items-center gap-2 font-bold text-white uppercase tracking-wider text-[11px]">
                 <FileText className="w-4 h-4 text-zinc-400" />
-                <span>Dokumen Ulasan & Verdict (Word / Notion Canvas)</span>
+                <span>Dokumen Ulasan & Verdict (Studio Canvas)</span>
               </div>
               <div className="flex items-center gap-1.5 flex-wrap">
                 <button
@@ -1915,7 +1915,7 @@ export function MonitorLiveStudio({
                   }));
                 }}
                 minHeight="min-h-[380px]"
-                placeholder="Ketik ulasan, verdict, atau analisis lab di sini layaknya dokumen Word / Notion... (Bisa langsung Ctrl+V paste gambar hasil tes lab)"
+                placeholder="Ketik ulasan, verdict, atau analisis lab di sini layaknya dokumen Word... (Bisa langsung Ctrl+V paste gambar hasil tes lab)"
                 allowImageUpload={true}
               />
             </div>

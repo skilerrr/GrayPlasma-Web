@@ -31,8 +31,11 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "GrayPlasmaID" }],
   icons: {
-    icon: "/icon",
-    apple: "/icon",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    apple: "/apple-icon.png",
   },
 };
 

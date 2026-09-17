@@ -127,6 +127,24 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
     showNotice("Klasifikasi tier HDR berhasil disimpan.");
   };
 
+  const handleDeleteHdrGuide = (idx: number) => {
+    if (confirm(`Hapus klasifikasi tier HDR "${hdrGuides[idx]?.tier}"?`)) {
+      const copy = hdrGuides.filter((_, i) => i !== idx);
+      DatabaseService.saveHDRGuides(copy);
+      setHdrGuides(copy);
+      showNotice("Klasifikasi tier HDR dihapus.");
+    }
+  };
+
+  const handleDeleteBandwidthGuide = (iface: string) => {
+    if (confirm(`Hapus panduan interface "${iface}"?`)) {
+      const copy = bandwidths.filter((b) => b.interface !== iface);
+      DatabaseService.saveBandwidthGuides(copy);
+      setBandwidths(copy);
+      showNotice(`Panduan kabel "${iface}" dihapus.`);
+    }
+  };
+
   // 4. GrayNotes Actions
   const handleSaveGraynote = (e: React.FormEvent) => {
     e.preventDefault();
@@ -293,7 +311,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
           <div className="space-y-1">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold">
               <BookOpen className="w-3.5 h-3.5" />
-              <span>Knowledge Hub & Notion Articles</span>
+              <span>Knowledge Hub & Panduan Artikel</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
               Pusat Edukasi & Artikel Panduan
@@ -696,6 +714,13 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                       >
                         <Edit2 className="w-3.5 h-3.5" />
                       </button>
+                      <button
+                        onClick={() => handleDeleteHdrGuide(idx)}
+                        className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-rose-400"
+                        title="Hapus Klasifikasi HDR"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
                     </div>
                   </div>
 
@@ -928,19 +953,29 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                 >
                   <div className="flex items-start justify-between">
                     <h4 className="text-sm font-black text-violet-400">{bw.interface}</h4>
-                    <button
-                      type="button"
-                      onClick={() => handleToggleBandwidthPublish(bw)}
-                      className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
-                        bw.isPublished !== false
-                          ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
-                          : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
-                      }`}
-                      title={bw.isPublished !== false ? "Sembunyikan dari tabel bandwidth publik" : "Publikasikan ke web"}
-                    >
-                      {bw.isPublished !== false ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
-                      <span>{bw.isPublished !== false ? "Live" : "Draft (Hide)"}</span>
-                    </button>
+                    <div className="flex items-center gap-1">
+                      <button
+                        type="button"
+                        onClick={() => handleToggleBandwidthPublish(bw)}
+                        className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
+                          bw.isPublished !== false
+                            ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
+                            : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
+                        }`}
+                        title={bw.isPublished !== false ? "Sembunyikan dari tabel bandwidth publik" : "Publikasikan ke web"}
+                      >
+                        {bw.isPublished !== false ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
+                        <span>{bw.isPublished !== false ? "Live" : "Draft (Hide)"}</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteBandwidthGuide(bw.interface)}
+                        className="p-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-rose-400"
+                        title="Hapus Panduan Bandwidth"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
                   <div className="text-zinc-300 space-y-1 bg-zinc-900/60 p-3 rounded-xl">
                     <div><strong>Bandwidth:</strong> {bw.bandwidth}</div>

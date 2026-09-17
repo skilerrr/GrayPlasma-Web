@@ -191,7 +191,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
               Manajemen Evaluasi Brand & Aftersales
             </h3>
             <p className="text-xs text-zinc-400 max-w-2xl leading-relaxed">
-              Kelola kartu ulasan brand monitor pada papan Kanban Notion publik (/guide/brand/aftersales-rma). Atur sistem klaim, hotline resmi distributor, SLA garansi, dan analisis mendalam.
+              Kelola kartu ulasan brand monitor pada papan Kanban publik (/guide/brand/aftersales-rma). Atur sistem klaim, hotline resmi distributor, SLA garansi, dan analisis mendalam.
             </p>
           </div>
 
@@ -493,7 +493,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
                 {/* Rich WYSIWYG Editor for Deep-Dive Analysis */}
                 <div>
                   <label className="text-zinc-300 block mb-1.5 font-semibold flex items-center justify-between">
-                    <span>Ulasan Mendalam & Dokumen Analisis Lab (Notion/Word WYSIWYG):</span>
+                    <span>Ulasan Mendalam & Dokumen Analisis Lab (Visual WYSIWYG):</span>
                     <span className="text-[11px] text-amber-400 font-mono font-medium">Tampil pada Side Panel Ulasan</span>
                   </label>
                   <NotionRichEditor

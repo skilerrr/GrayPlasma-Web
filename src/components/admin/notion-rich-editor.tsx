@@ -86,7 +86,7 @@ export function NotionRichEditor({
   value,
   onChange,
   minHeight = "min-h-[320px]",
-  placeholder = "Ketik ulasan atau catatan di sini... (Ketik '/' untuk menu cepat Notion)",
+  placeholder = "Ketik ulasan atau catatan di sini... (Ketik '/' untuk menu cepat)",
   allowImageUpload = true,
 }: NotionRichEditorProps) {
   const [viewMode, setViewMode] = useState<"visual" | "code" | "preview">("visual");
@@ -254,6 +254,26 @@ export function NotionRichEditor({
     handleContentChange();
   };
 
+  // Table Helpers: Delete Row
+  const deleteTableRow = () => {
+    const selection = window.getSelection();
+    if (!selection || !selection.anchorNode) return;
+    const node = selection.anchorNode instanceof HTMLElement ? selection.anchorNode : selection.anchorNode.parentElement;
+    const tr = node?.closest("tr");
+    const table = node?.closest("table");
+    if (!tr || !table) {
+      alert("Letakkan kursor di baris tabel yang ingin dihapus!");
+      return;
+    }
+    const tbody = table.querySelector("tbody") || table;
+    if (tbody.querySelectorAll("tr").length <= 1) {
+      deleteEntireTable();
+      return;
+    }
+    tr.remove();
+    handleContentChange();
+  };
+
   // Table Helpers: Add Column
   const addTableColumn = () => {
     const selection = window.getSelection();
@@ -276,6 +296,61 @@ export function NotionRichEditor({
       td.innerHTML = "-";
       tr.appendChild(td);
     });
+    handleContentChange();
+  };
+
+  // Table Helpers: Delete Column
+  const deleteTableColumn = () => {
+    const selection = window.getSelection();
+    if (!selection || !selection.anchorNode) return;
+    const node = selection.anchorNode instanceof HTMLElement ? selection.anchorNode : selection.anchorNode.parentElement;
+    const cell = node?.closest("td, th") as HTMLTableCellElement | null;
+    const table = node?.closest("table");
+    if (!cell || !table) {
+      alert("Letakkan kursor di kolom tabel yang ingin dihapus!");
+      return;
+    }
+    const colIndex = cell.cellIndex;
+    const allRows = table.querySelectorAll("tr");
+    allRows.forEach((row) => {
+      if (row.cells[colIndex]) {
+        row.deleteCell(colIndex);
+      }
+    });
+    handleContentChange();
+  };
+
+  // Table Helpers: Delete Entire Table
+  const deleteEntireTable = () => {
+    const selection = window.getSelection();
+    if (!selection || !selection.anchorNode) return;
+    const node = selection.anchorNode instanceof HTMLElement ? selection.anchorNode : selection.anchorNode.parentElement;
+    const table = node?.closest("table, .notion-table-wrapper, .overflow-x-auto");
+    if (!table) {
+      alert("Letakkan kursor di dalam tabel yang ingin dihapus!");
+      return;
+    }
+    table.remove();
+    if (editableRef.current && (!editableRef.current.innerHTML.trim() || editableRef.current.innerHTML === "<br>")) {
+      editableRef.current.innerHTML = "<p><br></p>";
+    }
+    handleContentChange();
+  };
+
+  // Callout Helper: Delete Active Callout
+  const deleteActiveCallout = () => {
+    const selection = window.getSelection();
+    if (!selection || !selection.anchorNode) return;
+    const node = selection.anchorNode instanceof HTMLElement ? selection.anchorNode : selection.anchorNode.parentElement;
+    const callout = node?.closest(".notion-callout");
+    if (!callout) {
+      alert("Letakkan kursor di dalam callout box yang ingin dihapus!");
+      return;
+    }
+    callout.remove();
+    if (editableRef.current && (!editableRef.current.innerHTML.trim() || editableRef.current.innerHTML === "<br>")) {
+      editableRef.current.innerHTML = "<p><br></p>";
+    }
     handleContentChange();
   };
 
@@ -562,11 +637,20 @@ export function NotionRichEditor({
           <button
             type="button"
             onClick={() => setShowCalloutModal(true)}
-            title="Sisipkan Notion Callout Box"
+            title="Sisipkan Callout Box"
             className="px-2 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500/20 text-[11px] font-bold flex items-center gap-1"
           >
             <AlertTriangle className="w-3 h-3 text-amber-400" />
             <span>+ Callout</span>
+          </button>
+          <button
+            type="button"
+            onClick={deleteActiveCallout}
+            title="Hapus Callout Box Aktif"
+            className="px-1.5 py-1 rounded-lg hover:bg-rose-950/50 text-[10px] text-zinc-400 hover:text-rose-400 flex items-center gap-0.5"
+          >
+            <Trash2 className="w-3 h-3" />
+            <span>Hapus Callout</span>
           </button>
 
           {/* Visual Table Builder Button */}
@@ -577,8 +661,52 @@ export function NotionRichEditor({
             className="px-2.5 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/25 text-[11px] font-bold flex items-center gap-1.5 shadow-sm"
           >
             <TableIcon className="w-3.5 h-3.5 text-emerald-400" />
-            <span>+ Tabel Modular</span>
+            <span>+ Tabel</span>
           </button>
+
+          {/* Table quick controls: + Baris, - Baris, + Kolom, - Kolom, Hapus Tabel */}
+          <div className="flex items-center gap-1 bg-zinc-900/90 border border-zinc-800 rounded-lg p-0.5 text-[10px]">
+            <button
+              type="button"
+              onClick={addTableRow}
+              title="Tambah Baris Tabel (Letakkan kursor di tabel)"
+              className="px-1.5 py-0.5 rounded hover:bg-zinc-800 text-zinc-300 hover:text-emerald-400 font-mono"
+            >
+              +Baris
+            </button>
+            <button
+              type="button"
+              onClick={deleteTableRow}
+              title="Hapus Baris Tabel Aktif"
+              className="px-1.5 py-0.5 rounded hover:bg-zinc-800 text-zinc-300 hover:text-rose-400 font-mono"
+            >
+              -Baris
+            </button>
+            <button
+              type="button"
+              onClick={addTableColumn}
+              title="Tambah Kolom Tabel"
+              className="px-1.5 py-0.5 rounded hover:bg-zinc-800 text-zinc-300 hover:text-cyan-400 font-mono"
+            >
+              +Kolom
+            </button>
+            <button
+              type="button"
+              onClick={deleteTableColumn}
+              title="Hapus Kolom Tabel Aktif"
+              className="px-1.5 py-0.5 rounded hover:bg-zinc-800 text-zinc-300 hover:text-rose-400 font-mono"
+            >
+              -Kolom
+            </button>
+            <button
+              type="button"
+              onClick={deleteEntireTable}
+              title="Hapus Seluruh Tabel Aktif"
+              className="px-1.5 py-0.5 rounded hover:bg-rose-950 text-rose-400 font-mono font-bold"
+            >
+              Hapus Tabel
+            </button>
+          </div>
 
           {/* Quote & Code Blocks */}
           <button
@@ -676,7 +804,7 @@ export function NotionRichEditor({
                   ? "bg-emerald-500 text-black font-black shadow-sm"
                   : "text-zinc-400 hover:text-white"
               }`}
-              title="Visual Mode (Pure Word/Notion WYSIWYG)"
+              title="Visual Mode (WYSIWYG Editor)"
             >
               Visual
             </button>
@@ -713,7 +841,7 @@ export function NotionRichEditor({
             <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
               <span className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
                 <AlertTriangle className="w-4 h-4 text-amber-400" />
-                <span>Buat Notion Callout Box</span>
+                <span>Buat Callout Box</span>
               </span>
               <button
                 type="button"
@@ -961,7 +1089,7 @@ export function NotionRichEditor({
           >
             <AlertTriangle className="w-4 h-4" />
             <div>
-              <span className="font-bold block">Notion Callout</span>
+              <span className="font-bold block">Callout Box</span>
               <span className="text-[10px] text-zinc-400">Kotak peringatan / highlight</span>
             </div>
           </button>
@@ -1022,7 +1150,7 @@ export function NotionRichEditor({
           <div className="flex items-center justify-between pb-2 mb-4 border-b border-zinc-750">
             <span className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider flex items-center gap-1.5">
               <Eye className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Live Rendered Notion View (Sisi Pengunjung)</span>
+              <span>Live Rendered View (Sisi Pengunjung)</span>
             </span>
             <span className="text-[10px] text-zinc-400 font-mono">
               {value.length} karakter
@@ -1044,7 +1172,7 @@ export function NotionRichEditor({
       <div className="px-4 py-2.5 bg-[#0e0e14] border-t border-zinc-750 flex items-center justify-between text-[11px] text-zinc-400 font-mono">
         <div className="flex items-center gap-3">
           <span>Mode: <strong className="text-zinc-200 uppercase">{viewMode}</strong></span>
-          <span>Tip: Ketik <strong>&quot;/&quot;</strong> untuk menu blok Notion</span>
+          <span>Tip: Ketik <strong>&quot;/&quot;</strong> untuk menu blok cepat</span>
         </div>
         <div>
           {isCompressing ? (

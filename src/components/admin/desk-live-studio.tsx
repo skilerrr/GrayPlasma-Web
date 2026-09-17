@@ -1062,7 +1062,7 @@ export function DeskLiveStudio({
             <button
               type="button"
               onClick={() => {
-                if (confirm("Reset seluruh data meja ke 10 model rekomendasi Notion?")) {
+                if (confirm("Reset seluruh data meja ke 10 model rekomendasi bawaan?")) {
                   const res = DatabaseService.resetDesksToDefault();
                   onUpdateDesks(res);
                   setSelectedDesk(res[0]);

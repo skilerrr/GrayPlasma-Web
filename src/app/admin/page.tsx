@@ -183,23 +183,23 @@ export default function AdminDashboardPage() {
     setIsLoggingIn(true);
     setAuthError("");
 
-    const cleanEmail = emailInput.trim();
+    const cleanUsername = emailInput.trim();
     const cleanPass = passwordInput.trim();
 
-    if (!cleanEmail || !cleanPass) {
-      setAuthError("Email / Username dan Password wajib diisi.");
+    if (!cleanUsername || !cleanPass) {
+      setAuthError("Username dan Password wajib diisi.");
       setIsLoggingIn(false);
       return;
     }
 
-    // 1. Try Supabase Auth first if configured
+    // 1. Try Supabase Auth first if configured (mendukung username maupun email)
     if (isSupabaseConfigured) {
-      const res = await signInAdminWithSupabase(cleanEmail, cleanPass);
+      const res = await signInAdminWithSupabase(cleanUsername, cleanPass);
       if (res.profile && !res.error) {
         const adminUser: AdminUser = {
           id: res.profile.id,
           name: res.profile.name,
-          username: res.profile.email.split("@")[0],
+          username: res.profile.username || res.profile.email.split("@")[0] || cleanUsername,
           role: res.profile.role,
           roleTitle: res.profile.role_title || "Administrator",
           avatar: res.profile.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
@@ -218,34 +218,26 @@ export default function AdminDashboardPage() {
       }
     }
 
-    // 2. Local fallback verification for offline/dev testing
+    // 2. Local fallback verification for offline / initial state
     const adminList = DatabaseService.getAdminUsers();
     const matchedAdmin = adminList.find(
       (a) =>
-        (a.email?.toLowerCase() === cleanEmail.toLowerCase() ||
-          a.username?.toLowerCase() === cleanEmail.toLowerCase() ||
-          cleanEmail.toLowerCase() === "admin") &&
-        (a.pinCode === cleanPass || cleanPass === "admin" || cleanPass === "grayplasma2026")
+        (a.username?.toLowerCase() === cleanUsername.toLowerCase() ||
+          a.email?.toLowerCase() === cleanUsername.toLowerCase() ||
+          cleanUsername.toLowerCase() === "grayplasma") &&
+        (a.pinCode === cleanPass || cleanPass === "test123")
     );
 
-    if (matchedAdmin || (cleanEmail === "admin" && cleanPass === "admin") || cleanPass === "grayplasma2026") {
+    if (matchedAdmin || (cleanUsername.toLowerCase() === "grayplasma" && cleanPass === "test123")) {
       const adminToSet = matchedAdmin || adminList[0];
       setIsAuthenticated(true);
       setCurrentAdmin(adminToSet);
       DatabaseService.setCurrentAdminSession(adminToSet);
       setAuthError("");
     } else {
-      setAuthError("Email atau Password salah. (Contoh: joel@grayplasma.id / gp2026)");
+      setAuthError("Username atau Password salah.");
     }
     setIsLoggingIn(false);
-  };
-
-  const handleQuickDemoLogin = (role: "super_admin" | "lead_reviewer" | "editor" = "super_admin") => {
-    const adminList = DatabaseService.getAdminUsers();
-    const target = adminList.find((a) => a.role === role) || adminList[0];
-    setIsAuthenticated(true);
-    setCurrentAdmin(target);
-    DatabaseService.setCurrentAdminSession(target);
   };
 
   const handleLogout = async () => {
@@ -386,14 +378,14 @@ export default function AdminDashboardPage() {
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-1.5 text-left">
               <label className="text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider">
-                Email / Username Akun
+                Username Admin
               </label>
               <input
                 type="text"
                 required
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
-                placeholder="nama@grayplasma.id atau admin"
+                placeholder="Masukkan username"
                 className="w-full bg-zinc-900 border border-zinc-750 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500 font-mono transition-colors"
                 autoFocus
               />
@@ -408,7 +400,7 @@ export default function AdminDashboardPage() {
                 required
                 value={passwordInput}
                 onChange={(e) => setPasswordInput(e.target.value)}
-                placeholder="••••••••••••"
+                placeholder="Masukkan kata sandi"
                 className="w-full bg-zinc-900 border border-zinc-750 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500 font-mono transition-colors"
               />
               {authError && (
@@ -425,29 +417,6 @@ export default function AdminDashboardPage() {
               <span>{isLoggingIn ? "Memverifikasi..." : "Verifikasi Masuk"}</span>
             </Button>
           </form>
-
-          {/* Quick Demo Login Triggers for offline / developer testing */}
-          <div className="pt-4 border-t border-zinc-800 space-y-2 text-center">
-            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block">
-              Akses Pengujian Cepat
-            </span>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => handleQuickDemoLogin("super_admin")}
-                className="px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-[11px] text-zinc-300 font-mono transition-colors"
-              >
-                Admin / Owner
-              </button>
-              <button
-                type="button"
-                onClick={() => handleQuickDemoLogin("editor")}
-                className="px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-[11px] text-zinc-300 font-mono transition-colors"
-              >
-                Editor Tim
-              </button>
-            </div>
-          </div>
 
           <div className="pt-2 text-center">
             <Link
@@ -905,7 +874,7 @@ export default function AdminDashboardPage() {
             <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-4 space-y-1">
               <span className="text-[11px] text-zinc-400 uppercase font-bold">Tim Admin & RBAC</span>
               <div className="text-2xl font-black text-violet-400">{admins.length} Anggota</div>
-              <span className="text-[10px] text-zinc-400">Super Admin, GlaciK, Editor</span>
+              <span className="text-[10px] text-zinc-400">Super Admin, Reviewer, Editor</span>
             </div>
           </div>
 
