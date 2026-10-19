@@ -187,7 +187,13 @@ CREATE TABLE IF NOT EXISTS public.peripherals (
   verdict TEXT,
   notes TEXT,
   "shopeeUrl" TEXT,
+  "tokopediaUrl" TEXT,
+  "tiktokUrl" TEXT,
+  type TEXT,
+  "versionDetail" TEXT,
+  warranty TEXT,
   "recommendedFor" TEXT,
+  "isPublished" BOOLEAN DEFAULT true,
   version_id INT DEFAULT 1,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()

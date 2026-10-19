@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { MONITORS_DATA } from "@/data/monitors";
 import { MonitorDetailClient } from "@/components/monitor-detail-client";
+import { getMonitorsForDetail, findMonitorBySlug } from "@/lib/monitors-source";
 
 interface MonitorDetailPageProps {
   params: Promise<{
     slug: string;
   }>;
 }
+
+// Halaman detail sekarang ikut Supabase (bukan cuma MONITORS_DATA statis).
+// Monitor baru yang ditambah lewat admin muncul paling lambat ~1 menit.
+export const revalidate = 60;
 
 export async function generateStaticParams() {
   return MONITORS_DATA.map((monitor) => ({
@@ -18,18 +24,8 @@ export async function generateMetadata({
   params,
 }: MonitorDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const decodedSlug = decodeURIComponent(slug).toLowerCase().trim();
-
-  const monitor = MONITORS_DATA.find((m) => {
-    const s = m.slug.toLowerCase();
-    const id = m.id.toLowerCase();
-    const cleanSlug = decodedSlug.replace(/[^a-z0-9]/g, "");
-    if (s === decodedSlug || id === decodedSlug || id === `mon-${decodedSlug}`) return true;
-    if (s.replace(/[^a-z0-9]/g, "") === cleanSlug) return true;
-    if (id.replace(/[^a-z0-9]/g, "") === cleanSlug) return true;
-    if (m.model.toLowerCase().replace(/[^a-z0-9]/g, "") === cleanSlug) return true;
-    return false;
-  });
+  const monitors = await getMonitorsForDetail();
+  const monitor = findMonitorBySlug(monitors, slug);
 
   if (!monitor) {
     return {
@@ -38,8 +34,14 @@ export async function generateMetadata({
     };
   }
 
-  const title = `${monitor.fullName} (${monitor.specs.display.refreshRate}Hz ${monitor.specs.display.panelType})`;
-  const description = `Hasil pengujian lab GTID & kurasi GrayPlasma untuk ${monitor.fullName}. Harga Rp ${monitor.price.toLocaleString("id-ID")}, panel ${monitor.specs.display.panelType}, tier ${monitor.tier}.`;
+  const display = monitor.specs?.display;
+  const specLabel = display
+    ? ` (${display.refreshRate}Hz ${display.panelType})`
+    : "";
+  const title = `${monitor.fullName}${specLabel}`;
+  const description = display
+    ? `Hasil pengujian lab GTID & kurasi GrayPlasma untuk ${monitor.fullName}. Harga Rp ${monitor.price.toLocaleString("id-ID")}, panel ${display.panelType}, tier ${monitor.tier}.`
+    : `Hasil pengujian lab GTID & kurasi GrayPlasma untuk ${monitor.fullName}. Harga Rp ${monitor.price.toLocaleString("id-ID")}, tier ${monitor.tier}.`;
   const ogImageUrl = `/api/og/monitor?slug=${encodeURIComponent(monitor.slug)}&format=landscape`;
 
   return {
@@ -71,24 +73,18 @@ export default async function MonitorDetailPage({
   params,
 }: MonitorDetailPageProps) {
   const { slug } = await params;
-  const decodedSlug = decodeURIComponent(slug).toLowerCase().trim();
 
-  const monitor =
-    MONITORS_DATA.find((m) => {
-      const s = m.slug.toLowerCase();
-      const id = m.id.toLowerCase();
-      const cleanSlug = decodedSlug.replace(/[^a-z0-9]/g, "");
-      if (s === decodedSlug || id === decodedSlug || id === `mon-${decodedSlug}`) return true;
-      if (s.replace(/[^a-z0-9]/g, "") === cleanSlug) return true;
-      if (id.replace(/[^a-z0-9]/g, "") === cleanSlug) return true;
-      if (m.model.toLowerCase().replace(/[^a-z0-9]/g, "") === cleanSlug) return true;
-      return false;
-    }) || null;
+  const monitors = await getMonitorsForDetail();
+  const monitor = findMonitorBySlug(monitors, slug);
+
+  // Slug yang nggak ada di Supabase maupun data statis = 404 asli,
+  // bukan halaman kosong dengan status 200.
+  if (!monitor) notFound();
 
   return (
     <MonitorDetailClient
       initialMonitor={monitor}
-      initialMonitors={MONITORS_DATA}
+      initialMonitors={monitors}
       slug={slug}
     />
   );

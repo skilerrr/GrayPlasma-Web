@@ -1,6 +1,10 @@
 import type { MetadataRoute } from "next";
-import { MONITORS_DATA } from "@/data/monitors";
 import { getPublishedHierarchyPaths } from "@/lib/route-guard";
+import { getMonitorsForDetail } from "@/lib/monitors-source";
+
+// Sitemap di-generate ulang tiap jam supaya monitor baru dari admin ikut ke-index
+// tanpa harus nunggu deploy.
+export const revalidate = 3600;
 
 const PRIORITY_BY_PREFIX: Array<[string, number]> = [
   ["/guide", 0.7],
@@ -16,7 +20,7 @@ function priorityFor(path: string): number {
   return match ? match[1] : 0.6;
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL || "https://grayplasma-web.vercel.app";
   const lastModified = new Date();
@@ -46,7 +50,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: priorityFor(path),
     }));
 
-  const monitorRoutes: MetadataRoute.Sitemap = MONITORS_DATA.map((monitor) => ({
+  const monitorRoutes: MetadataRoute.Sitemap = (await getMonitorsForDetail()).map((monitor) => ({
     url: `${baseUrl}/monitor/${encodeURIComponent(monitor.slug)}`,
     lastModified,
     changeFrequency: "weekly" as const,
