@@ -327,7 +327,7 @@ export function DeskLiveStudio({
               e.stopPropagation();
               handleToggleDeskPublish(d);
             }}
-            className={`px-2.5 py-1 rounded-lg text-3xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+            className={`px-2.5 py-1 rounded-lg text-3xs font-mono font-bold flex items-center gap-1.5 transition-colors ${
               isLive
                 ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20"
                 : "bg-gp-ink-700/80 text-gp-ink-300 border border-gp-ink-600 hover:text-white"
@@ -360,7 +360,7 @@ export function DeskLiveStudio({
                 handleQuickEditPrice(d, newP);
               }
             }}
-            className="w-28 bg-gp-ink-800/80 border border-gp-ink-650 hover:border-emerald-500 focus:border-emerald-500 rounded-md px-2 py-1 text-xs text-emerald-400 font-mono font-bold focus:outline-none"
+            className="w-28 bg-gp-ink-800/80 border border-gp-ink-650 hover:border-emerald-500 focus:border-emerald-500 rounded px-2 py-1 text-xs text-emerald-400 font-mono font-bold focus:outline-none"
           />
         </div>
       ),
@@ -589,7 +589,7 @@ export function DeskLiveStudio({
       )}
 
       {/* Main Studio Header */}
-      <div className="p-5 rounded-3xl bg-gp-ink-850 border border-gp-ink-650 flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-xl">
+      <div className="p-5 rounded-2xl bg-gp-ink-850 border border-gp-ink-650 flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-xl">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs font-bold">
             <TableIcon className="w-3.5 h-3.5" />
@@ -609,7 +609,7 @@ export function DeskLiveStudio({
             <button
               type="button"
               onClick={() => setViewMode("excel")}
-              className={`px-3 py-1.5 rounded text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+              className={`px-3 py-1.5 rounded text-xs font-mono font-bold flex items-center gap-1.5 transition-colors ${
                 viewMode === "excel"
                   ? "bg-gp-ink-50 text-black shadow-tech-card"
                   : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-750"
@@ -621,7 +621,7 @@ export function DeskLiveStudio({
             <button
               type="button"
               onClick={() => setViewMode("studio")}
-              className={`px-3 py-1.5 rounded text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+              className={`px-3 py-1.5 rounded text-xs font-mono font-bold flex items-center gap-1.5 transition-colors ${
                 viewMode === "studio"
                   ? "bg-gp-ink-50 text-black shadow-tech-card"
                   : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-750"
@@ -849,7 +849,7 @@ export function DeskLiveStudio({
                           setDraggedIndex(null);
                           setDragOverIndex(null);
                         }}
-                        className={`group transition-all hover:bg-gp-ink-700/40 ${
+                        className={`group transition-colors hover:bg-gp-ink-700/40 ${
                           isDragging ? "opacity-30 border-2 border-dashed border-amber-400 bg-amber-950/40" : ""
                         } ${isDragOver ? "border-t-4 border-t-amber-400 bg-amber-950/20" : ""}`}
                       >
@@ -1020,7 +1020,7 @@ export function DeskLiveStudio({
                   <div
                     key={d.id}
                     onClick={() => handleSelectDesk(d)}
-                    className={`p-3 rounded-lg cursor-pointer transition-all duration-150 border text-left ${
+                    className={`p-3 rounded-lg cursor-pointer transition-colors duration-150 border text-left ${
                       isSelected
                         ? "bg-gp-ink-800 border-gp-ink-400 shadow-tech-card"
                         : "bg-gp-ink-950 border-gp-ink-700 hover:border-gp-ink-600 hover:bg-gp-ink-800/60"

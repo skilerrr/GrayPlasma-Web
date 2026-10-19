@@ -43,7 +43,7 @@ export function PeripheralSidePanel({ peripheral, isOpen, onClose }: PeripheralS
       />
 
       {/* Side Panel Drawer */}
-      <aside className="fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[580px] md:w-[640px] lg:w-[680px] bg-gp-ink-850 text-gp-ink-100 border-l border-gp-ink-700 shadow-2xl transition-all duration-300 ease-out flex flex-col font-sans animate-in slide-in-from-right duration-300">
+      <aside className="fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[580px] md:w-[640px] lg:w-[680px] bg-gp-ink-850 text-gp-ink-100 border-l border-gp-ink-700 shadow-2xl transition-colors duration-300 ease-out flex flex-col font-sans animate-in slide-in-from-right duration-300">
         {/* Top Control Bar */}
         <div className="h-14 px-5 sm:px-6 border-b border-gp-ink-700 flex items-center justify-between bg-gp-ink-800 flex-shrink-0 text-xs text-gp-ink-300">
           <div className="flex items-center gap-2">
@@ -59,7 +59,7 @@ export function PeripheralSidePanel({ peripheral, isOpen, onClose }: PeripheralS
                 href={buyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-tech-subtle"
+                className="px-3 py-1.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold transition-colors flex items-center gap-1.5 shadow-tech-subtle"
               >
                 <ShoppingBag className="w-3.5 h-3.5" />
                 <span>Beli di {platform}</span>

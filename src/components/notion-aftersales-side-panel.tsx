@@ -77,7 +77,7 @@ Info: ${typeof window !== "undefined" ? window.location.href : ""}`;
 
       {/* Notion Side Panel Drawer Container */}
       <aside
-        className={`fixed top-0 right-0 bottom-0 z-50 bg-gp-ink-800 border-l border-gp-ink-650 shadow-2xl transition-all duration-200 ease-out flex flex-col font-sans ${
+        className={`fixed top-0 right-0 bottom-0 z-50 bg-gp-ink-800 border-l border-gp-ink-650 shadow-2xl transition-colors duration-200 ease-out flex flex-col font-sans ${
           isExpanded
             ? "w-full max-w-5xl"
             : "w-full sm:w-[580px] md:w-[620px] lg:w-[580px] xl:w-[640px]"

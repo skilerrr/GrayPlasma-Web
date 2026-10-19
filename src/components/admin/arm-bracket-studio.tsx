@@ -247,7 +247,7 @@ export function ArmBracketStudio({
             <button
               type="button"
               onClick={() => handleTogglePublish(p)}
-              className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+              className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-colors ${
                 isLive
                   ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20"
                   : "bg-gp-ink-700/80 text-gp-ink-300 border border-gp-ink-600 hover:text-white"
@@ -572,7 +572,7 @@ export function ArmBracketStudio({
           <button
             type="button"
             onClick={() => setSubTab("arms")}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 whitespace-nowrap ${
               subTab === "arms"
                 ? "bg-gp-ink-700 text-cyan-400 border border-cyan-500/40 shadow-sm"
                 : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
@@ -585,7 +585,7 @@ export function ArmBracketStudio({
           <button
             type="button"
             onClick={() => setSubTab("brackets")}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 whitespace-nowrap ${
               subTab === "brackets"
                 ? "bg-gp-ink-700 text-emerald-400 border border-emerald-500/40 shadow-sm"
                 : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
@@ -598,7 +598,7 @@ export function ArmBracketStudio({
           <button
             type="button"
             onClick={() => setSubTab("accessories")}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 whitespace-nowrap ${
               subTab === "accessories"
                 ? "bg-gp-ink-700 text-amber-400 border border-amber-500/40 shadow-sm"
                 : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
@@ -611,7 +611,7 @@ export function ArmBracketStudio({
           <button
             type="button"
             onClick={() => setSubTab("all")}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 whitespace-nowrap ${
               subTab === "all"
                 ? "bg-gp-ink-700 text-white border border-gp-ink-600 shadow-sm"
                 : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
@@ -770,7 +770,7 @@ export function ArmBracketStudio({
             return (
               <div
                 key={p.id}
-                className={`bg-gp-ink-950 border rounded-2xl p-5 space-y-3.5 flex flex-col justify-between transition-all ${
+                className={`bg-gp-ink-950 border rounded-2xl p-5 space-y-3.5 flex flex-col justify-between transition-colors ${
                   !isLive
                     ? "border-gp-ink-750 opacity-70 bg-gp-ink-950/40"
                     : "border-gp-ink-700 hover:border-cyan-500/40"

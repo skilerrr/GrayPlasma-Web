@@ -1217,7 +1217,7 @@ export function WordDocsStudio({
           <button
             type="button"
             onClick={() => setViewMode("document")}
-            className={`px-2.5 py-1 rounded-md transition-colors ${
+            className={`px-2.5 py-1 rounded transition-colors ${
               viewMode === "document" ? "bg-emerald-500 text-black font-bold" : "text-gp-ink-300 hover:text-white"
             }`}
           >
@@ -1226,7 +1226,7 @@ export function WordDocsStudio({
           <button
             type="button"
             onClick={() => setViewMode("source")}
-            className={`px-2.5 py-1 rounded-md transition-colors ${
+            className={`px-2.5 py-1 rounded transition-colors ${
               viewMode === "source" ? "bg-emerald-500 text-black font-bold" : "text-gp-ink-300 hover:text-white"
             }`}
           >
@@ -1235,7 +1235,7 @@ export function WordDocsStudio({
           <button
             type="button"
             onClick={() => setViewMode("preview")}
-            className={`px-2.5 py-1 rounded-md transition-colors ${
+            className={`px-2.5 py-1 rounded transition-colors ${
               viewMode === "preview" ? "bg-emerald-500 text-black font-bold" : "text-gp-ink-300 hover:text-white"
             }`}
           >

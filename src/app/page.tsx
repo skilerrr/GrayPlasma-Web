@@ -692,7 +692,7 @@ function CatalogPageContent() {
                   <Link
                     key={card.id}
                     href={card.path}
-                    className={`p-3.5 rounded-lg bg-gp-ink-950 border border-gp-ink-700 transition-all space-y-1.5 group block shadow-tech-card hover:border-gp-ink-600 ${
+                    className={`p-3.5 rounded-lg bg-gp-ink-950 border border-gp-ink-700 transition-colors space-y-1.5 group block shadow-tech-card hover:border-gp-ink-600 ${
                       card.color || "hover:border-emerald-500 text-emerald-400"
                     }`}
                   >
@@ -740,7 +740,7 @@ function CatalogPageContent() {
                 {/* On-click Trigger to Open Monitor Database in Separate Page */}
                 <Link
                   href="/catalog/all"
-                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all border bg-emerald-500/10 hover:bg-emerald-500/20 border-emerald-500/30 text-emerald-400 hover:text-emerald-300"
+                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors border bg-emerald-500/10 hover:bg-emerald-500/20 border-emerald-500/30 text-emerald-400 hover:text-emerald-300"
                   title="Buka Database Rekomendasi Monitor di Halaman Terpisah"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -751,7 +751,7 @@ function CatalogPageContent() {
                 <button
                   type="button"
                   onClick={() => setIsMobileDrawerOpen(true)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all border ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors border ${
                     activeFilterCount > 0
                       ? "bg-emerald-500/15 border-emerald-500/50 text-emerald-300"
                       : "bg-gp-ink-800 border-gp-ink-700 text-gp-ink-200 hover:text-white hover:border-gp-ink-600"
@@ -767,7 +767,7 @@ function CatalogPageContent() {
                   <button
                     type="button"
                     onClick={() => handleSetViewMode("grid")}
-                    className={`px-3 py-1 rounded-md text-xs font-medium flex items-center gap-1.5 transition-all ${
+                    className={`px-3 py-1 rounded text-xs font-medium flex items-center gap-1.5 transition-colors ${
                       viewMode === "grid"
                         ? "bg-gp-ink-700 text-white shadow-sm font-semibold"
                         : "text-gp-ink-300 hover:text-white"
@@ -780,7 +780,7 @@ function CatalogPageContent() {
                   <button
                     type="button"
                     onClick={() => handleSetViewMode("table")}
-                    className={`px-3 py-1 rounded-md text-xs font-medium flex items-center gap-1.5 transition-all ${
+                    className={`px-3 py-1 rounded text-xs font-medium flex items-center gap-1.5 transition-colors ${
                       viewMode === "table"
                         ? "bg-gp-ink-700 text-white shadow-sm font-semibold"
                         : "text-gp-ink-300 hover:text-white"
@@ -881,7 +881,7 @@ function CatalogPageContent() {
                 </span>
                 <Link
                   href="/catalog/desks"
-                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all border bg-orange-500/10 hover:bg-orange-500/20 border-orange-500/30 text-orange-400 hover:text-orange-300"
+                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors border bg-orange-500/10 hover:bg-orange-500/20 border-orange-500/30 text-orange-400 hover:text-orange-300"
                   title="Buka Database Rekomendasi Meja di Halaman Terpisah"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -901,7 +901,7 @@ function CatalogPageContent() {
                       setDeskCategory(cat.id);
                       setDeskPage(1);
                     }}
-                    className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+                    className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${
                       deskCategory === cat.id
                         ? "bg-gp-ink-50 text-black font-semibold shadow-sm"
                         : "bg-gp-ink-850 text-gp-ink-300 hover:text-white border border-gp-ink-700"
@@ -1039,7 +1039,7 @@ function CatalogPageContent() {
                 </span>
                 <Link
                   href="/catalog/arms-brackets"
-                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all border bg-cyan-500/10 hover:bg-cyan-500/20 border-cyan-500/30 text-cyan-400 hover:text-cyan-300"
+                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors border bg-cyan-500/10 hover:bg-cyan-500/20 border-cyan-500/30 text-cyan-400 hover:text-cyan-300"
                   title="Buka Database Arm & Bracket di Halaman Terpisah"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -1059,7 +1059,7 @@ function CatalogPageContent() {
                         setArmBracketFilter(cat.id);
                         setArmBracketPage(1);
                       }}
-                      className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+                      className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${
                         armBracketFilter === cat.id
                           ? "bg-cyan-500 text-black font-semibold shadow-sm"
                           : "bg-gp-ink-850 text-gp-ink-300 hover:text-white border border-gp-ink-700"
@@ -1164,7 +1164,7 @@ function CatalogPageContent() {
                                       target="_blank"
                                       rel="noopener noreferrer"
                                       onClick={(e) => e.stopPropagation()}
-                                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-brand-shopee/15 hover:bg-brand-shopee border border-brand-shopee/40 text-brand-shopee hover:text-white text-2xs font-bold transition-all"
+                                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-brand-shopee/15 hover:bg-brand-shopee border border-brand-shopee/40 text-brand-shopee hover:text-white text-2xs font-bold transition-colors"
                                     >
                                       <ShoppingBag className="w-3 h-3" />
                                       <span>{platform}</span>
@@ -1225,7 +1225,7 @@ function CatalogPageContent() {
                 </span>
                 <Link
                   href="/catalog/accessories"
-                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all border bg-blue-500/10 hover:bg-blue-500/20 border-blue-500/30 text-blue-400 hover:text-blue-300"
+                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors border bg-blue-500/10 hover:bg-blue-500/20 border-blue-500/30 text-blue-400 hover:text-blue-300"
                   title="Buka Database Aksesoris di Halaman Terpisah"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -1245,7 +1245,7 @@ function CatalogPageContent() {
                         setAccessoryCategory(cat.id);
                         setAccessoryPage(1);
                       }}
-                      className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+                      className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${
                         accessoryCategory === cat.id
                           ? "bg-blue-500 text-white font-semibold shadow-sm"
                           : "bg-gp-ink-850 text-gp-ink-300 hover:text-white border border-gp-ink-700"
@@ -1349,7 +1349,7 @@ function CatalogPageContent() {
                                       target="_blank"
                                       rel="noopener noreferrer"
                                       onClick={(e) => e.stopPropagation()}
-                                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-brand-shopee/15 hover:bg-brand-shopee border border-brand-shopee/40 text-brand-shopee hover:text-white text-2xs font-bold transition-all"
+                                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-brand-shopee/15 hover:bg-brand-shopee border border-brand-shopee/40 text-brand-shopee hover:text-white text-2xs font-bold transition-colors"
                                     >
                                       <ShoppingBag className="w-3 h-3" />
                                       <span>{platform}</span>
@@ -1411,7 +1411,7 @@ function CatalogPageContent() {
                   </span>
                   <Link
                     href="/catalog/chairs"
-                    className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all border bg-purple-500/10 hover:bg-purple-500/20 border-purple-500/30 text-purple-400 hover:text-purple-300"
+                    className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors border bg-purple-500/10 hover:bg-purple-500/20 border-purple-500/30 text-purple-400 hover:text-purple-300"
                     title="Buka Database Rekomendasi Kursi di Halaman Terpisah"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
@@ -1439,7 +1439,7 @@ function CatalogPageContent() {
                         setChairCategory(cat.id);
                         setChairPage(1);
                       }}
-                      className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+                      className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${
                         chairCategory === cat.id
                           ? "bg-gp-ink-50 text-black font-semibold shadow-sm"
                           : "bg-gp-ink-850 text-gp-ink-300 hover:text-white border border-gp-ink-700"
@@ -1468,7 +1468,7 @@ function CatalogPageContent() {
                   return (
                     <div
                       key={chair.id}
-                      className="p-5 rounded-2xl bg-gp-ink-900 border border-gp-ink-700/90 hover:border-purple-500/40 transition-all flex flex-col justify-between space-y-4 group"
+                      className="p-5 rounded-2xl bg-gp-ink-900 border border-gp-ink-700/90 hover:border-purple-500/40 transition-colors flex flex-col justify-between space-y-4 group"
                     >
                       <div className="space-y-2.5">
                         <div className="flex items-start justify-between gap-2">
@@ -1855,7 +1855,7 @@ function CatalogPageContent() {
                   <button
                     type="button"
                     onClick={() => setIsMobileDrawerOpen(true)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-1.5 border ${
+                    className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-colors flex items-center gap-1.5 border ${
                       activeFilterCount > 0
                         ? "bg-emerald-500/15 border-emerald-500/60 text-emerald-300 shadow-tech-subtle"
                         : "bg-gp-ink-800 border-gp-ink-700 text-gp-ink-200 hover:text-white hover:border-gp-ink-600"
@@ -1871,7 +1871,7 @@ function CatalogPageContent() {
                     <button
                       type="button"
                       onClick={() => handleSetViewMode("grid")}
-                      className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                      className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-colors ${
                         viewMode === "grid"
                           ? "bg-gp-ink-700 text-emerald-400 shadow-sm"
                           : "text-gp-ink-300 hover:text-white"
@@ -1882,7 +1882,7 @@ function CatalogPageContent() {
                     <button
                       type="button"
                       onClick={() => handleSetViewMode("table")}
-                      className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                      className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-colors ${
                         viewMode === "table"
                           ? "bg-gp-ink-700 text-emerald-400 shadow-sm"
                           : "text-gp-ink-300 hover:text-white"
@@ -1948,7 +1948,7 @@ function CatalogPageContent() {
                   </div>
                 )
               ) : (
-                <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-3xl p-12 text-center flex flex-col items-center justify-center space-y-4 my-6">
+                <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-12 text-center flex flex-col items-center justify-center space-y-4 my-6">
                   <SearchX className="w-10 h-10 text-gp-ink-400" />
                   <div className="space-y-1 max-w-sm">
                     <h3 className="text-base font-bold text-white uppercase tracking-wider">
@@ -2251,7 +2251,7 @@ function CatalogPageContent() {
                 return (
                   <div
                     key={faq.id}
-                    className="p-5 rounded-2xl bg-gp-ink-750 border border-gp-ink-650 hover:border-gp-ink-600 transition-all space-y-3 shadow-sm"
+                    className="p-5 rounded-2xl bg-gp-ink-750 border border-gp-ink-650 hover:border-gp-ink-600 transition-colors space-y-3 shadow-sm"
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gp-ink-700 pb-3">
                       <div className="flex items-center gap-2">
@@ -2442,7 +2442,7 @@ function CatalogPageContent() {
                   href={consult.feedbackFormUrl || CONSULTATION_DATA.feedbackFormUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 hover:border-amber-500 hover:bg-amber-500/20 transition-all space-y-2 group"
+                  className="p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 hover:border-amber-500 hover:bg-amber-500/20 transition-colors space-y-2 group"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-amber-400">Google Form Resmi</span>
@@ -2458,7 +2458,7 @@ function CatalogPageContent() {
                   href={consult.discordUrl || CONSULTATION_DATA.discordUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-cyan-500/60 hover:bg-gp-ink-800 transition-all space-y-2 group"
+                  className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-cyan-500/60 hover:bg-gp-ink-800 transition-colors space-y-2 group"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-cyan-400">Forum Discord GTID</span>
@@ -2474,7 +2474,7 @@ function CatalogPageContent() {
                   href={consult.whatsappUrl || CONSULTATION_DATA.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-emerald-500/60 hover:bg-gp-ink-800 transition-all space-y-2 group sm:col-span-2"
+                  className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-emerald-500/60 hover:bg-gp-ink-800 transition-colors space-y-2 group sm:col-span-2"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-emerald-400">Direct Chat WhatsApp</span>
@@ -2525,7 +2525,7 @@ function CatalogPageContent() {
                 href={consult.whatsappUrl || CONSULTATION_DATA.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-emerald-500/60 hover:bg-gp-ink-800 transition-all text-center space-y-2 group"
+                className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-emerald-500/60 hover:bg-gp-ink-800 transition-colors text-center space-y-2 group"
               >
                 <PhoneCall className="w-6 h-6 text-emerald-400 mx-auto group-hover:scale-110 transition-transform" />
                 <h3 className="text-sm font-bold text-white">WhatsApp Langsung</h3>
@@ -2538,7 +2538,7 @@ function CatalogPageContent() {
                 href={consult.tiktokUrl || CONSULTATION_DATA.tiktokUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-rose-500/60 hover:bg-gp-ink-800 transition-all text-center space-y-2 group"
+                className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-rose-500/60 hover:bg-gp-ink-800 transition-colors text-center space-y-2 group"
               >
                 <Send className="w-6 h-6 text-rose-400 mx-auto group-hover:scale-110 transition-transform" />
                 <h3 className="text-sm font-bold text-white">TikTok</h3>
@@ -2551,7 +2551,7 @@ function CatalogPageContent() {
                 href={consult.discordUrl || CONSULTATION_DATA.discordUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-cyan-500/60 hover:bg-gp-ink-800 transition-all text-center space-y-2 group"
+                className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-cyan-500/60 hover:bg-gp-ink-800 transition-colors text-center space-y-2 group"
               >
                 <MessageSquare className="w-6 h-6 text-cyan-400 mx-auto group-hover:scale-110 transition-transform" />
                 <h3 className="text-sm font-bold text-white">Discord Community</h3>

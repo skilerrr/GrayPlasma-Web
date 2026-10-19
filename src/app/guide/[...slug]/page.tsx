@@ -454,9 +454,9 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
       />
 
       {/* Main Notion Page Container */}
-      <main className="transition-all duration-300 px-4 sm:px-8 md:px-12 py-8 sm:py-12 flex-1 w-full space-y-8 max-w-6xl mx-auto">
+      <main className="transition-colors duration-300 px-4 sm:px-8 md:px-12 py-8 sm:py-12 flex-1 w-full space-y-8 max-w-6xl mx-auto">
         {/* Notion Hero Cover Banner */}
-        <div className="relative w-full h-48 sm:h-60 rounded-3xl overflow-hidden border border-gp-ink-650 bg-gp-ink-750 mb-2 shadow-2xl">
+        <div className="relative w-full h-48 sm:h-60 rounded-2xl overflow-hidden border border-gp-ink-650 bg-gp-ink-750 mb-2 shadow-2xl">
           <Image
             src={
               matchedNode?.coverImage ||
@@ -625,7 +625,7 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
               <button
                 type="button"
                 onClick={() => setIsMobileFilterOpen(true)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-1.5 border ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-colors flex items-center gap-1.5 border ${
                   activeFilterCount > 0
                     ? "bg-emerald-500/15 border-emerald-500/60 text-emerald-300 shadow-tech-subtle"
                     : "bg-gp-ink-850 border-gp-ink-700 text-gp-ink-200 hover:text-white hover:border-gp-ink-600"
@@ -693,7 +693,7 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
               return (
                 <div
                   key={faq.id}
-                  className="p-5 rounded-2xl bg-gp-ink-750 border border-gp-ink-650 hover:border-gp-ink-600 transition-all space-y-3 shadow-sm"
+                  className="p-5 rounded-2xl bg-gp-ink-750 border border-gp-ink-650 hover:border-gp-ink-600 transition-colors space-y-3 shadow-sm"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gp-ink-700 pb-3">
                     <div className="flex items-center gap-2">

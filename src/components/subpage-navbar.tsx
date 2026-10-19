@@ -98,7 +98,7 @@ export function SubpageNavbar({
           {backLink && (
             <Link
               href={backLink.href}
-              className="hidden sm:inline-flex lg:hidden items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-750 border border-gp-ink-700 text-xs font-mono font-medium text-gp-ink-200 hover:text-white transition-all flex-shrink-0"
+              className="hidden sm:inline-flex lg:hidden items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-750 border border-gp-ink-700 text-xs font-mono font-medium text-gp-ink-200 hover:text-white transition-colors flex-shrink-0"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>{backLink.label}</span>

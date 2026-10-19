@@ -150,7 +150,7 @@ Link Detail: ${detailUrl}`;
           <div className="flex items-center gap-2">
             <button
               onClick={() => window.open(`/api/og/monitor?slug=${monitor.slug}&format=square`, "_blank")}
-              className="px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 bg-gp-orange/15 border border-gp-orange/40 text-gp-orange hover:bg-gp-orange hover:text-black"
+              className="px-2.5 py-1.5 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 bg-gp-orange/15 border border-gp-orange/40 text-gp-orange hover:bg-gp-orange hover:text-black"
               title="Download poster ulasan infografis"
             >
               <span>Export Poster PNG</span>
@@ -469,7 +469,7 @@ Link Detail: ${detailUrl}`;
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Front Photo */}
             <div
-              className="group relative aspect-[4/3] rounded-2xl bg-gp-ink-750 border border-gp-ink-650 hover:border-gp-ink-600 overflow-hidden transition-all cursor-pointer shadow-sm"
+              className="group relative aspect-[4/3] rounded-2xl bg-gp-ink-750 border border-gp-ink-650 hover:border-gp-ink-600 overflow-hidden transition-colors cursor-pointer shadow-sm"
               onClick={() => setSelectedPhoto(frontPhoto)}
             >
               <Image
@@ -485,7 +485,7 @@ Link Detail: ${detailUrl}`;
 
             {/* Rear Photo */}
             <div
-              className="group relative aspect-[4/3] rounded-2xl bg-gp-ink-750 border border-gp-ink-650 hover:border-gp-ink-600 overflow-hidden transition-all cursor-pointer shadow-sm"
+              className="group relative aspect-[4/3] rounded-2xl bg-gp-ink-750 border border-gp-ink-650 hover:border-gp-ink-600 overflow-hidden transition-colors cursor-pointer shadow-sm"
               onClick={() => setSelectedPhoto(rearPhoto)}
             >
               <Image

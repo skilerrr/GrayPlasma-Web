@@ -146,7 +146,7 @@ Link Detail & Lab Data: ${detailUrl}`;
 
       {/* Side Panel Drawer Container (Overlay Drawer) */}
       <aside
-        className={`fixed top-0 right-0 bottom-0 z-50 bg-gp-ink-900 text-gp-ink-100 border-l border-gp-ink-700 shadow-2xl transition-all duration-300 ease-out flex flex-col font-sans animate-in slide-in-from-right duration-300 ${
+        className={`fixed top-0 right-0 bottom-0 z-50 bg-gp-ink-900 text-gp-ink-100 border-l border-gp-ink-700 shadow-2xl transition-colors duration-300 ease-out flex flex-col font-sans animate-in slide-in-from-right duration-300 ${
           isExpanded
             ? "w-full max-w-5xl"
             : "w-full sm:w-[580px] md:w-[640px] lg:w-[700px]"
@@ -195,7 +195,7 @@ Link Detail & Lab Data: ${detailUrl}`;
           <div className="flex items-center gap-1.5">
             <button
               onClick={handleExportPoster}
-              className="px-2 py-1 rounded-lg bg-gp-orange/15 border border-gp-orange/40 text-gp-orange hover:bg-gp-orange hover:text-black transition-all text-2xs font-bold flex items-center gap-1"
+              className="px-2 py-1 rounded-lg bg-gp-orange/15 border border-gp-orange/40 text-gp-orange hover:bg-gp-orange hover:text-black transition-colors text-2xs font-bold flex items-center gap-1"
               title="Download poster ulasan infografis"
             >
               <Download className="w-3 h-3" />

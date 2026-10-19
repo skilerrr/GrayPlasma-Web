@@ -305,7 +305,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
         </div>
       )}
 
-      <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-3xl p-6 sm:p-8 space-y-6">
+      <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gp-ink-700 pb-5">
           <div className="space-y-1">
@@ -326,7 +326,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
         <div className="flex items-center gap-2 border-b border-gp-ink-700 pb-2 overflow-x-auto no-scrollbar">
           <button
             onClick={() => setActiveTab("faq")}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 flex-shrink-0 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 flex-shrink-0 ${
               activeTab === "faq"
                 ? "bg-gp-ink-700 text-emerald-400 border border-emerald-500/30"
                 : "text-gp-ink-300 hover:text-white"
@@ -337,7 +337,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
           </button>
           <button
             onClick={() => setActiveTab("desk_guide")}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 flex-shrink-0 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 flex-shrink-0 ${
               activeTab === "desk_guide"
                 ? "bg-gp-ink-700 text-cyan-400 border border-cyan-500/30"
                 : "text-gp-ink-300 hover:text-white"
@@ -348,7 +348,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
           </button>
           <button
             onClick={() => setActiveTab("hdr_guide")}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 flex-shrink-0 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 flex-shrink-0 ${
               activeTab === "hdr_guide"
                 ? "bg-gp-ink-700 text-amber-400 border border-amber-500/30"
                 : "text-gp-ink-300 hover:text-white"
@@ -359,7 +359,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
           </button>
           <button
             onClick={() => setActiveTab("graynotes")}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 flex-shrink-0 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 flex-shrink-0 ${
               activeTab === "graynotes"
                 ? "bg-gp-ink-700 text-pink-400 border border-pink-500/30"
                 : "text-gp-ink-300 hover:text-white"
@@ -370,7 +370,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
           </button>
           <button
             onClick={() => setActiveTab("brands_avoid")}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 flex-shrink-0 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 flex-shrink-0 ${
               activeTab === "brands_avoid"
                 ? "bg-gp-ink-700 text-rose-400 border border-rose-500/30"
                 : "text-gp-ink-300 hover:text-white"
@@ -381,7 +381,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
           </button>
           <button
             onClick={() => setActiveTab("bandwidth")}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 flex-shrink-0 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 flex-shrink-0 ${
               activeTab === "bandwidth"
                 ? "bg-gp-ink-700 text-violet-400 border border-violet-500/30"
                 : "text-gp-ink-300 hover:text-white"
@@ -392,7 +392,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
           </button>
           <button
             onClick={() => setActiveTab("about")}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 flex-shrink-0 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 flex-shrink-0 ${
               activeTab === "about"
                 ? "bg-gp-ink-700 text-yellow-400 border border-yellow-500/30"
                 : "text-gp-ink-300 hover:text-white"
@@ -470,7 +470,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                 .map((faq) => (
                   <div
                     key={faq.id}
-                    className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 flex flex-col justify-between transition-all ${
+                    className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 flex flex-col justify-between transition-colors ${
                       faq.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-amber-500/20" : ""
                     }`}
                   >
@@ -574,7 +574,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
               {deskGuides.map((guide, idx) => (
                 <div
                   key={idx}
-                  className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 transition-all ${
+                  className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 transition-colors ${
                     guide.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-amber-500/20" : ""
                   }`}
                 >
@@ -662,7 +662,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
               {hdrGuides.map((hdr, idx) => (
                 <div
                   key={hdr.tier}
-                  className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 transition-all ${
+                  className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 transition-colors ${
                     hdr.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-amber-500/20" : ""
                   }`}
                 >
@@ -771,7 +771,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
               {graynotes.map((gn) => (
                 <div
                   key={gn.id}
-                  className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 transition-all ${
+                  className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 transition-colors ${
                     gn.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-amber-500/20" : ""
                   }`}
                 >
@@ -869,7 +869,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
               {brandsAvoid.map((ba) => (
                 <div
                   key={ba.brand}
-                  className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 transition-all ${
+                  className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 transition-colors ${
                     ba.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-amber-500/20" : ""
                   }`}
                 >
@@ -947,7 +947,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
               {bandwidths.map((bw) => (
                 <div
                   key={bw.interface}
-                  className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-2 text-xs transition-all ${
+                  className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-2 text-xs transition-colors ${
                     bw.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-amber-500/20" : ""
                   }`}
                 >

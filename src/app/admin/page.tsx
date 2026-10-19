@@ -705,7 +705,7 @@ export default function AdminDashboardPage() {
 
           {/* 10. WEBP OPTIMIZER LAB */}
           {activeTab === "compressor" && (
-            <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-3xl p-6 sm:p-8 space-y-6">
+            <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6">
               <div className="space-y-2 border-b border-gp-ink-700 pb-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-bold">
                   <Sparkles className="w-3.5 h-3.5" />
@@ -720,7 +720,7 @@ export default function AdminDashboardPage() {
               </div>
 
               <div className="max-w-xl mx-auto space-y-4 text-center">
-                <label className="border-2 border-dashed border-gp-ink-600 hover:border-emerald-500 rounded-3xl p-8 flex flex-col items-center justify-center cursor-pointer transition-colors bg-gp-ink-950/60 group">
+                <label className="border-2 border-dashed border-gp-ink-600 hover:border-emerald-500 rounded-2xl p-8 flex flex-col items-center justify-center cursor-pointer transition-colors bg-gp-ink-950/60 group">
                   <Upload className="w-10 h-10 text-gp-ink-400 group-hover:text-emerald-400 mb-2 transition-colors" />
                   <span className="text-sm font-bold text-white">Pilih File Foto untuk Uji Kompresi</span>
                   <span className="text-xs text-gp-ink-400 mt-1">Mendukung format PNG, JPG, JPEG, BMP</span>

@@ -249,7 +249,7 @@ export function NotionTableView({
       {/* Title & View Mode Tabs Bar (Exact Notion styling from user screenshot) */}
       <div className="space-y-3">
         <div className="flex items-center gap-2.5">
-          <span className="p-1 rounded-md bg-gp-ink-800 border border-gp-ink-700 text-emerald-400">
+          <span className="p-1 rounded bg-gp-ink-800 border border-gp-ink-700 text-emerald-400">
             <MonitorIcon className="w-4 h-4" />
           </span>
           <h2 className="text-lg font-bold text-white tracking-tight">
@@ -262,7 +262,7 @@ export function NotionTableView({
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => setActiveTab("table")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-colors flex items-center gap-1.5 ${
                 activeTab === "table"
                   ? "bg-gp-ink-700 text-white border border-gp-ink-600"
                   : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
@@ -274,7 +274,7 @@ export function NotionTableView({
 
             <button
               onClick={() => setActiveTab("price")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-colors flex items-center gap-1.5 ${
                 activeTab === "price"
                   ? "bg-gp-ink-700 text-white border border-gp-ink-600"
                   : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
@@ -286,7 +286,7 @@ export function NotionTableView({
 
             <button
               onClick={() => setActiveTab("size")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-colors flex items-center gap-1.5 ${
                 activeTab === "size"
                   ? "bg-gp-ink-700 text-white border border-gp-ink-600"
                   : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
@@ -298,7 +298,7 @@ export function NotionTableView({
 
             <button
               onClick={() => setActiveTab("gallery")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-colors flex items-center gap-1.5 ${
                 activeTab === "gallery"
                   ? "bg-gp-ink-700 text-white border border-gp-ink-600"
                   : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
@@ -314,7 +314,7 @@ export function NotionTableView({
               <button
                 type="button"
                 onClick={onOpenFilter}
-                className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 border ${
+                className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-colors flex items-center gap-1.5 border ${
                   activeFilterCount > 0
                     ? "border-emerald-500/60 bg-emerald-500/15 text-emerald-300 shadow-tech-subtle"
                     : "border-gp-ink-650 bg-gp-ink-800 text-gp-ink-200 hover:border-emerald-500 hover:text-white"
@@ -331,7 +331,7 @@ export function NotionTableView({
             <button
               type="button"
               onClick={() => setIsColManagerOpen(true)}
-              className="px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 border border-gp-ink-650 bg-gp-ink-800 text-gp-ink-200 hover:border-emerald-500 hover:text-white"
+              className="px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-colors flex items-center gap-1.5 border border-gp-ink-650 bg-gp-ink-800 text-gp-ink-200 hover:border-emerald-500 hover:text-white"
             >
               <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
               <span>[ KELOLA KOLOM ({tableManager.visibleColumns.length}) ]</span>
@@ -409,7 +409,7 @@ export function NotionTableView({
                     <tr
                       key={monitor.id}
                       onClick={() => onSelectMonitor(monitor)}
-                      className={`cursor-pointer transition-all ${
+                      className={`cursor-pointer transition-colors ${
                         isSelected
                           ? "bg-gp-sky-400 ring-1 ring-cyan-500/80 ring-inset"
                           : "hover:bg-gp-ink-850"
@@ -480,7 +480,7 @@ export function NotionTableView({
                             <tr
                               key={monitor.id}
                               onClick={() => onSelectMonitor(monitor)}
-                              className={`cursor-pointer transition-all ${
+                              className={`cursor-pointer transition-colors ${
                                 isSelected ? "bg-gp-ink-750 ring-1 ring-gp-sky-800 ring-inset" : "hover:bg-gp-ink-750"
                               }`}
                             >
@@ -573,7 +573,7 @@ export function NotionTableView({
                             <tr
                               key={monitor.id}
                               onClick={() => onSelectMonitor(monitor)}
-                              className={`cursor-pointer transition-all ${
+                              className={`cursor-pointer transition-colors ${
                                 isSelected ? "bg-gp-ink-750 ring-1 ring-gp-sky-800 ring-inset" : "hover:bg-gp-ink-750"
                               }`}
                             >
@@ -620,7 +620,7 @@ export function NotionTableView({
               <div
                 key={monitor.id}
                 onClick={() => onSelectMonitor(monitor)}
-                className={`group cursor-pointer rounded-2xl border transition-all overflow-hidden flex flex-col bg-gp-ink-750 ${
+                className={`group cursor-pointer rounded-2xl border transition-colors overflow-hidden flex flex-col bg-gp-ink-750 ${
                   isSelected
                     ? "border-gp-sky-800 ring-2 ring-gp-sky-800/50 shadow-xl"
                     : "border-gp-ink-650 hover:border-gp-ink-600 hover:bg-gp-ink-700"

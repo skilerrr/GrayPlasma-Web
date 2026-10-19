@@ -799,7 +799,7 @@ export function NotionRichEditor({
             <button
               type="button"
               onClick={() => setViewMode("visual")}
-              className={`px-2.5 py-1 rounded-lg text-2xs font-bold transition-all ${
+              className={`px-2.5 py-1 rounded-lg text-2xs font-bold transition-colors ${
                 viewMode === "visual"
                   ? "bg-emerald-500 text-black font-black shadow-sm"
                   : "text-gp-ink-300 hover:text-white"
@@ -811,7 +811,7 @@ export function NotionRichEditor({
             <button
               type="button"
               onClick={() => setViewMode("code")}
-              className={`px-2.5 py-1 rounded-lg text-2xs font-bold transition-all ${
+              className={`px-2.5 py-1 rounded-lg text-2xs font-bold transition-colors ${
                 viewMode === "code" ? "bg-gp-ink-700 text-white" : "text-gp-ink-300 hover:text-white"
               }`}
               title="Source Code / HTML / Markdown"
@@ -821,7 +821,7 @@ export function NotionRichEditor({
             <button
               type="button"
               onClick={() => setViewMode("preview")}
-              className={`px-2.5 py-1 rounded-lg text-2xs font-bold transition-all ${
+              className={`px-2.5 py-1 rounded-lg text-2xs font-bold transition-colors ${
                 viewMode === "preview" ? "bg-gp-ink-700 text-white" : "text-gp-ink-300 hover:text-white"
               }`}
               title="Tampilan Akhir di Sisi Pengunjung"
@@ -883,7 +883,7 @@ export function NotionRichEditor({
                       key={theme.id}
                       type="button"
                       onClick={() => setSelectedCalloutTheme(theme.id)}
-                      className={`p-2 rounded-xl border text-left text-2xs font-bold transition-all ${
+                      className={`p-2 rounded-xl border text-left text-2xs font-bold transition-colors ${
                         selectedCalloutTheme === theme.id
                           ? "border-white bg-gp-ink-700 text-white"
                           : "border-gp-ink-700 bg-gp-ink-950 text-gp-ink-300 hover:text-gp-ink-100"

@@ -53,7 +53,7 @@ export function MonitorComparatorTray({
               {pinnedMonitors.map((m) => (
                 <div
                   key={m.id || m.slug}
-                  className="relative group flex items-center gap-2 bg-gp-ink-800 border border-gp-ink-700 rounded-xl p-1.5 pr-2.5 transition-all hover:border-gp-ink-500"
+                  className="relative group flex items-center gap-2 bg-gp-ink-800 border border-gp-ink-700 rounded-xl p-1.5 pr-2.5 transition-colors hover:border-gp-ink-500"
                 >
                   <div className="relative w-8 h-8 rounded-lg overflow-hidden bg-black flex-shrink-0">
                     <Image

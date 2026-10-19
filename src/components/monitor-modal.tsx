@@ -94,7 +94,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
                   alt={monitor.fullName}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover object-center transition-all duration-300"
+                  className="object-cover object-center transition-colors duration-300"
                 />
                 <div className="absolute top-3 left-3">
                   <span className="text-2xs font-extrabold bg-black/85 text-white border border-gp-ink-600 px-2.5 py-1 rounded-lg backdrop-blur-md">

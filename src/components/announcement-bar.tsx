@@ -70,7 +70,7 @@ export function AnnouncementBar({ settings }: AnnouncementBarProps) {
   return (
     <aside
       aria-label="Pengumuman Penting"
-      className={`relative z-40 border-b px-4 py-2 text-xs font-sans transition-all duration-300 ${theme.bg}`}
+      className={`relative z-40 border-b px-4 py-2 text-xs font-sans transition-colors duration-300 ${theme.bg}`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5 overflow-hidden flex-1">

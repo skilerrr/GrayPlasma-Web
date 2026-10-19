@@ -203,7 +203,7 @@ export function SiteElementsManager({
         </div>
       )}
 
-      <div className="bg-gp-ink-900 border border-gp-ink-700 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
+      <div className="bg-gp-ink-900 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gp-ink-700 pb-5">
           <div className="space-y-1">
@@ -260,7 +260,7 @@ export function SiteElementsManager({
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 flex-shrink-0 ${
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 flex-shrink-0 ${
                   isActive
                     ? "bg-gp-ink-700 text-emerald-400 border border-emerald-500/30 shadow-sm"
                     : "text-gp-ink-300 hover:text-white"
@@ -469,7 +469,7 @@ export function SiteElementsManager({
                     {cards.map((card) => (
                       <div
                         key={card.id}
-                        className={`p-3.5 rounded-2xl border transition-all flex flex-col justify-between ${
+                        className={`p-3.5 rounded-2xl border transition-colors flex flex-col justify-between ${
                           card.isVisible
                             ? "bg-gp-ink-800 border-gp-ink-700 hover:border-gp-ink-600"
                             : "bg-gp-ink-950 border-gp-ink-800 opacity-50"

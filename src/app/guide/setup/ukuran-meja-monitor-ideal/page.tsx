@@ -68,7 +68,7 @@ export default function UkuranMejaMonitorIdealPage() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 flex-1 w-full">
         {/* Page Hero Title */}
-        <div className="bg-gp-ink-750 border border-gp-ink-650 rounded-3xl p-6 sm:p-10 space-y-6 shadow-2xl relative overflow-hidden">
+        <div className="bg-gp-ink-750 border border-gp-ink-650 rounded-2xl p-6 sm:p-10 space-y-6 shadow-2xl relative overflow-hidden">
           <div className="relative z-10 space-y-4">
             <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
               <Ruler className="w-6 h-6" />
@@ -85,7 +85,7 @@ export default function UkuranMejaMonitorIdealPage() {
           <div className="flex items-center gap-2 pt-4 border-t border-gp-ink-650 overflow-x-auto no-scrollbar">
             <button
               onClick={() => setActiveTab("24inch")}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 ${
                 activeTab === "24inch"
                   ? "bg-amber-500/20 border border-amber-500/40 text-amber-400 shadow-sm"
                   : "bg-gp-ink-800 border border-gp-ink-650 text-gp-ink-300 hover:text-white"
@@ -96,7 +96,7 @@ export default function UkuranMejaMonitorIdealPage() {
             </button>
             <button
               onClick={() => setActiveTab("27inch")}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 ${
                 activeTab === "27inch"
                   ? "bg-amber-500/20 border border-amber-500/40 text-amber-400 shadow-sm"
                   : "bg-gp-ink-800 border border-gp-ink-650 text-gp-ink-300 hover:text-white"
@@ -107,7 +107,7 @@ export default function UkuranMejaMonitorIdealPage() {
             </button>
             <button
               onClick={() => setActiveTab("calculator")}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 ${
                 activeTab === "calculator"
                   ? "bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 shadow-sm"
                   : "bg-gp-ink-800 border border-gp-ink-650 text-gp-ink-300 hover:text-white"
@@ -257,7 +257,7 @@ export default function UkuranMejaMonitorIdealPage() {
 
         {/* 3. VIEW TAB: INTERACTIVE CALCULATOR */}
         {activeTab === "calculator" && (
-          <div className="bg-gp-ink-750 border border-gp-ink-650 rounded-3xl p-6 sm:p-10 space-y-8 shadow-2xl">
+          <div className="bg-gp-ink-750 border border-gp-ink-650 rounded-2xl p-6 sm:p-10 space-y-8 shadow-2xl">
             <div className="space-y-2">
               <h2 className="text-xl sm:text-2xl font-extrabold text-white uppercase tracking-tight flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-emerald-400" />
@@ -284,7 +284,7 @@ export default function UkuranMejaMonitorIdealPage() {
                     <button
                       key={opt.id}
                       onClick={() => setCalcMonitorSize(opt.id as any)}
-                      className={`p-3 rounded-xl border text-left transition-all ${
+                      className={`p-3 rounded-xl border text-left transition-colors ${
                         calcMonitorSize === opt.id
                           ? "bg-emerald-500/20 border-emerald-500/50 text-white shadow-sm"
                           : "bg-gp-ink-750 border-gp-ink-650 text-gp-ink-300 hover:text-white"
@@ -311,7 +311,7 @@ export default function UkuranMejaMonitorIdealPage() {
                     <button
                       key={opt.id}
                       onClick={() => setCalcDevice(opt.id as any)}
-                      className={`p-3 rounded-xl border text-center transition-all ${
+                      className={`p-3 rounded-xl border text-center transition-colors ${
                         calcDevice === opt.id
                           ? "bg-amber-500/20 border-amber-500/50 text-white shadow-sm"
                           : "bg-gp-ink-750 border-gp-ink-650 text-gp-ink-300 hover:text-white"
@@ -387,7 +387,7 @@ export default function UkuranMejaMonitorIdealPage() {
         </div>
 
         {/* Bottom Banner to Catalog */}
-        <div className="p-6 rounded-3xl bg-gp-ink-750 border border-gp-ink-650 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl">
+        <div className="p-6 rounded-2xl bg-gp-ink-750 border border-gp-ink-650 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl">
           <div>
             <h3 className="text-base font-extrabold text-white uppercase tracking-tight">
               Siap Memilih Meja yang Tepat?
@@ -398,7 +398,7 @@ export default function UkuranMejaMonitorIdealPage() {
           </div>
           <Link
             href="/catalog/desks"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-all shadow-lg whitespace-nowrap"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow-lg whitespace-nowrap"
           >
             <span>Lihat Daftar Rekomendasi Meja</span>
             <ArrowRight className="w-4 h-4" />

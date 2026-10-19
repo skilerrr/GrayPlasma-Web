@@ -108,7 +108,7 @@ export function NotionKanbanBoard({
                     <div
                       key={card.id}
                       onClick={() => onSelectCard(card)}
-                      className={`p-3.5 rounded-lg border transition-all cursor-pointer shadow-tech-card ${
+                      className={`p-3.5 rounded-lg border transition-colors cursor-pointer shadow-tech-card ${
                         isSelected
                           ? "bg-gp-ink-800 border-gp-ink-400"
                           : "bg-gp-ink-750 hover:bg-gp-ink-700 border-gp-ink-650 hover:border-gp-ink-600"

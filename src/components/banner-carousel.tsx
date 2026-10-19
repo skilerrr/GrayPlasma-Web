@@ -213,7 +213,7 @@ export function BannerCarousel({
               <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-gp-ink-998" />
 
               {/* Slide Content Overlay */}
-              <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-8 sm:pb-12 md:pb-14">
+              <div className="relative h-full max-w-7xl mx-auto pl-14 pr-14 sm:pl-20 sm:pr-20 lg:pl-24 lg:pr-24 flex flex-col justify-end pb-8 sm:pb-12 md:pb-14">
                 <div
                   className="max-w-3xl space-y-3 sm:space-y-4 transition-transform duration-300"
                   style={{
@@ -323,7 +323,7 @@ export function BannerCarousel({
                   setCurrentIndex(idx);
                 }}
                 aria-label={`Go to slide ${idx + 1}`}
-                className={`relative h-1.5 sm:h-2 rounded-full overflow-hidden transition-all duration-300 ${
+                className={`relative h-1.5 sm:h-2 rounded-full overflow-hidden transition-colors duration-300 ${
                   isActive ? "w-8 sm:w-12 bg-gp-ink-600" : "w-2 bg-gp-ink-700 hover:bg-gp-ink-600"
                 }`}
               >

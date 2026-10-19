@@ -28,7 +28,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           variant === "secondary" &&
             "bg-gp-ink-700/80 text-gp-ink-100 hover:bg-gp-ink-600/80 border border-gp-ink-600/50",
           // Sizes
-          size === "sm" && "h-8 px-3 text-xs rounded-md",
+          size === "sm" && "h-8 px-3 text-xs rounded",
           size === "md" && "h-9 px-4 text-sm rounded-lg",
           size === "lg" && "h-11 px-6 text-base rounded-xl",
           size === "icon" && "h-9 w-9 p-0 rounded-lg",

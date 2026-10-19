@@ -45,7 +45,7 @@ export function DeskSidePanel({ desk, isOpen, onClose }: DeskSidePanelProps) {
 
       {/* Side Panel Drawer */}
       <aside
-        className="fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[580px] md:w-[640px] lg:w-[680px] bg-gp-ink-850 text-gp-ink-100 border-l border-gp-ink-700 shadow-2xl transition-all duration-300 ease-out flex flex-col font-sans animate-in slide-in-from-right duration-300"
+        className="fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[580px] md:w-[640px] lg:w-[680px] bg-gp-ink-850 text-gp-ink-100 border-l border-gp-ink-700 shadow-2xl transition-colors duration-300 ease-out flex flex-col font-sans animate-in slide-in-from-right duration-300"
       >
         {/* Top Control Bar */}
         <div className="h-14 px-5 sm:px-6 border-b border-gp-ink-700 flex items-center justify-between bg-gp-ink-800 flex-shrink-0 text-xs text-gp-ink-300">
@@ -62,7 +62,7 @@ export function DeskSidePanel({ desk, isOpen, onClose }: DeskSidePanelProps) {
                 href={desk.shopeeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-xl bg-brand-shopee/15 hover:bg-brand-shopee border border-brand-shopee/40 text-brand-shopee hover:text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm"
+                className="px-3 py-1.5 rounded-xl bg-brand-shopee/15 hover:bg-brand-shopee border border-brand-shopee/40 text-brand-shopee hover:text-white text-xs font-bold transition-colors flex items-center gap-1.5 shadow-sm"
               >
                 <ShoppingBag className="w-3.5 h-3.5" />
                 <span>Shopee</span>
@@ -103,7 +103,7 @@ export function DeskSidePanel({ desk, isOpen, onClose }: DeskSidePanelProps) {
             <div className="grid grid-cols-12 gap-2 items-center py-1">
               <span className="col-span-5 text-gp-ink-400 font-medium">Bentuk / Tipe</span>
               <div className="col-span-7">
-                <span className="px-2.5 py-0.5 rounded-md text-2xs font-bold bg-gp-ink-800 text-gp-ink-100 border border-gp-ink-700">
+                <span className="px-2.5 py-0.5 rounded text-2xs font-bold bg-gp-ink-800 text-gp-ink-100 border border-gp-ink-700">
                   {desk.type || "NON L SHAPED"}
                 </span>
               </div>
@@ -113,7 +113,7 @@ export function DeskSidePanel({ desk, isOpen, onClose }: DeskSidePanelProps) {
             <div className="grid grid-cols-12 gap-2 items-center py-1">
               <span className="col-span-5 text-gp-ink-400 font-medium">Status Catatan</span>
               <div className="col-span-7">
-                <span className="px-2.5 py-0.5 rounded-md text-2xs font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                <span className="px-2.5 py-0.5 rounded text-2xs font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
                   {desk.catatanBadge || "ADA (DISARANKAN MEMBACA NYA)"}
                 </span>
               </div>
@@ -126,7 +126,7 @@ export function DeskSidePanel({ desk, isOpen, onClose }: DeskSidePanelProps) {
                 {(desk.keterangan || [desk.category]).map((tag, idx) => (
                   <span
                     key={idx}
-                    className={`px-2.5 py-0.5 rounded-md text-3xs font-bold border uppercase tracking-wider ${getTagColor(
+                    className={`px-2.5 py-0.5 rounded text-3xs font-bold border uppercase tracking-wider ${getTagColor(
                       tag
                     )}`}
                   >

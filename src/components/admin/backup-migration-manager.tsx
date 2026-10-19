@@ -100,7 +100,7 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
         </div>
       )}
 
-      <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-3xl p-6 sm:p-8 space-y-6">
+      <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6">
         {/* Header */}
         <div className="space-y-2 border-b border-gp-ink-700 pb-5">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold">

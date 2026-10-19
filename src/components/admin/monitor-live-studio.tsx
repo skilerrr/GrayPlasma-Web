@@ -490,7 +490,7 @@ export function MonitorLiveStudio({
               e.stopPropagation();
               handleToggleMonitorPublish(m);
             }}
-            className={`px-2.5 py-1 rounded-lg text-3xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+            className={`px-2.5 py-1 rounded-lg text-3xs font-mono font-bold flex items-center gap-1.5 transition-colors ${
               isLive
                 ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20"
                 : "bg-gp-ink-700/80 text-gp-ink-300 border border-gp-ink-600 hover:text-white"
@@ -523,7 +523,7 @@ export function MonitorLiveStudio({
                 handleQuickEditPrice(m, newP);
               }
             }}
-            className="w-28 bg-gp-ink-800/80 border border-gp-ink-650 hover:border-emerald-500 focus:border-emerald-500 rounded-md px-2 py-1 text-xs text-emerald-400 font-mono font-bold focus:outline-none"
+            className="w-28 bg-gp-ink-800/80 border border-gp-ink-650 hover:border-emerald-500 focus:border-emerald-500 rounded px-2 py-1 text-xs text-emerald-400 font-mono font-bold focus:outline-none"
           />
         </div>
       ),
@@ -573,7 +573,7 @@ export function MonitorLiveStudio({
         <select
           value={m.tier}
           onChange={(e) => handleQuickEditTier(m, e.target.value as TierRating)}
-          className="bg-gp-ink-800 border border-gp-ink-650 rounded-md px-2 py-1 text-2xs font-mono font-bold text-amber-300 focus:outline-none cursor-pointer"
+          className="bg-gp-ink-800 border border-gp-ink-650 rounded px-2 py-1 text-2xs font-mono font-bold text-amber-300 focus:outline-none cursor-pointer"
         >
           <option value="BEST VALUE">BEST VALUE</option>
           <option value="TOP TIER">TOP TIER</option>
@@ -804,7 +804,7 @@ export function MonitorLiveStudio({
       )}
 
       {/* Main Studio Header */}
-      <div className="p-6 rounded-3xl bg-gp-ink-750 border border-gp-ink-650 flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-xl">
+      <div className="p-6 rounded-2xl bg-gp-ink-750 border border-gp-ink-650 flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-xl">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gp-sky-600 border border-gp-sky-800/40 text-gp-sky text-xs font-bold">
             <Tv className="w-3.5 h-3.5" />
@@ -824,7 +824,7 @@ export function MonitorLiveStudio({
             <button
               type="button"
               onClick={() => setViewMode("excel")}
-              className={`px-3 py-1.5 rounded text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+              className={`px-3 py-1.5 rounded text-xs font-mono font-bold flex items-center gap-1.5 transition-colors ${
                 viewMode === "excel"
                   ? "bg-gp-ink-50 text-black shadow-tech-card"
                   : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-750"
@@ -836,7 +836,7 @@ export function MonitorLiveStudio({
             <button
               type="button"
               onClick={() => setViewMode("studio")}
-              className={`px-3 py-1.5 rounded text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+              className={`px-3 py-1.5 rounded text-xs font-mono font-bold flex items-center gap-1.5 transition-colors ${
                 viewMode === "studio"
                   ? "bg-gp-ink-50 text-black shadow-tech-card"
                   : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-750"
@@ -1059,7 +1059,7 @@ export function MonitorLiveStudio({
                           setDraggedIndex(null);
                           setDragOverIndex(null);
                         }}
-                        className={`group transition-all hover:bg-gp-ink-700/40 ${
+                        className={`group transition-colors hover:bg-gp-ink-700/40 ${
                           isDragging ? "opacity-30 border-2 border-dashed border-emerald-400 bg-emerald-950/40" : ""
                         } ${isDragOver ? "border-t-4 border-t-emerald-400 bg-emerald-950/20" : ""}`}
                       >
@@ -1202,7 +1202,7 @@ export function MonitorLiveStudio({
                 <div
                   key={m.id}
                   onClick={() => handleSelectMonitor(m)}
-                  className={`p-2.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-2 ${
+                  className={`p-2.5 rounded-xl border transition-colors cursor-pointer flex items-center justify-between gap-2 ${
                     isSelected
                       ? "bg-gp-ink-750 border-gp-sky-800 shadow-md"
                       : "bg-gp-ink-850 border-gp-ink-700 hover:border-gp-ink-650 hover:bg-gp-ink-800"
@@ -1343,7 +1343,7 @@ export function MonitorLiveStudio({
                     key={t}
                     type="button"
                     onClick={() => setFormData({ ...formData, tier: t })}
-                    className={`px-2 py-0.5 rounded text-3xs font-bold transition-all ${
+                    className={`px-2 py-0.5 rounded text-3xs font-bold transition-colors ${
                       formData.tier === t
                         ? t === "S-TIER"
                           ? "bg-emerald-500 text-black shadow-sm font-black"

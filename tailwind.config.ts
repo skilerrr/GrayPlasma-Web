@@ -6,6 +6,12 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    // src/lib & src/data menyimpan string className (mis. field `color` di
+    // db-service.ts) yang dirender lewat template -> wajib ikut di-scan,
+    // kalau tidak kelasnya tidak pernah jadi CSS.
+    "./src/lib/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/data/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/hooks/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {

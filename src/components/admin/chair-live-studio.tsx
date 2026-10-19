@@ -185,7 +185,7 @@ export function ChairLiveStudio({
       )}
 
       {/* Top Header Card */}
-      <div className="p-6 rounded-3xl bg-gp-ink-900 border border-gp-ink-700 flex flex-col lg:flex-row lg:items-center justify-between gap-5 shadow-sm">
+      <div className="p-6 rounded-2xl bg-gp-ink-900 border border-gp-ink-700 flex flex-col lg:flex-row lg:items-center justify-between gap-5 shadow-sm">
         <div className="space-y-1.5">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-bold">
             <span>🪑</span>
@@ -204,7 +204,7 @@ export function ChairLiveStudio({
           <button
             type="button"
             onClick={handleToggleMasterVisibility}
-            className={`px-3.5 py-2 rounded-xl text-xs font-mono font-bold flex items-center gap-2 border transition-all shadow-sm ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-mono font-bold flex items-center gap-2 border transition-colors shadow-sm ${
               isMasterLive
                 ? "bg-emerald-500/15 border-emerald-500/50 text-emerald-300 hover:bg-emerald-500/25"
                 : "bg-amber-500/15 border-amber-500/50 text-amber-300 hover:bg-amber-500/25"
@@ -296,7 +296,7 @@ export function ChairLiveStudio({
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
           <button
             onClick={() => setCategoryFilter("all")}
-            className={`px-3 py-1 rounded-lg text-xs font-mono font-bold transition-all whitespace-nowrap ${
+            className={`px-3 py-1 rounded-lg text-xs font-mono font-bold transition-colors whitespace-nowrap ${
               categoryFilter === "all"
                 ? "bg-gp-ink-700 text-white border border-gp-ink-600"
                 : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
@@ -308,7 +308,7 @@ export function ChairLiveStudio({
             <button
               key={cat}
               onClick={() => setCategoryFilter(cat)}
-              className={`px-3 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-all ${
+              className={`px-3 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-colors ${
                 categoryFilter === cat
                   ? "bg-cyan-950/40 text-cyan-400 border border-cyan-500/40 font-bold"
                   : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
@@ -327,7 +327,7 @@ export function ChairLiveStudio({
           return (
             <div
               key={chair.id}
-              className={`bg-gp-ink-950 border rounded-2xl p-5 space-y-4 flex flex-col justify-between transition-all ${
+              className={`bg-gp-ink-950 border rounded-2xl p-5 space-y-4 flex flex-col justify-between transition-colors ${
                 !isItemLive
                   ? "border-amber-500/30 opacity-80 bg-gp-ink-950/60"
                   : "border-gp-ink-700 hover:border-gp-ink-600"

@@ -255,7 +255,7 @@ export function DeskRecommendationsView({
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
       {/* 1. NOTION-STYLE PAGE HEADER */}
-      <div className="bg-gp-ink-800 border border-gp-ink-650 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+      <div className="bg-gp-ink-800 border border-gp-ink-650 rounded-2xl p-6 sm:p-8 space-y-6 shadow-xl">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs text-gp-ink-300 font-mono flex-wrap">
           <Monitor className="w-3.5 h-3.5 text-gp-ink-400" />
@@ -287,7 +287,7 @@ export function DeskRecommendationsView({
         <div className="pt-2 border-t border-gp-ink-650 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <Link
             href="/guide/setup/ukuran-meja-monitor-ideal"
-            className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500/20 hover:border-amber-400 transition-all font-bold text-xs sm:text-sm group shadow-sm"
+            className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500/20 hover:border-amber-400 transition-colors font-bold text-xs sm:text-sm group shadow-sm"
           >
             <Ruler className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
             <span>[ GUIDELINE // UKURAN MEJA & MONITOR IDEAL ]</span>
@@ -333,7 +333,7 @@ export function DeskRecommendationsView({
           <div className="flex items-center gap-1.5 bg-gp-ink-850 p-1 rounded-xl border border-gp-ink-650 text-xs">
             <button
               onClick={() => setSelectedShape("all")}
-              className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
+              className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
                 selectedShape === "all" ? "bg-gp-ink-700 text-white" : "text-gp-ink-300 hover:text-gp-ink-100"
               }`}
             >
@@ -341,7 +341,7 @@ export function DeskRecommendationsView({
             </button>
             <button
               onClick={() => setSelectedShape("NON L SHAPED")}
-              className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
+              className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
                 selectedShape === "NON L SHAPED" ? "bg-gp-ink-700 text-cyan-400" : "text-gp-ink-300 hover:text-gp-ink-100"
               }`}
             >
@@ -349,7 +349,7 @@ export function DeskRecommendationsView({
             </button>
             <button
               onClick={() => setSelectedShape("L SHAPED")}
-              className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
+              className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
                 selectedShape === "L SHAPED" ? "bg-gp-ink-700 text-purple-400" : "text-gp-ink-300 hover:text-gp-ink-100"
               }`}
             >
@@ -365,7 +365,7 @@ export function DeskRecommendationsView({
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors ${
                   selectedCategory === cat.id
                     ? "bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 shadow-sm"
                     : "bg-gp-ink-750 border border-gp-ink-650 text-gp-ink-300 hover:text-white hover:bg-gp-ink-700"
@@ -379,7 +379,7 @@ export function DeskRecommendationsView({
           <button
             type="button"
             onClick={() => setIsColManagerOpen(true)}
-            className="px-3 py-1.5 rounded-xl text-xs font-mono font-bold border border-gp-ink-600 bg-gp-ink-750 text-gp-ink-200 hover:text-white hover:border-emerald-500 transition-all flex items-center gap-1.5 whitespace-nowrap self-start sm:self-auto"
+            className="px-3 py-1.5 rounded-xl text-xs font-mono font-bold border border-gp-ink-600 bg-gp-ink-750 text-gp-ink-200 hover:text-white hover:border-emerald-500 transition-colors flex items-center gap-1.5 whitespace-nowrap self-start sm:self-auto"
           >
             <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
             <span>[ KELOLA KOLOM ({tableManager.visibleColumns.length}) ]</span>
@@ -538,7 +538,7 @@ export function DeskRecommendationsView({
                     href={selectedDesk.shopeeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/40 text-orange-400 text-xs font-bold transition-all shadow-sm"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/40 text-orange-400 text-xs font-bold transition-colors shadow-sm"
                   >
                     <ShoppingBag className="w-3.5 h-3.5" />
                     <span>Beli di Shopee</span>
@@ -663,7 +663,7 @@ export function DeskRecommendationsView({
                 </div>
                 <Link
                   href="/guide/setup/ukuran-meja-monitor-ideal"
-                  className="px-3 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 hover:bg-emerald-500/30 text-xs font-bold whitespace-nowrap transition-all"
+                  className="px-3 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 hover:bg-emerald-500/30 text-xs font-bold whitespace-nowrap transition-colors"
                 >
                   Buka Panduan Ukuran →
                 </Link>

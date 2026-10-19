@@ -24,7 +24,7 @@ export function DeskCard({ desk, onSelectDesk }: DeskCardProps) {
       onClick={() => {
         if (onSelectDesk) onSelectDesk(desk);
       }}
-      className="group relative bg-gp-ink-900 hover:bg-gp-ink-850 border border-gp-ink-700 hover:border-gp-ink-600 transition-all duration-200 rounded-xl p-4 sm:p-5 flex flex-col justify-between cursor-pointer shadow-tech-card"
+      className="group relative bg-gp-ink-900 hover:bg-gp-ink-850 border border-gp-ink-700 hover:border-gp-ink-600 transition-colors duration-200 rounded-xl p-4 sm:p-5 flex flex-col justify-between cursor-pointer shadow-tech-card"
     >
       {/* Top Header: Category & Type Badge */}
       <div className="flex items-center justify-between gap-2 mb-3">
@@ -56,7 +56,7 @@ export function DeskCard({ desk, onSelectDesk }: DeskCardProps) {
         {specPills.map((spec, idx) => (
           <span
             key={idx}
-            className="px-2 py-0.5 rounded-md text-2xs font-medium text-gp-ink-200 bg-gp-ink-700/50 border border-gp-ink-700/80"
+            className="px-2 py-0.5 rounded text-2xs font-medium text-gp-ink-200 bg-gp-ink-700/50 border border-gp-ink-700/80"
           >
             {spec}
           </span>
@@ -87,7 +87,7 @@ export function DeskCard({ desk, onSelectDesk }: DeskCardProps) {
                 window.open(desk.shopeeUrl, "_blank", "noopener,noreferrer");
               }
             }}
-            className="flex-1 flex items-center justify-center gap-1.5 text-xs py-2 font-semibold bg-brand-shopee hover:bg-brand-shopee-dark text-white rounded-lg transition-all"
+            className="flex-1 flex items-center justify-center gap-1.5 text-xs py-2 font-semibold bg-brand-shopee hover:bg-brand-shopee-dark text-white rounded-lg transition-colors"
           >
             <ShoppingBag className="w-3.5 h-3.5" />
             <span>Beli di Shopee</span>

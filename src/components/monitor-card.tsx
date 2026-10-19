@@ -113,7 +113,7 @@ export function MonitorCard({
             <button
               type="button"
               onClick={handleCompareClick}
-              className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-2xs font-medium transition-all shrink-0 ${
+              className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-2xs font-medium transition-colors shrink-0 ${
                 isCompared
                   ? "bg-emerald-500 text-gp-ink-950 font-bold shadow-sm"
                   : "text-gp-ink-300 hover:text-gp-ink-100 bg-gp-ink-800/60 hover:bg-gp-ink-700 border border-gp-ink-700"
@@ -127,7 +127,7 @@ export function MonitorCard({
         </div>
 
         {/* Product Image Thumbnail - Clean framing without distracting corner clutter */}
-        <div className="relative w-full aspect-[16/10] mb-3 bg-gp-ink-998 rounded-xl overflow-hidden border border-gp-ink-700/70 group-hover:border-gp-ink-600/70 transition-all flex items-center justify-center">
+        <div className="relative w-full aspect-[16/10] mb-3 bg-gp-ink-998 rounded-xl overflow-hidden border border-gp-ink-700/70 group-hover:border-gp-ink-600/70 transition-colors flex items-center justify-center">
           <Image
             src={monitor.thumbnail}
             alt={monitor.fullName}
@@ -157,7 +157,7 @@ export function MonitorCard({
           {specChips.map((chip, idx) => (
             <span
               key={idx}
-              className="px-2 py-0.5 rounded-md text-2xs font-medium text-gp-ink-200 bg-gp-ink-700/50 border border-gp-ink-700/80"
+              className="px-2 py-0.5 rounded text-2xs font-medium text-gp-ink-200 bg-gp-ink-700/50 border border-gp-ink-700/80"
             >
               {chip}
             </span>

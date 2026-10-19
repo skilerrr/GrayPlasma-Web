@@ -38,7 +38,7 @@ export function PaginationBar({
             onPageChange(Math.max(1, currentPage - 1));
           }}
           disabled={currentPage === 1}
-          className="px-3 py-1.5 rounded-xl bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-white hover:bg-gp-ink-700 disabled:opacity-40 disabled:pointer-events-none transition-all flex items-center gap-1 font-semibold"
+          className="px-3 py-1.5 rounded-xl bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-white hover:bg-gp-ink-700 disabled:opacity-40 disabled:pointer-events-none transition-colors flex items-center gap-1 font-semibold"
         >
           <ChevronLeft className="w-3.5 h-3.5" />
           <span>Prev</span>
@@ -58,7 +58,7 @@ export function PaginationBar({
                   key={p}
                   type="button"
                   onClick={() => onPageChange(p)}
-                  className={`w-8 h-8 rounded-xl text-xs font-mono font-bold transition-all ${
+                  className={`w-8 h-8 rounded-xl text-xs font-mono font-bold transition-colors ${
                     currentPage === p
                       ? "bg-emerald-500 text-gp-ink-950 font-bold border border-emerald-400"
                       : "bg-gp-ink-850 border border-gp-ink-700 text-gp-ink-300 hover:text-white hover:border-gp-ink-600"
@@ -89,7 +89,7 @@ export function PaginationBar({
             onPageChange(Math.min(totalPages, currentPage + 1));
           }}
           disabled={currentPage === totalPages}
-          className="px-3 py-1.5 rounded-xl bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-white hover:bg-gp-ink-700 disabled:opacity-40 disabled:pointer-events-none transition-all flex items-center gap-1 font-semibold"
+          className="px-3 py-1.5 rounded-xl bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-white hover:bg-gp-ink-700 disabled:opacity-40 disabled:pointer-events-none transition-colors flex items-center gap-1 font-semibold"
         >
           <span>Next</span>
           <ChevronRight className="w-3.5 h-3.5" />

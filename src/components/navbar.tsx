@@ -130,7 +130,7 @@ export function Navbar({
     currentKey === "consultation";
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-gp-ink-950/95 backdrop-blur-xl border-b border-gp-ink-700 transition-all">
+    <header className="sticky top-0 z-40 w-full bg-gp-ink-950/95 backdrop-blur-xl border-b border-gp-ink-700 transition-colors">
       <AnnouncementBar settings={siteSettings?.announcement} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Navbar Row */}
@@ -161,7 +161,7 @@ export function Navbar({
             {/* Beranda */}
             <Link
               href="/"
-              className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
+              className={`px-3 py-1.5 rounded text-xs font-semibold transition-colors ${
                 currentKey === "home"
                   ? "bg-gp-ink-700 text-white shadow-sm border border-gp-ink-600 font-bold"
                   : "text-gp-ink-300 hover:text-gp-ink-100"
@@ -174,7 +174,7 @@ export function Navbar({
             <div className="relative" onClick={(e) => e.stopPropagation()}>
               <button
                 onClick={() => setOpenDropdown(openDropdown === "catalog" ? null : "catalog")}
-                className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                className={`px-3 py-1.5 rounded text-xs font-semibold transition-colors flex items-center gap-1.5 ${
                   isCatalogActive
                     ? "bg-gp-ink-700 text-white shadow-sm border border-gp-ink-600 font-bold"
                     : "text-gp-ink-300 hover:text-gp-ink-100"
@@ -199,7 +199,7 @@ export function Navbar({
                     className="w-full text-left px-2.5 py-2 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700/80 transition-colors flex items-center justify-between group"
                   >
                     <div className="flex items-center gap-2.5">
-                      <div className="p-1.5 rounded-md bg-emerald-500/10 text-emerald-400">
+                      <div className="p-1.5 rounded bg-emerald-500/10 text-emerald-400">
                         <Tv className="w-4 h-4" />
                       </div>
                       <div>
@@ -218,7 +218,7 @@ export function Navbar({
                     className="w-full text-left px-2.5 py-2 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700/80 transition-colors flex items-center justify-between group"
                   >
                     <div className="flex items-center gap-2.5">
-                      <div className="p-1.5 rounded-md bg-orange-500/10 text-orange-400">
+                      <div className="p-1.5 rounded bg-orange-500/10 text-orange-400">
                         <Layers className="w-4 h-4" />
                       </div>
                       <div>
@@ -237,7 +237,7 @@ export function Navbar({
                     className="w-full text-left px-2.5 py-2 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700/80 transition-colors flex items-center justify-between group"
                   >
                     <div className="flex items-center gap-2.5">
-                      <div className="p-1.5 rounded-md bg-cyan-500/10 text-cyan-400">
+                      <div className="p-1.5 rounded bg-cyan-500/10 text-cyan-400">
                         <Wrench className="w-4 h-4" />
                       </div>
                       <div>
@@ -256,7 +256,7 @@ export function Navbar({
                     className="w-full text-left px-2.5 py-2 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700/80 transition-colors flex items-center justify-between group"
                   >
                     <div className="flex items-center gap-2.5">
-                      <div className="p-1.5 rounded-md bg-blue-500/10 text-blue-400">
+                      <div className="p-1.5 rounded bg-blue-500/10 text-blue-400">
                         <Sparkles className="w-4 h-4" />
                       </div>
                       <div>
@@ -276,7 +276,7 @@ export function Navbar({
                       className="w-full text-left px-2.5 py-2 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700/80 transition-colors flex items-center justify-between group"
                     >
                       <div className="flex items-center gap-2.5">
-                        <div className="p-1.5 rounded-md bg-purple-500/10 text-purple-400">
+                        <div className="p-1.5 rounded bg-purple-500/10 text-purple-400">
                           <span className="text-xs">🪑</span>
                         </div>
                         <div>
@@ -297,7 +297,7 @@ export function Navbar({
             <div className="relative" onClick={(e) => e.stopPropagation()}>
               <button
                 onClick={() => setOpenDropdown(openDropdown === "aftersales" ? null : "aftersales")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
                   isAftersalesActive
                     ? "bg-gp-ink-700 text-white shadow-sm"
                     : "text-gp-ink-300 hover:text-gp-ink-100"
@@ -337,7 +337,7 @@ export function Navbar({
             <div className="relative" onClick={(e) => e.stopPropagation()}>
               <button
                 onClick={() => setOpenDropdown(openDropdown === "more" ? null : "more")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
                   isMoreActive
                     ? "bg-gp-ink-700 text-white shadow-sm"
                     : "text-gp-ink-300 hover:text-gp-ink-100"
@@ -483,8 +483,8 @@ export function Navbar({
                 type="text"
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
-                placeholder="Cari monitor (contoh: 24G4, G24i, OLED, 1440p)..."
-                className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-lg pl-9 pr-14 py-2 text-xs sm:text-sm text-white placeholder-gp-ink-400 focus:outline-none focus:border-gp-ink-500 transition-all"
+                placeholder="Cari monitor..."
+                className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-lg pl-9 pr-14 py-2 text-xs sm:text-sm text-white placeholder-gp-ink-400 focus:outline-none focus:border-gp-ink-500 transition-colors"
               />
               <div className="absolute inset-y-0 right-0 pr-2 flex items-center gap-1 pointer-events-none">
                 {searchQuery ? (

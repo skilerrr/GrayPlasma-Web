@@ -561,7 +561,7 @@ export function ModularTableBuilder({
                 {columns.map((col, idx) => (
                   <div
                     key={col.id}
-                    className="group relative flex items-center gap-1.5 bg-gp-ink-800 border border-gp-ink-650 px-2.5 py-1 rounded-md"
+                    className="group relative flex items-center gap-1.5 bg-gp-ink-800 border border-gp-ink-650 px-2.5 py-1 rounded"
                   >
                     <span className="text-3xs font-mono text-gp-ink-400 font-bold">
                       #{idx + 1}
@@ -586,7 +586,7 @@ export function ModularTableBuilder({
                 ))}
 
                 {isAddingCol ? (
-                  <div className="flex items-center gap-1 bg-gp-ink-800 border border-emerald-500/50 px-2 py-0.5 rounded-md">
+                  <div className="flex items-center gap-1 bg-gp-ink-800 border border-emerald-500/50 px-2 py-0.5 rounded">
                     <input
                       type="text"
                       autoFocus
@@ -754,7 +754,7 @@ export function ModularTableBuilder({
                         setDraggedRowIndex(null);
                         setDragOverRowIndex(null);
                       }}
-                      className={`px-3 py-2 flex items-center gap-2 hover:bg-gp-ink-700/30 transition-all group ${
+                      className={`px-3 py-2 flex items-center gap-2 hover:bg-gp-ink-700/30 transition-colors group ${
                         isDragging
                           ? "opacity-30 border border-dashed border-emerald-400 bg-emerald-950/40"
                           : ""
@@ -798,7 +798,7 @@ export function ModularTableBuilder({
                                 handleUpdateCell(row.id, col.id, e.target.value)
                               }
                               placeholder={`Isi ${col.label}...`}
-                              className={`w-full bg-gp-ink-800/90 border border-gp-ink-700 rounded-md px-2.5 py-1.5 text-xs focus:outline-none focus:border-emerald-500 font-sans transition-colors ${
+                              className={`w-full bg-gp-ink-800/90 border border-gp-ink-700 rounded px-2.5 py-1.5 text-xs focus:outline-none focus:border-emerald-500 font-sans transition-colors ${
                                 cIdx === 0
                                   ? "text-white font-semibold"
                                   : "text-gp-ink-200"

@@ -205,7 +205,7 @@ export function Footer() {
                   href={consult.feedbackFormUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500 hover:text-black font-semibold transition-all text-2xs"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500 hover:text-black font-semibold transition-colors text-2xs"
                 >
                   <span>Form Kritik & Saran</span>
                   <ExternalLink className="w-2.5 h-2.5" />

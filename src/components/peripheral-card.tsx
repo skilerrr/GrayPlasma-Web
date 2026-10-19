@@ -66,7 +66,7 @@ export function PeripheralCard({ item, onSelectItem }: PeripheralCardProps) {
         {specPills.map((spec, idx) => (
           <span
             key={idx}
-            className="px-2 py-0.5 rounded-md text-2xs font-medium text-gp-ink-200 bg-gp-ink-700/50 border border-gp-ink-700/80"
+            className="px-2 py-0.5 rounded text-2xs font-medium text-gp-ink-200 bg-gp-ink-700/50 border border-gp-ink-700/80"
           >
             {spec}
           </span>
@@ -96,7 +96,7 @@ export function PeripheralCard({ item, onSelectItem }: PeripheralCardProps) {
                 e.stopPropagation();
                 window.open(purchaseUrl, "_blank", "noopener,noreferrer");
               }}
-              className={`flex-1 flex items-center justify-center gap-1.5 text-xs py-2 font-semibold text-gp-ink-950 rounded-lg transition-all ${
+              className={`flex-1 flex items-center justify-center gap-1.5 text-xs py-2 font-semibold text-gp-ink-950 rounded-lg transition-colors ${
                 storePlatform === "Shopee"
                   ? "bg-orange-500 hover:bg-orange-400 text-gp-ink-950"
                   : storePlatform === "Tokopedia"
@@ -111,7 +111,7 @@ export function PeripheralCard({ item, onSelectItem }: PeripheralCardProps) {
             <Button
               variant="default"
               size="sm"
-              className="flex-1 text-xs font-mono uppercase tracking-wider bg-gp-ink-800 text-gp-ink-300 border border-gp-ink-700 rounded-md"
+              className="flex-1 text-xs font-mono uppercase tracking-wider bg-gp-ink-800 text-gp-ink-300 border border-gp-ink-700 rounded"
             >
               [ CEK DETAIL ]
             </Button>

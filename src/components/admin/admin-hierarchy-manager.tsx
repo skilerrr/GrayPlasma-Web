@@ -270,7 +270,7 @@ export function AdminHierarchyManager({
       )}
 
       {/* Header & Subtabs */}
-      <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-3xl p-6 sm:p-8 space-y-6">
+      <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gp-ink-700 pb-5">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold">
@@ -311,7 +311,7 @@ export function AdminHierarchyManager({
         <div className="flex items-center gap-2 border-b border-gp-ink-700 pb-2">
           <button
             onClick={() => setActiveSubTab("team")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-1.5 ${
               activeSubTab === "team"
                 ? "bg-gp-ink-700 text-amber-400 border border-amber-500/30"
                 : "text-gp-ink-300 hover:text-white"
@@ -325,7 +325,7 @@ export function AdminHierarchyManager({
               setActiveSubTab("audit");
               setLogs(DatabaseService.getActivityLogs());
             }}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-1.5 ${
               activeSubTab === "audit"
                 ? "bg-gp-ink-700 text-cyan-400 border border-cyan-500/30"
                 : "text-gp-ink-300 hover:text-white"
@@ -406,7 +406,7 @@ export function AdminHierarchyManager({
                 return (
                   <div
                     key={adm.id}
-                    className={`bg-gp-ink-950 border rounded-2xl p-5 space-y-4 flex flex-col justify-between transition-all ${
+                    className={`bg-gp-ink-950 border rounded-2xl p-5 space-y-4 flex flex-col justify-between transition-colors ${
                       isCurrent
                         ? "border-amber-500/50 shadow-lg shadow-amber-500/5 bg-gp-ink-800/40"
                         : "border-gp-ink-700 hover:border-gp-ink-600"

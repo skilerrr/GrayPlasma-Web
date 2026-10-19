@@ -198,7 +198,7 @@ export function AdBannerManager() {
       )}
 
       {/* Header Studio */}
-      <div className="bg-gp-ink-900 border border-gp-ink-700 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
+      <div className="bg-gp-ink-900 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gp-ink-700 pb-5">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
@@ -269,7 +269,7 @@ export function AdBannerManager() {
 
       {/* Live Preview Simulator */}
       {showLivePreview && activeCount > 0 && (
-        <div className="bg-gp-ink-900 border border-gp-ink-700 rounded-3xl p-5 space-y-3 shadow-xl">
+        <div className="bg-gp-ink-900 border border-gp-ink-700 rounded-2xl p-5 space-y-3 shadow-xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-xs font-bold text-gp-ink-200">
               <Play className="w-3.5 h-3.5 text-emerald-400" />
@@ -286,7 +286,7 @@ export function AdBannerManager() {
       )}
 
       {/* Banner List */}
-      <div className="bg-gp-ink-900 border border-gp-ink-700 rounded-3xl p-6 sm:p-8 space-y-4 shadow-xl">
+      <div className="bg-gp-ink-900 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-4 shadow-xl">
         <div className="flex items-center justify-between border-b border-gp-ink-700 pb-4">
           <h4 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
             <span>Daftar Slide Banner</span>
@@ -309,7 +309,7 @@ export function AdBannerManager() {
             {banners.map((banner, index) => (
               <div
                 key={banner.id}
-                className={`p-4 rounded-2xl border transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ${
+                className={`p-4 rounded-2xl border transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ${
                   banner.isActive
                     ? "bg-gp-ink-900 border-gp-ink-700 hover:border-gp-ink-600"
                     : "bg-gp-ink-950/50 border-gp-ink-800 opacity-60"

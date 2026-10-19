@@ -179,7 +179,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
         </div>
       )}
 
-      <div className="bg-gp-ink-900 border border-gp-ink-700 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
+      <div className="bg-gp-ink-900 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gp-ink-700 pb-5">
           <div className="space-y-1">
@@ -225,7 +225,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
             <button
               type="button"
               onClick={() => setSelectedColumnFilter("all")}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors ${
                 selectedColumnFilter === "all"
                   ? "bg-gp-ink-700 text-white font-bold"
                   : "text-gp-ink-300 hover:text-white"
@@ -240,7 +240,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
                   key={col.id}
                   type="button"
                   onClick={() => setSelectedColumnFilter(col.id)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors ${
                     selectedColumnFilter === col.id
                       ? col.color === "green"
                         ? "bg-gp-mint-900 text-gp-mint font-bold border border-gp-mint/30"
@@ -296,7 +296,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
                   {colCards.map((card) => (
                     <div
                       key={card.id}
-                      className="p-3.5 rounded-xl bg-gp-ink-800 border border-gp-ink-700 hover:border-gp-ink-600 transition-all space-y-2.5 shadow-sm"
+                      className="p-3.5 rounded-xl bg-gp-ink-800 border border-gp-ink-700 hover:border-gp-ink-600 transition-colors space-y-2.5 shadow-sm"
                     >
                       <div className="flex items-start justify-between gap-2">
                         <h4 className="font-bold text-white text-xs leading-snug">{card.title}</h4>
