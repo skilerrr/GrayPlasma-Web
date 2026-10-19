@@ -1,0 +1,11 @@
+node_modules
+.next
+out
+build
+dist
+package-lock.json
+tsconfig.tsbuildinfo
+public
+scratch_*
+*.md
+supabase_schema.sql
