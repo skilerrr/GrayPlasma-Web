@@ -130,7 +130,7 @@ export function NotionKanbanBoard({
 
                       {/* Card Tags */}
                       <div className="flex flex-wrap gap-1.5 mb-2">
-                        {card.tags.map((tag, idx) => (
+                        {(card.tags ?? []).map((tag, idx) => (
                           <span
                             key={idx}
                             className={`text-[10px] font-semibold px-2 py-0.5 rounded ${

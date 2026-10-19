@@ -230,6 +230,7 @@ CREATE TABLE IF NOT EXISTS public.aftersales_cards (
   "coverImage" TEXT,
   "order" INT DEFAULT 0,
   points JSONB DEFAULT '[]'::jsonb,
+  tags JSONB DEFAULT '[]'::jsonb,
   notes TEXT,
   "detailsMarkdown" TEXT,
   "contactInfo" JSONB DEFAULT '{}'::jsonb,

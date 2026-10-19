@@ -21,6 +21,15 @@ export interface SubpageNavbarProps {
   maxWidthClass?: string;
 }
 
+// Menu utama — disamakan dengan header beranda biar pengunjung nggak "kehilangan"
+// navigasi begitu masuk halaman dalam.
+const PRIMARY_LINKS = [
+  { href: "/", label: "Beranda" },
+  { href: "/catalog", label: "Rekomendasi" },
+  { href: "/aftersales", label: "Aftersales" },
+  { href: "/guides", label: "Panduan" },
+];
+
 export function SubpageNavbar({
   breadcrumbs,
   backLink,
@@ -28,7 +37,7 @@ export function SubpageNavbar({
   maxWidthClass = "max-w-6xl",
 }: SubpageNavbarProps) {
   return (
-    <nav aria-label="Breadcrumb Navigation" className="border-b border-zinc-800 bg-[#0c0c10]/95 backdrop-blur-md sticky top-0 z-40 px-4 sm:px-8 py-3">
+    <nav aria-label="Breadcrumb Navigation" className="border-b border-zinc-800 bg-[#07070a]/95 backdrop-blur-xl sticky top-0 z-40 px-4 sm:px-8 py-3">
       <div className={`${maxWidthClass} mx-auto flex items-center justify-between gap-4`}>
         {/* Left Breadcrumbs Trail */}
         <div className="flex items-center gap-2 text-xs text-zinc-400 overflow-x-auto no-scrollbar whitespace-nowrap">
@@ -70,13 +79,26 @@ export function SubpageNavbar({
           })}
         </div>
 
+        {/* Menu utama (desktop) — biar konsisten dengan header beranda */}
+        <div className="hidden lg:flex items-center gap-1 flex-shrink-0">
+          {PRIMARY_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="px-2.5 py-1.5 rounded-lg text-[11px] font-bold uppercase tracking-wider text-zinc-400 hover:text-white hover:bg-zinc-900 transition-colors"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+
         {/* Right Actions & Back Button */}
         <div className="flex flex-wrap items-center justify-end gap-2 min-w-0">
           {rightActions}
           {backLink && (
             <Link
               href={backLink.href}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 text-xs font-mono font-medium text-zinc-300 hover:text-white transition-all flex-shrink-0"
+              className="hidden sm:inline-flex lg:hidden items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 text-xs font-mono font-medium text-zinc-300 hover:text-white transition-all flex-shrink-0"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>{backLink.label}</span>

@@ -443,18 +443,6 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
         rightActions={
           <div className="flex items-center gap-2">
             <button
-              onClick={handleCopyDiscord}
-              className={`px-2.5 py-1.5 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 border ${
-                copiedDiscord
-                  ? "bg-[#203c2b] text-[#52ba69] border-[#52ba69]/40"
-                  : "bg-[#202020] border-[#2f2f2f] text-zinc-300 hover:text-white hover:bg-[#282828]"
-              }`}
-            >
-              {copiedDiscord ? <Check className="w-3.5 h-3.5 text-[#52ba69]" /> : <Copy className="w-3.5 h-3.5 text-[#58a6ff]" />}
-              <span className="hidden sm:inline">{copiedDiscord ? "Tersalin!" : "Copy Callback"}</span>
-            </button>
-
-            <button
               onClick={handleCopyUrl}
               className="p-2 rounded-xl bg-[#202020] border border-[#2f2f2f] text-zinc-400 hover:text-white hover:bg-[#282828] transition-colors"
               title="Salin URL"
