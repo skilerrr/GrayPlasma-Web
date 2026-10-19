@@ -2422,7 +2422,7 @@ export const MONITORS_DATA: Monitor[] = [
   {
     "id": "mon-24-acer-nitro-vg272uw2",
     "slug": "acer-nitro-vg272uw2",
-    "brand": "Brand",
+    "brand": "Acer",
     "model": "Acer Nitro VG272UW2",
     "fullName": "Acer Nitro VG272UW2",
     "tier": "PASS",
@@ -2927,7 +2927,7 @@ export const MONITORS_DATA: Monitor[] = [
   {
     "id": "mon-29-acer-ed270u-p2",
     "slug": "acer-ed270u-p2",
-    "brand": "Brand",
+    "brand": "Acer",
     "model": "Acer ED270U-P2",
     "fullName": "Acer ED270U-P2",
     "tier": "PASS",
@@ -3028,7 +3028,7 @@ export const MONITORS_DATA: Monitor[] = [
   {
     "id": "mon-30-philips-evnia-25m2n5200p",
     "slug": "philips-evnia-25m2n5200p",
-    "brand": "Brand",
+    "brand": "Philips",
     "model": "Philips Evnia 25M2N5200P",
     "fullName": "Philips Evnia 25M2N5200P",
     "tier": "PASS",
@@ -4038,7 +4038,7 @@ export const MONITORS_DATA: Monitor[] = [
   {
     "id": "mon-40-acer-ek251qe-acer-ek251q-ebi",
     "slug": "acer-ek251qe-acer-ek251q-ebi",
-    "brand": "Brand",
+    "brand": "Acer",
     "model": "Acer EK251QE/Acer EK251Q Ebi",
     "fullName": "Acer EK251QE/Acer EK251Q Ebi",
     "tier": "BEST VALUE",
