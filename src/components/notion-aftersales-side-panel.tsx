@@ -51,7 +51,7 @@ export function NotionAftersalesSidePanel({
 
   const handleCopyDiscord = () => {
     const text = `[GRAYPLASMA AFTERSALES] ${card.title}
-Kualitas: ${card.tags.map((t) => t.label).join(", ")}
+Kualitas: ${(card.tags ?? []).map((t) => t.label).join(", ")}
 Sistem: ${card.sistemKlaim || "Standard Distributor"}
 Info: ${typeof window !== "undefined" ? window.location.href : ""}`;
     navigator.clipboard.writeText(text);
@@ -176,7 +176,7 @@ Info: ${typeof window !== "undefined" ? window.location.href : ""}`;
                 <span>Kualitas (?)</span>
               </div>
               <div className="col-span-8 flex flex-wrap gap-1.5">
-                {card.tags.map((t, idx) => (
+                {(card.tags ?? []).map((t, idx) => (
                   <span
                     key={idx}
                     className={`text-[10px] font-bold px-2 py-0.5 rounded ${

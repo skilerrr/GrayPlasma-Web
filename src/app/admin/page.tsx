@@ -91,6 +91,50 @@ type AdminActiveTab =
   | "backup"
   | "compressor";
 
+// Struktur navigasi admin: 12 tab lama dikelompokkan jadi 5 grup.
+// Counter angka, badge "Live"/"JSON"/"7 Submodul" dibuang — bukan informasi,
+// cuma noise di sidebar.
+const NAV_GROUPS: Array<{
+  label: string;
+  items: Array<{ id: AdminActiveTab; label: string; icon: React.ReactNode }>;
+}> = [
+  {
+    label: "Konten",
+    items: [
+      { id: "monitors", label: "Monitor", icon: <Tv className="w-4 h-4" /> },
+      { id: "desks", label: "Meja", icon: <LayoutGrid className="w-4 h-4" /> },
+      { id: "peripherals", label: "Arm & Bracket", icon: <Wrench className="w-4 h-4" /> },
+      { id: "chairs", label: "Kursi", icon: <span className="text-sm leading-none">&#129681;</span> },
+      { id: "aftersales", label: "Aftersales", icon: <ShieldAlert className="w-4 h-4" /> },
+    ],
+  },
+  {
+    label: "Tampilan & Situs",
+    items: [
+      { id: "elements", label: "Beranda", icon: <Megaphone className="w-4 h-4" /> },
+      { id: "banners", label: "Banner", icon: <SlidersHorizontal className="w-4 h-4" /> },
+      { id: "hierarchy", label: "Hierarki & Rute", icon: <Layers className="w-4 h-4" /> },
+    ],
+  },
+  {
+    label: "Pengetahuan",
+    items: [
+      { id: "knowledge", label: "Knowledge Hub & FAQ", icon: <BookOpen className="w-4 h-4" /> },
+    ],
+  },
+  {
+    label: "Tim",
+    items: [{ id: "admins", label: "Admin (RBAC)", icon: <Shield className="w-4 h-4" /> }],
+  },
+  {
+    label: "Sistem",
+    items: [
+      { id: "backup", label: "Backup & Sync", icon: <Server className="w-4 h-4" /> },
+      { id: "compressor", label: "WebP Optimizer", icon: <Sparkles className="w-4 h-4" /> },
+    ],
+  },
+];
+
 export default function AdminDashboardPage() {
   const router = useRouter();
 
@@ -410,266 +454,37 @@ export default function AdminDashboardPage() {
             </div>
           )}
 
-          {/* Navigation Sections */}
+          {/* Navigation Sections — 5 grup, tanpa badge/counter yang cuma nambah noise */}
           <div className="px-3 py-2 space-y-4 text-xs">
-            {/* Section 1: HIERARCHY & ROUTING */}
-            <div className="space-y-1">
-              <span className="text-[10px] font-mono font-bold text-zinc-500 px-2 uppercase tracking-widest">
-                Workspace & Hierarki
-              </span>
-              <button
-                onClick={() => {
-                  setActiveTab("hierarchy");
-                  setIsMobileSidebarOpen(false);
-                }}
-                className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
-                  activeTab === "hierarchy"
-                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <Layers className={`w-4 h-4 ${activeTab === "hierarchy" ? "text-white" : "text-zinc-400"}`} />
-                  <span>Hierarki & Rute</span>
-                </div>
-                <span className="text-[10px] text-zinc-500 font-mono">{hierarchyNodes.length}</span>
-              </button>
-
-              <button
-                onClick={() => {
-                  setActiveTab("elements");
-                  setIsMobileSidebarOpen(false);
-                }}
-                className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
-                  activeTab === "elements"
-                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <Megaphone className={`w-4 h-4 ${activeTab === "elements" ? "text-white" : "text-zinc-400"}`} />
-                  <span>Elemen Beranda & Banners</span>
-                </div>
-                <span className="flex items-center gap-1 text-[10px] font-mono text-emerald-400 font-bold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  Live
+            {NAV_GROUPS.map((group) => (
+              <div key={group.label} className="space-y-1">
+                <span className="text-[10px] font-mono font-bold text-zinc-500 px-2 uppercase tracking-widest">
+                  {group.label}
                 </span>
-              </button>
-
-              <button
-                onClick={() => {
-                  setActiveTab("banners");
-                  setIsMobileSidebarOpen(false);
-                }}
-                className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
-                  activeTab === "banners"
-                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <SlidersHorizontal className={`w-4 h-4 ${activeTab === "banners" ? "text-emerald-400" : "text-zinc-400"}`} />
-                  <span>Ad Banners Slider</span>
-                </div>
-                <span className="text-[10px] font-mono text-zinc-500">5s</span>
-              </button>
-            </div>
-
-            {/* Section 2: DATABASES */}
-            <div className="space-y-1">
-              <span className="text-[10px] font-mono font-bold text-zinc-500 px-2 uppercase tracking-widest">
-                Databases (Katalog)
-              </span>
-              <button
-                onClick={() => {
-                  setActiveTab("monitors");
-                  setIsMobileSidebarOpen(false);
-                }}
-                className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
-                  activeTab === "monitors"
-                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <Tv className={`w-4 h-4 ${activeTab === "monitors" ? "text-emerald-400" : "text-zinc-400"}`} />
-                  <span>Monitor Live Studio</span>
-                </div>
-                <span className="text-[10px] text-zinc-500 font-mono">{monitors.length}</span>
-              </button>
-
-              <button
-                onClick={() => {
-                  setActiveTab("desks");
-                  setIsMobileSidebarOpen(false);
-                }}
-                className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
-                  activeTab === "desks"
-                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <LayoutGrid className={`w-4 h-4 ${activeTab === "desks" ? "text-orange-400" : "text-zinc-400"}`} />
-                  <span>Katalog Meja</span>
-                </div>
-                <span className="text-[10px] text-zinc-500 font-mono">{desks.length}</span>
-              </button>
-
-              <button
-                onClick={() => {
-                  setActiveTab("peripherals");
-                  setIsMobileSidebarOpen(false);
-                }}
-                className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
-                  activeTab === "peripherals"
-                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <Wrench className={`w-4 h-4 ${activeTab === "peripherals" ? "text-cyan-400" : "text-zinc-400"}`} />
-                  <span>Arm & Bracket Studio</span>
-                </div>
-                <span className="text-[10px] text-zinc-500 font-mono">{peripherals.length}</span>
-              </button>
-
-              <button
-                onClick={() => {
-                  setActiveTab("chairs");
-                  setIsMobileSidebarOpen(false);
-                }}
-                className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
-                  activeTab === "chairs"
-                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <span className="text-sm leading-none">🪑</span>
-                  <span>Kursi Ergonomis</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <span
-                    className={`text-[9px] font-mono px-1.5 py-0.5 rounded font-bold ${
-                      homepageSettings.sectionVisibility?.showChairs
-                        ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
-                        : "bg-amber-500/20 text-amber-300 border border-amber-500/40"
-                    }`}
-                  >
-                    {homepageSettings.sectionVisibility?.showChairs ? "Live" : "Draft"}
-                  </span>
-                  <span className="text-[10px] text-zinc-500 font-mono">{chairs.length}</span>
-                </div>
-              </button>
-
-              <button
-                onClick={() => {
-                  setActiveTab("aftersales");
-                  setIsMobileSidebarOpen(false);
-                }}
-                className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
-                  activeTab === "aftersales"
-                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <ShieldAlert className={`w-4 h-4 ${activeTab === "aftersales" ? "text-amber-400" : "text-zinc-400"}`} />
-                  <span>Aftersales & Kanban</span>
-                </div>
-                <span className="text-[10px] text-zinc-500 font-mono">{aftersales.length}</span>
-              </button>
-            </div>
-
-            {/* Section 3: KNOWLEDGE & GUIDES */}
-            <div className="space-y-1">
-              <span className="text-[10px] font-mono font-bold text-zinc-500 px-2 uppercase tracking-widest">
-                Knowledge & Edukasi
-              </span>
-              <button
-                onClick={() => {
-                  setActiveTab("knowledge");
-                  setIsMobileSidebarOpen(false);
-                }}
-                className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
-                  activeTab === "knowledge"
-                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <BookOpen className={`w-4 h-4 ${activeTab === "knowledge" ? "text-white" : "text-zinc-400"}`} />
-                  <span>Knowledge Hub & FAQ</span>
-                </div>
-                <span className="text-[10px] text-zinc-500 font-mono">7 Submodul</span>
-              </button>
-            </div>
-
-            {/* Section 4: TEAM & SECURITY */}
-            <div className="space-y-1">
-              <span className="text-[10px] font-mono font-bold text-zinc-500 px-2 uppercase tracking-widest">
-                Security & Team
-              </span>
-              <button
-                onClick={() => {
-                  setActiveTab("admins");
-                  setIsMobileSidebarOpen(false);
-                }}
-                className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
-                  activeTab === "admins"
-                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <Shield className={`w-4 h-4 ${activeTab === "admins" ? "text-white" : "text-zinc-400"}`} />
-                  <span>Hierarki Admin (RBAC)</span>
-                </div>
-                <span className="text-[10px] text-zinc-500 font-mono">{admins.length}</span>
-              </button>
-            </div>
-
-            {/* Section 5: SYSTEM & CLOUD */}
-            <div className="space-y-1">
-              <span className="text-[10px] font-mono font-bold text-zinc-500 px-2 uppercase tracking-widest">
-                Cloud & Utility
-              </span>
-              <button
-                onClick={() => {
-                  setActiveTab("backup");
-                  setIsMobileSidebarOpen(false);
-                }}
-                className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
-                  activeTab === "backup"
-                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <Server className={`w-4 h-4 ${activeTab === "backup" ? "text-white" : "text-zinc-400"}`} />
-                  <span>Backup & Supabase Sync</span>
-                </div>
-                <span className="text-[10px] font-mono text-zinc-500">JSON</span>
-              </button>
-
-              <button
-                onClick={() => {
-                  setActiveTab("compressor");
-                  setIsMobileSidebarOpen(false);
-                }}
-                className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center justify-between transition-colors ${
-                  activeTab === "compressor"
-                    ? "bg-zinc-800 text-white font-bold border border-zinc-700/60 shadow-sm"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <Sparkles className={`w-4 h-4 ${activeTab === "compressor" ? "text-white" : "text-zinc-400"}`} />
-                  <span>WebP Optimizer Lab</span>
-                </div>
-              </button>
-            </div>
+                {group.items.map((item) => {
+                  const isActive = activeTab === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => {
+                        setActiveTab(item.id);
+                        setIsMobileSidebarOpen(false);
+                      }}
+                      className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center gap-2 transition-colors ${
+                        isActive
+                          ? "bg-zinc-800 text-white font-bold border border-zinc-700/60"
+                          : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
+                      }`}
+                    >
+                      <span className={isActive ? "text-white" : "text-zinc-500"}>
+                        {item.icon}
+                      </span>
+                      <span>{item.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            ))}
           </div>
         </div>
 
@@ -709,17 +524,9 @@ export default function AdminDashboardPage() {
               <div className="flex items-center gap-2 text-xs">
                 <span className="text-zinc-500 hidden sm:inline">Workspace</span>
                 <ChevronRight className="w-3 h-3 text-zinc-600 hidden sm:inline" />
-                <span className="text-white font-bold capitalize">
-                  {activeTab === "hierarchy" && "Hierarki Rute & Sandbox"}
-                  {activeTab === "elements" && "Visual Elements & Banners"}
-                  {activeTab === "monitors" && "Monitor Live Studio Database"}
-                  {activeTab === "desks" && "Katalog Meja & Ergonomi"}
-                  {activeTab === "peripherals" && "Arm & Bracket Studio"}
-                  {activeTab === "aftersales" && "Evaluasi Aftersales Brand"}
-                  {activeTab === "knowledge" && "Knowledge Hub & FAQ"}
-                  {activeTab === "admins" && "Hierarki Admin (RBAC)"}
-                  {activeTab === "backup" && "Backup JSON & Supabase"}
-                  {activeTab === "compressor" && "WebP Optimizer Lab"}
+                <span className="text-white font-bold">
+                  {NAV_GROUPS.flatMap((group) => group.items).find((item) => item.id === activeTab)?.label ??
+                    "Workspace"}
                 </span>
               </div>
             </div>
@@ -737,12 +544,8 @@ export default function AdminDashboardPage() {
                 </span>
               </div>
 
-              <Link href="/">
-                <Button variant="outline" size="sm" className="text-xs font-semibold hidden sm:flex">
-                  <Eye className="w-3.5 h-3.5 mr-1 text-cyan-400" />
-                  <span>Preview Live Web</span>
-                </Button>
-              </Link>
+              {/* Tombol "Preview Live Web" & "Keluar" cuma ada di footer sidebar —
+                  dulu dobel di header, jadi dua tombol satu fungsi. */}
             </div>
           </div>
         </header>
