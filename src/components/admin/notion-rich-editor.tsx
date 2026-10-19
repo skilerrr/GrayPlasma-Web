@@ -836,8 +836,8 @@ export function NotionRichEditor({
       {/* 2. CALLOUT INSERTION MODAL                                                */}
       {/* ========================================================================= */}
       {showCalloutModal && (
-        <div className="absolute inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#121216] border border-zinc-700 rounded-2xl max-w-md w-full p-5 space-y-4 shadow-2xl">
+        <div className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-[#121216] border border-zinc-700 rounded-2xl max-w-md w-full p-5 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
               <span className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
                 <AlertTriangle className="w-4 h-4 text-amber-400" />

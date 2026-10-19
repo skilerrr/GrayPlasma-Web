@@ -356,7 +356,7 @@ export function SiteElementsManager({
                 </div>
 
                 {/* Banner Preview */}
-                <div className="relative rounded-2xl overflow-hidden border border-zinc-800 bg-black h-40 sm:h-auto flex items-center justify-center">
+                <div className="relative rounded-2xl overflow-hidden border border-zinc-800 bg-black aspect-[16/9] flex items-center justify-center">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={homepageForm.heroCoverUrl || "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1600&auto=format&fit=crop"}
