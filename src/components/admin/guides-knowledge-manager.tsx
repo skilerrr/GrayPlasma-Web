@@ -305,9 +305,9 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
         </div>
       )}
 
-      <div className="bg-surface-dark border border-zinc-800 rounded-3xl p-6 sm:p-8 space-y-6">
+      <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-3xl p-6 sm:p-8 space-y-6">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-800 pb-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gp-ink-700 pb-5">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold">
               <BookOpen className="w-3.5 h-3.5" />
@@ -316,20 +316,20 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
             <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
               Pusat Edukasi & Artikel Panduan
             </h3>
-            <p className="text-xs text-zinc-400 max-w-2xl">
+            <p className="text-xs text-gp-ink-300 max-w-2xl">
               Kelola FAQ lengkap, panduan ukuran meja & jarak pandang, klasifikasi HDR, GrayNotes tips teknis, catatan waspada brand ODM, dan profil penulis.
             </p>
           </div>
         </div>
 
         {/* Sub-tabs Navigation */}
-        <div className="flex items-center gap-2 border-b border-zinc-800 pb-2 overflow-x-auto no-scrollbar">
+        <div className="flex items-center gap-2 border-b border-gp-ink-700 pb-2 overflow-x-auto no-scrollbar">
           <button
             onClick={() => setActiveTab("faq")}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 flex-shrink-0 ${
               activeTab === "faq"
-                ? "bg-zinc-800 text-emerald-400 border border-emerald-500/30"
-                : "text-zinc-400 hover:text-white"
+                ? "bg-gp-ink-700 text-emerald-400 border border-emerald-500/30"
+                : "text-gp-ink-300 hover:text-white"
             }`}
           >
             <HelpCircle className="w-3.5 h-3.5" />
@@ -339,8 +339,8 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
             onClick={() => setActiveTab("desk_guide")}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 flex-shrink-0 ${
               activeTab === "desk_guide"
-                ? "bg-zinc-800 text-cyan-400 border border-cyan-500/30"
-                : "text-zinc-400 hover:text-white"
+                ? "bg-gp-ink-700 text-cyan-400 border border-cyan-500/30"
+                : "text-gp-ink-300 hover:text-white"
             }`}
           >
             <SlidersHorizontal className="w-3.5 h-3.5" />
@@ -350,8 +350,8 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
             onClick={() => setActiveTab("hdr_guide")}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 flex-shrink-0 ${
               activeTab === "hdr_guide"
-                ? "bg-zinc-800 text-amber-400 border border-amber-500/30"
-                : "text-zinc-400 hover:text-white"
+                ? "bg-gp-ink-700 text-amber-400 border border-amber-500/30"
+                : "text-gp-ink-300 hover:text-white"
             }`}
           >
             <SunMedium className="w-3.5 h-3.5" />
@@ -361,8 +361,8 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
             onClick={() => setActiveTab("graynotes")}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 flex-shrink-0 ${
               activeTab === "graynotes"
-                ? "bg-zinc-800 text-pink-400 border border-pink-500/30"
-                : "text-zinc-400 hover:text-white"
+                ? "bg-gp-ink-700 text-pink-400 border border-pink-500/30"
+                : "text-gp-ink-300 hover:text-white"
             }`}
           >
             <FileText className="w-3.5 h-3.5" />
@@ -372,8 +372,8 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
             onClick={() => setActiveTab("brands_avoid")}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 flex-shrink-0 ${
               activeTab === "brands_avoid"
-                ? "bg-zinc-800 text-rose-400 border border-rose-500/30"
-                : "text-zinc-400 hover:text-white"
+                ? "bg-gp-ink-700 text-rose-400 border border-rose-500/30"
+                : "text-gp-ink-300 hover:text-white"
             }`}
           >
             <ShieldAlert className="w-3.5 h-3.5" />
@@ -383,8 +383,8 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
             onClick={() => setActiveTab("bandwidth")}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 flex-shrink-0 ${
               activeTab === "bandwidth"
-                ? "bg-zinc-800 text-violet-400 border border-violet-500/30"
-                : "text-zinc-400 hover:text-white"
+                ? "bg-gp-ink-700 text-violet-400 border border-violet-500/30"
+                : "text-gp-ink-300 hover:text-white"
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
@@ -394,8 +394,8 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
             onClick={() => setActiveTab("about")}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 flex-shrink-0 ${
               activeTab === "about"
-                ? "bg-zinc-800 text-yellow-400 border border-yellow-500/30"
-                : "text-zinc-400 hover:text-white"
+                ? "bg-gp-ink-700 text-yellow-400 border border-yellow-500/30"
+                : "text-gp-ink-300 hover:text-white"
             }`}
           >
             <User className="w-3.5 h-3.5" />
@@ -406,16 +406,16 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
         {/* 1. FAQ KNOWLEDGEBASE TAB */}
         {activeTab === "faq" && (
           <div className="space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-zinc-950 border border-zinc-800 rounded-2xl p-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-4">
               <div className="flex items-center gap-3 w-full sm:w-auto">
                 <div className="relative flex-1 sm:w-72">
-                  <Search className="w-3.5 h-3.5 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <Search className="w-3.5 h-3.5 text-gp-ink-400 absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Cari pertanyaan FAQ..."
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-400"
+                    className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-400"
                   />
                 </div>
               </div>
@@ -431,7 +431,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                       showNotice("FAQ di-reset ke default.");
                     }
                   }}
-                  className="text-xs border-zinc-700"
+                  className="text-xs border-gp-ink-600"
                 >
                   <RotateCcw className="w-3.5 h-3.5 mr-1" />
                   <span>Reset FAQ</span>
@@ -470,25 +470,25 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                 .map((faq) => (
                   <div
                     key={faq.id}
-                    className={`bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3 flex flex-col justify-between transition-all ${
-                      faq.isPublished === false ? "opacity-75 bg-zinc-950/60 border-amber-500/20" : ""
+                    className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 flex flex-col justify-between transition-all ${
+                      faq.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-amber-500/20" : ""
                     }`}
                   >
                     <div className="space-y-2">
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-[10px] px-2 py-0.5 rounded bg-zinc-900 text-zinc-400 border border-zinc-800 font-bold uppercase">
+                          <span className="text-3xs px-2 py-0.5 rounded bg-gp-ink-800 text-gp-ink-300 border border-gp-ink-700 font-bold uppercase">
                             {faq.category || "General"}
                           </span>
                           {faq.important && (
-                            <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 font-mono font-bold">
+                            <span className="text-3xs px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 font-mono font-bold">
                               [FEATURED]
                             </span>
                           )}
                           <button
                             type="button"
                             onClick={() => handleToggleFaqPublish(faq)}
-                            className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
+                            className={`text-3xs px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
                               faq.isPublished !== false
                                 ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
                                 : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
@@ -506,7 +506,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                             onClick={() => handleToggleFaqPublish(faq)}
                             className={`p-1.5 rounded-lg border transition-colors ${
                               faq.isPublished !== false
-                                ? "bg-zinc-900 border-zinc-800 hover:bg-amber-950/40 text-zinc-400 hover:text-amber-400"
+                                ? "bg-gp-ink-800 border-gp-ink-700 hover:bg-amber-950/40 text-gp-ink-300 hover:text-amber-400"
                                 : "bg-amber-500/20 border-amber-500/40 text-amber-300 hover:bg-emerald-500/20 hover:text-emerald-300"
                             }`}
                             title={faq.isPublished !== false ? "Sembunyikan FAQ (Draft)" : "Aktifkan FAQ (Publish)"}
@@ -518,13 +518,13 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                               setEditingFaq(faq);
                               setIsFaqModalOpen(true);
                             }}
-                            className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-emerald-400"
+                            className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-emerald-400"
                           >
                             <Edit2 className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => handleDeleteFaq(faq.id)}
-                            className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-rose-400"
+                            className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-rose-400"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -532,7 +532,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                       </div>
 
                       <h4 className="text-sm font-black text-white">{faq.question}</h4>
-                      <div className="text-xs text-zinc-300 leading-relaxed bg-zinc-900/60 p-3 rounded-xl max-h-40 overflow-y-auto">
+                      <div className="text-xs text-gp-ink-200 leading-relaxed bg-gp-ink-800/60 p-3 rounded-xl max-h-40 overflow-y-auto">
                         <NotionBlockRenderer content={faq.answer} />
                       </div>
                     </div>
@@ -545,10 +545,10 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
         {/* 2. DESK DEPTH GUIDES TAB */}
         {activeTab === "desk_guide" && (
           <div className="space-y-4">
-            <div className="flex items-center justify-between bg-zinc-950 border border-zinc-800 rounded-2xl p-4">
+            <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-4">
               <div>
                 <h4 className="text-sm font-bold text-white">Tabel Pedoman Ukuran Meja & Ergonomi</h4>
-                <p className="text-xs text-zinc-400">Atur rentang kedalaman meja, ukuran monitor ideal, dan rekomendasi bracket gas spring.</p>
+                <p className="text-xs text-gp-ink-300">Atur rentang kedalaman meja, ukuran monitor ideal, dan rekomendasi bracket gas spring.</p>
               </div>
               <Button
                 variant="cyber"
@@ -574,8 +574,8 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
               {deskGuides.map((guide, idx) => (
                 <div
                   key={idx}
-                  className={`bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3 transition-all ${
-                    guide.isPublished === false ? "opacity-75 bg-zinc-950/60 border-amber-500/20" : ""
+                  className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 transition-all ${
+                    guide.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-amber-500/20" : ""
                   }`}
                 >
                   <div className="flex items-start justify-between">
@@ -584,7 +584,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                       <button
                         type="button"
                         onClick={() => handleToggleDeskPublish(idx)}
-                        className={`mt-1 text-[10px] px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
+                        className={`mt-1 text-3xs px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
                           guide.isPublished !== false
                             ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
                             : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
@@ -602,7 +602,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                         onClick={() => handleToggleDeskPublish(idx)}
                         className={`p-1.5 rounded-lg border transition-colors ${
                           guide.isPublished !== false
-                            ? "bg-zinc-900 border-zinc-800 hover:bg-amber-950/40 text-zinc-400 hover:text-amber-400"
+                            ? "bg-gp-ink-800 border-gp-ink-700 hover:bg-amber-950/40 text-gp-ink-300 hover:text-amber-400"
                             : "bg-amber-500/20 border-amber-500/40 text-amber-300 hover:bg-emerald-500/20 hover:text-emerald-300"
                         }`}
                         title={guide.isPublished !== false ? "Sembunyikan dari publik" : "Publikasikan ke website"}
@@ -614,33 +614,33 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                           setEditingDeskIndex(idx);
                           setEditingDeskGuide({ ...guide });
                         }}
-                        className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-cyan-400"
+                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-cyan-400"
                       >
                         <Edit2 className="w-3.5 h-3.5" />
                       </button>
                       <button
                         onClick={() => handleDeleteDeskGuide(idx)}
-                        className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-rose-400"
+                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-rose-400"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
 
-                  <div className="text-xs text-zinc-300 space-y-2 bg-zinc-900/60 p-3 rounded-xl">
+                  <div className="text-xs text-gp-ink-200 space-y-2 bg-gp-ink-800/60 p-3 rounded-xl">
                     <div>
-                      <span className="text-zinc-500 block text-[10px] uppercase font-bold">Ukuran Layar:</span>
+                      <span className="text-gp-ink-400 block text-3xs uppercase font-bold">Ukuran Layar:</span>
                       <span className="text-white font-semibold">{guide.recommendedSizes}</span>
                     </div>
                     <div>
-                      <span className="text-zinc-500 block text-[10px] uppercase font-bold">Jarak Pandang:</span>
+                      <span className="text-gp-ink-400 block text-3xs uppercase font-bold">Jarak Pandang:</span>
                       <span className="text-white font-semibold">{guide.viewingDistance}</span>
                     </div>
                     <div>
-                      <span className="text-zinc-500 block text-[10px] uppercase font-bold">Rekomendasi Arm:</span>
+                      <span className="text-gp-ink-400 block text-3xs uppercase font-bold">Rekomendasi Arm:</span>
                       <span className="text-emerald-400 font-semibold">{guide.monitorArmRecommendation}</span>
                     </div>
-                    <div className="text-zinc-400 pt-1 border-t border-zinc-800">{guide.notes}</div>
+                    <div className="text-gp-ink-300 pt-1 border-t border-gp-ink-700">{guide.notes}</div>
                   </div>
                 </div>
               ))}
@@ -651,10 +651,10 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
         {/* 3. HDR & OLED TIERS TAB */}
         {activeTab === "hdr_guide" && (
           <div className="space-y-4">
-            <div className="flex items-center justify-between bg-zinc-950 border border-zinc-800 rounded-2xl p-4">
+            <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-4">
               <div>
                 <h4 className="text-sm font-bold text-white">Klasifikasi Tingkatan HDR & OLED</h4>
-                <p className="text-xs text-zinc-400">Edukasi True HDR vs Decent HDR vs Fake HDR 400.</p>
+                <p className="text-xs text-gp-ink-300">Edukasi True HDR vs Decent HDR vs Fake HDR 400.</p>
               </div>
             </div>
 
@@ -662,8 +662,8 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
               {hdrGuides.map((hdr, idx) => (
                 <div
                   key={hdr.tier}
-                  className={`bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3 transition-all ${
-                    hdr.isPublished === false ? "opacity-75 bg-zinc-950/60 border-amber-500/20" : ""
+                  className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 transition-all ${
+                    hdr.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-amber-500/20" : ""
                   }`}
                 >
                   <div className="flex items-start justify-between">
@@ -673,14 +673,14 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                           ? "bg-amber-500 text-black"
                           : hdr.tier === "DECENT HDR"
                           ? "bg-cyan-500 text-black"
-                          : "bg-zinc-800 text-zinc-400"
+                          : "bg-gp-ink-700 text-gp-ink-300"
                       }`}>
                         {hdr.tier}
                       </span>
                       <button
                         type="button"
                         onClick={() => handleToggleHdrPublish(idx)}
-                        className={`mt-2 text-[10px] px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
+                        className={`mt-2 text-3xs px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
                           hdr.isPublished !== false
                             ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
                             : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
@@ -698,7 +698,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                         onClick={() => handleToggleHdrPublish(idx)}
                         className={`p-1.5 rounded-lg border transition-colors ${
                           hdr.isPublished !== false
-                            ? "bg-zinc-900 border-zinc-800 hover:bg-amber-950/40 text-zinc-400 hover:text-amber-400"
+                            ? "bg-gp-ink-800 border-gp-ink-700 hover:bg-amber-950/40 text-gp-ink-300 hover:text-amber-400"
                             : "bg-amber-500/20 border-amber-500/40 text-amber-300 hover:bg-emerald-500/20 hover:text-emerald-300"
                         }`}
                         title={hdr.isPublished !== false ? "Sembunyikan dari publik" : "Publikasikan ke web"}
@@ -710,13 +710,13 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                           setEditingHdrIndex(idx);
                           setEditingHdrGuide({ ...hdr });
                         }}
-                        className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-amber-400"
+                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-amber-400"
                       >
                         <Edit2 className="w-3.5 h-3.5" />
                       </button>
                       <button
                         onClick={() => handleDeleteHdrGuide(idx)}
-                        className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-rose-400"
+                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-rose-400"
                         title="Hapus Klasifikasi HDR"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -724,7 +724,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                     </div>
                   </div>
 
-                  <div className="text-xs text-zinc-300 space-y-2 bg-zinc-900/60 p-3 rounded-xl">
+                  <div className="text-xs text-gp-ink-200 space-y-2 bg-gp-ink-800/60 p-3 rounded-xl">
                     <div><strong>Syarat:</strong> {hdr.requirements}</div>
                     <div><strong>Contrast:</strong> {hdr.contrastRatio}</div>
                     <div><strong>Brightness:</strong> {hdr.peakBrightness}</div>
@@ -740,10 +740,10 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
         {/* 4. GRAYNOTES TECHNICAL LIBRARY TAB */}
         {activeTab === "graynotes" && (
           <div className="space-y-4">
-            <div className="flex items-center justify-between bg-zinc-950 border border-zinc-800 rounded-2xl p-4">
+            <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-4">
               <div>
                 <h4 className="text-sm font-bold text-white">GrayNotes Technical Library</h4>
-                <p className="text-xs text-zinc-400">Catatan mendalam seputar Overdrive, DisplayPort, OLED Care, dan Dead Pixel.</p>
+                <p className="text-xs text-gp-ink-300">Catatan mendalam seputar Overdrive, DisplayPort, OLED Care, dan Dead Pixel.</p>
               </div>
               <Button
                 variant="cyber"
@@ -771,20 +771,20 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
               {graynotes.map((gn) => (
                 <div
                   key={gn.id}
-                  className={`bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3 transition-all ${
-                    gn.isPublished === false ? "opacity-75 bg-zinc-950/60 border-amber-500/20" : ""
+                  className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 transition-all ${
+                    gn.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-amber-500/20" : ""
                   }`}
                 >
                   <div className="flex items-start justify-between">
                     <div>
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-[10px] px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/30 font-bold uppercase">
+                        <span className="text-3xs px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/30 font-bold uppercase">
                           {gn.category}
                         </span>
                         <button
                           type="button"
                           onClick={() => handleToggleGraynotePublish(gn)}
-                          className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
+                          className={`text-3xs px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
                             gn.isPublished !== false
                               ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
                               : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
@@ -803,7 +803,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                         onClick={() => handleToggleGraynotePublish(gn)}
                         className={`p-1.5 rounded-lg border transition-colors ${
                           gn.isPublished !== false
-                            ? "bg-zinc-900 border-zinc-800 hover:bg-amber-950/40 text-zinc-400 hover:text-amber-400"
+                            ? "bg-gp-ink-800 border-gp-ink-700 hover:bg-amber-950/40 text-gp-ink-300 hover:text-amber-400"
                             : "bg-amber-500/20 border-amber-500/40 text-amber-300 hover:bg-emerald-500/20 hover:text-emerald-300"
                         }`}
                         title={gn.isPublished !== false ? "Sembunyikan dari publik" : "Publikasikan ke web"}
@@ -815,20 +815,20 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                           setEditingGraynote(gn);
                           setIsGraynoteModalOpen(true);
                         }}
-                        className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-pink-400"
+                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-pink-400"
                       >
                         <Edit2 className="w-3.5 h-3.5" />
                       </button>
                       <button
                         onClick={() => handleDeleteGraynote(gn.id)}
-                        className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-rose-400"
+                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-rose-400"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
 
-                  <div className="text-xs text-zinc-300 bg-zinc-900/60 p-3 rounded-xl max-h-40 overflow-y-auto">
+                  <div className="text-xs text-gp-ink-200 bg-gp-ink-800/60 p-3 rounded-xl max-h-40 overflow-y-auto">
                     <NotionBlockRenderer content={gn.summary} />
                   </div>
                 </div>
@@ -840,10 +840,10 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
         {/* 5. BRANDS TO AVOID TAB */}
         {activeTab === "brands_avoid" && (
           <div className="space-y-4">
-            <div className="flex items-center justify-between bg-zinc-950 border border-zinc-800 rounded-2xl p-4">
+            <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-4">
               <div>
                 <h4 className="text-sm font-bold text-white">Daftar Catatan Brand Waspada & ODM</h4>
-                <p className="text-xs text-zinc-400">Edukasi transparansi mengenai kelemahan produk dan histori RMA.</p>
+                <p className="text-xs text-gp-ink-300">Edukasi transparansi mengenai kelemahan produk dan histori RMA.</p>
               </div>
               <Button
                 variant="cyber"
@@ -869,20 +869,20 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
               {brandsAvoid.map((ba) => (
                 <div
                   key={ba.brand}
-                  className={`bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3 transition-all ${
-                    ba.isPublished === false ? "opacity-75 bg-zinc-950/60 border-amber-500/20" : ""
+                  className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 transition-all ${
+                    ba.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-amber-500/20" : ""
                   }`}
                 >
                   <div className="flex items-start justify-between">
                     <div>
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-[10px] px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/30 font-bold uppercase">
+                        <span className="text-3xs px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/30 font-bold uppercase">
                           {ba.category}
                         </span>
                         <button
                           type="button"
                           onClick={() => handleToggleAvoidBrandPublish(ba)}
-                          className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
+                          className={`text-3xs px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
                             ba.isPublished !== false
                               ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
                               : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
@@ -901,7 +901,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                         onClick={() => handleToggleAvoidBrandPublish(ba)}
                         className={`p-1.5 rounded-lg border transition-colors ${
                           ba.isPublished !== false
-                            ? "bg-zinc-900 border-zinc-800 hover:bg-amber-950/40 text-zinc-400 hover:text-amber-400"
+                            ? "bg-gp-ink-800 border-gp-ink-700 hover:bg-amber-950/40 text-gp-ink-300 hover:text-amber-400"
                             : "bg-amber-500/20 border-amber-500/40 text-amber-300 hover:bg-emerald-500/20 hover:text-emerald-300"
                         }`}
                         title={ba.isPublished !== false ? "Sembunyikan dari publik" : "Publikasikan ke web"}
@@ -913,20 +913,20 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                           setEditingAvoidBrand(ba);
                           setIsAvoidModalOpen(true);
                         }}
-                        className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-rose-400"
+                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-rose-400"
                       >
                         <Edit2 className="w-3.5 h-3.5" />
                       </button>
                       <button
                         onClick={() => handleDeleteAvoidBrand(ba.brand)}
-                        className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-rose-400"
+                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-rose-400"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
 
-                  <p className="text-xs text-zinc-300 bg-zinc-900/60 p-3 rounded-xl">
+                  <p className="text-xs text-gp-ink-200 bg-gp-ink-800/60 p-3 rounded-xl">
                     {ba.issue}
                   </p>
                 </div>
@@ -938,17 +938,17 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
         {/* 6. CABLE & BANDWIDTH TAB */}
         {activeTab === "bandwidth" && (
           <div className="space-y-4">
-            <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-4">
+            <div className="bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-4">
               <h4 className="text-sm font-bold text-white">Tabel Interface DisplayPort & HDMI Matrix</h4>
-              <p className="text-xs text-zinc-400">Data teknis bandwidth transmisi dan kompresi DSC.</p>
+              <p className="text-xs text-gp-ink-300">Data teknis bandwidth transmisi dan kompresi DSC.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {bandwidths.map((bw) => (
                 <div
                   key={bw.interface}
-                  className={`bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-2 text-xs transition-all ${
-                    bw.isPublished === false ? "opacity-75 bg-zinc-950/60 border-amber-500/20" : ""
+                  className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-2 text-xs transition-all ${
+                    bw.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-amber-500/20" : ""
                   }`}
                 >
                   <div className="flex items-start justify-between">
@@ -957,7 +957,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                       <button
                         type="button"
                         onClick={() => handleToggleBandwidthPublish(bw)}
-                        className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
+                        className={`text-3xs px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
                           bw.isPublished !== false
                             ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
                             : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
@@ -970,19 +970,19 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                       <button
                         type="button"
                         onClick={() => handleDeleteBandwidthGuide(bw.interface)}
-                        className="p-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-rose-400"
+                        className="p-1 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-rose-400"
                         title="Hapus Panduan Bandwidth"
                       >
                         <Trash2 className="w-3 h-3" />
                       </button>
                     </div>
                   </div>
-                  <div className="text-zinc-300 space-y-1 bg-zinc-900/60 p-3 rounded-xl">
+                  <div className="text-gp-ink-200 space-y-1 bg-gp-ink-800/60 p-3 rounded-xl">
                     <div><strong>Bandwidth:</strong> {bw.bandwidth}</div>
                     <div><strong>Resolusi Maksimal:</strong> {bw.maxResolutionHz}</div>
                     <div><strong>Color Depth:</strong> {bw.colorDepth}</div>
                     <div><strong>Dukungan DSC:</strong> {bw.dscSupport}</div>
-                    <div className="text-zinc-400 pt-1">{bw.notes}</div>
+                    <div className="text-gp-ink-300 pt-1">{bw.notes}</div>
                   </div>
                 </div>
               ))}
@@ -993,49 +993,49 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
         {/* 7. ABOUT & AUTHOR STORY TAB */}
         {activeTab === "about" && (
           <form onSubmit={handleSaveAbout} className="space-y-4 max-w-3xl text-xs">
-            <div className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-4">
+            <div className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 space-y-4">
               <h4 className="font-bold text-yellow-400 uppercase text-xs">
                 Tentang Website & Profil Joel Gray
               </h4>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-zinc-400 block mb-1">Judul Halaman</label>
+                  <label className="text-gp-ink-300 block mb-1">Judul Halaman</label>
                   <input
                     type="text"
                     value={aboutContent.title}
                     onChange={(e) => setAboutContent({ ...aboutContent, title: e.target.value })}
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-yellow-400"
+                    className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-yellow-400"
                   />
                 </div>
                 <div>
-                  <label className="text-zinc-400 block mb-1">Penulis Utama</label>
+                  <label className="text-gp-ink-300 block mb-1">Penulis Utama</label>
                   <input
                     type="text"
                     value={aboutContent.author}
                     onChange={(e) => setAboutContent({ ...aboutContent, author: e.target.value })}
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-yellow-400"
+                    className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-yellow-400"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-zinc-400 block mb-1">Latar Belakang Proyek</label>
+                <label className="text-gp-ink-300 block mb-1">Latar Belakang Proyek</label>
                 <textarea
                   rows={4}
                   value={aboutContent.latarBelakang}
                   onChange={(e) => setAboutContent({ ...aboutContent, latarBelakang: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-zinc-300 focus:outline-none focus:border-yellow-400 leading-relaxed"
+                  className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl p-3 text-gp-ink-200 focus:outline-none focus:border-yellow-400 leading-relaxed"
                 />
               </div>
 
               <div>
-                <label className="text-zinc-400 block mb-1">Biodata & Cerita Penulis (Joel Gray)</label>
+                <label className="text-gp-ink-300 block mb-1">Biodata & Cerita Penulis (Joel Gray)</label>
                 <textarea
                   rows={4}
                   value={aboutContent.biodataPenulis}
                   onChange={(e) => setAboutContent({ ...aboutContent, biodataPenulis: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-zinc-300 focus:outline-none focus:border-yellow-400 leading-relaxed"
+                  className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl p-3 text-gp-ink-200 focus:outline-none focus:border-yellow-400 leading-relaxed"
                 />
               </div>
 
@@ -1087,14 +1087,14 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
       {/* Desk Guide Modal */}
       {editingDeskGuide && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-hidden">
-          <div className="bg-[#0f0f14] border border-zinc-700/80 rounded-2xl max-w-lg w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in zoom-in-95">
+          <div className="bg-gp-ink-900 border border-gp-ink-600/80 rounded-2xl max-w-lg w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in zoom-in-95">
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-[#121217] flex-shrink-0">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gp-ink-700 bg-gp-ink-850 flex-shrink-0">
               <h3 className="text-base font-bold text-white uppercase tracking-tight">Edit Pedoman Ukuran Meja</h3>
               <button
                 type="button"
                 onClick={() => setEditingDeskGuide(null)}
-                className="p-1 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+                className="p-1 rounded-lg text-gp-ink-300 hover:text-white hover:bg-gp-ink-700 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1103,51 +1103,51 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
             <form onSubmit={handleSaveDeskGuide} className="flex flex-col flex-1 min-h-0 overflow-hidden">
               <div className="flex-1 overflow-y-auto p-6 space-y-3.5 text-xs">
                 <div>
-                  <label className="text-zinc-300 block mb-1 font-semibold">Rentang Kedalaman Meja</label>
+                  <label className="text-gp-ink-200 block mb-1 font-semibold">Rentang Kedalaman Meja</label>
                   <input
                     type="text"
                     required
                     value={editingDeskGuide.deskDepth}
                     onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, deskDepth: e.target.value })}
-                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-cyan-400 font-bold focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-cyan-400 font-bold focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
                   />
                 </div>
                 <div>
-                  <label className="text-zinc-300 block mb-1 font-semibold">Rekomendasi Ukuran Monitor</label>
+                  <label className="text-gp-ink-200 block mb-1 font-semibold">Rekomendasi Ukuran Monitor</label>
                   <input
                     type="text"
                     required
                     value={editingDeskGuide.recommendedSizes}
                     onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, recommendedSizes: e.target.value })}
-                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
                   />
                 </div>
                 <div>
-                  <label className="text-zinc-300 block mb-1 font-semibold">Jarak Pandang Ideal</label>
+                  <label className="text-gp-ink-200 block mb-1 font-semibold">Jarak Pandang Ideal</label>
                   <input
                     type="text"
                     required
                     value={editingDeskGuide.viewingDistance}
                     onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, viewingDistance: e.target.value })}
-                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
                   />
                 </div>
                 <div>
-                  <label className="text-zinc-300 block mb-1 font-semibold">Rekomendasi Monitor Arm</label>
+                  <label className="text-gp-ink-200 block mb-1 font-semibold">Rekomendasi Monitor Arm</label>
                   <input
                     type="text"
                     value={editingDeskGuide.monitorArmRecommendation}
                     onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, monitorArmRecommendation: e.target.value })}
-                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-emerald-400 focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-emerald-400 focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
                   />
                 </div>
                 <div>
-                  <label className="text-zinc-300 block mb-1 font-semibold">Catatan Tambahan</label>
+                  <label className="text-gp-ink-200 block mb-1 font-semibold">Catatan Tambahan</label>
                   <textarea
                     rows={2}
                     value={editingDeskGuide.notes}
                     onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, notes: e.target.value })}
-                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl p-3 text-zinc-200 focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
                   />
                 </div>
 
@@ -1157,15 +1157,15 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                       type="checkbox"
                       checked={editingDeskGuide.isPublished !== false}
                       onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, isPublished: e.target.checked })}
-                      className="rounded border-zinc-600 bg-zinc-800 text-cyan-500 focus:ring-cyan-500"
+                      className="rounded border-gp-ink-500 bg-gp-ink-700 text-cyan-500 focus:ring-cyan-500"
                     />
-                    <span className="text-zinc-300 text-xs font-semibold">Tampilkan di Publik (Live)</span>
+                    <span className="text-gp-ink-200 text-xs font-semibold">Tampilkan di Publik (Live)</span>
                   </label>
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-3 px-6 py-3.5 border-t border-zinc-800 bg-[#0a0a0e] flex-shrink-0">
-                <Button type="button" variant="outline" size="sm" onClick={() => setEditingDeskGuide(null)} className="border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-800">
+              <div className="flex items-center justify-end gap-3 px-6 py-3.5 border-t border-gp-ink-700 bg-gp-ink-950 flex-shrink-0">
+                <Button type="button" variant="outline" size="sm" onClick={() => setEditingDeskGuide(null)} className="border-gp-ink-600 text-gp-ink-200 hover:text-white hover:bg-gp-ink-700">
                   Batal
                 </Button>
                 <Button type="submit" variant="cyber" size="sm" className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold">
@@ -1180,14 +1180,14 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
       {/* HDR Guide Modal */}
       {editingHdrGuide && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-hidden">
-          <div className="bg-[#0f0f14] border border-zinc-700/80 rounded-2xl max-w-lg w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in zoom-in-95">
+          <div className="bg-gp-ink-900 border border-gp-ink-600/80 rounded-2xl max-w-lg w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in zoom-in-95">
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-[#121217] flex-shrink-0">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gp-ink-700 bg-gp-ink-850 flex-shrink-0">
               <h3 className="text-base font-bold text-white uppercase tracking-tight">Edit Klasifikasi HDR</h3>
               <button
                 type="button"
                 onClick={() => setEditingHdrGuide(null)}
-                className="p-1 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+                className="p-1 rounded-lg text-gp-ink-300 hover:text-white hover:bg-gp-ink-700 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1196,48 +1196,48 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
             <form onSubmit={handleSaveHdrGuide} className="flex flex-col flex-1 min-h-0 overflow-hidden">
               <div className="flex-1 overflow-y-auto p-6 space-y-3.5 text-xs">
                 <div>
-                  <label className="text-zinc-300 block mb-1 font-semibold">Nama Tier HDR</label>
+                  <label className="text-gp-ink-200 block mb-1 font-semibold">Nama Tier HDR</label>
                   <input
                     type="text"
                     disabled
                     value={editingHdrGuide.tier}
-                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-amber-400 font-black cursor-not-allowed"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-amber-400 font-black cursor-not-allowed"
                   />
                 </div>
                 <div>
-                  <label className="text-zinc-300 block mb-1 font-semibold">Syarat Panel / Local Dimming</label>
+                  <label className="text-gp-ink-200 block mb-1 font-semibold">Syarat Panel / Local Dimming</label>
                   <input
                     type="text"
                     value={editingHdrGuide.requirements}
                     onChange={(e) => setEditingHdrGuide({ ...editingHdrGuide, requirements: e.target.value })}
-                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400 placeholder:text-zinc-500"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400 placeholder:text-gp-ink-400"
                   />
                 </div>
                 <div>
-                  <label className="text-zinc-300 block mb-1 font-semibold">Contrast Ratio</label>
+                  <label className="text-gp-ink-200 block mb-1 font-semibold">Contrast Ratio</label>
                   <input
                     type="text"
                     value={editingHdrGuide.contrastRatio}
                     onChange={(e) => setEditingHdrGuide({ ...editingHdrGuide, contrastRatio: e.target.value })}
-                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400 placeholder:text-zinc-500"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400 placeholder:text-gp-ink-400"
                   />
                 </div>
                 <div>
-                  <label className="text-zinc-300 block mb-1 font-semibold">Peak Brightness</label>
+                  <label className="text-gp-ink-200 block mb-1 font-semibold">Peak Brightness</label>
                   <input
                     type="text"
                     value={editingHdrGuide.peakBrightness}
                     onChange={(e) => setEditingHdrGuide({ ...editingHdrGuide, peakBrightness: e.target.value })}
-                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400 placeholder:text-zinc-500"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400 placeholder:text-gp-ink-400"
                   />
                 </div>
                 <div>
-                  <label className="text-zinc-300 block mb-1 font-semibold">Verdict Ulasan</label>
+                  <label className="text-gp-ink-200 block mb-1 font-semibold">Verdict Ulasan</label>
                   <textarea
                     rows={2}
                     value={editingHdrGuide.verdict}
                     onChange={(e) => setEditingHdrGuide({ ...editingHdrGuide, verdict: e.target.value })}
-                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl p-3 text-zinc-200 focus:outline-none focus:border-amber-400 placeholder:text-zinc-500"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:outline-none focus:border-amber-400 placeholder:text-gp-ink-400"
                   />
                 </div>
 
@@ -1247,15 +1247,15 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                       type="checkbox"
                       checked={editingHdrGuide.isPublished !== false}
                       onChange={(e) => setEditingHdrGuide({ ...editingHdrGuide, isPublished: e.target.checked })}
-                      className="rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500"
+                      className="rounded border-gp-ink-500 bg-gp-ink-700 text-amber-500 focus:ring-amber-500"
                     />
-                    <span className="text-zinc-300 text-xs font-semibold">Tampilkan di Publik (Live)</span>
+                    <span className="text-gp-ink-200 text-xs font-semibold">Tampilkan di Publik (Live)</span>
                   </label>
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-3 px-6 py-3.5 border-t border-zinc-800 bg-[#0a0a0e] flex-shrink-0">
-                <Button type="button" variant="outline" size="sm" onClick={() => setEditingHdrGuide(null)} className="border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-800">
+              <div className="flex items-center justify-end gap-3 px-6 py-3.5 border-t border-gp-ink-700 bg-gp-ink-950 flex-shrink-0">
+                <Button type="button" variant="outline" size="sm" onClick={() => setEditingHdrGuide(null)} className="border-gp-ink-600 text-gp-ink-200 hover:text-white hover:bg-gp-ink-700">
                   Batal
                 </Button>
                 <Button type="submit" variant="cyber" size="sm" className="bg-amber-500 hover:bg-amber-400 text-black font-bold">
@@ -1310,14 +1310,14 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
       {/* Avoid Brand Modal */}
       {isAvoidModalOpen && editingAvoidBrand && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-hidden">
-          <div className="bg-[#0f0f14] border border-zinc-700/80 rounded-2xl max-w-lg w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in zoom-in-95">
+          <div className="bg-gp-ink-900 border border-gp-ink-600/80 rounded-2xl max-w-lg w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in zoom-in-95">
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-[#121217] flex-shrink-0">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gp-ink-700 bg-gp-ink-850 flex-shrink-0">
               <h3 className="text-base font-bold text-white uppercase tracking-tight">Edit Catatan Brand Waspada</h3>
               <button
                 type="button"
                 onClick={() => setIsAvoidModalOpen(false)}
-                className="p-1 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+                className="p-1 rounded-lg text-gp-ink-300 hover:text-white hover:bg-gp-ink-700 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1326,31 +1326,31 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
             <form onSubmit={handleSaveAvoidBrand} className="flex flex-col flex-1 min-h-0 overflow-hidden">
               <div className="flex-1 overflow-y-auto p-6 space-y-3.5 text-xs">
                 <div>
-                  <label className="text-zinc-300 block mb-1 font-semibold">Nama Brand / Seri</label>
+                  <label className="text-gp-ink-200 block mb-1 font-semibold">Nama Brand / Seri</label>
                   <input
                     type="text"
                     required
                     value={editingAvoidBrand.brand}
                     onChange={(e) => setEditingAvoidBrand({ ...editingAvoidBrand, brand: e.target.value })}
-                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-rose-400 font-bold focus:outline-none focus:border-rose-400 placeholder:text-zinc-500"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-rose-400 font-bold focus:outline-none focus:border-rose-400 placeholder:text-gp-ink-400"
                   />
                 </div>
                 <div>
-                  <label className="text-zinc-300 block mb-1 font-semibold">Kategori Masalah</label>
+                  <label className="text-gp-ink-200 block mb-1 font-semibold">Kategori Masalah</label>
                   <input
                     type="text"
                     value={editingAvoidBrand.category}
                     onChange={(e) => setEditingAvoidBrand({ ...editingAvoidBrand, category: e.target.value })}
-                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-rose-400 placeholder:text-zinc-500"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-rose-400 placeholder:text-gp-ink-400"
                   />
                 </div>
                 <div>
-                  <label className="text-zinc-300 block mb-1 font-semibold">Poin Isu / Masalah Utama</label>
+                  <label className="text-gp-ink-200 block mb-1 font-semibold">Poin Isu / Masalah Utama</label>
                   <textarea
                     rows={2}
                     value={editingAvoidBrand.issue}
                     onChange={(e) => setEditingAvoidBrand({ ...editingAvoidBrand, issue: e.target.value })}
-                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl p-3 text-zinc-200 focus:outline-none focus:border-rose-400 placeholder:text-zinc-500"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:outline-none focus:border-rose-400 placeholder:text-gp-ink-400"
                   />
                 </div>
 
@@ -1360,15 +1360,15 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                       type="checkbox"
                       checked={editingAvoidBrand.isPublished !== false}
                       onChange={(e) => setEditingAvoidBrand({ ...editingAvoidBrand, isPublished: e.target.checked })}
-                      className="rounded border-zinc-600 bg-zinc-800 text-rose-500 focus:ring-rose-500"
+                      className="rounded border-gp-ink-500 bg-gp-ink-700 text-rose-500 focus:ring-rose-500"
                     />
-                    <span className="text-zinc-300 text-xs font-semibold">Tampilkan di Publik (Live)</span>
+                    <span className="text-gp-ink-200 text-xs font-semibold">Tampilkan di Publik (Live)</span>
                   </label>
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-3 px-6 py-3.5 border-t border-zinc-800 bg-[#0a0a0e] flex-shrink-0">
-                <Button type="button" variant="outline" size="sm" onClick={() => setIsAvoidModalOpen(false)} className="border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-800">
+              <div className="flex items-center justify-end gap-3 px-6 py-3.5 border-t border-gp-ink-700 bg-gp-ink-950 flex-shrink-0">
+                <Button type="button" variant="outline" size="sm" onClick={() => setIsAvoidModalOpen(false)} className="border-gp-ink-600 text-gp-ink-200 hover:text-white hover:bg-gp-ink-700">
                   Batal
                 </Button>
                 <Button type="submit" variant="cyber" size="sm" className="bg-rose-500 hover:bg-rose-400 text-black font-bold">

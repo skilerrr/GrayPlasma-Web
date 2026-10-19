@@ -141,9 +141,9 @@ export function TableColumnManagerModal<T>({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 font-sans animate-in fade-in duration-150">
-      <div className="bg-[#0b0b0f] border border-zinc-700/80 rounded-2xl max-w-xl w-full shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="bg-gp-ink-900 border border-gp-ink-600/80 rounded-2xl max-w-xl w-full shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-zinc-800 flex items-center justify-between bg-[#121217] flex-shrink-0">
+        <div className="px-6 py-4 border-b border-gp-ink-700 flex items-center justify-between bg-gp-ink-850 flex-shrink-0">
           <div className="flex items-center gap-3">
             <span className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
               <Columns className="w-5 h-5" />
@@ -151,11 +151,11 @@ export function TableColumnManagerModal<T>({
             <div>
               <h3 className="text-sm sm:text-base font-black text-white uppercase tracking-tight flex items-center gap-2">
                 <span>{title}</span>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-zinc-800 text-emerald-400 border border-zinc-700">
+                <span className="px-2 py-0.5 rounded-full text-3xs font-mono bg-gp-ink-700 text-emerald-400 border border-gp-ink-600">
                   {visibleCount}/{columns.length} Aktif
                 </span>
               </h3>
-              <p className="text-xs text-zinc-400 mt-0.5">
+              <p className="text-xs text-gp-ink-300 mt-0.5">
                 Tarik handle bar untuk atur urutan kolom, atau aktifkan/sembunyikan kolom tabel.
               </p>
             </div>
@@ -164,28 +164,28 @@ export function TableColumnManagerModal<T>({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white transition-colors"
+            className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-white transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Toolbar: Search & Quick Actions */}
-        <div className="px-6 py-3 bg-[#0e0e13] border-b border-zinc-800/80 space-y-2.5 flex-shrink-0">
+        <div className="px-6 py-3 bg-gp-ink-900 border-b border-gp-ink-700/80 space-y-2.5 flex-shrink-0">
           <div className="relative">
-            <Search className="w-4 h-4 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-gp-ink-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Cari nama kolom (cth: Harga, Material, Panel, Status)..."
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-9 pr-8 py-1.5 text-xs text-zinc-200 placeholder:text-zinc-600 focus:outline-none focus:border-emerald-500/60"
+              className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-xl pl-9 pr-8 py-1.5 text-xs text-gp-ink-100 placeholder:text-gp-ink-500 focus:outline-none focus:border-emerald-500/60"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white text-xs"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gp-ink-400 hover:text-white text-xs"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -197,7 +197,7 @@ export function TableColumnManagerModal<T>({
               <button
                 type="button"
                 onClick={handleSelectAll}
-                className="px-2.5 py-1 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-emerald-400 hover:text-emerald-300 font-medium text-[11px] flex items-center gap-1.5 transition-colors"
+                className="px-2.5 py-1 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-700 text-emerald-400 hover:text-emerald-300 font-medium text-2xs flex items-center gap-1.5 transition-colors"
               >
                 <CheckCheck className="w-3.5 h-3.5" />
                 <span>Pilih Semua</span>
@@ -205,14 +205,14 @@ export function TableColumnManagerModal<T>({
               <button
                 type="button"
                 onClick={handleDeselectAll}
-                className="px-2.5 py-1 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-zinc-300 font-medium text-[11px] flex items-center gap-1.5 transition-colors"
+                className="px-2.5 py-1 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-700 text-gp-ink-300 hover:text-gp-ink-200 font-medium text-2xs flex items-center gap-1.5 transition-colors"
               >
                 <EyeOff className="w-3.5 h-3.5" />
                 <span>Sembunyikan Semua</span>
               </button>
             </div>
 
-            <span className="text-[11px] font-mono text-zinc-500 hidden sm:inline-block">
+            <span className="text-2xs font-mono text-gp-ink-400 hidden sm:inline-block">
               Tip: Drag & drop untuk atur posisi
             </span>
           </div>
@@ -222,7 +222,7 @@ export function TableColumnManagerModal<T>({
         <div className="p-4 sm:p-6 overflow-y-auto space-y-1.5 divide-y divide-transparent">
           {filteredColumns.length === 0 ? (
             <div className="py-12 text-center space-y-2">
-              <p className="text-xs text-zinc-500">Tidak ada kolom yang cocok dengan pencarian &ldquo;{searchQuery}&rdquo;</p>
+              <p className="text-xs text-gp-ink-400">Tidak ada kolom yang cocok dengan pencarian &ldquo;{searchQuery}&rdquo;</p>
               <Button
                 variant="ghost"
                 size="sm"
@@ -254,22 +254,22 @@ export function TableColumnManagerModal<T>({
                     isOver
                       ? "border-emerald-500 bg-emerald-500/10 shadow-lg"
                       : isDragging
-                      ? "opacity-40 border-zinc-700 bg-zinc-900"
+                      ? "opacity-40 border-gp-ink-600 bg-gp-ink-800"
                       : isVisible
-                      ? "bg-zinc-900/60 border-zinc-800/80 hover:bg-zinc-900 hover:border-zinc-700"
-                      : "bg-zinc-950/40 border-zinc-900 opacity-60 hover:opacity-90"
+                      ? "bg-gp-ink-800/60 border-gp-ink-700/80 hover:bg-gp-ink-800 hover:border-gp-ink-600"
+                      : "bg-gp-ink-950/40 border-gp-ink-800 opacity-60 hover:opacity-90"
                   }`}
                 >
                   {/* Left: Drag Handle, Number, Checkbox & Info */}
                   <div className="flex items-center gap-2.5 flex-1 min-w-0">
                     <div
-                      className="p-1 rounded text-zinc-600 group-hover:text-zinc-300 transition-colors"
+                      className="p-1 rounded text-gp-ink-500 group-hover:text-gp-ink-200 transition-colors"
                       title="Tarik untuk memindahkan urutan"
                     >
                       <GripVertical className="w-4 h-4" />
                     </div>
 
-                    <span className="w-5 text-[10px] font-mono font-bold text-zinc-500 text-center">
+                    <span className="w-5 text-3xs font-mono font-bold text-gp-ink-400 text-center">
                       #{originalIndex + 1}
                     </span>
 
@@ -277,7 +277,7 @@ export function TableColumnManagerModal<T>({
                       type="checkbox"
                       checked={isVisible}
                       onChange={() => onToggleVisibility(col.id)}
-                      className="rounded border-zinc-700 bg-zinc-900 text-emerald-500 accent-emerald-500 w-4 h-4 cursor-pointer"
+                      className="rounded border-gp-ink-600 bg-gp-ink-800 text-emerald-500 accent-emerald-500 w-4 h-4 cursor-pointer"
                     />
 
                     <div
@@ -287,19 +287,19 @@ export function TableColumnManagerModal<T>({
                       <div className="flex items-center gap-2">
                         <span
                           className={`text-xs font-bold truncate block ${
-                            isVisible ? "text-white" : "text-zinc-500 line-through"
+                            isVisible ? "text-white" : "text-gp-ink-400 line-through"
                           }`}
                         >
                           {col.label}
                         </span>
                         {col.category && (
-                          <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-zinc-950 border border-zinc-800 text-zinc-400 uppercase tracking-wider shrink-0">
+                          <span className="text-4xs font-mono px-1.5 py-0.5 rounded bg-gp-ink-950 border border-gp-ink-700 text-gp-ink-300 uppercase tracking-wider shrink-0">
                             {col.category}
                           </span>
                         )}
                       </div>
                       {col.shortLabel && col.shortLabel !== col.label && (
-                        <span className="text-[10px] font-mono text-zinc-500 block truncate">
+                        <span className="text-3xs font-mono text-gp-ink-400 block truncate">
                           Header: {col.shortLabel}
                         </span>
                       )}
@@ -314,7 +314,7 @@ export function TableColumnManagerModal<T>({
                       className={`p-1.5 rounded-lg border text-xs transition-colors ${
                         isVisible
                           ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
-                          : "bg-zinc-900 text-zinc-500 border-zinc-800 hover:text-zinc-300"
+                          : "bg-gp-ink-800 text-gp-ink-400 border-gp-ink-700 hover:text-gp-ink-200"
                       }`}
                       title={isVisible ? "Klik untuk sembunyikan" : "Klik untuk tampilkan"}
                     >
@@ -327,7 +327,7 @@ export function TableColumnManagerModal<T>({
                           type="button"
                           disabled={originalIndex === 0}
                           onClick={() => onMoveColumn(col.id, "up")}
-                          className="p-1.5 rounded-l-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white disabled:opacity-20 disabled:hover:text-zinc-400"
+                          className="p-1.5 rounded-l-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-white disabled:opacity-20 disabled:hover:text-gp-ink-300"
                           title="Pindah Naik"
                         >
                           <ChevronUp className="w-3 h-3" />
@@ -336,7 +336,7 @@ export function TableColumnManagerModal<T>({
                           type="button"
                           disabled={originalIndex === orderedColumns.length - 1}
                           onClick={() => onMoveColumn(col.id, "down")}
-                          className="p-1.5 rounded-r-lg bg-zinc-900 border border-l-0 border-zinc-800 text-zinc-400 hover:text-white disabled:opacity-20 disabled:hover:text-zinc-400"
+                          className="p-1.5 rounded-r-lg bg-gp-ink-800 border border-l-0 border-gp-ink-700 text-gp-ink-300 hover:text-white disabled:opacity-20 disabled:hover:text-gp-ink-300"
                           title="Pindah Turun"
                         >
                           <ChevronDown className="w-3 h-3" />
@@ -351,7 +351,7 @@ export function TableColumnManagerModal<T>({
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-3.5 border-t border-zinc-800 bg-[#121217] flex items-center justify-between flex-shrink-0 text-xs">
+        <div className="px-6 py-3.5 border-t border-gp-ink-700 bg-gp-ink-850 flex items-center justify-between flex-shrink-0 text-xs">
           <button
             type="button"
             onClick={() => {
@@ -359,7 +359,7 @@ export function TableColumnManagerModal<T>({
                 onResetColumns();
               }
             }}
-            className="text-zinc-400 hover:text-rose-400 flex items-center gap-1.5 font-mono text-xs transition-colors"
+            className="text-gp-ink-300 hover:text-rose-400 flex items-center gap-1.5 font-mono text-xs transition-colors"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Reset Bawaan</span>

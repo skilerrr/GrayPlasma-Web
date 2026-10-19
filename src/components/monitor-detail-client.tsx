@@ -93,24 +93,24 @@ Link Detail: ${detailUrl}`;
 
   if (!monitor) {
     return (
-      <div className="min-h-screen bg-[#191919] text-[#d4d4d4] flex flex-col font-sans">
-        <div className="sticky top-0 z-30 bg-[#191919] border-b border-[#2a2a2a] px-6 py-3 flex items-center justify-between text-xs">
-          <Link href="/" className="text-[#9b9a97] hover:text-white flex items-center gap-1.5 font-semibold">
+      <div className="min-h-screen bg-gp-ink-800 text-gp-ink-200 flex flex-col font-sans">
+        <div className="sticky top-0 z-30 bg-gp-ink-800 border-b border-gp-ink-700 px-6 py-3 flex items-center justify-between text-xs">
+          <Link href="/" className="text-gp-ink-300 hover:text-white flex items-center gap-1.5 font-semibold">
             <ArrowLeft className="w-4 h-4" />
             <span>Kembali ke Katalog Utama</span>
           </Link>
         </div>
         <main className="max-w-4xl mx-auto px-4 py-20 text-center space-y-4 flex-1">
           <div className="flex justify-center">
-            <Tv className="w-12 h-12 text-zinc-600" />
+            <Tv className="w-12 h-12 text-gp-ink-500" />
           </div>
           <h1 className="text-xl font-bold text-white">Monitor Tidak Ditemukan</h1>
-          <p className="text-xs text-[#9b9a97]">
-            Monitor dengan slug <code className="text-[#58a6ff]">{slug}</code> tidak terdaftar di database GrayPlasma.
+          <p className="text-xs text-gp-ink-300">
+            Monitor dengan slug <code className="text-gp-sky">{slug}</code> tidak terdaftar di database GrayPlasma.
           </p>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#202020] border border-[#2f2f2f] text-xs font-semibold text-white hover:bg-[#252525] transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gp-ink-750 border border-gp-ink-650 text-xs font-semibold text-white hover:bg-gp-ink-700 transition-colors"
           >
             ← Kembali ke Katalog Utama
           </Link>
@@ -135,12 +135,12 @@ Link Detail: ${detailUrl}`;
   const shopeeLink = monitor.marketplaces?.find((m) => m.marketplace === "Shopee");
 
   return (
-    <div className="min-h-screen bg-[#191919] text-[#d4d4d4] flex flex-col font-sans selection:bg-[#2383e2] selection:text-white">
+    <div className="min-h-screen bg-gp-ink-800 text-gp-ink-200 flex flex-col font-sans selection:bg-gp-sky-800 selection:text-white">
       {/* Unified Clean Subpage Navbar */}
       <SubpageNavbar
         breadcrumbs={[
-          { label: "REKOMENDASI MONITOR", href: "/", icon: <Tv className="w-3.5 h-3.5 text-zinc-400" /> },
-          { label: monitor.fullName, icon: <Tag className="w-3.5 h-3.5 text-zinc-400" /> },
+          { label: "REKOMENDASI MONITOR", href: "/", icon: <Tv className="w-3.5 h-3.5 text-gp-ink-300" /> },
+          { label: monitor.fullName, icon: <Tag className="w-3.5 h-3.5 text-gp-ink-300" /> },
         ]}
         backLink={{
           href: "/",
@@ -160,20 +160,20 @@ Link Detail: ${detailUrl}`;
               onClick={handleCopyDetails}
               className={`px-2.5 py-1.5 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 border ${
                 copiedDetails
-                  ? "bg-[#203c2b] text-[#52ba69] border-[#52ba69]/40"
-                  : "bg-[#202020] border-[#2f2f2f] text-zinc-300 hover:text-white hover:bg-[#282828]"
+                  ? "bg-gp-mint-900 text-gp-mint border-gp-mint/40"
+                  : "bg-gp-ink-750 border-gp-ink-650 text-gp-ink-200 hover:text-white hover:bg-gp-ink-700"
               }`}
             >
-              {copiedDetails ? <Check className="w-3.5 h-3.5 text-[#52ba69]" /> : <Copy className="w-3.5 h-3.5 text-[#58a6ff]" />}
+              {copiedDetails ? <Check className="w-3.5 h-3.5 text-gp-mint" /> : <Copy className="w-3.5 h-3.5 text-gp-sky" />}
               <span className="hidden sm:inline">{copiedDetails ? "Tersalin!" : "Copy Details"}</span>
             </button>
 
             <button
               onClick={handleCopyUrl}
-              className="p-2 rounded-xl bg-[#202020] border border-[#2f2f2f] text-zinc-400 hover:text-white hover:bg-[#282828] transition-colors"
+              className="p-2 rounded-xl bg-gp-ink-750 border border-gp-ink-650 text-gp-ink-300 hover:text-white hover:bg-gp-ink-700 transition-colors"
               title="Salin URL"
             >
-              {copiedUrl ? <Check className="w-3.5 h-3.5 text-[#52ba69]" /> : <Share2 className="w-3.5 h-3.5 text-zinc-400" />}
+              {copiedUrl ? <Check className="w-3.5 h-3.5 text-gp-mint" /> : <Share2 className="w-3.5 h-3.5 text-gp-ink-300" />}
             </button>
           </div>
         }
@@ -183,7 +183,7 @@ Link Detail: ${detailUrl}`;
       <main className="max-w-4xl mx-auto px-4 sm:px-8 py-8 sm:py-12 flex-1 w-full space-y-6">
         {/* Title & Icon Header */}
         <div className="space-y-3">
-          <div className="w-10 h-10 rounded-lg bg-zinc-800/80 border border-zinc-700 flex items-center justify-center text-zinc-300">
+          <div className="w-10 h-10 rounded-lg bg-gp-ink-700/80 border border-gp-ink-600 flex items-center justify-center text-gp-ink-200">
             <Tv className="w-5 h-5" />
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
@@ -192,20 +192,20 @@ Link Detail: ${detailUrl}`;
         </div>
 
         {/* NOTION PROPERTY TABLE (21 PROPERTIES) */}
-        <div className="space-y-1.5 text-xs border-y border-[#2a2a2a] py-3 text-[#9b9a97]">
+        <div className="space-y-1.5 text-xs border-y border-gp-ink-700 py-3 text-gp-ink-300">
           {/* 1. Kisaran Harga */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">Kisaran Harga</span>
-            <span className="col-span-8 font-mono font-bold text-white text-[11px]">
+            <span className="col-span-4 text-gp-ink-400 font-medium">Kisaran Harga</span>
+            <span className="col-span-8 font-mono font-bold text-white text-2xs">
               IDR {monitor.price.toLocaleString("en-US")}
             </span>
           </div>
 
           {/* 2. Aspect Ratio */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">Aspect Ratio</span>
+            <span className="col-span-4 text-gp-ink-400 font-medium">Aspect Ratio</span>
             <div className="col-span-8">
-              <span className="px-2 py-0.5 rounded bg-[#1d354a] text-[#58a6ff] text-[11px] font-medium">
+              <span className="px-2 py-0.5 rounded bg-gp-sky-600 text-gp-sky text-2xs font-medium">
                 {monitor.aspectRatio || "16:9 (Wide)"}
               </span>
             </div>
@@ -213,9 +213,9 @@ Link Detail: ${detailUrl}`;
 
           {/* 3. Curvature */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">Curvature</span>
+            <span className="col-span-4 text-gp-ink-400 font-medium">Curvature</span>
             <div className="col-span-8">
-              <span className="px-2 py-0.5 rounded bg-[#442224] text-[#eb5757] text-[11px] font-medium">
+              <span className="px-2 py-0.5 rounded bg-gp-coral-700 text-gp-coral text-2xs font-medium">
                 {monitor.curvature || monitor.specs?.display?.curvature || "None"}
               </span>
             </div>
@@ -223,16 +223,16 @@ Link Detail: ${detailUrl}`;
 
           {/* 4. Display Input */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">Display Input</span>
+            <span className="col-span-4 text-gp-ink-400 font-medium">Display Input</span>
             <div className="col-span-8 flex items-center gap-1.5 flex-wrap">
               {(monitor.displayInputs && monitor.displayInputs.length > 0) ? (
                 monitor.displayInputs.map((input, idx) => (
                   <span
                     key={idx}
-                    className={`px-2 py-0.5 rounded text-[11px] font-medium ${
+                    className={`px-2 py-0.5 rounded text-2xs font-medium ${
                       idx === 0
-                        ? "bg-[#203c2b] text-[#52ba69]"
-                        : "bg-[#3b2344] text-[#d157eb]"
+                        ? "bg-gp-mint-900 text-gp-mint"
+                        : "bg-gp-violet-400 text-gp-violet"
                     }`}
                   >
                     {input}
@@ -240,10 +240,10 @@ Link Detail: ${detailUrl}`;
                 ))
               ) : (
                 <>
-                  <span className="px-2 py-0.5 rounded bg-[#203c2b] text-[#52ba69] text-[11px] font-medium">
+                  <span className="px-2 py-0.5 rounded bg-gp-mint-900 text-gp-mint text-2xs font-medium">
                     HDMI 1.4
                   </span>
-                  <span className="px-2 py-0.5 rounded bg-[#3b2344] text-[#d157eb] text-[11px] font-medium">
+                  <span className="px-2 py-0.5 rounded bg-gp-violet-400 text-gp-violet text-2xs font-medium">
                     HDMI 2.0
                   </span>
                 </>
@@ -253,9 +253,9 @@ Link Detail: ${detailUrl}`;
 
           {/* 5. Panel Bit Depth */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">Panel Bit Depth</span>
+            <span className="col-span-4 text-gp-ink-400 font-medium">Panel Bit Depth</span>
             <div className="col-span-8">
-              <span className="px-2 py-0.5 rounded bg-[#2f2f2f] text-[#d4d4d4] text-[11px] font-medium">
+              <span className="px-2 py-0.5 rounded bg-gp-ink-650 text-gp-ink-200 text-2xs font-medium">
                 {monitor.panelBitDepth || "8 Bit"}
               </span>
             </div>
@@ -263,9 +263,9 @@ Link Detail: ${detailUrl}`;
 
           {/* 6. Panel Size */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">Panel Size</span>
+            <span className="col-span-4 text-gp-ink-400 font-medium">Panel Size</span>
             <div className="col-span-8">
-              <span className="px-2 py-0.5 rounded bg-[#442c1d] text-[#e07936] text-[11px] font-medium">
+              <span className="px-2 py-0.5 rounded bg-gp-ember-400 text-gp-ember text-2xs font-medium">
                 {monitor.specs?.display?.size || "24 Inch or 23.8 Inch"}
               </span>
             </div>
@@ -273,9 +273,9 @@ Link Detail: ${detailUrl}`;
 
           {/* 7. Panel Type */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">Panel Type</span>
+            <span className="col-span-4 text-gp-ink-400 font-medium">Panel Type</span>
             <div className="col-span-8">
-              <span className="px-2 py-0.5 rounded bg-[#2f2f2f] text-[#d4d4d4] text-[11px] font-medium">
+              <span className="px-2 py-0.5 rounded bg-gp-ink-650 text-gp-ink-200 text-2xs font-medium">
                 {monitor.specs?.display?.panelType || "IPS"}
               </span>
             </div>
@@ -283,9 +283,9 @@ Link Detail: ${detailUrl}`;
 
           {/* 8. Refresh Rate */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">Refresh Rate</span>
+            <span className="col-span-4 text-gp-ink-400 font-medium">Refresh Rate</span>
             <div className="col-span-8">
-              <span className="px-2 py-0.5 rounded bg-[#203c2b] text-[#52ba69] text-[11px] font-medium font-mono">
+              <span className="px-2 py-0.5 rounded bg-gp-mint-900 text-gp-mint text-2xs font-medium font-mono">
                 {monitor.specs?.display?.refreshRate || 180}Hz
               </span>
             </div>
@@ -293,9 +293,9 @@ Link Detail: ${detailUrl}`;
 
           {/* 9. Resolution (Pixel) */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">Resolution (Pixel)</span>
+            <span className="col-span-4 text-gp-ink-400 font-medium">Resolution (Pixel)</span>
             <div className="col-span-8">
-              <span className="px-2 py-0.5 rounded bg-[#442224] text-[#eb5757] text-[11px] font-medium">
+              <span className="px-2 py-0.5 rounded bg-gp-coral-700 text-gp-coral text-2xs font-medium">
                 {monitor.specs?.display?.resolution || "1920x1080 (FHD)"}
               </span>
             </div>
@@ -303,9 +303,9 @@ Link Detail: ${detailUrl}`;
 
           {/* 10. Stand Capability */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">Stand Capability</span>
+            <span className="col-span-4 text-gp-ink-400 font-medium">Stand Capability</span>
             <div className="col-span-8">
-              <span className="px-2 py-0.5 rounded bg-[#2f2f2f] text-[#d4d4d4] text-[11px] font-medium">
+              <span className="px-2 py-0.5 rounded bg-gp-ink-650 text-gp-ink-200 text-2xs font-medium">
                 {monitor.standCapability || (monitor.specs?.ergonomics?.heightAdjustable ? "HAS (Height, Tilt, Swivel, Pivot)" : "Tilt")}
               </span>
             </div>
@@ -313,9 +313,9 @@ Link Detail: ${detailUrl}`;
 
           {/* 11. USB Hub */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">USB Hub</span>
+            <span className="col-span-4 text-gp-ink-400 font-medium">USB Hub</span>
             <div className="col-span-8">
-              <span className="px-2 py-0.5 rounded bg-[#2f2f2f] text-[#d4d4d4] text-[11px] font-medium">
+              <span className="px-2 py-0.5 rounded bg-gp-ink-650 text-gp-ink-200 text-2xs font-medium">
                 {monitor.usbHub || monitor.specs?.connectivity?.usbHub || "None"}
               </span>
             </div>
@@ -323,9 +323,9 @@ Link Detail: ${detailUrl}`;
 
           {/* 12. Market Class */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">Market Class</span>
+            <span className="col-span-4 text-gp-ink-400 font-medium">Market Class</span>
             <div className="col-span-8">
-              <span className="px-2 py-0.5 rounded bg-[#203c2b] text-[#52ba69] text-[11px] font-medium">
+              <span className="px-2 py-0.5 rounded bg-gp-mint-900 text-gp-mint text-2xs font-medium">
                 {monitor.marketClass || (monitor.specs?.display?.refreshRate && monitor.specs.display.refreshRate >= 144 ? "144Hz+" : "100Hz")}
               </span>
             </div>
@@ -333,9 +333,9 @@ Link Detail: ${detailUrl}`;
 
           {/* 13. VESA Mount */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">VESA Mount</span>
+            <span className="col-span-4 text-gp-ink-400 font-medium">VESA Mount</span>
             <div className="col-span-8">
-              <span className="px-2 py-0.5 rounded bg-[#2f2f2f] text-[#d4d4d4] text-[11px] font-medium">
+              <span className="px-2 py-0.5 rounded bg-gp-ink-650 text-gp-ink-200 text-2xs font-medium">
                 {monitor.specs?.ergonomics?.vesaMount || "75x75 mm"}
               </span>
             </div>
@@ -343,12 +343,12 @@ Link Detail: ${detailUrl}`;
 
           {/* 14. Data Response Time */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">Data Response Time</span>
+            <span className="col-span-4 text-gp-ink-400 font-medium">Data Response Time</span>
             <div className="col-span-8 flex items-center gap-1.5 flex-wrap">
-              <span className="px-2 py-0.5 rounded bg-[#203c2b] text-[#52ba69] text-[11px] font-medium">
+              <span className="px-2 py-0.5 rounded bg-gp-mint-900 text-gp-mint text-2xs font-medium">
                 Toleransi Baru
               </span>
-              <span className="px-2 py-0.5 rounded bg-[#442224] text-[#eb5757] text-[11px] font-medium">
+              <span className="px-2 py-0.5 rounded bg-gp-coral-700 text-gp-coral text-2xs font-medium">
                 Toleransi Lama
               </span>
             </div>
@@ -356,102 +356,102 @@ Link Detail: ${detailUrl}`;
 
           {/* 15. Date Created */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">Date Created</span>
-            <span className="col-span-8 font-bold text-[#d4d4d4] text-[11px]">
+            <span className="col-span-4 text-gp-ink-400 font-medium">Date Created</span>
+            <span className="col-span-8 font-bold text-gp-ink-200 text-2xs">
               {monitor.createdDateText || "February 24, 2025 12:24"}
             </span>
           </div>
 
           {/* 16. LINK TIKTOKSHOP */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">LINK TIKTOKSHOP</span>
+            <span className="col-span-4 text-gp-ink-400 font-medium">LINK TIKTOKSHOP</span>
             <div className="col-span-8">
               {monitor.linkTiktokShop ? (
-                <a href={monitor.linkTiktokShop} target="_blank" rel="noopener noreferrer" className="text-[#58a6ff] hover:underline font-mono text-[11px] inline-flex items-center gap-1">
+                <a href={monitor.linkTiktokShop} target="_blank" rel="noopener noreferrer" className="text-gp-sky hover:underline font-mono text-2xs inline-flex items-center gap-1">
                   <span>{monitor.linkTiktokShop}</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               ) : (
-                <span className="text-[#787774] italic text-[11px]">Empty</span>
+                <span className="text-gp-ink-400 italic text-2xs">Empty</span>
               )}
             </div>
           </div>
 
           {/* 17. Last Updated */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">Last Updated</span>
-            <span className="col-span-8 font-bold text-[#d4d4d4] text-[11px]">
+            <span className="col-span-4 text-gp-ink-400 font-medium">Last Updated</span>
+            <span className="col-span-8 font-bold text-gp-ink-200 text-2xs">
               {monitor.lastUpdatedDate || "June 24, 2025"}
             </span>
           </div>
 
           {/* 18. Link Shopee */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">Link Shopee</span>
+            <span className="col-span-4 text-gp-ink-400 font-medium">Link Shopee</span>
             <div className="col-span-8">
               {(monitor.linkShopee || shopeeLink?.url) ? (
                 <a
                   href={monitor.linkShopee || shopeeLink?.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#58a6ff] hover:underline font-mono text-[11px] inline-flex items-center gap-1"
+                  className="text-gp-sky hover:underline font-mono text-2xs inline-flex items-center gap-1"
                 >
                   <span>{monitor.linkShopee || shopeeLink?.url}</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               ) : (
-                <span className="text-[#787774] italic text-[11px]">Empty</span>
+                <span className="text-gp-ink-400 italic text-2xs">Empty</span>
               )}
             </div>
           </div>
 
           {/* 19. LINK TOKOPEDIA */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">LINK TOKOPEDIA</span>
+            <span className="col-span-4 text-gp-ink-400 font-medium">LINK TOKOPEDIA</span>
             <div className="col-span-8">
               {(monitor.linkTokopedia || tokopediaLink?.url) ? (
                 <a
                   href={monitor.linkTokopedia || tokopediaLink?.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#58a6ff] hover:underline font-mono text-[11px] inline-flex items-center gap-1"
+                  className="text-gp-sky hover:underline font-mono text-2xs inline-flex items-center gap-1"
                 >
                   <span>{monitor.linkTokopedia || tokopediaLink?.url}</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               ) : (
-                <span className="text-[#787774] italic text-[11px]">Empty</span>
+                <span className="text-gp-ink-400 italic text-2xs">Empty</span>
               )}
             </div>
           </div>
 
           {/* 20. Tiktok Shop */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">Tiktok Shop</span>
+            <span className="col-span-4 text-gp-ink-400 font-medium">Tiktok Shop</span>
             <div className="col-span-8">
               {monitor.linkTiktokShop ? (
-                <a href={monitor.linkTiktokShop} target="_blank" rel="noopener noreferrer" className="text-[#58a6ff] hover:underline font-mono text-[11px] inline-flex items-center gap-1">
+                <a href={monitor.linkTiktokShop} target="_blank" rel="noopener noreferrer" className="text-gp-sky hover:underline font-mono text-2xs inline-flex items-center gap-1">
                   <span>{monitor.linkTiktokShop}</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               ) : (
-                <span className="text-[#787774] italic text-[11px]">Empty</span>
+                <span className="text-gp-ink-400 italic text-2xs">Empty</span>
               )}
             </div>
           </div>
 
           {/* 21. STATUS */}
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-            <span className="col-span-4 text-[#787774] font-medium">STATUS</span>
+            <span className="col-span-4 text-gp-ink-400 font-medium">STATUS</span>
             <div className="col-span-8">
-              <span className={`px-2 py-0.5 rounded text-[11px] font-bold ${
+              <span className={`px-2 py-0.5 rounded text-2xs font-bold ${
                 monitor.tier === "S-TIER"
-                  ? "bg-[#203c2b] text-[#52ba69]"
+                  ? "bg-gp-mint-900 text-gp-mint"
                   : monitor.tier === "BEST VALUE"
-                  ? "bg-[#1d354a] text-[#58a6ff]"
+                  ? "bg-gp-sky-600 text-gp-sky"
                   : monitor.tier === "RECOMMENDED"
-                  ? "bg-[#203c2b] text-[#52ba69]"
-                  : "bg-[#442224] text-[#eb5757]"
+                  ? "bg-gp-mint-900 text-gp-mint"
+                  : "bg-gp-coral-700 text-gp-coral"
               }`}>
                 {monitor.tier}
               </span>
@@ -461,15 +461,15 @@ Link Detail: ${detailUrl}`;
 
         {/* SECTION FOTO MONITOR */}
         <div className="space-y-2 pt-2">
-          <div className="flex items-center justify-between text-[11px] text-[#787774] uppercase tracking-wider font-semibold">
+          <div className="flex items-center justify-between text-2xs text-gp-ink-400 uppercase tracking-wider font-semibold">
             <span>Section Foto Monitor (Tampak Depan & Belakang)</span>
-            <span className="text-[10px] text-[#58a6ff]">2 Sudut Foto</span>
+            <span className="text-3xs text-gp-sky">2 Sudut Foto</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Front Photo */}
             <div
-              className="group relative aspect-[4/3] rounded-2xl bg-[#202020] border border-[#2f2f2f] hover:border-[#3f3f3f] overflow-hidden transition-all cursor-pointer shadow-sm"
+              className="group relative aspect-[4/3] rounded-2xl bg-gp-ink-750 border border-gp-ink-650 hover:border-gp-ink-600 overflow-hidden transition-all cursor-pointer shadow-sm"
               onClick={() => setSelectedPhoto(frontPhoto)}
             >
               <Image
@@ -478,14 +478,14 @@ Link Detail: ${detailUrl}`;
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
-              <div className="absolute top-3 right-3 px-2 py-0.5 rounded bg-black/60 backdrop-blur-sm text-[10px] text-white font-mono opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="absolute top-3 right-3 px-2 py-0.5 rounded bg-black/60 backdrop-blur-sm text-3xs text-white font-mono opacity-0 group-hover:opacity-100 transition-opacity">
                 Depan
               </div>
             </div>
 
             {/* Rear Photo */}
             <div
-              className="group relative aspect-[4/3] rounded-2xl bg-[#202020] border border-[#2f2f2f] hover:border-[#3f3f3f] overflow-hidden transition-all cursor-pointer shadow-sm"
+              className="group relative aspect-[4/3] rounded-2xl bg-gp-ink-750 border border-gp-ink-650 hover:border-gp-ink-600 overflow-hidden transition-all cursor-pointer shadow-sm"
               onClick={() => setSelectedPhoto(rearPhoto)}
             >
               <Image
@@ -494,7 +494,7 @@ Link Detail: ${detailUrl}`;
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
-              <div className="absolute top-3 right-3 px-2 py-0.5 rounded bg-black/60 backdrop-blur-sm text-[10px] text-white font-mono opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="absolute top-3 right-3 px-2 py-0.5 rounded bg-black/60 backdrop-blur-sm text-3xs text-white font-mono opacity-0 group-hover:opacity-100 transition-opacity">
                 Belakang
               </div>
             </div>
@@ -503,15 +503,15 @@ Link Detail: ${detailUrl}`;
 
         {/* VERDICT / WARNING BANNER */}
         {monitor.statusReason ? (
-          <div className="p-3.5 rounded-xl bg-[#371e20] border border-[#492224] text-[#eb5757] font-bold text-xs uppercase tracking-wide">
+          <div className="p-3.5 rounded-xl bg-gp-coral-500 border border-gp-coral-800 text-gp-coral font-bold text-xs uppercase tracking-wide">
             {monitor.statusReason}
           </div>
         ) : monitor.tier === "PASS" ? (
-          <div className="p-3.5 rounded-xl bg-[#371e20] border border-[#492224] text-[#eb5757] font-bold text-xs uppercase tracking-wide">
+          <div className="p-3.5 rounded-xl bg-gp-coral-500 border border-gp-coral-800 text-gp-coral font-bold text-xs uppercase tracking-wide">
             TIDAK DISARANKAN LAGI KARENA BANYAK KASUS BERGARIS + DISCONTINUE
           </div>
         ) : (
-          <div className="p-3.5 rounded-xl bg-[#193222] border border-[#203c2b] text-[#52ba69] font-bold text-xs uppercase tracking-wide">
+          <div className="p-3.5 rounded-xl bg-gp-mint-800 border border-gp-mint-900 text-gp-mint font-bold text-xs uppercase tracking-wide">
             REKOMENDASI TERBAIK KELAS {monitor.specs.display.resolution} {monitor.specs.display.refreshRate}Hz
           </div>
         )}
@@ -522,7 +522,7 @@ Link Detail: ${detailUrl}`;
             Pendahuluan
           </h2>
 
-          <p className="text-sm text-[#d4d4d4] leading-relaxed">
+          <p className="text-sm text-gp-ink-200 leading-relaxed">
             {monitor.introduction ||
               monitor.deepDiveDescription ||
               `${monitor.fullName} merupakan monitor ${monitor.specs.display.size}, ${monitor.specs.display.panelType} ${monitor.specs.display.refreshRate}Hz yang sangat kompetitif di kisaran harga ${formatRupiah(monitor.price)} di pasar Indonesia. Memiliki tuning overdrive yang matang dari pengujian laboratorium GTID Tech.`}
@@ -541,13 +541,13 @@ Link Detail: ${detailUrl}`;
         <div className="space-y-4 pt-2">
           {/* PROS */}
           <div className="space-y-2">
-            <div className="w-full py-1.5 px-3 rounded bg-[#193222] border border-[#203c2b] text-[#52ba69] font-bold text-xs tracking-wider uppercase">
+            <div className="w-full py-1.5 px-3 rounded bg-gp-mint-800 border border-gp-mint-900 text-gp-mint font-bold text-xs tracking-wider uppercase">
               PROS
             </div>
-            <ul className="space-y-1.5 pl-2 text-xs text-[#d4d4d4]">
+            <ul className="space-y-1.5 pl-2 text-xs text-gp-ink-200">
               {monitor.pros.map((p, idx) => (
                 <li key={idx} className="flex items-start gap-2">
-                  <span className="text-[#52ba69] mt-0.5">•</span>
+                  <span className="text-gp-mint mt-0.5">•</span>
                   <span>{p}</span>
                 </li>
               ))}
@@ -556,13 +556,13 @@ Link Detail: ${detailUrl}`;
 
           {/* CONS */}
           <div className="space-y-2 pt-2">
-            <div className="w-full py-1.5 px-3 rounded bg-[#371e20] border border-[#492224] text-[#eb5757] font-bold text-xs tracking-wider uppercase">
+            <div className="w-full py-1.5 px-3 rounded bg-gp-coral-500 border border-gp-coral-800 text-gp-coral font-bold text-xs tracking-wider uppercase">
               CONS
             </div>
-            <ul className="space-y-1.5 pl-2 text-xs text-[#d4d4d4]">
+            <ul className="space-y-1.5 pl-2 text-xs text-gp-ink-200">
               {monitor.cons.map((c, idx) => (
                 <li key={idx} className="flex items-start gap-2">
-                  <span className="text-[#eb5757] mt-0.5">•</span>
+                  <span className="text-gp-coral mt-0.5">•</span>
                   <span>{c}</span>
                 </li>
               ))}
@@ -572,12 +572,12 @@ Link Detail: ${detailUrl}`;
 
         {/* KELENGKAPAN BOX */}
         {monitor.accessoriesIncluded && monitor.accessoriesIncluded.length > 0 && (
-          <div className="p-5 rounded-2xl bg-[#202020] border border-[#2f2f2f] space-y-2 text-xs">
+          <div className="p-5 rounded-2xl bg-gp-ink-750 border border-gp-ink-650 space-y-2 text-xs">
             <div className="flex items-center gap-2 text-white font-bold">
-              <Package className="w-4 h-4 text-[#58a6ff]" />
+              <Package className="w-4 h-4 text-gp-sky" />
               <span>Kelengkapan Dalam Dus:</span>
             </div>
-            <ul className="list-disc pl-5 space-y-1 text-[#b4b4b4]">
+            <ul className="list-disc pl-5 space-y-1 text-gp-ink-300">
               {monitor.accessoriesIncluded.map((acc, i) => (
                 <li key={i}>{acc}</li>
               ))}
@@ -586,34 +586,34 @@ Link Detail: ${detailUrl}`;
         )}
 
         {/* SPESIFIKASI TEKNIS */}
-        <div className="p-6 rounded-2xl bg-[#202020] border border-[#2f2f2f] space-y-4 text-xs">
+        <div className="p-6 rounded-2xl bg-gp-ink-750 border border-gp-ink-650 space-y-4 text-xs">
           <h3 className="font-bold text-white text-sm flex items-center gap-2">
-            <SlidersHorizontal className="w-4 h-4 text-[#58a6ff]" />
+            <SlidersHorizontal className="w-4 h-4 text-gp-sky" />
             <span>Spesifikasi Teknis Lengkap</span>
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-            <div className="p-3 rounded-xl bg-[#191919] border border-[#2a2a2a]">
-              <strong className="text-[#9b9a97] block text-[10px] uppercase">Ukuran Layar:</strong>
+            <div className="p-3 rounded-xl bg-gp-ink-800 border border-gp-ink-700">
+              <strong className="text-gp-ink-300 block text-3xs uppercase">Ukuran Layar:</strong>
               <span className="font-semibold text-white mt-0.5 block">{monitor.specs.display.size}</span>
             </div>
-            <div className="p-3 rounded-xl bg-[#191919] border border-[#2a2a2a]">
-              <strong className="text-[#9b9a97] block text-[10px] uppercase">Resolusi:</strong>
+            <div className="p-3 rounded-xl bg-gp-ink-800 border border-gp-ink-700">
+              <strong className="text-gp-ink-300 block text-3xs uppercase">Resolusi:</strong>
               <span className="font-semibold text-white mt-0.5 block">{monitor.specs.display.resolution}</span>
             </div>
-            <div className="p-3 rounded-xl bg-[#191919] border border-[#2a2a2a]">
-              <strong className="text-[#9b9a97] block text-[10px] uppercase">Tipe Panel:</strong>
+            <div className="p-3 rounded-xl bg-gp-ink-800 border border-gp-ink-700">
+              <strong className="text-gp-ink-300 block text-3xs uppercase">Tipe Panel:</strong>
               <span className="font-semibold text-white mt-0.5 block">{monitor.specs.display.panelType}</span>
             </div>
-            <div className="p-3 rounded-xl bg-[#191919] border border-[#2a2a2a]">
-              <strong className="text-[#9b9a97] block text-[10px] uppercase">Refresh Rate:</strong>
+            <div className="p-3 rounded-xl bg-gp-ink-800 border border-gp-ink-700">
+              <strong className="text-gp-ink-300 block text-3xs uppercase">Refresh Rate:</strong>
               <span className="font-semibold text-white mt-0.5 block">{monitor.specs.display.refreshRate}Hz</span>
             </div>
-            <div className="p-3 rounded-xl bg-[#191919] border border-[#2a2a2a]">
-              <strong className="text-[#9b9a97] block text-[10px] uppercase">VESA Mount:</strong>
+            <div className="p-3 rounded-xl bg-gp-ink-800 border border-gp-ink-700">
+              <strong className="text-gp-ink-300 block text-3xs uppercase">VESA Mount:</strong>
               <span className="font-semibold text-white mt-0.5 block">{monitor.specs.ergonomics.vesaMount}</span>
             </div>
-            <div className="p-3 rounded-xl bg-[#191919] border border-[#2a2a2a]">
-              <strong className="text-[#9b9a97] block text-[10px] uppercase">Garansi Brand:</strong>
+            <div className="p-3 rounded-xl bg-gp-ink-800 border border-gp-ink-700">
+              <strong className="text-gp-ink-300 block text-3xs uppercase">Garansi Brand:</strong>
               <span className="font-semibold text-white mt-0.5 block">{monitor.specs.features.warranty}</span>
             </div>
           </div>

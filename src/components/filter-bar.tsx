@@ -189,11 +189,11 @@ export function FilterBar({
 
       {/* Drawer / Modal Content Sheet */}
       <div
-        className="relative z-10 w-full max-w-lg md:max-w-xl h-full bg-[#0d0d12] border-l border-zinc-800 shadow-2xl flex flex-col animate-in slide-in-from-right duration-300"
+        className="relative z-10 w-full max-w-lg md:max-w-xl h-full bg-gp-ink-900 border-l border-gp-ink-700 shadow-2xl flex flex-col animate-in slide-in-from-right duration-300"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="px-5 sm:px-6 py-4 border-b border-zinc-800 flex items-center justify-between bg-[#12131a]">
+        <div className="px-5 sm:px-6 py-4 border-b border-gp-ink-700 flex items-center justify-between bg-gp-ink-850">
           <div className="flex items-center gap-2.5">
             <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
               <SlidersHorizontal className="w-4 h-4" />
@@ -202,7 +202,7 @@ export function FilterBar({
               <h2 className="text-xs sm:text-sm font-mono font-bold text-white uppercase tracking-wider">
                 // PARAMETERS & TELEMETRY
               </h2>
-              <p className="text-[11px] text-zinc-400 font-mono">
+              <p className="text-2xs text-gp-ink-300 font-mono">
                 Atur filter & kriteria pencarian monitor
               </p>
             </div>
@@ -212,7 +212,7 @@ export function FilterBar({
             {hasActiveFilters && (
               <button
                 onClick={onResetFilters}
-                className="text-[10px] font-mono font-bold text-zinc-400 hover:text-emerald-400 px-2.5 py-1 rounded bg-zinc-900 border border-zinc-700 hover:border-emerald-500 flex items-center gap-1 transition-colors"
+                className="text-3xs font-mono font-bold text-gp-ink-300 hover:text-emerald-400 px-2.5 py-1 rounded bg-gp-ink-800 border border-gp-ink-600 hover:border-emerald-500 flex items-center gap-1 transition-colors"
                 title="Reset semua filter"
               >
                 <RotateCcw className="w-3 h-3" />
@@ -221,7 +221,7 @@ export function FilterBar({
             )}
             <button
               onClick={handleClose}
-              className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition-colors"
+              className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-white hover:border-gp-ink-600 transition-colors"
               title="Tutup panel (Esc)"
             >
               <X className="w-4 h-4" />
@@ -230,10 +230,10 @@ export function FilterBar({
         </div>
 
         {/* Scrollable Filter Options */}
-        <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6 text-xs text-zinc-300">
+        <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6 text-xs text-gp-ink-200">
           {/* 1. Budget Range & Quick Select */}
-          <div className="space-y-3 bg-[#111117] p-4 rounded-xl border border-zinc-800/80">
-            <label className="text-xs font-semibold text-zinc-200 flex items-center gap-1.5">
+          <div className="space-y-3 bg-gp-ink-850 p-4 rounded-xl border border-gp-ink-700/80">
+            <label className="text-xs font-semibold text-gp-ink-100 flex items-center gap-1.5">
               <CircleDollarSign className="w-3.5 h-3.5 text-amber-400" />
               <span>Budget Maksimal</span>
             </label>
@@ -249,7 +249,7 @@ export function FilterBar({
                     className={`text-xs py-2 px-3 rounded-lg border font-mono font-bold text-left transition-all flex items-center justify-between ${
                       isSelected
                         ? "bg-amber-500/15 border-amber-500/60 text-amber-300 shadow-tech-subtle"
-                        : "bg-[#09090d] border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
+                        : "bg-gp-ink-950 border-gp-ink-700 text-gp-ink-300 hover:text-gp-ink-100 hover:border-gp-ink-600"
                     }`}
                   >
                     <span>{preset.label}</span>
@@ -261,7 +261,7 @@ export function FilterBar({
 
             {/* Range Slider */}
             <div className="pt-2">
-              <div className="flex justify-between text-xs text-zinc-400 mb-2 font-mono">
+              <div className="flex justify-between text-xs text-gp-ink-300 mb-2 font-mono">
                 <span>Rp 0</span>
                 <span className="text-emerald-400 font-medium bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
                   {filterState.budgetRange[1] >= 25000000
@@ -276,14 +276,14 @@ export function FilterBar({
                 step={500000}
                 value={filterState.budgetRange[1]}
                 onChange={handleSliderChange}
-                className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-400 focus:outline-none"
+                className="w-full h-1.5 bg-gp-ink-700 rounded-lg appearance-none cursor-pointer accent-emerald-400 focus:outline-none"
               />
             </div>
           </div>
 
           {/* 2. Rating Tier */}
-          <div className="space-y-2.5 bg-[#111117] p-4 rounded-xl border border-zinc-800/80">
-            <label className="text-xs font-semibold text-zinc-200 flex items-center gap-1.5">
+          <div className="space-y-2.5 bg-gp-ink-850 p-4 rounded-xl border border-gp-ink-700/80">
+            <label className="text-xs font-semibold text-gp-ink-100 flex items-center gap-1.5">
               <Award className="w-3.5 h-3.5 text-emerald-400" />
               <span>Tier Rekomendasi</span>
             </label>
@@ -303,7 +303,7 @@ export function FilterBar({
                           : tier === "RECOMMENDED"
                           ? "bg-cyan-500/20 text-cyan-300 border-cyan-400 shadow-tech-subtle"
                           : "bg-rose-500/20 text-rose-300 border-rose-400 shadow-tech-subtle"
-                        : "bg-[#09090d] border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
+                        : "bg-gp-ink-950 border-gp-ink-700 text-gp-ink-300 hover:text-gp-ink-100 hover:border-gp-ink-600"
                     }`}
                   >
                     <span>[ {tier} ]</span>
@@ -315,8 +315,8 @@ export function FilterBar({
           </div>
 
           {/* 3. Panel Type */}
-          <div className="space-y-2.5 bg-[#111117] p-4 rounded-xl border border-zinc-800/80">
-            <label className="text-xs font-semibold text-zinc-200 flex items-center gap-1.5">
+          <div className="space-y-2.5 bg-gp-ink-850 p-4 rounded-xl border border-gp-ink-700/80">
+            <label className="text-xs font-semibold text-gp-ink-100 flex items-center gap-1.5">
               <Layers className="w-3.5 h-3.5 text-cyan-400" />
               <span>Tipe Panel</span>
             </label>
@@ -330,7 +330,7 @@ export function FilterBar({
                     className={`text-xs py-2 px-3 rounded-lg border font-mono font-bold text-left transition-all flex items-center justify-between ${
                       isSelected
                         ? "bg-cyan-500/15 border-cyan-500/60 text-cyan-300 shadow-tech-subtle"
-                        : "bg-[#09090d] border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
+                        : "bg-gp-ink-950 border-gp-ink-700 text-gp-ink-300 hover:text-gp-ink-100 hover:border-gp-ink-600"
                     }`}
                   >
                     <span>{panel}</span>
@@ -342,8 +342,8 @@ export function FilterBar({
           </div>
 
           {/* 4. Refresh Rate */}
-          <div className="space-y-2.5 bg-[#111117] p-4 rounded-xl border border-zinc-800/80">
-            <label className="text-xs font-semibold text-zinc-200 flex items-center gap-1.5">
+          <div className="space-y-2.5 bg-gp-ink-850 p-4 rounded-xl border border-gp-ink-700/80">
+            <label className="text-xs font-semibold text-gp-ink-100 flex items-center gap-1.5">
               <Zap className="w-3.5 h-3.5 text-emerald-400" />
               <span>Refresh Rate</span>
             </label>
@@ -357,7 +357,7 @@ export function FilterBar({
                     className={`text-xs py-2 px-3 rounded-lg border font-mono font-bold text-left transition-all flex items-center justify-between ${
                       isSelected
                         ? "bg-emerald-500/15 border-emerald-500/60 text-emerald-300 shadow-tech-subtle"
-                        : "bg-[#09090d] border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
+                        : "bg-gp-ink-950 border-gp-ink-700 text-gp-ink-300 hover:text-gp-ink-100 hover:border-gp-ink-600"
                     }`}
                   >
                     <span>{rate}</span>
@@ -371,8 +371,8 @@ export function FilterBar({
           {/* 5. Screen Size & Resolution Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Screen Size */}
-            <div className="space-y-2.5 bg-[#111117] p-4 rounded-xl border border-zinc-800/80">
-              <label className="text-xs font-semibold text-zinc-200 flex items-center gap-1.5">
+            <div className="space-y-2.5 bg-gp-ink-850 p-4 rounded-xl border border-gp-ink-700/80">
+              <label className="text-xs font-semibold text-gp-ink-100 flex items-center gap-1.5">
                 <Maximize className="w-3.5 h-3.5 text-amber-400" />
                 <span>Ukuran Layar</span>
               </label>
@@ -386,7 +386,7 @@ export function FilterBar({
                       className={`w-full text-xs py-1.5 px-3 rounded-lg border font-mono font-bold text-left transition-all flex items-center justify-between ${
                         isSelected
                           ? "bg-amber-500/15 border-amber-500/60 text-amber-300"
-                          : "bg-[#09090d] border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
+                          : "bg-gp-ink-950 border-gp-ink-700 text-gp-ink-300 hover:text-gp-ink-100 hover:border-gp-ink-600"
                       }`}
                     >
                       <span>{size}</span>
@@ -398,8 +398,8 @@ export function FilterBar({
             </div>
 
             {/* Resolution */}
-            <div className="space-y-2.5 bg-[#111117] p-4 rounded-xl border border-zinc-800/80">
-              <label className="text-xs font-semibold text-zinc-200 flex items-center gap-1.5">
+            <div className="space-y-2.5 bg-gp-ink-850 p-4 rounded-xl border border-gp-ink-700/80">
+              <label className="text-xs font-semibold text-gp-ink-100 flex items-center gap-1.5">
                 <Tv className="w-3.5 h-3.5 text-violet-400" />
                 <span>Resolusi</span>
               </label>
@@ -413,7 +413,7 @@ export function FilterBar({
                       className={`w-full text-xs py-1.5 px-3 rounded-lg border font-mono font-bold text-left transition-all flex items-center justify-between ${
                         isSelected
                           ? "bg-violet-500/15 border-violet-500/60 text-violet-300"
-                          : "bg-[#09090d] border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
+                          : "bg-gp-ink-950 border-gp-ink-700 text-gp-ink-300 hover:text-gp-ink-100 hover:border-gp-ink-600"
                       }`}
                     >
                       <span>{res}</span>
@@ -427,7 +427,7 @@ export function FilterBar({
         </div>
 
         {/* Modal Bottom Actions */}
-        <div className="p-4 sm:p-5 border-t border-zinc-800 bg-[#12131a] flex gap-3">
+        <div className="p-4 sm:p-5 border-t border-gp-ink-700 bg-gp-ink-850 flex gap-3">
           {hasActiveFilters && (
             <Button
               variant="outline"
@@ -477,14 +477,14 @@ export function ActiveFilterPills({
   if (!hasActiveFilters) return null;
 
   return (
-    <div className="flex items-center gap-2 flex-wrap py-2 px-3 rounded-xl bg-surface-dark border border-zinc-800/80 text-xs font-mono">
-      <span className="text-zinc-500 text-[11px] uppercase tracking-wider font-bold">
+    <div className="flex items-center gap-2 flex-wrap py-2 px-3 rounded-xl bg-gp-ink-998 border border-gp-ink-700/80 text-xs font-mono">
+      <span className="text-gp-ink-400 text-2xs uppercase tracking-wider font-bold">
         Filter Aktif:
       </span>
 
       {/* Budget Pill */}
       {(filterState.budgetPreset || filterState.budgetRange[1] < 25000000) && (
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px]">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-300 text-2xs">
           <span>
             Budget: ≤ {formatRupiah(filterState.budgetRange[1])}
           </span>
@@ -508,7 +508,7 @@ export function ActiveFilterPills({
       {filterState.tiers.map((tier) => (
         <span
           key={tier}
-          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-[11px]"
+          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-2xs"
         >
           <span>Tier: {tier}</span>
           <button
@@ -530,7 +530,7 @@ export function ActiveFilterPills({
       {filterState.panelTypes.map((panel) => (
         <span
           key={panel}
-          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[11px]"
+          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-2xs"
         >
           <span>{panel}</span>
           <button
@@ -552,7 +552,7 @@ export function ActiveFilterPills({
       {filterState.refreshRates.map((rate) => (
         <span
           key={rate}
-          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-[11px]"
+          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-2xs"
         >
           <span>{rate}</span>
           <button
@@ -574,7 +574,7 @@ export function ActiveFilterPills({
       {filterState.resolutions.map((res) => (
         <span
           key={res}
-          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-violet-500/10 border border-violet-500/30 text-violet-300 text-[11px]"
+          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-violet-500/10 border border-violet-500/30 text-violet-300 text-2xs"
         >
           <span>{res}</span>
           <button
@@ -596,7 +596,7 @@ export function ActiveFilterPills({
       {filterState.screenSizes.map((size) => (
         <span
           key={size}
-          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px]"
+          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-300 text-2xs"
         >
           <span>{size}</span>
           <button
@@ -616,7 +616,7 @@ export function ActiveFilterPills({
 
       {/* Search Query */}
       {filterState.searchQuery && (
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-zinc-800 border border-zinc-700 text-zinc-200 text-[11px]">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-gp-ink-700 border border-gp-ink-600 text-gp-ink-100 text-2xs">
           <span>Cari: &ldquo;{filterState.searchQuery}&rdquo;</span>
           <button
             onClick={() =>
@@ -633,7 +633,7 @@ export function ActiveFilterPills({
       {/* Edit filter button */}
       <button
         onClick={onOpenFilter}
-        className="text-[11px] text-zinc-400 hover:text-white underline underline-offset-2 ml-1"
+        className="text-2xs text-gp-ink-300 hover:text-white underline underline-offset-2 ml-1"
       >
         + Edit
       </button>
@@ -641,7 +641,7 @@ export function ActiveFilterPills({
       {/* Reset All */}
       <button
         onClick={onResetFilters}
-        className="text-[11px] text-rose-400 hover:text-rose-300 ml-auto font-bold"
+        className="text-2xs text-rose-400 hover:text-rose-300 ml-auto font-bold"
       >
         [Reset Semua]
       </button>

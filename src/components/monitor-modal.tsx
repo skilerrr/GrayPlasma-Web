@@ -58,7 +58,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
         {/* Modal Scrollable Container */}
         <div className="overflow-y-auto pr-1 space-y-6">
           {/* Header Section */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-zinc-800">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-gp-ink-700">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <span className="text-xs font-black uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded border border-emerald-500/30">
@@ -74,7 +74,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
             <div className="flex items-center gap-2 self-start sm:self-center">
               <button
                 onClick={handleShare}
-                className="p-2 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition-colors text-xs flex items-center gap-1.5"
+                className="p-2 rounded-xl bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-white hover:border-gp-ink-600 transition-colors text-xs flex items-center gap-1.5"
                 title="Bagikan monitor ini"
               >
                 <Share2 className="w-4 h-4" />
@@ -88,7 +88,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
             {/* Gallery Column (7 cols) */}
             <div className="md:col-span-7 space-y-3">
               {/* Main Image View */}
-              <div className="relative aspect-[16/10] bg-zinc-950 rounded-2xl overflow-hidden border border-zinc-800/90 shadow-inner">
+              <div className="relative aspect-[16/10] bg-gp-ink-950 rounded-2xl overflow-hidden border border-gp-ink-700/90 shadow-inner">
                 <Image
                   src={activeImage}
                   alt={monitor.fullName}
@@ -97,7 +97,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
                   className="object-cover object-center transition-all duration-300"
                 />
                 <div className="absolute top-3 left-3">
-                  <span className="text-[11px] font-extrabold bg-black/85 text-white border border-zinc-700 px-2.5 py-1 rounded-lg backdrop-blur-md">
+                  <span className="text-2xs font-extrabold bg-black/85 text-white border border-gp-ink-600 px-2.5 py-1 rounded-lg backdrop-blur-md">
                     {monitor.specs.display.size} • {monitor.specs.display.refreshRate}Hz
                   </span>
                 </div>
@@ -113,7 +113,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
                       className={`relative w-20 h-14 rounded-lg overflow-hidden border-2 flex-shrink-0 transition-all ${
                         selectedImageIndex === idx
                           ? "border-emerald-400 scale-95 shadow-tech-subtle"
-                          : "border-zinc-800 hover:border-zinc-600 opacity-70 hover:opacity-100"
+                          : "border-gp-ink-700 hover:border-gp-ink-500 opacity-70 hover:opacity-100"
                       }`}
                     >
                       <Image
@@ -129,9 +129,9 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
             </div>
 
             {/* Price & Summary Verdict Column (5 cols) */}
-            <div className="md:col-span-5 flex flex-col justify-between space-y-4 bg-zinc-950/60 border border-zinc-800/80 rounded-2xl p-4 sm:p-5">
+            <div className="md:col-span-5 flex flex-col justify-between space-y-4 bg-gp-ink-950/60 border border-gp-ink-700/80 rounded-2xl p-4 sm:p-5">
               <div className="space-y-3">
-                <span className="text-[11px] uppercase font-bold tracking-wider text-zinc-400">
+                <span className="text-2xs uppercase font-bold tracking-wider text-gp-ink-300">
                   Ringkasan Harga & Penilaian
                 </span>
                 
@@ -142,7 +142,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
                   </div>
                   {monitor.originalPrice && monitor.originalPrice > monitor.price && (
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-xs text-zinc-500 line-through">
+                      <span className="text-xs text-gp-ink-400 line-through">
                         {formatRupiah(monitor.originalPrice)}
                       </span>
                       <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/30">
@@ -153,12 +153,12 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
                 </div>
 
                 {/* Verdict Box */}
-                <div className="p-3 rounded-xl bg-zinc-900/90 border border-zinc-800 text-xs space-y-1.5">
-                  <div className="flex items-center gap-1.5 font-bold text-emerald-400 uppercase tracking-wider text-[10px]">
+                <div className="p-3 rounded-xl bg-gp-ink-800/90 border border-gp-ink-700 text-xs space-y-1.5">
+                  <div className="flex items-center gap-1.5 font-bold text-emerald-400 uppercase tracking-wider text-3xs">
                     <ShieldCheck className="w-3.5 h-3.5" />
                     <span>Verdict Reviewer</span>
                   </div>
-                  <p className="text-zinc-300 leading-relaxed">
+                  <p className="text-gp-ink-200 leading-relaxed">
                     {monitor.expertVerdict}
                   </p>
                 </div>
@@ -174,8 +174,8 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
               </div>
 
               {/* Direct Marketplace Buy CTA */}
-              <div className="space-y-2 pt-2 border-t border-zinc-800">
-                <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider block">
+              <div className="space-y-2 pt-2 border-t border-gp-ink-700">
+                <span className="text-3xs font-bold text-gp-ink-300 uppercase tracking-wider block">
                   Beli Langsung di Marketplace:
                 </span>
                 <div className="space-y-1.5">
@@ -191,7 +191,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
                         <ShoppingBag className="w-3.5 h-3.5" />
                         <span className="font-bold">{link.marketplace}</span>
                         {link.officialStore && (
-                          <span className="text-[9px] px-1 py-0.2 rounded bg-zinc-900 border border-zinc-700 text-zinc-300 font-normal">
+                          <span className="text-4xs px-1 py-0.2 rounded bg-gp-ink-800 border border-gp-ink-600 text-gp-ink-200 font-normal">
                             Official Store
                           </span>
                         )}
@@ -219,7 +219,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
               </div>
               <ul className="space-y-1.5">
                 {monitor.pros.map((item, i) => (
-                  <li key={i} className="text-xs text-zinc-300 flex items-start gap-2">
+                  <li key={i} className="text-xs text-gp-ink-200 flex items-start gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-1.5 flex-shrink-0" />
                     <span>{item}</span>
                   </li>
@@ -235,7 +235,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
               </div>
               <ul className="space-y-1.5">
                 {monitor.cons.map((item, i) => (
-                  <li key={i} className="text-xs text-zinc-400 flex items-start gap-2">
+                  <li key={i} className="text-xs text-gp-ink-300 flex items-start gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-1.5 flex-shrink-0" />
                     <span>{item}</span>
                   </li>
@@ -245,8 +245,8 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
           </div>
 
           {/* Technical Specifications Table */}
-          <div className="space-y-3 bg-surface-dark border border-zinc-800/90 rounded-2xl p-5">
-            <div className="flex items-center gap-2 border-b border-zinc-800 pb-3">
+          <div className="space-y-3 bg-gp-ink-998 border border-gp-ink-700/90 rounded-2xl p-5">
+            <div className="flex items-center gap-2 border-b border-gp-ink-700 pb-3">
               <Cpu className="w-4 h-4 text-emerald-400" />
               <h3 className="text-sm font-bold text-white uppercase tracking-wider">
                 Tabel Spesifikasi Teknis Lengkap
@@ -256,91 +256,91 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-xs">
               {/* Display Specs */}
               <div className="space-y-2">
-                <h4 className="text-[11px] font-bold uppercase text-zinc-400 tracking-wider">
+                <h4 className="text-2xs font-bold uppercase text-gp-ink-300 tracking-wider">
                   Panel & Layar
                 </h4>
                 <div className="space-y-1.5">
-                  <div className="flex justify-between py-1 border-b border-zinc-900">
-                    <span className="text-zinc-500">Ukuran Layar</span>
-                    <span className="text-zinc-200 font-medium">{monitor.specs.display.size}</span>
+                  <div className="flex justify-between py-1 border-b border-gp-ink-800">
+                    <span className="text-gp-ink-400">Ukuran Layar</span>
+                    <span className="text-gp-ink-100 font-medium">{monitor.specs.display.size}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-zinc-900">
-                    <span className="text-zinc-500">Resolusi Native</span>
-                    <span className="text-zinc-200 font-medium">{monitor.specs.display.resolution}</span>
+                  <div className="flex justify-between py-1 border-b border-gp-ink-800">
+                    <span className="text-gp-ink-400">Resolusi Native</span>
+                    <span className="text-gp-ink-100 font-medium">{monitor.specs.display.resolution}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-zinc-900">
-                    <span className="text-zinc-500">Tipe Panel</span>
+                  <div className="flex justify-between py-1 border-b border-gp-ink-800">
+                    <span className="text-gp-ink-400">Tipe Panel</span>
                     <span className="text-emerald-400 font-medium">{monitor.specs.display.panelType}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-zinc-900">
-                    <span className="text-zinc-500">Refresh Rate</span>
-                    <span className="text-zinc-200 font-medium">{monitor.specs.display.refreshRate} Hz</span>
+                  <div className="flex justify-between py-1 border-b border-gp-ink-800">
+                    <span className="text-gp-ink-400">Refresh Rate</span>
+                    <span className="text-gp-ink-100 font-medium">{monitor.specs.display.refreshRate} Hz</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-zinc-900">
-                    <span className="text-zinc-500">Response Time</span>
-                    <span className="text-zinc-200 font-medium">{monitor.specs.display.responseTime}</span>
+                  <div className="flex justify-between py-1 border-b border-gp-ink-800">
+                    <span className="text-gp-ink-400">Response Time</span>
+                    <span className="text-gp-ink-100 font-medium">{monitor.specs.display.responseTime}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-zinc-900">
-                    <span className="text-zinc-500">Brightness (Kecerahan)</span>
-                    <span className="text-zinc-200 font-medium">{monitor.specs.display.brightness}</span>
+                  <div className="flex justify-between py-1 border-b border-gp-ink-800">
+                    <span className="text-gp-ink-400">Brightness (Kecerahan)</span>
+                    <span className="text-gp-ink-100 font-medium">{monitor.specs.display.brightness}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-zinc-900">
-                    <span className="text-zinc-500">Kontras Rasio</span>
-                    <span className="text-zinc-200 font-medium">{monitor.specs.display.contrastRatio}</span>
+                  <div className="flex justify-between py-1 border-b border-gp-ink-800">
+                    <span className="text-gp-ink-400">Kontras Rasio</span>
+                    <span className="text-gp-ink-100 font-medium">{monitor.specs.display.contrastRatio}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-zinc-900">
-                    <span className="text-zinc-500">Color Gamut</span>
-                    <span className="text-zinc-200 font-medium">{monitor.specs.display.colorGamut}</span>
+                  <div className="flex justify-between py-1 border-b border-gp-ink-800">
+                    <span className="text-gp-ink-400">Color Gamut</span>
+                    <span className="text-gp-ink-100 font-medium">{monitor.specs.display.colorGamut}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-zinc-900">
-                    <span className="text-zinc-500">HDR Support</span>
-                    <span className="text-zinc-200 font-medium">{monitor.specs.display.hdr}</span>
+                  <div className="flex justify-between py-1 border-b border-gp-ink-800">
+                    <span className="text-gp-ink-400">HDR Support</span>
+                    <span className="text-gp-ink-100 font-medium">{monitor.specs.display.hdr}</span>
                   </div>
                 </div>
               </div>
 
               {/* Connectivity & Ergonomics */}
               <div className="space-y-2">
-                <h4 className="text-[11px] font-bold uppercase text-zinc-400 tracking-wider">
+                <h4 className="text-2xs font-bold uppercase text-gp-ink-300 tracking-wider">
                   Konektivitas & Ergonomi
                 </h4>
                 <div className="space-y-1.5">
-                  <div className="flex justify-between py-1 border-b border-zinc-900">
-                    <span className="text-zinc-500">DisplayPort</span>
-                    <span className="text-zinc-200 font-medium">{monitor.specs.connectivity.displayPort}</span>
+                  <div className="flex justify-between py-1 border-b border-gp-ink-800">
+                    <span className="text-gp-ink-400">DisplayPort</span>
+                    <span className="text-gp-ink-100 font-medium">{monitor.specs.connectivity.displayPort}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-zinc-900">
-                    <span className="text-zinc-500">HDMI Port</span>
-                    <span className="text-zinc-200 font-medium">{monitor.specs.connectivity.hdmi}</span>
+                  <div className="flex justify-between py-1 border-b border-gp-ink-800">
+                    <span className="text-gp-ink-400">HDMI Port</span>
+                    <span className="text-gp-ink-100 font-medium">{monitor.specs.connectivity.hdmi}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-zinc-900">
-                    <span className="text-zinc-500">USB Type-C</span>
-                    <span className="text-zinc-200 font-medium">{monitor.specs.connectivity.typeC || "Tidak Ada"}</span>
+                  <div className="flex justify-between py-1 border-b border-gp-ink-800">
+                    <span className="text-gp-ink-400">USB Type-C</span>
+                    <span className="text-gp-ink-100 font-medium">{monitor.specs.connectivity.typeC || "Tidak Ada"}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-zinc-900">
-                    <span className="text-zinc-500">VESA Wall Mount</span>
-                    <span className="text-zinc-200 font-medium">{monitor.specs.ergonomics.vesaMount}</span>
+                  <div className="flex justify-between py-1 border-b border-gp-ink-800">
+                    <span className="text-gp-ink-400">VESA Wall Mount</span>
+                    <span className="text-gp-ink-100 font-medium">{monitor.specs.ergonomics.vesaMount}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-zinc-900">
-                    <span className="text-zinc-500">Height Adjustment</span>
-                    <span className="text-zinc-200 font-medium">
+                  <div className="flex justify-between py-1 border-b border-gp-ink-800">
+                    <span className="text-gp-ink-400">Height Adjustment</span>
+                    <span className="text-gp-ink-100 font-medium">
                       {monitor.specs.ergonomics.heightAdjustable
                         ? `Ya (${monitor.specs.ergonomics.heightRange || "Adjustable"})`
                         : "Tidak (Statis)"}
                     </span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-zinc-900">
-                    <span className="text-zinc-500">Pivot (Rotasi Vertikal)</span>
-                    <span className="text-zinc-200 font-medium">
+                  <div className="flex justify-between py-1 border-b border-gp-ink-800">
+                    <span className="text-gp-ink-400">Pivot (Rotasi Vertikal)</span>
+                    <span className="text-gp-ink-100 font-medium">
                       {monitor.specs.ergonomics.pivot ? "Ya (90°)" : "Tidak"}
                     </span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-zinc-900">
-                    <span className="text-zinc-500">Sync Technology</span>
-                    <span className="text-zinc-200 font-medium">{monitor.specs.features.syncTech}</span>
+                  <div className="flex justify-between py-1 border-b border-gp-ink-800">
+                    <span className="text-gp-ink-400">Sync Technology</span>
+                    <span className="text-gp-ink-100 font-medium">{monitor.specs.features.syncTech}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-zinc-900">
-                    <span className="text-zinc-500">Garansi Resmi</span>
+                  <div className="flex justify-between py-1 border-b border-gp-ink-800">
+                    <span className="text-gp-ink-400">Garansi Resmi</span>
                     <span className="text-emerald-400 font-medium">{monitor.specs.features.warranty}</span>
                   </div>
                 </div>
@@ -350,7 +350,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
 
           {/* Price History Section */}
           {monitor.priceHistory && monitor.priceHistory.length > 0 && (
-            <div className="space-y-3 bg-zinc-950/80 border border-zinc-800 rounded-2xl p-4 sm:p-5">
+            <div className="space-y-3 bg-gp-ink-950/80 border border-gp-ink-700 rounded-2xl p-4 sm:p-5">
               <div className="flex items-center gap-2">
                 <TrendingDown className="w-4 h-4 text-emerald-400" />
                 <h3 className="text-xs font-bold text-white uppercase tracking-wider">
@@ -361,14 +361,14 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
                 {monitor.priceHistory.map((point, idx) => (
                   <div
                     key={idx}
-                    className="p-2.5 rounded-xl bg-zinc-900/70 border border-zinc-800 text-center"
+                    className="p-2.5 rounded-xl bg-gp-ink-800/70 border border-gp-ink-700 text-center"
                   >
-                    <span className="text-[10px] text-zinc-500 block">{point.date}</span>
+                    <span className="text-3xs text-gp-ink-400 block">{point.date}</span>
                     <span className="text-xs font-bold font-mono text-white">
                       {formatRupiah(point.price)}
                     </span>
                     {point.label && (
-                      <span className="text-[9px] text-emerald-400 font-semibold block mt-0.5">
+                      <span className="text-4xs text-emerald-400 font-semibold block mt-0.5">
                         {point.label}
                       </span>
                     )}

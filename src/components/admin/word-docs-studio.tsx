@@ -301,16 +301,16 @@ export function WordDocsStudio({
     const html = `
 <div class="my-5 p-4 rounded-xl border ${borderTheme} relative notion-callout transition-all" contenteditable="true">
   <div class="flex items-center justify-between gap-3 mb-2" contenteditable="false">
-    <div class="px-2 py-0.5 rounded bg-black/40 border border-current font-mono text-[10px] font-bold tracking-wider uppercase flex-shrink-0">
+    <div class="px-2 py-0.5 rounded bg-black/40 border border-current font-mono text-3xs font-bold tracking-wider uppercase flex-shrink-0">
       ${iconLabel}
     </div>
-    <button type="button" class="studio-delete-btn px-2 py-0.5 rounded bg-black/50 hover:bg-rose-950/80 border border-zinc-700 hover:border-rose-500/50 text-zinc-400 hover:text-rose-300 font-mono text-[10px] flex items-center gap-1 cursor-pointer transition-colors" title="Hapus Kotak Callout Ini">
+    <button type="button" class="studio-delete-btn px-2 py-0.5 rounded bg-black/50 hover:bg-rose-950/80 border border-gp-ink-600 hover:border-rose-500/50 text-gp-ink-300 hover:text-rose-300 font-mono text-3xs flex items-center gap-1 cursor-pointer transition-colors" title="Hapus Kotak Callout Ini">
       ✕ Hapus
     </button>
   </div>
   <div class="space-y-1 flex-1">
     <strong class="block font-bold text-sm tracking-tight text-white">${titleText}</strong>
-    <p class="text-xs text-zinc-300 leading-relaxed">${defaultText}</p>
+    <p class="text-xs text-gp-ink-200 leading-relaxed">${defaultText}</p>
   </div>
 </div>
 <p><br></p>
@@ -321,27 +321,27 @@ export function WordDocsStudio({
   // Insert Checklist / Pros Cons Matrix
   const insertProsConsMatrix = () => {
     const html = `
-<div class="my-5 p-4 rounded-xl bg-[#0e0e13] border border-zinc-800 space-y-3 relative notion-matrix transition-all" contenteditable="true">
-  <div class="flex items-center justify-between gap-2 text-xs font-mono font-bold text-zinc-400 uppercase tracking-wider" contenteditable="false">
+<div class="my-5 p-4 rounded-xl bg-gp-ink-900 border border-gp-ink-700 space-y-3 relative notion-matrix transition-all" contenteditable="true">
+  <div class="flex items-center justify-between gap-2 text-xs font-mono font-bold text-gp-ink-300 uppercase tracking-wider" contenteditable="false">
     <div class="flex items-center gap-2">
       <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
       <span>Matriks Kelebihan & Kekurangan</span>
     </div>
-    <button type="button" class="studio-delete-btn px-2 py-0.5 rounded bg-black/50 hover:bg-rose-950/80 border border-zinc-700 hover:border-rose-500/50 text-zinc-400 hover:text-rose-300 font-mono text-[10px] flex items-center gap-1 cursor-pointer transition-colors" title="Hapus Matriks Ini">
+    <button type="button" class="studio-delete-btn px-2 py-0.5 rounded bg-black/50 hover:bg-rose-950/80 border border-gp-ink-600 hover:border-rose-500/50 text-gp-ink-300 hover:text-rose-300 font-mono text-3xs flex items-center gap-1 cursor-pointer transition-colors" title="Hapus Matriks Ini">
       ✕ Hapus
     </button>
   </div>
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
     <div class="p-3 rounded-lg bg-emerald-950/20 border border-emerald-500/30 space-y-1.5">
-      <span class="font-bold text-emerald-400 block font-mono text-[11px]">Kelebihan (+)</span>
-      <ul class="space-y-1 text-zinc-300">
+      <span class="font-bold text-emerald-400 block font-mono text-2xs">Kelebihan (+)</span>
+      <ul class="space-y-1 text-gp-ink-200">
         <li>• Keunggulan performa atau akurasi warna 1</li>
         <li>• Keunggulan ergonomi atau kelengkapan port 2</li>
       </ul>
     </div>
     <div class="p-3 rounded-lg bg-rose-950/20 border border-rose-500/30 space-y-1.5">
-      <span class="font-bold text-rose-400 block font-mono text-[11px]">Kekurangan (-)</span>
-      <ul class="space-y-1 text-zinc-300">
+      <span class="font-bold text-rose-400 block font-mono text-2xs">Kekurangan (-)</span>
+      <ul class="space-y-1 text-gp-ink-200">
         <li>• Catatan overshoot atau firmware OSD</li>
         <li>• Ketiadaan stand swivel atau garansi</li>
       </ul>
@@ -360,20 +360,20 @@ export function WordDocsStudio({
 
     let theadCols = "";
     for (let c = 0; c < cols; c++) {
-      theadCols += `<th class="p-2.5 border border-zinc-800 bg-zinc-900 text-white font-mono font-bold text-xs">Kolom ${c + 1}</th>`;
+      theadCols += `<th class="p-2.5 border border-gp-ink-700 bg-gp-ink-800 text-white font-mono font-bold text-xs">Kolom ${c + 1}</th>`;
     }
 
     let tbodyRows = "";
     for (let r = 0; r < rows; r++) {
       let cells = "";
       for (let c = 0; c < cols; c++) {
-        cells += `<td class="p-2.5 border border-zinc-800 text-zinc-300 text-xs">Data ${r + 1}-${c + 1}</td>`;
+        cells += `<td class="p-2.5 border border-gp-ink-700 text-gp-ink-200 text-xs">Data ${r + 1}-${c + 1}</td>`;
       }
-      tbodyRows += `<tr class="${r % 2 === 0 ? "bg-zinc-950/40" : "bg-zinc-900/30"}">${cells}</tr>`;
+      tbodyRows += `<tr class="${r % 2 === 0 ? "bg-gp-ink-950/40" : "bg-gp-ink-800/30"}">${cells}</tr>`;
     }
 
     const html = `
-<div class="my-5 overflow-x-auto rounded-xl border border-zinc-800 shadow-sm relative notion-table-wrapper" contenteditable="true">
+<div class="my-5 overflow-x-auto rounded-xl border border-gp-ink-700 shadow-sm relative notion-table-wrapper" contenteditable="true">
   <table class="w-full text-xs border-collapse font-sans">
     <thead>
       <tr>${theadCols}</tr>
@@ -396,10 +396,10 @@ export function WordDocsStudio({
     if (!tbody) return;
     const colCount = activeTableElement.querySelector("thead tr")?.children.length || 3;
     const newRow = document.createElement("tr");
-    newRow.className = tbody.children.length % 2 === 0 ? "bg-zinc-950/40" : "bg-zinc-900/30";
+    newRow.className = tbody.children.length % 2 === 0 ? "bg-gp-ink-950/40" : "bg-gp-ink-800/30";
     for (let i = 0; i < colCount; i++) {
       const td = document.createElement("td");
-      td.className = "p-2.5 border border-zinc-800 text-zinc-300 text-xs";
+      td.className = "p-2.5 border border-gp-ink-700 text-gp-ink-200 text-xs";
       td.innerText = "Baris baru";
       newRow.appendChild(td);
     }
@@ -421,14 +421,14 @@ export function WordDocsStudio({
     const theadRow = activeTableElement.querySelector("thead tr");
     if (theadRow) {
       const th = document.createElement("th");
-      th.className = "p-2.5 border border-zinc-800 bg-zinc-900 text-white font-mono font-bold text-xs";
+      th.className = "p-2.5 border border-gp-ink-700 bg-gp-ink-800 text-white font-mono font-bold text-xs";
       th.innerText = `Kolom Baru`;
       theadRow.appendChild(th);
     }
     const tbodyRows = activeTableElement.querySelectorAll("tbody tr");
     tbodyRows.forEach((row) => {
       const td = document.createElement("td");
-      td.className = "p-2.5 border border-zinc-800 text-zinc-300 text-xs";
+      td.className = "p-2.5 border border-gp-ink-700 text-gp-ink-200 text-xs";
       td.innerText = "Nilai baru";
       row.appendChild(td);
     });
@@ -632,12 +632,12 @@ export function WordDocsStudio({
             const imgHtml = `
 <figure class="my-4 text-center notion-figure" contenteditable="false">
   <div class="relative inline-block max-w-full">
-    <img src="${finalSrc}" alt="Grafik Pengujian Lab GTID" class="rounded-xl border border-zinc-800 shadow-md max-w-full inline-block cursor-pointer" style="width: 85%;" />
-    <button type="button" class="studio-delete-btn absolute top-2 right-2 px-2 py-0.5 rounded bg-black/80 hover:bg-rose-900 border border-zinc-700 text-rose-300 font-mono text-[10px] cursor-pointer shadow-md" title="Hapus Gambar Ini">
+    <img src="${finalSrc}" alt="Grafik Pengujian Lab GTID" class="rounded-xl border border-gp-ink-700 shadow-md max-w-full inline-block cursor-pointer" style="width: 85%;" />
+    <button type="button" class="studio-delete-btn absolute top-2 right-2 px-2 py-0.5 rounded bg-black/80 hover:bg-rose-900 border border-gp-ink-600 text-rose-300 font-mono text-3xs cursor-pointer shadow-md" title="Hapus Gambar Ini">
       ✕ Hapus
     </button>
   </div>
-  <figcaption class="text-[11px] font-mono text-zinc-500 mt-1.5">// Gambar Pengujian Laboratorium GTID Tech</figcaption>
+  <figcaption class="text-2xs font-mono text-gp-ink-400 mt-1.5">// Gambar Pengujian Laboratorium GTID Tech</figcaption>
 </figure>
 <p><br></p>
 `;
@@ -674,12 +674,12 @@ export function WordDocsStudio({
       const imgHtml = `
 <figure class="my-4 text-center notion-figure" contenteditable="false">
   <div class="relative inline-block max-w-full">
-    <img src="${finalSrc}" alt="Lab Test" class="rounded-xl border border-zinc-700 max-w-full h-auto cursor-pointer hover:border-cyan-400 transition-colors" style="width: 100%; display: block;" />
-    <button type="button" class="studio-delete-btn absolute top-2 right-2 px-2 py-0.5 rounded bg-black/80 hover:bg-rose-900 border border-zinc-700 text-rose-300 font-mono text-[10px] cursor-pointer shadow-md" title="Hapus Gambar Ini">
+    <img src="${finalSrc}" alt="Lab Test" class="rounded-xl border border-gp-ink-600 max-w-full h-auto cursor-pointer hover:border-cyan-400 transition-colors" style="width: 100%; display: block;" />
+    <button type="button" class="studio-delete-btn absolute top-2 right-2 px-2 py-0.5 rounded bg-black/80 hover:bg-rose-900 border border-gp-ink-600 text-rose-300 font-mono text-3xs cursor-pointer shadow-md" title="Hapus Gambar Ini">
       ✕ Hapus
     </button>
   </div>
-  <figcaption class="text-[11px] font-mono text-zinc-500 mt-1.5">Dokumentasi: ${file.name}</figcaption>
+  <figcaption class="text-2xs font-mono text-gp-ink-400 mt-1.5">Dokumentasi: ${file.name}</figcaption>
 </figure>
 <p><br></p>
 `;
@@ -752,38 +752,38 @@ export function WordDocsStudio({
 
   return (
     <div
-      className={`fixed inset-0 z-50 bg-[#07070a] text-white flex flex-col font-sans overflow-hidden animate-in fade-in duration-200 ${
+      className={`fixed inset-0 z-50 bg-gp-ink-950 text-white flex flex-col font-sans overflow-hidden animate-in fade-in duration-200 ${
         isFullscreen ? "p-0" : ""
       }`}
     >
       {/* 1. TOP HEADER (STATUS & ACTIONS) */}
-      <header className="h-16 px-4 sm:px-6 bg-[#0c0c11] border-b border-zinc-800 flex items-center justify-between flex-shrink-0 z-30 shadow-sm">
+      <header className="h-16 px-4 sm:px-6 bg-gp-ink-900 border-b border-gp-ink-700 flex items-center justify-between flex-shrink-0 z-30 shadow-sm">
         {/* Left: Back & Document Meta */}
         <div className="flex items-center gap-3 min-w-0">
           <button
             type="button"
             onClick={onClose}
-            className="px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-750 hover:border-zinc-500 text-zinc-300 hover:text-white text-xs font-mono font-bold flex items-center gap-1.5 transition-colors flex-shrink-0"
+            className="px-3 py-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-650 hover:border-gp-ink-400 text-gp-ink-200 hover:text-white text-xs font-mono font-bold flex items-center gap-1.5 transition-colors flex-shrink-0"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Kembali</span>
           </button>
 
-          <div className="h-5 w-[1px] bg-zinc-800 hidden sm:block flex-shrink-0" />
+          <div className="h-5 w-[1px] bg-gp-ink-700 hidden sm:block flex-shrink-0" />
 
           <div className="flex items-center gap-2 min-w-0">
-            <span className="px-2.5 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-[10px] font-bold tracking-wider uppercase flex-shrink-0">
+            <span className="px-2.5 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-3xs font-bold tracking-wider uppercase flex-shrink-0">
               {modeType === "faq" ? "FAQ Knowledgebase" : "Studio Panduan"}
             </span>
-            <span className="text-xs text-zinc-300 font-medium hidden md:inline truncate max-w-sm">
+            <span className="text-xs text-gp-ink-200 font-medium hidden md:inline truncate max-w-sm">
               {doc.title || "Dokumen Baru"}
             </span>
           </div>
         </div>
 
         {/* Center: Word Count & Save Status */}
-        <div className="hidden lg:flex items-center gap-3 text-xs font-mono text-zinc-400">
-          <span className="tabular-nums font-semibold text-zinc-300">{wordCount} Kata</span>
+        <div className="hidden lg:flex items-center gap-3 text-xs font-mono text-gp-ink-300">
+          <span className="tabular-nums font-semibold text-gp-ink-200">{wordCount} Kata</span>
           <span>•</span>
           <span className="tabular-nums">{charCount} Karakter</span>
           {lastAutosaveTime && (
@@ -800,7 +800,7 @@ export function WordDocsStudio({
           <button
             type="button"
             onClick={handleCopyDiscordCallback}
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-750 hover:border-zinc-500 text-zinc-300 hover:text-white text-xs font-mono transition-colors"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-650 hover:border-gp-ink-400 text-gp-ink-200 hover:text-white text-xs font-mono transition-colors"
             title="Salin callback ringkasan untuk konsultasi Discord"
           >
             {copiedDiscord ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <MessageSquare className="w-3.5 h-3.5 text-cyan-400" />}
@@ -811,7 +811,7 @@ export function WordDocsStudio({
           <button
             type="button"
             onClick={() => setIsFullscreen(!isFullscreen)}
-            className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white text-xs"
+            className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-white text-xs"
             title={isFullscreen ? "Keluar Layar Penuh" : "Mode Layar Penuh"}
           >
             {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
@@ -822,7 +822,7 @@ export function WordDocsStudio({
             variant="outline"
             size="sm"
             onClick={onClose}
-            className="text-xs border-zinc-750 hover:bg-zinc-900 text-zinc-300"
+            className="text-xs border-gp-ink-650 hover:bg-gp-ink-800 text-gp-ink-200"
           >
             Batal
           </Button>
@@ -858,7 +858,7 @@ export function WordDocsStudio({
             <button
               type="button"
               onClick={handleDiscardDraft}
-              className="px-2.5 py-1 rounded bg-zinc-800 text-zinc-300 text-xs hover:text-white"
+              className="px-2.5 py-1 rounded bg-gp-ink-700 text-gp-ink-200 text-xs hover:text-white"
             >
               Abaikan
             </button>
@@ -867,7 +867,7 @@ export function WordDocsStudio({
       )}
 
       {/* 2. FIXED MICROSOFT WORD / GOOGLE DOCS TOOLBAR RIBBON */}
-      <div className="bg-[#0e0e14] border-b border-zinc-800 px-4 sm:px-6 py-2 flex items-center justify-between gap-3 flex-wrap flex-shrink-0 z-20 shadow-sm">
+      <div className="bg-gp-ink-900 border-b border-gp-ink-700 px-4 sm:px-6 py-2 flex items-center justify-between gap-3 flex-wrap flex-shrink-0 z-20 shadow-sm">
         {/* Ribbon Left: Formatting Tools */}
         <div className="flex items-center gap-1 flex-wrap">
           {/* Undo / Redo */}
@@ -877,7 +877,7 @@ export function WordDocsStudio({
               e.preventDefault();
               execFormat("undo");
             }}
-            className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-white"
+            className="p-1.5 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-700 text-gp-ink-300 hover:text-white"
             title="Batalkan (Undo)"
           >
             <Undo2 className="w-3.5 h-3.5" />
@@ -888,34 +888,34 @@ export function WordDocsStudio({
               e.preventDefault();
               execFormat("redo");
             }}
-            className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-white"
+            className="p-1.5 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-700 text-gp-ink-300 hover:text-white"
             title="Ulangi (Redo)"
           >
             <Redo2 className="w-3.5 h-3.5" />
           </button>
 
-          <div className="h-4 w-[1px] bg-zinc-800 mx-1" />
+          <div className="h-4 w-[1px] bg-gp-ink-700 mx-1" />
 
           {/* Paragraph Style Dropdown */}
           <div className="relative">
             <button
               type="button"
               onClick={() => setShowHeadingMenu(!showHeadingMenu)}
-              className="px-2.5 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-xs font-semibold text-zinc-200 flex items-center gap-1.5"
+              className="px-2.5 py-1.5 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-xs font-semibold text-gp-ink-100 flex items-center gap-1.5"
             >
               <span>Format Teks</span>
-              <ChevronDown className="w-3 h-3 text-zinc-400" />
+              <ChevronDown className="w-3 h-3 text-gp-ink-300" />
             </button>
 
             {showHeadingMenu && (
-              <div className="absolute top-full left-0 mt-1 w-48 bg-[#14141c] border border-zinc-700 rounded-xl shadow-2xl py-1 z-50 text-xs font-sans">
+              <div className="absolute top-full left-0 mt-1 w-48 bg-gp-ink-850 border border-gp-ink-600 rounded-xl shadow-2xl py-1 z-50 text-xs font-sans">
                 <button
                   type="button"
                   onMouseDown={(e) => {
                     e.preventDefault();
                     applyBlockFormat("p");
                   }}
-                  className="w-full text-left px-3 py-1.5 hover:bg-zinc-800 text-zinc-300"
+                  className="w-full text-left px-3 py-1.5 hover:bg-gp-ink-700 text-gp-ink-200"
                 >
                   Normal Text (Paragraf)
                 </button>
@@ -925,7 +925,7 @@ export function WordDocsStudio({
                     e.preventDefault();
                     applyBlockFormat("h1");
                   }}
-                  className="w-full text-left px-3 py-1.5 hover:bg-zinc-800 text-white font-bold text-sm"
+                  className="w-full text-left px-3 py-1.5 hover:bg-gp-ink-700 text-white font-bold text-sm"
                 >
                   Judul Utama (H1)
                 </button>
@@ -935,7 +935,7 @@ export function WordDocsStudio({
                     e.preventDefault();
                     applyBlockFormat("h2");
                   }}
-                  className="w-full text-left px-3 py-1.5 hover:bg-zinc-800 text-cyan-400 font-bold"
+                  className="w-full text-left px-3 py-1.5 hover:bg-gp-ink-700 text-cyan-400 font-bold"
                 >
                   Sub Judul Seksi (H2)
                 </button>
@@ -945,7 +945,7 @@ export function WordDocsStudio({
                     e.preventDefault();
                     applyBlockFormat("h3");
                   }}
-                  className="w-full text-left px-3 py-1.5 hover:bg-zinc-800 text-amber-400 font-bold text-xs"
+                  className="w-full text-left px-3 py-1.5 hover:bg-gp-ink-700 text-amber-400 font-bold text-xs"
                 >
                   Sub Seksi Kecil (H3)
                 </button>
@@ -955,7 +955,7 @@ export function WordDocsStudio({
                     e.preventDefault();
                     applyBlockFormat("blockquote");
                   }}
-                  className="w-full text-left px-3 py-1.5 hover:bg-zinc-800 text-zinc-300 italic"
+                  className="w-full text-left px-3 py-1.5 hover:bg-gp-ink-700 text-gp-ink-200 italic"
                 >
                   Kutipan (Blockquote)
                 </button>
@@ -965,7 +965,7 @@ export function WordDocsStudio({
                     e.preventDefault();
                     applyBlockFormat("pre");
                   }}
-                  className="w-full text-left px-3 py-1.5 hover:bg-zinc-800 text-emerald-400 font-mono text-[11px]"
+                  className="w-full text-left px-3 py-1.5 hover:bg-gp-ink-700 text-emerald-400 font-mono text-2xs"
                 >
                   Blok Kode (Codeblock)
                 </button>
@@ -973,7 +973,7 @@ export function WordDocsStudio({
             )}
           </div>
 
-          <div className="h-4 w-[1px] bg-zinc-800 mx-1" />
+          <div className="h-4 w-[1px] bg-gp-ink-700 mx-1" />
 
           {/* Inline Styling: B, I, U, S */}
           <button
@@ -982,7 +982,7 @@ export function WordDocsStudio({
               e.preventDefault();
               execFormat("bold");
             }}
-            className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 hover:text-white"
+            className="p-1.5 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 hover:text-white"
             title="Tebal (Ctrl+B)"
           >
             <Bold className="w-3.5 h-3.5" />
@@ -993,7 +993,7 @@ export function WordDocsStudio({
               e.preventDefault();
               execFormat("italic");
             }}
-            className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 hover:text-white"
+            className="p-1.5 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 hover:text-white"
             title="Miring (Ctrl+I)"
           >
             <Italic className="w-3.5 h-3.5" />
@@ -1004,7 +1004,7 @@ export function WordDocsStudio({
               e.preventDefault();
               execFormat("underline");
             }}
-            className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 hover:text-white"
+            className="p-1.5 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 hover:text-white"
             title="Garis Bawah (Ctrl+U)"
           >
             <UnderlineIcon className="w-3.5 h-3.5" />
@@ -1015,26 +1015,26 @@ export function WordDocsStudio({
               e.preventDefault();
               execFormat("strikeThrough");
             }}
-            className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 hover:text-white"
+            className="p-1.5 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 hover:text-white"
             title="Coretan (Strikethrough)"
           >
             <Strikethrough className="w-3.5 h-3.5" />
           </button>
 
-          <div className="h-4 w-[1px] bg-zinc-800 mx-1" />
+          <div className="h-4 w-[1px] bg-gp-ink-700 mx-1" />
 
           {/* Color & Highlight Pickers */}
           <div className="relative">
             <button
               type="button"
               onClick={() => setShowColorPicker(!showColorPicker)}
-              className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-emerald-400"
+              className="p-1.5 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-emerald-400"
               title="Warna Teks"
             >
               <Palette className="w-3.5 h-3.5" />
             </button>
             {showColorPicker && (
-              <div className="absolute top-full left-0 mt-1 bg-[#14141c] border border-zinc-700 rounded-xl shadow-2xl p-2 z-50 space-y-1 w-40">
+              <div className="absolute top-full left-0 mt-1 bg-gp-ink-850 border border-gp-ink-600 rounded-xl shadow-2xl p-2 z-50 space-y-1 w-40">
                 {TEXT_COLORS.map((c) => (
                   <button
                     key={c.value}
@@ -1043,9 +1043,9 @@ export function WordDocsStudio({
                       e.preventDefault();
                       applyTextColor(c.value);
                     }}
-                    className="flex items-center gap-2 w-full px-2.5 py-1 rounded text-xs hover:bg-zinc-800 text-left"
+                    className="flex items-center gap-2 w-full px-2.5 py-1 rounded text-xs hover:bg-gp-ink-700 text-left"
                   >
-                    <span className="w-3 h-3 rounded-full border border-zinc-600" style={{ backgroundColor: c.value }} />
+                    <span className="w-3 h-3 rounded-full border border-gp-ink-500" style={{ backgroundColor: c.value }} />
                     <span>{c.label}</span>
                   </button>
                 ))}
@@ -1057,13 +1057,13 @@ export function WordDocsStudio({
             <button
               type="button"
               onClick={() => setShowHighlightPicker(!showHighlightPicker)}
-              className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-amber-400"
+              className="p-1.5 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-amber-400"
               title="Sorotan Teks (Highlight)"
             >
               <Highlighter className="w-3.5 h-3.5" />
             </button>
             {showHighlightPicker && (
-              <div className="absolute top-full left-0 mt-1 bg-[#14141c] border border-zinc-700 rounded-xl shadow-2xl p-2 z-50 space-y-1 w-44">
+              <div className="absolute top-full left-0 mt-1 bg-gp-ink-850 border border-gp-ink-600 rounded-xl shadow-2xl p-2 z-50 space-y-1 w-44">
                 {HIGHLIGHT_COLORS.map((h) => (
                   <button
                     key={h.value}
@@ -1072,9 +1072,9 @@ export function WordDocsStudio({
                       e.preventDefault();
                       applyHighlightColor(h.value);
                     }}
-                    className="flex items-center gap-2 w-full px-2.5 py-1 rounded text-xs hover:bg-zinc-800 text-left"
+                    className="flex items-center gap-2 w-full px-2.5 py-1 rounded text-xs hover:bg-gp-ink-700 text-left"
                   >
-                    <span className="w-3.5 h-3.5 rounded border border-zinc-600" style={{ backgroundColor: h.value }} />
+                    <span className="w-3.5 h-3.5 rounded border border-gp-ink-500" style={{ backgroundColor: h.value }} />
                     <span>{h.label}</span>
                   </button>
                 ))}
@@ -1082,7 +1082,7 @@ export function WordDocsStudio({
             )}
           </div>
 
-          <div className="h-4 w-[1px] bg-zinc-800 mx-1" />
+          <div className="h-4 w-[1px] bg-gp-ink-700 mx-1" />
 
           {/* Text Alignment */}
           <button
@@ -1091,7 +1091,7 @@ export function WordDocsStudio({
               e.preventDefault();
               execFormat("justifyLeft");
             }}
-            className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 hover:text-white"
+            className="p-1.5 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 hover:text-white"
             title="Rata Kiri"
           >
             <AlignLeft className="w-3.5 h-3.5" />
@@ -1102,7 +1102,7 @@ export function WordDocsStudio({
               e.preventDefault();
               execFormat("justifyCenter");
             }}
-            className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 hover:text-white"
+            className="p-1.5 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 hover:text-white"
             title="Rata Tengah"
           >
             <AlignCenter className="w-3.5 h-3.5" />
@@ -1113,13 +1113,13 @@ export function WordDocsStudio({
               e.preventDefault();
               execFormat("justifyRight");
             }}
-            className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 hover:text-white"
+            className="p-1.5 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 hover:text-white"
             title="Rata Kanan"
           >
             <AlignRight className="w-3.5 h-3.5" />
           </button>
 
-          <div className="h-4 w-[1px] bg-zinc-800 mx-1" />
+          <div className="h-4 w-[1px] bg-gp-ink-700 mx-1" />
 
           {/* Lists */}
           <button
@@ -1128,7 +1128,7 @@ export function WordDocsStudio({
               e.preventDefault();
               execFormat("insertUnorderedList");
             }}
-            className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 hover:text-white"
+            className="p-1.5 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 hover:text-white"
             title="Daftar Poin (Bullet List)"
           >
             <List className="w-3.5 h-3.5" />
@@ -1139,13 +1139,13 @@ export function WordDocsStudio({
               e.preventDefault();
               execFormat("insertOrderedList");
             }}
-            className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 hover:text-white"
+            className="p-1.5 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 hover:text-white"
             title="Daftar Angka (Numbered List)"
           >
             <ListOrdered className="w-3.5 h-3.5" />
           </button>
 
-          <div className="h-4 w-[1px] bg-zinc-800 mx-1" />
+          <div className="h-4 w-[1px] bg-gp-ink-700 mx-1" />
 
           {/* Inserts: GTID Callouts, Modular Table, Matrix, Image, Link */}
           <button
@@ -1169,7 +1169,7 @@ export function WordDocsStudio({
           <button
             type="button"
             onClick={() => insertProsConsMatrix()}
-            className="px-2 py-1 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 text-xs font-semibold flex items-center gap-1 font-mono"
+            className="px-2 py-1 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 text-xs font-semibold flex items-center gap-1 font-mono"
             title="Sisipkan Matriks Plus Minus"
           >
             <span>+ Matriks Plus/Minus</span>
@@ -1193,7 +1193,7 @@ export function WordDocsStudio({
               saveCurrentSelection();
               setShowLinkModal(true);
             }}
-            className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 hover:text-white"
+            className="p-1.5 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 hover:text-white"
             title="Sisipkan Tautan (Link)"
           >
             <LinkIcon className="w-3.5 h-3.5" />
@@ -1204,7 +1204,7 @@ export function WordDocsStudio({
             type="button"
             onClick={() => fileInputRef.current?.click()}
             disabled={isCompressingImg}
-            className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 hover:text-white"
+            className="p-1.5 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 hover:text-white"
             title="Unggah Gambar Uji Lab (Kompres WebP)"
           >
             <ImageIcon className="w-3.5 h-3.5" />
@@ -1213,12 +1213,12 @@ export function WordDocsStudio({
         </div>
 
         {/* Ribbon Right: View Mode Toggle */}
-        <div className="flex items-center gap-1 bg-zinc-900/90 border border-zinc-800 p-0.5 rounded-lg text-xs font-mono">
+        <div className="flex items-center gap-1 bg-gp-ink-800/90 border border-gp-ink-700 p-0.5 rounded-lg text-xs font-mono">
           <button
             type="button"
             onClick={() => setViewMode("document")}
             className={`px-2.5 py-1 rounded-md transition-colors ${
-              viewMode === "document" ? "bg-emerald-500 text-black font-bold" : "text-zinc-400 hover:text-white"
+              viewMode === "document" ? "bg-emerald-500 text-black font-bold" : "text-gp-ink-300 hover:text-white"
             }`}
           >
             Dokumen
@@ -1227,7 +1227,7 @@ export function WordDocsStudio({
             type="button"
             onClick={() => setViewMode("source")}
             className={`px-2.5 py-1 rounded-md transition-colors ${
-              viewMode === "source" ? "bg-emerald-500 text-black font-bold" : "text-zinc-400 hover:text-white"
+              viewMode === "source" ? "bg-emerald-500 text-black font-bold" : "text-gp-ink-300 hover:text-white"
             }`}
           >
             HTML / Kode
@@ -1236,7 +1236,7 @@ export function WordDocsStudio({
             type="button"
             onClick={() => setViewMode("preview")}
             className={`px-2.5 py-1 rounded-md transition-colors ${
-              viewMode === "preview" ? "bg-emerald-500 text-black font-bold" : "text-zinc-400 hover:text-white"
+              viewMode === "preview" ? "bg-emerald-500 text-black font-bold" : "text-gp-ink-300 hover:text-white"
             }`}
           >
             Web Preview
@@ -1246,31 +1246,31 @@ export function WordDocsStudio({
 
       {/* 3. TABLE INSERTION MODAL */}
       {showTableModal && (
-        <div className="bg-[#121218] border-b border-zinc-800 px-6 py-3 flex items-center gap-4 flex-wrap z-20 text-xs font-mono animate-in slide-in-from-top-2">
+        <div className="bg-gp-ink-850 border-b border-gp-ink-700 px-6 py-3 flex items-center gap-4 flex-wrap z-20 text-xs font-mono animate-in slide-in-from-top-2">
           <span className="text-emerald-400 font-bold flex items-center gap-1.5">
             <TableIcon className="w-4 h-4" />
             <span>Pembangun Tabel In-Canvas:</span>
           </span>
           <div className="flex items-center gap-2">
-            <label className="text-zinc-400">Baris:</label>
+            <label className="text-gp-ink-300">Baris:</label>
             <input
               type="number"
               min={1}
               max={15}
               value={tableRowsInput}
               onChange={(e) => setTableRowsInput(parseInt(e.target.value) || 1)}
-              className="w-16 bg-zinc-900 border border-zinc-700 rounded px-2 py-1 text-white text-center"
+              className="w-16 bg-gp-ink-800 border border-gp-ink-600 rounded px-2 py-1 text-white text-center"
             />
           </div>
           <div className="flex items-center gap-2">
-            <label className="text-zinc-400">Kolom:</label>
+            <label className="text-gp-ink-300">Kolom:</label>
             <input
               type="number"
               min={1}
               max={8}
               value={tableColsInput}
               onChange={(e) => setTableColsInput(parseInt(e.target.value) || 1)}
-              className="w-16 bg-zinc-900 border border-zinc-700 rounded px-2 py-1 text-white text-center"
+              className="w-16 bg-gp-ink-800 border border-gp-ink-600 rounded px-2 py-1 text-white text-center"
             />
           </div>
           <Button type="button" variant="cyber" size="sm" onClick={handleInsertTable} className="text-xs font-bold">
@@ -1279,7 +1279,7 @@ export function WordDocsStudio({
           <button
             type="button"
             onClick={() => setShowTableModal(false)}
-            className="text-zinc-400 hover:text-white text-xs"
+            className="text-gp-ink-300 hover:text-white text-xs"
           >
             Batal
           </button>
@@ -1288,7 +1288,7 @@ export function WordDocsStudio({
 
       {/* 4. LINK INSERTION MODAL */}
       {showLinkModal && (
-        <div className="bg-[#121218] border-b border-zinc-800 px-6 py-3 flex items-center gap-4 flex-wrap z-20 text-xs animate-in slide-in-from-top-2">
+        <div className="bg-gp-ink-850 border-b border-gp-ink-700 px-6 py-3 flex items-center gap-4 flex-wrap z-20 text-xs animate-in slide-in-from-top-2">
           <span className="text-cyan-400 font-bold font-mono flex items-center gap-1.5">
             <LinkIcon className="w-4 h-4" />
             <span>Sisipkan Tautan Web:</span>
@@ -1298,14 +1298,14 @@ export function WordDocsStudio({
             value={linkTextInput}
             onChange={(e) => setLinkTextInput(e.target.value)}
             placeholder="Teks tautan (opsional)..."
-            className="w-44 bg-zinc-900 border border-zinc-700 rounded-lg px-2.5 py-1 text-white text-xs"
+            className="w-44 bg-gp-ink-800 border border-gp-ink-600 rounded-lg px-2.5 py-1 text-white text-xs"
           />
           <input
             type="url"
             value={linkUrlInput}
             onChange={(e) => setLinkUrlInput(e.target.value)}
             placeholder="URL Tujuan (https://...)"
-            className="w-64 bg-zinc-900 border border-zinc-700 rounded-lg px-2.5 py-1 text-white text-xs font-mono"
+            className="w-64 bg-gp-ink-800 border border-gp-ink-600 rounded-lg px-2.5 py-1 text-white text-xs font-mono"
           />
           <Button type="button" variant="cyber" size="sm" onClick={handleApplyLink} className="text-xs font-bold">
             Terapkan Link
@@ -1313,7 +1313,7 @@ export function WordDocsStudio({
           <button
             type="button"
             onClick={() => setShowLinkModal(false)}
-            className="text-zinc-400 hover:text-white text-xs"
+            className="text-gp-ink-300 hover:text-white text-xs"
           >
             Batal
           </button>
@@ -1322,15 +1322,15 @@ export function WordDocsStudio({
 
       {/* 5. IN-PLACE TABLE CONTROLS (Floats when cursor is inside a table) */}
       {activeTableElement && (
-        <div className="bg-[#15151f] border-b border-emerald-500/30 px-6 py-2 flex items-center gap-2 flex-wrap text-xs font-mono z-20 shadow-md animate-in fade-in duration-150">
-          <span className="text-emerald-400 font-bold text-[11px] flex items-center gap-1">
+        <div className="bg-gp-ink-850 border-b border-emerald-500/30 px-6 py-2 flex items-center gap-2 flex-wrap text-xs font-mono z-20 shadow-md animate-in fade-in duration-150">
+          <span className="text-emerald-400 font-bold text-2xs flex items-center gap-1">
             <TableIcon className="w-3.5 h-3.5" />
             <span>AKSI TABEL AKTIF:</span>
           </span>
           <button
             type="button"
             onClick={handleAddTableRow}
-            className="px-2 py-1 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 hover:text-white flex items-center gap-1 text-[11px]"
+            className="px-2 py-1 rounded bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 hover:text-white flex items-center gap-1 text-2xs"
           >
             <Plus className="w-3 h-3 text-emerald-400" />
             <span>+ Baris</span>
@@ -1338,16 +1338,16 @@ export function WordDocsStudio({
           <button
             type="button"
             onClick={handleDeleteTableRow}
-            className="px-2 py-1 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 hover:text-rose-400 flex items-center gap-1 text-[11px]"
+            className="px-2 py-1 rounded bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 hover:text-rose-400 flex items-center gap-1 text-2xs"
           >
             <Trash2 className="w-3 h-3 text-rose-400" />
             <span>- Hapus Baris</span>
           </button>
-          <div className="h-3 w-[1px] bg-zinc-800 mx-1" />
+          <div className="h-3 w-[1px] bg-gp-ink-700 mx-1" />
           <button
             type="button"
             onClick={handleAddTableColumn}
-            className="px-2 py-1 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 hover:text-white flex items-center gap-1 text-[11px]"
+            className="px-2 py-1 rounded bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 hover:text-white flex items-center gap-1 text-2xs"
           >
             <Plus className="w-3 h-3 text-cyan-400" />
             <span>+ Kolom</span>
@@ -1355,16 +1355,16 @@ export function WordDocsStudio({
           <button
             type="button"
             onClick={handleDeleteTableColumn}
-            className="px-2 py-1 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 hover:text-rose-400 flex items-center gap-1 text-[11px]"
+            className="px-2 py-1 rounded bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 hover:text-rose-400 flex items-center gap-1 text-2xs"
           >
             <Trash2 className="w-3 h-3 text-rose-400" />
             <span>- Hapus Kolom</span>
           </button>
-          <div className="h-3 w-[1px] bg-zinc-800 mx-1" />
+          <div className="h-3 w-[1px] bg-gp-ink-700 mx-1" />
           <button
             type="button"
             onClick={handleDeleteEntireTable}
-            className="px-2 py-1 rounded bg-rose-950/40 hover:bg-rose-900/60 border border-rose-500/40 text-rose-300 font-bold flex items-center gap-1 text-[11px]"
+            className="px-2 py-1 rounded bg-rose-950/40 hover:bg-rose-900/60 border border-rose-500/40 text-rose-300 font-bold flex items-center gap-1 text-2xs"
           >
             <Trash2 className="w-3 h-3 text-rose-400" />
             <span>Hapus Tabel</span>
@@ -1374,36 +1374,36 @@ export function WordDocsStudio({
 
       {/* 6. IN-PLACE IMAGE RESIZING CONTROLS (Floats when user clicks an image) */}
       {selectedImageElement && (
-        <div className="bg-[#15151f] border-b border-cyan-500/30 px-6 py-2 flex items-center gap-3 flex-wrap text-xs font-mono z-20 shadow-md animate-in fade-in duration-150">
-          <span className="text-cyan-400 font-bold text-[11px] flex items-center gap-1">
+        <div className="bg-gp-ink-850 border-b border-cyan-500/30 px-6 py-2 flex items-center gap-3 flex-wrap text-xs font-mono z-20 shadow-md animate-in fade-in duration-150">
+          <span className="text-cyan-400 font-bold text-2xs flex items-center gap-1">
             <ImageIcon className="w-3.5 h-3.5" />
             <span>UKURAN GAMBAR:</span>
           </span>
           <button
             type="button"
             onClick={() => handleSetImageWidth("25%")}
-            className="px-2.5 py-1 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 hover:text-white text-[11px]"
+            className="px-2.5 py-1 rounded bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 hover:text-white text-2xs"
           >
             25% (Kecil)
           </button>
           <button
             type="button"
             onClick={() => handleSetImageWidth("50%")}
-            className="px-2.5 py-1 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 hover:text-white text-[11px]"
+            className="px-2.5 py-1 rounded bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 hover:text-white text-2xs"
           >
             50% (Sedang)
           </button>
           <button
             type="button"
             onClick={() => handleSetImageWidth("75%")}
-            className="px-2.5 py-1 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 hover:text-white text-[11px]"
+            className="px-2.5 py-1 rounded bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 hover:text-white text-2xs"
           >
             75% (Lebar)
           </button>
           <button
             type="button"
             onClick={() => handleSetImageWidth("100%")}
-            className="px-2.5 py-1 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-750 text-zinc-300 hover:text-white text-[11px]"
+            className="px-2.5 py-1 rounded bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-650 text-gp-ink-200 hover:text-white text-2xs"
           >
             100% (Penuh)
           </button>
@@ -1419,7 +1419,7 @@ export function WordDocsStudio({
               }
               handleContentChange();
             }}
-            className="px-2 py-1 rounded bg-rose-950/40 hover:bg-rose-900/60 border border-rose-500/40 text-rose-300 text-[11px]"
+            className="px-2 py-1 rounded bg-rose-950/40 hover:bg-rose-900/60 border border-rose-500/40 text-rose-300 text-2xs"
           >
             Hapus Gambar
           </button>
@@ -1428,8 +1428,8 @@ export function WordDocsStudio({
 
       {/* 6B. ACTIVE BLOCK ELEMENT TOOLBAR (Floats when user selects or clicks any block element) */}
       {activeBlock && (
-        <div className="bg-[#181524] border-b border-rose-500/40 px-6 py-2 flex items-center justify-between gap-3 text-xs font-mono z-20 shadow-md animate-in fade-in duration-150">
-          <div className="flex items-center gap-2 text-rose-300 font-bold text-[11px]">
+        <div className="bg-gp-violet-500 border-b border-rose-500/40 px-6 py-2 flex items-center justify-between gap-3 text-xs font-mono z-20 shadow-md animate-in fade-in duration-150">
+          <div className="flex items-center gap-2 text-rose-300 font-bold text-2xs">
             <Layers className="w-3.5 h-3.5 text-rose-400" />
             <span>ELEMEN AKTIF TERPILIH: {activeBlock.label.toUpperCase()}</span>
           </div>
@@ -1437,7 +1437,7 @@ export function WordDocsStudio({
             <button
               type="button"
               onClick={handleDeleteActiveBlock}
-              className="px-2.5 py-1 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold flex items-center gap-1.5 text-[11px] shadow transition-colors active:scale-95"
+              className="px-2.5 py-1 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold flex items-center gap-1.5 text-2xs shadow transition-colors active:scale-95"
               title="Hapus elemen blok ini secara permanen"
             >
               <Trash2 className="w-3.5 h-3.5" />
@@ -1446,7 +1446,7 @@ export function WordDocsStudio({
             <button
               type="button"
               onClick={() => setActiveBlock(null)}
-              className="px-2 py-1 rounded bg-zinc-900 border border-zinc-750 text-zinc-400 hover:text-white text-[11px]"
+              className="px-2 py-1 rounded bg-gp-ink-800 border border-gp-ink-650 text-gp-ink-300 hover:text-white text-2xs"
             >
               ✕
             </button>
@@ -1455,39 +1455,39 @@ export function WordDocsStudio({
       )}
 
       {/* 7. MAIN SCROLLABLE DOCUMENT WORKSPACE */}
-      <div className="flex-1 overflow-y-auto bg-[#07070a] p-4 sm:p-8 flex justify-center">
+      <div className="flex-1 overflow-y-auto bg-gp-ink-950 p-4 sm:p-8 flex justify-center">
         {/* DOCUMENT VIEW (Word Centered Sheet Layout) */}
         {viewMode === "document" && (
-          <div className="w-full max-w-4xl bg-[#0c0c11] border border-zinc-800 rounded-2xl shadow-2xl p-6 sm:p-12 my-auto flex flex-col space-y-6">
+          <div className="w-full max-w-4xl bg-gp-ink-900 border border-gp-ink-700 rounded-2xl shadow-2xl p-6 sm:p-12 my-auto flex flex-col space-y-6">
             {/* Document Header Metadata */}
-            <div className="space-y-4 pb-6 border-b border-zinc-800">
+            <div className="space-y-4 pb-6 border-b border-gp-ink-700">
               {/* Title & Category Row */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider font-bold">
+                  <span className="text-2xs font-mono text-gp-ink-300 uppercase tracking-wider font-bold">
                     {modeType === "faq" ? "Pertanyaan FAQ" : "Judul Panduan"}
                   </span>
 
                   {/* Mode specific tags */}
                   {modeType === "faq" ? (
-                    <label className="flex items-center gap-2 text-xs text-zinc-400 cursor-pointer select-none">
+                    <label className="flex items-center gap-2 text-xs text-gp-ink-300 cursor-pointer select-none">
                       <input
                         type="checkbox"
                         checked={doc.isImportant || false}
                         onChange={(e) => setDoc({ ...doc, isImportant: e.target.checked })}
-                        className="rounded border-zinc-700 bg-zinc-900 text-emerald-500 accent-emerald-500"
+                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-emerald-500 accent-emerald-500"
                       />
-                      <span className="font-semibold text-amber-400 font-mono text-[11px]">Featured FAQ</span>
+                      <span className="font-semibold text-amber-400 font-mono text-2xs">Featured FAQ</span>
                     </label>
                   ) : (
-                    <label className="flex items-center gap-2 text-xs text-zinc-400 cursor-pointer select-none">
+                    <label className="flex items-center gap-2 text-xs text-gp-ink-300 cursor-pointer select-none">
                       <input
                         type="checkbox"
                         checked={doc.isPublished !== undefined ? doc.isPublished : true}
                         onChange={(e) => setDoc({ ...doc, isPublished: e.target.checked })}
-                        className="rounded border-zinc-700 bg-zinc-900 text-emerald-500 accent-emerald-500"
+                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-emerald-500 accent-emerald-500"
                       />
-                      <span className="font-semibold text-emerald-400 font-mono text-[11px]">Publikasikan Rute</span>
+                      <span className="font-semibold text-emerald-400 font-mono text-2xs">Publikasikan Rute</span>
                     </label>
                   )}
                 </div>
@@ -1497,27 +1497,27 @@ export function WordDocsStudio({
                   value={doc.title}
                   onChange={(e) => setDoc({ ...doc, title: e.target.value })}
                   placeholder={modeType === "faq" ? "Masukkan pertanyaan FAQ di sini..." : "Masukkan judul panduan..."}
-                  className="w-full bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 focus:border-emerald-400 rounded-xl px-4 py-3 text-white font-black text-lg sm:text-xl focus:outline-none transition-colors"
+                  className="w-full bg-gp-ink-800/80 border border-gp-ink-700 hover:border-gp-ink-600 focus:border-emerald-400 rounded-xl px-4 py-3 text-white font-black text-lg sm:text-xl focus:outline-none transition-colors"
                 />
               </div>
 
               {/* Category, Slug & Path Metadata for Guides */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
-                  <label className="text-[10px] font-mono text-zinc-400 uppercase block mb-1">Kategori:</label>
+                  <label className="text-3xs font-mono text-gp-ink-300 uppercase block mb-1">Kategori:</label>
                   <input
                     type="text"
                     value={doc.category || ""}
                     onChange={(e) => setDoc({ ...doc, category: e.target.value })}
                     placeholder="e.g. SDR & Kalibrasi Warna"
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-cyan-400"
+                    className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-cyan-400"
                   />
                 </div>
 
                 {modeType === "guide" && (
                   <>
                     <div>
-                      <label className="text-[10px] font-mono text-zinc-400 uppercase block mb-1">Slug URL:</label>
+                      <label className="text-3xs font-mono text-gp-ink-300 uppercase block mb-1">Slug URL:</label>
                       <input
                         type="text"
                         value={doc.slug || ""}
@@ -1532,18 +1532,18 @@ export function WordDocsStudio({
                           });
                         }}
                         placeholder="glossary"
-                        className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-zinc-300 font-mono focus:outline-none focus:border-cyan-400"
+                        className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-lg px-3 py-1.5 text-xs text-gp-ink-200 font-mono focus:outline-none focus:border-cyan-400"
                       />
                     </div>
 
                     <div>
-                      <label className="text-[10px] font-mono text-zinc-400 uppercase block mb-1">Sub-Path Publik:</label>
+                      <label className="text-3xs font-mono text-gp-ink-300 uppercase block mb-1">Sub-Path Publik:</label>
                       <input
                         type="text"
                         value={doc.fullPath || ""}
                         onChange={(e) => setDoc({ ...doc, fullPath: e.target.value })}
                         placeholder="/guide/sdr/glossary"
-                        className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-emerald-400 font-mono font-bold focus:outline-none focus:border-emerald-400"
+                        className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-lg px-3 py-1.5 text-xs text-emerald-400 font-mono font-bold focus:outline-none focus:border-emerald-400"
                       />
                     </div>
                   </>
@@ -1554,7 +1554,7 @@ export function WordDocsStudio({
               {modeType === "guide" && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                   <div>
-                    <label className="text-[10px] font-mono text-zinc-400 uppercase block mb-1">
+                    <label className="text-3xs font-mono text-gp-ink-300 uppercase block mb-1">
                       Hero Cover Image URL (Opsional):
                     </label>
                     <input
@@ -1562,11 +1562,11 @@ export function WordDocsStudio({
                       value={doc.coverImage || ""}
                       onChange={(e) => setDoc({ ...doc, coverImage: e.target.value })}
                       placeholder="https://images.unsplash.com/..."
-                      className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-cyan-400 font-mono"
+                      className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-cyan-400 font-mono"
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] font-mono text-zinc-400 uppercase block mb-1">
+                    <label className="text-3xs font-mono text-gp-ink-300 uppercase block mb-1">
                       Ringkasan Singkat / Description:
                     </label>
                     <input
@@ -1574,7 +1574,7 @@ export function WordDocsStudio({
                       value={doc.description || ""}
                       onChange={(e) => setDoc({ ...doc, description: e.target.value })}
                       placeholder="Ringkasan ulasan teknis..."
-                      className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-cyan-400"
+                      className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-cyan-400"
                     />
                   </div>
                 </div>
@@ -1583,10 +1583,10 @@ export function WordDocsStudio({
 
             {/* Document Body Label */}
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider font-bold">
+              <span className="text-2xs font-mono text-gp-ink-300 uppercase tracking-wider font-bold">
                 Isi Konten Dokumen
               </span>
-              <span className="text-[11px] font-mono text-zinc-500">
+              <span className="text-2xs font-mono text-gp-ink-400">
                 Paste gambar (Ctrl+V) atau ketik teks langsung
               </span>
             </div>
@@ -1603,16 +1603,16 @@ export function WordDocsStudio({
               onKeyDown={handleEditorKeyDown}
               onClick={handleEditorClick}
               onPaste={handlePaste}
-              className="notion-prose min-h-[420px] focus:outline-none p-4 rounded-xl bg-zinc-950/30 border border-zinc-850 hover:border-zinc-800 focus:border-zinc-700 transition-colors"
+              className="notion-prose min-h-[420px] focus:outline-none p-4 rounded-xl bg-gp-ink-950/30 border border-gp-ink-750 hover:border-gp-ink-700 focus:border-gp-ink-600 transition-colors"
             />
           </div>
         )}
 
         {/* SOURCE VIEW (HTML Code) */}
         {viewMode === "source" && (
-          <div className="w-full max-w-4xl bg-[#0c0c11] border border-zinc-800 rounded-2xl shadow-2xl p-6 my-auto flex flex-col space-y-4">
-            <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
-              <span className="text-xs font-mono font-bold text-zinc-400 uppercase">
+          <div className="w-full max-w-4xl bg-gp-ink-900 border border-gp-ink-700 rounded-2xl shadow-2xl p-6 my-auto flex flex-col space-y-4">
+            <div className="flex items-center justify-between border-b border-gp-ink-700 pb-3">
+              <span className="text-xs font-mono font-bold text-gp-ink-300 uppercase">
                 Kode Sumber (HTML)
               </span>
               <button
@@ -1621,7 +1621,7 @@ export function WordDocsStudio({
                   navigator.clipboard.writeText(doc.content);
                   alert("Kode HTML disalin ke clipboard!");
                 }}
-                className="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-750 text-xs font-mono text-zinc-300 hover:text-white flex items-center gap-1.5"
+                className="px-2.5 py-1 rounded bg-gp-ink-800 border border-gp-ink-650 text-xs font-mono text-gp-ink-200 hover:text-white flex items-center gap-1.5"
               >
                 <Copy className="w-3.5 h-3.5 text-cyan-400" />
                 <span>Salin Kode</span>
@@ -1631,27 +1631,27 @@ export function WordDocsStudio({
               rows={22}
               value={doc.content}
               onChange={(e) => setDoc({ ...doc, content: e.target.value })}
-              className="w-full bg-[#07070a] border border-zinc-800 rounded-xl p-4 text-zinc-300 font-mono text-xs leading-relaxed focus:outline-none focus:border-emerald-400"
+              className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-xl p-4 text-gp-ink-200 font-mono text-xs leading-relaxed focus:outline-none focus:border-emerald-400"
             />
           </div>
         )}
 
         {/* PREVIEW VIEW (Live Public Render via NotionBlockRenderer) */}
         {viewMode === "preview" && (
-          <div className="w-full max-w-4xl bg-[#0c0c11] border border-zinc-800 rounded-2xl shadow-2xl p-6 sm:p-10 my-auto flex flex-col space-y-6">
-            <div className="border-b border-zinc-800 pb-4">
-              <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider font-bold block mb-1">
+          <div className="w-full max-w-4xl bg-gp-ink-900 border border-gp-ink-700 rounded-2xl shadow-2xl p-6 sm:p-10 my-auto flex flex-col space-y-6">
+            <div className="border-b border-gp-ink-700 pb-4">
+              <span className="text-3xs font-mono text-emerald-400 uppercase tracking-wider font-bold block mb-1">
                 Pratinjau Halaman Publik
               </span>
               <h2 className="text-xl sm:text-2xl font-black text-white">{doc.title}</h2>
               {doc.category && (
-                <span className="inline-block mt-2 px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400 text-[10px] font-mono font-bold uppercase">
+                <span className="inline-block mt-2 px-2 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 text-3xs font-mono font-bold uppercase">
                   {doc.category}
                 </span>
               )}
             </div>
 
-            <div className="p-6 rounded-2xl bg-zinc-950/60 border border-zinc-800">
+            <div className="p-6 rounded-2xl bg-gp-ink-950/60 border border-gp-ink-700">
               <NotionBlockRenderer content={doc.content} />
             </div>
           </div>
@@ -1659,11 +1659,11 @@ export function WordDocsStudio({
       </div>
 
       {/* 8. BOTTOM FOOTER STATUS BAR */}
-      <footer className="h-10 px-4 sm:px-6 bg-[#0c0c11] border-t border-zinc-800 flex items-center justify-between text-xs font-mono text-zinc-500 z-20 flex-shrink-0">
+      <footer className="h-10 px-4 sm:px-6 bg-gp-ink-900 border-t border-gp-ink-700 flex items-center justify-between text-xs font-mono text-gp-ink-400 z-20 flex-shrink-0">
         <div className="flex items-center gap-3">
-          <span className="text-zinc-400 font-medium">Word & Docs Studio</span>
+          <span className="text-gp-ink-300 font-medium">Word & Docs Studio</span>
           <span>•</span>
-          <span className="text-zinc-500">GrayPlasma Admin</span>
+          <span className="text-gp-ink-400">GrayPlasma Admin</span>
         </div>
         <div className="flex items-center gap-4">
           <span className="hidden sm:inline">Ctrl+B (Tebal) • Ctrl+I (Miring) • Ctrl+U (Garis Bawah)</span>

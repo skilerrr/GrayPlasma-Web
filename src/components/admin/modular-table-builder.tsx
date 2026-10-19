@@ -401,39 +401,39 @@ export function ModularTableBuilder({
     const colCount = columns.length;
     let html = `
 <div class="notion-table-wrapper my-6 overflow-x-auto">
-  <table class="notion-visual-table w-full border-collapse rounded-xl overflow-hidden border border-zinc-800 shadow-tech-card text-xs font-sans">
+  <table class="notion-visual-table w-full border-collapse rounded-xl overflow-hidden border border-gp-ink-700 shadow-tech-card text-xs font-sans">
     <thead>
-      <tr class="bg-[#050508] border-b-2 border-zinc-700 text-zinc-300 font-mono text-[11px] tracking-wider uppercase">
+      <tr class="bg-gp-ink-998 border-b-2 border-gp-ink-600 text-gp-ink-200 font-mono text-2xs tracking-wider uppercase">
         ${columns
           .map(
             (c) =>
-              `<th class="px-3.5 py-3 text-left font-bold border-r border-zinc-800 last:border-r-0">${c.label}</th>`
+              `<th class="px-3.5 py-3 text-left font-bold border-r border-gp-ink-700 last:border-r-0">${c.label}</th>`
           )
           .join("")}
       </tr>
     </thead>
-    <tbody class="divide-y divide-zinc-800/80 bg-[#0c0c11]">
+    <tbody class="divide-y divide-gp-ink-700/80 bg-gp-ink-900">
 `;
 
     rows.forEach((row) => {
       if (row.isHeaderGroup) {
         html += `
-      <tr class="bg-zinc-900/90 border-t-2 border-b border-zinc-700/80">
-        <td colspan="${colCount}" class="px-4 py-2 text-[11px] font-mono font-bold tracking-wider text-amber-400 uppercase">
+      <tr class="bg-gp-ink-800/90 border-t-2 border-b border-gp-ink-600/80">
+        <td colspan="${colCount}" class="px-4 py-2 text-2xs font-mono font-bold tracking-wider text-amber-400 uppercase">
           ${row.groupTitle || "Seksi"}
         </td>
       </tr>
 `;
       } else {
         html += `
-      <tr class="hover:bg-zinc-800/40 transition-colors">
+      <tr class="hover:bg-gp-ink-700/40 transition-colors">
         ${columns
           .map((col, idx) => {
             const val = row.cells[col.id] || "-";
             const isFirstCol = idx === 0;
             return `
-          <td class="px-3.5 py-2.5 border-r border-zinc-800/60 last:border-r-0 ${
-            isFirstCol ? "font-semibold text-white" : "text-zinc-300"
+          <td class="px-3.5 py-2.5 border-r border-gp-ink-700/60 last:border-r-0 ${
+            isFirstCol ? "font-semibold text-white" : "text-gp-ink-200"
           }">
             ${val}
           </td>
@@ -458,9 +458,9 @@ export function ModularTableBuilder({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200 font-sans">
-      <div className="bg-[#0b0b0f] border border-zinc-800 rounded-2xl w-full max-w-5xl h-[92vh] flex flex-col shadow-2xl overflow-hidden">
+      <div className="bg-gp-ink-900 border border-gp-ink-700 rounded-2xl w-full max-w-5xl h-[92vh] flex flex-col shadow-2xl overflow-hidden">
         {/* Top Header */}
-        <div className="h-16 px-6 bg-[#101017] border-b-2 border-zinc-800 flex items-center justify-between flex-shrink-0">
+        <div className="h-16 px-6 bg-gp-ink-900 border-b-2 border-gp-ink-700 flex items-center justify-between flex-shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
               <TableIcon className="w-5 h-5" />
@@ -471,7 +471,7 @@ export function ModularTableBuilder({
                   Modular Table Builder
                 </h3>
               </div>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-gp-ink-300">
                 Susun kolom teknis kustom dan baris berhierarki untuk ulasan rekomendasi GrayPlasma.
               </p>
             </div>
@@ -480,7 +480,7 @@ export function ModularTableBuilder({
           <div className="flex items-center gap-2">
             <button
               onClick={onClose}
-              className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white transition-colors"
+              className="p-2 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-white transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
@@ -488,37 +488,37 @@ export function ModularTableBuilder({
         </div>
 
         {/* Action Toolbar & Preset Strips */}
-        <div className="px-6 py-3 bg-[#0d0d12] border-b border-zinc-800/80 flex flex-wrap items-center justify-between gap-3 flex-shrink-0 text-xs">
+        <div className="px-6 py-3 bg-gp-ink-900 border-b border-gp-ink-700/80 flex flex-wrap items-center justify-between gap-3 flex-shrink-0 text-xs">
           {/* Preset Buttons */}
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-bold">
+            <span className="text-3xs font-mono text-gp-ink-300 uppercase tracking-wider font-bold">
               Preset Template:
             </span>
             <button
               type="button"
               onClick={() => handleApplyPreset("desk")}
-              className="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-700 hover:border-amber-500/60 text-amber-300 font-mono text-[11px] font-semibold transition-colors"
+              className="px-2.5 py-1 rounded bg-gp-ink-800 border border-gp-ink-600 hover:border-amber-500/60 text-amber-300 font-mono text-2xs font-semibold transition-colors"
             >
               Uji Meja & Arm
             </button>
             <button
               type="button"
               onClick={() => handleApplyPreset("monitor")}
-              className="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-700 hover:border-cyan-500/60 text-cyan-300 font-mono text-[11px] font-semibold transition-colors"
+              className="px-2.5 py-1 rounded bg-gp-ink-800 border border-gp-ink-600 hover:border-cyan-500/60 text-cyan-300 font-mono text-2xs font-semibold transition-colors"
             >
               Lab Monitor GTID
             </button>
             <button
               type="button"
               onClick={() => handleApplyPreset("comparison")}
-              className="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-700 hover:border-violet-500/60 text-violet-300 font-mono text-[11px] font-semibold transition-colors"
+              className="px-2.5 py-1 rounded bg-gp-ink-800 border border-gp-ink-600 hover:border-violet-500/60 text-violet-300 font-mono text-2xs font-semibold transition-colors"
             >
               [Perbandingan Model]
             </button>
             <button
               type="button"
               onClick={() => handleApplyPreset("blank")}
-              className="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-700 hover:border-zinc-500 text-zinc-400 font-mono text-[11px] font-semibold transition-colors"
+              className="px-2.5 py-1 rounded bg-gp-ink-800 border border-gp-ink-600 hover:border-gp-ink-400 text-gp-ink-300 font-mono text-2xs font-semibold transition-colors"
             >
               [Kosong]
             </button>
@@ -550,20 +550,20 @@ export function ModularTableBuilder({
         </div>
 
         {/* Main Interactive Table Grid Canvas */}
-        <div className="flex-1 overflow-auto p-6 bg-[#07070a]">
-          <div className="border border-zinc-800 rounded-xl overflow-hidden shadow-tech-card bg-[#0d0d12]">
+        <div className="flex-1 overflow-auto p-6 bg-gp-ink-950">
+          <div className="border border-gp-ink-700 rounded-xl overflow-hidden shadow-tech-card bg-gp-ink-900">
             {/* Table Headers (Columns with rename & delete controls) */}
-            <div className="bg-[#050508] border-b-2 border-zinc-700 p-2.5 flex items-center justify-between gap-3 overflow-x-auto">
+            <div className="bg-gp-ink-998 border-b-2 border-gp-ink-600 p-2.5 flex items-center justify-between gap-3 overflow-x-auto">
               <div className="flex items-center gap-2 min-w-max">
-                <span className="text-[10px] font-mono text-zinc-500 font-bold uppercase tracking-wider mr-1">
+                <span className="text-3xs font-mono text-gp-ink-400 font-bold uppercase tracking-wider mr-1">
                   KOLOM ({columns.length}):
                 </span>
                 {columns.map((col, idx) => (
                   <div
                     key={col.id}
-                    className="group relative flex items-center gap-1.5 bg-zinc-900 border border-zinc-750 px-2.5 py-1 rounded-md"
+                    className="group relative flex items-center gap-1.5 bg-gp-ink-800 border border-gp-ink-650 px-2.5 py-1 rounded-md"
                   >
-                    <span className="text-[10px] font-mono text-zinc-500 font-bold">
+                    <span className="text-3xs font-mono text-gp-ink-400 font-bold">
                       #{idx + 1}
                     </span>
                     <input
@@ -576,7 +576,7 @@ export function ModularTableBuilder({
                       <button
                         type="button"
                         onClick={() => handleDeleteColumn(col.id)}
-                        className="text-zinc-500 hover:text-rose-400 opacity-60 group-hover:opacity-100 p-0.5"
+                        className="text-gp-ink-400 hover:text-rose-400 opacity-60 group-hover:opacity-100 p-0.5"
                         title="Hapus Kolom"
                       >
                         <Trash2 className="w-3 h-3" />
@@ -586,7 +586,7 @@ export function ModularTableBuilder({
                 ))}
 
                 {isAddingCol ? (
-                  <div className="flex items-center gap-1 bg-zinc-900 border border-emerald-500/50 px-2 py-0.5 rounded-md">
+                  <div className="flex items-center gap-1 bg-gp-ink-800 border border-emerald-500/50 px-2 py-0.5 rounded-md">
                     <input
                       type="text"
                       autoFocus
@@ -609,7 +609,7 @@ export function ModularTableBuilder({
                     <button
                       type="button"
                       onClick={() => setIsAddingCol(false)}
-                      className="p-1 text-zinc-500 hover:text-zinc-300"
+                      className="p-1 text-gp-ink-400 hover:text-gp-ink-200"
                     >
                       <X className="w-3.5 h-3.5" />
                     </button>
@@ -618,7 +618,7 @@ export function ModularTableBuilder({
                   <button
                     type="button"
                     onClick={() => setIsAddingCol(true)}
-                    className="px-2.5 py-1 rounded bg-zinc-900/80 border border-dashed border-zinc-700 hover:border-emerald-500 text-[11px] font-mono font-semibold text-zinc-400 hover:text-emerald-400 flex items-center gap-1 transition-colors"
+                    className="px-2.5 py-1 rounded bg-gp-ink-800/80 border border-dashed border-gp-ink-600 hover:border-emerald-500 text-2xs font-mono font-semibold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1 transition-colors"
                   >
                     <Plus className="w-3 h-3" />
                     <span>+ Kolom Baru</span>
@@ -628,9 +628,9 @@ export function ModularTableBuilder({
             </div>
 
             {/* Rows List */}
-            <div className="divide-y divide-zinc-800/80">
+            <div className="divide-y divide-gp-ink-700/80">
               {rows.length === 0 ? (
-                <div className="p-8 text-center text-zinc-500 font-mono text-xs">
+                <div className="p-8 text-center text-gp-ink-400 font-mono text-xs">
                   Belum ada baris data. Klik <strong>+ Seksi Hierarki</strong> atau{" "}
                   <strong>+ Baris Data</strong> di atas untuk memulai.
                 </div>
@@ -664,7 +664,7 @@ export function ModularTableBuilder({
                           setDraggedRowIndex(null);
                           setDragOverRowIndex(null);
                         }}
-                        className={`bg-zinc-950 px-4 py-2.5 flex items-center justify-between gap-3 border-t-2 border-b border-amber-500/30 group transition-all ${
+                        className={`bg-gp-ink-950 px-4 py-2.5 flex items-center justify-between gap-3 border-t-2 border-b border-amber-500/30 group transition-all ${
                           isDragging
                             ? "opacity-30 border-dashed border-amber-400 bg-amber-950/40"
                             : ""
@@ -672,12 +672,12 @@ export function ModularTableBuilder({
                       >
                         <div className="flex items-center gap-2 flex-1">
                           <div
-                            className="cursor-grab active:cursor-grabbing p-1 text-zinc-600 hover:text-amber-400 transition-colors"
+                            className="cursor-grab active:cursor-grabbing p-1 text-gp-ink-500 hover:text-amber-400 transition-colors"
                             title="Drag untuk memindahkan urutan seksi ini"
                           >
                             <GripVertical className="w-4 h-4" />
                           </div>
-                          <span className="text-[10px] font-mono text-amber-500 font-bold">
+                          <span className="text-3xs font-mono text-amber-500 font-bold">
                             SEKSI:
                           </span>
                           <input
@@ -693,7 +693,7 @@ export function ModularTableBuilder({
                           <button
                             type="button"
                             onClick={() => handleAddDataRow(rIdx)}
-                            className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-750 text-emerald-400 hover:border-emerald-500 text-[10px] font-mono font-bold flex items-center gap-1"
+                            className="px-2 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-650 text-emerald-400 hover:border-emerald-500 text-3xs font-mono font-bold flex items-center gap-1"
                             title="Tambah Baris di Bawah Seksi Ini"
                           >
                             <Plus className="w-3 h-3" />
@@ -703,7 +703,7 @@ export function ModularTableBuilder({
                             type="button"
                             onClick={() => handleMoveRow(rIdx, "up")}
                             disabled={rIdx === 0}
-                            className="p-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white disabled:opacity-30"
+                            className="p-1 rounded bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-white disabled:opacity-30"
                             title="Geser Naik"
                           >
                             <MoveUp className="w-3 h-3" />
@@ -712,7 +712,7 @@ export function ModularTableBuilder({
                             type="button"
                             onClick={() => handleMoveRow(rIdx, "down")}
                             disabled={rIdx === rows.length - 1}
-                            className="p-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white disabled:opacity-30"
+                            className="p-1 rounded bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-white disabled:opacity-30"
                             title="Geser Turun"
                           >
                             <MoveDown className="w-3 h-3" />
@@ -720,7 +720,7 @@ export function ModularTableBuilder({
                           <button
                             type="button"
                             onClick={() => handleDeleteRow(row.id)}
-                            className="p-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-500 hover:text-rose-400"
+                            className="p-1 rounded bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-400 hover:text-rose-400"
                             title="Hapus Seksi"
                           >
                             <Trash2 className="w-3 h-3" />
@@ -754,15 +754,15 @@ export function ModularTableBuilder({
                         setDraggedRowIndex(null);
                         setDragOverRowIndex(null);
                       }}
-                      className={`px-3 py-2 flex items-center gap-2 hover:bg-zinc-800/30 transition-all group ${
+                      className={`px-3 py-2 flex items-center gap-2 hover:bg-gp-ink-700/30 transition-all group ${
                         isDragging
                           ? "opacity-30 border border-dashed border-emerald-400 bg-emerald-950/40"
                           : ""
                       } ${isDragOver ? "border-t-2 border-t-emerald-400 bg-emerald-950/20" : ""}`}
                     >
-                      <div className="flex items-center gap-1 text-zinc-600 font-mono text-[10px]">
+                      <div className="flex items-center gap-1 text-gp-ink-500 font-mono text-3xs">
                         <div
-                          className="cursor-grab active:cursor-grabbing p-1 text-zinc-500 hover:text-emerald-400 transition-colors"
+                          className="cursor-grab active:cursor-grabbing p-1 text-gp-ink-400 hover:text-emerald-400 transition-colors"
                           title="Drag untuk memindahkan urutan baris ini"
                         >
                           <GripVertical className="w-3.5 h-3.5" />
@@ -798,10 +798,10 @@ export function ModularTableBuilder({
                                 handleUpdateCell(row.id, col.id, e.target.value)
                               }
                               placeholder={`Isi ${col.label}...`}
-                              className={`w-full bg-zinc-900/90 border border-zinc-800 rounded-md px-2.5 py-1.5 text-xs focus:outline-none focus:border-emerald-500 font-sans transition-colors ${
+                              className={`w-full bg-gp-ink-800/90 border border-gp-ink-700 rounded-md px-2.5 py-1.5 text-xs focus:outline-none focus:border-emerald-500 font-sans transition-colors ${
                                 cIdx === 0
                                   ? "text-white font-semibold"
-                                  : "text-zinc-300"
+                                  : "text-gp-ink-200"
                               }`}
                             />
                           </div>
@@ -812,7 +812,7 @@ export function ModularTableBuilder({
                       <button
                         type="button"
                         onClick={() => handleDeleteRow(row.id)}
-                        className="p-1 rounded text-zinc-500 hover:text-rose-400 opacity-50 group-hover:opacity-100 transition-opacity"
+                        className="p-1 rounded text-gp-ink-400 hover:text-rose-400 opacity-50 group-hover:opacity-100 transition-opacity"
                         title="Hapus Baris"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -826,8 +826,8 @@ export function ModularTableBuilder({
         </div>
 
         {/* Footer Actions */}
-        <div className="h-16 px-6 bg-[#101017] border-t-2 border-zinc-800 flex items-center justify-between flex-shrink-0">
-          <div className="flex items-center gap-2 text-xs text-zinc-400 font-mono">
+        <div className="h-16 px-6 bg-gp-ink-900 border-t-2 border-gp-ink-700 flex items-center justify-between flex-shrink-0">
+          <div className="flex items-center gap-2 text-xs text-gp-ink-300 font-mono">
             <span>TOTAL:</span>
             <span className="text-white font-bold">{columns.length} Kolom</span>
             <span>•</span>
@@ -840,7 +840,7 @@ export function ModularTableBuilder({
               variant="outline"
               size="sm"
               onClick={onClose}
-              className="text-xs border-zinc-700"
+              className="text-xs border-gp-ink-600"
             >
               Batal
             </Button>

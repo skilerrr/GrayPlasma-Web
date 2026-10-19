@@ -10,7 +10,7 @@ export default function NotFound() {
       <div className="space-y-4 max-w-md">
         <GPLogo className="w-16 h-16 mx-auto mb-4" />
         <h1 className="text-4xl font-black uppercase tracking-tight">404 - Halaman Tidak Ditemukan</h1>
-        <p className="text-xs text-zinc-400 leading-relaxed">
+        <p className="text-xs text-gp-ink-300 leading-relaxed">
           Halaman atau menu rekomendasi yang Anda cari tidak tersedia atau telah dipindahkan.
         </p>
         <div className="pt-2">

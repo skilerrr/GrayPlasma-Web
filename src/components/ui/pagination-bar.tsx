@@ -24,10 +24,10 @@ export function PaginationBar({
   const endItem = Math.min(currentPage * itemsPerPage, totalItems);
 
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-6 border-t border-zinc-800/80 text-xs">
-      <div className="text-zinc-500 font-mono">
-        Menampilkan <strong className="text-zinc-300 font-bold">{startItem}–{endItem}</strong> dari{" "}
-        <strong className="text-zinc-300 font-bold">{totalItems}</strong> item (Halaman {currentPage} dari {totalPages})
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-6 border-t border-gp-ink-700/80 text-xs">
+      <div className="text-gp-ink-400 font-mono">
+        Menampilkan <strong className="text-gp-ink-200 font-bold">{startItem}–{endItem}</strong> dari{" "}
+        <strong className="text-gp-ink-200 font-bold">{totalItems}</strong> item (Halaman {currentPage} dari {totalPages})
       </div>
 
       <div className="flex items-center gap-1.5 flex-wrap">
@@ -38,7 +38,7 @@ export function PaginationBar({
             onPageChange(Math.max(1, currentPage - 1));
           }}
           disabled={currentPage === 1}
-          className="px-3 py-1.5 rounded-xl bg-[#18181f] border border-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-800 disabled:opacity-40 disabled:pointer-events-none transition-all flex items-center gap-1 font-semibold"
+          className="px-3 py-1.5 rounded-xl bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-white hover:bg-gp-ink-700 disabled:opacity-40 disabled:pointer-events-none transition-all flex items-center gap-1 font-semibold"
         >
           <ChevronLeft className="w-3.5 h-3.5" />
           <span>Prev</span>
@@ -60,8 +60,8 @@ export function PaginationBar({
                   onClick={() => onPageChange(p)}
                   className={`w-8 h-8 rounded-xl text-xs font-mono font-bold transition-all ${
                     currentPage === p
-                      ? "bg-emerald-500 text-zinc-950 font-bold border border-emerald-400"
-                      : "bg-[#141418] border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700"
+                      ? "bg-emerald-500 text-gp-ink-950 font-bold border border-emerald-400"
+                      : "bg-gp-ink-850 border border-gp-ink-700 text-gp-ink-300 hover:text-white hover:border-gp-ink-600"
                   }`}
                 >
                   {p}
@@ -72,7 +72,7 @@ export function PaginationBar({
             // Ellipsis
             if (p === currentPage - 2 || p === currentPage + 2) {
               return (
-                <span key={p} className="px-1 text-zinc-600 font-mono">
+                <span key={p} className="px-1 text-gp-ink-500 font-mono">
                   …
                 </span>
               );
@@ -89,7 +89,7 @@ export function PaginationBar({
             onPageChange(Math.min(totalPages, currentPage + 1));
           }}
           disabled={currentPage === totalPages}
-          className="px-3 py-1.5 rounded-xl bg-[#18181f] border border-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-800 disabled:opacity-40 disabled:pointer-events-none transition-all flex items-center gap-1 font-semibold"
+          className="px-3 py-1.5 rounded-xl bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-white hover:bg-gp-ink-700 disabled:opacity-40 disabled:pointer-events-none transition-all flex items-center gap-1 font-semibold"
         >
           <span>Next</span>
           <ChevronRight className="w-3.5 h-3.5" />

@@ -198,8 +198,8 @@ export function AdBannerManager() {
       )}
 
       {/* Header Studio */}
-      <div className="bg-[#101014] border border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-800 pb-5">
+      <div className="bg-gp-ink-900 border border-gp-ink-700 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gp-ink-700 pb-5">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
               <Megaphone className="w-3.5 h-3.5" />
@@ -208,7 +208,7 @@ export function AdBannerManager() {
             <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
               Manajemen Ad Banner Beranda
             </h3>
-            <p className="text-xs text-zinc-400 max-w-2xl leading-relaxed">
+            <p className="text-xs text-gp-ink-300 max-w-2xl leading-relaxed">
               Atur banner iklan full-width yang membentang dari ujung kiri ke kanan di beranda. Mendukung rotasi otomatis 5 detik, gesture swipe sentuh/mouse, dan trigger navigasi ke halaman target.
             </p>
           </div>
@@ -219,7 +219,7 @@ export function AdBannerManager() {
               variant="outline"
               size="sm"
               onClick={() => setShowLivePreview(!showLivePreview)}
-              className="text-xs border-zinc-800 text-zinc-300 hover:text-white"
+              className="text-xs border-gp-ink-700 text-gp-ink-200 hover:text-white"
             >
               {showLivePreview ? <EyeOff className="w-3.5 h-3.5 mr-1.5" /> : <Eye className="w-3.5 h-3.5 mr-1.5" />}
               <span>{showLivePreview ? "Tutup Preview" : "Lihat Preview"}</span>
@@ -229,7 +229,7 @@ export function AdBannerManager() {
               variant="outline"
               size="sm"
               onClick={handleResetToDefault}
-              className="text-xs text-zinc-400 hover:text-white border-zinc-800"
+              className="text-xs text-gp-ink-300 hover:text-white border-gp-ink-700"
             >
               <RotateCcw className="w-3.5 h-3.5 mr-1.5" />
               <span>Reset Bawaan</span>
@@ -248,20 +248,20 @@ export function AdBannerManager() {
 
         {/* Quick Stats Bar */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div className="p-3.5 rounded-2xl bg-[#09090d] border border-zinc-850">
-            <span className="text-[10px] font-mono text-zinc-500 block uppercase">Total Banner</span>
+          <div className="p-3.5 rounded-2xl bg-gp-ink-950 border border-gp-ink-750">
+            <span className="text-3xs font-mono text-gp-ink-400 block uppercase">Total Banner</span>
             <span className="text-xl font-bold font-mono text-white">{banners.length}</span>
           </div>
-          <div className="p-3.5 rounded-2xl bg-[#09090d] border border-zinc-850">
-            <span className="text-[10px] font-mono text-zinc-500 block uppercase">Aktif di Beranda</span>
+          <div className="p-3.5 rounded-2xl bg-gp-ink-950 border border-gp-ink-750">
+            <span className="text-3xs font-mono text-gp-ink-400 block uppercase">Aktif di Beranda</span>
             <span className="text-xl font-bold font-mono text-emerald-400">{activeCount} Slide</span>
           </div>
-          <div className="p-3.5 rounded-2xl bg-[#09090d] border border-zinc-850">
-            <span className="text-[10px] font-mono text-zinc-500 block uppercase">Interval Auto-Slide</span>
+          <div className="p-3.5 rounded-2xl bg-gp-ink-950 border border-gp-ink-750">
+            <span className="text-3xs font-mono text-gp-ink-400 block uppercase">Interval Auto-Slide</span>
             <span className="text-xl font-bold font-mono text-cyan-400">5 Detik</span>
           </div>
-          <div className="p-3.5 rounded-2xl bg-[#09090d] border border-zinc-850">
-            <span className="text-[10px] font-mono text-zinc-500 block uppercase">Swipe Gestures</span>
+          <div className="p-3.5 rounded-2xl bg-gp-ink-950 border border-gp-ink-750">
+            <span className="text-3xs font-mono text-gp-ink-400 block uppercase">Swipe Gestures</span>
             <span className="text-xl font-bold font-mono text-orange-400">Aktif (Touch/Drag)</span>
           </div>
         </div>
@@ -269,39 +269,39 @@ export function AdBannerManager() {
 
       {/* Live Preview Simulator */}
       {showLivePreview && activeCount > 0 && (
-        <div className="bg-[#101014] border border-zinc-800 rounded-3xl p-5 space-y-3 shadow-xl">
+        <div className="bg-gp-ink-900 border border-gp-ink-700 rounded-3xl p-5 space-y-3 shadow-xl">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-xs font-bold text-zinc-300">
+            <div className="flex items-center gap-2 text-xs font-bold text-gp-ink-200">
               <Play className="w-3.5 h-3.5 text-emerald-400" />
               <span>Live Simulator: Tampilan Beranda Full-Width</span>
             </div>
-            <span className="text-[10px] font-mono text-zinc-500">
+            <span className="text-3xs font-mono text-gp-ink-400">
               *Geser atau klik CTA untuk menguji interaktivitas
             </span>
           </div>
-          <div className="rounded-2xl overflow-hidden border border-zinc-800">
+          <div className="rounded-2xl overflow-hidden border border-gp-ink-700">
             <BannerCarousel banners={banners} intervalMs={5000} />
           </div>
         </div>
       )}
 
       {/* Banner List */}
-      <div className="bg-[#101014] border border-zinc-800 rounded-3xl p-6 sm:p-8 space-y-4 shadow-xl">
-        <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
+      <div className="bg-gp-ink-900 border border-gp-ink-700 rounded-3xl p-6 sm:p-8 space-y-4 shadow-xl">
+        <div className="flex items-center justify-between border-b border-gp-ink-700 pb-4">
           <h4 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
             <span>Daftar Slide Banner</span>
-            <span className="text-xs font-mono font-normal text-zinc-500">
+            <span className="text-xs font-mono font-normal text-gp-ink-400">
               (Urutan tampil dari atas ke bawah)
             </span>
           </h4>
-          <span className="text-xs text-zinc-400 font-mono">
+          <span className="text-xs text-gp-ink-300 font-mono">
             {banners.length} Item
           </span>
         </div>
 
         {banners.length === 0 ? (
-          <div className="p-12 text-center text-zinc-500 text-xs space-y-2">
-            <Megaphone className="w-8 h-8 mx-auto opacity-40 text-zinc-600" />
+          <div className="p-12 text-center text-gp-ink-400 text-xs space-y-2">
+            <Megaphone className="w-8 h-8 mx-auto opacity-40 text-gp-ink-500" />
             <p>Belum ada banner aktif. Klik "Tambah Banner Baru" di atas.</p>
           </div>
         ) : (
@@ -311,8 +311,8 @@ export function AdBannerManager() {
                 key={banner.id}
                 className={`p-4 rounded-2xl border transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ${
                   banner.isActive
-                    ? "bg-[#0c0c10] border-zinc-800 hover:border-zinc-700"
-                    : "bg-[#09090c]/50 border-zinc-900 opacity-60"
+                    ? "bg-gp-ink-900 border-gp-ink-700 hover:border-gp-ink-600"
+                    : "bg-gp-ink-950/50 border-gp-ink-800 opacity-60"
                 }`}
               >
                 {/* Left: Thumbnail & Content */}
@@ -323,7 +323,7 @@ export function AdBannerManager() {
                       type="button"
                       disabled={index === 0}
                       onClick={() => handleMove(index, "up")}
-                      className="p-1 rounded hover:bg-zinc-800 text-zinc-500 hover:text-white disabled:opacity-20 disabled:hover:bg-transparent"
+                      className="p-1 rounded hover:bg-gp-ink-700 text-gp-ink-400 hover:text-white disabled:opacity-20 disabled:hover:bg-transparent"
                       title="Geser ke atas"
                     >
                       <ArrowUp className="w-3.5 h-3.5" />
@@ -332,7 +332,7 @@ export function AdBannerManager() {
                       type="button"
                       disabled={index === banners.length - 1}
                       onClick={() => handleMove(index, "down")}
-                      className="p-1 rounded hover:bg-zinc-800 text-zinc-500 hover:text-white disabled:opacity-20 disabled:hover:bg-transparent"
+                      className="p-1 rounded hover:bg-gp-ink-700 text-gp-ink-400 hover:text-white disabled:opacity-20 disabled:hover:bg-transparent"
                       title="Geser ke bawah"
                     >
                       <ArrowDown className="w-3.5 h-3.5" />
@@ -340,7 +340,7 @@ export function AdBannerManager() {
                   </div>
 
                   {/* Thumbnail */}
-                  <div className="relative w-28 h-16 sm:w-36 sm:h-20 rounded-xl overflow-hidden border border-zinc-800 flex-shrink-0 bg-zinc-900">
+                  <div className="relative w-28 h-16 sm:w-36 sm:h-20 rounded-xl overflow-hidden border border-gp-ink-700 flex-shrink-0 bg-gp-ink-800">
                     <Image
                       src={banner.imageUrl}
                       alt={banner.title}
@@ -352,23 +352,23 @@ export function AdBannerManager() {
                   {/* Info */}
                   <div className="space-y-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-400">
+                      <span className="text-3xs font-mono px-1.5 py-0.5 rounded bg-gp-ink-700 text-gp-ink-300">
                         #{index + 1}
                       </span>
                       {banner.badge && (
-                        <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                        <span className="text-3xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
                           {banner.badge}
                         </span>
                       )}
-                      <span className="text-[10px] font-mono text-zinc-500 flex items-center gap-1">
-                        <LinkIcon className="w-3 h-3 text-zinc-500" />
+                      <span className="text-3xs font-mono text-gp-ink-400 flex items-center gap-1">
+                        <LinkIcon className="w-3 h-3 text-gp-ink-400" />
                         <span className="truncate max-w-[180px] sm:max-w-xs">{banner.linkUrl}</span>
-                        {banner.targetBlank && <ExternalLink className="w-2.5 h-2.5 text-zinc-600" />}
+                        {banner.targetBlank && <ExternalLink className="w-2.5 h-2.5 text-gp-ink-500" />}
                       </span>
                     </div>
                     <h5 className="text-sm font-bold text-white truncate">{banner.title}</h5>
                     {banner.subtitle && (
-                      <p className="text-xs text-zinc-400 truncate max-w-lg">{banner.subtitle}</p>
+                      <p className="text-xs text-gp-ink-300 truncate max-w-lg">{banner.subtitle}</p>
                     )}
                   </div>
                 </div>
@@ -381,7 +381,7 @@ export function AdBannerManager() {
                     className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-colors flex items-center gap-1.5 border ${
                       banner.isActive
                         ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
-                        : "bg-zinc-850 text-zinc-500 border-zinc-800 hover:text-zinc-300"
+                        : "bg-gp-ink-750 text-gp-ink-400 border-gp-ink-700 hover:text-gp-ink-200"
                     }`}
                   >
                     {banner.isActive ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
@@ -393,7 +393,7 @@ export function AdBannerManager() {
                     variant="outline"
                     size="sm"
                     onClick={() => handleOpenEdit(banner)}
-                    className="text-xs border-zinc-800 text-zinc-300 hover:text-white"
+                    className="text-xs border-gp-ink-700 text-gp-ink-200 hover:text-white"
                   >
                     <Edit2 className="w-3.5 h-3.5 mr-1" />
                     <span>Edit</span>
@@ -404,7 +404,7 @@ export function AdBannerManager() {
                     variant="outline"
                     size="sm"
                     onClick={() => handleDelete(banner.id, banner.title)}
-                    className="text-xs border-zinc-800 text-rose-400 hover:bg-rose-500/10 hover:border-rose-500/30"
+                    className="text-xs border-gp-ink-700 text-rose-400 hover:bg-rose-500/10 hover:border-rose-500/30"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </Button>
@@ -418,9 +418,9 @@ export function AdBannerManager() {
       {/* Modal Dialog Form (Create / Edit) */}
       {isModalOpen && editingBanner && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-sm overflow-hidden">
-          <div className="bg-[#0f0f14] border border-zinc-700/80 rounded-2xl w-full max-w-2xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95">
+          <div className="bg-gp-ink-900 border border-gp-ink-600/80 rounded-2xl w-full max-w-2xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95">
             {/* Modal Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-[#121217] flex-shrink-0">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gp-ink-700 bg-gp-ink-850 flex-shrink-0">
               <div className="flex items-center gap-2.5">
                 <div className="p-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
                   <Megaphone className="w-4 h-4" />
@@ -429,7 +429,7 @@ export function AdBannerManager() {
                   <h3 className="text-base font-bold text-white uppercase tracking-tight">
                     {editingBanner.createdAt ? "Edit Ad Banner" : "Tambah Ad Banner"}
                   </h3>
-                  <p className="text-xs text-zinc-400">
+                  <p className="text-xs text-gp-ink-300">
                     Konfigurasi visual, headline, target link, dan tombol trigger navigasi.
                   </p>
                 </div>
@@ -437,7 +437,7 @@ export function AdBannerManager() {
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="p-1 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+                className="p-1 rounded-lg text-gp-ink-300 hover:text-white hover:bg-gp-ink-700 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -448,7 +448,7 @@ export function AdBannerManager() {
               <div className="flex-1 overflow-y-auto p-6 space-y-4 text-xs">
                 {/* Title */}
                 <div className="space-y-1.5">
-                  <label className="text-zinc-300 font-bold block">
+                  <label className="text-gp-ink-200 font-bold block">
                     Judul Utama Banner (Heading) <span className="text-rose-400">*</span>
                   </label>
                   <input
@@ -457,13 +457,13 @@ export function AdBannerManager() {
                     value={editingBanner.title}
                     onChange={(e) => setEditingBanner({ ...editingBanner, title: e.target.value })}
                     placeholder="Contoh: Xiaomi G24i 180Hz Fast IPS"
-                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-white placeholder-gp-ink-400 focus:outline-none focus:border-emerald-400"
                   />
                 </div>
 
                 {/* Subtitle */}
                 <div className="space-y-1.5">
-                  <label className="text-zinc-300 font-bold block">
+                  <label className="text-gp-ink-200 font-bold block">
                     Deskripsi Singkat (Subtitle)
                   </label>
                   <textarea
@@ -471,24 +471,24 @@ export function AdBannerManager() {
                     value={editingBanner.subtitle || ""}
                     onChange={(e) => setEditingBanner({ ...editingBanner, subtitle: e.target.value })}
                     placeholder="Contoh: Rekomendasi monitor gaming budget terbaik dengan akurasi deITP 2.1 teruji di lab GTID."
-                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white placeholder-gp-ink-400 focus:outline-none focus:border-emerald-400"
                   />
                 </div>
 
                 {/* Badge & Color */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-zinc-300 font-bold block">Teks Badge Tag</label>
+                    <label className="text-gp-ink-200 font-bold block">Teks Badge Tag</label>
                     <input
                       type="text"
                       value={editingBanner.badge || ""}
                       onChange={(e) => setEditingBanner({ ...editingBanner, badge: e.target.value })}
                       placeholder="Contoh: S-TIER BUDGET 2026"
-                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white placeholder-gp-ink-400 focus:outline-none focus:border-emerald-400"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-zinc-300 font-bold block">Warna Badge</label>
+                    <label className="text-gp-ink-200 font-bold block">Warna Badge</label>
                     <select
                       value={editingBanner.badgeColor || "emerald"}
                       onChange={(e) =>
@@ -497,7 +497,7 @@ export function AdBannerManager() {
                           badgeColor: e.target.value as AdBannerItem["badgeColor"],
                         })
                       }
-                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-emerald-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-emerald-400"
                     >
                       {BADGE_COLORS.map((c) => (
                         <option key={c.id} value={c.id}>
@@ -510,7 +510,7 @@ export function AdBannerManager() {
 
                 {/* Image URL & Upload */}
                 <div className="space-y-1.5">
-                  <label className="text-zinc-300 font-bold block">
+                  <label className="text-gp-ink-200 font-bold block">
                     Gambar Banner (Landscape 1920x600 atau 1600x500 disarankan) <span className="text-rose-400">*</span>
                   </label>
                   <div className="flex gap-2">
@@ -520,9 +520,9 @@ export function AdBannerManager() {
                       value={editingBanner.imageUrl}
                       onChange={(e) => setEditingBanner({ ...editingBanner, imageUrl: e.target.value })}
                       placeholder="https://images.unsplash.com/... atau upload file"
-                      className="flex-1 bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-400"
+                      className="flex-1 bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white placeholder-gp-ink-400 focus:outline-none focus:border-emerald-400"
                     />
-                    <label className="cursor-pointer px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 font-bold text-zinc-200 flex items-center gap-1.5 flex-shrink-0 transition-colors">
+                    <label className="cursor-pointer px-4 py-2 rounded-xl bg-gp-ink-700 hover:bg-gp-ink-600 border border-gp-ink-600 font-bold text-gp-ink-100 flex items-center gap-1.5 flex-shrink-0 transition-colors">
                       <Upload className="w-3.5 h-3.5" />
                       <span>{isCompressing ? "Proses..." : "Upload WebP"}</span>
                       <input
@@ -535,7 +535,7 @@ export function AdBannerManager() {
                     </label>
                   </div>
                   {editingBanner.imageUrl && (
-                    <div className="relative w-full h-32 rounded-xl overflow-hidden border border-zinc-700 mt-2 bg-zinc-900">
+                    <div className="relative w-full h-32 rounded-xl overflow-hidden border border-gp-ink-600 mt-2 bg-gp-ink-800">
                       <Image
                         src={editingBanner.imageUrl}
                         alt="Preview"
@@ -549,10 +549,10 @@ export function AdBannerManager() {
                 {/* Target Trigger Link & Preset */}
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <label className="text-zinc-300 font-bold block">
+                    <label className="text-gp-ink-200 font-bold block">
                       Target URL Trigger Halaman <span className="text-rose-400">*</span>
                     </label>
-                    <span className="text-[10px] font-mono text-zinc-400">
+                    <span className="text-3xs font-mono text-gp-ink-300">
                       (Internal: /monitor/... atau eksternal: https://...)
                     </span>
                   </div>
@@ -563,7 +563,7 @@ export function AdBannerManager() {
                       value={editingBanner.linkUrl}
                       onChange={(e) => setEditingBanner({ ...editingBanner, linkUrl: e.target.value })}
                       placeholder="/monitor/xiaomi-g24i-2026- atau /catalog/all"
-                      className="flex-1 bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-400 font-mono text-xs"
+                      className="flex-1 bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white placeholder-gp-ink-400 focus:outline-none focus:border-emerald-400 font-mono text-xs"
                     />
                     <select
                       onChange={(e) => {
@@ -571,7 +571,7 @@ export function AdBannerManager() {
                           setEditingBanner({ ...editingBanner, linkUrl: e.target.value });
                         }
                       }}
-                      className="bg-[#14141c] border border-zinc-700 rounded-xl px-3 py-2 text-zinc-300 hover:text-white text-xs max-w-[140px] truncate focus:border-emerald-400"
+                      className="bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3 py-2 text-gp-ink-200 hover:text-white text-xs max-w-[140px] truncate focus:border-emerald-400"
                     >
                       <option value="">Pilih Preset...</option>
                       {PRESET_PAGES.map((p) => (
@@ -586,28 +586,28 @@ export function AdBannerManager() {
                 {/* CTA Button Text & Target Blank */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-zinc-300 font-bold block">Teks Tombol CTA</label>
+                    <label className="text-gp-ink-200 font-bold block">Teks Tombol CTA</label>
                     <input
                       type="text"
                       value={editingBanner.ctaText || "Lihat Selengkapnya"}
                       onChange={(e) => setEditingBanner({ ...editingBanner, ctaText: e.target.value })}
                       placeholder="Contoh: Cek Data Pengujian"
-                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white placeholder-gp-ink-400 focus:outline-none focus:border-emerald-400"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-zinc-300 font-bold block">Opsi Tautan</label>
-                    <label className="flex items-center gap-2 p-2.5 rounded-xl bg-[#14141c] border border-zinc-700 cursor-pointer">
+                    <label className="text-gp-ink-200 font-bold block">Opsi Tautan</label>
+                    <label className="flex items-center gap-2 p-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 cursor-pointer">
                       <input
                         type="checkbox"
                         checked={editingBanner.targetBlank || false}
                         onChange={(e) =>
                           setEditingBanner({ ...editingBanner, targetBlank: e.target.checked })
                         }
-                        className="rounded border-zinc-600 bg-zinc-800 text-emerald-500 focus:ring-0"
+                        className="rounded border-gp-ink-500 bg-gp-ink-700 text-emerald-500 focus:ring-0"
                       />
-                      <span className="text-zinc-300">Buka di Tab Baru (target="_blank")</span>
+                      <span className="text-gp-ink-200">Buka di Tab Baru (target="_blank")</span>
                     </label>
                   </div>
                 </div>
@@ -619,11 +619,11 @@ export function AdBannerManager() {
                       type="checkbox"
                       checked={editingBanner.isActive}
                       onChange={(e) => setEditingBanner({ ...editingBanner, isActive: e.target.checked })}
-                      className="rounded border-zinc-600 bg-zinc-800 text-emerald-500 focus:ring-0"
+                      className="rounded border-gp-ink-500 bg-gp-ink-700 text-emerald-500 focus:ring-0"
                     />
                     <div>
                       <span className="font-bold text-white block">Aktifkan Slide di Beranda</span>
-                      <span className="text-[11px] text-zinc-300">
+                      <span className="text-2xs text-gp-ink-200">
                         Jika dicentang, banner akan langsung tampil di rotasi carousel beranda tiap 5 detik.
                       </span>
                     </div>
@@ -632,13 +632,13 @@ export function AdBannerManager() {
               </div>
 
               {/* Fixed Footer Actions */}
-              <div className="flex items-center justify-end gap-3 px-6 py-3.5 border-t border-zinc-800 bg-[#0a0a0e] flex-shrink-0">
+              <div className="flex items-center justify-end gap-3 px-6 py-3.5 border-t border-gp-ink-700 bg-gp-ink-950 flex-shrink-0">
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   onClick={() => setIsModalOpen(false)}
-                  className="border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-800"
+                  className="border-gp-ink-600 text-gp-ink-200 hover:text-white hover:bg-gp-ink-700"
                 >
                   Batal
                 </Button>

@@ -64,7 +64,7 @@ const initialDeskColumns: TableColumnDef<DeskItem>[] = [
     renderCell: (d) => (
       <div>
         <span className="font-bold text-white block text-sm">{d.name}</span>
-        <span className="text-[11px] text-zinc-400 mt-0.5 block">{d.description}</span>
+        <span className="text-2xs text-gp-ink-300 mt-0.5 block">{d.description}</span>
       </div>
     ),
   },
@@ -75,7 +75,7 @@ const initialDeskColumns: TableColumnDef<DeskItem>[] = [
     minWidth: "140px",
     category: "Klasifikasi",
     renderCell: (d) => (
-      <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300 text-[11px]">
+      <span className="px-2 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 text-2xs">
         {d.category}
       </span>
     ),
@@ -99,9 +99,9 @@ const initialDeskColumns: TableColumnDef<DeskItem>[] = [
     minWidth: "180px",
     category: "Spesifikasi",
     renderCell: (d) => (
-      <div className="text-zinc-300">
+      <div className="text-gp-ink-200">
         <div>{d.specs?.material}</div>
-        <span className="text-[10px] text-emerald-400 font-semibold">
+        <span className="text-3xs text-emerald-400 font-semibold">
           Tebal: {d.specs?.thickness}
         </span>
       </div>
@@ -114,7 +114,7 @@ const initialDeskColumns: TableColumnDef<DeskItem>[] = [
     minWidth: "140px",
     category: "Spesifikasi",
     renderCell: (d) => (
-      <span className="text-zinc-300 font-mono text-[11px]">
+      <span className="text-gp-ink-200 font-mono text-2xs">
         {d.specs?.dimensions}
       </span>
     ),
@@ -126,7 +126,7 @@ const initialDeskColumns: TableColumnDef<DeskItem>[] = [
     minWidth: "110px",
     category: "Fitur",
     renderCell: () => (
-      <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+      <span className="inline-flex items-center gap-1 text-3xs font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
         <CheckCircle2 className="w-3 h-3" />
         <span>Aman Jepit</span>
       </span>
@@ -164,7 +164,7 @@ const initialPeripheralColumns: TableColumnDef<PeripheralItem>[] = [
     renderCell: (p) => (
       <div>
         <span className="font-bold text-white text-sm block">{p.name}</span>
-        <span className="text-[11px] text-zinc-400 mt-0.5 block">{p.verdict}</span>
+        <span className="text-2xs text-gp-ink-300 mt-0.5 block">{p.verdict}</span>
       </div>
     ),
   },
@@ -187,7 +187,7 @@ const initialPeripheralColumns: TableColumnDef<PeripheralItem>[] = [
     minWidth: "140px",
     category: "Klasifikasi",
     renderCell: (p) => (
-      <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300 text-[11px]">
+      <span className="px-2 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 text-2xs">
         {p.type || p.category}
       </span>
     ),
@@ -199,7 +199,7 @@ const initialPeripheralColumns: TableColumnDef<PeripheralItem>[] = [
     minWidth: "160px",
     category: "Spesifikasi",
     renderCell: (p) => (
-      <span className="px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 font-mono text-[11px]">
+      <span className="px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 font-mono text-2xs">
         {p.versionDetail || p.recommendedFor || "-"}
       </span>
     ),
@@ -211,7 +211,7 @@ const initialPeripheralColumns: TableColumnDef<PeripheralItem>[] = [
     minWidth: "90px",
     category: "Garansi",
     renderCell: (p) => (
-      <span className="text-center text-zinc-400 text-xs font-mono">
+      <span className="text-center text-gp-ink-300 text-xs font-mono">
         {p.warranty || "2 Tahun"}
       </span>
     ),
@@ -235,7 +235,7 @@ const initialPeripheralColumns: TableColumnDef<PeripheralItem>[] = [
           <ExternalLink className="w-2.5 h-2.5" />
         </a>
       ) : (
-        <span className="text-zinc-600">-</span>
+        <span className="text-gp-ink-500">-</span>
       ),
   },
   {
@@ -256,7 +256,7 @@ const initialPeripheralColumns: TableColumnDef<PeripheralItem>[] = [
           <ExternalLink className="w-2.5 h-2.5" />
         </a>
       ) : (
-        <span className="text-zinc-600">-</span>
+        <span className="text-gp-ink-500">-</span>
       ),
   },
 ];
@@ -427,7 +427,7 @@ export function DeskPeripheralsView({
     <div className="space-y-8 animate-in fade-in duration-200">
       {/* Header Info: Conditionally rendered only when hideHeaderCard is false */}
       {!hideHeaderCard && (
-        <div className="bg-surface-dark border border-zinc-800 rounded-3xl p-6 sm:p-8 space-y-4">
+        <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-3xl p-6 sm:p-8 space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold mb-2">
@@ -437,20 +437,20 @@ export function DeskPeripheralsView({
               <h2 className="text-xl sm:text-3xl font-black text-white uppercase tracking-tight">
                 Rekomendasi Meja, Bracket, & Peripherals Setup
               </h2>
-              <p className="text-xs sm:text-sm text-zinc-400 mt-1 max-w-2xl">
+              <p className="text-xs sm:text-sm text-gp-ink-300 mt-1 max-w-2xl">
                 Kurasi meja kokoh tahan jepit monitor arm, gas spring bracket teruji, dan aksesoris setup dari riset forum GrayPlasma.
               </p>
             </div>
           </div>
 
           {/* Sub Navigation Tabs */}
-          <div className="flex items-center gap-2 pt-2 border-t border-zinc-800 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-2 pt-2 border-t border-gp-ink-700 overflow-x-auto no-scrollbar">
             <button
               onClick={() => setActiveSubTab("meja")}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
                 activeSubTab === "meja"
-                  ? "bg-zinc-800 text-cyan-400 border border-cyan-500/40 shadow-sm"
-                  : "text-zinc-400 hover:text-white hover:bg-zinc-900"
+                  ? "bg-gp-ink-700 text-cyan-400 border border-cyan-500/40 shadow-sm"
+                  : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800"
               }`}
             >
               <LayoutGrid className="w-4 h-4" />
@@ -461,8 +461,8 @@ export function DeskPeripheralsView({
               onClick={() => setActiveSubTab("arms")}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
                 activeSubTab === "arms"
-                  ? "bg-zinc-800 text-cyan-400 border border-cyan-500/40 shadow-sm"
-                  : "text-zinc-400 hover:text-white hover:bg-zinc-900"
+                  ? "bg-gp-ink-700 text-cyan-400 border border-cyan-500/40 shadow-sm"
+                  : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800"
               }`}
             >
               <Tv className="w-4 h-4" />
@@ -473,8 +473,8 @@ export function DeskPeripheralsView({
               onClick={() => setActiveSubTab("brackets")}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
                 activeSubTab === "brackets"
-                  ? "bg-zinc-800 text-amber-400 border border-amber-500/40 shadow-sm"
-                  : "text-zinc-400 hover:text-white hover:bg-zinc-900"
+                  ? "bg-gp-ink-700 text-amber-400 border border-amber-500/40 shadow-sm"
+                  : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800"
               }`}
             >
               <Wrench className="w-4 h-4" />
@@ -485,8 +485,8 @@ export function DeskPeripheralsView({
               onClick={() => setActiveSubTab("accessories")}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
                 activeSubTab === "accessories"
-                  ? "bg-zinc-800 text-emerald-400 border border-emerald-500/40 shadow-sm"
-                  : "text-zinc-400 hover:text-white hover:bg-zinc-900"
+                  ? "bg-gp-ink-700 text-emerald-400 border border-emerald-500/40 shadow-sm"
+                  : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800"
               }`}
             >
               <Sparkles className="w-4 h-4" />
@@ -498,8 +498,8 @@ export function DeskPeripheralsView({
                 onClick={() => setActiveSubTab("kursi")}
                 className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
                   activeSubTab === "kursi"
-                    ? "bg-zinc-800 text-purple-400 border border-purple-500/40 shadow-sm"
-                    : "text-zinc-400 hover:text-white hover:bg-zinc-900"
+                    ? "bg-gp-ink-700 text-purple-400 border border-purple-500/40 shadow-sm"
+                    : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800"
                 }`}
               >
                 <span>🪑</span>
@@ -511,8 +511,8 @@ export function DeskPeripheralsView({
               onClick={() => setActiveSubTab("gimmick")}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
                 activeSubTab === "gimmick"
-                  ? "bg-zinc-800 text-amber-400 border border-amber-500/40 shadow-sm"
-                  : "text-zinc-400 hover:text-white hover:bg-zinc-900"
+                  ? "bg-gp-ink-700 text-amber-400 border border-amber-500/40 shadow-sm"
+                  : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800"
               }`}
             >
               <AlertTriangle className="w-4 h-4" />
@@ -523,8 +523,8 @@ export function DeskPeripheralsView({
               onClick={() => setActiveSubTab("consultation-packages")}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 flex items-center gap-2 ${
                 activeSubTab === "consultation-packages"
-                  ? "bg-zinc-800 text-rose-400 border border-rose-500/40 shadow-sm"
-                  : "text-zinc-400 hover:text-white hover:bg-zinc-900"
+                  ? "bg-gp-ink-700 text-rose-400 border border-rose-500/40 shadow-sm"
+                  : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800"
               }`}
             >
               <Sparkles className="w-4 h-4" />
@@ -537,21 +537,21 @@ export function DeskPeripheralsView({
       {/* 1. VIEW: DAFTAR MEJA REKOMENDASI */}
       {activeSubTab === "meja" && (
         <div className="space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-zinc-950/60 p-3.5 rounded-2xl border border-zinc-800/80">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gp-ink-950/60 p-3.5 rounded-2xl border border-gp-ink-700/80">
             <div className="flex items-center gap-3 flex-wrap">
               <div className="relative flex-1 sm:w-64">
-                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
+                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gp-ink-400" />
                 <input
                   type="text"
                   placeholder="Cari meja pilihan, bahan, atau ukuran..."
                   value={deskSearch}
                   onChange={(e) => setDeskSearch(e.target.value)}
-                  className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl bg-zinc-900 border border-zinc-800 text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-500 font-mono transition-colors"
+                  className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl bg-gp-ink-800 border border-gp-ink-700 text-white placeholder-gp-ink-400 focus:outline-none focus:border-cyan-500 font-mono transition-colors"
                 />
                 {deskSearch && (
                   <button
                     onClick={() => setDeskSearch("")}
-                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-zinc-500 hover:text-white"
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-gp-ink-400 hover:text-white"
                   >
                     ×
                   </button>
@@ -571,7 +571,7 @@ export function DeskPeripheralsView({
                     className={`px-2.5 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-all ${
                       deskCategoryFilter === pill.id
                         ? "bg-orange-500/20 text-orange-300 border border-orange-500/40 font-bold"
-                        : "text-zinc-400 hover:text-white hover:bg-zinc-850"
+                        : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-750"
                     }`}
                   >
                     {pill.label}
@@ -583,7 +583,7 @@ export function DeskPeripheralsView({
             <div className="flex items-center gap-2 self-end sm:self-auto">
               <button
                 onClick={() => setIsDeskColModalOpen(true)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 text-xs font-bold text-zinc-300 hover:text-white transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gp-ink-800 hover:bg-gp-ink-750 border border-gp-ink-700 text-xs font-bold text-gp-ink-200 hover:text-white transition-colors"
                 title="Atur kolom & urutan tabel meja"
               >
                 <SlidersHorizontal className="w-3.5 h-3.5 text-orange-400" />
@@ -592,17 +592,17 @@ export function DeskPeripheralsView({
             </div>
           </div>
 
-          <div className="relative rounded-2xl border border-zinc-800 bg-[#09090b] overflow-hidden shadow-xl">
+          <div className="relative rounded-2xl border border-gp-ink-700 bg-gp-ink-950 overflow-hidden shadow-xl">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse min-w-[950px]">
-                <thead className="bg-[#121215] text-zinc-400 uppercase text-[10px] tracking-wider border-b border-zinc-800 sticky top-0 z-20">
+                <thead className="bg-gp-ink-850 text-gp-ink-300 uppercase text-3xs tracking-wider border-b border-gp-ink-700 sticky top-0 z-20">
                   <tr>
                     {deskTable.visibleColumns.map((col) => (
                       <th
                         key={col.id}
                         className={`py-3 px-3 font-bold ${
                           col.id === "name"
-                            ? "text-zinc-300 min-w-[240px] px-4"
+                            ? "text-gp-ink-200 min-w-[240px] px-4"
                             : col.id === "price"
                             ? "text-emerald-400 min-w-[130px]"
                             : col.id === "arm_support" || col.id === "shopee"
@@ -615,12 +615,12 @@ export function DeskPeripheralsView({
                     ))}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-zinc-900/80">
+                <tbody className="divide-y divide-gp-ink-800/80">
                   {filteredDesks.map((d, idx) => (
                     <tr
                       key={d.id}
-                      className={`hover:bg-zinc-900/60 transition-colors ${
-                        idx % 2 === 0 ? "bg-black/40" : "bg-[#09090b]"
+                      className={`hover:bg-gp-ink-800/60 transition-colors ${
+                        idx % 2 === 0 ? "bg-black/40" : "bg-gp-ink-950"
                       }`}
                     >
                       {deskTable.visibleColumns.map((col) => (
@@ -643,7 +643,7 @@ export function DeskPeripheralsView({
                     <tr>
                       <td
                         colSpan={deskTable.visibleColumns.length}
-                        className="py-12 text-center text-zinc-500"
+                        className="py-12 text-center text-gp-ink-400"
                       >
                         Tidak ada meja yang cocok dengan pencarian &quot;{deskSearch}&quot;.
                       </td>
@@ -659,10 +659,10 @@ export function DeskPeripheralsView({
       {/* 2. VIEW: SEPARATED MONITOR ARM, BRACKET, OR ACCESSORIES */}
       {(activeSubTab === "arms" || activeSubTab === "brackets" || activeSubTab === "accessories") && (
         <div className="space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-zinc-950/60 p-3.5 rounded-2xl border border-zinc-800/80">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gp-ink-950/60 p-3.5 rounded-2xl border border-gp-ink-700/80">
             <div className="flex items-center gap-3 flex-wrap">
               <div className="relative flex-1 sm:w-64">
-                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
+                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gp-ink-400" />
                 <input
                   type="text"
                   placeholder={
@@ -674,12 +674,12 @@ export function DeskPeripheralsView({
                   }
                   value={peripheralSearch}
                   onChange={(e) => setPeripheralSearch(e.target.value)}
-                  className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl bg-zinc-900 border border-zinc-800 text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-500 font-mono transition-colors"
+                  className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl bg-gp-ink-800 border border-gp-ink-700 text-white placeholder-gp-ink-400 focus:outline-none focus:border-cyan-500 font-mono transition-colors"
                 />
                 {peripheralSearch && (
                   <button
                     onClick={() => setPeripheralSearch("")}
-                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-zinc-500 hover:text-white"
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-gp-ink-400 hover:text-white"
                   >
                     ×
                   </button>
@@ -700,7 +700,7 @@ export function DeskPeripheralsView({
                       className={`px-2.5 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-all ${
                         armBracketSubFilter === pill.id
                           ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold"
-                          : "text-zinc-400 hover:text-white hover:bg-zinc-850"
+                          : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-750"
                       }`}
                     >
                       {pill.label}
@@ -723,7 +723,7 @@ export function DeskPeripheralsView({
                       className={`px-2.5 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-all ${
                         accessoryCategoryFilter === pill.id
                           ? "bg-blue-500/20 text-blue-300 border border-blue-500/40 font-bold"
-                          : "text-zinc-400 hover:text-white hover:bg-zinc-850"
+                          : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-750"
                       }`}
                     >
                       {pill.label}
@@ -736,7 +736,7 @@ export function DeskPeripheralsView({
             <div className="flex items-center gap-2 self-end sm:self-auto">
               <button
                 onClick={() => setIsPeriColModalOpen(true)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 text-xs font-bold text-zinc-300 hover:text-white transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gp-ink-800 hover:bg-gp-ink-750 border border-gp-ink-700 text-xs font-bold text-gp-ink-200 hover:text-white transition-colors"
                 title="Atur kolom & urutan tabel"
               >
                 <SlidersHorizontal className="w-3.5 h-3.5 text-cyan-400" />
@@ -745,17 +745,17 @@ export function DeskPeripheralsView({
             </div>
           </div>
 
-          <div className="relative rounded-2xl border border-zinc-800 bg-[#09090b] overflow-hidden shadow-xl">
+          <div className="relative rounded-2xl border border-gp-ink-700 bg-gp-ink-950 overflow-hidden shadow-xl">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse min-w-[1000px]">
-                <thead className="bg-[#121215] text-zinc-400 uppercase text-[10px] tracking-wider border-b border-zinc-800 sticky top-0 z-20">
+                <thead className="bg-gp-ink-850 text-gp-ink-300 uppercase text-3xs tracking-wider border-b border-gp-ink-700 sticky top-0 z-20">
                   <tr>
                     {periTable.visibleColumns.map((col) => (
                       <th
                         key={col.id}
                         className={`py-3 px-3 font-bold ${
                           col.id === "name"
-                            ? "text-zinc-300 min-w-[220px] px-4"
+                            ? "text-gp-ink-200 min-w-[220px] px-4"
                             : col.id === "price"
                             ? "text-emerald-400 min-w-[120px]"
                             : col.id === "warranty" || col.id === "shopee" || col.id === "tokopedia"
@@ -768,12 +768,12 @@ export function DeskPeripheralsView({
                     ))}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-zinc-900/80">
+                <tbody className="divide-y divide-gp-ink-800/80">
                   {filteredPeripherals.map((p, idx) => (
                     <tr
                       key={p.id}
-                      className={`hover:bg-zinc-900/60 transition-colors ${
-                        idx % 2 === 0 ? "bg-black/40" : "bg-[#09090b]"
+                      className={`hover:bg-gp-ink-800/60 transition-colors ${
+                        idx % 2 === 0 ? "bg-black/40" : "bg-gp-ink-950"
                       }`}
                     >
                       {periTable.visibleColumns.map((col) => (
@@ -796,7 +796,7 @@ export function DeskPeripheralsView({
                     <tr>
                       <td
                         colSpan={periTable.visibleColumns.length}
-                        className="py-12 text-center text-zinc-500"
+                        className="py-12 text-center text-gp-ink-400"
                       >
                         Tidak ada produk yang cocok dengan pencarian &quot;{peripheralSearch}&quot;.
                       </td>
@@ -812,13 +812,13 @@ export function DeskPeripheralsView({
       {/* 3. VIEW: REKOMENDASI KURSI ERGONOMIS & GAMING */}
       {showChairs && activeSubTab === "kursi" && (
         <div className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-zinc-950 border border-zinc-800 rounded-2xl p-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-4">
             <div className="space-y-0.5">
               <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
                 <span>🪑</span>
                 <span>Katalog Kurasi Kursi Ergonomis & Gaming</span>
               </h3>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-gp-ink-300">
                 Pilihan kursi dengan struktur penopang tulang belakang ergonomis, armrest 3D/4D, dan sertifikasi hidrolik Class 4 teruji.
               </p>
             </div>
@@ -832,7 +832,7 @@ export function DeskPeripheralsView({
                   className={`px-3 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-all ${
                     chairCategoryFilter === cat
                       ? "bg-purple-950/50 text-purple-300 border border-purple-500/50 font-bold"
-                      : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
+                      : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
                   }`}
                 >
                   {cat === "all" ? "Semua Kategori" : cat}
@@ -847,16 +847,16 @@ export function DeskPeripheralsView({
               .map((chair) => (
                 <div
                   key={chair.id}
-                  className="bg-zinc-950 border border-zinc-800 hover:border-purple-500/40 rounded-2xl p-6 space-y-4 flex flex-col justify-between transition-all"
+                  className="bg-gp-ink-950 border border-gp-ink-700 hover:border-purple-500/40 rounded-2xl p-6 space-y-4 flex flex-col justify-between transition-all"
                 >
                   <div className="space-y-3">
                     <div className="flex items-start justify-between gap-3">
                       <div>
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/30">
+                          <span className="text-3xs font-black uppercase px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/30">
                             {chair.category}
                           </span>
-                          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-900 text-zinc-400 border border-zinc-800">
+                          <span className="text-3xs font-mono px-2 py-0.5 rounded bg-gp-ink-800 text-gp-ink-300 border border-gp-ink-700">
                             {chair.brand}
                           </span>
                         </div>
@@ -866,33 +866,33 @@ export function DeskPeripheralsView({
                         <div className="text-base font-black text-emerald-400 font-mono">
                           {formatRupiah(chair.price)}
                         </div>
-                        <span className="text-[10px] text-zinc-500 block">Estimasi Pasar</span>
+                        <span className="text-3xs text-gp-ink-400 block">Estimasi Pasar</span>
                       </div>
                     </div>
 
                     {/* Specs Grid */}
-                    <div className="grid grid-cols-2 gap-2 text-xs bg-zinc-900/60 p-3.5 rounded-xl border border-zinc-850">
+                    <div className="grid grid-cols-2 gap-2 text-xs bg-gp-ink-800/60 p-3.5 rounded-xl border border-gp-ink-750">
                       <div>
-                        <span className="text-zinc-500 block text-[10px] uppercase font-mono font-bold">Lumbar Support:</span>
-                        <span className="text-zinc-200 font-medium text-[11px] line-clamp-2" title={chair.lumbarSupport}>
+                        <span className="text-gp-ink-400 block text-3xs uppercase font-mono font-bold">Lumbar Support:</span>
+                        <span className="text-gp-ink-100 font-medium text-2xs line-clamp-2" title={chair.lumbarSupport}>
                           {chair.lumbarSupport}
                         </span>
                       </div>
                       <div>
-                        <span className="text-zinc-500 block text-[10px] uppercase font-mono font-bold">Armrest:</span>
-                        <span className="text-zinc-200 font-medium text-[11px] line-clamp-2" title={chair.armrest}>
+                        <span className="text-gp-ink-400 block text-3xs uppercase font-mono font-bold">Armrest:</span>
+                        <span className="text-gp-ink-100 font-medium text-2xs line-clamp-2" title={chair.armrest}>
                           {chair.armrest}
                         </span>
                       </div>
                       <div>
-                        <span className="text-zinc-500 block text-[10px] uppercase font-mono font-bold">Gas Lift & Recline:</span>
-                        <span className="text-zinc-200 font-medium text-[11px] line-clamp-2" title={`${chair.gasLift} • ${chair.mechanism}`}>
+                        <span className="text-gp-ink-400 block text-3xs uppercase font-mono font-bold">Gas Lift & Recline:</span>
+                        <span className="text-gp-ink-100 font-medium text-2xs line-clamp-2" title={`${chair.gasLift} • ${chair.mechanism}`}>
                           {chair.gasLift} ({chair.mechanism})
                         </span>
                       </div>
                       <div>
-                        <span className="text-zinc-500 block text-[10px] uppercase font-mono font-bold">Beban & Tinggi User:</span>
-                        <span className="text-zinc-200 font-medium text-[11px]">
+                        <span className="text-gp-ink-400 block text-3xs uppercase font-mono font-bold">Beban & Tinggi User:</span>
+                        <span className="text-gp-ink-100 font-medium text-2xs">
                           {chair.maxWeightCapacity} ({chair.recommendedHeight})
                         </span>
                       </div>
@@ -901,24 +901,24 @@ export function DeskPeripheralsView({
                     {/* Verdict */}
                     {chair.verdict && (
                       <div className="text-xs bg-purple-950/20 border border-purple-500/20 p-3 rounded-xl leading-relaxed">
-                        <span className="text-purple-400 font-mono font-bold text-[10px] block uppercase mb-0.5">
+                        <span className="text-purple-400 font-mono font-bold text-3xs block uppercase mb-0.5">
                           Verdict Ahli GrayPlasma:
                         </span>
-                        <p className="text-[11px] text-zinc-300">{chair.verdict}</p>
+                        <p className="text-2xs text-gp-ink-200">{chair.verdict}</p>
                       </div>
                     )}
 
                     {/* Notes */}
                     {chair.notes && (
-                      <p className="text-[11px] text-zinc-400 italic">
+                      <p className="text-2xs text-gp-ink-300 italic">
                         💡 {chair.notes}
                       </p>
                     )}
                   </div>
 
                   {/* Links */}
-                  <div className="flex items-center justify-between gap-3 pt-3 border-t border-zinc-850">
-                    <span className="text-[10px] text-zinc-500 font-mono">
+                  <div className="flex items-center justify-between gap-3 pt-3 border-t border-gp-ink-750">
+                    <span className="text-3xs text-gp-ink-400 font-mono">
                       🛡️ {chair.warranty}
                     </span>
                     <div className="flex items-center gap-2">
@@ -954,8 +954,8 @@ export function DeskPeripheralsView({
 
       {/* 4. VIEW: GIMMICK MEJA GAMING */}
       {activeSubTab === "gimmick" && (
-        <div className="bg-surface-dark border border-zinc-800 rounded-3xl p-6 sm:p-8 space-y-6">
-          <div className="space-y-2 border-b border-zinc-800 pb-4">
+        <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-3xl p-6 sm:p-8 space-y-6">
+          <div className="space-y-2 border-b border-gp-ink-700 pb-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold">
               <AlertTriangle className="w-3.5 h-3.5" />
               <span>Edukasi Meja & Setup Ergonomi</span>
@@ -963,7 +963,7 @@ export function DeskPeripheralsView({
             <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
               {GIMMICK_MEJA_GAMING_CONTENT.title}
             </h3>
-            <p className="text-xs text-zinc-400 leading-relaxed">
+            <p className="text-xs text-gp-ink-300 leading-relaxed">
               {GIMMICK_MEJA_GAMING_CONTENT.subtitle}
             </p>
           </div>
@@ -972,10 +972,10 @@ export function DeskPeripheralsView({
             {GIMMICK_MEJA_GAMING_CONTENT.poinPenting.map((point, idx) => (
               <div
                 key={idx}
-                className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 text-xs text-zinc-300 leading-relaxed space-y-2"
+                className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 text-xs text-gp-ink-200 leading-relaxed space-y-2"
               >
                 <div className="flex items-center gap-2 text-amber-400 font-bold">
-                  <span className="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center text-[11px]">
+                  <span className="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center text-2xs">
                     {idx + 1}
                   </span>
                   <span>Catatan Penting #{idx + 1}</span>
@@ -985,7 +985,7 @@ export function DeskPeripheralsView({
             ))}
           </div>
 
-          <div className="p-4 rounded-xl bg-zinc-900/80 border border-zinc-800 text-xs text-zinc-300 flex items-center justify-between">
+          <div className="p-4 rounded-xl bg-gp-ink-800/80 border border-gp-ink-700 text-xs text-gp-ink-200 flex items-center justify-between">
             <span>Mau konsultasi ukuran meja sebelum beli?</span>
             <Button
               variant="cyber"
@@ -1003,7 +1003,7 @@ export function DeskPeripheralsView({
       {activeSubTab === "consultation-packages" && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-zinc-300 uppercase tracking-wider">
+            <h3 className="text-sm font-bold text-gp-ink-200 uppercase tracking-wider">
               Contoh Paket Racikan Setup Nyata dari Forum Konsultasi Discord GTID
             </h3>
           </div>
@@ -1012,11 +1012,11 @@ export function DeskPeripheralsView({
             {CONSULTATION_RESULTS_DATABASE.map((pack) => (
               <div
                 key={pack.id}
-                className="bg-zinc-950 border border-zinc-800 hover:border-emerald-500/40 rounded-2xl p-5 space-y-4 flex flex-col justify-between transition-all"
+                className="bg-gp-ink-950 border border-gp-ink-700 hover:border-emerald-500/40 rounded-2xl p-5 space-y-4 flex flex-col justify-between transition-all"
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                    <span className="text-3xs font-black uppercase px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
                       Budget {formatRupiah(pack.budget)}
                     </span>
                   </div>
@@ -1025,16 +1025,16 @@ export function DeskPeripheralsView({
                     {pack.title}
                   </h4>
 
-                  <div className="space-y-1 text-xs text-zinc-400">
+                  <div className="space-y-1 text-xs text-gp-ink-300">
                     <div><strong>Target Penggunaan:</strong> {pack.needs}</div>
                     <div><strong>Spek PC / Laptop:</strong> {pack.specs}</div>
                   </div>
 
-                  <div className="pt-2 border-t border-zinc-900">
-                    <strong className="text-xs text-zinc-200 block mb-1.5">Rekomendasi Isi Paket:</strong>
+                  <div className="pt-2 border-t border-gp-ink-800">
+                    <strong className="text-xs text-gp-ink-100 block mb-1.5">Rekomendasi Isi Paket:</strong>
                     <ul className="space-y-1.5">
                       {pack.recommendations.map((rec, i) => (
-                        <li key={i} className="text-xs text-zinc-300 flex items-start gap-1.5">
+                        <li key={i} className="text-xs text-gp-ink-200 flex items-start gap-1.5">
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 mt-0.5 flex-shrink-0" />
                           <span>{rec}</span>
                         </li>

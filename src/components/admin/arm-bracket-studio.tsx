@@ -250,7 +250,7 @@ export function ArmBracketStudio({
               className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
                 isLive
                   ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20"
-                  : "bg-zinc-800/80 text-zinc-400 border border-zinc-700 hover:text-white"
+                  : "bg-gp-ink-700/80 text-gp-ink-300 border border-gp-ink-600 hover:text-white"
               }`}
               title={isLive ? "Klik untuk jadikan Draft (Sembunyikan)" : "Klik untuk Publikasikan (Aktif)"}
             >
@@ -273,13 +273,13 @@ export function ArmBracketStudio({
             <div className="flex items-center gap-2 flex-wrap">
               <span className="font-bold text-white text-xs">{p.name}</span>
               {p.brand && (
-                <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">
+                <span className="text-3xs font-mono px-1.5 py-0.2 rounded bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300">
                   {p.brand}
                 </span>
               )}
             </div>
             {p.verdict && (
-              <p className="text-[11px] text-zinc-400 line-clamp-1 mt-0.5">{p.verdict}</p>
+              <p className="text-2xs text-gp-ink-300 line-clamp-1 mt-0.5">{p.verdict}</p>
             )}
           </div>
         ),
@@ -293,7 +293,7 @@ export function ArmBracketStudio({
         category: "Identitas",
         getValue: (p) => p.category,
         renderCell: (p) => (
-          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-zinc-900 border border-zinc-800 text-cyan-400">
+          <span className="px-2 py-0.5 rounded text-3xs font-mono font-bold bg-gp-ink-800 border border-gp-ink-700 text-cyan-400">
             {p.category}
           </span>
         ),
@@ -321,7 +321,7 @@ export function ArmBracketStudio({
         category: "Spesifikasi",
         getValue: (p) => p.type,
         renderCell: (p) => (
-          <span className="text-zinc-300 text-xs font-mono">{p.type || "-"}</span>
+          <span className="text-gp-ink-200 text-xs font-mono">{p.type || "-"}</span>
         ),
       },
       {
@@ -333,7 +333,7 @@ export function ArmBracketStudio({
         category: "Spesifikasi",
         getValue: (p) => p.versionDetail || "",
         renderCell: (p) => (
-          <span className="text-xs text-zinc-300">{p.versionDetail || "-"}</span>
+          <span className="text-xs text-gp-ink-200">{p.versionDetail || "-"}</span>
         ),
       },
       {
@@ -359,7 +359,7 @@ export function ArmBracketStudio({
         category: "Purna Jual",
         getValue: (p) => p.warranty || "",
         renderCell: (p) => (
-          <span className="text-xs text-zinc-400 font-mono">{p.warranty || "Non-Warranty"}</span>
+          <span className="text-xs text-gp-ink-300 font-mono">{p.warranty || "Non-Warranty"}</span>
         ),
       },
       {
@@ -411,7 +411,7 @@ export function ArmBracketStudio({
                 setEditingItem({ ...p });
                 setIsModalOpen(true);
               }}
-              className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-800 transition-colors"
+              className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-white hover:bg-gp-ink-700 transition-colors"
               title="Edit Data"
             >
               <Edit2 className="w-3.5 h-3.5" />
@@ -419,7 +419,7 @@ export function ArmBracketStudio({
             <button
               type="button"
               onClick={() => handleDuplicate(p)}
-              className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-cyan-400 hover:bg-zinc-800 transition-colors"
+              className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-cyan-400 hover:bg-gp-ink-700 transition-colors"
               title="Duplikat Item"
             >
               <Copy className="w-3.5 h-3.5" />
@@ -427,7 +427,7 @@ export function ArmBracketStudio({
             <button
               type="button"
               onClick={() => handleDelete(p.id, p.name)}
-              className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-rose-400 hover:bg-zinc-800 transition-colors"
+              className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-rose-400 hover:bg-gp-ink-700 transition-colors"
               title="Hapus Item"
             >
               <Trash2 className="w-3.5 h-3.5" />
@@ -474,7 +474,7 @@ export function ArmBracketStudio({
       )}
 
       {/* Top Banner & Header */}
-      <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <div className="p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
@@ -484,7 +484,7 @@ export function ArmBracketStudio({
               Monitor Arm & Bracket Live Studio
             </h2>
           </div>
-          <p className="text-xs text-zinc-400 pl-10 max-w-2xl">
+          <p className="text-xs text-gp-ink-300 pl-10 max-w-2xl">
             Kelola katalog lengan gas-spring, plat protektor bracket meja, stand monitor, dan kabel display dengan kontrol visibilitas independen (Live vs Draft).
           </p>
         </div>
@@ -504,7 +504,7 @@ export function ArmBracketStudio({
             variant="ghost"
             size="sm"
             onClick={() => handleStartCreate("Bracket & Mount")}
-            className="text-xs font-bold border border-zinc-800 bg-zinc-900 text-zinc-200 hover:text-white"
+            className="text-xs font-bold border border-gp-ink-700 bg-gp-ink-800 text-gp-ink-100 hover:text-white"
           >
             <Plus className="w-4 h-4 mr-1" />
             <span>Tambah Bracket</span>
@@ -514,68 +514,68 @@ export function ArmBracketStudio({
 
       {/* 4-Col Analytics Quick Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 space-y-1">
-          <span className="text-[10px] font-mono uppercase font-bold text-zinc-500">
+        <div className="bg-gp-ink-950 border border-gp-ink-700 rounded-xl p-3.5 space-y-1">
+          <span className="text-3xs font-mono uppercase font-bold text-gp-ink-400">
             🦾 Monitor Arm
           </span>
           <div className="text-xl font-black text-white">
-            {armItems.length} <span className="text-xs font-normal text-zinc-500">Model</span>
+            {armItems.length} <span className="text-xs font-normal text-gp-ink-400">Model</span>
           </div>
-          <span className="text-[10px] text-emerald-400 font-mono">
+          <span className="text-3xs text-emerald-400 font-mono">
             {armItems.filter((a) => a.isPublished !== false).length} Live •{" "}
             {armItems.filter((a) => a.isPublished === false).length} Draft
           </span>
         </div>
 
-        <div className="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 space-y-1">
-          <span className="text-[10px] font-mono uppercase font-bold text-zinc-500">
+        <div className="bg-gp-ink-950 border border-gp-ink-700 rounded-xl p-3.5 space-y-1">
+          <span className="text-3xs font-mono uppercase font-bold text-gp-ink-400">
             🗜️ Bracket & Mount
           </span>
           <div className="text-xl font-black text-cyan-400">
-            {bracketItems.length} <span className="text-xs font-normal text-zinc-500">Model</span>
+            {bracketItems.length} <span className="text-xs font-normal text-gp-ink-400">Model</span>
           </div>
-          <span className="text-[10px] text-zinc-400 font-mono">
+          <span className="text-3xs text-gp-ink-300 font-mono">
             {bracketItems.filter((b) => b.isPublished !== false).length} Live •{" "}
             {bracketItems.filter((b) => b.isPublished === false).length} Draft
           </span>
         </div>
 
-        <div className="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 space-y-1">
-          <span className="text-[10px] font-mono uppercase font-bold text-zinc-500">
+        <div className="bg-gp-ink-950 border border-gp-ink-700 rounded-xl p-3.5 space-y-1">
+          <span className="text-3xs font-mono uppercase font-bold text-gp-ink-400">
             🔌 Aksesoris & Kabel
           </span>
           <div className="text-xl font-black text-amber-400">
-            {accessoryItems.length} <span className="text-xs font-normal text-zinc-500">Item</span>
+            {accessoryItems.length} <span className="text-xs font-normal text-gp-ink-400">Item</span>
           </div>
-          <span className="text-[10px] text-zinc-400 font-mono">
+          <span className="text-3xs text-gp-ink-300 font-mono">
             {accessoryItems.filter((c) => c.isPublished !== false).length} Live •{" "}
             {accessoryItems.filter((c) => c.isPublished === false).length} Draft
           </span>
         </div>
 
-        <div className="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 space-y-1">
-          <span className="text-[10px] font-mono uppercase font-bold text-zinc-500">
+        <div className="bg-gp-ink-950 border border-gp-ink-700 rounded-xl p-3.5 space-y-1">
+          <span className="text-3xs font-mono uppercase font-bold text-gp-ink-400">
             🌐 Total Publikasi
           </span>
           <div className="text-xl font-black text-emerald-400">
-            {liveCount} <span className="text-xs font-normal text-zinc-500">/ {peripherals.length}</span>
+            {liveCount} <span className="text-xs font-normal text-gp-ink-400">/ {peripherals.length}</span>
           </div>
-          <span className="text-[10px] text-amber-400 font-mono">
+          <span className="text-3xs text-amber-400 font-mono">
             {draftCount} Item Nonaktif (Hidden)
           </span>
         </div>
       </div>
 
       {/* Sub-Tabs: Arms vs Brackets vs Accessories vs All */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-800 pb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gp-ink-700 pb-3">
         <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
           <button
             type="button"
             onClick={() => setSubTab("arms")}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap ${
               subTab === "arms"
-                ? "bg-zinc-800 text-cyan-400 border border-cyan-500/40 shadow-sm"
-                : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
+                ? "bg-gp-ink-700 text-cyan-400 border border-cyan-500/40 shadow-sm"
+                : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
             }`}
           >
             <span>🦾</span>
@@ -587,8 +587,8 @@ export function ArmBracketStudio({
             onClick={() => setSubTab("brackets")}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap ${
               subTab === "brackets"
-                ? "bg-zinc-800 text-emerald-400 border border-emerald-500/40 shadow-sm"
-                : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
+                ? "bg-gp-ink-700 text-emerald-400 border border-emerald-500/40 shadow-sm"
+                : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
             }`}
           >
             <span>🗜️</span>
@@ -600,8 +600,8 @@ export function ArmBracketStudio({
             onClick={() => setSubTab("accessories")}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap ${
               subTab === "accessories"
-                ? "bg-zinc-800 text-amber-400 border border-amber-500/40 shadow-sm"
-                : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
+                ? "bg-gp-ink-700 text-amber-400 border border-amber-500/40 shadow-sm"
+                : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
             }`}
           >
             <span>🔌</span>
@@ -613,8 +613,8 @@ export function ArmBracketStudio({
             onClick={() => setSubTab("all")}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap ${
               subTab === "all"
-                ? "bg-zinc-800 text-white border border-zinc-700 shadow-sm"
-                : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
+                ? "bg-gp-ink-700 text-white border border-gp-ink-600 shadow-sm"
+                : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
             }`}
           >
             <span>Semua Data ({peripherals.length})</span>
@@ -626,21 +626,21 @@ export function ArmBracketStudio({
           <button
             type="button"
             onClick={() => setIsColManagerOpen(true)}
-            className="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white text-xs font-medium flex items-center gap-1.5 transition-colors"
+            className="px-3 py-1.5 rounded-xl bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-700 text-gp-ink-200 hover:text-white text-xs font-medium flex items-center gap-1.5 transition-colors"
           >
             <SlidersHorizontal className="w-3.5 h-3.5 text-cyan-400" />
             <span>Kelola Kolom</span>
-            <span className="text-[10px] font-mono px-1 rounded bg-zinc-800 text-zinc-400">
+            <span className="text-3xs font-mono px-1 rounded bg-gp-ink-700 text-gp-ink-300">
               {visibleColumns.length}
             </span>
           </button>
 
-          <div className="flex items-center bg-zinc-950 border border-zinc-800 rounded-xl p-0.5">
+          <div className="flex items-center bg-gp-ink-950 border border-gp-ink-700 rounded-xl p-0.5">
             <button
               type="button"
               onClick={() => setViewMode("table")}
               className={`p-1.5 rounded-lg text-xs transition-colors ${
-                viewMode === "table" ? "bg-zinc-800 text-white" : "text-zinc-400 hover:text-white"
+                viewMode === "table" ? "bg-gp-ink-700 text-white" : "text-gp-ink-300 hover:text-white"
               }`}
               title="Tampilan Tabel Database"
             >
@@ -650,7 +650,7 @@ export function ArmBracketStudio({
               type="button"
               onClick={() => setViewMode("grid")}
               className={`p-1.5 rounded-lg text-xs transition-colors ${
-                viewMode === "grid" ? "bg-zinc-800 text-white" : "text-zinc-400 hover:text-white"
+                viewMode === "grid" ? "bg-gp-ink-700 text-white" : "text-gp-ink-300 hover:text-white"
               }`}
               title="Tampilan Grid Kartu"
             >
@@ -661,16 +661,16 @@ export function ArmBracketStudio({
       </div>
 
       {/* Filter Toolbar: Search, Status, Brand */}
-      <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2 flex-1 min-w-0">
           <div className="relative flex-1 max-w-sm">
-            <Search className="w-4 h-4 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-gp-ink-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Cari model, tipe, catatan..."
-              className="w-full bg-zinc-900 border border-zinc-800 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder:text-zinc-500 focus:outline-none focus:border-cyan-500/50"
+              className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder:text-gp-ink-400 focus:outline-none focus:border-cyan-500/50"
             />
           </div>
 
@@ -678,7 +678,7 @@ export function ArmBracketStudio({
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as StatusFilter)}
-            className="bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-zinc-300 font-mono focus:outline-none"
+            className="bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-3 py-1.5 text-xs text-gp-ink-200 font-mono focus:outline-none"
           >
             <option value="all">Semua Status</option>
             <option value="published">🟢 Hanya Aktif (Live)</option>
@@ -689,7 +689,7 @@ export function ArmBracketStudio({
           <select
             value={selectedBrand}
             onChange={(e) => setSelectedBrand(e.target.value)}
-            className="bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-zinc-300 font-mono focus:outline-none"
+            className="bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-3 py-1.5 text-xs text-gp-ink-200 font-mono focus:outline-none"
           >
             <option value="all">Semua Brand</option>
             {distinctBrands.map((b) => (
@@ -700,35 +700,35 @@ export function ArmBracketStudio({
           </select>
         </div>
 
-        <span className="text-xs font-mono text-zinc-500 shrink-0">
+        <span className="text-xs font-mono text-gp-ink-400 shrink-0">
           Menampilkan {filteredItems.length} dari {peripherals.length} item
         </span>
       </div>
 
       {/* VIEW 1: NOTION DATABASE TABLE */}
       {viewMode === "table" && (
-        <div className="relative rounded-2xl border border-zinc-800 bg-[#09090b] overflow-hidden shadow-xl">
+        <div className="relative rounded-2xl border border-gp-ink-700 bg-gp-ink-950 overflow-hidden shadow-xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse min-w-[900px]">
-              <thead className="bg-[#121217] text-zinc-400 uppercase text-[10px] tracking-wider border-b border-zinc-800 sticky top-0 z-20">
+              <thead className="bg-gp-ink-850 text-gp-ink-300 uppercase text-3xs tracking-wider border-b border-gp-ink-700 sticky top-0 z-20">
                 <tr>
                   {visibleColumns.map((col) => (
                     <th
                       key={col.id}
                       style={{ minWidth: col.minWidth }}
-                      className="py-3 px-3.5 font-bold text-zinc-300"
+                      className="py-3 px-3.5 font-bold text-gp-ink-200"
                     >
                       {col.shortLabel || col.label}
                     </th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-900/80">
+              <tbody className="divide-y divide-gp-ink-800/80">
                 {filteredItems.length === 0 ? (
                   <tr>
                     <td
                       colSpan={visibleColumns.length}
-                      className="py-12 text-center text-zinc-500 text-xs"
+                      className="py-12 text-center text-gp-ink-400 text-xs"
                     >
                       Tidak ada produk yang cocok dengan filter.
                     </td>
@@ -739,12 +739,12 @@ export function ArmBracketStudio({
                     return (
                       <tr
                         key={item.id}
-                        className={`hover:bg-zinc-900/60 transition-colors ${
+                        className={`hover:bg-gp-ink-800/60 transition-colors ${
                           !isLive
-                            ? "bg-zinc-950/40 opacity-70"
+                            ? "bg-gp-ink-950/40 opacity-70"
                             : idx % 2 === 0
                             ? "bg-black/30"
-                            : "bg-[#09090d]"
+                            : "bg-gp-ink-950"
                         }`}
                       >
                         {visibleColumns.map((col) => (
@@ -770,20 +770,20 @@ export function ArmBracketStudio({
             return (
               <div
                 key={p.id}
-                className={`bg-zinc-950 border rounded-2xl p-5 space-y-3.5 flex flex-col justify-between transition-all ${
+                className={`bg-gp-ink-950 border rounded-2xl p-5 space-y-3.5 flex flex-col justify-between transition-all ${
                   !isLive
-                    ? "border-zinc-850 opacity-70 bg-zinc-950/40"
-                    : "border-zinc-800 hover:border-cyan-500/40"
+                    ? "border-gp-ink-750 opacity-70 bg-gp-ink-950/40"
+                    : "border-gp-ink-700 hover:border-cyan-500/40"
                 }`}
               >
                 <div className="space-y-2.5">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+                      <span className="text-3xs font-mono font-bold uppercase px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
                         {p.category}
                       </span>
                       {p.brand && (
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-900 text-zinc-400 border border-zinc-800">
+                        <span className="text-3xs font-mono px-2 py-0.5 rounded bg-gp-ink-800 text-gp-ink-300 border border-gp-ink-700">
                           {p.brand}
                         </span>
                       )}
@@ -793,10 +793,10 @@ export function ArmBracketStudio({
                     <button
                       type="button"
                       onClick={() => handleTogglePublish(p)}
-                      className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold flex items-center gap-1 transition-colors ${
+                      className={`px-2 py-0.5 rounded text-3xs font-mono font-bold flex items-center gap-1 transition-colors ${
                         isLive
                           ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
-                          : "bg-zinc-800 text-zinc-400 border border-zinc-700"
+                          : "bg-gp-ink-700 text-gp-ink-300 border border-gp-ink-600"
                       }`}
                       title={isLive ? "Klik untuk nonaktifkan" : "Klik untuk publikasikan"}
                     >
@@ -812,28 +812,28 @@ export function ArmBracketStudio({
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2 text-[11px] bg-zinc-900/60 p-2.5 rounded-xl border border-zinc-850">
+                  <div className="grid grid-cols-2 gap-2 text-2xs bg-gp-ink-800/60 p-2.5 rounded-xl border border-gp-ink-750">
                     <div>
-                      <span className="text-zinc-500 text-[10px] block font-mono">TIPE:</span>
-                      <span className="text-zinc-200 font-medium truncate block">{p.type}</span>
+                      <span className="text-gp-ink-400 text-3xs block font-mono">TIPE:</span>
+                      <span className="text-gp-ink-100 font-medium truncate block">{p.type}</span>
                     </div>
                     <div>
-                      <span className="text-zinc-500 text-[10px] block font-mono">KAPASITAS / DETAIL:</span>
-                      <span className="text-zinc-200 font-medium truncate block">
+                      <span className="text-gp-ink-400 text-3xs block font-mono">KAPASITAS / DETAIL:</span>
+                      <span className="text-gp-ink-100 font-medium truncate block">
                         {p.versionDetail || "-"}
                       </span>
                     </div>
                   </div>
 
                   {p.verdict && (
-                    <p className="text-xs text-zinc-300 leading-relaxed bg-zinc-900/40 p-2.5 rounded-xl border border-zinc-800/80">
+                    <p className="text-xs text-gp-ink-200 leading-relaxed bg-gp-ink-800/40 p-2.5 rounded-xl border border-gp-ink-700/80">
                       {p.verdict}
                     </p>
                   )}
                 </div>
 
                 {/* Footer Card: Links & Actions */}
-                <div className="flex items-center justify-between gap-2 pt-3 border-t border-zinc-850">
+                <div className="flex items-center justify-between gap-2 pt-3 border-t border-gp-ink-750">
                   <div className="flex items-center gap-1.5">
                     {p.shopeeUrl && (
                       <a
@@ -866,7 +866,7 @@ export function ArmBracketStudio({
                         setEditingItem({ ...p });
                         setIsModalOpen(true);
                       }}
-                      className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white"
+                      className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-white"
                       title="Edit"
                     >
                       <Edit2 className="w-3.5 h-3.5" />
@@ -874,7 +874,7 @@ export function ArmBracketStudio({
                     <button
                       type="button"
                       onClick={() => handleDuplicate(p)}
-                      className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-cyan-400"
+                      className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-cyan-400"
                       title="Duplikat"
                     >
                       <Copy className="w-3.5 h-3.5" />
@@ -882,7 +882,7 @@ export function ArmBracketStudio({
                     <button
                       type="button"
                       onClick={() => handleDelete(p.id, p.name)}
-                      className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-rose-400"
+                      className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-rose-400"
                       title="Hapus"
                     >
                       <Trash2 className="w-3.5 h-3.5" />

@@ -50,12 +50,12 @@ export function NotionBlockRenderer({ content = "", className = "" }: NotionBloc
     const body = tableRows.slice(1);
 
     elements.push(
-      <div key={`table-${elements.length}`} className="my-4 overflow-x-auto rounded-xl border border-zinc-800">
+      <div key={`table-${elements.length}`} className="my-4 overflow-x-auto rounded-xl border border-gp-ink-700">
         <table className="notion-visual-table w-full text-xs">
           <thead>
             <tr>
               {header.map((col, idx) => (
-                <th key={idx} className="bg-zinc-900 text-white font-bold p-2.5 border border-zinc-800">
+                <th key={idx} className="bg-gp-ink-800 text-white font-bold p-2.5 border border-gp-ink-700">
                   {renderInline(col)}
                 </th>
               ))}
@@ -63,9 +63,9 @@ export function NotionBlockRenderer({ content = "", className = "" }: NotionBloc
           </thead>
           <tbody>
             {body.map((row, rIdx) => (
-              <tr key={rIdx} className={rIdx % 2 === 0 ? "bg-zinc-950/40" : "bg-zinc-900/30"}>
+              <tr key={rIdx} className={rIdx % 2 === 0 ? "bg-gp-ink-950/40" : "bg-gp-ink-800/30"}>
                 {row.map((cell, cIdx) => (
-                  <td key={cIdx} className="p-2.5 border border-zinc-800 text-zinc-300">
+                  <td key={cIdx} className="p-2.5 border border-gp-ink-700 text-gp-ink-200">
                     {renderInline(cell)}
                   </td>
                 ))}
@@ -84,10 +84,10 @@ export function NotionBlockRenderer({ content = "", className = "" }: NotionBloc
     if (!currentList) return;
     if (currentList.type === "bullet") {
       elements.push(
-        <ul key={`list-${elements.length}`} className="space-y-1.5 pl-2 my-2 text-xs sm:text-sm text-[#d4d4d4]">
+        <ul key={`list-${elements.length}`} className="space-y-1.5 pl-2 my-2 text-xs sm:text-sm text-gp-ink-200">
           {currentList.items.map((item, idx) => (
             <li key={idx} className="flex items-start gap-2.5">
-              <span className="text-[#9b9a97] mt-1 text-[10px] leading-none select-none">•</span>
+              <span className="text-gp-ink-300 mt-1 text-3xs leading-none select-none">•</span>
               <span className="flex-1 leading-relaxed">{renderInline(item.text)}</span>
             </li>
           ))}
@@ -95,10 +95,10 @@ export function NotionBlockRenderer({ content = "", className = "" }: NotionBloc
       );
     } else if (currentList.type === "number") {
       elements.push(
-        <ol key={`list-${elements.length}`} className="space-y-1.5 pl-2 my-2 text-xs sm:text-sm text-[#d4d4d4]">
+        <ol key={`list-${elements.length}`} className="space-y-1.5 pl-2 my-2 text-xs sm:text-sm text-gp-ink-200">
           {currentList.items.map((item, idx) => (
             <li key={idx} className="flex items-start gap-2.5">
-              <span className="text-[#9b9a97] font-mono text-xs select-none">{idx + 1}.</span>
+              <span className="text-gp-ink-300 font-mono text-xs select-none">{idx + 1}.</span>
               <span className="flex-1 leading-relaxed">{renderInline(item.text)}</span>
             </li>
           ))}
@@ -106,14 +106,14 @@ export function NotionBlockRenderer({ content = "", className = "" }: NotionBloc
       );
     } else if (currentList.type === "task") {
       elements.push(
-        <ul key={`task-${elements.length}`} className="space-y-1.5 my-2 text-xs sm:text-sm text-[#d4d4d4]">
+        <ul key={`task-${elements.length}`} className="space-y-1.5 my-2 text-xs sm:text-sm text-gp-ink-200">
           {currentList.items.map((item, idx) => (
             <li key={idx} className="flex items-center gap-2.5">
               <input
                 type="checkbox"
                 defaultChecked={item.checked}
                 readOnly
-                className="w-3.5 h-3.5 rounded border-zinc-700 bg-zinc-900 text-emerald-500 accent-emerald-500"
+                className="w-3.5 h-3.5 rounded border-gp-ink-600 bg-gp-ink-800 text-emerald-500 accent-emerald-500"
               />
               <span className={`flex-1 leading-relaxed ${item.checked ? "line-through opacity-60" : ""}`}>
                 {renderInline(item.text)}
@@ -154,7 +154,7 @@ export function NotionBlockRenderer({ content = "", className = "" }: NotionBloc
         elements.push(
           <div
             key={`code-${elements.length}`}
-            className="my-3 p-3.5 rounded-lg bg-[#121212] border border-[#2f2f2f] font-mono text-xs text-[#58a6ff] overflow-x-auto"
+            className="my-3 p-3.5 rounded-lg bg-gp-ink-850 border border-gp-ink-650 font-mono text-xs text-gp-sky overflow-x-auto"
           >
             <pre>{codeBlockLines.join("\n")}</pre>
           </div>
@@ -176,7 +176,7 @@ export function NotionBlockRenderer({ content = "", className = "" }: NotionBloc
     // Divider Line
     if (line === "---" || line === "***" || line === "___") {
       flushList();
-      elements.push(<hr key={`hr-${elements.length}`} className="border-[#2a2a2a] my-6" />);
+      elements.push(<hr key={`hr-${elements.length}`} className="border-gp-ink-700 my-6" />);
       continue;
     }
 
@@ -192,9 +192,9 @@ export function NotionBlockRenderer({ content = "", className = "" }: NotionBloc
           <img
             src={src}
             alt={alt}
-            className="rounded-2xl border border-zinc-800 max-h-96 mx-auto object-cover shadow-lg"
+            className="rounded-2xl border border-gp-ink-700 max-h-96 mx-auto object-cover shadow-lg"
           />
-          {alt && <p className="text-[11px] text-zinc-500 italic">{alt}</p>}
+          {alt && <p className="text-2xs text-gp-ink-400 italic">{alt}</p>}
         </div>
       );
       continue;
@@ -206,7 +206,7 @@ export function NotionBlockRenderer({ content = "", className = "" }: NotionBloc
       elements.push(
         <h1
           key={`h1-${elements.length}`}
-          className="text-2xl sm:text-3xl font-extrabold text-[#ffffff] tracking-tight mt-6 mb-2"
+          className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-6 mb-2"
         >
           {renderInline(line.replace(/^#\s+/, ""))}
         </h1>
@@ -220,7 +220,7 @@ export function NotionBlockRenderer({ content = "", className = "" }: NotionBloc
       elements.push(
         <h2
           key={`h2-${elements.length}`}
-          className="text-lg sm:text-xl font-bold text-[#ffffff] tracking-tight mt-5 mb-2 pb-1 border-b border-[#2a2a2a]"
+          className="text-lg sm:text-xl font-bold text-white tracking-tight mt-5 mb-2 pb-1 border-b border-gp-ink-700"
         >
           {renderInline(line.replace(/^##\s+/, ""))}
         </h2>
@@ -234,7 +234,7 @@ export function NotionBlockRenderer({ content = "", className = "" }: NotionBloc
       elements.push(
         <h3
           key={`h3-${elements.length}`}
-          className="text-sm sm:text-base font-bold text-[#f0f0f0] tracking-wide mt-4 mb-1"
+          className="text-sm sm:text-base font-bold text-gp-ink-50 tracking-wide mt-4 mb-1"
         >
           {renderInline(line.replace(/^###\s+/, ""))}
         </h3>
@@ -335,7 +335,7 @@ export function NotionBlockRenderer({ content = "", className = "" }: NotionBloc
     // Regular Paragraph
     flushList();
     elements.push(
-      <p key={`p-${elements.length}`} className="text-xs sm:text-sm text-[#d4d4d4] leading-relaxed my-2">
+      <p key={`p-${elements.length}`} className="text-xs sm:text-sm text-gp-ink-200 leading-relaxed my-2">
         {renderInline(line)}
       </p>
     );
@@ -434,7 +434,7 @@ function renderInline(text: string): React.ReactNode {
       parts.push(
         <code
           key={`c-${keyIdx++}`}
-          className="px-1.5 py-0.5 rounded bg-[#1e1e1e] text-[#f472b6] font-mono text-[11px] border border-[#333333]"
+          className="px-1.5 py-0.5 rounded bg-gp-ink-750 text-gp-coral-25 font-mono text-2xs border border-gp-ink-650"
         >
           {earliest.match[1]}
         </code>
@@ -448,7 +448,7 @@ function renderInline(text: string): React.ReactNode {
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-0.5 text-[#58a6ff] hover:text-[#79c0ff] underline underline-offset-2 transition-colors"
+          className="inline-flex items-center gap-0.5 text-gp-sky hover:text-gp-sky-50 underline underline-offset-2 transition-colors"
         >
           <span>{label}</span>
           <ExternalLink className="w-2.5 h-2.5 ml-0.5 inline opacity-70" />
@@ -462,7 +462,7 @@ function renderInline(text: string): React.ReactNode {
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-0.5 text-[#58a6ff] hover:text-[#79c0ff] underline truncate max-w-xs align-bottom"
+          className="inline-flex items-center gap-0.5 text-gp-sky hover:text-gp-sky-50 underline truncate max-w-xs align-bottom"
         >
           <span>{url}</span>
           <ExternalLink className="w-2.5 h-2.5 ml-0.5 inline opacity-70" />

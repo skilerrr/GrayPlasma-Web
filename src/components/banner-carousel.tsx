@@ -168,7 +168,7 @@ export function BannerCarousel({
 
   return (
     <div
-      className={`relative w-full overflow-hidden bg-black select-none group border-b border-zinc-850 ${className}`}
+      className={`relative w-full overflow-hidden bg-black select-none group border-b border-gp-ink-750 ${className}`}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -208,9 +208,9 @@ export function BannerCarousel({
               </div>
 
               {/* Multi-Layered Cinematic Dark Gradients */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#060609] via-[#060609]/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-gp-ink-998 via-gp-ink-998/60 to-transparent" />
               <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-[#060609]" />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-gp-ink-998" />
 
               {/* Slide Content Overlay */}
               <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-8 sm:pb-12 md:pb-14">
@@ -224,7 +224,7 @@ export function BannerCarousel({
                   <div className="flex items-center gap-2.5">
                     {banner.badge && (
                       <span
-                        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider border backdrop-blur-md ${getBadgeColorClasses(
+                        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-2xs sm:text-xs font-mono font-bold uppercase tracking-wider border backdrop-blur-md ${getBadgeColorClasses(
                           banner.badgeColor
                         )}`}
                       >
@@ -236,7 +236,7 @@ export function BannerCarousel({
                         <span>{banner.badge}</span>
                       </span>
                     )}
-                    <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest px-2 py-0.5 rounded bg-black/60 border border-zinc-800">
+                    <span className="text-3xs font-mono text-gp-ink-300 uppercase tracking-widest px-2 py-0.5 rounded bg-black/60 border border-gp-ink-700">
                       FEATURED
                     </span>
                   </div>
@@ -248,7 +248,7 @@ export function BannerCarousel({
 
                   {/* Description Subtitle */}
                   {banner.subtitle && (
-                    <p className="text-xs sm:text-sm md:text-base text-zinc-300 max-w-2xl line-clamp-2 leading-relaxed font-medium drop-shadow">
+                    <p className="text-xs sm:text-sm md:text-base text-gp-ink-200 max-w-2xl line-clamp-2 leading-relaxed font-medium drop-shadow">
                       {banner.subtitle}
                     </p>
                   )}
@@ -261,7 +261,7 @@ export function BannerCarousel({
                         e.stopPropagation();
                         handleBannerClick(banner);
                       }}
-                      className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-white text-black hover:bg-zinc-200 font-bold text-xs sm:text-sm shadow-xl active:scale-[0.98] transition-all group/btn"
+                      className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-white text-black hover:bg-gp-ink-100 font-bold text-xs sm:text-sm shadow-xl active:scale-[0.98] transition-all group/btn"
                     >
                       <span>{banner.ctaText || "Lihat Selengkapnya"}</span>
                       {banner.targetBlank ? (
@@ -270,7 +270,7 @@ export function BannerCarousel({
                         <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform" />
                       )}
                     </button>
-                    <span className="text-[11px] font-mono text-zinc-400 hidden sm:inline-flex items-center">
+                    <span className="text-2xs font-mono text-gp-ink-300 hidden sm:inline-flex items-center">
                       <span>Swipe atau geser</span>
                     </span>
                   </div>
@@ -324,7 +324,7 @@ export function BannerCarousel({
                 }}
                 aria-label={`Go to slide ${idx + 1}`}
                 className={`relative h-1.5 sm:h-2 rounded-full overflow-hidden transition-all duration-300 ${
-                  isActive ? "w-8 sm:w-12 bg-zinc-700" : "w-2 bg-zinc-800 hover:bg-zinc-700"
+                  isActive ? "w-8 sm:w-12 bg-gp-ink-600" : "w-2 bg-gp-ink-700 hover:bg-gp-ink-600"
                 }`}
               >
                 {isActive && (

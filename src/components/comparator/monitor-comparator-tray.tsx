@@ -41,7 +41,7 @@ export function MonitorComparatorTray({
     <>
       {/* Floating Bottom Compare Tray Bar */}
       <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 w-[95%] max-w-2xl animate-in fade-in slide-in-from-bottom-5 duration-200">
-        <div className="bg-surface-dark/95 backdrop-blur-md border border-zinc-700/80 rounded-2xl p-3 sm:p-3.5 shadow-tray-dock flex items-center justify-between gap-3">
+        <div className="bg-gp-ink-998/95 backdrop-blur-md border border-gp-ink-600/80 rounded-2xl p-3 sm:p-3.5 shadow-tray-dock flex items-center justify-between gap-3">
           {/* Left: Indicator & Thumbnails */}
           <div className="flex items-center gap-3 overflow-x-auto no-scrollbar">
             <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-gp-emerald/10 border border-gp-emerald/30 text-gp-emerald text-xs font-black uppercase tracking-wider flex-shrink-0">
@@ -53,7 +53,7 @@ export function MonitorComparatorTray({
               {pinnedMonitors.map((m) => (
                 <div
                   key={m.id || m.slug}
-                  className="relative group flex items-center gap-2 bg-zinc-900 border border-zinc-800 rounded-xl p-1.5 pr-2.5 transition-all hover:border-zinc-600"
+                  className="relative group flex items-center gap-2 bg-gp-ink-800 border border-gp-ink-700 rounded-xl p-1.5 pr-2.5 transition-all hover:border-gp-ink-500"
                 >
                   <div className="relative w-8 h-8 rounded-lg overflow-hidden bg-black flex-shrink-0">
                     <Image
@@ -64,10 +64,10 @@ export function MonitorComparatorTray({
                     />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[11px] font-bold text-white max-w-[90px] sm:max-w-[120px] truncate">
+                    <span className="text-2xs font-bold text-white max-w-[90px] sm:max-w-[120px] truncate">
                       {m.model || m.fullName}
                     </span>
-                    <span className="text-[10px] text-gp-emerald font-mono font-bold">
+                    <span className="text-3xs text-gp-emerald font-mono font-bold">
                       {formatRupiah(m.price)}
                     </span>
                   </div>
@@ -76,7 +76,7 @@ export function MonitorComparatorTray({
                       e.stopPropagation();
                       onRemovePin(m.slug || m.id);
                     }}
-                    className="p-1 text-zinc-400 hover:text-rose-400 transition-colors"
+                    className="p-1 text-gp-ink-300 hover:text-rose-400 transition-colors"
                     title="Hapus"
                   >
                     <X className="w-3 h-3" />
@@ -90,7 +90,7 @@ export function MonitorComparatorTray({
           <div className="flex items-center gap-2 flex-shrink-0">
             <button
               onClick={onClearAll}
-              className="text-[11px] text-zinc-400 hover:text-white px-2 py-1 transition-colors"
+              className="text-2xs text-gp-ink-300 hover:text-white px-2 py-1 transition-colors"
             >
               Reset
             </button>
@@ -98,7 +98,7 @@ export function MonitorComparatorTray({
               variant="cyber"
               size="sm"
               onClick={() => onOpenChange(true)}
-              className="bg-emerald-500 text-zinc-950 font-bold hover:bg-emerald-400 text-xs px-3 sm:px-4 py-2 border border-emerald-400/50 shadow-sm"
+              className="bg-emerald-500 text-gp-ink-950 font-bold hover:bg-emerald-400 text-xs px-3 sm:px-4 py-2 border border-emerald-400/50 shadow-sm"
             >
               Bandingkan Head-to-Head
             </Button>
@@ -110,9 +110,9 @@ export function MonitorComparatorTray({
       <Dialog open={isOpen} onOpenChange={onOpenChange}>
         <DialogContent
           onClose={() => onOpenChange(false)}
-          className="max-w-5xl p-5 sm:p-7 overflow-hidden flex flex-col max-h-[92vh] bg-surface-dark border-zinc-800"
+          className="max-w-5xl p-5 sm:p-7 overflow-hidden flex flex-col max-h-[92vh] bg-gp-ink-998 border-gp-ink-700"
         >
-          <div className="flex items-center justify-between pb-4 border-b border-zinc-800">
+          <div className="flex items-center justify-between pb-4 border-b border-gp-ink-700">
             <div className="flex items-center gap-2.5">
               <div className="p-2 rounded-xl bg-gp-emerald/10 border border-gp-emerald/30 text-gp-emerald">
                 <Scale className="w-5 h-5" />
@@ -121,7 +121,7 @@ export function MonitorComparatorTray({
                 <h2 className="text-lg sm:text-xl font-black text-white tracking-tight">
                   Tabel Komparasi Head-to-Head Lab GTID
                 </h2>
-                <p className="text-xs text-zinc-400">
+                <p className="text-xs text-gp-ink-300">
                   Perbandingan data pengujian sensor, response time, dan akurasi warna monitor.
                 </p>
               </div>
@@ -129,7 +129,7 @@ export function MonitorComparatorTray({
 
             <button
               onClick={onClearAll}
-              className="text-xs text-zinc-400 hover:text-rose-400 flex items-center gap-1 transition-colors"
+              className="text-xs text-gp-ink-300 hover:text-rose-400 flex items-center gap-1 transition-colors"
             >
               <RotateCcw className="w-3 h-3" />
               <span>Reset Pilihan</span>
@@ -148,11 +148,11 @@ export function MonitorComparatorTray({
               {pinnedMonitors.map((m) => (
                 <div
                   key={m.id}
-                  className="bg-gp-blueprintCard border border-zinc-800 rounded-2xl p-4 flex flex-col justify-between relative space-y-3"
+                  className="bg-gp-ink-850 border border-gp-ink-700 rounded-2xl p-4 flex flex-col justify-between relative space-y-3"
                 >
                   <button
                     onClick={() => onRemovePin(m.slug || m.id)}
-                    className="absolute top-3 right-3 p-1 rounded-lg bg-black/60 text-zinc-400 hover:text-rose-400 border border-zinc-800 transition-colors"
+                    className="absolute top-3 right-3 p-1 rounded-lg bg-black/60 text-gp-ink-300 hover:text-rose-400 border border-gp-ink-700 transition-colors"
                     title="Hapus monitor ini"
                   >
                     <X className="w-3.5 h-3.5" />
@@ -160,7 +160,7 @@ export function MonitorComparatorTray({
 
                   <div className="space-y-2">
                     <TierBadge tier={m.tier} />
-                    <div className="relative aspect-[16/10] bg-black rounded-xl overflow-hidden border border-zinc-900">
+                    <div className="relative aspect-[16/10] bg-black rounded-xl overflow-hidden border border-gp-ink-800">
                       <Image
                         src={m.thumbnail}
                         alt={m.fullName}
@@ -173,9 +173,9 @@ export function MonitorComparatorTray({
                     </h3>
                   </div>
 
-                  <div className="pt-2 border-t border-zinc-800/80 flex items-center justify-between">
+                  <div className="pt-2 border-t border-gp-ink-700/80 flex items-center justify-between">
                     <div>
-                      <span className="text-[10px] text-zinc-500 uppercase block font-semibold">
+                      <span className="text-3xs text-gp-ink-400 uppercase block font-semibold">
                         Harga Termurah
                       </span>
                       <span className="text-base font-black text-gp-emerald font-mono tabular-nums">
@@ -184,7 +184,7 @@ export function MonitorComparatorTray({
                     </div>
                     <a
                       href={`/monitor/${m.slug}`}
-                      className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-300 hover:text-white transition-colors"
+                      className="p-2 rounded-lg bg-gp-ink-800 border border-gp-ink-700 hover:border-gp-ink-600 text-gp-ink-200 hover:text-white transition-colors"
                       title="Lihat ulasan lengkap"
                     >
                       <ExternalLink className="w-3.5 h-3.5" />
@@ -197,11 +197,11 @@ export function MonitorComparatorTray({
             {/* Matrix Data Sections */}
             <div className="space-y-4 font-sans">
               {/* 1. Display & Panel Specifications */}
-              <div className="rounded-2xl border border-zinc-800 overflow-hidden bg-zinc-950/60">
-                <div className="bg-zinc-900/90 px-4 py-2 text-[11px] font-black text-zinc-300 uppercase tracking-wider border-b border-zinc-800">
+              <div className="rounded-2xl border border-gp-ink-700 overflow-hidden bg-gp-ink-950/60">
+                <div className="bg-gp-ink-800/90 px-4 py-2 text-2xs font-black text-gp-ink-200 uppercase tracking-wider border-b border-gp-ink-700">
                   1. Spesifikasi Panel & Resolusi
                 </div>
-                <div className="divide-y divide-zinc-900">
+                <div className="divide-y divide-gp-ink-800">
                   <MatrixRow
                     label="Ukuran Layar"
                     values={pinnedMonitors.map((m) => m.specs.display.size)}
@@ -236,12 +236,12 @@ export function MonitorComparatorTray({
               </div>
 
               {/* 2. GTID Lab Testing & Realita Data */}
-              <div className="rounded-2xl border border-zinc-800 overflow-hidden bg-zinc-950/60">
-                <div className="bg-zinc-900/90 px-4 py-2 text-[11px] font-black text-gp-emerald uppercase tracking-wider border-b border-zinc-800 flex items-center justify-between">
+              <div className="rounded-2xl border border-gp-ink-700 overflow-hidden bg-gp-ink-950/60">
+                <div className="bg-gp-ink-800/90 px-4 py-2 text-2xs font-black text-gp-emerald uppercase tracking-wider border-b border-gp-ink-700 flex items-center justify-between">
                   <span>2. Data Pengujian Sensor Lab GTID</span>
-                  <span className="text-[10px] text-zinc-500 font-mono">Toleransi 5 RGB vs Klaim</span>
+                  <span className="text-3xs text-gp-ink-400 font-mono">Toleransi 5 RGB vs Klaim</span>
                 </div>
-                <div className="divide-y divide-zinc-900">
+                <div className="divide-y divide-gp-ink-800">
                   <MatrixRow
                     label="Response Time GtG (Lab)"
                     values={pinnedMonitors.map(
@@ -278,11 +278,11 @@ export function MonitorComparatorTray({
               </div>
 
               {/* 3. Ergonomics & Connectivity */}
-              <div className="rounded-2xl border border-zinc-800 overflow-hidden bg-zinc-950/60">
-                <div className="bg-zinc-900/90 px-4 py-2 text-[11px] font-black text-zinc-300 uppercase tracking-wider border-b border-zinc-800">
+              <div className="rounded-2xl border border-gp-ink-700 overflow-hidden bg-gp-ink-950/60">
+                <div className="bg-gp-ink-800/90 px-4 py-2 text-2xs font-black text-gp-ink-200 uppercase tracking-wider border-b border-gp-ink-700">
                   3. Ergonomi, Port & Garansi
                 </div>
-                <div className="divide-y divide-zinc-900">
+                <div className="divide-y divide-gp-ink-800">
                   <MatrixRow
                     label="Height Adjustment"
                     values={pinnedMonitors.map((m) =>
@@ -327,8 +327,8 @@ function MatrixRow({
   highlightBest?: boolean;
 }) {
   return (
-    <div className="grid grid-cols-12 px-4 py-2.5 items-center hover:bg-zinc-900/40 transition-colors">
-      <div className="col-span-3 sm:col-span-3 text-[11px] text-zinc-400 font-medium">
+    <div className="grid grid-cols-12 px-4 py-2.5 items-center hover:bg-gp-ink-800/40 transition-colors">
+      <div className="col-span-3 sm:col-span-3 text-2xs text-gp-ink-300 font-medium">
         {label}
       </div>
       <div
@@ -341,7 +341,7 @@ function MatrixRow({
           <div
             key={idx}
             className={`text-xs font-semibold ${
-              highlightBest && idx === 0 ? "text-gp-emerald font-bold" : "text-zinc-200"
+              highlightBest && idx === 0 ? "text-gp-emerald font-bold" : "text-gp-ink-100"
             }`}
           >
             {val}

@@ -56,7 +56,7 @@ export function DialogContent({
   return (
     <div
       className={cn(
-        "relative z-50 w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-surface-dark border border-zinc-800/80 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-black/80 text-white animate-in zoom-in-95 duration-200",
+        "relative z-50 w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-gp-ink-998 border border-gp-ink-700/80 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-black/80 text-white animate-in zoom-in-95 duration-200",
         className
       )}
       onClick={(e) => e.stopPropagation()}
@@ -64,7 +64,7 @@ export function DialogContent({
       {onClose && (
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-xl text-zinc-400 hover:text-white bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 transition-colors z-10"
+          className="absolute top-4 right-4 p-2 rounded-xl text-gp-ink-300 hover:text-white bg-gp-ink-800/80 hover:bg-gp-ink-700 border border-gp-ink-700 transition-colors z-10"
           aria-label="Close dialog"
         >
           <X className="w-5 h-5" />

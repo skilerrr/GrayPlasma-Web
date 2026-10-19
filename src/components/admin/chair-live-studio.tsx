@@ -185,7 +185,7 @@ export function ChairLiveStudio({
       )}
 
       {/* Top Header Card */}
-      <div className="p-6 rounded-3xl bg-[#0c0c11] border border-zinc-800 flex flex-col lg:flex-row lg:items-center justify-between gap-5 shadow-sm">
+      <div className="p-6 rounded-3xl bg-gp-ink-900 border border-gp-ink-700 flex flex-col lg:flex-row lg:items-center justify-between gap-5 shadow-sm">
         <div className="space-y-1.5">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-bold">
             <span>🪑</span>
@@ -194,7 +194,7 @@ export function ChairLiveStudio({
           <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight uppercase">
             Manajemen & Kurasi Kursi Ergonomis
           </h2>
-          <p className="text-xs text-zinc-400 max-w-2xl leading-relaxed">
+          <p className="text-xs text-gp-ink-300 max-w-2xl leading-relaxed">
             Susun dan cicil riset ulasan kursi ergonomis dari sekarang dalam mode staging aman. Atur mekanisme lumbar, armrest 3D/4D, gas lift Class 4, dan status publikasi per item.
           </p>
         </div>
@@ -238,7 +238,7 @@ export function ChairLiveStudio({
             variant="outline"
             size="sm"
             onClick={handleResetDefault}
-            className="text-xs text-zinc-400 hover:text-white border-zinc-800"
+            className="text-xs text-gp-ink-300 hover:text-white border-gp-ink-700"
           >
             <RotateCcw className="w-3.5 h-3.5 mr-1" />
             <span>Reset Default</span>
@@ -257,10 +257,10 @@ export function ChairLiveStudio({
         <div className="flex items-start gap-2.5">
           <Info className={`w-4 h-4 flex-shrink-0 mt-0.5 ${isMasterLive ? "text-emerald-400" : "text-amber-400"}`} />
           <div className="space-y-0.5">
-            <span className="font-black uppercase tracking-wider block text-[11px]">
+            <span className="font-black uppercase tracking-wider block text-2xs">
               {isMasterLive ? "Status Katalog: Terbuka untuk Publik (Live)" : "Status Katalog: Mode Staging Aman (Tersembunyi dari Publik)"}
             </span>
-            <p className="text-[11px] text-zinc-400 leading-relaxed">
+            <p className="text-2xs text-gp-ink-300 leading-relaxed">
               {isMasterLive
                 ? "Pengunjung website saat ini DAPAT melihat tab 'Kursi Ergonomis & Gaming' di seksi Setup Meja & Peripherals."
                 : "Pengunjung website saat ini TIDAK DAPAT melihat tab 'Kursi'. Anda bebas mencicil input data ulasan dan link toko dari sekarang menjelang peluncuran resmi Q2 2027."}
@@ -270,7 +270,7 @@ export function ChairLiveStudio({
 
         <button
           onClick={handleToggleMasterVisibility}
-          className={`px-3 py-1.5 rounded-lg font-mono font-bold text-[11px] border whitespace-nowrap transition-colors ${
+          className={`px-3 py-1.5 rounded-lg font-mono font-bold text-2xs border whitespace-nowrap transition-colors ${
             isMasterLive
               ? "bg-emerald-500 text-black border-emerald-400 hover:bg-emerald-400"
               : "bg-amber-500 text-black border-amber-400 hover:bg-amber-400"
@@ -281,15 +281,15 @@ export function ChairLiveStudio({
       </div>
 
       {/* Search & Category Filter */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-zinc-950 border border-zinc-800 rounded-2xl p-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-4">
         <div className="relative flex-1 sm:max-w-xs">
-          <Search className="w-3.5 h-3.5 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-3.5 h-3.5 text-gp-ink-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Cari kursi, brand, atau bahan..."
-            className="w-full bg-zinc-900 border border-zinc-800 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-cyan-400"
+            className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-cyan-400"
           />
         </div>
 
@@ -298,8 +298,8 @@ export function ChairLiveStudio({
             onClick={() => setCategoryFilter("all")}
             className={`px-3 py-1 rounded-lg text-xs font-mono font-bold transition-all whitespace-nowrap ${
               categoryFilter === "all"
-                ? "bg-zinc-800 text-white border border-zinc-700"
-                : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
+                ? "bg-gp-ink-700 text-white border border-gp-ink-600"
+                : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
             }`}
           >
             Semua ({chairs.length})
@@ -311,7 +311,7 @@ export function ChairLiveStudio({
               className={`px-3 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-all ${
                 categoryFilter === cat
                   ? "bg-cyan-950/40 text-cyan-400 border border-cyan-500/40 font-bold"
-                  : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
+                  : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
               }`}
             >
               {cat}
@@ -327,10 +327,10 @@ export function ChairLiveStudio({
           return (
             <div
               key={chair.id}
-              className={`bg-zinc-950 border rounded-2xl p-5 space-y-4 flex flex-col justify-between transition-all ${
+              className={`bg-gp-ink-950 border rounded-2xl p-5 space-y-4 flex flex-col justify-between transition-all ${
                 !isItemLive
-                  ? "border-amber-500/30 opacity-80 bg-zinc-950/60"
-                  : "border-zinc-800 hover:border-zinc-700"
+                  ? "border-amber-500/30 opacity-80 bg-gp-ink-950/60"
+                  : "border-gp-ink-700 hover:border-gp-ink-600"
               }`}
             >
               <div className="space-y-3">
@@ -338,10 +338,10 @@ export function ChairLiveStudio({
                 <div className="flex items-start justify-between gap-3">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-[10px] px-2 py-0.5 rounded bg-zinc-900 text-cyan-400 border border-zinc-800 font-mono font-bold uppercase">
+                      <span className="text-3xs px-2 py-0.5 rounded bg-gp-ink-800 text-cyan-400 border border-gp-ink-700 font-mono font-bold uppercase">
                         {chair.category}
                       </span>
-                      <span className="text-[10px] px-2 py-0.5 rounded bg-zinc-900 text-zinc-400 border border-zinc-800 font-mono">
+                      <span className="text-3xs px-2 py-0.5 rounded bg-gp-ink-800 text-gp-ink-300 border border-gp-ink-700 font-mono">
                         {chair.brand}
                       </span>
 
@@ -349,7 +349,7 @@ export function ChairLiveStudio({
                       <button
                         type="button"
                         onClick={() => handleToggleChairPublish(chair)}
-                        className={`text-[10px] px-2.5 py-0.5 rounded-full font-mono font-bold flex items-center gap-1 border transition-colors ${
+                        className={`text-3xs px-2.5 py-0.5 rounded-full font-mono font-bold flex items-center gap-1 border transition-colors ${
                           isItemLive
                             ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
                             : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
@@ -376,28 +376,28 @@ export function ChairLiveStudio({
                 </div>
 
                 {/* Specs Technical Matrix */}
-                <div className="grid grid-cols-2 gap-2 text-xs bg-zinc-900/60 p-3 rounded-xl border border-zinc-850">
+                <div className="grid grid-cols-2 gap-2 text-xs bg-gp-ink-800/60 p-3 rounded-xl border border-gp-ink-750">
                   <div>
-                    <span className="text-zinc-500 block text-[10px] uppercase font-mono font-bold">Lumbar Support:</span>
-                    <span className="text-zinc-200 font-medium text-[11px] line-clamp-1" title={chair.lumbarSupport}>
+                    <span className="text-gp-ink-400 block text-3xs uppercase font-mono font-bold">Lumbar Support:</span>
+                    <span className="text-gp-ink-100 font-medium text-2xs line-clamp-1" title={chair.lumbarSupport}>
                       {chair.lumbarSupport}
                     </span>
                   </div>
                   <div>
-                    <span className="text-zinc-500 block text-[10px] uppercase font-mono font-bold">Armrest:</span>
-                    <span className="text-zinc-200 font-medium text-[11px] line-clamp-1" title={chair.armrest}>
+                    <span className="text-gp-ink-400 block text-3xs uppercase font-mono font-bold">Armrest:</span>
+                    <span className="text-gp-ink-100 font-medium text-2xs line-clamp-1" title={chair.armrest}>
                       {chair.armrest}
                     </span>
                   </div>
                   <div>
-                    <span className="text-zinc-500 block text-[10px] uppercase font-mono font-bold">Gas Lift & Mekanisme:</span>
-                    <span className="text-zinc-200 font-medium text-[11px] line-clamp-1" title={`${chair.gasLift} | ${chair.mechanism}`}>
+                    <span className="text-gp-ink-400 block text-3xs uppercase font-mono font-bold">Gas Lift & Mekanisme:</span>
+                    <span className="text-gp-ink-100 font-medium text-2xs line-clamp-1" title={`${chair.gasLift} | ${chair.mechanism}`}>
                       {chair.gasLift}
                     </span>
                   </div>
                   <div>
-                    <span className="text-zinc-500 block text-[10px] uppercase font-mono font-bold">Beban & Tinggi User:</span>
-                    <span className="text-zinc-200 font-medium text-[11px]">
+                    <span className="text-gp-ink-400 block text-3xs uppercase font-mono font-bold">Beban & Tinggi User:</span>
+                    <span className="text-gp-ink-100 font-medium text-2xs">
                       {chair.maxWeightCapacity} ({chair.recommendedHeight})
                     </span>
                   </div>
@@ -405,24 +405,24 @@ export function ChairLiveStudio({
 
                 {/* Verdict Box */}
                 {chair.verdict && (
-                  <div className="text-xs text-zinc-300 bg-cyan-950/20 border border-cyan-500/20 p-3 rounded-xl leading-relaxed">
-                    <span className="text-cyan-400 font-mono font-bold text-[10px] block uppercase mb-0.5">
+                  <div className="text-xs text-gp-ink-200 bg-cyan-950/20 border border-cyan-500/20 p-3 rounded-xl leading-relaxed">
+                    <span className="text-cyan-400 font-mono font-bold text-3xs block uppercase mb-0.5">
                       Verdict GrayPlasma:
                     </span>
-                    <p className="text-[11px] text-zinc-300">{chair.verdict}</p>
+                    <p className="text-2xs text-gp-ink-200">{chair.verdict}</p>
                   </div>
                 )}
               </div>
 
               {/* Action Buttons Footer */}
-              <div className="flex items-center justify-between gap-2 pt-3 border-t border-zinc-850">
-                <div className="flex items-center gap-2 text-[11px]">
+              <div className="flex items-center justify-between gap-2 pt-3 border-t border-gp-ink-750">
+                <div className="flex items-center gap-2 text-2xs">
                   {chair.shopeeUrl && (
                     <a
                       href={chair.shopeeUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-2 py-1 rounded bg-orange-500/10 text-orange-400 border border-orange-500/30 hover:bg-orange-500/20 transition-colors flex items-center gap-1 font-mono text-[10px]"
+                      className="px-2 py-1 rounded bg-orange-500/10 text-orange-400 border border-orange-500/30 hover:bg-orange-500/20 transition-colors flex items-center gap-1 font-mono text-3xs"
                     >
                       <ShoppingBag className="w-3 h-3" />
                       <span>Shopee</span>
@@ -433,7 +433,7 @@ export function ChairLiveStudio({
                       href={chair.tokopediaUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-2 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20 transition-colors flex items-center gap-1 font-mono text-[10px]"
+                      className="px-2 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20 transition-colors flex items-center gap-1 font-mono text-3xs"
                     >
                       <ExternalLink className="w-3 h-3" />
                       <span>Tokopedia</span>
@@ -448,7 +448,7 @@ export function ChairLiveStudio({
                     onClick={() => handleToggleChairPublish(chair)}
                     className={`p-1.5 rounded-lg border transition-colors ${
                       isItemLive
-                        ? "bg-zinc-900 border-zinc-800 hover:bg-amber-950/40 text-zinc-400 hover:text-amber-400"
+                        ? "bg-gp-ink-800 border-gp-ink-700 hover:bg-amber-950/40 text-gp-ink-300 hover:text-amber-400"
                         : "bg-amber-500/20 border-amber-500/40 text-amber-300 hover:bg-emerald-500/20 hover:text-emerald-300"
                     }`}
                     title={isItemLive ? "Sembunyikan ke Staging" : "Terbitkan ke Live"}
@@ -458,7 +458,7 @@ export function ChairLiveStudio({
 
                   <button
                     onClick={() => handleStartEdit(chair)}
-                    className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-cyan-400"
+                    className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-cyan-400"
                     title="Edit Spesifikasi Kursi"
                   >
                     <Edit2 className="w-3.5 h-3.5" />
@@ -466,7 +466,7 @@ export function ChairLiveStudio({
 
                   <button
                     onClick={() => handleDeleteChair(chair.id, chair.name)}
-                    className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-rose-400"
+                    className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-rose-400"
                     title="Hapus Kursi"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -481,9 +481,9 @@ export function ChairLiveStudio({
       {/* Edit / Add Modal */}
       {isModalOpen && editingChair && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-hidden">
-          <div className="bg-[#0f0f14] border border-zinc-700/80 rounded-2xl max-w-2xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95">
+          <div className="bg-gp-ink-900 border border-gp-ink-600/80 rounded-2xl max-w-2xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95">
             {/* Fixed Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-[#121217] flex-shrink-0">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gp-ink-700 bg-gp-ink-850 flex-shrink-0">
               <h3 className="text-base font-bold text-white uppercase tracking-tight">
                 {chairs.some((c) => c.id === editingChair.id)
                   ? "Edit Rekomendasi Kursi Ergonomis"
@@ -492,7 +492,7 @@ export function ChairLiveStudio({
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="p-1 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+                className="p-1 rounded-lg text-gp-ink-300 hover:text-white hover:bg-gp-ink-700 transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -504,23 +504,23 @@ export function ChairLiveStudio({
                 {/* Row 1: Nama & Brand */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="text-zinc-300 block mb-1 font-semibold">Nama Kursi / Tipe Lengkap</label>
+                    <label className="text-gp-ink-200 block mb-1 font-semibold">Nama Kursi / Tipe Lengkap</label>
                     <input
                       type="text"
                       required
                       value={editingChair.name}
                       onChange={(e) => setEditingChair({ ...editingChair, name: e.target.value })}
-                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white font-bold focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white font-bold focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
-                    <label className="text-zinc-300 block mb-1 font-semibold">Brand Pabrikan</label>
+                    <label className="text-gp-ink-200 block mb-1 font-semibold">Brand Pabrikan</label>
                     <input
                       type="text"
                       required
                       value={editingChair.brand}
                       onChange={(e) => setEditingChair({ ...editingChair, brand: e.target.value })}
-                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                 </div>
@@ -528,7 +528,7 @@ export function ChairLiveStudio({
                 {/* Row 2: Kategori & Harga */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="text-zinc-300 block mb-1 font-semibold">Kategori Kursi</label>
+                    <label className="text-gp-ink-200 block mb-1 font-semibold">Kategori Kursi</label>
                     <select
                       value={editingChair.category}
                       onChange={(e) =>
@@ -537,7 +537,7 @@ export function ChairLiveStudio({
                           category: e.target.value as ChairItem["category"],
                         })
                       }
-                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400"
                     >
                       {CHAIR_CATEGORIES.map((cat) => (
                         <option key={cat} value={cat}>
@@ -547,13 +547,13 @@ export function ChairLiveStudio({
                     </select>
                   </div>
                   <div>
-                    <label className="text-zinc-300 block mb-1 font-semibold">Estimasi Harga (IDR)</label>
+                    <label className="text-gp-ink-200 block mb-1 font-semibold">Estimasi Harga (IDR)</label>
                     <input
                       type="number"
                       required
                       value={editingChair.price}
                       onChange={(e) => setEditingChair({ ...editingChair, price: Number(e.target.value) })}
-                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-emerald-400 font-mono font-bold focus:outline-none focus:border-cyan-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-emerald-400 font-mono font-bold focus:outline-none focus:border-cyan-400"
                     />
                   </div>
                 </div>
@@ -561,25 +561,25 @@ export function ChairLiveStudio({
                 {/* Row 3: Lumbar Support & Armrest */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="text-zinc-300 block mb-1 font-semibold">Mekanisme Lumbar Support</label>
+                    <label className="text-gp-ink-200 block mb-1 font-semibold">Mekanisme Lumbar Support</label>
                     <input
                       type="text"
                       required
                       value={editingChair.lumbarSupport}
                       onChange={(e) => setEditingChair({ ...editingChair, lumbarSupport: e.target.value })}
                       placeholder="Contoh: Dynamic Self-Adaptive 3D Lumbar"
-                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
-                    <label className="text-zinc-300 block mb-1 font-semibold">Tipe Armrest</label>
+                    <label className="text-gp-ink-200 block mb-1 font-semibold">Tipe Armrest</label>
                     <input
                       type="text"
                       required
                       value={editingChair.armrest}
                       onChange={(e) => setEditingChair({ ...editingChair, armrest: e.target.value })}
                       placeholder="Contoh: 3D Adjustable / Flip-Up 90°"
-                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                 </div>
@@ -587,25 +587,25 @@ export function ChairLiveStudio({
                 {/* Row 4: Recline Mechanism & Gas Lift */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="text-zinc-300 block mb-1 font-semibold">Mekanisme Recline / Tilt</label>
+                    <label className="text-gp-ink-200 block mb-1 font-semibold">Mekanisme Recline / Tilt</label>
                     <input
                       type="text"
                       required
                       value={editingChair.mechanism}
                       onChange={(e) => setEditingChair({ ...editingChair, mechanism: e.target.value })}
                       placeholder="Contoh: Multi-Lock Synchro Tilt 110°-138°"
-                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
-                    <label className="text-zinc-300 block mb-1 font-semibold">Kelas Gas Lift Hidrolik</label>
+                    <label className="text-gp-ink-200 block mb-1 font-semibold">Kelas Gas Lift Hidrolik</label>
                     <input
                       type="text"
                       required
                       value={editingChair.gasLift}
                       onChange={(e) => setEditingChair({ ...editingChair, gasLift: e.target.value })}
                       placeholder="Contoh: Class 4 TÜV Certified / Class 3"
-                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                 </div>
@@ -613,33 +613,33 @@ export function ChairLiveStudio({
                 {/* Row 5: Bahan & Batas Beban */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div>
-                    <label className="text-zinc-300 block mb-1 font-semibold">Bahan Dudukan / Sandaran</label>
+                    <label className="text-gp-ink-200 block mb-1 font-semibold">Bahan Dudukan / Sandaran</label>
                     <input
                       type="text"
                       value={editingChair.material}
                       onChange={(e) => setEditingChair({ ...editingChair, material: e.target.value })}
                       placeholder="Contoh: High Elastic Wintex Mesh"
-                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
-                    <label className="text-zinc-300 block mb-1 font-semibold">Tinggi Badan Ideal</label>
+                    <label className="text-gp-ink-200 block mb-1 font-semibold">Tinggi Badan Ideal</label>
                     <input
                       type="text"
                       value={editingChair.recommendedHeight}
                       onChange={(e) => setEditingChair({ ...editingChair, recommendedHeight: e.target.value })}
                       placeholder="Contoh: 160 cm - 185 cm"
-                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
-                    <label className="text-zinc-300 block mb-1 font-semibold">Beban Maksimal</label>
+                    <label className="text-gp-ink-200 block mb-1 font-semibold">Beban Maksimal</label>
                     <input
                       type="text"
                       value={editingChair.maxWeightCapacity}
                       onChange={(e) => setEditingChair({ ...editingChair, maxWeightCapacity: e.target.value })}
                       placeholder="Contoh: 130 kg"
-                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                 </div>
@@ -647,72 +647,72 @@ export function ChairLiveStudio({
                 {/* Row 6: Garansi & Link Belanja */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div>
-                    <label className="text-zinc-300 block mb-1 font-semibold">Garansi Resmi</label>
+                    <label className="text-gp-ink-200 block mb-1 font-semibold">Garansi Resmi</label>
                     <input
                       type="text"
                       value={editingChair.warranty}
                       onChange={(e) => setEditingChair({ ...editingChair, warranty: e.target.value })}
                       placeholder="Contoh: 2 Tahun Sparepart & Hidrolik"
-                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
-                    <label className="text-zinc-300 block mb-1 font-semibold">Link Shopee</label>
+                    <label className="text-gp-ink-200 block mb-1 font-semibold">Link Shopee</label>
                     <input
                       type="url"
                       value={editingChair.shopeeUrl || ""}
                       onChange={(e) => setEditingChair({ ...editingChair, shopeeUrl: e.target.value })}
                       placeholder="https://shopee.co.id/..."
-                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
-                    <label className="text-zinc-300 block mb-1 font-semibold">Link Tokopedia</label>
+                    <label className="text-gp-ink-200 block mb-1 font-semibold">Link Tokopedia</label>
                     <input
                       type="url"
                       value={editingChair.tokopediaUrl || ""}
                       onChange={(e) => setEditingChair({ ...editingChair, tokopediaUrl: e.target.value })}
                       placeholder="https://tokopedia.com/..."
-                      className="w-full bg-[#14141c] border border-zinc-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-zinc-500"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                 </div>
 
                 {/* Row 7: Verdict & Catatan Teknis */}
                 <div>
-                  <label className="text-zinc-300 block mb-1 font-semibold">Verdict & Ulasan Ahli GrayPlasma</label>
+                  <label className="text-gp-ink-200 block mb-1 font-semibold">Verdict & Ulasan Ahli GrayPlasma</label>
                   <textarea
                     rows={2}
                     value={editingChair.verdict}
                     onChange={(e) => setEditingChair({ ...editingChair, verdict: e.target.value })}
                     placeholder="Kelebihan utama dan pertimbangan sebelum membeli..."
-                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl p-3 text-white focus:outline-none focus:border-cyan-400 leading-relaxed placeholder:text-zinc-500"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-white focus:outline-none focus:border-cyan-400 leading-relaxed placeholder:text-gp-ink-400"
                   />
                 </div>
 
                 <div>
-                  <label className="text-zinc-300 block mb-1 font-semibold">Catatan Tambahan (Kelemahan / Adaptasi)</label>
+                  <label className="text-gp-ink-200 block mb-1 font-semibold">Catatan Tambahan (Kelemahan / Adaptasi)</label>
                   <textarea
                     rows={2}
                     value={editingChair.notes}
                     onChange={(e) => setEditingChair({ ...editingChair, notes: e.target.value })}
                     placeholder="Misal: Dudukan mesh agak keras di awal, butuh waktu adaptasi..."
-                    className="w-full bg-[#14141c] border border-zinc-700 rounded-xl p-3 text-zinc-200 focus:outline-none focus:border-cyan-400 leading-relaxed placeholder:text-zinc-500"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:outline-none focus:border-cyan-400 leading-relaxed placeholder:text-gp-ink-400"
                   />
                 </div>
 
                 {/* Status Publish Checkbox */}
                 <div className="pt-2">
-                  <label className="flex items-center gap-2 cursor-pointer bg-[#14141c] border border-zinc-700 p-3 rounded-xl">
+                  <label className="flex items-center gap-2 cursor-pointer bg-gp-ink-850 border border-gp-ink-600 p-3 rounded-xl">
                     <input
                       type="checkbox"
                       checked={editingChair.isPublished !== false}
                       onChange={(e) => setEditingChair({ ...editingChair, isPublished: e.target.checked })}
-                      className="rounded border-zinc-600 bg-zinc-800 text-cyan-500 focus:ring-cyan-500 w-4 h-4"
+                      className="rounded border-gp-ink-500 bg-gp-ink-700 text-cyan-500 focus:ring-cyan-500 w-4 h-4"
                     />
                     <div>
                       <span className="text-white text-xs font-bold block">Status: Siap Terbit (Live)</span>
-                      <span className="text-zinc-400 text-[11px]">
+                      <span className="text-gp-ink-300 text-2xs">
                         Jika tidak dicentang, kursi ini tetap tersimpan di database sebagai Mode Staging (Draft).
                       </span>
                     </div>
@@ -721,13 +721,13 @@ export function ChairLiveStudio({
               </div>
 
               {/* Fixed Footer Actions */}
-              <div className="flex items-center justify-end gap-3 px-6 py-3.5 border-t border-zinc-800 bg-[#0a0a0e] flex-shrink-0">
+              <div className="flex items-center justify-end gap-3 px-6 py-3.5 border-t border-gp-ink-700 bg-gp-ink-950 flex-shrink-0">
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   onClick={() => setIsModalOpen(false)}
-                  className="border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-800"
+                  className="border-gp-ink-600 text-gp-ink-200 hover:text-white hover:bg-gp-ink-700"
                 >
                   Batal
                 </Button>

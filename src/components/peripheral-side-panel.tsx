@@ -43,11 +43,11 @@ export function PeripheralSidePanel({ peripheral, isOpen, onClose }: PeripheralS
       />
 
       {/* Side Panel Drawer */}
-      <aside className="fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[580px] md:w-[640px] lg:w-[680px] bg-[#121216] text-zinc-200 border-l border-zinc-800 shadow-2xl transition-all duration-300 ease-out flex flex-col font-sans animate-in slide-in-from-right duration-300">
+      <aside className="fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[580px] md:w-[640px] lg:w-[680px] bg-gp-ink-850 text-gp-ink-100 border-l border-gp-ink-700 shadow-2xl transition-all duration-300 ease-out flex flex-col font-sans animate-in slide-in-from-right duration-300">
         {/* Top Control Bar */}
-        <div className="h-14 px-5 sm:px-6 border-b border-zinc-800 flex items-center justify-between bg-[#18181f] flex-shrink-0 text-xs text-zinc-400">
+        <div className="h-14 px-5 sm:px-6 border-b border-gp-ink-700 flex items-center justify-between bg-gp-ink-800 flex-shrink-0 text-xs text-gp-ink-300">
           <div className="flex items-center gap-2">
-            <Headphones className="w-4 h-4 text-zinc-400" />
+            <Headphones className="w-4 h-4 text-gp-ink-300" />
             <span className="font-bold text-white uppercase tracking-tight truncate max-w-[240px] sm:max-w-[320px]">
               {peripheral.name}
             </span>
@@ -69,7 +69,7 @@ export function PeripheralSidePanel({ peripheral, isOpen, onClose }: PeripheralS
 
             <button
               onClick={onClose}
-              className="p-1.5 rounded-xl bg-[#202025] hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors"
+              className="p-1.5 rounded-xl bg-gp-ink-750 hover:bg-gp-ink-700 text-gp-ink-300 hover:text-white transition-colors"
               title="Tutup (Esc)"
             >
               <X className="w-4 h-4" />
@@ -80,9 +80,9 @@ export function PeripheralSidePanel({ peripheral, isOpen, onClose }: PeripheralS
         {/* Scrollable Body */}
         <div className="flex-1 overflow-y-auto p-5 sm:p-7 space-y-6">
           {/* Header Title */}
-          <div className="space-y-3 pb-4 border-b border-zinc-800">
-            <div className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 w-fit">
-              <Headphones className="w-6 h-6 text-zinc-300" />
+          <div className="space-y-3 pb-4 border-b border-gp-ink-700">
+            <div className="p-2 rounded-lg bg-gp-ink-800 border border-gp-ink-700 w-fit">
+              <Headphones className="w-6 h-6 text-gp-ink-200" />
             </div>
             <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight leading-snug">
               {peripheral.name}
@@ -91,7 +91,7 @@ export function PeripheralSidePanel({ peripheral, isOpen, onClose }: PeripheralS
               <span className="px-2.5 py-0.5 rounded-lg text-xs font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
                 {peripheral.category}
               </span>
-              <span className="px-2.5 py-0.5 rounded-lg text-xs font-bold bg-zinc-800 text-zinc-300 border border-zinc-700">
+              <span className="px-2.5 py-0.5 rounded-lg text-xs font-bold bg-gp-ink-700 text-gp-ink-200 border border-gp-ink-600">
                 Brand: {peripheral.brand}
               </span>
               {peripheral.warranty && (
@@ -104,23 +104,23 @@ export function PeripheralSidePanel({ peripheral, isOpen, onClose }: PeripheralS
           </div>
 
           {/* Properties Table (Notion Style) */}
-          <div className="space-y-2.5 p-4 rounded-2xl bg-[#18181f] border border-zinc-800/80 text-xs">
+          <div className="space-y-2.5 p-4 rounded-2xl bg-gp-ink-800 border border-gp-ink-700/80 text-xs">
             <div className="grid grid-cols-12 gap-2 items-center py-1">
-              <span className="col-span-5 text-zinc-500 font-medium">Tipe / Versi</span>
+              <span className="col-span-5 text-gp-ink-400 font-medium">Tipe / Versi</span>
               <span className="col-span-7 font-mono font-bold text-white">
                 {peripheral.versionDetail || peripheral.type || "-"}
               </span>
             </div>
 
-            <div className="grid grid-cols-12 gap-2 items-center py-1 border-t border-zinc-800/60 pt-2">
-              <span className="col-span-5 text-zinc-500 font-medium">Rekomendasi Penggunaan</span>
-              <span className="col-span-7 text-zinc-300">
+            <div className="grid grid-cols-12 gap-2 items-center py-1 border-t border-gp-ink-700/60 pt-2">
+              <span className="col-span-5 text-gp-ink-400 font-medium">Rekomendasi Penggunaan</span>
+              <span className="col-span-7 text-gp-ink-200">
                 {peripheral.recommendedFor || "Semua Setup PC/Laptop"}
               </span>
             </div>
 
-            <div className="grid grid-cols-12 gap-2 items-center py-1 border-t border-zinc-800/60 pt-2">
-              <span className="col-span-5 text-zinc-500 font-medium">Kisaran Harga</span>
+            <div className="grid grid-cols-12 gap-2 items-center py-1 border-t border-gp-ink-700/60 pt-2">
+              <span className="col-span-5 text-gp-ink-400 font-medium">Kisaran Harga</span>
               <div className="col-span-7 font-mono font-black text-cyan-400 text-base">
                 {peripheral.price > 0 ? formatRupiah(peripheral.price) : "Cek Toko"}
               </div>
@@ -130,36 +130,36 @@ export function PeripheralSidePanel({ peripheral, isOpen, onClose }: PeripheralS
           {/* Verdict Box */}
           {peripheral.verdict && (
             <div className="p-4 sm:p-5 rounded-2xl bg-cyan-950/20 border border-cyan-500/30 text-xs text-cyan-200 space-y-2">
-              <div className="flex items-center gap-1.5 font-bold text-cyan-400 uppercase tracking-wider text-[11px]">
+              <div className="flex items-center gap-1.5 font-bold text-cyan-400 uppercase tracking-wider text-2xs">
                 <Sparkles className="w-4 h-4 text-cyan-400" />
                 <span>Verdict Pengujian Lab GTID:</span>
               </div>
-              <p className="leading-relaxed text-zinc-200">{peripheral.verdict}</p>
+              <p className="leading-relaxed text-gp-ink-100">{peripheral.verdict}</p>
             </div>
           )}
 
           {/* Markdown Content / Catatan Tambahan */}
-          <div className="p-5 sm:p-6 rounded-2xl bg-[#18181f] border border-zinc-800/80 space-y-4">
-            <h4 className="text-xs font-bold text-zinc-400 uppercase tracking-wider border-b border-zinc-800 pb-2">
+          <div className="p-5 sm:p-6 rounded-2xl bg-gp-ink-800 border border-gp-ink-700/80 space-y-4">
+            <h4 className="text-xs font-bold text-gp-ink-300 uppercase tracking-wider border-b border-gp-ink-700 pb-2">
               Catatan & Spesifikasi Lengkap
             </h4>
             {peripheral.notes ? (
               <NotionBlockRenderer content={peripheral.notes} />
             ) : (
-              <p className="text-xs text-zinc-500 italic">Tidak ada catatan tambahan untuk aksesoris ini.</p>
+              <p className="text-xs text-gp-ink-400 italic">Tidak ada catatan tambahan untuk aksesoris ini.</p>
             )}
           </div>
 
           {/* Marketplace Links */}
-          <div className="p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800 flex flex-wrap items-center justify-between gap-3 text-xs">
-            <span className="text-zinc-400 font-medium">Tersedia di Marketplace Resmi:</span>
+          <div className="p-4 rounded-2xl bg-gp-ink-800/60 border border-gp-ink-700 flex flex-wrap items-center justify-between gap-3 text-xs">
+            <span className="text-gp-ink-300 font-medium">Tersedia di Marketplace Resmi:</span>
             <div className="flex items-center gap-2">
               {peripheral.shopeeUrl && (
                 <a
                   href={peripheral.shopeeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-xl bg-[#ee4d2d] text-white font-bold hover:opacity-90 flex items-center gap-1"
+                  className="px-3 py-1.5 rounded-xl bg-brand-shopee text-white font-bold hover:opacity-90 flex items-center gap-1"
                 >
                   <span>Shopee</span>
                   <ExternalLink className="w-3 h-3" />
@@ -170,7 +170,7 @@ export function PeripheralSidePanel({ peripheral, isOpen, onClose }: PeripheralS
                   href={peripheral.tokopediaUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-xl bg-[#03ac0e] text-white font-bold hover:opacity-90 flex items-center gap-1"
+                  className="px-3 py-1.5 rounded-xl bg-brand-tokopedia-alt text-white font-bold hover:opacity-90 flex items-center gap-1"
                 >
                   <span>Tokopedia</span>
                   <ExternalLink className="w-3 h-3" />
@@ -181,7 +181,7 @@ export function PeripheralSidePanel({ peripheral, isOpen, onClose }: PeripheralS
                   href={peripheral.tiktokUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-xl bg-zinc-800 text-white font-bold hover:bg-zinc-700 flex items-center gap-1"
+                  className="px-3 py-1.5 rounded-xl bg-gp-ink-700 text-white font-bold hover:bg-gp-ink-600 flex items-center gap-1"
                 >
                   <span>TikTok Shop</span>
                   <ExternalLink className="w-3 h-3" />

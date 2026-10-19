@@ -24,16 +24,16 @@ export function DeskCard({ desk, onSelectDesk }: DeskCardProps) {
       onClick={() => {
         if (onSelectDesk) onSelectDesk(desk);
       }}
-      className="group relative bg-[#0c0c10] hover:bg-[#111116] border border-zinc-800 hover:border-zinc-700 transition-all duration-200 rounded-xl p-4 sm:p-5 flex flex-col justify-between cursor-pointer shadow-tech-card"
+      className="group relative bg-gp-ink-900 hover:bg-gp-ink-850 border border-gp-ink-700 hover:border-gp-ink-600 transition-all duration-200 rounded-xl p-4 sm:p-5 flex flex-col justify-between cursor-pointer shadow-tech-card"
     >
       {/* Top Header: Category & Type Badge */}
       <div className="flex items-center justify-between gap-2 mb-3">
-        <span className="text-[11px] font-bold tracking-wider text-amber-400 uppercase bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/30">
+        <span className="text-2xs font-bold tracking-wider text-amber-400 uppercase bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/30">
           {desk.category}
         </span>
 
         {desk.type && (
-          <span className="text-[11px] font-medium text-zinc-400 bg-zinc-900 px-2.5 py-0.5 rounded-full border border-zinc-800">
+          <span className="text-2xs font-medium text-gp-ink-300 bg-gp-ink-800 px-2.5 py-0.5 rounded-full border border-gp-ink-700">
             {desk.type}
           </span>
         )}
@@ -45,7 +45,7 @@ export function DeskCard({ desk, onSelectDesk }: DeskCardProps) {
           {desk.name}
         </h3>
         {desk.description && (
-          <p className="text-xs text-zinc-400 line-clamp-2 mt-1 leading-relaxed">
+          <p className="text-xs text-gp-ink-300 line-clamp-2 mt-1 leading-relaxed">
             {desk.description}
           </p>
         )}
@@ -56,7 +56,7 @@ export function DeskCard({ desk, onSelectDesk }: DeskCardProps) {
         {specPills.map((spec, idx) => (
           <span
             key={idx}
-            className="px-2 py-0.5 rounded-md text-[11px] font-medium text-zinc-300 bg-zinc-800/50 border border-zinc-800/80"
+            className="px-2 py-0.5 rounded-md text-2xs font-medium text-gp-ink-200 bg-gp-ink-700/50 border border-gp-ink-700/80"
           >
             {spec}
           </span>
@@ -64,10 +64,10 @@ export function DeskCard({ desk, onSelectDesk }: DeskCardProps) {
       </div>
 
       {/* Price & Action Section */}
-      <div className="pt-2.5 border-t border-zinc-800/70 flex flex-col gap-2">
+      <div className="pt-2.5 border-t border-gp-ink-700/70 flex flex-col gap-2">
         <div className="flex items-baseline justify-between">
           <div>
-            <span className="text-[10px] text-zinc-500 font-medium block leading-none mb-1">
+            <span className="text-3xs text-gp-ink-400 font-medium block leading-none mb-1">
               Estimasi Harga
             </span>
             <span className="text-base sm:text-lg font-bold text-white tracking-tight tabular-nums">
@@ -87,7 +87,7 @@ export function DeskCard({ desk, onSelectDesk }: DeskCardProps) {
                 window.open(desk.shopeeUrl, "_blank", "noopener,noreferrer");
               }
             }}
-            className="flex-1 flex items-center justify-center gap-1.5 text-xs py-2 font-semibold bg-[#ee4d2d] hover:bg-[#d43d1f] text-white rounded-lg transition-all"
+            className="flex-1 flex items-center justify-center gap-1.5 text-xs py-2 font-semibold bg-brand-shopee hover:bg-brand-shopee-dark text-white rounded-lg transition-all"
           >
             <ShoppingBag className="w-3.5 h-3.5" />
             <span>Beli di Shopee</span>

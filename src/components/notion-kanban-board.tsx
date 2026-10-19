@@ -50,14 +50,14 @@ export function NotionKanbanBoard({
   return (
     <div className="space-y-4">
       {/* Notion Board Header Toolbar */}
-      <div className="flex items-center justify-between border-b border-[#2f2f2f] pb-2 text-xs text-[#9b9a97]">
+      <div className="flex items-center justify-between border-b border-gp-ink-650 pb-2 text-xs text-gp-ink-300">
         <div className="flex items-center gap-2">
-          <span className="font-semibold text-[#e0e0e0] flex items-center gap-1.5">
+          <span className="font-semibold text-gp-ink-100 flex items-center gap-1.5">
             <span>KUALITAS AFTERSALES / BRAND</span>
           </span>
         </div>
 
-        <div className="flex items-center gap-3 text-xs text-[#9b9a97]">
+        <div className="flex items-center gap-3 text-xs text-gp-ink-300">
           <button className="hover:text-white flex items-center gap-1">
             <SlidersHorizontal className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Filter</span>
@@ -82,19 +82,19 @@ export function NotionKanbanBoard({
               {/* Column Header Pill */}
               <div className="flex items-center gap-2">
                 <span
-                  className={`text-[11px] font-bold px-2 py-0.5 rounded tracking-wide uppercase ${
+                  className={`text-2xs font-bold px-2 py-0.5 rounded tracking-wide uppercase ${
                     column.color === "green"
-                      ? "bg-[#203c2b] text-[#52ba69]"
+                      ? "bg-gp-mint-900 text-gp-mint"
                       : column.color === "orange"
-                      ? "bg-[#442c1d] text-[#e07936]"
+                      ? "bg-gp-ember-400 text-gp-ember"
                       : column.color === "red"
-                      ? "bg-[#492224] text-[#eb5757]"
-                      : "bg-[#2f2f2f] text-[#9b9a97]"
+                      ? "bg-gp-coral-800 text-gp-coral"
+                      : "bg-gp-ink-650 text-gp-ink-300"
                   }`}
                 >
                   {column.title}
                 </span>
-                <span className="text-xs text-[#9b9a97] font-mono">
+                <span className="text-xs text-gp-ink-300 font-mono">
                   {colCards.length}
                 </span>
               </div>
@@ -110,18 +110,18 @@ export function NotionKanbanBoard({
                       onClick={() => onSelectCard(card)}
                       className={`p-3.5 rounded-lg border transition-all cursor-pointer shadow-tech-card ${
                         isSelected
-                          ? "bg-zinc-900 border-zinc-500"
-                          : "bg-[#202020] hover:bg-[#252525] border-[#2f2f2f] hover:border-zinc-700"
+                          ? "bg-gp-ink-800 border-gp-ink-400"
+                          : "bg-gp-ink-750 hover:bg-gp-ink-700 border-gp-ink-650 hover:border-gp-ink-600"
                       }`}
                     >
                       {/* Card Title & Icon */}
                       <div className="flex items-start gap-2 mb-2.5">
-                        <span className="text-zinc-400 mt-0.5 flex-shrink-0">
+                        <span className="text-gp-ink-300 mt-0.5 flex-shrink-0">
                           <Tv className="w-3.5 h-3.5" />
                         </span>
                         <h4
                           className={`text-xs font-bold leading-tight ${
-                            isSelected ? "text-orange-400" : "text-[#ffffff]"
+                            isSelected ? "text-orange-400" : "text-white"
                           }`}
                         >
                           {card.title}
@@ -133,16 +133,16 @@ export function NotionKanbanBoard({
                         {(card.tags ?? []).map((tag, idx) => (
                           <span
                             key={idx}
-                            className={`text-[10px] font-semibold px-2 py-0.5 rounded ${
+                            className={`text-3xs font-semibold px-2 py-0.5 rounded ${
                               tag.color === "green"
-                                ? "bg-[#203c2b] text-[#52ba69]"
+                                ? "bg-gp-mint-900 text-gp-mint"
                                 : tag.color === "orange"
-                                ? "bg-[#442c1d] text-[#e07936]"
+                                ? "bg-gp-ember-400 text-gp-ember"
                                 : tag.color === "blue"
-                                ? "bg-[#1d354a] text-[#4d97d9]"
+                                ? "bg-gp-sky-600 text-gp-sky-100"
                                 : tag.color === "red"
-                                ? "bg-[#492224] text-[#eb5757]"
-                                : "bg-[#2f2f2f] text-[#9b9a97]"
+                                ? "bg-gp-coral-800 text-gp-coral"
+                                : "bg-gp-ink-650 text-gp-ink-300"
                             }`}
                           >
                             {tag.label}
@@ -152,7 +152,7 @@ export function NotionKanbanBoard({
 
                       {/* Contact URL Link Preview if any */}
                       {card.contactUrl && (
-                        <div className="text-[10px] text-[#787774] truncate font-mono pt-1 border-t border-[#2a2a2a]">
+                        <div className="text-3xs text-gp-ink-400 truncate font-mono pt-1 border-t border-gp-ink-700">
                           {card.contactUrl}
                         </div>
                       )}

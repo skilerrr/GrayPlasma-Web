@@ -383,8 +383,8 @@ export default function AdminDashboardPage() {
   // Middleware + pengecekan sesi Supabase yang jadi gerbang; ini cuma tampilan sementara.
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-[#070709] flex flex-col items-center justify-center gap-3 font-mono text-xs text-zinc-400">
-        <div className="w-10 h-10 rounded-xl border border-zinc-800 bg-zinc-900 flex items-center justify-center text-emerald-400">
+      <div className="min-h-screen bg-gp-ink-998 flex flex-col items-center justify-center gap-3 font-mono text-xs text-gp-ink-300">
+        <div className="w-10 h-10 rounded-xl border border-gp-ink-700 bg-gp-ink-800 flex items-center justify-center text-emerald-400">
           <Lock className="w-4 h-4" />
         </div>
         <p className="uppercase tracking-wider">Memeriksa sesi admin...</p>
@@ -393,29 +393,29 @@ export default function AdminDashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#070709] text-white flex font-sans">
+    <div className="min-h-screen bg-gp-ink-998 text-white flex font-sans">
       {/* 1. LEFT NOTION-STYLE SIDEBAR */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#09090b] border-r border-zinc-800/90 flex flex-col justify-between transition-transform duration-200 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-gp-ink-950 border-r border-gp-ink-700/90 flex flex-col justify-between transition-transform duration-200 lg:translate-x-0 ${
           isMobileSidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex flex-col h-full overflow-y-auto no-scrollbar">
           {/* Workspace Brand Header */}
-          <div className="p-4 border-b border-zinc-800 flex items-center justify-between">
+          <div className="p-4 border-b border-gp-ink-700 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 group">
               <GPLogo className="w-7 h-7 flex-shrink-0" />
               <div>
                 <span className="font-black text-xs uppercase tracking-tight text-white group-hover:text-emerald-400 transition-colors block">
                   GP<span className="text-emerald-400">ADMIN</span>
                 </span>
-                <span className="text-[9px] text-zinc-400 block -mt-0.5">Admin Panel</span>
+                <span className="text-4xs text-gp-ink-300 block -mt-0.5">Admin Panel</span>
               </div>
             </Link>
 
             <button
               onClick={() => setIsMobileSidebarOpen(false)}
-              className="p-1 rounded-lg hover:bg-zinc-800 text-zinc-400 lg:hidden"
+              className="p-1 rounded-lg hover:bg-gp-ink-700 text-gp-ink-300 lg:hidden"
             >
               <X className="w-4 h-4" />
             </button>
@@ -423,7 +423,7 @@ export default function AdminDashboardPage() {
 
           {/* Current Logged In Admin Profile Card */}
           {currentAdmin && (
-            <div className="p-3 mx-3 my-2 rounded-xl bg-zinc-950/80 border border-zinc-800 flex items-center gap-2.5 group">
+            <div className="p-3 mx-3 my-2 rounded-xl bg-gp-ink-950/80 border border-gp-ink-700 flex items-center gap-2.5 group">
               <div className="relative cursor-pointer flex-shrink-0">
                 <img
                   src={currentAdmin.avatar}
@@ -447,7 +447,7 @@ export default function AdminDashboardPage() {
                 <span className="text-xs font-bold text-white block truncate">
                   {currentAdmin.name}
                 </span>
-                <span className="text-[10px] text-amber-400 block truncate font-medium">
+                <span className="text-3xs text-amber-400 block truncate font-medium">
                   {currentAdmin.roleTitle}
                 </span>
               </div>
@@ -458,7 +458,7 @@ export default function AdminDashboardPage() {
           <div className="px-3 py-2 space-y-4 text-xs">
             {NAV_GROUPS.map((group) => (
               <div key={group.label} className="space-y-1">
-                <span className="text-[10px] font-mono font-bold text-zinc-500 px-2 uppercase tracking-widest">
+                <span className="text-3xs font-mono font-bold text-gp-ink-400 px-2 uppercase tracking-widest">
                   {group.label}
                 </span>
                 {group.items.map((item) => {
@@ -472,11 +472,11 @@ export default function AdminDashboardPage() {
                       }}
                       className={`w-full px-2.5 py-2 rounded-xl text-left font-medium flex items-center gap-2 transition-colors ${
                         isActive
-                          ? "bg-zinc-800 text-white font-bold border border-zinc-700/60"
-                          : "text-zinc-400 hover:bg-zinc-900 hover:text-white border border-transparent"
+                          ? "bg-gp-ink-700 text-white font-bold border border-gp-ink-600/60"
+                          : "text-gp-ink-300 hover:bg-gp-ink-800 hover:text-white border border-transparent"
                       }`}
                     >
-                      <span className={isActive ? "text-white" : "text-zinc-500"}>
+                      <span className={isActive ? "text-white" : "text-gp-ink-400"}>
                         {item.icon}
                       </span>
                       <span>{item.label}</span>
@@ -489,7 +489,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Bottom Footer Actions */}
-        <div className="p-3 border-t border-zinc-800 flex items-center justify-between gap-2">
+        <div className="p-3 border-t border-gp-ink-700 flex items-center justify-between gap-2">
           <Link href="/" className="flex-1">
             <Button variant="outline" size="sm" className="w-full text-xs font-semibold">
               <ArrowLeft className="w-3.5 h-3.5 mr-1" />
@@ -511,19 +511,19 @@ export default function AdminDashboardPage() {
       {/* 2. RIGHT MAIN CONTENT AREA */}
       <div className="flex-1 flex flex-col lg:pl-64 min-w-0">
         {/* Top Sticky Header */}
-        <header className="sticky top-0 z-40 bg-[#070709]/90 backdrop-blur-xl border-b border-zinc-800 px-4 sm:px-8 py-3.5">
+        <header className="sticky top-0 z-40 bg-gp-ink-998/90 backdrop-blur-xl border-b border-gp-ink-700 px-4 sm:px-8 py-3.5">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setIsMobileSidebarOpen(true)}
-                className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 lg:hidden"
+                className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 lg:hidden"
               >
                 <Menu className="w-4 h-4" />
               </button>
 
               <div className="flex items-center gap-2 text-xs">
-                <span className="text-zinc-500 hidden sm:inline">Workspace</span>
-                <ChevronRight className="w-3 h-3 text-zinc-600 hidden sm:inline" />
+                <span className="text-gp-ink-400 hidden sm:inline">Workspace</span>
+                <ChevronRight className="w-3 h-3 text-gp-ink-500 hidden sm:inline" />
                 <span className="text-white font-bold">
                   {NAV_GROUPS.flatMap((group) => group.items).find((item) => item.id === activeTab)?.label ??
                     "Workspace"}
@@ -533,13 +533,13 @@ export default function AdminDashboardPage() {
 
             <div className="flex items-center gap-3">
               {/* Supabase Status Pill */}
-              <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[11px]">
+              <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gp-ink-800 border border-gp-ink-700 text-2xs">
                 <span
                   className={`w-2 h-2 rounded-full ${
                     isSupabaseConfigured ? "bg-emerald-400 animate-pulse" : "bg-amber-400"
                   }`}
                 />
-                <span className="text-zinc-300">
+                <span className="text-gp-ink-200">
                   {isSupabaseConfigured ? "Supabase Cloud Live" : "Local Persistent DB"}
                 </span>
               </div>
@@ -568,32 +568,32 @@ export default function AdminDashboardPage() {
         <main className="max-w-7xl mx-auto px-4 sm:px-8 py-8 flex-1 w-full space-y-6">
           {/* Top Analytics Summary Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-4 space-y-1">
-              <span className="text-[11px] text-zinc-400 uppercase font-bold">Total Monitor</span>
+            <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-4 space-y-1">
+              <span className="text-2xs text-gp-ink-300 uppercase font-bold">Total Monitor</span>
               <div className="text-2xl font-black text-white">{monitors.length} Model</div>
-              <span className="text-[10px] text-emerald-400">
+              <span className="text-3xs text-emerald-400">
                 {monitors.filter((m) => m.tier === "S-TIER").length} S-Tier • {monitors.filter((m) => m.tier === "BEST VALUE").length} Best Value
               </span>
             </div>
 
-            <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-4 space-y-1">
-              <span className="text-[11px] text-zinc-400 uppercase font-bold">Meja, Arm & Bracket</span>
+            <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-4 space-y-1">
+              <span className="text-2xs text-gp-ink-300 uppercase font-bold">Meja, Arm & Bracket</span>
               <div className="text-2xl font-black text-cyan-400">{desks.length + peripherals.length + chairs.length} Item</div>
-              <span className="text-[10px] text-zinc-400">
+              <span className="text-3xs text-gp-ink-300">
                 {desks.length} Meja • {peripherals.filter(p => (p.category || "").toLowerCase().includes("arm") || (p.name || "").toLowerCase().includes("arm")).length} Arm • {peripherals.filter(p => (p.category || "").toLowerCase().includes("bracket") || (p.name || "").toLowerCase().includes("bracket")).length} Bracket • {chairs.length} Kursi
               </span>
             </div>
 
-            <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-4 space-y-1">
-              <span className="text-[11px] text-zinc-400 uppercase font-bold">Hierarki Rute</span>
+            <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-4 space-y-1">
+              <span className="text-2xs text-gp-ink-300 uppercase font-bold">Hierarki Rute</span>
               <div className="text-2xl font-black text-amber-400">{hierarchyNodes.length} Subpage</div>
-              <span className="text-[10px] text-zinc-400">Panduan SDR, HDR, Desk, ODM</span>
+              <span className="text-3xs text-gp-ink-300">Panduan SDR, HDR, Desk, ODM</span>
             </div>
 
-            <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-4 space-y-1">
-              <span className="text-[11px] text-zinc-400 uppercase font-bold">Tim Admin & RBAC</span>
+            <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-4 space-y-1">
+              <span className="text-2xs text-gp-ink-300 uppercase font-bold">Tim Admin & RBAC</span>
               <div className="text-2xl font-black text-violet-400">{admins.length} Anggota</div>
-              <span className="text-[10px] text-zinc-400">Super Admin, Reviewer, Editor</span>
+              <span className="text-3xs text-gp-ink-300">Super Admin, Reviewer, Editor</span>
             </div>
           </div>
 
@@ -705,8 +705,8 @@ export default function AdminDashboardPage() {
 
           {/* 10. WEBP OPTIMIZER LAB */}
           {activeTab === "compressor" && (
-            <div className="bg-surface-dark border border-zinc-800 rounded-3xl p-6 sm:p-8 space-y-6">
-              <div className="space-y-2 border-b border-zinc-800 pb-4">
+            <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-3xl p-6 sm:p-8 space-y-6">
+              <div className="space-y-2 border-b border-gp-ink-700 pb-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-bold">
                   <Sparkles className="w-3.5 h-3.5" />
                   <span>WebP Client-Side Image Optimizer</span>
@@ -714,16 +714,16 @@ export default function AdminDashboardPage() {
                 <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
                   Uji Coba Kompresi Gambar & Penekanan Storage Usage
                 </h3>
-                <p className="text-xs text-zinc-400 leading-relaxed max-w-2xl">
+                <p className="text-xs text-gp-ink-300 leading-relaxed max-w-2xl">
                   Coba upload file foto resolusi tinggi (5MB - 10MB) dan lihat bagaimana kompresor otomatis meresize dimensi dan mengonversinya menjadi file WebP super ringan (&lt; 80KB) tanpa mengorbankan ketajaman gambar.
                 </p>
               </div>
 
               <div className="max-w-xl mx-auto space-y-4 text-center">
-                <label className="border-2 border-dashed border-zinc-700 hover:border-emerald-500 rounded-3xl p-8 flex flex-col items-center justify-center cursor-pointer transition-colors bg-zinc-950/60 group">
-                  <Upload className="w-10 h-10 text-zinc-500 group-hover:text-emerald-400 mb-2 transition-colors" />
+                <label className="border-2 border-dashed border-gp-ink-600 hover:border-emerald-500 rounded-3xl p-8 flex flex-col items-center justify-center cursor-pointer transition-colors bg-gp-ink-950/60 group">
+                  <Upload className="w-10 h-10 text-gp-ink-400 group-hover:text-emerald-400 mb-2 transition-colors" />
                   <span className="text-sm font-bold text-white">Pilih File Foto untuk Uji Kompresi</span>
-                  <span className="text-xs text-zinc-500 mt-1">Mendukung format PNG, JPG, JPEG, BMP</span>
+                  <span className="text-xs text-gp-ink-400 mt-1">Mendukung format PNG, JPG, JPEG, BMP</span>
                   <input
                     type="file"
                     accept="image/*"
@@ -739,22 +739,22 @@ export default function AdminDashboardPage() {
                 )}
 
                 {toolImageStats && (
-                  <div className="bg-zinc-950 border border-emerald-500/40 rounded-2xl p-5 text-left space-y-4">
+                  <div className="bg-gp-ink-950 border border-emerald-500/40 rounded-2xl p-5 text-left space-y-4">
                     <div className="flex items-center gap-4">
                       <img
                         src={toolImageStats.dataUrl}
                         alt="Output"
-                        className="w-24 h-24 object-cover rounded-xl border border-zinc-800 flex-shrink-0"
+                        className="w-24 h-24 object-cover rounded-xl border border-gp-ink-700 flex-shrink-0"
                       />
                       <div className="space-y-1 text-xs">
                         <span className="font-bold text-white block">Hasil Optimasi WebP</span>
-                        <div className="text-zinc-400">
+                        <div className="text-gp-ink-300">
                           Ukuran Asli: <span className="line-through text-rose-400">{formatFileSize(toolImageStats.originalSize)}</span>
                         </div>
                         <div className="text-emerald-400 font-bold text-sm">
                           Ukuran WebP: {formatFileSize(toolImageStats.compressedSize)} (-{toolImageStats.savedPercentage}%)
                         </div>
-                        <div className="text-[11px] text-zinc-500">
+                        <div className="text-2xs text-gp-ink-400">
                           Dimensi baru: {toolImageStats.width} x {toolImageStats.height} px
                         </div>
                       </div>

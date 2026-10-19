@@ -69,7 +69,7 @@ export function NotionTableView({
       getValue: (m) => m.fullName,
       renderCell: (m) => (
         <div className="flex items-center gap-2">
-          <MonitorIcon className="w-3.5 h-3.5 text-zinc-500 group-hover:text-emerald-400 transition-colors flex-shrink-0" />
+          <MonitorIcon className="w-3.5 h-3.5 text-gp-ink-400 group-hover:text-emerald-400 transition-colors flex-shrink-0" />
           <span
             className={`font-bold transition-colors ${
               selectedMonitorId === m.id ? "text-emerald-400" : "text-white hover:text-emerald-400"
@@ -91,10 +91,10 @@ export function NotionTableView({
       getValue: (m) => m.responseTimeData?.toleranceNew || "",
       renderCell: (m) => (
         <div className="flex items-center gap-1.5 flex-wrap">
-          <span className="px-2 py-0.5 rounded bg-[#0b2413] text-[#00e676] border border-[#00e676]/30 text-[10px] font-mono font-bold whitespace-nowrap">
+          <span className="px-2 py-0.5 rounded bg-gp-mint-200 text-accent-emerald border border-accent-emerald/30 text-3xs font-mono font-bold whitespace-nowrap">
             {m.responseTimeData?.toleranceNew || "Toleransi Baru"}
           </span>
-          <span className="px-2 py-0.5 rounded bg-[#2b1012] text-[#ff5252] border border-[#ff5252]/30 text-[10px] font-mono font-bold whitespace-nowrap">
+          <span className="px-2 py-0.5 rounded bg-gp-coral-300 text-gp-coral-100 border border-gp-coral-100/30 text-3xs font-mono font-bold whitespace-nowrap">
             {m.responseTimeData?.toleranceOld || "Toleransi Lama"}
           </span>
         </div>
@@ -110,7 +110,7 @@ export function NotionTableView({
       category: "Display",
       getValue: (m) => `${m.specs.display.size} ${m.specs.display.panelType}`,
       renderCell: (m) => (
-        <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-800 font-mono text-[11px] whitespace-nowrap">
+        <span className="px-1.5 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-700 font-mono text-2xs whitespace-nowrap">
           {m.specs.display.size} {m.specs.display.panelType}
         </span>
       ),
@@ -125,7 +125,7 @@ export function NotionTableView({
       category: "Display",
       getValue: (m) => m.specs.display.resolution,
       renderCell: (m) => (
-        <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-800 font-mono text-[11px] whitespace-nowrap">
+        <span className="px-1.5 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-700 font-mono text-2xs whitespace-nowrap">
           {m.specs.display.resolution}
         </span>
       ),
@@ -140,7 +140,7 @@ export function NotionTableView({
       category: "Display",
       getValue: (m) => m.specs.display.refreshRate,
       renderCell: (m) => (
-        <span className="px-2 py-0.5 rounded bg-zinc-900 text-emerald-400 border border-zinc-800 font-mono font-bold text-[11px] tabular-nums whitespace-nowrap">
+        <span className="px-2 py-0.5 rounded bg-gp-ink-800 text-emerald-400 border border-gp-ink-700 font-mono font-bold text-2xs tabular-nums whitespace-nowrap">
           {m.specs.display.refreshRate}Hz
         </span>
       ),
@@ -155,7 +155,7 @@ export function NotionTableView({
       category: "Peringkat",
       getValue: (m) => m.tier,
       renderCell: (m) => (
-        <span className="px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30 text-amber-300 font-mono text-[10px] font-bold whitespace-nowrap">
+        <span className="px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30 text-amber-300 font-mono text-3xs font-bold whitespace-nowrap">
           {m.tier}
         </span>
       ),
@@ -170,7 +170,7 @@ export function NotionTableView({
       category: "Panel",
       getValue: (m) => m.panelBitDepth || "RGB",
       renderCell: (m) => (
-        <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-700 font-mono text-[11px] whitespace-nowrap">
+        <span className="px-1.5 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-600 font-mono text-2xs whitespace-nowrap">
           {m.panelBitDepth || "Standard RGB"}
         </span>
       ),
@@ -185,7 +185,7 @@ export function NotionTableView({
       category: "Fitur",
       getValue: (m) => m.specs.features?.syncTech || "Adaptive-Sync",
       renderCell: (m) => (
-        <span className="text-cyan-400 font-mono text-[11px] whitespace-nowrap">
+        <span className="text-cyan-400 font-mono text-2xs whitespace-nowrap">
           {m.specs.features?.syncTech || "Adaptive-Sync"}
         </span>
       ),
@@ -200,7 +200,7 @@ export function NotionTableView({
       category: "Warna",
       getValue: (m) => m.specs.display?.colorGamut || "",
       renderCell: (m) => (
-        <span className="text-zinc-300 font-mono text-[11px] whitespace-nowrap">
+        <span className="text-gp-ink-200 font-mono text-2xs whitespace-nowrap">
           {m.specs.display?.colorGamut || "99% sRGB"}
         </span>
       ),
@@ -215,7 +215,7 @@ export function NotionTableView({
       category: "Garansi",
       getValue: (m) => m.specs.features?.warranty || "",
       renderCell: (m) => (
-        <span className="text-emerald-400 font-mono text-[11px] whitespace-nowrap">
+        <span className="text-emerald-400 font-mono text-2xs whitespace-nowrap">
           {m.specs.features?.warranty || "3 Tahun"}
         </span>
       ),
@@ -230,7 +230,7 @@ export function NotionTableView({
       category: "Koneksi",
       getValue: (m) => (m.displayInputs || []).join(", "),
       renderCell: (m) => (
-        <span className="text-zinc-400 text-xs truncate max-w-[150px] block" title={(m.displayInputs || []).join(", ")}>
+        <span className="text-gp-ink-300 text-xs truncate max-w-[150px] block" title={(m.displayInputs || []).join(", ")}>
           {(m.displayInputs || []).join(", ") || "HDMI + DP"}
         </span>
       ),
@@ -245,11 +245,11 @@ export function NotionTableView({
   const displayMonitors = tableManager.getSortedData(monitors);
 
   return (
-    <div className="space-y-4 font-sans text-xs text-[#d4d4d4]">
+    <div className="space-y-4 font-sans text-xs text-gp-ink-200">
       {/* Title & View Mode Tabs Bar (Exact Notion styling from user screenshot) */}
       <div className="space-y-3">
         <div className="flex items-center gap-2.5">
-          <span className="p-1 rounded-md bg-zinc-900 border border-zinc-800 text-emerald-400">
+          <span className="p-1 rounded-md bg-gp-ink-800 border border-gp-ink-700 text-emerald-400">
             <MonitorIcon className="w-4 h-4" />
           </span>
           <h2 className="text-lg font-bold text-white tracking-tight">
@@ -258,14 +258,14 @@ export function NotionTableView({
         </div>
 
         {/* Top Notion View Mode Tabs */}
-        <div className="flex items-center justify-between border-b border-zinc-800 pb-2 overflow-x-auto no-scrollbar gap-4">
+        <div className="flex items-center justify-between border-b border-gp-ink-700 pb-2 overflow-x-auto no-scrollbar gap-4">
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => setActiveTab("table")}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
                 activeTab === "table"
-                  ? "bg-zinc-800 text-white border border-zinc-700"
-                  : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
+                  ? "bg-gp-ink-700 text-white border border-gp-ink-600"
+                  : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
               }`}
             >
               <Table className="w-3.5 h-3.5 text-emerald-400" />
@@ -276,11 +276,11 @@ export function NotionTableView({
               onClick={() => setActiveTab("price")}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
                 activeTab === "price"
-                  ? "bg-zinc-800 text-white border border-zinc-700"
-                  : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
+                  ? "bg-gp-ink-700 text-white border border-gp-ink-600"
+                  : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
               }`}
             >
-              <List className="w-3.5 h-3.5 text-zinc-400" />
+              <List className="w-3.5 h-3.5 text-gp-ink-300" />
               <span>[ LIST HARGA ]</span>
             </button>
 
@@ -288,11 +288,11 @@ export function NotionTableView({
               onClick={() => setActiveTab("size")}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
                 activeTab === "size"
-                  ? "bg-zinc-800 text-white border border-zinc-700"
-                  : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
+                  ? "bg-gp-ink-700 text-white border border-gp-ink-600"
+                  : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
               }`}
             >
-              <List className="w-3.5 h-3.5 text-zinc-400" />
+              <List className="w-3.5 h-3.5 text-gp-ink-300" />
               <span>[ LIST UKURAN ]</span>
             </button>
 
@@ -300,11 +300,11 @@ export function NotionTableView({
               onClick={() => setActiveTab("gallery")}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
                 activeTab === "gallery"
-                  ? "bg-zinc-800 text-white border border-zinc-700"
-                  : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
+                  ? "bg-gp-ink-700 text-white border border-gp-ink-600"
+                  : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
               }`}
             >
-              <LayoutGrid className="w-3.5 h-3.5 text-zinc-400" />
+              <LayoutGrid className="w-3.5 h-3.5 text-gp-ink-300" />
               <span>[ GALLERY ]</span>
             </button>
           </div>
@@ -317,7 +317,7 @@ export function NotionTableView({
                 className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 border ${
                   activeFilterCount > 0
                     ? "border-emerald-500/60 bg-emerald-500/15 text-emerald-300 shadow-tech-subtle"
-                    : "border-zinc-750 bg-zinc-900 text-zinc-300 hover:border-emerald-500 hover:text-white"
+                    : "border-gp-ink-650 bg-gp-ink-800 text-gp-ink-200 hover:border-emerald-500 hover:text-white"
                 }`}
                 title="Buka panel parameter filter"
               >
@@ -331,12 +331,12 @@ export function NotionTableView({
             <button
               type="button"
               onClick={() => setIsColManagerOpen(true)}
-              className="px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 border border-zinc-750 bg-zinc-900 text-zinc-300 hover:border-emerald-500 hover:text-white"
+              className="px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 border border-gp-ink-650 bg-gp-ink-800 text-gp-ink-200 hover:border-emerald-500 hover:text-white"
             >
               <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
               <span>[ KELOLA KOLOM ({tableManager.visibleColumns.length}) ]</span>
             </button>
-            <div className="text-[11px] font-mono text-zinc-500 hidden sm:flex items-center gap-2">
+            <div className="text-2xs font-mono text-gp-ink-400 hidden sm:flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>[ {monitors.length} MODEL REKOMENDASI AKTIF ]</span>
             </div>
@@ -348,10 +348,10 @@ export function NotionTableView({
       {/* VIEW 1: TECH-BRUTALIST NOTION DATABASE TABLE VIEW                         */}
       {/* ========================================================================= */}
       {activeTab === "table" && (
-        <div className="rounded-xl border border-zinc-800 bg-[#09090d] overflow-hidden shadow-tech-card">
+        <div className="rounded-xl border border-gp-ink-700 bg-gp-ink-950 overflow-hidden shadow-tech-card">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse min-w-[950px]">
-              <thead className="bg-[#050508] text-zinc-300 uppercase text-[10px] font-mono tracking-wider border-b-2 border-zinc-700 sticky top-0 z-20">
+              <thead className="bg-gp-ink-998 text-gp-ink-200 uppercase text-3xs font-mono tracking-wider border-b-2 border-gp-ink-600 sticky top-0 z-20">
                 <tr>
                   {tableManager.visibleColumns.map((col) => {
                     const isSorted = tableManager.sortField === col.id;
@@ -366,21 +366,21 @@ export function NotionTableView({
                         onDragOver={(e) => tableManager.handleColumnDragOver(col.id, e)}
                         onDrop={() => tableManager.handleColumnDrop(col.id)}
                         onClick={() => col.sortable !== false && tableManager.handleSort(col.id)}
-                        className={`py-3 px-3 font-mono font-bold text-xs uppercase cursor-pointer select-none transition-colors border-r border-zinc-800 ${
+                        className={`py-3 px-3 font-mono font-bold text-xs uppercase cursor-pointer select-none transition-colors border-r border-gp-ink-700 ${
                           col.minWidth || "min-w-[140px]"
                         } ${
                           isDragging
                             ? "opacity-40 bg-cyan-500/20"
                             : isOver
                             ? "border-l-2 border-l-cyan-400 bg-cyan-500/10"
-                            : "hover:bg-zinc-800/80"
+                            : "hover:bg-gp-ink-700/80"
                         }`}
                         title="Klik untuk sort (Asc/Desc/Reset), atau Drag untuk memindahkan urutan kolom"
                       >
                         <div className="flex items-center justify-between gap-1.5">
                           <div className="flex items-center gap-1.5 min-w-0">
                             <span
-                              className="cursor-grab active:cursor-grabbing text-zinc-500 hover:text-cyan-400"
+                              className="cursor-grab active:cursor-grabbing text-gp-ink-400 hover:text-cyan-400"
                               title="Drag kolom"
                             >
                               <GripVertical className="w-3.5 h-3.5" />
@@ -388,11 +388,11 @@ export function NotionTableView({
                             <span className="truncate">{col.label}</span>
                           </div>
                           {isSorted ? (
-                            <span className="text-cyan-400 font-bold text-[11px] flex-shrink-0">
+                            <span className="text-cyan-400 font-bold text-2xs flex-shrink-0">
                               {tableManager.sortDirection === "asc" ? "▲" : "▼"}
                             </span>
                           ) : col.sortable !== false ? (
-                            <span className="text-zinc-600 text-[10px] opacity-40 hover:opacity-100 flex-shrink-0">↕</span>
+                            <span className="text-gp-ink-500 text-3xs opacity-40 hover:opacity-100 flex-shrink-0">↕</span>
                           ) : null}
                         </div>
                       </th>
@@ -401,7 +401,7 @@ export function NotionTableView({
                 </tr>
               </thead>
 
-              <tbody className="divide-y divide-zinc-800/80">
+              <tbody className="divide-y divide-gp-ink-700/80">
                 {displayMonitors.map((monitor, idx) => {
                   const isSelected = selectedMonitorId === monitor.id;
 
@@ -411,12 +411,12 @@ export function NotionTableView({
                       onClick={() => onSelectMonitor(monitor)}
                       className={`cursor-pointer transition-all ${
                         isSelected
-                          ? "bg-[#151a24] ring-1 ring-cyan-500/80 ring-inset"
-                          : "hover:bg-[#121217]"
+                          ? "bg-gp-sky-400 ring-1 ring-cyan-500/80 ring-inset"
+                          : "hover:bg-gp-ink-850"
                       }`}
                     >
                       {tableManager.visibleColumns.map((col) => (
-                        <td key={col.id} className="py-3 px-3 border-r border-zinc-800/60 align-middle">
+                        <td key={col.id} className="py-3 px-3 border-r border-gp-ink-700/60 align-middle">
                           {col.renderCell(monitor, idx)}
                         </td>
                       ))}
@@ -464,16 +464,16 @@ export function NotionTableView({
                 <div className="flex items-center justify-between px-1">
                   <h3 className={`text-xs font-bold uppercase tracking-wider flex items-center gap-2 ${group.color}`}>
                     <span>{group.title}</span>
-                    <span className="px-2 py-0.5 rounded-full bg-[#252525] text-[10px] text-[#9b9a97] font-mono border border-[#333]">
+                    <span className="px-2 py-0.5 rounded-full bg-gp-ink-700 text-3xs text-gp-ink-300 font-mono border border-gp-ink-650">
                       {groupMonitors.length} model
                     </span>
                   </h3>
                 </div>
 
-                <div className="rounded-2xl border border-[#2a2a2a] bg-[#191919] overflow-hidden shadow-lg">
+                <div className="rounded-2xl border border-gp-ink-700 bg-gp-ink-800 overflow-hidden shadow-lg">
                   <div className="overflow-x-auto">
                     <table className="w-full text-left text-xs border-collapse min-w-[750px]">
-                      <tbody className="divide-y divide-[#262626]">
+                      <tbody className="divide-y divide-gp-ink-700">
                         {groupMonitors.map((monitor: Monitor) => {
                           const isSelected = selectedMonitorId === monitor.id;
                           return (
@@ -481,7 +481,7 @@ export function NotionTableView({
                               key={monitor.id}
                               onClick={() => onSelectMonitor(monitor)}
                               className={`cursor-pointer transition-all ${
-                                isSelected ? "bg-[#202020] ring-1 ring-[#2383e2] ring-inset" : "hover:bg-[#202020]"
+                                isSelected ? "bg-gp-ink-750 ring-1 ring-gp-sky-800 ring-inset" : "hover:bg-gp-ink-750"
                               }`}
                             >
                               <td className="py-2.5 px-4 font-mono font-bold text-emerald-400 whitespace-nowrap w-[150px]">
@@ -489,22 +489,22 @@ export function NotionTableView({
                               </td>
                               <td className="py-2.5 px-4">
                                 <div className="flex items-center gap-2">
-                                  <MonitorIcon className="w-3.5 h-3.5 text-zinc-500" />
+                                  <MonitorIcon className="w-3.5 h-3.5 text-gp-ink-400" />
                                   <span className="font-semibold text-white hover:text-emerald-400">
                                     {monitor.fullName}
                                   </span>
                                 </div>
                               </td>
-                              <td className="py-2.5 px-3 text-[#9b9a97] whitespace-nowrap">
+                              <td className="py-2.5 px-3 text-gp-ink-300 whitespace-nowrap">
                                 {monitor.specs.display.size} • {monitor.specs.display.panelType} • {monitor.specs.display.refreshRate}Hz
                               </td>
                               <td className="py-2.5 px-3">
-                                <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                                <span className={`text-3xs font-bold px-2 py-0.5 rounded ${
                                   monitor.tier === "S-TIER"
-                                    ? "bg-[#203c2b] text-[#52ba69]"
+                                    ? "bg-gp-mint-900 text-gp-mint"
                                     : monitor.tier === "BEST VALUE"
-                                    ? "bg-[#1d354a] text-[#58a6ff]"
-                                    : "bg-[#282828] text-[#9b9a97]"
+                                    ? "bg-gp-sky-600 text-gp-sky"
+                                    : "bg-gp-ink-700 text-gp-ink-300"
                                 }`}>
                                   {monitor.tier}
                                 </span>
@@ -557,16 +557,16 @@ export function NotionTableView({
                 <div className="flex items-center justify-between px-1">
                   <h3 className={`text-xs font-bold uppercase tracking-wider flex items-center gap-2 ${group.color}`}>
                     <span>{group.title}</span>
-                    <span className="px-2 py-0.5 rounded-full bg-[#252525] text-[10px] text-[#9b9a97] font-mono border border-[#333]">
+                    <span className="px-2 py-0.5 rounded-full bg-gp-ink-700 text-3xs text-gp-ink-300 font-mono border border-gp-ink-650">
                       {groupMonitors.length} model
                     </span>
                   </h3>
                 </div>
 
-                <div className="rounded-2xl border border-[#2a2a2a] bg-[#191919] overflow-hidden shadow-lg">
+                <div className="rounded-2xl border border-gp-ink-700 bg-gp-ink-800 overflow-hidden shadow-lg">
                   <div className="overflow-x-auto">
                     <table className="w-full text-left text-xs border-collapse min-w-[750px]">
-                      <tbody className="divide-y divide-[#262626]">
+                      <tbody className="divide-y divide-gp-ink-700">
                         {groupMonitors.map((monitor: Monitor) => {
                           const isSelected = selectedMonitorId === monitor.id;
                           return (
@@ -574,7 +574,7 @@ export function NotionTableView({
                               key={monitor.id}
                               onClick={() => onSelectMonitor(monitor)}
                               className={`cursor-pointer transition-all ${
-                                isSelected ? "bg-[#202020] ring-1 ring-[#2383e2] ring-inset" : "hover:bg-[#202020]"
+                                isSelected ? "bg-gp-ink-750 ring-1 ring-gp-sky-800 ring-inset" : "hover:bg-gp-ink-750"
                               }`}
                             >
                               <td className="py-2.5 px-4 font-mono font-bold text-white whitespace-nowrap w-[100px]">
@@ -582,7 +582,7 @@ export function NotionTableView({
                               </td>
                               <td className="py-2.5 px-4">
                                 <div className="flex items-center gap-2">
-                                  <MonitorIcon className="w-3.5 h-3.5 text-zinc-500" />
+                                  <MonitorIcon className="w-3.5 h-3.5 text-gp-ink-400" />
                                   <span className="font-semibold text-white hover:text-emerald-400">
                                     {monitor.fullName}
                                   </span>
@@ -591,7 +591,7 @@ export function NotionTableView({
                               <td className="py-2.5 px-3 font-mono text-emerald-400 whitespace-nowrap">
                                 {formatRupiah(monitor.price)}
                               </td>
-                              <td className="py-2.5 px-3 text-[#9b9a97] whitespace-nowrap">
+                              <td className="py-2.5 px-3 text-gp-ink-300 whitespace-nowrap">
                                 {monitor.specs.display.panelType} • {monitor.specs.display.resolution} • {monitor.specs.display.refreshRate}Hz
                               </td>
                             </tr>
@@ -620,14 +620,14 @@ export function NotionTableView({
               <div
                 key={monitor.id}
                 onClick={() => onSelectMonitor(monitor)}
-                className={`group cursor-pointer rounded-2xl border transition-all overflow-hidden flex flex-col bg-[#202020] ${
+                className={`group cursor-pointer rounded-2xl border transition-all overflow-hidden flex flex-col bg-gp-ink-750 ${
                   isSelected
-                    ? "border-[#2383e2] ring-2 ring-[#2383e2]/50 shadow-xl"
-                    : "border-[#2f2f2f] hover:border-[#3f3f3f] hover:bg-[#252525]"
+                    ? "border-gp-sky-800 ring-2 ring-gp-sky-800/50 shadow-xl"
+                    : "border-gp-ink-650 hover:border-gp-ink-600 hover:bg-gp-ink-700"
                 }`}
               >
                 {/* Card Thumbnail */}
-                <div className="w-full aspect-[16/10] bg-[#151515] relative overflow-hidden">
+                <div className="w-full aspect-[16/10] bg-gp-ink-850 relative overflow-hidden">
                   <Image
                     src={photo}
                     alt={monitor.fullName}
@@ -636,12 +636,12 @@ export function NotionTableView({
                   />
                   <div className="absolute top-2 right-2">
                     <span
-                      className={`text-[10px] font-bold px-2 py-0.5 rounded shadow-sm ${
+                      className={`text-3xs font-bold px-2 py-0.5 rounded shadow-sm ${
                         monitor.tier === "S-TIER"
-                          ? "bg-[#203c2b] text-[#52ba69] border border-[#52ba69]/30"
+                          ? "bg-gp-mint-900 text-gp-mint border border-gp-mint/30"
                           : monitor.tier === "BEST VALUE"
-                          ? "bg-[#1d354a] text-[#58a6ff] border border-[#58a6ff]/30"
-                          : "bg-[#282828] text-[#d4d4d4]"
+                          ? "bg-gp-sky-600 text-gp-sky border border-gp-sky/30"
+                          : "bg-gp-ink-700 text-gp-ink-200"
                       }`}
                     >
                       {monitor.tier}
@@ -652,19 +652,19 @@ export function NotionTableView({
                 {/* Card Body */}
                 <div className="p-3.5 space-y-2 flex-1 flex flex-col justify-between">
                   <div className="space-y-1">
-                    <div className="text-[10px] text-[#787774] font-bold uppercase tracking-wider">
+                    <div className="text-3xs text-gp-ink-400 font-bold uppercase tracking-wider">
                       {monitor.brand}
                     </div>
-                    <h4 className="font-bold text-white text-xs line-clamp-1 group-hover:text-[#58a6ff] transition-colors">
+                    <h4 className="font-bold text-white text-xs line-clamp-1 group-hover:text-gp-sky transition-colors">
                       {monitor.fullName}
                     </h4>
                   </div>
 
-                  <div className="pt-2 border-t border-[#2a2a2a] flex items-center justify-between">
+                  <div className="pt-2 border-t border-gp-ink-700 flex items-center justify-between">
                     <span className="font-mono font-bold text-emerald-400 text-xs">
                       {formatRupiah(monitor.price)}
                     </span>
-                    <span className="text-[10px] text-[#9b9a97] font-mono">
+                    <span className="text-3xs text-gp-ink-300 font-mono">
                       {monitor.specs.display.size} • {monitor.specs.display.refreshRate}Hz
                     </span>
                   </div>

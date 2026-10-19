@@ -9,14 +9,138 @@
 @tailwind utilities;
 
 :root {
-  --background: #09090b;
-  --foreground: #ededed;
   --font-metropolis: "Metropolis", -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Channel RGB (dipakai sebagai rgb(var(--background))) */
+  --background: 9 9 11;
+  --foreground: 237 237 237;
+
+/* ==================================================================
+ * DESIGN TOKENS — CSS custom properties (sumber kebenaran tunggal).
+ * tailwind.config.ts membaca variabel yang sama, jadi kelas Tailwind
+ * dan CSS raw dijamin tidak pernah berbeda warna.
+ * ================================================================== */
+
+  --gp-ink-50: 244 244 245;
+  --gp-ink-100: 228 228 231;
+  --gp-ink-200: 212 212 216;
+  --gp-ink-300: 161 161 170;
+  --gp-ink-400: 113 113 122;
+  --gp-ink-500: 82 82 91;
+  --gp-ink-600: 63 63 70;
+  --gp-ink-650: 47 47 47;
+  --gp-ink-700: 39 39 42;
+  --gp-ink-750: 32 32 32;
+  --gp-ink-800: 24 24 27;
+  --gp-ink-850: 20 20 28;
+  --gp-ink-900: 12 12 17;
+  --gp-ink-950: 9 9 11;
+  --gp-ink-998: 5 5 8;
+  --gp-mint: 82 186 105;
+  --gp-mint-50: 52 211 153;
+  --gp-mint-200: 11 36 19;
+  --gp-mint-300: 13 20 16;
+  --gp-mint-400: 13 40 24;
+  --gp-mint-500: 18 31 24;
+  --gp-mint-600: 20 51 34;
+  --gp-mint-700: 23 46 33;
+  --gp-mint-800: 25 50 34;
+  --gp-mint-900: 32 60 43;
+  --gp-sky: 88 166 255;
+  --gp-sky-50: 121 192 255;
+  --gp-sky-100: 77 151 217;
+  --gp-sky-200: 10 35 47;
+  --gp-sky-300: 16 25 43;
+  --gp-sky-400: 21 26 36;
+  --gp-sky-500: 30 41 59;
+  --gp-sky-600: 29 53 74;
+  --gp-sky-700: 31 117 200;
+  --gp-sky-800: 35 131 226;
+  --gp-coral: 235 87 87;
+  --gp-coral-25: 244 114 182;
+  --gp-coral-50: 252 165 165;
+  --gp-coral-100: 255 82 82;
+  --gp-coral-200: 23 14 18;
+  --gp-coral-300: 43 16 18;
+  --gp-coral-400: 42 14 20;
+  --gp-coral-500: 55 30 32;
+  --gp-coral-600: 63 32 32;
+  --gp-coral-700: 68 34 36;
+  --gp-coral-800: 73 34 36;
+  --gp-ember: 224 121 54;
+  --gp-ember-50: 255 159 67;
+  --gp-ember-100: 245 158 11;
+  --gp-ember-200: 42 29 13;
+  --gp-ember-300: 61 43 31;
+  --gp-ember-400: 68 44 29;
+  --gp-ember-500: 133 77 14;
+  --gp-violet: 209 87 235;
+  --gp-violet-200: 31 13 44;
+  --gp-violet-300: 42 27 48;
+  --gp-violet-400: 59 35 68;
+  --gp-violet-500: 24 21 36;
+  --gp-bg: 9 9 11;
+  --gp-blueprint: 13 13 17;
+  --gp-blueprint-card: 18 19 26;
+  --gp-blueprint-grid: 31 32 43;
+  --gp-orange: 255 87 34;
+  --gp-blue: 0 136 255;
+  --gp-emerald: 0 230 118;
+  --gp-crimson: 255 45 85;
+  --gp-amber: 255 179 0;
+  --gp-cyan: 0 210 255;
+  --gp-paper: 248 249 250;
+  --gp-paper-grid: 229 231 235;
+  --gp-paper-ink: 24 24 27;
+  --gp-brand-tokopedia: 0 170 91;
+  --gp-brand-shopee: 238 77 45;
+  --gp-brand-blibli: 0 149 218;
+  --gp-brand-tokopedia-alt: 3 172 14;
+  --gp-brand-shopee-dark: 212 61 31;
+  --gp-brand-youtube: 255 0 0;
+  --gp-surface: 13 13 17;
+  --gp-surface-dark: 8 8 10;
+  --gp-surface-elevated: 18 19 26;
+  --gp-surface-blueprint: 18 19 26;
+  --gp-border: 39 39 42;
+  --gp-border-subtle: 24 24 27;
+  --gp-border-glow: 63 63 70;
+  --gp-border-blueprint: 31 32 43;
+  --gp-accent-emerald: 0 230 118;
+  --gp-accent-amber: 255 179 0;
+  --gp-accent-cyan: 0 210 255;
+  --gp-accent-violet: 139 92 246;
+  --gp-accent-crimson: 255 45 85;
+  --gp-accent-orange: 255 87 34;
+  --gp-background: 9 9 11;
+  --gp-foreground: 237 237 237;
+  --gp-focus-ring: 0 230 118;
+
+  /* Prose / Notion-editor palette (nilai dipertahankan persis) */
+  --gp-prose-white: 255 255 255;
+  --gp-prose-black: 0 0 0;
+  --gp-prose-mark: 254 240 138;
+  --gp-prose-accent-green: 16 185 129;
+  --gp-prose-accent-blue: 59 130 246;
+  --gp-prose-blue-soft: 147 197 253;
+  --gp-prose-code-bg: 17 17 22;
+  --gp-prose-code-text: 96 165 250;
+  --gp-prose-inline-bg: 31 31 38;
+  --gp-prose-inline-border: 46 46 56;
+  --gp-prose-link: 56 189 248;
+  --gp-prose-link-hover: 125 211 252;
+  --gp-prose-callout-amber-text: 254 243 199;
+  --gp-prose-callout-emerald-text: 209 250 229;
+  --gp-prose-callout-cyan-text: 207 250 254;
+  --gp-prose-callout-crimson-text: 254 226 226;
+  --gp-prose-callout-purple-text: 243 232 255;
+  --gp-prose-table-head: 24 24 31;
+  --gp-prose-panel: 11 11 14;
+  --gp-prose-footer: 8 8 11;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  color: rgb(var(--foreground));
+  background: rgb(var(--background));
   font-family: var(--font-metropolis);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -30,7 +154,7 @@ body {
 
 /* Dark Technical Blueprint Grid Pattern */
 .bg-blueprint-grid {
-  background-color: #0d0d11;
+  background-color: rgb(var(--gp-blueprint));
   background-image: linear-gradient(to right, rgba(31, 32, 43, 0.6) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(31, 32, 43, 0.6) 1px, transparent 1px);
   background-size: 32px 32px;
@@ -38,7 +162,7 @@ body {
 
 /* Dark Blueprint Card Sheet (Anti-Flashbang) */
 .bg-blueprint-sheet {
-  background-color: #12131a;
+  background-color: rgb(var(--gp-blueprint-card));
   background-image: linear-gradient(to right, rgba(31, 32, 43, 0.8) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(31, 32, 43, 0.8) 1px, transparent 1px);
   background-size: 24px 24px;
@@ -46,9 +170,9 @@ body {
 
 /* Light Technical Graph Paper Pattern (For Infographic Export & Light Sheets) */
 .bg-paper-grid {
-  background-color: #f8f9fa;
-  background-image: linear-gradient(to right, #e5e7eb 1px, transparent 1px),
-    linear-gradient(to bottom, #e5e7eb 1px, transparent 1px);
+  background-color: rgb(var(--gp-paper));
+  background-image: linear-gradient(to right, rgb(var(--gp-paper-grid)) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--gp-paper-grid)) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
@@ -71,16 +195,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #09090b;
+  background: rgb(var(--gp-ink-950));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
+  background: rgb(var(--gp-ink-700));
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: rgb(var(--gp-ink-600));
 }
 
 /* Utility to hide scrollbar while maintaining scrollability */
@@ -98,27 +222,27 @@ input[type="range"]::-webkit-slider-thumb {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #00e676;
+  background: rgb(var(--gp-emerald));
   cursor: pointer;
   box-shadow: 0 0 10px rgba(0, 230, 118, 0.5);
-  border: 2px solid #ffffff;
+  border: 2px solid rgb(var(--gp-prose-white));
 }
 
 input[type="range"]::-moz-range-thumb {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #00e676;
+  background: rgb(var(--gp-emerald));
   cursor: pointer;
   box-shadow: 0 0 10px rgba(0, 230, 118, 0.5);
-  border: 2px solid #ffffff;
+  border: 2px solid rgb(var(--gp-prose-white));
 }
 
 /* ========================================================================== */
 /* NOTION PROSE & WYSIWYG EDITORIAL SYSTEM                                     */
 /* ========================================================================== */
 .notion-prose {
-  color: #d4d4d8;
+  color: rgb(var(--gp-ink-200));
   line-height: 1.7;
   font-size: 0.875rem;
 }
@@ -126,7 +250,7 @@ input[type="range"]::-moz-range-thumb {
 .notion-prose h1 {
   font-size: 1.625rem;
   font-weight: 800;
-  color: #ffffff;
+  color: rgb(var(--gp-prose-white));
   letter-spacing: -0.025em;
   margin-top: 1.5rem;
   margin-bottom: 0.625rem;
@@ -136,7 +260,7 @@ input[type="range"]::-moz-range-thumb {
 .notion-prose h2 {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #f4f4f5;
+  color: rgb(var(--gp-ink-50));
   letter-spacing: -0.015em;
   margin-top: 1.25rem;
   margin-bottom: 0.5rem;
@@ -147,7 +271,7 @@ input[type="range"]::-moz-range-thumb {
 .notion-prose h3 {
   font-size: 1.05rem;
   font-weight: 700;
-  color: #e4e4e7;
+  color: rgb(var(--gp-ink-100));
   margin-top: 1rem;
   margin-bottom: 0.375rem;
 }
@@ -173,7 +297,7 @@ input[type="range"]::-moz-range-thumb {
 
 .notion-prose mark {
   background-color: rgba(234, 179, 8, 0.25);
-  color: #fef08a;
+  color: rgb(var(--gp-prose-mark));
   padding: 0.1rem 0.3rem;
   border-radius: 4px;
 }
@@ -214,7 +338,7 @@ input[type="range"]::-moz-range-thumb {
 
 .notion-prose .notion-task-list input[type="checkbox"] {
   margin-top: 0.25rem;
-  accent-color: #10b981;
+  accent-color: rgb(var(--gp-prose-accent-green));
   width: 1rem;
   height: 1rem;
   border-radius: 4px;
@@ -222,40 +346,40 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .notion-prose blockquote {
-  border-left: 3px solid #3b82f6;
+  border-left: 3px solid rgb(var(--gp-prose-accent-blue));
   background: rgba(59, 130, 246, 0.05);
   padding: 0.75rem 1rem;
   border-radius: 0 0.75rem 0.75rem 0;
   margin-top: 0.85rem;
   margin-bottom: 0.85rem;
-  color: #93c5fd;
+  color: rgb(var(--gp-prose-blue-soft));
   font-style: normal;
 }
 
 .notion-prose hr {
   border: none;
-  border-top: 1px solid #27272a;
+  border-top: 1px solid rgb(var(--gp-ink-700));
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
 .notion-prose pre {
-  background: #111116;
-  border: 1px solid #27272a;
+  background: rgb(var(--gp-prose-code-bg));
+  border: 1px solid rgb(var(--gp-ink-700));
   border-radius: 0.75rem;
   padding: 0.875rem 1rem;
   overflow-x: auto;
   font-family: monospace;
   font-size: 0.8rem;
-  color: #60a5fa;
+  color: rgb(var(--gp-prose-code-text));
   margin-top: 0.85rem;
   margin-bottom: 0.85rem;
 }
 
 .notion-prose code:not(pre code) {
-  background: #1f1f26;
-  border: 1px solid #2e2e38;
-  color: #f472b6;
+  background: rgb(var(--gp-prose-inline-bg));
+  border: 1px solid rgb(var(--gp-prose-inline-border));
+  color: rgb(var(--gp-coral-25));
   padding: 0.15rem 0.4rem;
   border-radius: 0.375rem;
   font-family: monospace;
@@ -263,20 +387,20 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .notion-prose a {
-  color: #38bdf8;
+  color: rgb(var(--gp-prose-link));
   text-decoration: underline;
   text-underline-offset: 2px;
   transition: color 0.15s;
 }
 
 .notion-prose a:hover {
-  color: #7dd3fc;
+  color: rgb(var(--gp-prose-link-hover));
 }
 
 .notion-prose img {
   max-width: 100%;
   border-radius: 0.875rem;
-  border: 1px solid #27272a;
+  border: 1px solid rgb(var(--gp-ink-700));
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
@@ -305,31 +429,31 @@ input[type="range"]::-moz-range-thumb {
 .notion-callout-amber {
   border-color: rgba(245, 158, 11, 0.35);
   background: rgba(245, 158, 11, 0.08);
-  color: #fef3c7;
+  color: rgb(var(--gp-prose-callout-amber-text));
 }
 
 .notion-callout-emerald {
   border-color: rgba(16, 185, 129, 0.35);
   background: rgba(16, 185, 129, 0.08);
-  color: #d1fae5;
+  color: rgb(var(--gp-prose-callout-emerald-text));
 }
 
 .notion-callout-cyan {
   border-color: rgba(6, 182, 212, 0.35);
   background: rgba(6, 182, 212, 0.08);
-  color: #cffafe;
+  color: rgb(var(--gp-prose-callout-cyan-text));
 }
 
 .notion-callout-crimson {
   border-color: rgba(239, 68, 68, 0.35);
   background: rgba(239, 68, 68, 0.08);
-  color: #fee2e2;
+  color: rgb(var(--gp-prose-callout-crimson-text));
 }
 
 .notion-callout-purple {
   border-color: rgba(168, 85, 247, 0.35);
   background: rgba(168, 85, 247, 0.08);
-  color: #f3e8ff;
+  color: rgb(var(--gp-prose-callout-purple-text));
 }
 
 /* Notion Visual Table */
@@ -339,7 +463,7 @@ input[type="range"]::-moz-range-thumb {
   border-collapse: collapse;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  border: 1px solid #27272a;
+  border: 1px solid rgb(var(--gp-ink-700));
   border-radius: 0.75rem;
   overflow: hidden;
   font-size: 0.8rem;
@@ -347,12 +471,12 @@ input[type="range"]::-moz-range-thumb {
 
 .notion-prose th,
 .notion-visual-table th {
-  background: #18181f;
-  border: 1px solid #27272a;
+  background: rgb(var(--gp-prose-table-head));
+  border: 1px solid rgb(var(--gp-ink-700));
   padding: 0.625rem 0.875rem;
   text-align: left;
   font-weight: 700;
-  color: #f4f4f5;
+  color: rgb(var(--gp-ink-50));
   text-transform: uppercase;
   font-size: 0.725rem;
   letter-spacing: 0.05em;
@@ -360,9 +484,9 @@ input[type="range"]::-moz-range-thumb {
 
 .notion-prose td,
 .notion-visual-table td {
-  border: 1px solid #27272a;
+  border: 1px solid rgb(var(--gp-ink-700));
   padding: 0.625rem 0.875rem;
-  color: #d4d4d8;
+  color: rgb(var(--gp-ink-200));
   vertical-align: top;
 }
 
@@ -384,13 +508,13 @@ input[type="range"]::-moz-range-thumb {
 /* Sharp Tech-Brutalist Frame Panel */
 .hud-panel {
   position: relative;
-  background-color: #0d0d11;
-  border: 1px solid #27272a;
+  background-color: rgb(var(--gp-blueprint));
+  border: 1px solid rgb(var(--gp-ink-700));
   border-radius: 0.75rem;
 }
 
 .hud-panel:hover {
-  border-color: #3f3f46;
+  border-color: rgb(var(--gp-ink-600));
 }
 
 /* Corner Notch Crosshair Accents */
@@ -404,8 +528,8 @@ input[type="range"]::-moz-range-thumb {
   left: -1px;
   width: 6px;
   height: 6px;
-  border-top: 2px solid #00e676;
-  border-left: 2px solid #00e676;
+  border-top: 2px solid rgb(var(--gp-emerald));
+  border-left: 2px solid rgb(var(--gp-emerald));
   pointer-events: none;
 }
 .hud-crosshair::after {
@@ -415,8 +539,8 @@ input[type="range"]::-moz-range-thumb {
   right: -1px;
   width: 6px;
   height: 6px;
-  border-bottom: 2px solid #00e676;
-  border-right: 2px solid #00e676;
+  border-bottom: 2px solid rgb(var(--gp-emerald));
+  border-right: 2px solid rgb(var(--gp-emerald));
   pointer-events: none;
 }
 
@@ -431,25 +555,25 @@ input[type="range"]::-moz-range-thumb {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  background-color: #000000;
-  border: 1px solid #3f3f46;
+  background-color: rgb(var(--gp-prose-black));
+  border: 1px solid rgb(var(--gp-ink-600));
   border-radius: 0.25rem;
-  color: #e4e4e7;
+  color: rgb(var(--gp-ink-100));
 }
 
 .hud-tag-emerald {
   border-color: rgba(0, 230, 118, 0.4);
-  color: #00e676;
+  color: rgb(var(--gp-emerald));
 }
 
 .hud-tag-cyan {
   border-color: rgba(0, 210, 255, 0.4);
-  color: #00d2ff;
+  color: rgb(var(--gp-cyan));
 }
 
 .hud-tag-amber {
   border-color: rgba(255, 179, 0, 0.4);
-  color: #ffb300;
+  color: rgb(var(--gp-amber));
 }
 
 /* Hard Drop Shadow (Tactile Tech Brutalism) */
@@ -458,7 +582,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .hud-shadow-hard {
-  box-shadow: 3px 3px 0px 0px #000000;
+  box-shadow: 3px 3px 0px 0px rgb(var(--gp-prose-black));
 }
 
 .hud-shadow-emerald {
@@ -466,14 +590,14 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .hud-card-tactile {
-  background-color: #0b0b0e;
-  border: 1px solid #27272a;
-  box-shadow: 3px 3px 0px 0px #000000;
+  background-color: rgb(var(--gp-prose-panel));
+  border: 1px solid rgb(var(--gp-ink-700));
+  box-shadow: 3px 3px 0px 0px rgb(var(--gp-prose-black));
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hud-card-tactile:hover {
-  border-color: #00e676;
+  border-color: rgb(var(--gp-emerald));
   transform: translate(-1px, -1px);
   box-shadow: 4px 4px 0px 0px rgba(0, 230, 118, 0.35);
 }
@@ -501,9 +625,9 @@ input[type="range"]::-moz-range-thumb {
 
 /* Stark Industrial Header Bar */
 .hud-header-bar {
-  background: #08080b;
-  border-top: 1px solid #3f3f46;
-  border-bottom: 2px solid #27272a;
+  background: rgb(var(--gp-prose-footer));
+  border-top: 1px solid rgb(var(--gp-ink-600));
+  border-bottom: 2px solid rgb(var(--gp-ink-700));
   font-family: var(--font-geist-mono), ui-monospace, monospace;
 }
 
@@ -521,5 +645,37 @@ input[type="range"]::-moz-range-thumb {
   animation: banner-progress linear forwards;
 }
 
+/* ==================================================================
+ * A11Y + MOTION — modernisasi global (tanpa mengubah design language)
+ * ================================================================== */
 
+/* Fokus keyboard selalu terlihat, untuk semua elemen interaktif.
+   Site ini sebelumnya 174x pakai focus:outline-none tanpa pengganti,
+   jadi navigasi keyboard praktis tak terlihat. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid rgb(var(--gp-focus-ring));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
 
+/* Hormati preferensi pengguna yang mengurangi animasi. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Scroll anchor tidak tertutup header sticky. */
+:where([id]) {
+  scroll-margin-top: 5.5rem;
+}
+
+/* Teks panjang (URL/serial) tidak bikin layout melebar. */
+:where(p, li, td, h1, h2, h3, h4, span) {
+  overflow-wrap: break-word;
+}

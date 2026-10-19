@@ -34,16 +34,16 @@ export function PeripheralCard({ item, onSelectItem }: PeripheralCardProps) {
       onClick={() => {
         if (onSelectItem) onSelectItem(item);
       }}
-      className="group relative bg-[#0c0c10] hover:bg-[#111116] border border-zinc-800 hover:border-zinc-700 transition-all duration-200 rounded-xl p-4 sm:p-5 flex flex-col justify-between cursor-pointer shadow-tech-card hover:-translate-y-0.5"
+      className="group relative bg-gp-ink-900 hover:bg-gp-ink-850 border border-gp-ink-700 hover:border-gp-ink-600 transition-all duration-200 rounded-xl p-4 sm:p-5 flex flex-col justify-between cursor-pointer shadow-tech-card hover:-translate-y-0.5"
     >
       {/* Top Header: Brand & Category Badge */}
       <div className="flex items-center justify-between gap-2 mb-3">
-        <span className="text-[11px] font-bold tracking-wider text-zinc-300 uppercase bg-zinc-900 px-2.5 py-0.5 rounded-full border border-zinc-800">
+        <span className="text-2xs font-bold tracking-wider text-gp-ink-200 uppercase bg-gp-ink-800 px-2.5 py-0.5 rounded-full border border-gp-ink-700">
           {item.category}
         </span>
 
         {item.brand && (
-          <span className="text-[11px] font-medium text-zinc-400 bg-zinc-950 px-2.5 py-0.5 rounded-full border border-zinc-800 uppercase tracking-wider">
+          <span className="text-2xs font-medium text-gp-ink-300 bg-gp-ink-950 px-2.5 py-0.5 rounded-full border border-gp-ink-700 uppercase tracking-wider">
             {item.brand}
           </span>
         )}
@@ -55,7 +55,7 @@ export function PeripheralCard({ item, onSelectItem }: PeripheralCardProps) {
           {item.name}
         </h3>
         {item.verdict && (
-          <p className="text-xs text-zinc-400 line-clamp-2 mt-1 leading-relaxed">
+          <p className="text-xs text-gp-ink-300 line-clamp-2 mt-1 leading-relaxed">
             {item.verdict}
           </p>
         )}
@@ -66,7 +66,7 @@ export function PeripheralCard({ item, onSelectItem }: PeripheralCardProps) {
         {specPills.map((spec, idx) => (
           <span
             key={idx}
-            className="px-2 py-0.5 rounded-md text-[11px] font-medium text-zinc-300 bg-zinc-800/50 border border-zinc-800/80"
+            className="px-2 py-0.5 rounded-md text-2xs font-medium text-gp-ink-200 bg-gp-ink-700/50 border border-gp-ink-700/80"
           >
             {spec}
           </span>
@@ -74,10 +74,10 @@ export function PeripheralCard({ item, onSelectItem }: PeripheralCardProps) {
       </div>
 
       {/* Price & Action Section */}
-      <div className="pt-2.5 border-t border-zinc-800/70 flex flex-col gap-2">
+      <div className="pt-2.5 border-t border-gp-ink-700/70 flex flex-col gap-2">
         <div className="flex items-baseline justify-between">
           <div>
-            <span className="text-[10px] text-zinc-500 font-medium block leading-none mb-1">
+            <span className="text-3xs text-gp-ink-400 font-medium block leading-none mb-1">
               Harga Terbaik
             </span>
             <span className="text-base sm:text-lg font-bold text-white tracking-tight tabular-nums">
@@ -96,12 +96,12 @@ export function PeripheralCard({ item, onSelectItem }: PeripheralCardProps) {
                 e.stopPropagation();
                 window.open(purchaseUrl, "_blank", "noopener,noreferrer");
               }}
-              className={`flex-1 flex items-center justify-center gap-1.5 text-xs py-2 font-semibold text-zinc-950 rounded-lg transition-all ${
+              className={`flex-1 flex items-center justify-center gap-1.5 text-xs py-2 font-semibold text-gp-ink-950 rounded-lg transition-all ${
                 storePlatform === "Shopee"
-                  ? "bg-orange-500 hover:bg-orange-400 text-zinc-950"
+                  ? "bg-orange-500 hover:bg-orange-400 text-gp-ink-950"
                   : storePlatform === "Tokopedia"
-                  ? "bg-emerald-500 hover:bg-emerald-400 text-zinc-950"
-                  : "bg-zinc-800 hover:bg-zinc-700 text-white"
+                  ? "bg-emerald-500 hover:bg-emerald-400 text-gp-ink-950"
+                  : "bg-gp-ink-700 hover:bg-gp-ink-600 text-white"
               }`}
             >
               <ShoppingBag className="w-3.5 h-3.5" />
@@ -111,7 +111,7 @@ export function PeripheralCard({ item, onSelectItem }: PeripheralCardProps) {
             <Button
               variant="default"
               size="sm"
-              className="flex-1 text-xs font-mono uppercase tracking-wider bg-zinc-900 text-zinc-400 border border-zinc-800 rounded-md"
+              className="flex-1 text-xs font-mono uppercase tracking-wider bg-gp-ink-800 text-gp-ink-300 border border-gp-ink-700 rounded-md"
             >
               [ CEK DETAIL ]
             </Button>

@@ -445,20 +445,20 @@ export function NotionRichEditor({
   };
 
   return (
-    <div className="border border-zinc-800 rounded-2xl bg-zinc-950 overflow-hidden flex flex-col relative shadow-xl font-sans">
+    <div className="border border-gp-ink-700 rounded-2xl bg-gp-ink-950 overflow-hidden flex flex-col relative shadow-xl font-sans">
       {/* ========================================================================= */}
       {/* 1. TOP WORD/NOTION RIBBON TOOLBAR                                         */}
       {/* ========================================================================= */}
-      <div className="flex flex-wrap items-center justify-between gap-2 p-2 bg-[#121216] border-b border-zinc-800 text-xs select-none">
+      <div className="flex flex-wrap items-center justify-between gap-2 p-2 bg-gp-ink-850 border-b border-gp-ink-700 text-xs select-none">
         {/* Left Formatting Tools */}
         <div className="flex flex-wrap items-center gap-1">
           {/* Headings Dropdown */}
-          <div className="flex items-center bg-zinc-900 border border-zinc-800 rounded-lg p-0.5 mr-1">
+          <div className="flex items-center bg-gp-ink-800 border border-gp-ink-700 rounded-lg p-0.5 mr-1">
             <button
               type="button"
               onClick={() => formatBlock("p")}
               title="Normal Paragraph"
-              className="px-2 py-1 rounded text-[11px] font-semibold text-zinc-300 hover:text-white hover:bg-zinc-800"
+              className="px-2 py-1 rounded text-2xs font-semibold text-gp-ink-200 hover:text-white hover:bg-gp-ink-700"
             >
               Text
             </button>
@@ -466,7 +466,7 @@ export function NotionRichEditor({
               type="button"
               onClick={() => formatBlock("h1")}
               title="Heading 1"
-              className="p-1.5 rounded text-zinc-300 hover:text-white hover:bg-zinc-800"
+              className="p-1.5 rounded text-gp-ink-200 hover:text-white hover:bg-gp-ink-700"
             >
               <Heading1 className="w-3.5 h-3.5 text-cyan-400" />
             </button>
@@ -474,7 +474,7 @@ export function NotionRichEditor({
               type="button"
               onClick={() => formatBlock("h2")}
               title="Heading 2"
-              className="p-1.5 rounded text-zinc-300 hover:text-white hover:bg-zinc-800"
+              className="p-1.5 rounded text-gp-ink-200 hover:text-white hover:bg-gp-ink-700"
             >
               <Heading2 className="w-3.5 h-3.5 text-blue-400" />
             </button>
@@ -482,20 +482,20 @@ export function NotionRichEditor({
               type="button"
               onClick={() => formatBlock("h3")}
               title="Heading 3"
-              className="p-1.5 rounded text-zinc-300 hover:text-white hover:bg-zinc-800"
+              className="p-1.5 rounded text-gp-ink-200 hover:text-white hover:bg-gp-ink-700"
             >
               <Heading3 className="w-3.5 h-3.5 text-emerald-400" />
             </button>
           </div>
 
-          <div className="w-[1px] h-4 bg-zinc-800 mx-0.5" />
+          <div className="w-[1px] h-4 bg-gp-ink-700 mx-0.5" />
 
           {/* Inline Text Styling (Word Pure) */}
           <button
             type="button"
             onClick={() => execCmd("bold")}
             title="Tebal / Bold (Ctrl+B)"
-            className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-200 hover:text-white"
+            className="p-1.5 rounded-lg hover:bg-gp-ink-700 text-gp-ink-100 hover:text-white"
           >
             <Bold className="w-3.5 h-3.5" />
           </button>
@@ -503,7 +503,7 @@ export function NotionRichEditor({
             type="button"
             onClick={() => execCmd("italic")}
             title="Miring / Italic (Ctrl+I)"
-            className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-200 hover:text-white"
+            className="p-1.5 rounded-lg hover:bg-gp-ink-700 text-gp-ink-100 hover:text-white"
           >
             <Italic className="w-3.5 h-3.5" />
           </button>
@@ -511,7 +511,7 @@ export function NotionRichEditor({
             type="button"
             onClick={() => execCmd("underline")}
             title="Garis Bawah / Underline (Ctrl+U)"
-            className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-200 hover:text-white"
+            className="p-1.5 rounded-lg hover:bg-gp-ink-700 text-gp-ink-100 hover:text-white"
           >
             <UnderlineIcon className="w-3.5 h-3.5 text-emerald-400" />
           </button>
@@ -519,12 +519,12 @@ export function NotionRichEditor({
             type="button"
             onClick={() => execCmd("strikeThrough")}
             title="Coret / Strikethrough"
-            className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-white"
+            className="p-1.5 rounded-lg hover:bg-gp-ink-700 text-gp-ink-300 hover:text-white"
           >
             <Strikethrough className="w-3.5 h-3.5" />
           </button>
 
-          <div className="w-[1px] h-4 bg-zinc-800 mx-0.5" />
+          <div className="w-[1px] h-4 bg-gp-ink-700 mx-0.5" />
 
           {/* Text Color Picker */}
           <div className="relative">
@@ -535,15 +535,15 @@ export function NotionRichEditor({
                 setShowHighlightPicker(false);
               }}
               title="Warna Teks"
-              className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-300 hover:text-white flex items-center gap-0.5"
+              className="p-1.5 rounded-lg hover:bg-gp-ink-700 text-gp-ink-200 hover:text-white flex items-center gap-0.5"
             >
               <Palette className="w-3.5 h-3.5 text-pink-400" />
               <ChevronDown className="w-2.5 h-2.5 opacity-60" />
             </button>
 
             {showTextColorPicker && (
-              <div className="absolute top-full left-0 mt-1.5 bg-[#18181f] border border-zinc-700 rounded-xl p-2 z-50 shadow-2xl w-44 space-y-1">
-                <span className="text-[10px] font-bold text-zinc-400 px-1 block uppercase tracking-wider">
+              <div className="absolute top-full left-0 mt-1.5 bg-gp-ink-800 border border-gp-ink-600 rounded-xl p-2 z-50 shadow-2xl w-44 space-y-1">
+                <span className="text-3xs font-bold text-gp-ink-300 px-1 block uppercase tracking-wider">
                   Warna Teks
                 </span>
                 <div className="grid grid-cols-3 gap-1 pt-1">
@@ -552,7 +552,7 @@ export function NotionRichEditor({
                       key={c.name}
                       type="button"
                       onClick={() => applyTextColor(c.color)}
-                      className="p-1.5 rounded-lg hover:bg-zinc-800 flex items-center gap-1 text-[11px] text-zinc-300"
+                      className="p-1.5 rounded-lg hover:bg-gp-ink-700 flex items-center gap-1 text-2xs text-gp-ink-200"
                     >
                       <span className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: c.color }} />
                       <span className="truncate">{c.name}</span>
@@ -572,15 +572,15 @@ export function NotionRichEditor({
                 setShowTextColorPicker(false);
               }}
               title="Sorotan Background (Highlight)"
-              className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-300 hover:text-white flex items-center gap-0.5"
+              className="p-1.5 rounded-lg hover:bg-gp-ink-700 text-gp-ink-200 hover:text-white flex items-center gap-0.5"
             >
               <Highlighter className="w-3.5 h-3.5 text-amber-400" />
               <ChevronDown className="w-2.5 h-2.5 opacity-60" />
             </button>
 
             {showHighlightPicker && (
-              <div className="absolute top-full left-0 mt-1.5 bg-[#18181f] border border-zinc-700 rounded-xl p-2 z-50 shadow-2xl w-44 space-y-1">
-                <span className="text-[10px] font-bold text-zinc-400 px-1 block uppercase tracking-wider">
+              <div className="absolute top-full left-0 mt-1.5 bg-gp-ink-800 border border-gp-ink-600 rounded-xl p-2 z-50 shadow-2xl w-44 space-y-1">
+                <span className="text-3xs font-bold text-gp-ink-300 px-1 block uppercase tracking-wider">
                   Sorotan Teks
                 </span>
                 <div className="grid grid-cols-2 gap-1 pt-1">
@@ -589,7 +589,7 @@ export function NotionRichEditor({
                       key={h.name}
                       type="button"
                       onClick={() => applyHighlightColor(h.bg)}
-                      className="p-1.5 rounded-lg hover:bg-zinc-800 flex items-center gap-1.5 text-[11px] text-zinc-300"
+                      className="p-1.5 rounded-lg hover:bg-gp-ink-700 flex items-center gap-1.5 text-2xs text-gp-ink-200"
                     >
                       <span
                         className="w-3 h-3 rounded border flex-shrink-0"
@@ -603,14 +603,14 @@ export function NotionRichEditor({
             )}
           </div>
 
-          <div className="w-[1px] h-4 bg-zinc-800 mx-0.5" />
+          <div className="w-[1px] h-4 bg-gp-ink-700 mx-0.5" />
 
           {/* Lists & Alignment */}
           <button
             type="button"
             onClick={() => execCmd("insertUnorderedList")}
             title="Bulleted List"
-            className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-300 hover:text-white"
+            className="p-1.5 rounded-lg hover:bg-gp-ink-700 text-gp-ink-200 hover:text-white"
           >
             <List className="w-3.5 h-3.5" />
           </button>
@@ -618,7 +618,7 @@ export function NotionRichEditor({
             type="button"
             onClick={() => execCmd("insertOrderedList")}
             title="Numbered List"
-            className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-300 hover:text-white"
+            className="p-1.5 rounded-lg hover:bg-gp-ink-700 text-gp-ink-200 hover:text-white"
           >
             <ListOrdered className="w-3.5 h-3.5" />
           </button>
@@ -626,19 +626,19 @@ export function NotionRichEditor({
             type="button"
             onClick={insertChecklist}
             title="Checklist / Task List"
-            className="p-1.5 rounded-lg hover:bg-zinc-800 text-emerald-400 hover:text-emerald-300"
+            className="p-1.5 rounded-lg hover:bg-gp-ink-700 text-emerald-400 hover:text-emerald-300"
           >
             <CheckSquare className="w-3.5 h-3.5" />
           </button>
 
-          <div className="w-[1px] h-4 bg-zinc-800 mx-0.5" />
+          <div className="w-[1px] h-4 bg-gp-ink-700 mx-0.5" />
 
           {/* Notion Callout Box Button */}
           <button
             type="button"
             onClick={() => setShowCalloutModal(true)}
             title="Sisipkan Callout Box"
-            className="px-2 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500/20 text-[11px] font-bold flex items-center gap-1"
+            className="px-2 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500/20 text-2xs font-bold flex items-center gap-1"
           >
             <AlertTriangle className="w-3 h-3 text-amber-400" />
             <span>+ Callout</span>
@@ -647,7 +647,7 @@ export function NotionRichEditor({
             type="button"
             onClick={deleteActiveCallout}
             title="Hapus Callout Box Aktif"
-            className="px-1.5 py-1 rounded-lg hover:bg-rose-950/50 text-[10px] text-zinc-400 hover:text-rose-400 flex items-center gap-0.5"
+            className="px-1.5 py-1 rounded-lg hover:bg-rose-950/50 text-3xs text-gp-ink-300 hover:text-rose-400 flex items-center gap-0.5"
           >
             <Trash2 className="w-3 h-3" />
             <span>Hapus Callout</span>
@@ -658,19 +658,19 @@ export function NotionRichEditor({
             type="button"
             onClick={() => setIsModularTableOpen(true)}
             title="Buka Pembangun Tabel Modular - Buat Kolom & Baris Bebas"
-            className="px-2.5 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/25 text-[11px] font-bold flex items-center gap-1.5 shadow-sm"
+            className="px-2.5 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/25 text-2xs font-bold flex items-center gap-1.5 shadow-sm"
           >
             <TableIcon className="w-3.5 h-3.5 text-emerald-400" />
             <span>+ Tabel</span>
           </button>
 
           {/* Table quick controls: + Baris, - Baris, + Kolom, - Kolom, Hapus Tabel */}
-          <div className="flex items-center gap-1 bg-zinc-900/90 border border-zinc-800 rounded-lg p-0.5 text-[10px]">
+          <div className="flex items-center gap-1 bg-gp-ink-800/90 border border-gp-ink-700 rounded-lg p-0.5 text-3xs">
             <button
               type="button"
               onClick={addTableRow}
               title="Tambah Baris Tabel (Letakkan kursor di tabel)"
-              className="px-1.5 py-0.5 rounded hover:bg-zinc-800 text-zinc-300 hover:text-emerald-400 font-mono"
+              className="px-1.5 py-0.5 rounded hover:bg-gp-ink-700 text-gp-ink-200 hover:text-emerald-400 font-mono"
             >
               +Baris
             </button>
@@ -678,7 +678,7 @@ export function NotionRichEditor({
               type="button"
               onClick={deleteTableRow}
               title="Hapus Baris Tabel Aktif"
-              className="px-1.5 py-0.5 rounded hover:bg-zinc-800 text-zinc-300 hover:text-rose-400 font-mono"
+              className="px-1.5 py-0.5 rounded hover:bg-gp-ink-700 text-gp-ink-200 hover:text-rose-400 font-mono"
             >
               -Baris
             </button>
@@ -686,7 +686,7 @@ export function NotionRichEditor({
               type="button"
               onClick={addTableColumn}
               title="Tambah Kolom Tabel"
-              className="px-1.5 py-0.5 rounded hover:bg-zinc-800 text-zinc-300 hover:text-cyan-400 font-mono"
+              className="px-1.5 py-0.5 rounded hover:bg-gp-ink-700 text-gp-ink-200 hover:text-cyan-400 font-mono"
             >
               +Kolom
             </button>
@@ -694,7 +694,7 @@ export function NotionRichEditor({
               type="button"
               onClick={deleteTableColumn}
               title="Hapus Kolom Tabel Aktif"
-              className="px-1.5 py-0.5 rounded hover:bg-zinc-800 text-zinc-300 hover:text-rose-400 font-mono"
+              className="px-1.5 py-0.5 rounded hover:bg-gp-ink-700 text-gp-ink-200 hover:text-rose-400 font-mono"
             >
               -Kolom
             </button>
@@ -713,7 +713,7 @@ export function NotionRichEditor({
             type="button"
             onClick={() => formatBlock("blockquote")}
             title="Quote Block"
-            className="p-1.5 rounded-lg hover:bg-zinc-800 text-blue-400 hover:text-blue-300"
+            className="p-1.5 rounded-lg hover:bg-gp-ink-700 text-blue-400 hover:text-blue-300"
           >
             <Quote className="w-3.5 h-3.5" />
           </button>
@@ -721,7 +721,7 @@ export function NotionRichEditor({
             type="button"
             onClick={() => formatBlock("pre")}
             title="Code Block"
-            className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-white"
+            className="p-1.5 rounded-lg hover:bg-gp-ink-700 text-gp-ink-300 hover:text-white"
           >
             <Code className="w-3.5 h-3.5" />
           </button>
@@ -729,7 +729,7 @@ export function NotionRichEditor({
             type="button"
             onClick={() => execCmd("insertHorizontalRule")}
             title="Divider Line"
-            className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-white"
+            className="p-1.5 rounded-lg hover:bg-gp-ink-700 text-gp-ink-300 hover:text-white"
           >
             <Minus className="w-3.5 h-3.5" />
           </button>
@@ -738,7 +738,7 @@ export function NotionRichEditor({
           {allowImageUpload && (
             <label
               title="Sisipkan Foto (Otomatis WebP Ringan)"
-              className="p-1.5 rounded-lg hover:bg-zinc-800 text-pink-400 hover:text-pink-300 cursor-pointer flex items-center gap-1"
+              className="p-1.5 rounded-lg hover:bg-gp-ink-700 text-pink-400 hover:text-pink-300 cursor-pointer flex items-center gap-1"
             >
               <ImageIcon className="w-3.5 h-3.5" />
               <input
@@ -759,7 +759,7 @@ export function NotionRichEditor({
               if (url) execCmd("createLink", url);
             }}
             title="Sisipkan Link (URL)"
-            className="p-1.5 rounded-lg hover:bg-zinc-800 text-sky-400 hover:text-sky-300"
+            className="p-1.5 rounded-lg hover:bg-gp-ink-700 text-sky-400 hover:text-sky-300"
           >
             <LinkIcon className="w-3.5 h-3.5" />
           </button>
@@ -771,7 +771,7 @@ export function NotionRichEditor({
             type="button"
             onClick={() => execCmd("undo")}
             title="Undo (Ctrl+Z)"
-            className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-white"
+            className="p-1.5 rounded-lg hover:bg-gp-ink-700 text-gp-ink-300 hover:text-white"
           >
             <Undo2 className="w-3.5 h-3.5" />
           </button>
@@ -779,7 +779,7 @@ export function NotionRichEditor({
             type="button"
             onClick={() => execCmd("redo")}
             title="Redo (Ctrl+Y)"
-            className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-white"
+            className="p-1.5 rounded-lg hover:bg-gp-ink-700 text-gp-ink-300 hover:text-white"
           >
             <Redo2 className="w-3.5 h-3.5" />
           </button>
@@ -788,21 +788,21 @@ export function NotionRichEditor({
             type="button"
             onClick={copyDiscordFormatted}
             title="Salin Teks Bersih untuk Discord"
-            className="px-2 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-[11px] font-semibold flex items-center gap-1"
+            className="px-2 py-1 rounded-lg bg-gp-ink-700 hover:bg-gp-ink-600 text-gp-ink-200 text-2xs font-semibold flex items-center gap-1"
           >
             {copiedSnippet ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3 text-violet-400" />}
             <span className="hidden sm:inline">Discord</span>
           </button>
 
           {/* Mode Switcher */}
-          <div className="flex items-center bg-zinc-900 border border-zinc-800 rounded-xl p-0.5">
+          <div className="flex items-center bg-gp-ink-800 border border-gp-ink-700 rounded-xl p-0.5">
             <button
               type="button"
               onClick={() => setViewMode("visual")}
-              className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${
+              className={`px-2.5 py-1 rounded-lg text-2xs font-bold transition-all ${
                 viewMode === "visual"
                   ? "bg-emerald-500 text-black font-black shadow-sm"
-                  : "text-zinc-400 hover:text-white"
+                  : "text-gp-ink-300 hover:text-white"
               }`}
               title="Visual Mode (WYSIWYG Editor)"
             >
@@ -811,8 +811,8 @@ export function NotionRichEditor({
             <button
               type="button"
               onClick={() => setViewMode("code")}
-              className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${
-                viewMode === "code" ? "bg-zinc-800 text-white" : "text-zinc-400 hover:text-white"
+              className={`px-2.5 py-1 rounded-lg text-2xs font-bold transition-all ${
+                viewMode === "code" ? "bg-gp-ink-700 text-white" : "text-gp-ink-300 hover:text-white"
               }`}
               title="Source Code / HTML / Markdown"
             >
@@ -821,8 +821,8 @@ export function NotionRichEditor({
             <button
               type="button"
               onClick={() => setViewMode("preview")}
-              className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${
-                viewMode === "preview" ? "bg-zinc-800 text-white" : "text-zinc-400 hover:text-white"
+              className={`px-2.5 py-1 rounded-lg text-2xs font-bold transition-all ${
+                viewMode === "preview" ? "bg-gp-ink-700 text-white" : "text-gp-ink-300 hover:text-white"
               }`}
               title="Tampilan Akhir di Sisi Pengunjung"
             >
@@ -837,8 +837,8 @@ export function NotionRichEditor({
       {/* ========================================================================= */}
       {showCalloutModal && (
         <div className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#121216] border border-zinc-700 rounded-2xl max-w-md w-full p-5 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
+          <div className="bg-gp-ink-850 border border-gp-ink-600 rounded-2xl max-w-md w-full p-5 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-gp-ink-700 pb-2">
               <span className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
                 <AlertTriangle className="w-4 h-4 text-amber-400" />
                 <span>Buat Callout Box</span>
@@ -846,7 +846,7 @@ export function NotionRichEditor({
               <button
                 type="button"
                 onClick={() => setShowCalloutModal(false)}
-                className="text-zinc-400 hover:text-white"
+                className="text-gp-ink-300 hover:text-white"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -855,7 +855,7 @@ export function NotionRichEditor({
             <div className="space-y-3 text-xs">
               {/* Icon Selector */}
               <div>
-                <label className="text-zinc-400 block mb-1.5 font-semibold">Pilih Icon Emoji:</label>
+                <label className="text-gp-ink-300 block mb-1.5 font-semibold">Pilih Icon Emoji:</label>
                 <div className="flex flex-wrap gap-1.5">
                   {CALLOUT_ICONS.map((icon) => (
                     <button
@@ -864,8 +864,8 @@ export function NotionRichEditor({
                       onClick={() => setSelectedCalloutIcon(icon)}
                       className={`text-lg p-1.5 rounded-xl border transition-all ${
                         selectedCalloutIcon === icon
-                          ? "bg-zinc-800 border-amber-500 scale-110 shadow-sm"
-                          : "bg-zinc-950 border-zinc-800 hover:border-zinc-700"
+                          ? "bg-gp-ink-700 border-amber-500 scale-110 shadow-sm"
+                          : "bg-gp-ink-950 border-gp-ink-700 hover:border-gp-ink-600"
                       }`}
                     >
                       {icon}
@@ -876,17 +876,17 @@ export function NotionRichEditor({
 
               {/* Theme Tint Selector */}
               <div>
-                <label className="text-zinc-400 block mb-1.5 font-semibold">Aksen Warna Box:</label>
+                <label className="text-gp-ink-300 block mb-1.5 font-semibold">Aksen Warna Box:</label>
                 <div className="grid grid-cols-2 gap-1.5">
                   {CALLOUT_THEMES.map((theme) => (
                     <button
                       key={theme.id}
                       type="button"
                       onClick={() => setSelectedCalloutTheme(theme.id)}
-                      className={`p-2 rounded-xl border text-left text-[11px] font-bold transition-all ${
+                      className={`p-2 rounded-xl border text-left text-2xs font-bold transition-all ${
                         selectedCalloutTheme === theme.id
-                          ? "border-white bg-zinc-800 text-white"
-                          : "border-zinc-800 bg-zinc-950 text-zinc-400 hover:text-zinc-200"
+                          ? "border-white bg-gp-ink-700 text-white"
+                          : "border-gp-ink-700 bg-gp-ink-950 text-gp-ink-300 hover:text-gp-ink-100"
                       }`}
                     >
                       {theme.name}
@@ -897,17 +897,17 @@ export function NotionRichEditor({
 
               {/* Text Input */}
               <div>
-                <label className="text-zinc-400 block mb-1 font-semibold">Isi Catatan Callout:</label>
+                <label className="text-gp-ink-300 block mb-1 font-semibold">Isi Catatan Callout:</label>
                 <textarea
                   rows={3}
                   value={calloutText}
                   onChange={(e) => setCalloutText(e.target.value)}
                   placeholder="Contoh: Overdrive level Extreme memicu overshoot 24%. Disarankan tetap di Normal."
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-2.5 text-white focus:outline-none focus:border-amber-500 leading-relaxed text-xs"
+                  className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-amber-500 leading-relaxed text-xs"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-2 border-t border-zinc-800">
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-gp-ink-700">
                 <Button
                   type="button"
                   variant="outline"
@@ -937,7 +937,7 @@ export function NotionRichEditor({
       {bubblePos.visible && viewMode === "visual" && (
         <div
           style={{ top: `${bubblePos.top}px`, left: `${bubblePos.left}px` }}
-          className="fixed z-50 bg-[#18181f]/95 backdrop-blur-md border border-zinc-700 rounded-xl px-2 py-1 flex items-center gap-1 shadow-2xl animate-in fade-in zoom-in-95"
+          className="fixed z-50 bg-gp-ink-800/95 backdrop-blur-md border border-gp-ink-600 rounded-xl px-2 py-1 flex items-center gap-1 shadow-2xl animate-in fade-in zoom-in-95"
         >
           <button
             type="button"
@@ -946,7 +946,7 @@ export function NotionRichEditor({
               execCmd("bold");
             }}
             title="Bold"
-            className="p-1 rounded hover:bg-zinc-800 text-white"
+            className="p-1 rounded hover:bg-gp-ink-700 text-white"
           >
             <Bold className="w-3.5 h-3.5" />
           </button>
@@ -957,7 +957,7 @@ export function NotionRichEditor({
               execCmd("italic");
             }}
             title="Italic"
-            className="p-1 rounded hover:bg-zinc-800 text-white"
+            className="p-1 rounded hover:bg-gp-ink-700 text-white"
           >
             <Italic className="w-3.5 h-3.5" />
           </button>
@@ -968,7 +968,7 @@ export function NotionRichEditor({
               execCmd("underline");
             }}
             title="Underline"
-            className="p-1 rounded hover:bg-zinc-800 text-emerald-400"
+            className="p-1 rounded hover:bg-gp-ink-700 text-emerald-400"
           >
             <UnderlineIcon className="w-3.5 h-3.5" />
           </button>
@@ -979,11 +979,11 @@ export function NotionRichEditor({
               execCmd("strikeThrough");
             }}
             title="Strikethrough"
-            className="p-1 rounded hover:bg-zinc-800 text-zinc-400"
+            className="p-1 rounded hover:bg-gp-ink-700 text-gp-ink-300"
           >
             <Strikethrough className="w-3.5 h-3.5" />
           </button>
-          <div className="w-[1px] h-3 bg-zinc-700 mx-0.5" />
+          <div className="w-[1px] h-3 bg-gp-ink-600 mx-0.5" />
           <button
             type="button"
             onMouseDown={(e) => {
@@ -991,7 +991,7 @@ export function NotionRichEditor({
               applyHighlightColor("rgba(245, 158, 11, 0.25)");
             }}
             title="Yellow Highlight"
-            className="p-1 rounded hover:bg-zinc-800 text-amber-400"
+            className="p-1 rounded hover:bg-gp-ink-700 text-amber-400"
           >
             <Highlighter className="w-3.5 h-3.5" />
           </button>
@@ -1004,9 +1004,9 @@ export function NotionRichEditor({
       {showSlashMenu && viewMode === "visual" && (
         <div
           style={{ top: `${slashMenuPos.top}px`, left: `${slashMenuPos.left}px` }}
-          className="fixed z-50 bg-[#18181f] border border-zinc-700 rounded-2xl p-2 w-64 shadow-2xl space-y-1 animate-in fade-in zoom-in-95 text-xs"
+          className="fixed z-50 bg-gp-ink-800 border border-gp-ink-600 rounded-2xl p-2 w-64 shadow-2xl space-y-1 animate-in fade-in zoom-in-95 text-xs"
         >
-          <div className="px-2 py-1 text-[10px] font-bold text-zinc-500 uppercase tracking-wider border-b border-zinc-800">
+          <div className="px-2 py-1 text-3xs font-bold text-gp-ink-400 uppercase tracking-wider border-b border-gp-ink-700">
             Blok Konten Dasar
           </div>
           <button
@@ -1015,12 +1015,12 @@ export function NotionRichEditor({
               formatBlock("h1");
               setShowSlashMenu(false);
             }}
-            className="w-full text-left p-1.5 rounded-lg hover:bg-zinc-800 flex items-center gap-2 text-white"
+            className="w-full text-left p-1.5 rounded-lg hover:bg-gp-ink-700 flex items-center gap-2 text-white"
           >
             <Heading1 className="w-4 h-4 text-cyan-400" />
             <div>
               <span className="font-bold block">Heading 1</span>
-              <span className="text-[10px] text-zinc-400">Judul bab utama</span>
+              <span className="text-3xs text-gp-ink-300">Judul bab utama</span>
             </div>
           </button>
           <button
@@ -1029,12 +1029,12 @@ export function NotionRichEditor({
               formatBlock("h2");
               setShowSlashMenu(false);
             }}
-            className="w-full text-left p-1.5 rounded-lg hover:bg-zinc-800 flex items-center gap-2 text-white"
+            className="w-full text-left p-1.5 rounded-lg hover:bg-gp-ink-700 flex items-center gap-2 text-white"
           >
             <Heading2 className="w-4 h-4 text-blue-400" />
             <div>
               <span className="font-bold block">Heading 2</span>
-              <span className="text-[10px] text-zinc-400">Subjudul section</span>
+              <span className="text-3xs text-gp-ink-300">Subjudul section</span>
             </div>
           </button>
           <button
@@ -1043,12 +1043,12 @@ export function NotionRichEditor({
               formatBlock("h3");
               setShowSlashMenu(false);
             }}
-            className="w-full text-left p-1.5 rounded-lg hover:bg-zinc-800 flex items-center gap-2 text-white"
+            className="w-full text-left p-1.5 rounded-lg hover:bg-gp-ink-700 flex items-center gap-2 text-white"
           >
             <Heading3 className="w-4 h-4 text-emerald-400" />
             <div>
               <span className="font-bold block">Heading 3</span>
-              <span className="text-[10px] text-zinc-400">Poin sub-section</span>
+              <span className="text-3xs text-gp-ink-300">Poin sub-section</span>
             </div>
           </button>
           <button
@@ -1057,12 +1057,12 @@ export function NotionRichEditor({
               execCmd("insertUnorderedList");
               setShowSlashMenu(false);
             }}
-            className="w-full text-left p-1.5 rounded-lg hover:bg-zinc-800 flex items-center gap-2 text-white"
+            className="w-full text-left p-1.5 rounded-lg hover:bg-gp-ink-700 flex items-center gap-2 text-white"
           >
-            <List className="w-4 h-4 text-zinc-300" />
+            <List className="w-4 h-4 text-gp-ink-200" />
             <div>
               <span className="font-bold block">Bulleted List</span>
-              <span className="text-[10px] text-zinc-400">Daftar butir biasa</span>
+              <span className="text-3xs text-gp-ink-300">Daftar butir biasa</span>
             </div>
           </button>
           <button
@@ -1071,12 +1071,12 @@ export function NotionRichEditor({
               insertChecklist();
               setShowSlashMenu(false);
             }}
-            className="w-full text-left p-1.5 rounded-lg hover:bg-zinc-800 flex items-center gap-2 text-emerald-400"
+            className="w-full text-left p-1.5 rounded-lg hover:bg-gp-ink-700 flex items-center gap-2 text-emerald-400"
           >
             <CheckSquare className="w-4 h-4" />
             <div>
               <span className="font-bold block">Checklist Task</span>
-              <span className="text-[10px] text-zinc-400">Daftar ceklist centang</span>
+              <span className="text-3xs text-gp-ink-300">Daftar ceklist centang</span>
             </div>
           </button>
           <button
@@ -1085,12 +1085,12 @@ export function NotionRichEditor({
               setShowSlashMenu(false);
               setShowCalloutModal(true);
             }}
-            className="w-full text-left p-1.5 rounded-lg hover:bg-zinc-800 flex items-center gap-2 text-amber-400"
+            className="w-full text-left p-1.5 rounded-lg hover:bg-gp-ink-700 flex items-center gap-2 text-amber-400"
           >
             <AlertTriangle className="w-4 h-4" />
             <div>
               <span className="font-bold block">Callout Box</span>
-              <span className="text-[10px] text-zinc-400">Kotak peringatan / highlight</span>
+              <span className="text-3xs text-gp-ink-300">Kotak peringatan / highlight</span>
             </div>
           </button>
           <button
@@ -1099,12 +1099,12 @@ export function NotionRichEditor({
               insertTable();
               setShowSlashMenu(false);
             }}
-            className="w-full text-left p-1.5 rounded-lg hover:bg-zinc-800 flex items-center gap-2 text-emerald-400"
+            className="w-full text-left p-1.5 rounded-lg hover:bg-gp-ink-700 flex items-center gap-2 text-emerald-400"
           >
             <TableIcon className="w-4 h-4" />
             <div>
               <span className="font-bold block">Visual Table</span>
-              <span className="text-[10px] text-zinc-400">Tabel data interaktif</span>
+              <span className="text-3xs text-gp-ink-300">Tabel data interaktif</span>
             </div>
           </button>
         </div>
@@ -1114,10 +1114,10 @@ export function NotionRichEditor({
       {/* 5. MAIN EDITING SURFACE (CONTENTEDITABLE / SOURCE / PREVIEW)              */}
       {/* ========================================================================= */}
       {viewMode === "visual" && (
-        <div className="p-3 sm:p-4 bg-[#09090e] min-h-[260px] overflow-y-auto relative">
+        <div className="p-3 sm:p-4 bg-gp-ink-950 min-h-[260px] overflow-y-auto relative">
           {/* Visual Placeholder when content is empty */}
           {(!value || value === "<p><br></p>" || value.trim() === "") && (
-            <div className="absolute top-7 left-7 pointer-events-none text-xs text-zinc-500 font-sans select-none">
+            <div className="absolute top-7 left-7 pointer-events-none text-xs text-gp-ink-400 font-sans select-none">
               {placeholder}
             </div>
           )}
@@ -1128,40 +1128,40 @@ export function NotionRichEditor({
             onKeyUp={handleKeyUp}
             onMouseUp={updateBubblePosition}
             data-placeholder={placeholder}
-            className={`notion-prose focus:outline-none w-full leading-relaxed p-4 rounded-xl bg-[#0e0e14] border border-zinc-750 focus:border-zinc-600 text-zinc-200 transition-colors shadow-inner ${minHeight}`}
+            className={`notion-prose focus:outline-none w-full leading-relaxed p-4 rounded-xl bg-gp-ink-900 border border-gp-ink-650 focus:border-gp-ink-500 text-gp-ink-100 transition-colors shadow-inner ${minHeight}`}
             style={{ minHeight: "220px" }}
           />
         </div>
       )}
 
       {viewMode === "code" && (
-        <div className="p-3 bg-[#09090e] flex flex-col">
+        <div className="p-3 bg-gp-ink-950 flex flex-col">
           <textarea
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder="Ketik kode HTML / Markdown mentah di sini..."
-            className={`w-full bg-[#0e0e14] border border-zinc-750 rounded-xl text-emerald-400 text-xs font-mono leading-relaxed p-3 focus:outline-none focus:border-emerald-500 resize-y ${minHeight}`}
+            className={`w-full bg-gp-ink-900 border border-gp-ink-650 rounded-xl text-emerald-400 text-xs font-mono leading-relaxed p-3 focus:outline-none focus:border-emerald-500 resize-y ${minHeight}`}
           />
         </div>
       )}
 
       {viewMode === "preview" && (
-        <div className={`p-5 sm:p-7 bg-[#09090e] overflow-y-auto max-h-[600px] ${minHeight}`}>
-          <div className="flex items-center justify-between pb-2 mb-4 border-b border-zinc-750">
-            <span className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider flex items-center gap-1.5">
+        <div className={`p-5 sm:p-7 bg-gp-ink-950 overflow-y-auto max-h-[600px] ${minHeight}`}>
+          <div className="flex items-center justify-between pb-2 mb-4 border-b border-gp-ink-650">
+            <span className="text-3xs uppercase font-bold text-gp-ink-300 tracking-wider flex items-center gap-1.5">
               <Eye className="w-3.5 h-3.5 text-cyan-400" />
               <span>Live Rendered View (Sisi Pengunjung)</span>
             </span>
-            <span className="text-[10px] text-zinc-400 font-mono">
+            <span className="text-3xs text-gp-ink-300 font-mono">
               {value.length} karakter
             </span>
           </div>
           {value.trim() ? (
-            <div className="p-4 rounded-xl bg-[#0e0e14] border border-zinc-800">
+            <div className="p-4 rounded-xl bg-gp-ink-900 border border-gp-ink-700">
               <NotionBlockRenderer content={value} />
             </div>
           ) : (
-            <div className="text-zinc-500 text-xs italic py-8 text-center bg-[#0e0e14] rounded-xl border border-zinc-800">
+            <div className="text-gp-ink-400 text-xs italic py-8 text-center bg-gp-ink-900 rounded-xl border border-gp-ink-700">
               Belum ada konten untuk ditampilkan.
             </div>
           )}
@@ -1169,9 +1169,9 @@ export function NotionRichEditor({
       )}
 
       {/* Bottom Status Bar */}
-      <div className="px-4 py-2.5 bg-[#0e0e14] border-t border-zinc-750 flex items-center justify-between text-[11px] text-zinc-400 font-mono">
+      <div className="px-4 py-2.5 bg-gp-ink-900 border-t border-gp-ink-650 flex items-center justify-between text-2xs text-gp-ink-300 font-mono">
         <div className="flex items-center gap-3">
-          <span>Mode: <strong className="text-zinc-200 uppercase">{viewMode}</strong></span>
+          <span>Mode: <strong className="text-gp-ink-100 uppercase">{viewMode}</strong></span>
           <span>Tip: Ketik <strong>&quot;/&quot;</strong> untuk menu blok cepat</span>
         </div>
         <div>

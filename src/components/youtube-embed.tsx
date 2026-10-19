@@ -39,23 +39,23 @@ export function YouTubeEmbed({
 
   return (
     <div className={`space-y-2 font-sans ${className}`}>
-      <div className="flex items-center justify-between text-xs text-[#9b9a97]">
-        <div className="flex items-center gap-1.5 font-bold text-white uppercase text-[11px] tracking-wider">
-          <Video className="w-3.5 h-3.5 text-[#ff4b4b]" />
+      <div className="flex items-center justify-between text-xs text-gp-ink-300">
+        <div className="flex items-center gap-1.5 font-bold text-white uppercase text-2xs tracking-wider">
+          <Video className="w-3.5 h-3.5 text-gp-coral-100" />
           <span>{title}</span>
         </div>
         <a
           href={directWatchUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[#58a6ff] hover:underline text-[11px] inline-flex items-center gap-1"
+          className="text-gp-sky hover:underline text-2xs inline-flex items-center gap-1"
         >
           <span>Buka di YouTube</span>
           <ExternalLink className="w-3 h-3" />
         </a>
       </div>
 
-      <div className="relative aspect-video w-full rounded-2xl bg-[#121212] border border-[#2f2f2f] overflow-hidden group shadow-md">
+      <div className="relative aspect-video w-full rounded-2xl bg-gp-ink-850 border border-gp-ink-650 overflow-hidden group shadow-md">
         {isPlaying ? (
           <iframe
             src={embedUrl}
@@ -78,7 +78,7 @@ export function YouTubeEmbed({
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
             {/* Red YouTube Play Button with Ripple */}
-            <div className="relative z-10 w-14 h-14 rounded-2xl bg-[#ff0000] text-white flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
+            <div className="relative z-10 w-14 h-14 rounded-2xl bg-brand-youtube text-white flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
               <Play className="w-6 h-6 fill-current ml-0.5" />
             </div>
 

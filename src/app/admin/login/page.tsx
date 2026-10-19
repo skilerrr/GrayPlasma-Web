@@ -104,18 +104,18 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#070709] flex items-center justify-center p-4 relative font-sans">
+    <div className="min-h-screen bg-gp-ink-998 flex items-center justify-center p-4 relative font-sans">
       <div className="absolute inset-0 bg-blueprint-grid opacity-30 pointer-events-none" />
 
-      <div className="max-w-md w-full bg-[#0d0d11] border border-zinc-800 rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl relative z-10">
-        <div className="space-y-3 text-center border-b border-zinc-800 pb-5">
+      <div className="max-w-md w-full bg-gp-ink-900 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl relative z-10">
+        <div className="space-y-3 text-center border-b border-gp-ink-700 pb-5">
           <div className="flex items-center justify-center gap-2">
-            <span className="px-2.5 py-0.5 rounded bg-zinc-900 border border-zinc-750 text-emerald-400 font-mono text-[10px] font-bold uppercase tracking-wider">
+            <span className="px-2.5 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-650 text-emerald-400 font-mono text-3xs font-bold uppercase tracking-wider">
               Admin Security
             </span>
           </div>
 
-          <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-750 text-emerald-400 flex items-center justify-center mx-auto">
+          <div className="w-12 h-12 rounded-xl bg-gp-ink-800 border border-gp-ink-650 text-emerald-400 flex items-center justify-center mx-auto">
             <Lock className="w-5 h-5" />
           </div>
 
@@ -123,20 +123,20 @@ export default function AdminLoginPage() {
             <h2 className="text-lg font-bold text-white uppercase tracking-tight">
               GrayPlasma Admin Workspace
             </h2>
-            <p className="text-xs text-zinc-400 mt-1">
+            <p className="text-xs text-gp-ink-300 mt-1">
               Masuk pakai akun Supabase yang terdaftar sebagai admin.
             </p>
           </div>
         </div>
 
         {isCheckingSession ? (
-          <p className="text-xs font-mono text-zinc-500 text-center py-6">
+          <p className="text-xs font-mono text-gp-ink-400 text-center py-6">
             Memeriksa sesi...
           </p>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5 text-left">
-              <label className="text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider">
+              <label className="text-2xs font-mono font-bold text-gp-ink-300 uppercase tracking-wider">
                 Username Admin
               </label>
               <input
@@ -146,13 +146,13 @@ export default function AdminLoginPage() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="grayplasma"
-                className="w-full bg-zinc-900 border border-zinc-750 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500 font-mono transition-colors"
+                className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-emerald-500 font-mono transition-colors"
                 autoFocus
               />
             </div>
 
             <div className="space-y-1.5 text-left">
-              <label className="text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider">
+              <label className="text-2xs font-mono font-bold text-gp-ink-300 uppercase tracking-wider">
                 Kata Sandi / Password
               </label>
               <input
@@ -162,7 +162,7 @@ export default function AdminLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Masukkan kata sandi"
-                className="w-full bg-zinc-900 border border-zinc-750 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500 font-mono transition-colors"
+                className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-emerald-500 font-mono transition-colors"
               />
               {error && (
                 <p className="text-xs text-rose-400 pt-1 text-center font-medium">{error}</p>
@@ -183,7 +183,7 @@ export default function AdminLoginPage() {
         <div className="pt-2 text-center">
           <Link
             href="/"
-            className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors inline-flex items-center gap-1.5"
+            className="text-xs text-gp-ink-400 hover:text-gp-ink-200 transition-colors inline-flex items-center gap-1.5"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Kembali ke Beranda Katalog</span>

@@ -100,9 +100,9 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
         </div>
       )}
 
-      <div className="bg-surface-dark border border-zinc-800 rounded-3xl p-6 sm:p-8 space-y-6">
+      <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-3xl p-6 sm:p-8 space-y-6">
         {/* Header */}
-        <div className="space-y-2 border-b border-zinc-800 pb-5">
+        <div className="space-y-2 border-b border-gp-ink-700 pb-5">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold">
             <Server className="w-3.5 h-3.5" />
             <span>Database Backup, Cloud Sync & Migrations</span>
@@ -110,14 +110,14 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
           <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
             Pencadangan Penuh & Integrasi Supabase Cloud
           </h3>
-          <p className="text-xs text-zinc-400 leading-relaxed max-w-2xl">
+          <p className="text-xs text-gp-ink-300 leading-relaxed max-w-2xl">
             Amankan seluruh basis data website Anda dalam 1 file JSON snapshot, pulihkan kapan saja, atau sinkronisasikan langsung ke cloud database Supabase.
           </p>
         </div>
 
         {/* 1. Full JSON Backup & Restore Box */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-4 flex flex-col justify-between">
+          <div className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 space-y-4 flex flex-col justify-between">
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-amber-400">
                 <Download className="w-4 h-4" />
@@ -125,7 +125,7 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
                   1-Click Full Database Backup (Export JSON)
                 </h4>
               </div>
-              <p className="text-xs text-zinc-400 leading-relaxed">
+              <p className="text-xs text-gp-ink-300 leading-relaxed">
                 Unduh seluruh dataset: 55+ Monitor, 10 Meja, 15 Aksesoris, Evaluasi Aftersales, Seluruh Hierarki Panduan, FAQ, Pengaturan Kontak, dan Akun Admin ke dalam 1 file JSON terenkapsulasi.
               </p>
             </div>
@@ -142,7 +142,7 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
             </Button>
           </div>
 
-          <div className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-4 flex flex-col justify-between">
+          <div className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 space-y-4 flex flex-col justify-between">
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-cyan-400">
                 <Upload className="w-4 h-4" />
@@ -150,13 +150,13 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
                   1-Click Restore Database (Import JSON)
                 </h4>
               </div>
-              <p className="text-xs text-zinc-400 leading-relaxed">
+              <p className="text-xs text-gp-ink-300 leading-relaxed">
                 Unggah file JSON hasil backup sebelumnya untuk memulihkan seluruh struktur situs, data spesifikasi monitor, dan konfigurasi tanpa kehilangan format.
               </p>
             </div>
 
             <label className="w-full cursor-pointer">
-              <div className="px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-xs font-bold text-zinc-200 text-center flex items-center justify-center gap-1.5 transition-colors">
+              <div className="px-4 py-2.5 rounded-xl bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-600 text-xs font-bold text-gp-ink-100 text-center flex items-center justify-center gap-1.5 transition-colors">
                 <Upload className="w-4 h-4 text-cyan-400" />
                 <span>Pilih File Backup JSON untuk Restore</span>
               </div>
@@ -171,7 +171,7 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
         </div>
 
         {/* 2. Supabase Integration & Push Sync */}
-        <div className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-4">
+        <div className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-emerald-400">
               <Cloud className="w-4 h-4" />
@@ -180,7 +180,7 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
               </h4>
             </div>
             <span
-              className={`text-[10px] px-2.5 py-0.5 rounded-full font-bold border ${
+              className={`text-3xs px-2.5 py-0.5 rounded-full font-bold border ${
                 isSupabaseConfigured
                   ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
                   : "bg-amber-500/10 text-amber-400 border-amber-500/30"
@@ -190,7 +190,7 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
             </span>
           </div>
 
-          <p className="text-xs text-zinc-400 leading-relaxed">
+          <p className="text-xs text-gp-ink-300 leading-relaxed">
             {isSupabaseConfigured
               ? "Kredensial Supabase terdeteksi aktif. Anda dapat mengirimkan seluruh snapshot lokal saat ini ke cloud database hanya dengan menekan tombol sinkronisasi di bawah."
               : "Untuk mengaktifkan Supabase, masukkan kredensial URL dan Anon Key pada file `.env.local`."}
@@ -211,7 +211,7 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
         </div>
 
         {/* 3. SQL Migration Generator */}
-        <div className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-3 text-xs">
+        <div className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 space-y-3 text-xs">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-violet-400 font-bold">
               <FileCode className="w-4 h-4" />
@@ -222,7 +222,7 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
               variant="outline"
               size="sm"
               onClick={handleCopySQL}
-              className="text-xs border-zinc-700"
+              className="text-xs border-gp-ink-600"
             >
               {copiedSql ? (
                 <>
@@ -237,7 +237,7 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
               )}
             </Button>
           </div>
-          <p className="text-zinc-400">
+          <p className="text-gp-ink-300">
             Salin skema SQL dan jalankan di <strong>Supabase Dashboard ➔ SQL Editor ➔ Run</strong> untuk membuat tabel `monitors`, `hierarchy`, `desks`, `peripherals`, `aftersales`, dan `site_settings`.
           </p>
         </div>

@@ -636,21 +636,21 @@ function CatalogPageContent() {
           <div className="space-y-4">
             {/* Title & Notion-style Page Icon */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 flex-shrink-0 shadow-tech-card">
-                <Tv className="w-6 h-6 text-zinc-300" />
+              <div className="w-12 h-12 rounded-xl bg-gp-ink-800 border border-gp-ink-700 flex items-center justify-center text-gp-ink-200 flex-shrink-0 shadow-tech-card">
+                <Tv className="w-6 h-6 text-gp-ink-200" />
               </div>
               <div>
                 <h1 className="text-xl sm:text-3xl font-black text-white tracking-tight uppercase">
                   {homepageSettings.pageTitle || "GRAYPLASMA DATABASE & REKOMENDASI"}
                 </h1>
-                <p className="text-xs text-zinc-400 mt-1 max-w-3xl font-sans">
+                <p className="text-xs text-gp-ink-300 mt-1 max-w-3xl font-sans">
                   {homepageSettings.pageSubtitle || "Kurasi monitor gaming, standing desk, & setup kerja terbaik di Indonesia."}
                 </p>
               </div>
             </div>
 
             {/* Tech-Brutalist Callout / Disclaimer Box */}
-            <div className="p-4 sm:p-5 rounded-lg border-l-4 border-l-amber-400 border-y border-r border-zinc-800 bg-[#0c0c11] text-xs text-zinc-300 space-y-2.5 shadow-tech-subtle">
+            <div className="p-4 sm:p-5 rounded-lg border-l-4 border-l-amber-400 border-y border-r border-gp-ink-700 bg-gp-ink-900 text-xs text-gp-ink-200 space-y-2.5 shadow-tech-subtle">
               <div className="flex items-center gap-2 font-mono font-bold text-amber-400 uppercase tracking-wide">
                 <AlertTriangle className="w-4 h-4 text-amber-400" />
                 <span>// {homepageSettings.disclaimerTitle || "CATATAN PENTING & STANDAR PENGUJIAN :"}</span>
@@ -658,7 +658,7 @@ function CatalogPageContent() {
               {homepageSettings.disclaimerMarkdown ? (
                 <NotionBlockRenderer content={homepageSettings.disclaimerMarkdown} />
               ) : (
-                <ul className="list-disc pl-5 space-y-1.5 text-zinc-300 leading-relaxed font-sans">
+                <ul className="list-disc pl-5 space-y-1.5 text-gp-ink-200 leading-relaxed font-sans">
                   {(homepageSettings.disclaimerPoints || []).map((point, idx) => (
                     <li key={idx} dangerouslySetInnerHTML={{ __html: point }} />
                   ))}
@@ -683,7 +683,7 @@ function CatalogPageContent() {
               }, {} as Record<string, { emoji: string; cards: typeof homepageSettings.subpageCards }>)
           ).map(([groupTitle, groupData]) => (
             <div key={groupTitle} className="space-y-3">
-              <div className="flex items-center gap-2 text-xs font-bold text-zinc-300 uppercase tracking-wider">
+              <div className="flex items-center gap-2 text-xs font-bold text-gp-ink-200 uppercase tracking-wider">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                 <span>{groupTitle}</span>
               </div>
@@ -692,18 +692,18 @@ function CatalogPageContent() {
                   <Link
                     key={card.id}
                     href={card.path}
-                    className={`p-3.5 rounded-lg bg-[#09090d] border border-zinc-800 transition-all space-y-1.5 group block shadow-tech-card hover:border-zinc-700 ${
+                    className={`p-3.5 rounded-lg bg-gp-ink-950 border border-gp-ink-700 transition-all space-y-1.5 group block shadow-tech-card hover:border-gp-ink-600 ${
                       card.color || "hover:border-emerald-500 text-emerald-400"
                     }`}
                   >
                     <div className="flex items-center gap-2 font-bold text-white text-xs group-hover:text-emerald-400 transition-colors">
-                      <FileText className="w-3.5 h-3.5 text-zinc-500 group-hover:text-emerald-400 transition-colors flex-shrink-0" />
+                      <FileText className="w-3.5 h-3.5 text-gp-ink-400 group-hover:text-emerald-400 transition-colors flex-shrink-0" />
                       <span className="truncate">{card.title}</span>
                     </div>
-                    <p className="text-[11px] text-zinc-400 line-clamp-2 leading-relaxed font-sans">
+                    <p className="text-2xs text-gp-ink-300 line-clamp-2 leading-relaxed font-sans">
                       {card.desc}
                     </p>
-                    <span className="text-[10px] font-mono text-zinc-500 block pt-0.5 group-hover:text-emerald-400">
+                    <span className="text-3xs font-mono text-gp-ink-400 block pt-0.5 group-hover:text-emerald-400">
                       {card.path} →
                     </span>
                   </Link>
@@ -719,7 +719,7 @@ function CatalogPageContent() {
         {(activeMenuKey === "home"
           ? homepageSettings.sectionVisibility?.showMonitors !== false
           : isCatalog) && (
-          <section id="database-monitors" className="space-y-6 pt-12 border-t border-zinc-800 animate-in fade-in duration-200">
+          <section id="database-monitors" className="space-y-6 pt-12 border-t border-gp-ink-700 animate-in fade-in duration-200">
             {/* Database Header Title & View Switcher */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
               <div className="space-y-1">
@@ -731,7 +731,7 @@ function CatalogPageContent() {
                     {homepageSettings.sectionTitles?.monitorsTitle || "Database Rekomendasi Monitor"}
                   </h2>
                 </div>
-                <p className="text-xs text-zinc-400 font-sans pl-9.5">
+                <p className="text-xs text-gp-ink-300 font-sans pl-9.5">
                   {homepageSettings.sectionTitles?.monitorsSubtitle || "Tabel interaktif & kurasi monitor hasil pengujian laboratorium GTID Tech."}
                 </p>
               </div>
@@ -754,7 +754,7 @@ function CatalogPageContent() {
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all border ${
                     activeFilterCount > 0
                       ? "bg-emerald-500/15 border-emerald-500/50 text-emerald-300"
-                      : "bg-zinc-900 border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700"
+                      : "bg-gp-ink-800 border-gp-ink-700 text-gp-ink-200 hover:text-white hover:border-gp-ink-600"
                   }`}
                   title="Buka panel parameter & filter"
                 >
@@ -763,14 +763,14 @@ function CatalogPageContent() {
                 </button>
 
                 {/* View Mode Segmented Control */}
-                <div className="flex items-center p-0.5 rounded-lg bg-zinc-900 border border-zinc-800">
+                <div className="flex items-center p-0.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700">
                   <button
                     type="button"
                     onClick={() => handleSetViewMode("grid")}
                     className={`px-3 py-1 rounded-md text-xs font-medium flex items-center gap-1.5 transition-all ${
                       viewMode === "grid"
-                        ? "bg-zinc-800 text-white shadow-sm font-semibold"
-                        : "text-zinc-400 hover:text-white"
+                        ? "bg-gp-ink-700 text-white shadow-sm font-semibold"
+                        : "text-gp-ink-300 hover:text-white"
                     }`}
                     title="Tampilan Galeri"
                   >
@@ -782,8 +782,8 @@ function CatalogPageContent() {
                     onClick={() => handleSetViewMode("table")}
                     className={`px-3 py-1 rounded-md text-xs font-medium flex items-center gap-1.5 transition-all ${
                       viewMode === "table"
-                        ? "bg-zinc-800 text-white shadow-sm font-semibold"
-                        : "text-zinc-400 hover:text-white"
+                        ? "bg-gp-ink-700 text-white shadow-sm font-semibold"
+                        : "text-gp-ink-300 hover:text-white"
                     }`}
                     title="Tampilan Tabel"
                   >
@@ -792,7 +792,7 @@ function CatalogPageContent() {
                   </button>
                 </div>
 
-                <span className="px-2.5 py-1 rounded-full border border-zinc-800 bg-zinc-900 text-xs text-zinc-300 font-medium">
+                <span className="px-2.5 py-1 rounded-full border border-gp-ink-700 bg-gp-ink-800 text-xs text-gp-ink-200 font-medium">
                   {filteredMonitors.length} Monitor
                 </span>
               </div>
@@ -859,7 +859,7 @@ function CatalogPageContent() {
         {/* ========================================================================= */}
         {activeMenuKey === "home" &&
           homepageSettings.sectionVisibility?.showDesks !== false && (
-            <section id="database-desks" className="space-y-6 pt-12 border-t border-zinc-800 animate-in fade-in duration-200">
+            <section id="database-desks" className="space-y-6 pt-12 border-t border-gp-ink-700 animate-in fade-in duration-200">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
               <div className="space-y-1">
                 <div className="flex items-center gap-2.5">
@@ -870,13 +870,13 @@ function CatalogPageContent() {
                     {homepageSettings.sectionTitles?.desksTitle || "Database Rekomendasi Meja & Setup Ergonomi"}
                   </h2>
                 </div>
-                <p className="text-xs text-zinc-400 font-sans pl-9.5">
+                <p className="text-xs text-gp-ink-300 font-sans pl-9.5">
                   {homepageSettings.sectionTitles?.desksSubtitle || "Tabel kurasi daun meja plywood solid & standing desk elektrik (Klik baris untuk melihat ulasan)."}
                 </p>
               </div>
 
               <div className="flex items-center gap-2.5 flex-wrap self-start sm:self-auto">
-                <span className="px-2.5 py-1 rounded-full border border-zinc-800 bg-zinc-900 text-xs text-zinc-300 font-medium">
+                <span className="px-2.5 py-1 rounded-full border border-gp-ink-700 bg-gp-ink-800 text-xs text-gp-ink-200 font-medium">
                   {filteredDesks.length} Pilihan Meja
                 </span>
                 <Link
@@ -891,7 +891,7 @@ function CatalogPageContent() {
             </div>
 
             {/* Category Filter Pills & Search */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#0c0c10] p-2.5 rounded-xl border border-zinc-800">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gp-ink-900 p-2.5 rounded-xl border border-gp-ink-700">
               <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
                 {deskCategories.map((cat) => (
                   <button
@@ -903,8 +903,8 @@ function CatalogPageContent() {
                     }}
                     className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
                       deskCategory === cat.id
-                        ? "bg-zinc-100 text-black font-semibold shadow-sm"
-                        : "bg-[#141419] text-zinc-400 hover:text-white border border-zinc-800"
+                        ? "bg-gp-ink-50 text-black font-semibold shadow-sm"
+                        : "bg-gp-ink-850 text-gp-ink-300 hover:text-white border border-gp-ink-700"
                     }`}
                   >
                     {cat.label}
@@ -920,15 +920,15 @@ function CatalogPageContent() {
                   setDeskPage(1);
                 }}
                 placeholder="Cari meja..."
-                className="px-3.5 py-1.5 rounded-lg bg-[#141419] border border-zinc-800 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-500 w-full sm:w-56"
+                className="px-3.5 py-1.5 rounded-lg bg-gp-ink-850 border border-gp-ink-700 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-gp-ink-400 w-full sm:w-56"
               />
             </div>
 
             {/* Desks Table View */}
-            <div className="relative rounded-xl border border-zinc-800 bg-[#09090d] overflow-hidden shadow-tech-card">
+            <div className="relative rounded-xl border border-gp-ink-700 bg-gp-ink-950 overflow-hidden shadow-tech-card">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse min-w-[850px]">
-                  <thead className="bg-[#050508] text-zinc-300 uppercase text-[10px] font-mono tracking-wider border-b-2 border-zinc-700 select-none">
+                  <thead className="bg-gp-ink-998 text-gp-ink-200 uppercase text-3xs font-mono tracking-wider border-b-2 border-gp-ink-600 select-none">
                     <tr>
                       <th className="py-3 px-4 min-w-[220px] text-white">[ NAMA MEJA & MODEL ]</th>
                       <th className="py-3 px-3 min-w-[180px]">[ KATEGORI ]</th>
@@ -938,37 +938,37 @@ function CatalogPageContent() {
                       <th className="py-3 px-3 text-center min-w-[110px]">[ AKSI ]</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-zinc-800/80 font-sans">
+                  <tbody className="divide-y divide-gp-ink-700/80 font-sans">
                     {paginatedDesks.map((desk, idx) => (
                       <tr
                         key={desk.id || idx}
                         onClick={() => setSelectedDesk(desk)}
-                        className={`group cursor-pointer hover:bg-[#1c1c24] transition-colors ${
-                          idx % 2 === 0 ? "bg-[#141418]" : "bg-[#16161c]"
+                        className={`group cursor-pointer hover:bg-gp-ink-750 transition-colors ${
+                          idx % 2 === 0 ? "bg-gp-ink-850" : "bg-gp-ink-850"
                         }`}
                       >
                         <td className="py-3.5 px-4 font-bold text-white">
                           <div className="flex items-center gap-2">
-                            <span className="text-base text-zinc-500 group-hover:text-amber-400 transition-colors">📄</span>
+                            <span className="text-base text-gp-ink-400 group-hover:text-amber-400 transition-colors">📄</span>
                             <span className="group-hover:text-amber-400 transition-colors">{desk.name}</span>
                           </div>
                         </td>
                         <td className="py-3.5 px-3">
                           <div className="flex flex-wrap gap-1">
                             {(desk.keterangan || [desk.category]).map((tag, tIdx) => (
-                              <span key={tIdx} className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#262630] text-zinc-300 border border-zinc-700">
+                              <span key={tIdx} className="px-2 py-0.5 rounded text-3xs font-bold bg-gp-ink-700 text-gp-ink-200 border border-gp-ink-600">
                                 {tag}
                               </span>
                             ))}
                           </div>
                         </td>
                         <td className="py-3.5 px-3">
-                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-zinc-900 text-zinc-400 border border-zinc-800">
+                          <span className="px-2 py-0.5 rounded text-3xs font-bold bg-gp-ink-800 text-gp-ink-300 border border-gp-ink-700">
                             {desk.type || "NON L SHAPED"}
                           </span>
                         </td>
                         <td className="py-3.5 px-3">
-                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/25">
+                          <span className="px-2 py-0.5 rounded text-3xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/25">
                             {desk.catatanBadge || "ADA (BACA PANDUAN)"}
                           </span>
                         </td>
@@ -982,7 +982,7 @@ function CatalogPageContent() {
                               e.stopPropagation();
                               setSelectedDesk(desk);
                             }}
-                            className="px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-[11px] font-semibold transition-colors"
+                            className="px-2.5 py-1 rounded-lg bg-gp-ink-700 hover:bg-gp-ink-600 text-gp-ink-100 text-2xs font-semibold transition-colors"
                           >
                             Detail →
                           </button>
@@ -1013,7 +1013,7 @@ function CatalogPageContent() {
             homepageSettings.sectionVisibility?.showBrackets !== false) && (
             <section
               id="database-arms-brackets"
-              className="space-y-6 pt-12 border-t border-zinc-800 animate-in fade-in duration-200"
+              className="space-y-6 pt-12 border-t border-gp-ink-700 animate-in fade-in duration-200"
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
                 <div className="space-y-1">
@@ -1023,18 +1023,18 @@ function CatalogPageContent() {
                     </span>
                     <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2 flex-wrap">
                       <span>Database Rekomendasi Arm & Bracket</span>
-                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/25">
+                      <span className="px-2 py-0.5 rounded text-3xs font-mono font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/25">
                         GAS SPRING & MOUNT
                       </span>
                     </h2>
                   </div>
-                  <p className="text-xs text-zinc-400 font-sans pl-9.5">
+                  <p className="text-xs text-gp-ink-300 font-sans pl-9.5">
                     Kurasi bracket monitor gas spring, desk mount, dinding, dan VESA adapter teruji kuat menahan beban monitor.
                   </p>
                 </div>
 
               <div className="flex items-center gap-2.5 flex-wrap self-start sm:self-auto">
-                <span className="px-2.5 py-1 rounded-full border border-zinc-800 bg-zinc-900 text-xs text-zinc-300 font-medium">
+                <span className="px-2.5 py-1 rounded-full border border-gp-ink-700 bg-gp-ink-800 text-xs text-gp-ink-200 font-medium">
                   {filteredArmsBrackets.length} Arm & Bracket
                 </span>
                 <Link
@@ -1049,7 +1049,7 @@ function CatalogPageContent() {
               </div>
 
               {/* Category Filter Pills & Search */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#09090d] p-2.5 rounded-xl border border-zinc-800">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gp-ink-950 p-2.5 rounded-xl border border-gp-ink-700">
                 <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
                   {armBracketCategories.map((cat) => (
                     <button
@@ -1062,7 +1062,7 @@ function CatalogPageContent() {
                       className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
                         armBracketFilter === cat.id
                           ? "bg-cyan-500 text-black font-semibold shadow-sm"
-                          : "bg-[#141419] text-zinc-400 hover:text-white border border-zinc-800"
+                          : "bg-gp-ink-850 text-gp-ink-300 hover:text-white border border-gp-ink-700"
                       }`}
                     >
                       {cat.label}
@@ -1078,15 +1078,15 @@ function CatalogPageContent() {
                     setArmBracketPage(1);
                   }}
                   placeholder="Cari arm atau bracket..."
-                  className="px-3.5 py-1.5 rounded-lg bg-[#141419] border border-zinc-800 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-500 w-full sm:w-56"
+                  className="px-3.5 py-1.5 rounded-lg bg-gp-ink-850 border border-gp-ink-700 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-cyan-500 w-full sm:w-56"
                 />
               </div>
 
               {/* Arm & Bracket Table View */}
-              <div className="relative rounded-xl border border-zinc-800 bg-[#09090d] overflow-hidden shadow-tech-card">
+              <div className="relative rounded-xl border border-gp-ink-700 bg-gp-ink-950 overflow-hidden shadow-tech-card">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs border-collapse min-w-[850px]">
-                    <thead className="bg-[#050508] text-zinc-300 uppercase text-[10px] font-mono tracking-wider border-b-2 border-zinc-700 select-none">
+                    <thead className="bg-gp-ink-998 text-gp-ink-200 uppercase text-3xs font-mono tracking-wider border-b-2 border-gp-ink-600 select-none">
                       <tr>
                         <th className="py-3 px-4 min-w-[240px] text-white">[ NAMA MODEL & ARM ]</th>
                         <th className="py-3 px-3 min-w-[160px]">[ TIPE BRACKET ]</th>
@@ -1096,10 +1096,10 @@ function CatalogPageContent() {
                         <th className="py-3 px-3 text-center min-w-[140px]">[ AKSI ]</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-zinc-800/80 font-sans">
+                    <tbody className="divide-y divide-gp-ink-700/80 font-sans">
                       {paginatedArmsBrackets.length === 0 ? (
                         <tr>
-                          <td colSpan={6} className="py-8 text-center text-zinc-500">
+                          <td colSpan={6} className="py-8 text-center text-gp-ink-400">
                             Tidak ada arm atau bracket yang sesuai dengan pencarian.
                           </td>
                         </tr>
@@ -1115,8 +1115,8 @@ function CatalogPageContent() {
                                 setSelectedPeripheralForPanel(item);
                                 setIsPeripheralPanelOpen(true);
                               }}
-                              className={`hover:bg-[#1c1c24] cursor-pointer transition-colors group ${
-                                idx % 2 === 0 ? "bg-[#141418]" : "bg-[#16161c]"
+                              className={`hover:bg-gp-ink-750 cursor-pointer transition-colors group ${
+                                idx % 2 === 0 ? "bg-gp-ink-850" : "bg-gp-ink-850"
                               }`}
                             >
                               <td className="py-3.5 px-4 font-bold text-white">
@@ -1129,7 +1129,7 @@ function CatalogPageContent() {
                               </td>
                               <td className="py-3.5 px-3">
                                 <span
-                                  className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                                  className={`px-2 py-0.5 rounded text-3xs font-bold ${
                                     isArmItem
                                       ? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/25"
                                       : "bg-amber-500/10 text-amber-400 border border-amber-500/25"
@@ -1138,8 +1138,8 @@ function CatalogPageContent() {
                                   {item.type || item.category}
                                 </span>
                               </td>
-                              <td className="py-3.5 px-3 font-semibold text-zinc-300">{item.brand}</td>
-                              <td className="py-3.5 px-3 text-zinc-400 font-mono text-[11px]">
+                              <td className="py-3.5 px-3 font-semibold text-gp-ink-200">{item.brand}</td>
+                              <td className="py-3.5 px-3 text-gp-ink-300 font-mono text-2xs">
                                 {item.warranty ? `Garansi ${item.warranty}` : item.recommendedFor || "VESA Compatible"}
                               </td>
                               <td className="py-3.5 px-4 text-right font-mono font-bold text-white tabular-nums">
@@ -1154,7 +1154,7 @@ function CatalogPageContent() {
                                       setSelectedPeripheralForPanel(item);
                                       setIsPeripheralPanelOpen(true);
                                     }}
-                                    className="px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-[11px] font-semibold transition-colors"
+                                    className="px-2.5 py-1 rounded-lg bg-gp-ink-700 hover:bg-gp-ink-600 text-gp-ink-100 text-2xs font-semibold transition-colors"
                                   >
                                     Detail →
                                   </button>
@@ -1164,7 +1164,7 @@ function CatalogPageContent() {
                                       target="_blank"
                                       rel="noopener noreferrer"
                                       onClick={(e) => e.stopPropagation()}
-                                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#ee4d2d]/15 hover:bg-[#ee4d2d] border border-[#ee4d2d]/40 text-[#ee4d2d] hover:text-white text-[11px] font-bold transition-all"
+                                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-brand-shopee/15 hover:bg-brand-shopee border border-brand-shopee/40 text-brand-shopee hover:text-white text-2xs font-bold transition-all"
                                     >
                                       <ShoppingBag className="w-3 h-3" />
                                       <span>{platform}</span>
@@ -1199,7 +1199,7 @@ function CatalogPageContent() {
           homepageSettings.sectionVisibility?.showPeripherals !== false && (
             <section
               id="database-accessories"
-              className="space-y-6 pt-12 border-t border-zinc-800 animate-in fade-in duration-200"
+              className="space-y-6 pt-12 border-t border-gp-ink-700 animate-in fade-in duration-200"
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
                 <div className="space-y-1">
@@ -1209,18 +1209,18 @@ function CatalogPageContent() {
                     </span>
                     <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2 flex-wrap">
                       <span>Database Rekomendasi Aksesoris Setup</span>
-                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-500/10 text-blue-400 border border-blue-500/25">
+                      <span className="px-2 py-0.5 rounded text-3xs font-mono font-bold bg-blue-500/10 text-blue-400 border border-blue-500/25">
                         SCREENBAR, KABEL, STAND & AUDIO
                       </span>
                     </h2>
                   </div>
-                  <p className="text-xs text-zinc-400 font-sans pl-9.5">
+                  <p className="text-xs text-gp-ink-300 font-sans pl-9.5">
                     Tabel kurasi screenbar anti-glare, kabel HDMI 2.1 / DP 1.4, cable management tray, dan audio setup.
                   </p>
                 </div>
 
               <div className="flex items-center gap-2.5 flex-wrap self-start sm:self-auto">
-                <span className="px-2.5 py-1 rounded-full border border-zinc-800 bg-zinc-900 text-xs text-zinc-300 font-medium">
+                <span className="px-2.5 py-1 rounded-full border border-gp-ink-700 bg-gp-ink-800 text-xs text-gp-ink-200 font-medium">
                   {filteredAccessories.length} Aksesoris
                 </span>
                 <Link
@@ -1235,7 +1235,7 @@ function CatalogPageContent() {
               </div>
 
               {/* Category Filter Pills & Search */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#09090d] p-2.5 rounded-xl border border-zinc-800">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gp-ink-950 p-2.5 rounded-xl border border-gp-ink-700">
                 <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
                   {accessoryCategories.map((cat) => (
                     <button
@@ -1248,7 +1248,7 @@ function CatalogPageContent() {
                       className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
                         accessoryCategory === cat.id
                           ? "bg-blue-500 text-white font-semibold shadow-sm"
-                          : "bg-[#141419] text-zinc-400 hover:text-white border border-zinc-800"
+                          : "bg-gp-ink-850 text-gp-ink-300 hover:text-white border border-gp-ink-700"
                       }`}
                     >
                       {cat.label}
@@ -1264,15 +1264,15 @@ function CatalogPageContent() {
                     setAccessoryPage(1);
                   }}
                   placeholder="Cari aksesoris setup..."
-                  className="px-3.5 py-1.5 rounded-lg bg-[#141419] border border-zinc-800 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500 w-full sm:w-56"
+                  className="px-3.5 py-1.5 rounded-lg bg-gp-ink-850 border border-gp-ink-700 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-blue-500 w-full sm:w-56"
                 />
               </div>
 
               {/* Accessories Table View */}
-              <div className="relative rounded-xl border border-zinc-800 bg-[#09090d] overflow-hidden shadow-tech-card">
+              <div className="relative rounded-xl border border-gp-ink-700 bg-gp-ink-950 overflow-hidden shadow-tech-card">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs border-collapse min-w-[850px]">
-                    <thead className="bg-[#050508] text-zinc-300 uppercase text-[10px] font-mono tracking-wider border-b-2 border-zinc-700 select-none">
+                    <thead className="bg-gp-ink-998 text-gp-ink-200 uppercase text-3xs font-mono tracking-wider border-b-2 border-gp-ink-600 select-none">
                       <tr>
                         <th className="py-3 px-4 min-w-[220px] text-white">[ NAMA AKSESORIS ]</th>
                         <th className="py-3 px-3 min-w-[160px]">[ KATEGORI ]</th>
@@ -1282,10 +1282,10 @@ function CatalogPageContent() {
                         <th className="py-3 px-3 text-center min-w-[140px]">[ AKSI ]</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-zinc-800/80 font-sans">
+                    <tbody className="divide-y divide-gp-ink-700/80 font-sans">
                       {paginatedAccessories.length === 0 ? (
                         <tr>
-                          <td colSpan={6} className="py-8 text-center text-zinc-500">
+                          <td colSpan={6} className="py-8 text-center text-gp-ink-400">
                             Tidak ada aksesoris yang sesuai dengan pencarian.
                           </td>
                         </tr>
@@ -1308,8 +1308,8 @@ function CatalogPageContent() {
                                 setSelectedPeripheralForPanel(item);
                                 setIsPeripheralPanelOpen(true);
                               }}
-                              className={`hover:bg-[#1c1c24] cursor-pointer transition-colors group ${
-                                idx % 2 === 0 ? "bg-[#141418]" : "bg-[#16161c]"
+                              className={`hover:bg-gp-ink-750 cursor-pointer transition-colors group ${
+                                idx % 2 === 0 ? "bg-gp-ink-850" : "bg-gp-ink-850"
                               }`}
                             >
                               <td className="py-3.5 px-4 font-bold text-white">
@@ -1319,12 +1319,12 @@ function CatalogPageContent() {
                                 </div>
                               </td>
                               <td className="py-3.5 px-3">
-                                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/25">
+                                <span className="px-2 py-0.5 rounded text-3xs font-bold bg-blue-500/10 text-blue-400 border border-blue-500/25">
                                   {item.category}
                                 </span>
                               </td>
-                              <td className="py-3.5 px-3 font-semibold text-zinc-300">{item.brand}</td>
-                              <td className="py-3.5 px-3 text-zinc-400 font-mono text-[11px]">
+                              <td className="py-3.5 px-3 font-semibold text-gp-ink-200">{item.brand}</td>
+                              <td className="py-3.5 px-3 text-gp-ink-300 font-mono text-2xs">
                                 {item.warranty ? `Garansi ${item.warranty}` : item.type}
                               </td>
                               <td className="py-3.5 px-4 text-right font-mono font-bold text-white tabular-nums">
@@ -1339,7 +1339,7 @@ function CatalogPageContent() {
                                       setSelectedPeripheralForPanel(item);
                                       setIsPeripheralPanelOpen(true);
                                     }}
-                                    className="px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-[11px] font-semibold transition-colors"
+                                    className="px-2.5 py-1 rounded-lg bg-gp-ink-700 hover:bg-gp-ink-600 text-gp-ink-100 text-2xs font-semibold transition-colors"
                                   >
                                     Detail →
                                   </button>
@@ -1349,7 +1349,7 @@ function CatalogPageContent() {
                                       target="_blank"
                                       rel="noopener noreferrer"
                                       onClick={(e) => e.stopPropagation()}
-                                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#ee4d2d]/15 hover:bg-[#ee4d2d] border border-[#ee4d2d]/40 text-[#ee4d2d] hover:text-white text-[11px] font-bold transition-all"
+                                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-brand-shopee/15 hover:bg-brand-shopee border border-brand-shopee/40 text-brand-shopee hover:text-white text-2xs font-bold transition-all"
                                     >
                                       <ShoppingBag className="w-3 h-3" />
                                       <span>{platform}</span>
@@ -1384,7 +1384,7 @@ function CatalogPageContent() {
           Boolean(homepageSettings.sectionVisibility?.showChairs) === true && (
             <section
               id="database-chairs"
-              className="space-y-6 pt-12 border-t border-zinc-800 animate-in fade-in duration-200"
+              className="space-y-6 pt-12 border-t border-gp-ink-700 animate-in fade-in duration-200"
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
                 <div className="space-y-1">
@@ -1394,19 +1394,19 @@ function CatalogPageContent() {
                     </span>
                     <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2 flex-wrap">
                       <span>{homepageSettings.sectionTitles?.chairsTitle || "Database Rekomendasi Kursi Ergonomis & Gaming"}</span>
-                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/40">
+                      <span className="px-2 py-0.5 rounded text-3xs font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/40">
                         [ DRAFT / STAGING CATALOG ]
                       </span>
                     </h2>
                   </div>
-                  <p className="text-xs text-zinc-400 font-sans pl-9.5">
+                  <p className="text-xs text-gp-ink-300 font-sans pl-9.5">
                     {homepageSettings.sectionTitles?.chairsSubtitle ||
                       "Kurasi kursi ergonomis breathable mesh, lumbar support presisi, dan gas lift Class 4."}
                   </p>
                 </div>
 
                 <div className="flex items-center gap-2.5 flex-wrap self-start sm:self-auto">
-                  <span className="px-2.5 py-1 rounded-full border border-zinc-800 bg-zinc-900 text-xs text-zinc-300 font-medium">
+                  <span className="px-2.5 py-1 rounded-full border border-gp-ink-700 bg-gp-ink-800 text-xs text-gp-ink-200 font-medium">
                     {filteredChairs.length} Pilihan Kursi (Draft)
                   </span>
                   <Link
@@ -1429,7 +1429,7 @@ function CatalogPageContent() {
               </div>
 
               {/* Category Filter Pills & Search */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#09090d] p-2.5 rounded-xl border border-zinc-800">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gp-ink-950 p-2.5 rounded-xl border border-gp-ink-700">
                 <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
                   {chairCategories.map((cat) => (
                     <button
@@ -1441,8 +1441,8 @@ function CatalogPageContent() {
                       }}
                       className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
                         chairCategory === cat.id
-                          ? "bg-zinc-100 text-black font-semibold shadow-sm"
-                          : "bg-[#141419] text-zinc-400 hover:text-white border border-zinc-800"
+                          ? "bg-gp-ink-50 text-black font-semibold shadow-sm"
+                          : "bg-gp-ink-850 text-gp-ink-300 hover:text-white border border-gp-ink-700"
                       }`}
                     >
                       {cat.label}
@@ -1458,7 +1458,7 @@ function CatalogPageContent() {
                     setChairPage(1);
                   }}
                   placeholder="Cari kursi ergonomis..."
-                  className="px-3.5 py-1.5 rounded-lg bg-[#141419] border border-zinc-800 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-purple-500 w-full sm:w-56"
+                  className="px-3.5 py-1.5 rounded-lg bg-gp-ink-850 border border-gp-ink-700 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-purple-500 w-full sm:w-56"
                 />
               </div>
 
@@ -1468,54 +1468,54 @@ function CatalogPageContent() {
                   return (
                     <div
                       key={chair.id}
-                      className="p-5 rounded-2xl bg-[#0e0e12] border border-zinc-800/90 hover:border-purple-500/40 transition-all flex flex-col justify-between space-y-4 group"
+                      className="p-5 rounded-2xl bg-gp-ink-900 border border-gp-ink-700/90 hover:border-purple-500/40 transition-all flex flex-col justify-between space-y-4 group"
                     >
                       <div className="space-y-2.5">
                         <div className="flex items-start justify-between gap-2">
                           <div>
-                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
+                            <span className="text-3xs font-mono font-bold uppercase tracking-wider text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
                               {chair.brand} • {chair.category}
                             </span>
                             <h3 className="text-base font-black text-white group-hover:text-purple-300 transition-colors mt-1">
                               {chair.name}
                             </h3>
                           </div>
-                          <span className="text-xs font-mono font-bold text-white tabular-nums bg-zinc-900 px-2.5 py-1 rounded border border-zinc-800 shrink-0">
+                          <span className="text-xs font-mono font-bold text-white tabular-nums bg-gp-ink-800 px-2.5 py-1 rounded border border-gp-ink-700 shrink-0">
                             {chair.price > 0 ? formatRupiah(chair.price) : "Cek Toko"}
                           </span>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-1.5 text-[11px] font-mono">
-                          <div className="bg-zinc-900/80 px-2 py-1 rounded border border-zinc-800/80 text-zinc-300 truncate">
-                            <span className="text-zinc-500">Lumbar:</span> {chair.lumbarSupport}
+                        <div className="grid grid-cols-2 gap-1.5 text-2xs font-mono">
+                          <div className="bg-gp-ink-800/80 px-2 py-1 rounded border border-gp-ink-700/80 text-gp-ink-200 truncate">
+                            <span className="text-gp-ink-400">Lumbar:</span> {chair.lumbarSupport}
                           </div>
-                          <div className="bg-zinc-900/80 px-2 py-1 rounded border border-zinc-800/80 text-zinc-300 truncate">
-                            <span className="text-zinc-500">Armrest:</span> {chair.armrest}
+                          <div className="bg-gp-ink-800/80 px-2 py-1 rounded border border-gp-ink-700/80 text-gp-ink-200 truncate">
+                            <span className="text-gp-ink-400">Armrest:</span> {chair.armrest}
                           </div>
-                          <div className="bg-zinc-900/80 px-2 py-1 rounded border border-zinc-800/80 text-zinc-300 truncate">
-                            <span className="text-zinc-500">Gaslift:</span> {chair.gasLift}
+                          <div className="bg-gp-ink-800/80 px-2 py-1 rounded border border-gp-ink-700/80 text-gp-ink-200 truncate">
+                            <span className="text-gp-ink-400">Gaslift:</span> {chair.gasLift}
                           </div>
-                          <div className="bg-zinc-900/80 px-2 py-1 rounded border border-zinc-800/80 text-zinc-300 truncate">
-                            <span className="text-zinc-500">Max Beban:</span> {chair.maxWeightCapacity}
+                          <div className="bg-gp-ink-800/80 px-2 py-1 rounded border border-gp-ink-700/80 text-gp-ink-200 truncate">
+                            <span className="text-gp-ink-400">Max Beban:</span> {chair.maxWeightCapacity}
                           </div>
                         </div>
 
                         {chair.verdict && (
-                          <p className="text-xs text-zinc-400 leading-relaxed bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800/60">
-                            💡 <strong className="text-zinc-300">GrayPlasma Verdict:</strong> {chair.verdict}
+                          <p className="text-xs text-gp-ink-300 leading-relaxed bg-gp-ink-950/60 p-2.5 rounded-xl border border-gp-ink-700/60">
+                            💡 <strong className="text-gp-ink-200">GrayPlasma Verdict:</strong> {chair.verdict}
                           </p>
                         )}
                       </div>
 
-                      <div className="pt-2 border-t border-zinc-900 flex items-center justify-between gap-2">
-                        <span className="text-[10px] text-zinc-500">{chair.recommendedHeight}</span>
+                      <div className="pt-2 border-t border-gp-ink-800 flex items-center justify-between gap-2">
+                        <span className="text-3xs text-gp-ink-400">{chair.recommendedHeight}</span>
                         <div className="flex items-center gap-1.5">
                           {chair.shopeeUrl && (
                             <a
                               href={chair.shopeeUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="px-2.5 py-1 rounded-lg bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 border border-orange-500/30 text-[11px] font-bold transition-colors"
+                              className="px-2.5 py-1 rounded-lg bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 border border-orange-500/30 text-2xs font-bold transition-colors"
                             >
                               Shopee
                             </a>
@@ -1525,7 +1525,7 @@ function CatalogPageContent() {
                               href={chair.tokopediaUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="px-2.5 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold transition-colors"
+                              className="px-2.5 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-2xs font-bold transition-colors"
                             >
                               Tokopedia
                             </a>
@@ -1554,18 +1554,18 @@ function CatalogPageContent() {
         {/* ========================================================================= */}
         {activeMenuKey === "aftersales-tier" && (
           homepageSettings.sectionVisibility.showAftersales === false ? (
-            <div className="max-w-4xl mx-auto my-12 p-8 rounded-2xl bg-[#0e0e12] border border-amber-500/30 text-center space-y-3">
+            <div className="max-w-4xl mx-auto my-12 p-8 rounded-2xl bg-gp-ink-900 border border-amber-500/30 text-center space-y-3">
               <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto">
                 <ShieldAlert className="w-6 h-6" />
               </div>
               <h2 className="text-lg font-bold text-white uppercase tracking-tight">[ // BOARD AFTERSALES SEDANG DIARSIPKAN SEMENTARA ]</h2>
-              <p className="text-xs text-zinc-400 max-w-md mx-auto">Section evaluasi aftersales brand saat ini dinonaktifkan oleh tim admin untuk peninjauan kebijakan RMA.</p>
-              <button onClick={() => setActiveMenuKey("home")} className="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs text-white font-bold transition-colors">Kembali ke Beranda</button>
+              <p className="text-xs text-gp-ink-300 max-w-md mx-auto">Section evaluasi aftersales brand saat ini dinonaktifkan oleh tim admin untuk peninjauan kebijakan RMA.</p>
+              <button onClick={() => setActiveMenuKey("home")} className="px-4 py-2 rounded-xl bg-gp-ink-700 hover:bg-gp-ink-600 text-xs text-white font-bold transition-colors">Kembali ke Beranda</button>
             </div>
           ) : (
             <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in duration-200">
               {/* Breadcrumb */}
-              <div className="flex items-center justify-between bg-[#202020] border border-[#2f2f2f] rounded-xl px-4 py-2.5 text-xs text-[#9b9a97]">
+              <div className="flex items-center justify-between bg-gp-ink-750 border border-gp-ink-650 rounded-xl px-4 py-2.5 text-xs text-gp-ink-300">
                 <button
                   onClick={() => setActiveMenuKey("home")}
                   className="hover:text-white flex items-center gap-1.5 transition-colors"
@@ -1581,21 +1581,21 @@ function CatalogPageContent() {
 
               {/* Notion Header & Icon Block */}
               <div className="space-y-4 pt-2">
-                <div className="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 w-fit text-amber-400">
+                <div className="p-2.5 rounded-xl bg-gp-ink-800 border border-gp-ink-700 w-fit text-amber-400">
                   <ShieldAlert className="w-8 h-8" />
                 </div>
-                <h1 className="text-2xl sm:text-3xl font-extrabold text-[#ffffff] tracking-tight">
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
                   LIST AFTERSALES (BRAND MONITOR OEM)
                 </h1>
 
                 {/* Subtitle / Catatan Section (Exact match to Image 2) */}
-                <div className="space-y-2 text-xs text-[#9b9a97]">
-                  <p className="font-semibold uppercase tracking-wider text-[#787774]">
+                <div className="space-y-2 text-xs text-gp-ink-300">
+                  <p className="font-semibold uppercase tracking-wider text-gp-ink-400">
                     AKAN DILENGKAPI
                   </p>
                   <div className="space-y-1">
-                    <span className="font-bold text-[#d4d4d4] uppercase">CATATAN :</span>
-                    <ul className="list-disc pl-5 space-y-1 text-[#b4b4b4]">
+                    <span className="font-bold text-gp-ink-200 uppercase">CATATAN :</span>
+                    <ul className="list-disc pl-5 space-y-1 text-gp-ink-300">
                       <li>
                         PENULIS TIDAK BERTANGGUNG JAWAB JIKA BRAND ANDA TERSINGGUNG DENGAN TULISAN DIBAWAH
                       </li>
@@ -1626,19 +1626,19 @@ function CatalogPageContent() {
         {activeMenuKey === "about" && (
           <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-200">
             {/* Breadcrumb */}
-            <div className="flex items-center justify-between bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5">
+            <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-4 py-2.5">
               <button
                 onClick={() => setActiveMenuKey("home")}
-                className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
+                className="text-xs font-bold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda Utama</span>
               </button>
-              <span className="text-xs text-zinc-500">Tentang Penulis</span>
+              <span className="text-xs text-gp-ink-400">Tentang Penulis</span>
             </div>
 
-            <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-6 sm:p-8 space-y-6">
-              <div className="space-y-2 border-b border-zinc-800 pb-4">
+            <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6">
+              <div className="space-y-2 border-b border-gp-ink-700 pb-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/30 text-violet-400 text-xs font-bold">
                   <User className="w-3.5 h-3.5" />
                   <span>Profil & Cerita Penulis</span>
@@ -1646,7 +1646,7 @@ function CatalogPageContent() {
                 <h2 className="text-xl sm:text-3xl font-black text-white uppercase tracking-tight">
                   {ABOUT_NOTION_CONTENT.title}
                 </h2>
-                <p className="text-xs text-zinc-400">{ABOUT_NOTION_CONTENT.subtitle}</p>
+                <p className="text-xs text-gp-ink-300">{ABOUT_NOTION_CONTENT.subtitle}</p>
               </div>
 
               {/* Part 1: Latar Belakang */}
@@ -1654,7 +1654,7 @@ function CatalogPageContent() {
                 <h3 className="text-base font-bold text-emerald-400 uppercase tracking-wider">
                   PART 1 | LATAR BELAKANG
                 </h3>
-                <div className="bg-zinc-950 p-5 rounded-2xl border border-zinc-800 text-xs text-zinc-300 leading-relaxed space-y-3">
+                <div className="bg-gp-ink-950 p-5 rounded-2xl border border-gp-ink-700 text-xs text-gp-ink-200 leading-relaxed space-y-3">
                   <h4 className="font-bold text-white">1.1 WEBSITE GRAYPLASMA</h4>
                   <p>{ABOUT_NOTION_CONTENT.latarBelakang}</p>
                 </div>
@@ -1662,16 +1662,16 @@ function CatalogPageContent() {
 
               {/* Part 2: Penulis Joel Gray */}
               <div className="space-y-3">
-                <div className="bg-zinc-950 p-5 rounded-2xl border border-zinc-800 text-xs text-zinc-300 leading-relaxed space-y-3">
+                <div className="bg-gp-ink-950 p-5 rounded-2xl border border-gp-ink-700 text-xs text-gp-ink-200 leading-relaxed space-y-3">
                   <h4 className="font-bold text-white">1.2 PENULIS (Joel Gray / El)</h4>
                   <p>{ABOUT_NOTION_CONTENT.biodataPenulis}</p>
                 </div>
               </div>
 
               {/* Collaborators Box */}
-              <div className="p-4 rounded-xl bg-zinc-900 border border-zinc-800 text-xs flex items-center justify-between">
+              <div className="p-4 rounded-xl bg-gp-ink-800 border border-gp-ink-700 text-xs flex items-center justify-between">
                 <div>
-                  <span className="text-zinc-400 block text-[10px] uppercase font-bold">Hasil Kerjasama:</span>
+                  <span className="text-gp-ink-300 block text-3xs uppercase font-bold">Hasil Kerjasama:</span>
                   <span className="font-bold text-white">@GrayPlasma • Data Pengujian GTID Tech</span>
                 </div>
                 <a
@@ -1694,19 +1694,19 @@ function CatalogPageContent() {
         {activeMenuKey === "glossary" && (
           <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-200">
             {/* Breadcrumb */}
-            <div className="flex items-center justify-between bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5">
+            <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-4 py-2.5">
               <button
                 onClick={() => setActiveMenuKey("home")}
-                className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
+                className="text-xs font-bold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda Utama</span>
               </button>
-              <span className="text-xs text-zinc-500">How to Read Glossary</span>
+              <span className="text-xs text-gp-ink-400">How to Read Glossary</span>
             </div>
 
-            <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-6 sm:p-8 space-y-6">
-              <div className="space-y-2 border-b border-zinc-800 pb-4">
+            <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6">
+              <div className="space-y-2 border-b border-gp-ink-700 pb-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold">
                   <BookOpen className="w-3.5 h-3.5" />
                   <span>Data Pengetesan GTID</span>
@@ -1714,17 +1714,17 @@ function CatalogPageContent() {
                 <h2 className="text-xl sm:text-3xl font-black text-white uppercase tracking-tight">
                   {HOW_TO_READ_GLOSSARY.title}
                 </h2>
-                <p className="text-xs text-zinc-400">{HOW_TO_READ_GLOSSARY.subtitle}</p>
+                <p className="text-xs text-gp-ink-300">{HOW_TO_READ_GLOSSARY.subtitle}</p>
               </div>
 
               {/* Sections */}
               <div className="space-y-5">
                 {HOW_TO_READ_GLOSSARY.sections.map((sec, idx) => (
-                  <div key={idx} className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3">
+                  <div key={idx} className="bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3">
                     <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-wider">
                       {sec.title}
                     </h3>
-                    <div className="text-xs text-zinc-300 leading-relaxed whitespace-pre-line">
+                    <div className="text-xs text-gp-ink-200 leading-relaxed whitespace-pre-line">
                       {sec.content}
                     </div>
                   </div>
@@ -1732,11 +1732,11 @@ function CatalogPageContent() {
               </div>
 
               {/* Case Study Box */}
-              <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3">
+              <div className="bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3">
                 <h3 className="text-sm font-bold text-amber-400 uppercase tracking-wider">
                   Contoh Studi Kasus: Skyworth H27G30Q & Acer EK251Q Ebi
                 </h3>
-                <div className="text-xs text-zinc-300 leading-relaxed space-y-2">
+                <div className="text-xs text-gp-ink-200 leading-relaxed space-y-2">
                   <p>
                     - <strong>Skyworth H27G30Q:</strong> Pada glosarium tertulis OSD sRGB 4.87 deITP, namun di video review 5.75 deITP karena kolom tersebut diisi preset Rec.709.
                   </p>
@@ -1758,18 +1758,18 @@ function CatalogPageContent() {
         {activeMenuKey === "support-donasi" && (
           <div className="max-w-3xl mx-auto space-y-6 animate-in fade-in duration-200">
             {/* Breadcrumb */}
-            <div className="flex items-center justify-between bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5">
+            <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-4 py-2.5">
               <button
                 onClick={() => setActiveMenuKey("home")}
-                className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
+                className="text-xs font-bold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda Utama</span>
               </button>
-              <span className="text-xs text-zinc-500">Support & Donasi</span>
+              <span className="text-xs text-gp-ink-400">Support & Donasi</span>
             </div>
 
-            <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-6 sm:p-8 space-y-6 text-center">
+            <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6 text-center">
               <div className="w-16 h-16 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-400 flex items-center justify-center mx-auto">
                 <Heart className="w-8 h-8" />
               </div>
@@ -1778,25 +1778,25 @@ function CatalogPageContent() {
                 <h2 className="text-2xl font-black text-white uppercase tracking-tight">
                   Support & Donasi Penulis
                 </h2>
-                <p className="text-xs text-zinc-400 max-w-md mx-auto leading-relaxed">
+                <p className="text-xs text-gp-ink-300 max-w-md mx-auto leading-relaxed">
                   Jika panduan dan kurasi monitor ini membantu Anda dalam memilih monitor idaman, Anda dapat memberikan apresiasi melalui QRIS / Saweria.
                 </p>
               </div>
 
               {/* QRIS Placeholder Container */}
-              <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 max-w-sm mx-auto space-y-4">
-                <div className="w-48 h-48 bg-zinc-900 border border-zinc-700 rounded-xl mx-auto flex flex-col items-center justify-center text-center p-4">
+              <div className="bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-6 max-w-sm mx-auto space-y-4">
+                <div className="w-48 h-48 bg-gp-ink-800 border border-gp-ink-600 rounded-xl mx-auto flex flex-col items-center justify-center text-center p-4">
                   <QrCode className="w-16 h-16 text-emerald-400 mb-2" />
                   <span className="text-xs font-bold text-white">QRIS All Payment</span>
-                  <span className="text-[10px] text-zinc-500">Gopay / OVO / Dana / BCA</span>
+                  <span className="text-3xs text-gp-ink-400">Gopay / OVO / Dana / BCA</span>
                 </div>
-                <div className="text-xs text-zinc-300">
+                <div className="text-xs text-gp-ink-200">
                   <strong>Saweria GrayPlasma:</strong> saweria.co/grayplasma
                 </div>
               </div>
 
               {/* Business Inquiries */}
-              <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800 text-xs text-zinc-300 max-w-md mx-auto">
+              <div className="p-4 rounded-xl bg-gp-ink-950 border border-gp-ink-700 text-xs text-gp-ink-200 max-w-md mx-auto">
                 <strong className="text-white block mb-1">Business Inquiries & Konsultasi:</strong>
                 <span>WhatsApp: {consult.whatsapp || CONSULTATION_DATA.whatsapp} (a.n Joel Gray)</span>
               </div>
@@ -1810,16 +1810,16 @@ function CatalogPageContent() {
         {isCatalog && (
           <div className="space-y-6 animate-in fade-in duration-200">
             {/* Breadcrumb back to Home */}
-            <div className="flex items-center justify-between bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5">
+            <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-4 py-2.5">
               <button
                 onClick={() => setActiveMenuKey("home")}
-                className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
+                className="text-xs font-bold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda Utama</span>
               </button>
 
-              <span className="text-xs text-zinc-500">
+              <span className="text-xs text-gp-ink-400">
                 {activeMenuKey === "catalog-1080p" && "Kategori: 1080p (FHD)"}
                 {activeMenuKey === "catalog-1440p" && "Kategori: 1440p (2K)"}
                 {activeMenuKey === "catalog-oled" && "Kategori: OLED & Flagship"}
@@ -1838,13 +1838,13 @@ function CatalogPageContent() {
 
             <section className="w-full min-w-0 space-y-6">
               {/* Results Toolbar */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 bg-surface-dark border border-zinc-800 rounded-2xl p-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-4">
                 <div className="flex items-center gap-3 flex-wrap">
                   <span className="text-sm font-bold text-white">
                     Menampilkan {filteredMonitors.length} Model Monitor
                   </span>
                   {filterState.searchQuery && (
-                    <span className="text-xs text-zinc-400">
+                    <span className="text-xs text-gp-ink-300">
                       untuk &ldquo;<span className="text-emerald-400">{filterState.searchQuery}</span>&rdquo;
                     </span>
                   )}
@@ -1858,7 +1858,7 @@ function CatalogPageContent() {
                     className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-1.5 border ${
                       activeFilterCount > 0
                         ? "bg-emerald-500/15 border-emerald-500/60 text-emerald-300 shadow-tech-subtle"
-                        : "bg-zinc-900 border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700"
+                        : "bg-gp-ink-800 border-gp-ink-700 text-gp-ink-200 hover:text-white hover:border-gp-ink-600"
                     }`}
                     title="Buka panel parameter filter"
                   >
@@ -1867,14 +1867,14 @@ function CatalogPageContent() {
                   </button>
 
                   {/* View Mode Toggle */}
-                  <div className="flex items-center bg-zinc-900 border border-zinc-800 rounded-xl p-0.5">
+                  <div className="flex items-center bg-gp-ink-800 border border-gp-ink-700 rounded-xl p-0.5">
                     <button
                       type="button"
                       onClick={() => handleSetViewMode("grid")}
                       className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
                         viewMode === "grid"
-                          ? "bg-zinc-800 text-emerald-400 shadow-sm"
-                          : "text-zinc-400 hover:text-white"
+                          ? "bg-gp-ink-700 text-emerald-400 shadow-sm"
+                          : "text-gp-ink-300 hover:text-white"
                       }`}
                     >
                       🔲 Galeri Grid
@@ -1884,8 +1884,8 @@ function CatalogPageContent() {
                       onClick={() => handleSetViewMode("table")}
                       className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
                         viewMode === "table"
-                          ? "bg-zinc-800 text-emerald-400 shadow-sm"
-                          : "text-zinc-400 hover:text-white"
+                          ? "bg-gp-ink-700 text-emerald-400 shadow-sm"
+                          : "text-gp-ink-300 hover:text-white"
                       }`}
                     >
                       📋 Tabel Database
@@ -1893,7 +1893,7 @@ function CatalogPageContent() {
                   </div>
 
                   <div className="flex items-center gap-1.5">
-                    <ArrowUpDown className="w-3.5 h-3.5 text-zinc-500" />
+                    <ArrowUpDown className="w-3.5 h-3.5 text-gp-ink-400" />
                     <select
                       value={filterState.sortBy}
                       onChange={(e) =>
@@ -1902,7 +1902,7 @@ function CatalogPageContent() {
                           sortBy: e.target.value as FilterState["sortBy"],
                         }))
                       }
-                      className="bg-zinc-900 border border-zinc-800 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-white focus:outline-none focus:border-emerald-500 cursor-pointer"
+                      className="bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-white focus:outline-none focus:border-emerald-500 cursor-pointer"
                     >
                       <option value="tier">Tier Rekomendasi</option>
                       <option value="price-asc">Harga Termurah</option>
@@ -1919,11 +1919,11 @@ function CatalogPageContent() {
                   {[1, 2, 3, 4, 5, 6].map((n) => (
                     <div
                       key={n}
-                      className="bg-zinc-950 border border-zinc-900 rounded-2xl p-5 space-y-4 animate-pulse"
+                      className="bg-gp-ink-950 border border-gp-ink-800 rounded-2xl p-5 space-y-4 animate-pulse"
                     >
-                      <div className="w-full aspect-[16/10] bg-zinc-900 rounded-xl" />
-                      <div className="w-3/4 h-5 bg-zinc-900 rounded" />
-                      <div className="w-full h-9 bg-zinc-900 rounded-xl" />
+                      <div className="w-full aspect-[16/10] bg-gp-ink-800 rounded-xl" />
+                      <div className="w-3/4 h-5 bg-gp-ink-800 rounded" />
+                      <div className="w-full h-9 bg-gp-ink-800 rounded-xl" />
                     </div>
                   ))}
                 </div>
@@ -1948,13 +1948,13 @@ function CatalogPageContent() {
                   </div>
                 )
               ) : (
-                <div className="bg-surface-dark border border-zinc-800 rounded-3xl p-12 text-center flex flex-col items-center justify-center space-y-4 my-6">
-                  <SearchX className="w-10 h-10 text-zinc-500" />
+                <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-3xl p-12 text-center flex flex-col items-center justify-center space-y-4 my-6">
+                  <SearchX className="w-10 h-10 text-gp-ink-400" />
                   <div className="space-y-1 max-w-sm">
                     <h3 className="text-base font-bold text-white uppercase tracking-wider">
                       Tidak Ditemukan Monitor yang Cocok
                     </h3>
-                    <p className="text-xs text-zinc-400">
+                    <p className="text-xs text-gp-ink-300">
                       Coba sesuaikan filter atau reset kata kunci pencarian.
                     </p>
                   </div>
@@ -1989,27 +1989,27 @@ function CatalogPageContent() {
         {activeMenuKey === "desk-guide" && (
           <div className="space-y-8 animate-in fade-in duration-200">
             {/* Breadcrumb */}
-            <div className="flex items-center justify-between bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5">
+            <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-4 py-2.5">
               <button
                 onClick={() => setActiveMenuKey("home")}
-                className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
+                className="text-xs font-bold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda Utama</span>
               </button>
-              <span className="text-xs text-zinc-500">Panduan Meja & Peripherals</span>
+              <span className="text-xs text-gp-ink-400">Panduan Meja & Peripherals</span>
             </div>
 
             {/* Ergonomic Depth Guide Cards */}
             <div className="space-y-4">
-              <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-6">
+              <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6">
                 <div className="flex items-center gap-2.5 mb-2">
                   <LayoutGrid className="w-5 h-5 text-amber-400" />
                   <h2 className="text-lg font-black text-white uppercase tracking-tight">
                     Panduan Ukuran Meja vs Ukuran Monitor (Ergonomi Jarak Pandang)
                   </h2>
                 </div>
-                <p className="text-xs text-zinc-400 leading-relaxed max-w-3xl">
+                <p className="text-xs text-gp-ink-300 leading-relaxed max-w-3xl">
                   Banyak orang salah membeli monitor 27 atau 32 inci pada meja berkedalaman sempit (50cm) sehingga mata cepat lelah dan leher pegal. Berikut panduan perhitungannya:
                 </p>
               </div>
@@ -2018,23 +2018,23 @@ function CatalogPageContent() {
                 {deskGuides.filter(g => g.isPublished !== false).map((guide, idx) => (
                   <div
                     key={idx}
-                    className="bg-zinc-950 border border-zinc-800/90 rounded-2xl p-5 space-y-4 flex flex-col justify-between"
+                    className="bg-gp-ink-950 border border-gp-ink-700/90 rounded-2xl p-5 space-y-4 flex flex-col justify-between"
                   >
                     <div className="space-y-2.5">
-                      <span className="text-[10px] font-black uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
+                      <span className="text-3xs font-black uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
                         {guide.recommendedSizes}
                       </span>
                       <h3 className="text-base font-black text-white">{guide.deskDepth}</h3>
-                      <div className="text-xs text-zinc-400">
+                      <div className="text-xs text-gp-ink-300">
                         <strong>Jarak Pandang Ideal:</strong> {guide.viewingDistance}
                       </div>
-                      <p className="text-xs text-zinc-300 leading-relaxed bg-zinc-900/60 p-3 rounded-xl border border-zinc-800/80">
+                      <p className="text-xs text-gp-ink-200 leading-relaxed bg-gp-ink-800/60 p-3 rounded-xl border border-gp-ink-700/80">
                         {guide.notes}
                       </p>
                     </div>
 
-                    <div className="pt-3 border-t border-zinc-900 text-xs text-zinc-400">
-                      <strong className="text-zinc-200 block mb-1">Rekomendasi Arm:</strong>
+                    <div className="pt-3 border-t border-gp-ink-800 text-xs text-gp-ink-300">
+                      <strong className="text-gp-ink-100 block mb-1">Rekomendasi Arm:</strong>
                       <span>{guide.monitorArmRecommendation}</span>
                     </div>
                   </div>
@@ -2058,25 +2058,25 @@ function CatalogPageContent() {
         {activeMenuKey === "hdr-guide" && (
           <div className="space-y-6 animate-in fade-in duration-200">
             {/* Breadcrumb */}
-            <div className="flex items-center justify-between bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5">
+            <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-4 py-2.5">
               <button
                 onClick={() => setActiveMenuKey("home")}
-                className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
+                className="text-xs font-bold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda Utama</span>
               </button>
-              <span className="text-xs text-zinc-500">Monitor HDR Guide</span>
+              <span className="text-xs text-gp-ink-400">Monitor HDR Guide</span>
             </div>
 
-            <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-6">
+            <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6">
               <div className="flex items-center gap-2.5 mb-2">
                 <SunMedium className="w-5 h-5 text-rose-400" />
                 <h2 className="text-lg font-black text-white uppercase tracking-tight">
                   Edukasi Monitor HDR: True HDR vs Fake DisplayHDR 400
                 </h2>
               </div>
-              <p className="text-xs text-zinc-400 leading-relaxed max-w-3xl">
+              <p className="text-xs text-gp-ink-300 leading-relaxed max-w-3xl">
                 Banyak monitor murah mencantumkan label &ldquo;HDR10&rdquo; atau &ldquo;DisplayHDR 400&rdquo; sebagai gimik marketing. Tanpa teknologi Local Dimming atau panel OLED, menyalakan HDR di Windows justru merusak akurasi warna.
               </p>
             </div>
@@ -2085,42 +2085,42 @@ function CatalogPageContent() {
               {hdrGuides.filter(h => h.isPublished !== false).map((hdr, idx) => (
                 <div
                   key={idx}
-                  className={`bg-zinc-950 border rounded-2xl p-5 space-y-4 flex flex-col justify-between ${hdr.tier === "TRUE HDR"
+                  className={`bg-gp-ink-950 border rounded-2xl p-5 space-y-4 flex flex-col justify-between ${hdr.tier === "TRUE HDR"
                       ? "border-emerald-500/50 shadow-tech-card"
                       : hdr.tier === "DECENT HDR"
                         ? "border-amber-500/40"
-                        : "border-zinc-800"
+                        : "border-gp-ink-700"
                     }`}
                 >
                   <div className="space-y-3">
                     <span
-                      className={`text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-wider ${hdr.tier === "TRUE HDR"
+                      className={`text-3xs font-black px-2 py-0.5 rounded uppercase tracking-wider ${hdr.tier === "TRUE HDR"
                           ? "bg-emerald-500 text-black"
                           : hdr.tier === "DECENT HDR"
                             ? "bg-amber-500 text-black"
-                            : "bg-zinc-800 text-zinc-400"
+                            : "bg-gp-ink-700 text-gp-ink-300"
                         }`}
                     >
                       {hdr.tier}
                     </span>
                     <h3 className="text-sm font-bold text-white leading-snug">{hdr.requirements}</h3>
 
-                    <div className="space-y-1.5 text-xs text-zinc-400">
+                    <div className="space-y-1.5 text-xs text-gp-ink-300">
                       <div><strong>Peak Brightness:</strong> {hdr.peakBrightness}</div>
                       <div><strong>Dimming Zones:</strong> {hdr.dimmingZones}</div>
                       <div><strong>Kontras:</strong> {hdr.contrastRatio}</div>
                     </div>
 
-                    <p className="text-xs text-zinc-300 leading-relaxed bg-zinc-900/60 p-3 rounded-xl border border-zinc-800/80">
+                    <p className="text-xs text-gp-ink-200 leading-relaxed bg-gp-ink-800/60 p-3 rounded-xl border border-gp-ink-700/80">
                       {hdr.verdict}
                     </p>
                   </div>
 
-                  <div className="pt-3 border-t border-zinc-900 text-xs">
-                    <strong className="text-zinc-400 block mb-1">Contoh Monitor:</strong>
+                  <div className="pt-3 border-t border-gp-ink-800 text-xs">
+                    <strong className="text-gp-ink-300 block mb-1">Contoh Monitor:</strong>
                     <div className="space-y-1">
                       {hdr.models.map((m, i) => (
-                        <div key={i} className="text-zinc-300 flex items-center gap-1.5 text-[11px]">
+                        <div key={i} className="text-gp-ink-200 flex items-center gap-1.5 text-2xs">
                           <span className="w-1 h-1 bg-emerald-400 rounded-full" />
                           <span>{m}</span>
                         </div>
@@ -2139,47 +2139,47 @@ function CatalogPageContent() {
         {activeMenuKey === "graynotes-all" && (
           <div className="space-y-6 animate-in fade-in duration-200">
             {/* Breadcrumb */}
-            <div className="flex items-center justify-between bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5">
+            <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-4 py-2.5">
               <button
                 onClick={() => setActiveMenuKey("home")}
-                className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
+                className="text-xs font-bold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda Utama</span>
               </button>
-              <span className="text-xs text-zinc-500">GrayNotes Teknis</span>
+              <span className="text-xs text-gp-ink-400">GrayNotes Teknis</span>
             </div>
 
-            <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-6">
+            <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6">
               <div className="flex items-center gap-2.5 mb-2">
                 <BookOpen className="w-5 h-5 text-cyan-400" />
                 <h2 className="text-lg font-black text-white uppercase tracking-tight">
                   GrayNotes: Catatan Teknis & Pengujian Monitor
                 </h2>
               </div>
-              <p className="text-xs text-zinc-400 leading-relaxed max-w-3xl">
+              <p className="text-xs text-gp-ink-300 leading-relaxed max-w-3xl">
                 Rangkuman materi penting seputar port DisplayPort vs HDMI, cara membaca response time GTID, proteksi OLED, dan kebijakan klaim dead pixel.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {graynotes.filter(n => n.isPublished !== false).map((note) => (
-                <div key={note.id} className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-3.5">
+                <div key={note.id} className="bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3.5">
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-black uppercase text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/30">
+                    <span className="text-3xs font-black uppercase text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/30">
                       {note.category}
                     </span>
                   </div>
 
                   <h3 className="text-base font-black text-white">{note.title}</h3>
 
-                  <p className="text-xs text-zinc-300 leading-relaxed bg-zinc-900/60 p-3 rounded-xl border border-zinc-800/80">
+                  <p className="text-xs text-gp-ink-200 leading-relaxed bg-gp-ink-800/60 p-3 rounded-xl border border-gp-ink-700/80">
                     {note.summary}
                   </p>
 
                   <ul className="space-y-1.5">
                     {note.details.map((d, idx) => (
-                      <li key={idx} className="text-xs text-zinc-400 flex items-start gap-2">
+                      <li key={idx} className="text-xs text-gp-ink-300 flex items-start gap-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-1.5 flex-shrink-0" />
                         <span>{d}</span>
                       </li>
@@ -2192,7 +2192,7 @@ function CatalogPageContent() {
                     </div>
                   )}
 
-                  <div className="pt-2 border-t border-zinc-900 text-xs text-emerald-400">
+                  <div className="pt-2 border-t border-gp-ink-800 text-xs text-emerald-400">
                     <strong>Rekomendasi:</strong> {note.recommendation}
                   </div>
                 </div>
@@ -2207,7 +2207,7 @@ function CatalogPageContent() {
         {activeMenuKey === "faq" && (
           <div className="max-w-5xl mx-auto space-y-6 animate-in fade-in duration-200">
             {/* Breadcrumb */}
-            <div className="flex items-center justify-between bg-[#202020] border border-[#2f2f2f] rounded-xl px-4 py-2.5 text-xs text-[#9b9a97]">
+            <div className="flex items-center justify-between bg-gp-ink-750 border border-gp-ink-650 rounded-xl px-4 py-2.5 text-xs text-gp-ink-300">
               <button
                 onClick={() => setActiveMenuKey("home")}
                 className="hover:text-white flex items-center gap-1.5 transition-colors"
@@ -2215,7 +2215,7 @@ function CatalogPageContent() {
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda</span>
               </button>
-              <span className="text-[#e0e0e0] font-medium">
+              <span className="text-gp-ink-100 font-medium">
                 ❓ QNA & GRAYNOTES (FAQ)
               </span>
             </div>
@@ -2223,17 +2223,17 @@ function CatalogPageContent() {
             {/* Notion Header & Icon Block */}
             <div className="space-y-4 pt-2">
               <div className="text-4xl">❓</div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-[#ffffff] tracking-tight">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
                 QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)
               </h1>
 
-              <div className="space-y-2 text-xs text-[#9b9a97]">
-                <p className="font-semibold uppercase tracking-wider text-[#787774]">
+              <div className="space-y-2 text-xs text-gp-ink-300">
+                <p className="font-semibold uppercase tracking-wider text-gp-ink-400">
                   DATABASE EDUKASI & JAWABAN RESMI
                 </p>
                 <div className="space-y-1">
-                  <span className="font-bold text-[#d4d4d4] uppercase">CATATAN :</span>
-                  <ul className="list-disc pl-5 space-y-1 text-[#b4b4b4]">
+                  <span className="font-bold text-gp-ink-200 uppercase">CATATAN :</span>
+                  <ul className="list-disc pl-5 space-y-1 text-gp-ink-300">
                     <li>
                       Seluruh ulasan dan panduan disusun independen oleh GrayPlasma (@gray1plasma) berdasarkan pengujian laboratorium GTID Tech.
                     </li>
@@ -2251,9 +2251,9 @@ function CatalogPageContent() {
                 return (
                   <div
                     key={faq.id}
-                    className="p-5 rounded-2xl bg-[#202020] border border-[#2f2f2f] hover:border-[#3f3f3f] transition-all space-y-3 shadow-sm"
+                    className="p-5 rounded-2xl bg-gp-ink-750 border border-gp-ink-650 hover:border-gp-ink-600 transition-all space-y-3 shadow-sm"
                   >
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#2a2a2a] pb-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gp-ink-700 pb-3">
                       <div className="flex items-center gap-2">
                         <span className="text-base">📄</span>
                         <h3 className="text-sm sm:text-base font-bold text-white tracking-tight">
@@ -2262,11 +2262,11 @@ function CatalogPageContent() {
                       </div>
 
                       <div className="flex items-center gap-2 self-start sm:self-auto">
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#203c2b] text-[#52ba69] uppercase">
+                        <span className="text-3xs font-bold px-2 py-0.5 rounded bg-gp-mint-900 text-gp-mint uppercase">
                           {faq.category || "FAQ"}
                         </span>
                         {faq.important && (
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#442c1d] text-[#e07936] uppercase">
+                          <span className="text-3xs font-bold px-2 py-0.5 rounded bg-gp-ember-400 text-gp-ember uppercase">
                             Penting
                           </span>
                         )}
@@ -2274,13 +2274,13 @@ function CatalogPageContent() {
                     </div>
 
                     {/* Answer Block */}
-                    <div className="text-xs sm:text-sm text-[#d4d4d4] leading-relaxed whitespace-pre-line">
+                    <div className="text-xs sm:text-sm text-gp-ink-200 leading-relaxed whitespace-pre-line">
                       <NotionBlockRenderer content={faq.answer} />
                     </div>
 
                     {/* Footer Actions with Dedicated Sub-Path */}
-                    <div className="pt-2 border-t border-[#2a2a2a] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-                      <span className="text-[11px] font-mono text-[#787774] truncate">
+                    <div className="pt-2 border-t border-gp-ink-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                      <span className="text-2xs font-mono text-gp-ink-400 truncate">
                         Link: {subPath}
                       </span>
 
@@ -2291,15 +2291,15 @@ function CatalogPageContent() {
                             navigator.clipboard.writeText(text);
                             alert("Format callback Discord untuk pertanyaan ini telah disalin!");
                           }}
-                          className="px-2.5 py-1 rounded bg-[#252525] border border-[#333333] hover:bg-[#2c2c2c] text-[#d4d4d4] hover:text-white flex items-center gap-1.5 transition-colors font-semibold"
+                          className="px-2.5 py-1 rounded bg-gp-ink-700 border border-gp-ink-650 hover:bg-gp-ink-650 text-gp-ink-200 hover:text-white flex items-center gap-1.5 transition-colors font-semibold"
                         >
-                          <MessageSquare className="w-3.5 h-3.5 text-[#58a6ff]" />
+                          <MessageSquare className="w-3.5 h-3.5 text-gp-sky" />
                           <span>Copy Discord Callback</span>
                         </button>
 
                         <Link
                           href={subPath}
-                          className="px-3 py-1 rounded bg-[#2383e2] hover:bg-[#1f75c8] text-white font-bold flex items-center gap-1 transition-colors"
+                          className="px-3 py-1 rounded bg-gp-sky-800 hover:bg-gp-sky-700 text-white font-bold flex items-center gap-1 transition-colors"
                         >
                           <span>Buka Halaman →</span>
                         </Link>
@@ -2317,7 +2317,7 @@ function CatalogPageContent() {
         {/* ========================================================================= */}
         {activeMenuKey === "desk-guide" && (
           <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in duration-200">
-            <div className="flex items-center justify-between bg-[#202020] border border-[#2f2f2f] rounded-xl px-4 py-2.5 text-xs text-[#9b9a97]">
+            <div className="flex items-center justify-between bg-gp-ink-750 border border-gp-ink-650 rounded-xl px-4 py-2.5 text-xs text-gp-ink-300">
               <button
                 onClick={() => setActiveMenuKey("home")}
                 className="hover:text-white flex items-center gap-1.5 transition-colors font-bold"
@@ -2338,7 +2338,7 @@ function CatalogPageContent() {
         {activeMenuKey === "bandwidth-guide" && (
           <div className="max-w-5xl mx-auto space-y-6 animate-in fade-in duration-200">
             {/* Breadcrumb */}
-            <div className="flex items-center justify-between bg-[#202020] border border-[#2f2f2f] rounded-xl px-4 py-2.5 text-xs text-[#9b9a97]">
+            <div className="flex items-center justify-between bg-gp-ink-750 border border-gp-ink-650 rounded-xl px-4 py-2.5 text-xs text-gp-ink-300">
               <button
                 onClick={() => setActiveMenuKey("home")}
                 className="hover:text-white flex items-center gap-1.5 transition-colors"
@@ -2346,7 +2346,7 @@ function CatalogPageContent() {
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda</span>
               </button>
-              <span className="text-[#e0e0e0] font-medium">
+              <span className="text-gp-ink-100 font-medium">
                 🔌 BANDWIDTH GUIDANCE
               </span>
             </div>
@@ -2354,17 +2354,17 @@ function CatalogPageContent() {
             {/* Notion Header & Icon Block */}
             <div className="space-y-4 pt-2">
               <div className="text-4xl">🔌</div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-[#ffffff] tracking-tight">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
                 BANDWIDTH GUIDANCE: HDMI 2.0 vs 2.1 vs DisplayPort 1.4/2.1
               </h1>
 
-              <div className="space-y-2 text-xs text-[#9b9a97]">
-                <p className="font-semibold uppercase tracking-wider text-[#787774]">
+              <div className="space-y-2 text-xs text-gp-ink-300">
+                <p className="font-semibold uppercase tracking-wider text-gp-ink-400">
                   PANDUAN KONEKTIVITAS & KABEL DISPLAY
                 </p>
                 <div className="space-y-1">
-                  <span className="font-bold text-[#d4d4d4] uppercase">CATATAN :</span>
-                  <ul className="list-disc pl-5 space-y-1 text-[#b4b4b4]">
+                  <span className="font-bold text-gp-ink-200 uppercase">CATATAN :</span>
+                  <ul className="list-disc pl-5 space-y-1 text-gp-ink-300">
                     <li>
                       Kenapa monitor 1440p 180Hz turun ke 144Hz atau warna turun ke 8-bit saat memakai kabel HDMI 2.0 bawaan.
                     </li>
@@ -2375,30 +2375,30 @@ function CatalogPageContent() {
 
             <div className="space-y-4 pt-2">
               {bandwidthGuides.filter(b => b.isPublished !== false).map((item, idx) => (
-                <div key={idx} className="bg-[#202020] border border-[#2f2f2f] rounded-2xl p-6 space-y-3 shadow-sm">
+                <div key={idx} className="bg-gp-ink-750 border border-gp-ink-650 rounded-2xl p-6 space-y-3 shadow-sm">
                   <div className="flex items-center justify-between">
                     <h3 className="text-base font-bold text-white flex items-center gap-2">
                       <span className="text-emerald-400">⚡</span>
                       <span>{item.interface}</span>
                     </h3>
-                    <span className="text-xs font-mono font-bold text-[#52ba69] bg-[#203c2b] px-2.5 py-1 rounded">
+                    <span className="text-xs font-mono font-bold text-gp-mint bg-gp-mint-900 px-2.5 py-1 rounded">
                       {item.bandwidth}
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-[#d4d4d4] pt-1">
-                    <div className="p-3.5 rounded-xl bg-[#191919] border border-[#2a2a2a]">
-                      <strong className="text-[#9b9a97] block text-[10px] uppercase">Maksimal Resolusi & Refresh:</strong>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-gp-ink-200 pt-1">
+                    <div className="p-3.5 rounded-xl bg-gp-ink-800 border border-gp-ink-700">
+                      <strong className="text-gp-ink-300 block text-3xs uppercase">Maksimal Resolusi & Refresh:</strong>
                       <span className="font-bold text-white mt-1 block text-sm">{item.maxResolutionHz}</span>
                     </div>
 
-                    <div className="p-3.5 rounded-xl bg-[#191919] border border-[#2a2a2a]">
-                      <strong className="text-[#9b9a97] block text-[10px] uppercase">Color Depth & DSC:</strong>
+                    <div className="p-3.5 rounded-xl bg-gp-ink-800 border border-gp-ink-700">
+                      <strong className="text-gp-ink-300 block text-3xs uppercase">Color Depth & DSC:</strong>
                       <span className="font-bold text-white mt-1 block text-sm">{item.colorDepth}</span>
                     </div>
                   </div>
 
-                  <p className="text-xs text-[#9b9a97] leading-relaxed pt-1">
+                  <p className="text-xs text-gp-ink-300 leading-relaxed pt-1">
                     {item.notes}
                   </p>
                 </div>
@@ -2413,18 +2413,18 @@ function CatalogPageContent() {
         {activeMenuKey === "feedback" && (
           <div className="max-w-3xl mx-auto space-y-6 animate-in fade-in duration-200">
             {/* Breadcrumb */}
-            <div className="flex items-center justify-between bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5">
+            <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-4 py-2.5">
               <button
                 onClick={() => setActiveMenuKey("home")}
-                className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
+                className="text-xs font-bold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda Utama</span>
               </button>
-              <span className="text-xs text-zinc-500">Kritik & Saran</span>
+              <span className="text-xs text-gp-ink-400">Kritik & Saran</span>
             </div>
 
-            <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-6 sm:p-8 space-y-6 text-center">
+            <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6 text-center">
               <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto">
                 <MessageSquare className="w-7 h-7" />
               </div>
@@ -2432,7 +2432,7 @@ function CatalogPageContent() {
                 <h2 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
                   Form Kritik & Saran GrayPlasma
                 </h2>
-                <p className="text-xs sm:text-sm text-zinc-400 max-w-xl mx-auto leading-relaxed">
+                <p className="text-xs sm:text-sm text-gp-ink-300 max-w-xl mx-auto leading-relaxed">
                   Punya request monitor baru yang ingin dimasukkan ke database, koreksi harga / data pengetesan, atau saran untuk pengembangan website? Sampaikan langsung kepada kami!
                 </p>
               </div>
@@ -2446,10 +2446,10 @@ function CatalogPageContent() {
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-amber-400">Google Form Resmi</span>
-                    <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-amber-400" />
+                    <ExternalLink className="w-3.5 h-3.5 text-gp-ink-400 group-hover:text-amber-400" />
                   </div>
                   <h4 className="text-sm font-bold text-white">Formulir Kritik & Saran</h4>
-                  <p className="text-xs text-zinc-400 leading-relaxed">
+                  <p className="text-xs text-gp-ink-300 leading-relaxed">
                     Buka dan isi kuesioner Google Form resmi GrayPlasma untuk request monitor atau feedback website.
                   </p>
                 </a>
@@ -2458,14 +2458,14 @@ function CatalogPageContent() {
                   href={consult.discordUrl || CONSULTATION_DATA.discordUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-cyan-500/60 hover:bg-zinc-900 transition-all space-y-2 group"
+                  className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-cyan-500/60 hover:bg-gp-ink-800 transition-all space-y-2 group"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-cyan-400">Forum Discord GTID</span>
-                    <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-cyan-400" />
+                    <ExternalLink className="w-3.5 h-3.5 text-gp-ink-400 group-hover:text-cyan-400" />
                   </div>
                   <h4 className="text-sm font-bold text-white">Saluran Saran & Diskusi</h4>
-                  <p className="text-xs text-zinc-400 leading-relaxed">
+                  <p className="text-xs text-gp-ink-300 leading-relaxed">
                     Sampaikan masukanmu langsung di channel komunitas Discord bersama ribuan enthusiast monitor lainnya.
                   </p>
                 </a>
@@ -2474,14 +2474,14 @@ function CatalogPageContent() {
                   href={consult.whatsappUrl || CONSULTATION_DATA.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-emerald-500/60 hover:bg-zinc-900 transition-all space-y-2 group sm:col-span-2"
+                  className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-emerald-500/60 hover:bg-gp-ink-800 transition-all space-y-2 group sm:col-span-2"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-emerald-400">Direct Chat WhatsApp</span>
-                    <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-emerald-400" />
+                    <ExternalLink className="w-3.5 h-3.5 text-gp-ink-400 group-hover:text-emerald-400" />
                   </div>
                   <h4 className="text-sm font-bold text-white">Chat Joel Gray (@gray1plasma)</h4>
-                  <p className="text-xs text-zinc-400 leading-relaxed">
+                  <p className="text-xs text-gp-ink-300 leading-relaxed">
                     Kirim pesan personal via WhatsApp ({consult.whatsapp || CONSULTATION_DATA.whatsapp}) jika menemukan bug atau kesalahan data di website ini.
                   </p>
                 </a>
@@ -2496,25 +2496,25 @@ function CatalogPageContent() {
         {activeMenuKey === "consultation" && (
           <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-200">
             {/* Breadcrumb */}
-            <div className="flex items-center justify-between bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5">
+            <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-4 py-2.5">
               <button
                 onClick={() => setActiveMenuKey("home")}
-                className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
+                className="text-xs font-bold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda Utama</span>
               </button>
-              <span className="text-xs text-zinc-500">Kontak & Konsultasi</span>
+              <span className="text-xs text-gp-ink-400">Kontak & Konsultasi</span>
             </div>
 
-            <div className="bg-surface-dark border border-zinc-800 rounded-2xl p-6 sm:p-8 text-center space-y-3">
+            <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 text-center space-y-3">
               <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto">
                 <Headphones className="w-7 h-7" />
               </div>
               <h2 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
                 Konsultasi Rekomendasi Monitor (Joel Gray)
               </h2>
-              <p className="text-xs sm:text-sm text-zinc-400 max-w-xl mx-auto leading-relaxed">
+              <p className="text-xs sm:text-sm text-gp-ink-300 max-w-xl mx-auto leading-relaxed">
                 Bingung memilih monitor yang cocok untuk spesifikasi PC, ukuran meja, dan anggaran Anda? Hubungi langsung via WhatsApp atau Discord.
               </p>
             </div>
@@ -2525,12 +2525,12 @@ function CatalogPageContent() {
                 href={consult.whatsappUrl || CONSULTATION_DATA.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-emerald-500/60 hover:bg-zinc-900 transition-all text-center space-y-2 group"
+                className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-emerald-500/60 hover:bg-gp-ink-800 transition-all text-center space-y-2 group"
               >
                 <PhoneCall className="w-6 h-6 text-emerald-400 mx-auto group-hover:scale-110 transition-transform" />
                 <h3 className="text-sm font-bold text-white">WhatsApp Langsung</h3>
-                <p className="text-xs text-zinc-400 font-mono">{consult.whatsapp || CONSULTATION_DATA.whatsapp}</p>
-                <span className="text-[11px] font-bold text-emerald-400 block pt-1">Chat Sekarang →</span>
+                <p className="text-xs text-gp-ink-300 font-mono">{consult.whatsapp || CONSULTATION_DATA.whatsapp}</p>
+                <span className="text-2xs font-bold text-emerald-400 block pt-1">Chat Sekarang →</span>
               </a>
 
               {/* TikTok */}
@@ -2538,12 +2538,12 @@ function CatalogPageContent() {
                 href={consult.tiktokUrl || CONSULTATION_DATA.tiktokUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-rose-500/60 hover:bg-zinc-900 transition-all text-center space-y-2 group"
+                className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-rose-500/60 hover:bg-gp-ink-800 transition-all text-center space-y-2 group"
               >
                 <Send className="w-6 h-6 text-rose-400 mx-auto group-hover:scale-110 transition-transform" />
                 <h3 className="text-sm font-bold text-white">TikTok</h3>
-                <p className="text-xs text-zinc-400">{consult.tiktok || CONSULTATION_DATA.tiktok}</p>
-                <span className="text-[11px] font-bold text-rose-400 block pt-1">Follow & Tanya di Live →</span>
+                <p className="text-xs text-gp-ink-300">{consult.tiktok || CONSULTATION_DATA.tiktok}</p>
+                <span className="text-2xs font-bold text-rose-400 block pt-1">Follow & Tanya di Live →</span>
               </a>
 
               {/* Discord */}
@@ -2551,12 +2551,12 @@ function CatalogPageContent() {
                 href={consult.discordUrl || CONSULTATION_DATA.discordUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-cyan-500/60 hover:bg-zinc-900 transition-all text-center space-y-2 group"
+                className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-cyan-500/60 hover:bg-gp-ink-800 transition-all text-center space-y-2 group"
               >
                 <MessageSquare className="w-6 h-6 text-cyan-400 mx-auto group-hover:scale-110 transition-transform" />
                 <h3 className="text-sm font-bold text-white">Discord Community</h3>
-                <p className="text-xs text-zinc-400">GTID Tech & GrayPlasma</p>
-                <span className="text-[11px] font-bold text-cyan-400 block pt-1">Join Server →</span>
+                <p className="text-xs text-gp-ink-300">GTID Tech & GrayPlasma</p>
+                <span className="text-2xs font-bold text-cyan-400 block pt-1">Join Server →</span>
               </a>
             </div>
           </div>
@@ -2611,7 +2611,7 @@ export default function CatalogPage() {
     <Suspense
       fallback={
         <div className="min-h-screen bg-black flex flex-col items-center justify-center space-y-3 font-sans">
-          <div className="p-3 rounded-2xl bg-zinc-900 border border-zinc-800 text-emerald-400 animate-pulse">
+          <div className="p-3 rounded-2xl bg-gp-ink-800 border border-gp-ink-700 text-emerald-400 animate-pulse">
             <Tv className="w-8 h-8" />
           </div>
           <p className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">

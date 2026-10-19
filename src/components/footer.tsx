@@ -42,7 +42,7 @@ export function Footer() {
   const consult = siteSettings.consultation || CONSULTATION_DATA;
 
   return (
-    <footer className="border-t border-zinc-800 bg-[#09090b] text-zinc-400 text-xs mt-20 relative overflow-hidden">
+    <footer className="border-t border-gp-ink-700 bg-gp-ink-950 text-gp-ink-300 text-xs mt-20 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-12">
         {/* Top 4-Column Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
@@ -55,13 +55,13 @@ export function Footer() {
                   {(siteSettings.brandName || "GRAYPLASMA ID").replace(/\s*ID$/i, "")}{" "}
                   <span className="text-orange-500 font-mono">ID</span>
                 </span>
-                <span className="text-[11px] text-zinc-400">
+                <span className="text-2xs text-gp-ink-300">
                   {siteSettings.brandTagline || "Rekomendasi & Kurasi Monitor"}
                 </span>
               </div>
             </div>
 
-            <p className="text-xs text-zinc-400 leading-relaxed max-w-sm">
+            <p className="text-xs text-gp-ink-300 leading-relaxed max-w-sm">
               Database Pengujian & Kurasi Monitor Independen kolaborasi{" "}
               <strong className="text-white">{consult.author || "Joel Gray (@gray1plasma)"}</strong> x{" "}
               <strong className="text-white">{consult.collaborators || "Tim GrayPlasma"}</strong> berdasarkan data pengetesan laboratorium{" "}
@@ -205,7 +205,7 @@ export function Footer() {
                   href={consult.feedbackFormUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500 hover:text-black font-semibold transition-all text-[11px]"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500 hover:text-black font-semibold transition-all text-2xs"
                 >
                   <span>Form Kritik & Saran</span>
                   <ExternalLink className="w-2.5 h-2.5" />
@@ -216,19 +216,19 @@ export function Footer() {
         </div>
 
         {/* Disclaimer Callout */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-zinc-950 border border-zinc-800/80 text-xs text-zinc-400 space-y-1.5">
-          <div className="flex items-center gap-2 text-zinc-300 font-bold text-[11px] uppercase tracking-wider">
+        <div className="p-4 sm:p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700/80 text-xs text-gp-ink-300 space-y-1.5">
+          <div className="flex items-center gap-2 text-gp-ink-200 font-bold text-2xs uppercase tracking-wider">
             <Info className="w-4 h-4 text-amber-400 flex-shrink-0" />
             <span>Ketentuan & Disclaimer Pengujian</span>
           </div>
-          <p className="leading-relaxed text-zinc-400">
+          <p className="leading-relaxed text-gp-ink-300">
             {consult.disclaimer || "Seluruh data dan rekomendasi yang ada di website ini disarikan secara independen untuk membantu calon pembeli memahami data teknis. Selalu tanyakan dan konsultasikan kembali sebelum melakukan pembelian untuk menyesuaikan dengan spesifikasi kartu grafis PC/Laptop, dimensi meja, serta tujuan pemakaian Anda."}
           </p>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-6 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
-          <div className="text-zinc-500 text-center sm:text-left">
+        <div className="pt-6 border-t border-gp-ink-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+          <div className="text-gp-ink-400 text-center sm:text-left">
             {siteSettings.copyrightText || "© 2026 GrayPlasma. Hak Cipta materi kurasi milik GrayPlasma. Data pengujian milik GTID Tech."}
           </div>
         </div>

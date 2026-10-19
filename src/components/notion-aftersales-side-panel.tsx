@@ -77,19 +77,19 @@ Info: ${typeof window !== "undefined" ? window.location.href : ""}`;
 
       {/* Notion Side Panel Drawer Container */}
       <aside
-        className={`fixed top-0 right-0 bottom-0 z-50 bg-[#191919] border-l border-[#2f2f2f] shadow-2xl transition-all duration-200 ease-out flex flex-col font-sans ${
+        className={`fixed top-0 right-0 bottom-0 z-50 bg-gp-ink-800 border-l border-gp-ink-650 shadow-2xl transition-all duration-200 ease-out flex flex-col font-sans ${
           isExpanded
             ? "w-full max-w-5xl"
             : "w-full sm:w-[580px] md:w-[620px] lg:w-[580px] xl:w-[640px]"
         }`}
       >
         {/* Top Notion Control Bar */}
-        <div className="h-12 px-4 sm:px-6 border-b border-[#2a2a2a] flex items-center justify-between bg-[#191919] flex-shrink-0">
+        <div className="h-12 px-4 sm:px-6 border-b border-gp-ink-700 flex items-center justify-between bg-gp-ink-800 flex-shrink-0">
           <div className="flex items-center gap-2">
             <button
               onClick={onClose}
               title="Tutup side panel (Esc)"
-              className="p-1 rounded text-[#9b9a97] hover:text-white hover:bg-[#2c2c2c] transition-colors flex items-center gap-1 text-xs"
+              className="p-1 rounded text-gp-ink-300 hover:text-white hover:bg-gp-ink-650 transition-colors flex items-center gap-1 text-xs"
             >
               <ChevronsRight className="w-4 h-4" />
               <span className="hidden sm:inline">Close</span>
@@ -98,7 +98,7 @@ Info: ${typeof window !== "undefined" ? window.location.href : ""}`;
             <button
               onClick={() => setIsExpanded(!isExpanded)}
               title={isExpanded ? "Perkecil panel" : "Perlebar panel"}
-              className="p-1 rounded text-[#9b9a97] hover:text-white hover:bg-[#2c2c2c] transition-colors hidden sm:flex items-center gap-1 text-xs"
+              className="p-1 rounded text-gp-ink-300 hover:text-white hover:bg-gp-ink-650 transition-colors hidden sm:flex items-center gap-1 text-xs"
             >
               {isExpanded ? (
                 <>
@@ -119,25 +119,25 @@ Info: ${typeof window !== "undefined" ? window.location.href : ""}`;
               onClick={handleCopyDiscord}
               className={`px-2.5 py-1 rounded text-xs font-semibold transition-colors flex items-center gap-1.5 border ${
                 copiedDiscord
-                  ? "bg-[#203c2b] text-[#52ba69] border-[#52ba69]/40"
-                  : "bg-[#252525] border-[#333333] text-[#d4d4d4] hover:text-white hover:bg-[#2c2c2c]"
+                  ? "bg-gp-mint-900 text-gp-mint border-gp-mint/40"
+                  : "bg-gp-ink-700 border-gp-ink-650 text-gp-ink-200 hover:text-white hover:bg-gp-ink-650"
               }`}
             >
-              {copiedDiscord ? <Check className="w-3.5 h-3.5 text-[#52ba69]" /> : <Share2 className="w-3.5 h-3.5 text-[#58a6ff]" />}
+              {copiedDiscord ? <Check className="w-3.5 h-3.5 text-gp-mint" /> : <Share2 className="w-3.5 h-3.5 text-gp-sky" />}
               <span>{copiedDiscord ? "Tersalin!" : "Copy Details"}</span>
             </button>
 
             <button
               onClick={handleCopyUrl}
-              className="p-1.5 rounded text-[#9b9a97] hover:text-white hover:bg-[#2c2c2c] transition-colors text-xs"
+              className="p-1.5 rounded text-gp-ink-300 hover:text-white hover:bg-gp-ink-650 transition-colors text-xs"
               title="Salin Link"
             >
-              {copiedUrl ? <Check className="w-3.5 h-3.5 text-[#52ba69]" /> : <Share2 className="w-3.5 h-3.5" />}
+              {copiedUrl ? <Check className="w-3.5 h-3.5 text-gp-mint" /> : <Share2 className="w-3.5 h-3.5" />}
             </button>
 
             <button
               onClick={onClose}
-              className="p-1.5 rounded text-[#9b9a97] hover:text-white hover:bg-[#2c2c2c] transition-colors"
+              className="p-1.5 rounded text-gp-ink-300 hover:text-white hover:bg-gp-ink-650 transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
@@ -145,33 +145,33 @@ Info: ${typeof window !== "undefined" ? window.location.href : ""}`;
         </div>
 
         {/* Scrollable Notion Content Body */}
-        <div className="flex-1 overflow-y-auto px-6 sm:px-10 py-8 space-y-6 text-[#d4d4d4] text-xs leading-relaxed">
+        <div className="flex-1 overflow-y-auto px-6 sm:px-10 py-8 space-y-6 text-gp-ink-200 text-xs leading-relaxed">
           {/* Notion Page Icon & Title */}
           <div className="space-y-3">
-            <div className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 w-fit">
-              <ShieldAlert className="w-6 h-6 text-zinc-300" />
+            <div className="p-2 rounded-lg bg-gp-ink-800 border border-gp-ink-700 w-fit">
+              <ShieldAlert className="w-6 h-6 text-gp-ink-200" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#ffffff] tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
               {card.title}
             </h1>
           </div>
 
           {/* Notion Property Table */}
-          <div className="space-y-2 py-3 border-y border-[#2a2a2a] text-xs">
+          <div className="space-y-2 py-3 border-y border-gp-ink-700 text-xs">
             {/* Created Date */}
             <div className="grid grid-cols-12 gap-2 items-center py-1">
-              <div className="col-span-4 text-[#9b9a97] flex items-center gap-1.5">
+              <div className="col-span-4 text-gp-ink-300 flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5" />
                 <span>Created</span>
               </div>
-              <div className="col-span-8 text-[#e0e0e0] font-medium">
+              <div className="col-span-8 text-gp-ink-100 font-medium">
                 {card.createdDate || "September 29, 2025 8:03 PM"}
               </div>
             </div>
 
             {/* Kualitas Tags */}
             <div className="grid grid-cols-12 gap-2 items-center py-1">
-              <div className="col-span-4 text-[#9b9a97] flex items-center gap-1.5">
+              <div className="col-span-4 text-gp-ink-300 flex items-center gap-1.5">
                 <HelpCircle className="w-3.5 h-3.5" />
                 <span>Kualitas (?)</span>
               </div>
@@ -179,14 +179,14 @@ Info: ${typeof window !== "undefined" ? window.location.href : ""}`;
                 {(card.tags ?? []).map((t, idx) => (
                   <span
                     key={idx}
-                    className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                    className={`text-3xs font-bold px-2 py-0.5 rounded ${
                       t.color === "green"
-                        ? "bg-[#203c2b] text-[#52ba69]"
+                        ? "bg-gp-mint-900 text-gp-mint"
                         : t.color === "orange"
-                        ? "bg-[#442c1d] text-[#e07936]"
+                        ? "bg-gp-ember-400 text-gp-ember"
                         : t.color === "blue"
-                        ? "bg-[#1d354a] text-[#4d97d9]"
-                        : "bg-[#2f2f2f] text-[#9b9a97]"
+                        ? "bg-gp-sky-600 text-gp-sky-100"
+                        : "bg-gp-ink-650 text-gp-ink-300"
                     }`}
                   >
                     {t.label}
@@ -197,23 +197,23 @@ Info: ${typeof window !== "undefined" ? window.location.href : ""}`;
 
             {/* Phone Number */}
             <div className="grid grid-cols-12 gap-2 items-center py-1">
-              <div className="col-span-4 text-[#9b9a97] flex items-center gap-1.5">
+              <div className="col-span-4 text-gp-ink-300 flex items-center gap-1.5">
                 <Phone className="w-3.5 h-3.5" />
                 <span>Phone Number</span>
               </div>
-              <div className="col-span-8 text-[#9b9a97]">
+              <div className="col-span-8 text-gp-ink-300">
                 {card.phoneNumber || "Empty"}
               </div>
             </div>
 
             {/* Sistem Klaim */}
             <div className="grid grid-cols-12 gap-2 items-center py-1">
-              <div className="col-span-4 text-[#9b9a97] flex items-center gap-1.5">
+              <div className="col-span-4 text-gp-ink-300 flex items-center gap-1.5">
                 <Layers className="w-3.5 h-3.5" />
                 <span>Sistem</span>
               </div>
               <div className="col-span-8">
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#1d354a] text-[#4d97d9]">
+                <span className="text-3xs font-bold px-2 py-0.5 rounded bg-gp-sky-600 text-gp-sky-100">
                   {card.sistemKlaim || "GANTI BARU"}
                 </span>
               </div>
@@ -221,7 +221,7 @@ Info: ${typeof window !== "undefined" ? window.location.href : ""}`;
 
             {/* Website Contact */}
             <div className="grid grid-cols-12 gap-2 items-center py-1">
-              <div className="col-span-4 text-[#9b9a97] flex items-center gap-1.5">
+              <div className="col-span-4 text-gp-ink-300 flex items-center gap-1.5">
                 <Globe className="w-3.5 h-3.5" />
                 <span>WEBSITE CONTACT</span>
               </div>
@@ -231,39 +231,39 @@ Info: ${typeof window !== "undefined" ? window.location.href : ""}`;
                     href={card.contactUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[#58a6ff] hover:underline flex items-center gap-1 truncate"
+                    className="text-gp-sky hover:underline flex items-center gap-1 truncate"
                   >
                     <span className="truncate">{card.contactUrl}</span>
                     <ExternalLink className="w-3 h-3 flex-shrink-0" />
                   </a>
                 ) : (
-                  <span className="text-[#9b9a97]">Empty</span>
+                  <span className="text-gp-ink-300">Empty</span>
                 )}
               </div>
             </div>
 
             {/* Website Location */}
             <div className="grid grid-cols-12 gap-2 items-center py-1">
-              <div className="col-span-4 text-[#9b9a97] flex items-center gap-1.5">
+              <div className="col-span-4 text-gp-ink-300 flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5" />
                 <span>WEBSITE LOCATION</span>
               </div>
-              <div className="col-span-8 text-[#9b9a97]">Empty</div>
+              <div className="col-span-8 text-gp-ink-300">Empty</div>
             </div>
           </div>
 
           {/* Section Main Content */}
           <div className="space-y-4 pt-2">
-            <h2 className="text-sm font-bold text-[#ffffff] tracking-wide uppercase">
+            <h2 className="text-sm font-bold text-white tracking-wide uppercase">
               {card.deepDiveTitle || `KUALITAS AFTERSALES ${card.title.toUpperCase()}`}
             </h2>
 
             {/* PROS Notion Header Banner Bar (Exact match to Image 2) */}
             <div className="space-y-2">
-              <div className="w-full py-1.5 px-3 rounded bg-[#193222] border border-[#203c2b] text-[#52ba69] font-bold text-xs tracking-wider">
+              <div className="w-full py-1.5 px-3 rounded bg-gp-mint-800 border border-gp-mint-900 text-gp-mint font-bold text-xs tracking-wider">
                 PROS
               </div>
-              <ul className="space-y-2 pl-2 text-xs text-[#d4d4d4]">
+              <ul className="space-y-2 pl-2 text-xs text-gp-ink-200">
                 {(card.pros && card.pros.length > 0
                   ? card.pros
                   : [
@@ -272,7 +272,7 @@ Info: ${typeof window !== "undefined" ? window.location.href : ""}`;
                     ]
                 ).map((p, idx) => (
                   <li key={idx} className="flex items-start gap-2">
-                    <span className="text-[#9b9a97] mt-0.5">•</span>
+                    <span className="text-gp-ink-300 mt-0.5">•</span>
                     <span>{p}</span>
                   </li>
                 ))}
@@ -281,10 +281,10 @@ Info: ${typeof window !== "undefined" ? window.location.href : ""}`;
 
             {/* CONS Notion Header Banner Bar (Exact match to Image 2) */}
             <div className="space-y-2 pt-2">
-              <div className="w-full py-1.5 px-3 rounded bg-[#371e20] border border-[#492224] text-[#eb5757] font-bold text-xs tracking-wider">
+              <div className="w-full py-1.5 px-3 rounded bg-gp-coral-500 border border-gp-coral-800 text-gp-coral font-bold text-xs tracking-wider">
                 CONS
               </div>
-              <ul className="space-y-2 pl-2 text-xs text-[#d4d4d4]">
+              <ul className="space-y-2 pl-2 text-xs text-gp-ink-200">
                 {(card.cons && card.cons.length > 0
                   ? card.cons
                   : [
@@ -295,7 +295,7 @@ Info: ${typeof window !== "undefined" ? window.location.href : ""}`;
                     ]
                 ).map((c, idx) => (
                   <li key={idx} className="flex items-start gap-2">
-                    <span className="text-[#9b9a97] mt-0.5">•</span>
+                    <span className="text-gp-ink-300 mt-0.5">•</span>
                     <span>{c}</span>
                   </li>
                 ))}
@@ -303,12 +303,12 @@ Info: ${typeof window !== "undefined" ? window.location.href : ""}`;
             </div>
 
             {/* Discord Link & Disclaimer Note */}
-            <div className="pt-4 space-y-2 text-[11px] text-[#9b9a97] border-t border-[#2a2a2a]">
+            <div className="pt-4 space-y-2 text-2xs text-gp-ink-300 border-t border-gp-ink-700">
               <a
                 href={card.discordUrl || CONSULTATION_DATA.discordUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#58a6ff] hover:underline block truncate"
+                className="text-gp-sky hover:underline block truncate"
               >
                 {card.discordUrl || CONSULTATION_DATA.discordUrl}
               </a>

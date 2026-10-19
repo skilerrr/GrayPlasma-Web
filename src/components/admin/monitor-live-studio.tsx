@@ -490,10 +490,10 @@ export function MonitorLiveStudio({
               e.stopPropagation();
               handleToggleMonitorPublish(m);
             }}
-            className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold flex items-center gap-1.5 transition-all ${
+            className={`px-2.5 py-1 rounded-lg text-3xs font-mono font-bold flex items-center gap-1.5 transition-all ${
               isLive
                 ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20"
-                : "bg-zinc-800/80 text-zinc-400 border border-zinc-700 hover:text-white"
+                : "bg-gp-ink-700/80 text-gp-ink-300 border border-gp-ink-600 hover:text-white"
             }`}
             title={isLive ? "Klik untuk jadikan Draft (Sembunyikan dari web)" : "Klik untuk Publikasikan (Live)"}
           >
@@ -523,7 +523,7 @@ export function MonitorLiveStudio({
                 handleQuickEditPrice(m, newP);
               }
             }}
-            className="w-28 bg-zinc-900/80 border border-zinc-750 hover:border-emerald-500 focus:border-emerald-500 rounded-md px-2 py-1 text-xs text-emerald-400 font-mono font-bold focus:outline-none"
+            className="w-28 bg-gp-ink-800/80 border border-gp-ink-650 hover:border-emerald-500 focus:border-emerald-500 rounded-md px-2 py-1 text-xs text-emerald-400 font-mono font-bold focus:outline-none"
           />
         </div>
       ),
@@ -539,7 +539,7 @@ export function MonitorLiveStudio({
       getValue: (m) => m.fullName,
       renderCell: (m) => (
         <div className="flex items-center gap-2">
-          <Tv className="w-4 h-4 text-zinc-400 shrink-0" />
+          <Tv className="w-4 h-4 text-gp-ink-300 shrink-0" />
           <div>
             <div
               onClick={() => {
@@ -553,7 +553,7 @@ export function MonitorLiveStudio({
             >
               {m.fullName}
             </div>
-            <span className="text-[10px] font-mono text-zinc-500 uppercase">
+            <span className="text-3xs font-mono text-gp-ink-400 uppercase">
               {m.brand} • {m.slug}
             </span>
           </div>
@@ -573,7 +573,7 @@ export function MonitorLiveStudio({
         <select
           value={m.tier}
           onChange={(e) => handleQuickEditTier(m, e.target.value as TierRating)}
-          className="bg-zinc-900 border border-zinc-750 rounded-md px-2 py-1 text-[11px] font-mono font-bold text-amber-300 focus:outline-none cursor-pointer"
+          className="bg-gp-ink-800 border border-gp-ink-650 rounded-md px-2 py-1 text-2xs font-mono font-bold text-amber-300 focus:outline-none cursor-pointer"
         >
           <option value="BEST VALUE">BEST VALUE</option>
           <option value="TOP TIER">TOP TIER</option>
@@ -594,10 +594,10 @@ export function MonitorLiveStudio({
       getValue: (m) => m.responseTimeData?.toleranceNew || "",
       renderCell: (m) => (
         <div className="flex items-center gap-1.5 flex-wrap">
-          <span className="px-2 py-0.5 rounded bg-[#0b2413] text-[#00e676] border border-[#00e676]/30 text-[10px] font-mono font-bold">
+          <span className="px-2 py-0.5 rounded bg-gp-mint-200 text-accent-emerald border border-accent-emerald/30 text-3xs font-mono font-bold">
             {m.responseTimeData?.toleranceNew || "Toleransi Baru"}
           </span>
-          <span className="px-2 py-0.5 rounded bg-[#2b1012] text-[#ff5252] border border-[#ff5252]/30 text-[10px] font-mono font-bold">
+          <span className="px-2 py-0.5 rounded bg-gp-coral-300 text-gp-coral-100 border border-gp-coral-100/30 text-3xs font-mono font-bold">
             {m.responseTimeData?.toleranceOld || "Toleransi Lama"}
           </span>
         </div>
@@ -613,7 +613,7 @@ export function MonitorLiveStudio({
       category: "Display",
       getValue: (m) => `${m.specs?.display?.size || ""} ${m.specs?.display?.panelType || ""}`,
       renderCell: (m) => (
-        <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-750 font-mono text-[11px] text-zinc-300 whitespace-nowrap">
+        <span className="px-1.5 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-650 font-mono text-2xs text-gp-ink-200 whitespace-nowrap">
           {m.specs?.display?.size || "-"} {m.specs?.display?.panelType || ""}
         </span>
       ),
@@ -628,7 +628,7 @@ export function MonitorLiveStudio({
       category: "Display",
       getValue: (m) => m.specs?.display?.resolution || "",
       renderCell: (m) => (
-        <span className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-750 font-mono text-[11px] text-zinc-300 whitespace-nowrap">
+        <span className="px-1.5 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-650 font-mono text-2xs text-gp-ink-200 whitespace-nowrap">
           {m.specs?.display?.resolution || "FHD"}
         </span>
       ),
@@ -643,7 +643,7 @@ export function MonitorLiveStudio({
       category: "Display",
       getValue: (m) => m.specs?.display?.refreshRate || 0,
       renderCell: (m) => (
-        <span className="px-2 py-0.5 rounded bg-[#10192b] text-[#38bdf8] border border-[#38bdf8]/30 font-mono font-bold text-[11px] whitespace-nowrap">
+        <span className="px-2 py-0.5 rounded bg-gp-sky-300 text-sky-400 border border-sky-400/30 font-mono font-bold text-2xs whitespace-nowrap">
           {m.specs?.display?.refreshRate || 60}Hz
         </span>
       ),
@@ -663,20 +663,20 @@ export function MonitorLiveStudio({
             {m.customVariables.slice(0, 2).map((v) => (
               <span
                 key={v.id}
-                className="px-1.5 py-0.5 rounded bg-zinc-800 text-amber-300 text-[9px] font-mono font-bold border border-zinc-700"
+                className="px-1.5 py-0.5 rounded bg-gp-ink-700 text-amber-300 text-4xs font-mono font-bold border border-gp-ink-600"
                 title={`${v.label}: ${v.value}`}
               >
                 {v.label}
               </span>
             ))}
             {m.customVariables.length > 2 && (
-              <span className="text-[9px] font-mono text-zinc-500">
+              <span className="text-4xs font-mono text-gp-ink-400">
                 +{m.customVariables.length - 2}
               </span>
             )}
           </div>
         ) : (
-          <span className="text-zinc-600 font-mono text-[10px]">-</span>
+          <span className="text-gp-ink-500 font-mono text-3xs">-</span>
         ),
     },
     {
@@ -689,7 +689,7 @@ export function MonitorLiveStudio({
       category: "Panel",
       getValue: (m) => m.panelBitDepth || "RGB",
       renderCell: (m) => (
-        <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-750 font-mono text-[11px] text-zinc-300 whitespace-nowrap">
+        <span className="px-2 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-650 font-mono text-2xs text-gp-ink-200 whitespace-nowrap">
           {m.panelBitDepth || "Standard RGB"}
         </span>
       ),
@@ -704,7 +704,7 @@ export function MonitorLiveStudio({
       category: "Optik",
       getValue: (m) => m.aspectRatio || "Matte (Anti-Glare)",
       renderCell: (m) => (
-        <span className="text-zinc-300 font-mono text-xs whitespace-nowrap">
+        <span className="text-gp-ink-200 font-mono text-xs whitespace-nowrap">
           Matte 3H (Anti-Glare)
         </span>
       ),
@@ -719,7 +719,7 @@ export function MonitorLiveStudio({
       category: "Gaming",
       getValue: (m) => m.specs?.features?.syncTech || "Adaptive-Sync",
       renderCell: (m) => (
-        <span className="text-cyan-400 font-mono text-[11px] whitespace-nowrap">
+        <span className="text-cyan-400 font-mono text-2xs whitespace-nowrap">
           {m.specs?.features?.syncTech || "Adaptive-Sync"}
         </span>
       ),
@@ -734,7 +734,7 @@ export function MonitorLiveStudio({
       category: "Warna",
       getValue: (m) => m.specs?.display?.colorGamut || "",
       renderCell: (m) => (
-        <span className="text-zinc-300 font-mono text-[11px] whitespace-nowrap">
+        <span className="text-gp-ink-200 font-mono text-2xs whitespace-nowrap">
           {m.specs?.display?.colorGamut || "99% sRGB"}
         </span>
       ),
@@ -749,7 +749,7 @@ export function MonitorLiveStudio({
       category: "Konektivitas",
       getValue: (m) => (m.displayInputs || []).join(", "),
       renderCell: (m) => (
-        <span className="text-zinc-400 text-xs truncate max-w-[160px] block" title={(m.displayInputs || []).join(", ")}>
+        <span className="text-gp-ink-300 text-xs truncate max-w-[160px] block" title={(m.displayInputs || []).join(", ")}>
           {(m.displayInputs || []).join(", ") || "HDMI + DP"}
         </span>
       ),
@@ -764,7 +764,7 @@ export function MonitorLiveStudio({
       category: "Purna Jual",
       getValue: (m) => m.specs?.features?.warranty || "",
       renderCell: (m) => (
-        <span className="text-emerald-400 font-mono text-[11px] whitespace-nowrap">
+        <span className="text-emerald-400 font-mono text-2xs whitespace-nowrap">
           {m.specs?.features?.warranty || "3 Tahun"}
         </span>
       ),
@@ -779,7 +779,7 @@ export function MonitorLiveStudio({
       category: "Ulasan",
       getValue: (m) => m.expertVerdict || "",
       renderCell: (m) => (
-        <span className="text-zinc-300 text-xs line-clamp-2" title={m.expertVerdict}>
+        <span className="text-gp-ink-200 text-xs line-clamp-2" title={m.expertVerdict}>
           {m.expertVerdict || "-"}
         </span>
       ),
@@ -797,37 +797,37 @@ export function MonitorLiveStudio({
     <div className="space-y-6">
       {/* Top Banner Notice */}
       {notice && (
-        <div className="fixed top-16 right-6 z-50 bg-[#203c2b] border border-[#52ba69] text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 animate-in fade-in slide-in-from-top-3 text-xs font-semibold">
-          <CheckCircle2 className="w-4 h-4 text-[#52ba69]" />
+        <div className="fixed top-16 right-6 z-50 bg-gp-mint-900 border border-gp-mint text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 animate-in fade-in slide-in-from-top-3 text-xs font-semibold">
+          <CheckCircle2 className="w-4 h-4 text-gp-mint" />
           <span>{notice}</span>
         </div>
       )}
 
       {/* Main Studio Header */}
-      <div className="p-6 rounded-3xl bg-[#202020] border border-[#2f2f2f] flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-xl">
+      <div className="p-6 rounded-3xl bg-gp-ink-750 border border-gp-ink-650 flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-xl">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1d354a] border border-[#2383e2]/40 text-[#58a6ff] text-xs font-bold">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gp-sky-600 border border-gp-sky-800/40 text-gp-sky text-xs font-bold">
             <Tv className="w-3.5 h-3.5" />
             <span>Monitor Studio & Live Specsheet Editor</span>
           </div>
           <h2 className="text-xl font-extrabold text-white tracking-tight">
             Live Database Monitor & Studio Properti
           </h2>
-          <p className="text-xs text-[#9b9a97] max-w-2xl leading-relaxed">
+          <p className="text-xs text-gp-ink-300 max-w-2xl leading-relaxed">
             Kelola, edit, dan tambah monitor dengan live preview real-time. Semua 21 properti teknis, toleransi data GTID, dan section ulasan tersinkronisasi instan.
           </p>
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
           {/* View Mode Toggle: Grid vs Detail Studio */}
-          <div className="flex items-center gap-1 p-1 bg-[#121216] border border-zinc-800 rounded-lg">
+          <div className="flex items-center gap-1 p-1 bg-gp-ink-850 border border-gp-ink-700 rounded-lg">
             <button
               type="button"
               onClick={() => setViewMode("excel")}
               className={`px-3 py-1.5 rounded text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
                 viewMode === "excel"
-                  ? "bg-zinc-100 text-black shadow-tech-card"
-                  : "text-zinc-400 hover:text-white hover:bg-zinc-850"
+                  ? "bg-gp-ink-50 text-black shadow-tech-card"
+                  : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-750"
               }`}
             >
               <FileSpreadsheet className="w-3.5 h-3.5" />
@@ -838,8 +838,8 @@ export function MonitorLiveStudio({
               onClick={() => setViewMode("studio")}
               className={`px-3 py-1.5 rounded text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
                 viewMode === "studio"
-                  ? "bg-zinc-100 text-black shadow-tech-card"
-                  : "text-zinc-400 hover:text-white hover:bg-zinc-850"
+                  ? "bg-gp-ink-50 text-black shadow-tech-card"
+                  : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-750"
               }`}
             >
               <SlidersHorizontal className="w-3.5 h-3.5" />
@@ -869,7 +869,7 @@ export function MonitorLiveStudio({
                 showNotification("Database monitor direset ke template default!");
               }
             }}
-            className="text-xs text-[#9b9a97] hover:text-white"
+            className="text-xs text-gp-ink-300 hover:text-white"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Reset Bawaan</span>
@@ -881,17 +881,17 @@ export function MonitorLiveStudio({
       {viewMode === "excel" ? (
         <div className="space-y-4 font-sans">
           {/* Excel Controls Bar */}
-          <div className="p-4 rounded-xl bg-[#121217] border border-zinc-800 flex flex-wrap items-center justify-between gap-3 shadow-tech-card">
+          <div className="p-4 rounded-xl bg-gp-ink-850 border border-gp-ink-700 flex flex-wrap items-center justify-between gap-3 shadow-tech-card">
             <div className="flex items-center gap-3 flex-1 min-w-[280px]">
               {/* Search */}
               <div className="relative flex-1">
-                <Search className="w-4 h-4 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Search className="w-4 h-4 text-gp-ink-400 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   placeholder="Cari brand, model, panel, resolusi..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-750 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500 font-mono"
+                  className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-gp-ink-800 border border-gp-ink-650 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-emerald-500 font-mono"
                 />
               </div>
 
@@ -899,7 +899,7 @@ export function MonitorLiveStudio({
               <select
                 value={tierFilter}
                 onChange={(e) => setTierFilter(e.target.value)}
-                className="bg-zinc-900 border border-zinc-750 rounded-xl px-3 py-1.5 text-xs text-emerald-400 font-mono focus:outline-none"
+                className="bg-gp-ink-800 border border-gp-ink-650 rounded-xl px-3 py-1.5 text-xs text-emerald-400 font-mono focus:outline-none"
               >
                 <option value="all">Semua Tier Rating</option>
                 <option value="BEST VALUE">BEST VALUE</option>
@@ -913,7 +913,7 @@ export function MonitorLiveStudio({
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value as "all" | "published" | "draft")}
-                className="bg-zinc-900 border border-zinc-750 rounded-xl px-3 py-1.5 text-xs text-cyan-400 font-mono focus:outline-none"
+                className="bg-gp-ink-800 border border-gp-ink-650 rounded-xl px-3 py-1.5 text-xs text-cyan-400 font-mono focus:outline-none"
               >
                 <option value="all">Semua Status</option>
                 <option value="published">🟢 Hanya Aktif (Live)</option>
@@ -927,7 +927,7 @@ export function MonitorLiveStudio({
                 variant="outline"
                 size="sm"
                 onClick={() => setIsColManagerOpen(true)}
-                className="text-xs font-mono text-zinc-300 border-zinc-700 hover:border-emerald-500 hover:text-white flex items-center gap-1.5"
+                className="text-xs font-mono text-gp-ink-200 border-gp-ink-600 hover:border-emerald-500 hover:text-white flex items-center gap-1.5"
               >
                 <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Kelola Kolom ({tableManager.visibleColumns.length})</span>
@@ -965,19 +965,19 @@ export function MonitorLiveStudio({
                 <strong>MODE EXCEL AKTIF:</strong> Klik header untuk <strong>Sort (Asc/Desc/Reset)</strong>, Drag header kolom untuk <strong>Reorder Kolom</strong>, atau Drag handle <strong>⠿</strong> untuk urutan baris rekomendasi.
               </span>
             </div>
-            <span className="text-[11px] text-zinc-400">
+            <span className="text-2xs text-gp-ink-300">
               Menampilkan {displayMonitors.length} Monitor {tableManager.sortField && `(Sorted by: ${tableManager.sortField})`}
             </span>
           </div>
 
           {/* Interactive Excel Spreadsheet Grid */}
-          <div className="border border-zinc-800 rounded-xl overflow-hidden bg-[#0c0c11] shadow-tech-card">
+          <div className="border border-gp-ink-700 rounded-xl overflow-hidden bg-gp-ink-900 shadow-tech-card">
             <div className="overflow-x-auto max-h-[calc(100vh-280px)] no-scrollbar">
               <table className="w-full text-left text-xs border-collapse min-w-[1150px]">
-                <thead className="bg-[#050508] text-zinc-300 uppercase text-[10px] font-mono tracking-wider border-b-2 border-zinc-700 sticky top-0 z-20">
+                <thead className="bg-gp-ink-998 text-gp-ink-200 uppercase text-3xs font-mono tracking-wider border-b-2 border-gp-ink-600 sticky top-0 z-20">
                   <tr>
-                    <th className="py-3 px-3 w-12 text-center text-zinc-500 font-bold border-r border-zinc-800">Order</th>
-                    <th className="py-3 px-3 w-12 text-zinc-500 font-bold border-r border-zinc-800 text-center">#</th>
+                    <th className="py-3 px-3 w-12 text-center text-gp-ink-400 font-bold border-r border-gp-ink-700">Order</th>
+                    <th className="py-3 px-3 w-12 text-gp-ink-400 font-bold border-r border-gp-ink-700 text-center">#</th>
                     {tableManager.visibleColumns.map((col) => {
                       const isSorted = tableManager.sortField === col.id;
                       const isDragging = tableManager.draggedColId === col.id;
@@ -991,21 +991,21 @@ export function MonitorLiveStudio({
                           onDragOver={(e) => tableManager.handleColumnDragOver(col.id, e)}
                           onDrop={() => tableManager.handleColumnDrop(col.id)}
                           onClick={() => col.sortable !== false && tableManager.handleSort(col.id)}
-                          className={`py-3 px-3 font-mono font-bold text-xs uppercase cursor-pointer select-none transition-colors border-r border-zinc-800 ${
+                          className={`py-3 px-3 font-mono font-bold text-xs uppercase cursor-pointer select-none transition-colors border-r border-gp-ink-700 ${
                             col.minWidth || "min-w-[140px]"
                           } ${
                             isDragging
                               ? "opacity-40 bg-emerald-500/20"
                               : isOver
                               ? "border-l-2 border-l-emerald-400 bg-emerald-500/10"
-                              : "hover:bg-zinc-800/80"
+                              : "hover:bg-gp-ink-700/80"
                           }`}
                           title="Klik untuk sort (Asc/Desc/Reset), atau Drag untuk memindahkan urutan kolom"
                         >
                           <div className="flex items-center justify-between gap-1.5">
                             <div className="flex items-center gap-1.5 min-w-0">
                               <span
-                                className="cursor-grab active:cursor-grabbing text-zinc-500 hover:text-emerald-400"
+                                className="cursor-grab active:cursor-grabbing text-gp-ink-400 hover:text-emerald-400"
                                 title="Drag kolom"
                               >
                                 <GripVertical className="w-3.5 h-3.5" />
@@ -1013,20 +1013,20 @@ export function MonitorLiveStudio({
                               <span className="truncate">{col.label}</span>
                             </div>
                             {isSorted ? (
-                              <span className="text-emerald-400 font-bold text-[11px] flex-shrink-0">
+                              <span className="text-emerald-400 font-bold text-2xs flex-shrink-0">
                                 {tableManager.sortDirection === "asc" ? "▲" : "▼"}
                               </span>
                             ) : col.sortable !== false ? (
-                              <span className="text-zinc-600 text-[10px] opacity-40 hover:opacity-100 flex-shrink-0">↕</span>
+                              <span className="text-gp-ink-500 text-3xs opacity-40 hover:opacity-100 flex-shrink-0">↕</span>
                             ) : null}
                           </div>
                         </th>
                       );
                     })}
-                    <th className="py-3 px-4 font-bold min-w-[180px] text-center sticky right-0 bg-[#050508] z-30">Aksi</th>
+                    <th className="py-3 px-4 font-bold min-w-[180px] text-center sticky right-0 bg-gp-ink-998 z-30">Aksi</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-zinc-800/80 font-sans">
+                <tbody className="divide-y divide-gp-ink-700/80 font-sans">
                   {displayMonitors.map((m, idx) => {
                     const originalIndex = monitors.findIndex((item) => item.id === m.id);
                     const isDragging = draggedIndex === originalIndex;
@@ -1059,14 +1059,14 @@ export function MonitorLiveStudio({
                           setDraggedIndex(null);
                           setDragOverIndex(null);
                         }}
-                        className={`group transition-all hover:bg-zinc-800/40 ${
+                        className={`group transition-all hover:bg-gp-ink-700/40 ${
                           isDragging ? "opacity-30 border-2 border-dashed border-emerald-400 bg-emerald-950/40" : ""
                         } ${isDragOver ? "border-t-4 border-t-emerald-400 bg-emerald-950/20" : ""}`}
                       >
                         {/* Drag Handle */}
-                        <td className="py-2.5 px-3 text-center border-r border-zinc-800/60">
+                        <td className="py-2.5 px-3 text-center border-r border-gp-ink-700/60">
                           <div
-                            className={`p-1.5 text-zinc-500 hover:text-emerald-400 transition-colors inline-flex rounded-lg hover:bg-zinc-800 ${
+                            className={`p-1.5 text-gp-ink-400 hover:text-emerald-400 transition-colors inline-flex rounded-lg hover:bg-gp-ink-700 ${
                               tableManager.sortField !== null
                                 ? "opacity-30 cursor-not-allowed"
                                 : "cursor-grab active:cursor-grabbing"
@@ -1082,19 +1082,19 @@ export function MonitorLiveStudio({
                         </td>
 
                         {/* Row Number */}
-                        <td className="py-2.5 px-3 font-mono text-[11px] text-zinc-500 font-bold border-r border-zinc-800/60 text-center">
+                        <td className="py-2.5 px-3 font-mono text-2xs text-gp-ink-400 font-bold border-r border-gp-ink-700/60 text-center">
                           #{idx + 1}
                         </td>
 
                         {/* Dynamic Draggable & Sortable Columns */}
                         {tableManager.visibleColumns.map((col) => (
-                          <td key={col.id} className="py-2.5 px-3 border-r border-zinc-800/60 align-middle">
+                          <td key={col.id} className="py-2.5 px-3 border-r border-gp-ink-700/60 align-middle">
                             {col.renderCell(m, idx)}
                           </td>
                         ))}
 
                         {/* Aksi Sticky */}
-                        <td className="py-2.5 px-4 sticky right-0 bg-[#0c0c11] group-hover:bg-[#14141c] z-10">
+                        <td className="py-2.5 px-4 sticky right-0 bg-gp-ink-900 group-hover:bg-gp-ink-850 z-10">
                           <div className="flex items-center justify-center gap-1.5">
                             <Button
                               type="button"
@@ -1106,7 +1106,7 @@ export function MonitorLiveStudio({
                                 setDocContent(getInitialDoc(m));
                                 setViewMode("studio");
                               }}
-                              className="text-[11px] font-mono font-bold text-cyan-400 border-cyan-500/40 hover:bg-cyan-500/10 h-7 px-2"
+                              className="text-2xs font-mono font-bold text-cyan-400 border-cyan-500/40 hover:bg-cyan-500/10 h-7 px-2"
                               title="Buka 3-Kolom Studio"
                             >
                               <Edit2 className="w-3 h-3 mr-1" />
@@ -1116,7 +1116,7 @@ export function MonitorLiveStudio({
                             <button
                               type="button"
                               onClick={() => onPreviewSidePanel(m)}
-                              className="p-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-emerald-400"
+                              className="p-1 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-emerald-400"
                               title="Preview Side Panel"
                             >
                               <Eye className="w-3.5 h-3.5" />
@@ -1125,7 +1125,7 @@ export function MonitorLiveStudio({
                             <button
                               type="button"
                               onClick={() => handleDuplicate(m)}
-                              className="p-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white"
+                              className="p-1 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-white"
                               title="Duplikat Baris"
                             >
                               <Copy className="w-3.5 h-3.5" />
@@ -1134,7 +1134,7 @@ export function MonitorLiveStudio({
                             <button
                               type="button"
                               onClick={() => handleDelete(m.id)}
-                              className="p-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-500 hover:text-rose-400"
+                              className="p-1 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-400 hover:text-rose-400"
                               title="Hapus Monitor"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
@@ -1155,24 +1155,24 @@ export function MonitorLiveStudio({
         {/* ========================================================================= */}
         {/* COLUMN 1: MONITOR LIST SELECTOR (3 Cols)                                   */}
         {/* ========================================================================= */}
-        <div className="lg:col-span-3 rounded-2xl bg-[#171717] border border-[#2a2a2a] p-4 space-y-3 shadow-lg">
+        <div className="lg:col-span-3 rounded-2xl bg-gp-ink-800 border border-gp-ink-700 p-4 space-y-3 shadow-lg">
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs font-bold text-white">
               <span>Daftar Monitor</span>
-              <span className="px-2 py-0.5 rounded-full bg-[#252525] text-[#9b9a97] text-[10px] font-mono">
+              <span className="px-2 py-0.5 rounded-full bg-gp-ink-700 text-gp-ink-300 text-3xs font-mono">
                 {monitors.length} Total
               </span>
             </div>
 
             {/* Search Input */}
             <div className="relative">
-              <Search className="w-3.5 h-3.5 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-3.5 h-3.5 text-gp-ink-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Cari monitor..."
-                className="w-full bg-[#202020] border border-[#2f2f2f] rounded-xl pl-8 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-[#58a6ff]"
+                className="w-full bg-gp-ink-750 border border-gp-ink-650 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-gp-sky"
               />
             </div>
 
@@ -1182,10 +1182,10 @@ export function MonitorLiveStudio({
                 <button
                   key={tier}
                   onClick={() => setTierFilter(tier)}
-                  className={`px-2 py-0.5 rounded text-[10px] font-semibold whitespace-nowrap transition-colors ${
+                  className={`px-2 py-0.5 rounded text-3xs font-semibold whitespace-nowrap transition-colors ${
                     tierFilter === tier
-                      ? "bg-[#252525] text-white border border-[#3f3f3f]"
-                      : "text-[#787774] hover:text-[#d4d4d4]"
+                      ? "bg-gp-ink-700 text-white border border-gp-ink-600"
+                      : "text-gp-ink-400 hover:text-gp-ink-200"
                   }`}
                 >
                   {tier === "all" ? "Semua" : tier}
@@ -1204,33 +1204,33 @@ export function MonitorLiveStudio({
                   onClick={() => handleSelectMonitor(m)}
                   className={`p-2.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-2 ${
                     isSelected
-                      ? "bg-[#202020] border-[#2383e2] shadow-md"
-                      : "bg-[#141414] border-[#262626] hover:border-[#333] hover:bg-[#1a1a1a]"
+                      ? "bg-gp-ink-750 border-gp-sky-800 shadow-md"
+                      : "bg-gp-ink-850 border-gp-ink-700 hover:border-gp-ink-650 hover:bg-gp-ink-800"
                   }`}
                 >
                   <div className="space-y-0.5 min-w-0">
-                    <span className="text-[10px] text-[#787774] font-bold uppercase tracking-wider block">
+                    <span className="text-3xs text-gp-ink-400 font-bold uppercase tracking-wider block">
                       {m.brand}
                     </span>
                     <h4 className="text-xs font-bold text-white truncate">
                       {m.fullName}
                     </h4>
-                    <div className="flex items-center gap-1.5 text-[10px] font-mono text-[#52ba69]">
+                    <div className="flex items-center gap-1.5 text-3xs font-mono text-gp-mint">
                       <span>{formatRupiah(m.price)}</span>
-                      <span className="text-[#787774]">•</span>
-                      <span className="text-[#9b9a97]">{m.specs?.display?.refreshRate}Hz</span>
+                      <span className="text-gp-ink-400">•</span>
+                      <span className="text-gp-ink-300">{m.specs?.display?.refreshRate}Hz</span>
                     </div>
                   </div>
 
                   <span
-                    className={`text-[9px] font-bold px-1.5 py-0.5 rounded flex-shrink-0 ${
+                    className={`text-4xs font-bold px-1.5 py-0.5 rounded flex-shrink-0 ${
                       m.tier === "S-TIER"
-                        ? "bg-[#203c2b] text-[#52ba69]"
+                        ? "bg-gp-mint-900 text-gp-mint"
                         : m.tier === "BEST VALUE"
-                        ? "bg-[#1d354a] text-[#58a6ff]"
+                        ? "bg-gp-sky-600 text-gp-sky"
                         : m.tier === "RECOMMENDED"
-                        ? "bg-[#203c2b] text-[#52ba69]"
-                        : "bg-[#442224] text-[#eb5757]"
+                        ? "bg-gp-mint-900 text-gp-mint"
+                        : "bg-gp-coral-700 text-gp-coral"
                     }`}
                   >
                     {m.tier}
@@ -1244,13 +1244,13 @@ export function MonitorLiveStudio({
         {/* ========================================================================= */}
         {/* COLUMN 2: NOTION / WORD DOCUMENT-CENTRIC RECOMMENDATION STUDIO (5 Cols)   */}
         {/* ========================================================================= */}
-        <div className="lg:col-span-5 rounded-2xl bg-[#171717] border border-[#2a2a2a] p-5 space-y-4 shadow-lg">
+        <div className="lg:col-span-5 rounded-2xl bg-gp-ink-800 border border-gp-ink-700 p-5 space-y-4 shadow-lg">
           {/* 1. Header Action Row & Notion Page Title */}
-          <div className="space-y-2 border-b border-[#2a2a2a] pb-3">
+          <div className="space-y-2 border-b border-gp-ink-700 pb-3">
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-2">
-                <Tv className="w-5 h-5 text-zinc-400 shrink-0" />
-                <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded">
+                <Tv className="w-5 h-5 text-gp-ink-300 shrink-0" />
+                <span className="text-3xs font-mono uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded">
                   Word Document Mode
                 </span>
               </div>
@@ -1261,7 +1261,7 @@ export function MonitorLiveStudio({
                     <button
                       type="button"
                       onClick={() => handleDuplicate(selectedMonitor)}
-                      className="p-1.5 rounded-lg bg-[#202020] hover:bg-[#2c2c2c] text-[#9b9a97] hover:text-[#58a6ff] transition-colors"
+                      className="p-1.5 rounded-lg bg-gp-ink-750 hover:bg-gp-ink-650 text-gp-ink-300 hover:text-gp-sky transition-colors"
                       title="Duplikat Monitor"
                     >
                       <Copy className="w-3.5 h-3.5" />
@@ -1269,7 +1269,7 @@ export function MonitorLiveStudio({
                     <button
                       type="button"
                       onClick={() => handleDelete(selectedMonitor.id)}
-                      className="p-1.5 rounded-lg bg-[#202020] hover:bg-[#2c2c2c] text-[#9b9a97] hover:text-rose-400 transition-colors"
+                      className="p-1.5 rounded-lg bg-gp-ink-750 hover:bg-gp-ink-650 text-gp-ink-300 hover:text-rose-400 transition-colors"
                       title="Hapus Monitor"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -1301,23 +1301,23 @@ export function MonitorLiveStudio({
                   })
                 }
                 placeholder="Judul Monitor (contoh: LG UltraGear 27GP850-B)..."
-                className="w-full bg-transparent text-base sm:text-lg font-black text-white placeholder-zinc-600 focus:outline-none focus:border-b focus:border-emerald-500 py-1"
+                className="w-full bg-transparent text-base sm:text-lg font-black text-white placeholder-gp-ink-500 focus:outline-none focus:border-b focus:border-emerald-500 py-1"
                 required
               />
             </div>
           </div>
 
           {/* 2. Compact Notion Properties Block */}
-          <div className="bg-[#121214] border border-[#262626] rounded-xl p-3 space-y-2.5 text-xs">
-            <div className="flex items-center justify-between text-[10px] font-bold text-[#787774] uppercase tracking-wider pb-1 border-b border-[#222]">
+          <div className="bg-gp-ink-850 border border-gp-ink-700 rounded-xl p-3 space-y-2.5 text-xs">
+            <div className="flex items-center justify-between text-3xs font-bold text-gp-ink-400 uppercase tracking-wider pb-1 border-b border-gp-ink-750">
               <span>PROPERTI REKOMENDASI LENGKAP</span>
-              <span className="font-mono text-zinc-500">Auto-Synced</span>
+              <span className="font-mono text-gp-ink-400">Auto-Synced</span>
             </div>
 
             {/* Brand & Tier */}
             <div className="grid grid-cols-12 items-center gap-2">
-              <span className="col-span-4 text-[#9b9a97] font-medium flex items-center gap-1.5">
-                <Tag className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+              <span className="col-span-4 text-gp-ink-300 font-medium flex items-center gap-1.5">
+                <Tag className="w-3.5 h-3.5 text-gp-ink-300 shrink-0" />
                 <span>Brand</span>
               </span>
               <div className="col-span-8">
@@ -1326,15 +1326,15 @@ export function MonitorLiveStudio({
                   value={formData.brand || ""}
                   onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
                   placeholder="Xiaomi, AOC, LG, Asus..."
-                  className="w-full bg-[#1b1b1e] border border-[#2e2e33] rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-emerald-500"
                 />
               </div>
             </div>
 
             {/* Tier Selector Pills */}
             <div className="grid grid-cols-12 items-center gap-2">
-              <span className="col-span-4 text-[#9b9a97] font-medium flex items-center gap-1.5">
-                <Award className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+              <span className="col-span-4 text-gp-ink-300 font-medium flex items-center gap-1.5">
+                <Award className="w-3.5 h-3.5 text-gp-ink-300 shrink-0" />
                 <span>Tier Rekomendasi</span>
               </span>
               <div className="col-span-8 flex items-center gap-1.5 flex-wrap">
@@ -1343,7 +1343,7 @@ export function MonitorLiveStudio({
                     key={t}
                     type="button"
                     onClick={() => setFormData({ ...formData, tier: t })}
-                    className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all ${
+                    className={`px-2 py-0.5 rounded text-3xs font-bold transition-all ${
                       formData.tier === t
                         ? t === "S-TIER"
                           ? "bg-emerald-500 text-black shadow-sm font-black"
@@ -1352,7 +1352,7 @@ export function MonitorLiveStudio({
                           : t === "RECOMMENDED"
                           ? "bg-cyan-500 text-black shadow-sm font-black"
                           : "bg-rose-500 text-white shadow-sm font-black"
-                        : "bg-[#1b1b1e] text-[#787774] border border-[#2e2e33] hover:text-white"
+                        : "bg-gp-ink-800 text-gp-ink-400 border border-gp-ink-650 hover:text-white"
                     }`}
                   >
                     {t}
@@ -1363,30 +1363,30 @@ export function MonitorLiveStudio({
 
             {/* Harga & Target */}
             <div className="grid grid-cols-12 items-center gap-2">
-              <span className="col-span-4 text-[#9b9a97] font-medium flex items-center gap-1.5">
-                <DollarSign className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+              <span className="col-span-4 text-gp-ink-300 font-medium flex items-center gap-1.5">
+                <DollarSign className="w-3.5 h-3.5 text-gp-ink-300 shrink-0" />
                 <span>Harga Pasar & Target</span>
               </span>
               <div className="col-span-8 grid grid-cols-2 gap-2">
                 <div className="relative">
-                  <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-[#787774]">Rp</span>
+                  <span className="absolute left-2 top-1/2 -translate-y-1/2 text-3xs text-gp-ink-400">Rp</span>
                   <input
                     type="number"
                     value={formData.price || ""}
                     onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
                     placeholder="Harga pasar"
-                    className="w-full bg-[#1b1b1e] border border-emerald-500/40 rounded-lg pl-6 pr-2 py-1 text-xs font-mono font-bold text-emerald-400 focus:outline-none focus:border-emerald-400"
+                    className="w-full bg-gp-ink-800 border border-emerald-500/40 rounded-lg pl-6 pr-2 py-1 text-xs font-mono font-bold text-emerald-400 focus:outline-none focus:border-emerald-400"
                     required
                   />
                 </div>
                 <div className="relative">
-                  <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-[#787774]">Rp</span>
+                  <span className="absolute left-2 top-1/2 -translate-y-1/2 text-3xs text-gp-ink-400">Rp</span>
                   <input
                     type="number"
                     value={formData.recommendedPrice || ""}
                     onChange={(e) => setFormData({ ...formData, recommendedPrice: Number(e.target.value) })}
                     placeholder="Target beli"
-                    className="w-full bg-[#1b1b1e] border border-cyan-500/40 rounded-lg pl-6 pr-2 py-1 text-xs font-mono font-bold text-cyan-400 focus:outline-none focus:border-cyan-400"
+                    className="w-full bg-gp-ink-800 border border-cyan-500/40 rounded-lg pl-6 pr-2 py-1 text-xs font-mono font-bold text-cyan-400 focus:outline-none focus:border-cyan-400"
                   />
                 </div>
               </div>
@@ -1394,8 +1394,8 @@ export function MonitorLiveStudio({
 
             {/* Toko Affiliate Links */}
             <div className="grid grid-cols-12 items-center gap-2">
-              <span className="col-span-4 text-[#9b9a97] font-medium flex items-center gap-1.5">
-                <ShoppingBag className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+              <span className="col-span-4 text-gp-ink-300 font-medium flex items-center gap-1.5">
+                <ShoppingBag className="w-3.5 h-3.5 text-gp-ink-300 shrink-0" />
                 <span>Link Toko Affiliate</span>
               </span>
               <div className="col-span-8 grid grid-cols-2 gap-2">
@@ -1404,22 +1404,22 @@ export function MonitorLiveStudio({
                   value={formData.linkShopee || ""}
                   onChange={(e) => setFormData({ ...formData, linkShopee: e.target.value })}
                   placeholder="URL Shopee..."
-                  className="w-full bg-[#1b1b1e] border border-[#2e2e33] rounded-lg px-2 py-1 text-xs text-orange-300 focus:outline-none focus:border-orange-400"
+                  className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2 py-1 text-xs text-orange-300 focus:outline-none focus:border-orange-400"
                 />
                 <input
                   type="text"
                   value={formData.linkTokopedia || ""}
                   onChange={(e) => setFormData({ ...formData, linkTokopedia: e.target.value })}
                   placeholder="URL Tokopedia..."
-                  className="w-full bg-[#1b1b1e] border border-[#2e2e33] rounded-lg px-2 py-1 text-xs text-emerald-300 focus:outline-none focus:border-emerald-400"
+                  className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2 py-1 text-xs text-emerald-300 focus:outline-none focus:border-emerald-400"
                 />
               </div>
             </div>
 
             {/* Video Review GTID */}
             <div className="grid grid-cols-12 items-center gap-2">
-              <span className="col-span-4 text-[#9b9a97] font-medium flex items-center gap-1.5">
-                <Youtube className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+              <span className="col-span-4 text-gp-ink-300 font-medium flex items-center gap-1.5">
+                <Youtube className="w-3.5 h-3.5 text-gp-ink-300 shrink-0" />
                 <span>Review YouTube GTID</span>
               </span>
               <div className="col-span-8">
@@ -1428,15 +1428,15 @@ export function MonitorLiveStudio({
                   value={formData.gtidReviewUrl || ""}
                   onChange={(e) => setFormData({ ...formData, gtidReviewUrl: e.target.value })}
                   placeholder="https://youtube.com/watch?v=..."
-                  className="w-full bg-[#1b1b1e] border border-[#2e2e33] rounded-lg px-2.5 py-1 text-xs text-zinc-300 focus:outline-none focus:border-rose-400"
+                  className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1 text-xs text-gp-ink-200 focus:outline-none focus:border-rose-400"
                 />
               </div>
             </div>
 
             {/* Foto Monitor Depan & Belakang with Upload / Paste */}
             <div className="grid grid-cols-12 items-center gap-2 pt-1">
-              <span className="col-span-4 text-[#9b9a97] font-medium flex items-center gap-1.5">
-                <ImageIcon className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+              <span className="col-span-4 text-gp-ink-300 font-medium flex items-center gap-1.5">
+                <ImageIcon className="w-3.5 h-3.5 text-gp-ink-300 shrink-0" />
                 <span>Foto Depan & Belakang</span>
               </span>
               <div className="col-span-8 grid grid-cols-2 gap-2">
@@ -1451,39 +1451,39 @@ export function MonitorLiveStudio({
                     })
                   }
                   placeholder="Tampak depan (URL / Ctrl+V)"
-                  className="w-full bg-[#1b1b1e] border border-[#2e2e33] rounded-lg px-2 py-1 text-[11px] text-zinc-300 focus:outline-none"
+                  className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2 py-1 text-2xs text-gp-ink-200 focus:outline-none"
                 />
                 <input
                   type="text"
                   value={formData.rearImage || ""}
                   onChange={(e) => setFormData({ ...formData, rearImage: e.target.value })}
                   placeholder="Tampak belakang (URL / Ctrl+V)"
-                  className="w-full bg-[#1b1b1e] border border-[#2e2e33] rounded-lg px-2 py-1 text-[11px] text-zinc-300 focus:outline-none"
+                  className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2 py-1 text-2xs text-gp-ink-200 focus:outline-none"
                 />
               </div>
             </div>
 
             {/* Collapsible Accordion: 21 Specs & Toleransi GTID */}
-            <div className="pt-1.5 border-t border-[#222]">
+            <div className="pt-1.5 border-t border-gp-ink-750">
               <button
                 type="button"
                 onClick={() => setIsSpecsExpanded(!isSpecsExpanded)}
-                className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-[#1b1b1e] hover:bg-[#252529] text-zinc-300 hover:text-white transition-colors text-xs font-semibold border border-[#2e2e33]"
+                className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 text-gp-ink-200 hover:text-white transition-colors text-xs font-semibold border border-gp-ink-650"
               >
                 <div className="flex items-center gap-2">
-                  <SlidersHorizontal className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+                  <SlidersHorizontal className="w-3.5 h-3.5 text-gp-ink-300 shrink-0" />
                   <span>21 Parameter Spesifikasi Layar & Data GTID</span>
                 </div>
-                <span className="text-[10px] text-emerald-400 font-mono font-bold">
+                <span className="text-3xs text-emerald-400 font-mono font-bold">
                   {isSpecsExpanded ? "▲ Tutup Spesifikasi" : "▼ Buka 21 Spesifikasi"}
                 </span>
               </button>
 
               {isSpecsExpanded && (
-                <div className="mt-2 p-3 rounded-xl bg-black/60 border border-[#2a2a2a] space-y-2.5 animate-in fade-in slide-in-from-top-1 text-xs">
+                <div className="mt-2 p-3 rounded-xl bg-black/60 border border-gp-ink-700 space-y-2.5 animate-in fade-in slide-in-from-top-1 text-xs">
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="text-[10px] text-zinc-500 block mb-0.5">Ukuran Panel</label>
+                      <label className="text-3xs text-gp-ink-400 block mb-0.5">Ukuran Panel</label>
                       <input
                         type="text"
                         value={formData.specs?.display?.size || "24 Inch"}
@@ -1497,11 +1497,11 @@ export function MonitorLiveStudio({
                           })
                         }
                         placeholder="24 Inch or 27 Inch"
-                        className="w-full bg-[#171717] border border-[#2a2a2a] rounded-lg px-2 py-1 text-xs text-white"
+                        className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-lg px-2 py-1 text-xs text-white"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] text-zinc-500 block mb-0.5">Resolusi</label>
+                      <label className="text-3xs text-gp-ink-400 block mb-0.5">Resolusi</label>
                       <input
                         type="text"
                         value={formData.specs?.display?.resolution || "1920x1080 (FHD)"}
@@ -1515,14 +1515,14 @@ export function MonitorLiveStudio({
                           })
                         }
                         placeholder="1920x1080 (FHD)"
-                        className="w-full bg-[#171717] border border-[#2a2a2a] rounded-lg px-2 py-1 text-xs text-white"
+                        className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-lg px-2 py-1 text-xs text-white"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="text-[10px] text-zinc-500 block mb-0.5">Tipe Panel</label>
+                      <label className="text-3xs text-gp-ink-400 block mb-0.5">Tipe Panel</label>
                       <input
                         type="text"
                         value={formData.specs?.display?.panelType || "Fast IPS"}
@@ -1536,11 +1536,11 @@ export function MonitorLiveStudio({
                           })
                         }
                         placeholder="Fast IPS / OLED / VA"
-                        className="w-full bg-[#171717] border border-[#2a2a2a] rounded-lg px-2 py-1 text-xs text-white"
+                        className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-lg px-2 py-1 text-xs text-white"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] text-zinc-500 block mb-0.5">Refresh Rate (Hz)</label>
+                      <label className="text-3xs text-gp-ink-400 block mb-0.5">Refresh Rate (Hz)</label>
                       <input
                         type="number"
                         value={formData.specs?.display?.refreshRate || 180}
@@ -1553,14 +1553,14 @@ export function MonitorLiveStudio({
                             },
                           })
                         }
-                        className="w-full bg-[#171717] border border-[#2a2a2a] rounded-lg px-2 py-1 text-xs text-white font-mono"
+                        className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-lg px-2 py-1 text-xs text-white font-mono"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="text-[10px] text-emerald-400 block mb-0.5">Toleransi Baru (Data Baru GTID)</label>
+                      <label className="text-3xs text-emerald-400 block mb-0.5">Toleransi Baru (Data Baru GTID)</label>
                       <input
                         type="text"
                         value={formData.responseTimeData?.toleranceNew || "Toleransi Baru (5 RGB)"}
@@ -1573,11 +1573,11 @@ export function MonitorLiveStudio({
                             },
                           })
                         }
-                        className="w-full bg-[#171717] border border-emerald-500/40 rounded-lg px-2 py-1 text-xs text-emerald-400 font-mono"
+                        className="w-full bg-gp-ink-800 border border-emerald-500/40 rounded-lg px-2 py-1 text-xs text-emerald-400 font-mono"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] text-rose-400 block mb-0.5">Toleransi Lama (Data Lama GTID)</label>
+                      <label className="text-3xs text-rose-400 block mb-0.5">Toleransi Lama (Data Lama GTID)</label>
                       <input
                         type="text"
                         value={formData.responseTimeData?.toleranceOld || "Toleransi Lama (10 RGB)"}
@@ -1590,54 +1590,54 @@ export function MonitorLiveStudio({
                             },
                           })
                         }
-                        className="w-full bg-[#171717] border border-rose-500/40 rounded-lg px-2 py-1 text-xs text-rose-400 font-mono"
+                        className="w-full bg-gp-ink-800 border border-rose-500/40 rounded-lg px-2 py-1 text-xs text-rose-400 font-mono"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-3 gap-2">
                     <div>
-                      <label className="text-[10px] text-zinc-500 block mb-0.5">Aspect Ratio</label>
+                      <label className="text-3xs text-gp-ink-400 block mb-0.5">Aspect Ratio</label>
                       <input
                         type="text"
                         value={formData.aspectRatio || "16:9 (Wide)"}
                         onChange={(e) => setFormData({ ...formData, aspectRatio: e.target.value })}
-                        className="w-full bg-[#171717] border border-[#2a2a2a] rounded-lg px-2 py-1 text-[11px] text-white"
+                        className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-lg px-2 py-1 text-2xs text-white"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] text-zinc-500 block mb-0.5">Curvature</label>
+                      <label className="text-3xs text-gp-ink-400 block mb-0.5">Curvature</label>
                       <input
                         type="text"
                         value={formData.curvature || "None"}
                         onChange={(e) => setFormData({ ...formData, curvature: e.target.value })}
-                        className="w-full bg-[#171717] border border-[#2a2a2a] rounded-lg px-2 py-1 text-[11px] text-white"
+                        className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-lg px-2 py-1 text-2xs text-white"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] text-zinc-500 block mb-0.5">Panel Bit Depth</label>
+                      <label className="text-3xs text-gp-ink-400 block mb-0.5">Panel Bit Depth</label>
                       <input
                         type="text"
                         value={formData.panelBitDepth || "8 Bit"}
                         onChange={(e) => setFormData({ ...formData, panelBitDepth: e.target.value })}
-                        className="w-full bg-[#171717] border border-[#2a2a2a] rounded-lg px-2 py-1 text-[11px] text-white"
+                        className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-lg px-2 py-1 text-2xs text-white"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="text-[10px] text-zinc-500 block mb-0.5">Stand Capability</label>
+                      <label className="text-3xs text-gp-ink-400 block mb-0.5">Stand Capability</label>
                       <input
                         type="text"
                         value={formData.standCapability || "Tilt"}
                         onChange={(e) => setFormData({ ...formData, standCapability: e.target.value })}
                         placeholder="Tilt / HAS"
-                        className="w-full bg-[#171717] border border-[#2a2a2a] rounded-lg px-2 py-1 text-[11px] text-white"
+                        className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-lg px-2 py-1 text-2xs text-white"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] text-zinc-500 block mb-0.5">Display Inputs (Koma)</label>
+                      <label className="text-3xs text-gp-ink-400 block mb-0.5">Display Inputs (Koma)</label>
                       <input
                         type="text"
                         value={(formData.displayInputs || ["HDMI 1.4", "HDMI 2.0"]).join(", ")}
@@ -1648,7 +1648,7 @@ export function MonitorLiveStudio({
                           })
                         }
                         placeholder="HDMI 2.0, DP 1.4"
-                        className="w-full bg-[#171717] border border-[#2a2a2a] rounded-lg px-2 py-1 text-[11px] text-white"
+                        className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-lg px-2 py-1 text-2xs text-white"
                       />
                     </div>
                   </div>
@@ -1658,7 +1658,7 @@ export function MonitorLiveStudio({
           </div>
 
           {/* 2.5. VARIABEL & KOLOM DATA MODULAR MONITOR */}
-          <div className="p-4 rounded-xl bg-[#121219] border border-zinc-800 space-y-3 shadow-tech-card">
+          <div className="p-4 rounded-xl bg-gp-ink-850 border border-gp-ink-700 space-y-3 shadow-tech-card">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <TableIcon className="w-4 h-4 text-orange-500" />
@@ -1666,12 +1666,12 @@ export function MonitorLiveStudio({
                   Variabel & Kolom Data Modular Monitor
                 </span>
               </div>
-              <span className="text-[10px] font-mono text-zinc-500">
+              <span className="text-3xs font-mono text-gp-ink-400">
                 {(formData.customVariables || []).length} Variabel Kustom
               </span>
             </div>
 
-            <p className="text-[11px] text-zinc-400">
+            <p className="text-2xs text-gp-ink-300">
               Tambahkan variabel/kolom data baru untuk monitor ini (misal: KVM Switch, Type-C 65W PD, Mini-LED 1152 Zones, Coating Layar, dll).
             </p>
 
@@ -1681,10 +1681,10 @@ export function MonitorLiveStudio({
                 {formData.customVariables!.map((v, idx) => (
                   <div
                     key={v.id}
-                    className="flex items-center justify-between bg-zinc-900 border border-zinc-750 px-3 py-1.5 rounded-lg text-xs"
+                    className="flex items-center justify-between bg-gp-ink-800 border border-gp-ink-650 px-3 py-1.5 rounded-lg text-xs"
                   >
                     <div className="flex items-center gap-2 flex-1">
-                      <span className="px-1.5 py-0.5 rounded bg-zinc-800 text-[9px] font-mono text-cyan-400 uppercase font-bold">
+                      <span className="px-1.5 py-0.5 rounded bg-gp-ink-700 text-4xs font-mono text-cyan-400 uppercase font-bold">
                         {v.category || "Fitur"}
                       </span>
                       <span className="font-bold text-white font-mono">{v.label}:</span>
@@ -1696,7 +1696,7 @@ export function MonitorLiveStudio({
                         const updated = (formData.customVariables || []).filter((_, i) => i !== idx);
                         setFormData({ ...formData, customVariables: updated });
                       }}
-                      className="text-zinc-500 hover:text-rose-400 p-1"
+                      className="text-gp-ink-400 hover:text-rose-400 p-1"
                       title="Hapus Variabel Ini"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -1707,25 +1707,25 @@ export function MonitorLiveStudio({
             )}
 
             {/* Add Variable Form Controls */}
-            <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 pt-2 border-t border-zinc-800/80">
+            <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 pt-2 border-t border-gp-ink-700/80">
               <input
                 type="text"
                 placeholder="Nama Variabel / Kolom (e.g. KVM Switch)..."
                 value={newVarLabel}
                 onChange={(e) => setNewVarLabel(e.target.value)}
-                className="sm:col-span-5 bg-zinc-900 border border-zinc-750 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-zinc-500 font-mono focus:outline-none focus:border-cyan-500"
+                className="sm:col-span-5 bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-gp-ink-400 font-mono focus:outline-none focus:border-cyan-500"
               />
               <input
                 type="text"
                 placeholder="Nilai Data (e.g. Ya (2 PC), 65W PD)..."
                 value={newVarValue}
                 onChange={(e) => setNewVarValue(e.target.value)}
-                className="sm:col-span-4 bg-zinc-900 border border-zinc-750 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-zinc-500 font-mono focus:outline-none focus:border-cyan-500"
+                className="sm:col-span-4 bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-gp-ink-400 font-mono focus:outline-none focus:border-cyan-500"
               />
               <select
                 value={newVarCategory}
                 onChange={(e) => setNewVarCategory(e.target.value)}
-                className="sm:col-span-3 bg-zinc-900 border border-zinc-750 rounded-lg px-2 py-1.5 text-xs text-amber-400 font-mono focus:outline-none"
+                className="sm:col-span-3 bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2 py-1.5 text-xs text-amber-400 font-mono focus:outline-none"
               >
                 <option value="Display & Panel">Display</option>
                 <option value="Konektivitas">Port / Colokan</option>
@@ -1738,7 +1738,7 @@ export function MonitorLiveStudio({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1">
               {/* Preset Quick Chips */}
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="text-[9px] font-mono text-zinc-500 font-bold uppercase">PRESET:</span>
+                <span className="text-4xs font-mono text-gp-ink-400 font-bold uppercase">PRESET:</span>
                 {[
                   { l: "KVM Switch", v: "Support (2 PC)", c: "Fitur Gaming" },
                   { l: "Type-C PD", v: "65W PD + DP Alt", c: "Konektivitas" },
@@ -1759,7 +1759,7 @@ export function MonitorLiveStudio({
                       setFormData({ ...formData, customVariables: updated });
                       showNotification(`Variabel "${p.l}" berhasil ditambahkan.`);
                     }}
-                    className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-900 border border-zinc-750 hover:border-cyan-500/60 text-cyan-300 transition-colors"
+                    className="text-3xs font-mono px-2 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-650 hover:border-cyan-500/60 text-cyan-300 transition-colors"
                   >
                     + {p.l}
                   </button>
@@ -1804,23 +1804,23 @@ export function MonitorLiveStudio({
                       if (vars.length === 0) return;
                       const tableHtml = `
 <div class="notion-table-wrapper my-4 overflow-x-auto">
-  <table class="notion-visual-table w-full border-collapse rounded-xl overflow-hidden border border-zinc-800 shadow-tech-card text-xs font-sans">
+  <table class="notion-visual-table w-full border-collapse rounded-xl overflow-hidden border border-gp-ink-700 shadow-tech-card text-xs font-sans">
     <thead>
-      <tr class="bg-[#050508] border-b-2 border-zinc-700 text-zinc-300 font-mono text-[11px] tracking-wider uppercase">
-        <th class="px-3.5 py-3 text-left font-bold border-r border-zinc-800">Kategori</th>
-        <th class="px-3.5 py-3 text-left font-bold border-r border-zinc-800">Parameter / Variabel</th>
+      <tr class="bg-gp-ink-998 border-b-2 border-gp-ink-600 text-gp-ink-200 font-mono text-2xs tracking-wider uppercase">
+        <th class="px-3.5 py-3 text-left font-bold border-r border-gp-ink-700">Kategori</th>
+        <th class="px-3.5 py-3 text-left font-bold border-r border-gp-ink-700">Parameter / Variabel</th>
         <th class="px-3.5 py-3 text-left font-bold">Nilai Spesifikasi</th>
       </tr>
     </thead>
-    <tbody class="divide-y divide-zinc-800/80 bg-[#0c0c11]">
+    <tbody class="divide-y divide-gp-ink-700/80 bg-gp-ink-900">
       ${vars
         .map(
           (v) => `
-      <tr class="hover:bg-zinc-800/40 transition-colors">
-        <td class="px-3.5 py-2.5 border-r border-zinc-800/60 font-mono text-cyan-400 font-bold uppercase text-[10px]">${
+      <tr class="hover:bg-gp-ink-700/40 transition-colors">
+        <td class="px-3.5 py-2.5 border-r border-gp-ink-700/60 font-mono text-cyan-400 font-bold uppercase text-3xs">${
           v.category || "Spesifikasi"
         }</td>
-        <td class="px-3.5 py-2.5 border-r border-zinc-800/60 font-semibold text-white">${
+        <td class="px-3.5 py-2.5 border-r border-gp-ink-700/60 font-semibold text-white">${
           v.label
         }</td>
         <td class="px-3.5 py-2.5 text-emerald-400 font-mono font-bold">${v.value}</td>
@@ -1851,8 +1851,8 @@ export function MonitorLiveStudio({
           {/* 3. Word / Notion Document Canvas (Main Body) */}
           <div className="space-y-2 pt-1">
             <div className="flex items-center justify-between text-xs">
-              <div className="flex items-center gap-2 font-bold text-white uppercase tracking-wider text-[11px]">
-                <FileText className="w-4 h-4 text-zinc-400" />
+              <div className="flex items-center gap-2 font-bold text-white uppercase tracking-wider text-2xs">
+                <FileText className="w-4 h-4 text-gp-ink-300" />
                 <span>Dokumen Ulasan & Verdict (Studio Canvas)</span>
               </div>
               <div className="flex items-center gap-1.5 flex-wrap">
@@ -1866,7 +1866,7 @@ export function MonitorLiveStudio({
                       deepDiveDescription: (prev.deepDiveDescription || "") + snippet,
                     }));
                   }}
-                  className="text-[10px] px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/40 text-amber-300 hover:bg-amber-500/25 font-semibold transition-colors"
+                  className="text-3xs px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/40 text-amber-300 hover:bg-amber-500/25 font-semibold transition-colors"
                 >
                   + Verdict Callout
                 </button>
@@ -1880,14 +1880,14 @@ export function MonitorLiveStudio({
                       deepDiveDescription: (prev.deepDiveDescription || "") + snippet,
                     }));
                   }}
-                  className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/25 font-semibold transition-colors"
+                  className="text-3xs px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/25 font-semibold transition-colors"
                 >
                   + Pros/Cons Checklist
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsTableBuilderOpen(true)}
-                  className="text-[10px] px-2 py-0.5 rounded bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/25 font-semibold font-mono transition-colors flex items-center gap-1"
+                  className="text-3xs px-2 py-0.5 rounded bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/25 font-semibold font-mono transition-colors flex items-center gap-1"
                 >
                   <TableIcon className="w-3 h-3" />
                   <span>+ Modular Tabel GTID</span>
@@ -1895,7 +1895,7 @@ export function MonitorLiveStudio({
                 <button
                   type="button"
                   onClick={() => setIsWordDocsOpen(true)}
-                  className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/25 font-semibold font-mono transition-colors flex items-center gap-1"
+                  className="text-3xs px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/25 font-semibold font-mono transition-colors flex items-center gap-1"
                 >
                   <FileSpreadsheet className="w-3 h-3" />
                   <span>Word / Docs Editor</span>
@@ -1904,7 +1904,7 @@ export function MonitorLiveStudio({
             </div>
 
             {/* Notion Rich Editor Component (WYSIWYG Word/Notion Canvas) */}
-            <div className="border border-[#2a2a2a] rounded-xl overflow-hidden bg-black shadow-inner">
+            <div className="border border-gp-ink-700 rounded-xl overflow-hidden bg-black shadow-inner">
               <NotionRichEditor
                 value={docContent}
                 onChange={(val) => {
@@ -1919,8 +1919,8 @@ export function MonitorLiveStudio({
                 allowImageUpload={true}
               />
             </div>
-            <p className="text-[10px] text-[#787774]">
-              [TIPS]: Blok teks untuk styling cepat, ketik <kbd className="px-1 py-0.5 rounded bg-[#202020] text-zinc-300">/</kbd> untuk menu cepat, atau tekan <kbd className="px-1 py-0.5 rounded bg-[#202020] text-zinc-300">Ctrl+V</kbd> untuk paste gambar pengujian lab langsung.
+            <p className="text-3xs text-gp-ink-400">
+              [TIPS]: Blok teks untuk styling cepat, ketik <kbd className="px-1 py-0.5 rounded bg-gp-ink-750 text-gp-ink-200">/</kbd> untuk menu cepat, atau tekan <kbd className="px-1 py-0.5 rounded bg-gp-ink-750 text-gp-ink-200">Ctrl+V</kbd> untuk paste gambar pengujian lab langsung.
             </p>
           </div>
         </div>
@@ -1928,12 +1928,12 @@ export function MonitorLiveStudio({
         {/* ========================================================================= */}
         {/* COLUMN 3: REAL-TIME NOTION SIDE-PEEK PREVIEW (4 Cols)                      */}
         {/* ========================================================================= */}
-        <div className="lg:col-span-4 rounded-2xl bg-[#191919] border border-[#2a2a2a] p-5 space-y-4 shadow-xl overflow-y-auto max-h-[750px]">
+        <div className="lg:col-span-4 rounded-2xl bg-gp-ink-800 border border-gp-ink-700 p-5 space-y-4 shadow-xl overflow-y-auto max-h-[750px]">
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-[#2a2a2a] pb-3 text-xs text-[#9b9a97]">
+          <div className="flex items-center justify-between border-b border-gp-ink-700 pb-3 text-xs text-gp-ink-300">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#52ba69] animate-pulse" />
-              <span className="font-bold text-[#e0e0e0] uppercase tracking-wider text-[10px]">
+              <span className="w-2 h-2 rounded-full bg-gp-mint animate-pulse" />
+              <span className="font-bold text-gp-ink-100 uppercase tracking-wider text-3xs">
                 Live Side-Peek Preview
               </span>
             </div>
@@ -1941,7 +1941,7 @@ export function MonitorLiveStudio({
               <button
                 type="button"
                 onClick={() => onPreviewSidePanel(selectedMonitor)}
-                className="text-[10px] text-[#58a6ff] hover:underline flex items-center gap-1 font-semibold"
+                className="text-3xs text-gp-sky hover:underline flex items-center gap-1 font-semibold"
               >
                 <span>Buka Panel Penuh</span>
                 <ExternalLink className="w-3 h-3" />
@@ -1951,8 +1951,8 @@ export function MonitorLiveStudio({
 
           {/* Title & Icon Header */}
           <div className="space-y-2">
-            <div className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 w-fit">
-              <Tv className="w-6 h-6 text-zinc-300" />
+            <div className="p-2 rounded-lg bg-gp-ink-800 border border-gp-ink-700 w-fit">
+              <Tv className="w-6 h-6 text-gp-ink-200" />
             </div>
             <h1 className="text-lg font-extrabold text-white tracking-tight">
               {formData.fullName || "Nama Monitor"}
@@ -1960,40 +1960,40 @@ export function MonitorLiveStudio({
           </div>
 
           {/* Notion Property Table (Exact 1:1 format) */}
-          <div className="space-y-1.5 text-xs border-y border-[#2a2a2a] py-3 text-[#9b9a97]">
+          <div className="space-y-1.5 text-xs border-y border-gp-ink-700 py-3 text-gp-ink-300">
             <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-              <span className="col-span-5 text-[#787774] font-medium">Kisaran Harga</span>
-              <span className="col-span-7 font-mono font-bold text-white text-[11px]">
+              <span className="col-span-5 text-gp-ink-400 font-medium">Kisaran Harga</span>
+              <span className="col-span-7 font-mono font-bold text-white text-2xs">
                 IDR {(formData.price || 0).toLocaleString("en-US")}
               </span>
             </div>
 
             <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-              <span className="col-span-5 text-[#787774] font-medium">Aspect Ratio</span>
+              <span className="col-span-5 text-gp-ink-400 font-medium">Aspect Ratio</span>
               <div className="col-span-7">
-                <span className="px-2 py-0.5 rounded bg-[#1d354a] text-[#58a6ff] text-[10px] font-medium">
+                <span className="px-2 py-0.5 rounded bg-gp-sky-600 text-gp-sky text-3xs font-medium">
                   {formData.aspectRatio || "16:9 (Wide)"}
                 </span>
               </div>
             </div>
 
             <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-              <span className="col-span-5 text-[#787774] font-medium">Curvature</span>
+              <span className="col-span-5 text-gp-ink-400 font-medium">Curvature</span>
               <div className="col-span-7">
-                <span className="px-2 py-0.5 rounded bg-[#442224] text-[#eb5757] text-[10px] font-medium">
+                <span className="px-2 py-0.5 rounded bg-gp-coral-700 text-gp-coral text-3xs font-medium">
                   {formData.curvature || "None"}
                 </span>
               </div>
             </div>
 
             <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-              <span className="col-span-5 text-[#787774] font-medium">Display Input</span>
+              <span className="col-span-5 text-gp-ink-400 font-medium">Display Input</span>
               <div className="col-span-7 flex items-center gap-1 flex-wrap">
                 {(formData.displayInputs || ["HDMI 1.4", "HDMI 2.0"]).map((inp, idx) => (
                   <span
                     key={idx}
-                    className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${
-                      idx === 0 ? "bg-[#203c2b] text-[#52ba69]" : "bg-[#3b2344] text-[#d157eb]"
+                    className={`px-1.5 py-0.5 rounded text-3xs font-medium ${
+                      idx === 0 ? "bg-gp-mint-900 text-gp-mint" : "bg-gp-violet-400 text-gp-violet"
                     }`}
                   >
                     {inp}
@@ -2003,45 +2003,45 @@ export function MonitorLiveStudio({
             </div>
 
             <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-              <span className="col-span-5 text-[#787774] font-medium">Panel Bit Depth</span>
+              <span className="col-span-5 text-gp-ink-400 font-medium">Panel Bit Depth</span>
               <div className="col-span-7">
-                <span className="px-2 py-0.5 rounded bg-[#2f2f2f] text-[#d4d4d4] text-[10px] font-medium">
+                <span className="px-2 py-0.5 rounded bg-gp-ink-650 text-gp-ink-200 text-3xs font-medium">
                   {formData.panelBitDepth || "8 Bit"}
                 </span>
               </div>
             </div>
 
             <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-              <span className="col-span-5 text-[#787774] font-medium">Panel Size</span>
+              <span className="col-span-5 text-gp-ink-400 font-medium">Panel Size</span>
               <div className="col-span-7">
-                <span className="px-2 py-0.5 rounded bg-[#442c1d] text-[#e07936] text-[10px] font-medium">
+                <span className="px-2 py-0.5 rounded bg-gp-ember-400 text-gp-ember text-3xs font-medium">
                   {formData.specs?.display?.size || "24 Inch"}
                 </span>
               </div>
             </div>
 
             <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-              <span className="col-span-5 text-[#787774] font-medium">Refresh Rate</span>
+              <span className="col-span-5 text-gp-ink-400 font-medium">Refresh Rate</span>
               <div className="col-span-7">
-                <span className="px-2 py-0.5 rounded bg-[#203c2b] text-[#52ba69] text-[10px] font-mono font-medium">
+                <span className="px-2 py-0.5 rounded bg-gp-mint-900 text-gp-mint text-3xs font-mono font-medium">
                   {formData.specs?.display?.refreshRate || 180}Hz
                 </span>
               </div>
             </div>
 
             <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-              <span className="col-span-5 text-[#787774] font-medium">Resolution</span>
+              <span className="col-span-5 text-gp-ink-400 font-medium">Resolution</span>
               <div className="col-span-7">
-                <span className="px-2 py-0.5 rounded bg-[#442224] text-[#eb5757] text-[10px] font-medium">
+                <span className="px-2 py-0.5 rounded bg-gp-coral-700 text-gp-coral text-3xs font-medium">
                   {formData.specs?.display?.resolution || "1920x1080 (FHD)"}
                 </span>
               </div>
             </div>
 
             <div className="grid grid-cols-12 items-center gap-2 py-0.5">
-              <span className="col-span-5 text-[#787774] font-medium">STATUS</span>
+              <span className="col-span-5 text-gp-ink-400 font-medium">STATUS</span>
               <div className="col-span-7">
-                <span className="px-2 py-0.5 rounded bg-[#203c2b] text-[#52ba69] text-[10px] font-bold">
+                <span className="px-2 py-0.5 rounded bg-gp-mint-900 text-gp-mint text-3xs font-bold">
                   {formData.tier || "RECOMMENDED"}
                 </span>
               </div>
@@ -2049,17 +2049,17 @@ export function MonitorLiveStudio({
 
             {/* Render Custom Variables in Preview if present */}
             {formData.customVariables && formData.customVariables.length > 0 && (
-              <div className="pt-2 border-t border-zinc-800 space-y-1">
-                <span className="text-[9px] font-mono font-bold text-cyan-400 uppercase tracking-wider block mb-1">
+              <div className="pt-2 border-t border-gp-ink-700 space-y-1">
+                <span className="text-4xs font-mono font-bold text-cyan-400 uppercase tracking-wider block mb-1">
                   // VARIABEL & FITUR MODULAR:
                 </span>
                 {formData.customVariables.map((v) => (
                   <div key={v.id} className="grid grid-cols-12 items-center gap-2 py-0.5">
-                    <span className="col-span-5 text-zinc-400 font-medium truncate text-[11px]" title={v.label}>
+                    <span className="col-span-5 text-gp-ink-300 font-medium truncate text-2xs" title={v.label}>
                       {v.label}
                     </span>
                     <div className="col-span-7">
-                      <span className="px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[10px] font-mono font-bold">
+                      <span className="px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-3xs font-mono font-bold">
                         {v.value}
                       </span>
                     </div>
@@ -2071,25 +2071,25 @@ export function MonitorLiveStudio({
 
           {/* Photo Gallery Section */}
           <div className="space-y-2">
-            <span className="text-[10px] font-bold text-[#787774] uppercase">Section Foto Monitor</span>
+            <span className="text-3xs font-bold text-gp-ink-400 uppercase">Section Foto Monitor</span>
             <div className="grid grid-cols-2 gap-2">
-              <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-[#202020] border border-[#2f2f2f]">
+              <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-gp-ink-750 border border-gp-ink-650">
                 <img
                   src={formData.frontImage || formData.thumbnail || "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop"}
                   alt="Front"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute top-1 right-1 px-1 py-0.5 rounded bg-black/70 text-[9px] text-white">
+                <div className="absolute top-1 right-1 px-1 py-0.5 rounded bg-black/70 text-4xs text-white">
                   Depan
                 </div>
               </div>
-              <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-[#202020] border border-[#2f2f2f]">
+              <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-gp-ink-750 border border-gp-ink-650">
                 <img
                   src={formData.rearImage || formData.thumbnail || "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop"}
                   alt="Rear"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute top-1 right-1 px-1 py-0.5 rounded bg-black/70 text-[9px] text-white">
+                <div className="absolute top-1 right-1 px-1 py-0.5 rounded bg-black/70 text-4xs text-white">
                   Belakang
                 </div>
               </div>
@@ -2098,12 +2098,12 @@ export function MonitorLiveStudio({
 
           {/* Video Preview if provided */}
           {formData.gtidReviewUrl && (
-            <div className="p-3 rounded-xl bg-[#202020] border border-[#2f2f2f] space-y-1.5">
+            <div className="p-3 rounded-xl bg-gp-ink-750 border border-gp-ink-650 space-y-1.5">
               <div className="flex items-center gap-1.5 text-xs text-white font-bold">
                 <Youtube className="w-4 h-4 text-rose-500" />
                 <span>Video Review GTID Terhubung</span>
               </div>
-              <p className="text-[10px] text-[#9b9a97] truncate">{formData.gtidReviewUrl}</p>
+              <p className="text-3xs text-gp-ink-300 truncate">{formData.gtidReviewUrl}</p>
             </div>
           )}
         </div>

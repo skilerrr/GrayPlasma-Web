@@ -53,12 +53,12 @@ export default function UkuranMejaMonitorIdealPage() {
   const calcResult = calculateRecommendation();
 
   return (
-    <div className="min-h-screen bg-[#191919] text-[#e0e0e0] flex flex-col font-sans selection:bg-amber-500/30 selection:text-amber-200">
+    <div className="min-h-screen bg-gp-ink-800 text-gp-ink-100 flex flex-col font-sans selection:bg-amber-500/30 selection:text-amber-200">
       {/* Unified Subpage Navbar */}
       <SubpageNavbar
         breadcrumbs={[
-          { label: "REKOMENDASI MEJA", href: "/catalog/desks", icon: <Layers className="w-3.5 h-3.5 text-zinc-400" /> },
-          { label: "UKURAN MEJA & MONITOR IDEAL", icon: <Ruler className="w-3.5 h-3.5 text-zinc-400" /> },
+          { label: "REKOMENDASI MEJA", href: "/catalog/desks", icon: <Layers className="w-3.5 h-3.5 text-gp-ink-300" /> },
+          { label: "UKURAN MEJA & MONITOR IDEAL", icon: <Ruler className="w-3.5 h-3.5 text-gp-ink-300" /> },
         ]}
         backLink={{
           href: "/catalog/desks",
@@ -68,7 +68,7 @@ export default function UkuranMejaMonitorIdealPage() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 flex-1 w-full">
         {/* Page Hero Title */}
-        <div className="bg-[#202020] border border-[#2f2f2f] rounded-3xl p-6 sm:p-10 space-y-6 shadow-2xl relative overflow-hidden">
+        <div className="bg-gp-ink-750 border border-gp-ink-650 rounded-3xl p-6 sm:p-10 space-y-6 shadow-2xl relative overflow-hidden">
           <div className="relative z-10 space-y-4">
             <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
               <Ruler className="w-6 h-6" />
@@ -76,19 +76,19 @@ export default function UkuranMejaMonitorIdealPage() {
             <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight uppercase">
               UKURAN MEJA DAN MONITOR YANG IDEAL
             </h1>
-            <p className="text-sm sm:text-base text-[#9b9a97] leading-relaxed max-w-3xl">
+            <p className="text-sm sm:text-base text-gp-ink-300 leading-relaxed max-w-3xl">
               Ini panduan lengkap penyesuaian dimensi panjang & kedalaman meja kerja berdasarkan ukuran layar monitor (24" vs 27"), posisi penempatan casing PC, dan penggunaan laptop/dual monitor.
             </p>
           </div>
 
           {/* Interactive Navigation Mode Tabs */}
-          <div className="flex items-center gap-2 pt-4 border-t border-[#2f2f2f] overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-2 pt-4 border-t border-gp-ink-650 overflow-x-auto no-scrollbar">
             <button
               onClick={() => setActiveTab("24inch")}
               className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
                 activeTab === "24inch"
                   ? "bg-amber-500/20 border border-amber-500/40 text-amber-400 shadow-sm"
-                  : "bg-[#191919] border border-[#2f2f2f] text-zinc-400 hover:text-white"
+                  : "bg-gp-ink-800 border border-gp-ink-650 text-gp-ink-300 hover:text-white"
               }`}
             >
               <MonitorIcon className="w-4 h-4" />
@@ -99,7 +99,7 @@ export default function UkuranMejaMonitorIdealPage() {
               className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
                 activeTab === "27inch"
                   ? "bg-amber-500/20 border border-amber-500/40 text-amber-400 shadow-sm"
-                  : "bg-[#191919] border border-[#2f2f2f] text-zinc-400 hover:text-white"
+                  : "bg-gp-ink-800 border border-gp-ink-650 text-gp-ink-300 hover:text-white"
               }`}
             >
               <MonitorIcon className="w-4 h-4" />
@@ -110,7 +110,7 @@ export default function UkuranMejaMonitorIdealPage() {
               className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
                 activeTab === "calculator"
                   ? "bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 shadow-sm"
-                  : "bg-[#191919] border border-[#2f2f2f] text-zinc-400 hover:text-white"
+                  : "bg-gp-ink-800 border border-gp-ink-650 text-gp-ink-300 hover:text-white"
               }`}
             >
               <Sparkles className="w-4 h-4" />
@@ -127,26 +127,26 @@ export default function UkuranMejaMonitorIdealPage() {
                 <Layers className="w-4 h-4 text-amber-400" />
                 <span>GAMBARAN KASAR (24 INCH)</span>
               </h2>
-              <span className="text-xs text-[#9b9a97]">Data rekomendasi meja setup monitor 24"</span>
+              <span className="text-xs text-gp-ink-300">Data rekomendasi meja setup monitor 24"</span>
             </div>
 
-            <div className="rounded-2xl border border-[#2f2f2f] bg-[#191919] overflow-hidden shadow-xl">
+            <div className="rounded-2xl border border-gp-ink-650 bg-gp-ink-800 overflow-hidden shadow-xl">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse min-w-[700px]">
-                  <thead className="bg-[#202020] text-[#9b9a97] uppercase text-[11px] font-bold tracking-wider border-b border-[#2f2f2f]">
+                  <thead className="bg-gp-ink-750 text-gp-ink-300 uppercase text-2xs font-bold tracking-wider border-b border-gp-ink-650">
                     <tr>
                       <th className="py-3 px-4 min-w-[160px] text-white">UKURAN MONITOR</th>
                       <th className="py-3 px-4 min-w-[220px]">DEVICE / SETUP</th>
-                      <th className="py-3 px-4 min-w-[160px] font-mono text-zinc-300">UKURAN MEJA (MINIMUM, CM)</th>
+                      <th className="py-3 px-4 min-w-[160px] font-mono text-gp-ink-200">UKURAN MEJA (MINIMUM, CM)</th>
                       <th className="py-3 px-4 min-w-[160px] font-mono text-emerald-400">UKURAN MEJA (IDEAL, CM)</th>
                       <th className="py-3 px-4 min-w-[140px]">BENTUK MEJA</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#262626]">
+                  <tbody className="divide-y divide-gp-ink-700">
                     {IDEAL_DESK_MONITOR_SIZES.size24.map((item, idx) => (
-                      <tr key={item.id} className={idx % 2 === 0 ? "bg-[#191919]" : "bg-[#1d1d1d]"}>
+                      <tr key={item.id} className={idx % 2 === 0 ? "bg-gp-ink-800" : "bg-gp-ink-750"}>
                         <td className="py-3.5 px-4 font-bold text-white flex items-center gap-2">
-                          <Layers className="w-3.5 h-3.5 text-zinc-500 flex-shrink-0" />
+                          <Layers className="w-3.5 h-3.5 text-gp-ink-400 flex-shrink-0" />
                           <span>{item.monitorSize}</span>
                         </td>
                         <td className="py-3.5 px-4">
@@ -154,12 +154,12 @@ export default function UkuranMejaMonitorIdealPage() {
                             {item.deviceSetup.split(",").map((dev, dIdx) => (
                               <span
                                 key={dIdx}
-                                className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
+                                className={`px-2 py-0.5 rounded text-3xs font-bold uppercase tracking-wider ${
                                   dev.includes("1 MONITOR") || dev.includes("2 MONITOR")
-                                    ? "bg-[#1e3a8a]/40 text-blue-300 border border-blue-500/30"
+                                    ? "bg-blue-900/40 text-blue-300 border border-blue-500/30"
                                     : dev.includes("LAPTOP")
-                                    ? "bg-[#854d0e]/40 text-amber-300 border border-amber-500/30"
-                                    : "bg-[#374151] text-zinc-200 border border-zinc-600"
+                                    ? "bg-gp-ember-500/40 text-amber-300 border border-amber-500/30"
+                                    : "bg-gray-700 text-gp-ink-100 border border-gp-ink-500"
                                 }`}
                               >
                                 {dev.trim()}
@@ -167,14 +167,14 @@ export default function UkuranMejaMonitorIdealPage() {
                             ))}
                           </div>
                         </td>
-                        <td className="py-3.5 px-4 font-mono text-zinc-300 font-semibold">
+                        <td className="py-3.5 px-4 font-mono text-gp-ink-200 font-semibold">
                           {item.minDeskSize}
                         </td>
                         <td className="py-3.5 px-4 font-mono text-emerald-400 font-bold text-sm">
                           {item.idealDeskSize}
                         </td>
                         <td className="py-3.5 px-4">
-                          <span className="px-2 py-0.5 rounded bg-[#202020] border border-zinc-700 text-zinc-300 text-[10px] font-bold">
+                          <span className="px-2 py-0.5 rounded bg-gp-ink-750 border border-gp-ink-600 text-gp-ink-200 text-3xs font-bold">
                             {item.shape}
                           </span>
                         </td>
@@ -195,26 +195,26 @@ export default function UkuranMejaMonitorIdealPage() {
                 <Layers className="w-4 h-4 text-amber-400" />
                 <span>GAMBARAN KASAR (27 INCH, TERMASUK SECONDARY 24 INCH)</span>
               </h2>
-              <span className="text-xs text-[#9b9a97]">Data rekomendasi meja setup monitor 27"</span>
+              <span className="text-xs text-gp-ink-300">Data rekomendasi meja setup monitor 27"</span>
             </div>
 
-            <div className="rounded-2xl border border-[#2f2f2f] bg-[#191919] overflow-hidden shadow-xl">
+            <div className="rounded-2xl border border-gp-ink-650 bg-gp-ink-800 overflow-hidden shadow-xl">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse min-w-[700px]">
-                  <thead className="bg-[#202020] text-[#9b9a97] uppercase text-[11px] font-bold tracking-wider border-b border-[#2f2f2f]">
+                  <thead className="bg-gp-ink-750 text-gp-ink-300 uppercase text-2xs font-bold tracking-wider border-b border-gp-ink-650">
                     <tr>
                       <th className="py-3 px-4 min-w-[180px] text-white">UKURAN MONITOR</th>
                       <th className="py-3 px-4 min-w-[220px]">DEVICE / SETUP</th>
-                      <th className="py-3 px-4 min-w-[160px] font-mono text-zinc-300">UKURAN MEJA (MINIMUM, CM)</th>
+                      <th className="py-3 px-4 min-w-[160px] font-mono text-gp-ink-200">UKURAN MEJA (MINIMUM, CM)</th>
                       <th className="py-3 px-4 min-w-[160px] font-mono text-emerald-400">UKURAN MEJA (IDEAL, CM)</th>
                       <th className="py-3 px-4 min-w-[140px]">BENTUK MEJA</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#262626]">
+                  <tbody className="divide-y divide-gp-ink-700">
                     {IDEAL_DESK_MONITOR_SIZES.size27.map((item, idx) => (
-                      <tr key={item.id} className={idx % 2 === 0 ? "bg-[#191919]" : "bg-[#1d1d1d]"}>
+                      <tr key={item.id} className={idx % 2 === 0 ? "bg-gp-ink-800" : "bg-gp-ink-750"}>
                         <td className="py-3.5 px-4 font-bold text-white flex items-center gap-2">
-                          <Layers className="w-3.5 h-3.5 text-zinc-500 flex-shrink-0" />
+                          <Layers className="w-3.5 h-3.5 text-gp-ink-400 flex-shrink-0" />
                           <span>{item.monitorSize}</span>
                         </td>
                         <td className="py-3.5 px-4">
@@ -222,12 +222,12 @@ export default function UkuranMejaMonitorIdealPage() {
                             {item.deviceSetup.split(",").map((dev, dIdx) => (
                               <span
                                 key={dIdx}
-                                className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
+                                className={`px-2 py-0.5 rounded text-3xs font-bold uppercase tracking-wider ${
                                   dev.includes("1 MONITOR") || dev.includes("2 MONITOR")
-                                    ? "bg-[#1e3a8a]/40 text-blue-300 border border-blue-500/30"
+                                    ? "bg-blue-900/40 text-blue-300 border border-blue-500/30"
                                     : dev.includes("LAPTOP")
-                                    ? "bg-[#854d0e]/40 text-amber-300 border border-amber-500/30"
-                                    : "bg-[#374151] text-zinc-200 border border-zinc-600"
+                                    ? "bg-gp-ember-500/40 text-amber-300 border border-amber-500/30"
+                                    : "bg-gray-700 text-gp-ink-100 border border-gp-ink-500"
                                 }`}
                               >
                                 {dev.trim()}
@@ -235,14 +235,14 @@ export default function UkuranMejaMonitorIdealPage() {
                             ))}
                           </div>
                         </td>
-                        <td className="py-3.5 px-4 font-mono text-zinc-300 font-semibold">
+                        <td className="py-3.5 px-4 font-mono text-gp-ink-200 font-semibold">
                           {item.minDeskSize}
                         </td>
                         <td className="py-3.5 px-4 font-mono text-emerald-400 font-bold text-sm">
                           {item.idealDeskSize}
                         </td>
                         <td className="py-3.5 px-4">
-                          <span className="px-2 py-0.5 rounded bg-[#202020] border border-zinc-700 text-zinc-300 text-[10px] font-bold">
+                          <span className="px-2 py-0.5 rounded bg-gp-ink-750 border border-gp-ink-600 text-gp-ink-200 text-3xs font-bold">
                             {item.shape}
                           </span>
                         </td>
@@ -257,21 +257,21 @@ export default function UkuranMejaMonitorIdealPage() {
 
         {/* 3. VIEW TAB: INTERACTIVE CALCULATOR */}
         {activeTab === "calculator" && (
-          <div className="bg-[#202020] border border-[#2f2f2f] rounded-3xl p-6 sm:p-10 space-y-8 shadow-2xl">
+          <div className="bg-gp-ink-750 border border-gp-ink-650 rounded-3xl p-6 sm:p-10 space-y-8 shadow-2xl">
             <div className="space-y-2">
               <h2 className="text-xl sm:text-2xl font-extrabold text-white uppercase tracking-tight flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-emerald-400" />
                 <span>Pencari Ukuran Meja Ideal Interaktif</span>
               </h2>
-              <p className="text-xs sm:text-sm text-[#9b9a97]">
+              <p className="text-xs sm:text-sm text-gp-ink-300">
                 Pilih konfigurasi monitor & penempatan PC Anda untuk langsung melihat rekomendasi dimensi meja yang pas.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Step 1: Monitor Configuration */}
-              <div className="space-y-3 bg-[#191919] p-5 rounded-2xl border border-[#2f2f2f]">
-                <label className="text-xs font-bold text-zinc-300 uppercase tracking-wider block">
+              <div className="space-y-3 bg-gp-ink-800 p-5 rounded-2xl border border-gp-ink-650">
+                <label className="text-xs font-bold text-gp-ink-200 uppercase tracking-wider block">
                   1. Pilih Ukuran & Jumlah Monitor
                 </label>
                 <div className="grid grid-cols-2 gap-2">
@@ -287,19 +287,19 @@ export default function UkuranMejaMonitorIdealPage() {
                       className={`p-3 rounded-xl border text-left transition-all ${
                         calcMonitorSize === opt.id
                           ? "bg-emerald-500/20 border-emerald-500/50 text-white shadow-sm"
-                          : "bg-[#202020] border-[#2f2f2f] text-zinc-400 hover:text-white"
+                          : "bg-gp-ink-750 border-gp-ink-650 text-gp-ink-300 hover:text-white"
                       }`}
                     >
                       <span className="block font-bold text-xs">{opt.label}</span>
-                      <span className="text-[10px] text-zinc-500">{opt.sub}</span>
+                      <span className="text-3xs text-gp-ink-400">{opt.sub}</span>
                     </button>
                   ))}
                 </div>
               </div>
 
               {/* Step 2: Device Placement */}
-              <div className="space-y-3 bg-[#191919] p-5 rounded-2xl border border-[#2f2f2f]">
-                <label className="text-xs font-bold text-zinc-300 uppercase tracking-wider block">
+              <div className="space-y-3 bg-gp-ink-800 p-5 rounded-2xl border border-gp-ink-650">
+                <label className="text-xs font-bold text-gp-ink-200 uppercase tracking-wider block">
                   2. Posisi Penempatan PC / Laptop
                 </label>
                 <div className="grid grid-cols-3 gap-2">
@@ -314,10 +314,10 @@ export default function UkuranMejaMonitorIdealPage() {
                       className={`p-3 rounded-xl border text-center transition-all ${
                         calcDevice === opt.id
                           ? "bg-amber-500/20 border-amber-500/50 text-white shadow-sm"
-                          : "bg-[#202020] border-[#2f2f2f] text-zinc-400 hover:text-white"
+                          : "bg-gp-ink-750 border-gp-ink-650 text-gp-ink-300 hover:text-white"
                       }`}
                     >
-                      <div className="mb-1.5 flex justify-center text-zinc-300">{opt.icon}</div>
+                      <div className="mb-1.5 flex justify-center text-gp-ink-200">{opt.icon}</div>
                       <span className="block font-bold text-xs">{opt.label}</span>
                     </button>
                   ))}
@@ -326,27 +326,27 @@ export default function UkuranMejaMonitorIdealPage() {
             </div>
 
             {/* Recommendation Result Card */}
-            <div className="p-6 rounded-2xl bg-gradient-to-r from-[#172e21] to-[#121f18] border border-emerald-500/40 space-y-4 shadow-xl">
+            <div className="p-6 rounded-2xl bg-gradient-to-r from-gp-mint-700 to-gp-mint-500 border border-emerald-500/40 space-y-4 shadow-xl">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4" />
                   <span>Rekomendasi Dimensi Meja Anda:</span>
                 </span>
-                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[11px] font-bold">
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-2xs font-bold">
                   Bentuk: Non L-Shaped
                 </span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="p-4 rounded-xl bg-black/40 border border-emerald-500/30 space-y-1">
-                  <span className="text-[11px] text-zinc-400 block">Ukuran Meja Minimum</span>
-                  <span className="text-xl sm:text-2xl font-black font-mono text-zinc-200">
+                  <span className="text-2xs text-gp-ink-300 block">Ukuran Meja Minimum</span>
+                  <span className="text-xl sm:text-2xl font-black font-mono text-gp-ink-100">
                     {calcResult.min}
                   </span>
                 </div>
 
                 <div className="p-4 rounded-xl bg-emerald-500/20 border border-emerald-400/50 space-y-1">
-                  <span className="text-[11px] text-emerald-300 font-bold block">
+                  <span className="text-2xs text-emerald-300 font-bold block">
                     Ukuran Meja Paling Ideal (Direkomendasikan)
                   </span>
                   <span className="text-xl sm:text-2xl font-black font-mono text-emerald-400">
@@ -355,7 +355,7 @@ export default function UkuranMejaMonitorIdealPage() {
                 </div>
               </div>
 
-              <p className="text-xs text-zinc-300 italic pt-1 flex items-center gap-1.5">
+              <p className="text-xs text-gp-ink-200 italic pt-1 flex items-center gap-1.5">
                 <Info className="w-4 h-4 text-emerald-400 inline-block flex-shrink-0" />
                 <span><strong className="font-semibold text-white">Catatan Ergonomi:</strong> {calcResult.notes}</span>
               </p>
@@ -365,34 +365,34 @@ export default function UkuranMejaMonitorIdealPage() {
 
         {/* 4. KNOWLEDGE & TIPS SECTION */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-          <div className="p-6 rounded-2xl bg-[#202020] border border-[#2f2f2f] space-y-3">
+          <div className="p-6 rounded-2xl bg-gp-ink-750 border border-gp-ink-650 space-y-3">
             <div className="flex items-center gap-2 text-amber-400 font-bold text-sm">
               <AlertTriangle className="w-4 h-4" />
               <span>Mengapa Kedalaman Meja (Lebar) 70 cm Sangat Krusial?</span>
             </div>
-            <p className="text-xs text-[#9b9a97] leading-relaxed">
+            <p className="text-xs text-gp-ink-300 leading-relaxed">
               Banyak meja murah hanya memiliki kedalaman 50-60 cm. Saat monitor diletakkan dengan stand bawaan, jarak mata ke layar menjadi terlalu dekat (&lt;50 cm), memicu mata cepat lelah dan pusing. Kedalaman 70 cm memberi jarak pandang sehat (60–75 cm) dan ruang luas untuk keyboard arm rest & deskmat.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-[#202020] border border-[#2f2f2f] space-y-3">
+          <div className="p-6 rounded-2xl bg-gp-ink-750 border border-gp-ink-650 space-y-3">
             <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
               <CheckCircle2 className="w-4 h-4" />
               <span>Ketebalan Daun Meja untuk Bracket Jepit</span>
             </div>
-            <p className="text-xs text-[#9b9a97] leading-relaxed">
+            <p className="text-xs text-gp-ink-300 leading-relaxed">
               Jika ingin menggunakan Monitor Arm Gas Spring (seperti Oximus P100e/P200e), pastikan ketebalan daun meja minimal **2.5 cm – 3.0 cm** berbahan Plywood/Multiplek HPL atau Kayu Solid. Hindari daun meja berbahan MDF serbuk kayu tipis 1.2 cm yang mudah pecah ketika dijepit.
             </p>
           </div>
         </div>
 
         {/* Bottom Banner to Catalog */}
-        <div className="p-6 rounded-3xl bg-[#202020] border border-[#2f2f2f] flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl">
+        <div className="p-6 rounded-3xl bg-gp-ink-750 border border-gp-ink-650 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl">
           <div>
             <h3 className="text-base font-extrabold text-white uppercase tracking-tight">
               Siap Memilih Meja yang Tepat?
             </h3>
-            <p className="text-xs text-[#9b9a97] mt-0.5">
+            <p className="text-xs text-gp-ink-300 mt-0.5">
               Lihat 10 rekomendasi daun meja custom, meja standar hollow, meja elektrik standing desk, hingga meja nakas.
             </p>
           </div>
