@@ -68,7 +68,14 @@ const env = loadEnv();
 const BASE = env.NEXT_PUBLIC_SUPABASE_URL;
 const ANON = env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const ADMIN_EMAIL = env.SEED_ADMIN_EMAIL ?? "grayplasma@grayplasma.local";
-const ADMIN_PASSWORD = env.SEED_ADMIN_PASSWORD ?? "test123";
+const ADMIN_PASSWORD = env.SEED_ADMIN_PASSWORD;
+
+if (!ADMIN_PASSWORD) {
+  throw new Error(
+    "SEED_ADMIN_PASSWORD belum di-set di .env.local. Password admin tidak lagi " +
+      "di-hardcode di repo — isi sendiri di .env.local (baris SEED_ADMIN_PASSWORD=...)."
+  );
+}
 
 if (!BASE || !ANON) {
   throw new Error("NEXT_PUBLIC_SUPABASE_URL / ANON_KEY tidak ada di .env.local");

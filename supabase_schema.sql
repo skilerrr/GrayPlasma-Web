@@ -70,64 +70,24 @@ CREATE POLICY "Admins can update own profile" ON public.admin_profiles
   USING (id = auth.uid())
   WITH CHECK (id = auth.uid());
 
+-- 2b. ADMIN PERTAMA — SENGAJA TIDAK DI-SEED LEWAT SQL
 -- ==============================================================================
--- 2b. SEED DEFAULT SUPER ADMIN ACCOUNT (grayplasma / test123)
--- Otomatis membuat akun super admin awal di auth.users dan admin_profiles.
--- Tidak perlu registrasi manual! Cukup login dengan:
--- Username: grayplasma
--- Password: test123
--- ==============================================================================
-INSERT INTO auth.users (
-  id,
-  instance_id,
-  aud,
-  role,
-  email,
-  encrypted_password,
-  email_confirmed_at,
-  raw_app_meta_data,
-  raw_user_meta_data,
-  created_at,
-  updated_at
-)
-SELECT
-  '00000000-0000-0000-0000-000000000001',
-  '00000000-0000-0000-0000-000000000000',
-  'authenticated',
-  'authenticated',
-  'grayplasma@grayplasma.local',
-  crypt('test123', gen_salt('bf')),
-  NOW(),
-  '{"provider":"email","providers":["email"],"role":"super_admin"}'::jsonb,
-  '{"name":"Grayplasma","username":"grayplasma"}'::jsonb,
-  NOW(),
-  NOW()
-WHERE NOT EXISTS (
-  SELECT 1 FROM auth.users WHERE email = 'grayplasma@grayplasma.local' OR id = '00000000-0000-0000-0000-000000000001'
-);
-
-INSERT INTO public.admin_profiles (
-  id,
-  username,
-  email,
-  name,
-  role,
-  role_title,
-  permissions,
-  is_active
-)
-SELECT
-  '00000000-0000-0000-0000-000000000001',
-  'grayplasma',
-  'grayplasma@grayplasma.local',
-  'Grayplasma',
-  'super_admin',
-  'Master Administrator',
-  '["*"]'::jsonb,
-  true
-WHERE NOT EXISTS (
-  SELECT 1 FROM public.admin_profiles WHERE username = 'grayplasma' OR id = '00000000-0000-0000-0000-000000000001'
-);
+-- JANGAN bikin akun admin dengan INSERT langsung ke auth.users.
+-- Row hasil INSERT manual kehilangan nilai kolom token NOT NULL
+-- (confirmation_token, recovery_token, email_change, ...) sehingga GoTrue
+-- balas 500 "Database error querying schema" dan SELURUH auth project mati.
+--
+-- Cara yang benar:
+--   1. Supabase Dashboard -> Authentication -> Users -> "Add user"
+--      (isi email + password, centang "Auto Confirm User")
+--   2. Baru sambungkan profilnya:
+--
+--      INSERT INTO public.admin_profiles (id, username, email, name, role, role_title, permissions, is_active)
+--      SELECT u.id, 'usernamekamu', u.email, 'Nama Kamu', 'super_admin', 'Master Administrator', '["*"]'::jsonb, true
+--      FROM auth.users u WHERE u.email = 'email@kamu.com'
+--      ON CONFLICT (id) DO NOTHING;
+--
+-- Password default TIDAK lagi ditulis di file ini.
 
 -- ==============================================================================
 -- 3. MONITORS TABLE (GTID Lab Testing Specifications)

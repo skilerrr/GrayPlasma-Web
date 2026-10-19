@@ -1,55 +1,63 @@
 import type { MetadataRoute } from "next";
 import { MONITORS_DATA } from "@/data/monitors";
+import { getPublishedHierarchyPaths } from "@/lib/route-guard";
+
+const PRIORITY_BY_PREFIX: Array<[string, number]> = [
+  ["/guide", 0.7],
+  ["/aftersales", 0.8],
+  ["/faq", 0.7],
+  ["/desk-setup", 0.7],
+  ["/catalog", 0.8],
+  ["/recommendations", 0.8],
+];
+
+function priorityFor(path: string): number {
+  const match = PRIORITY_BY_PREFIX.find(([prefix]) => path.startsWith(prefix));
+  return match ? match[1] : 0.6;
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL || "https://grayplasma-web.vercel.app";
+  const lastModified = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}`,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 1.0,
-    },
+    { url: baseUrl, lastModified, changeFrequency: "daily", priority: 1.0 },
     {
       url: `${baseUrl}/guide/setup/ukuran-meja-monitor-ideal`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: "weekly",
       priority: 0.8,
     },
-    {
-      url: `${baseUrl}/aftersales`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/guides`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/faq`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/desk-setup`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
+    { url: `${baseUrl}/aftersales`, lastModified, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${baseUrl}/guides`, lastModified, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${baseUrl}/faq`, lastModified, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${baseUrl}/desk-setup`, lastModified, changeFrequency: "weekly", priority: 0.7 },
   ];
+
+  // Semua node hierarki yang publish. Dulu cuma 6 rute statis + monitor yang masuk,
+  // padahal puluhan halaman guide/desk/aftersales ada dan nggak pernah ke-index.
+  const hierarchyRoutes: MetadataRoute.Sitemap = getPublishedHierarchyPaths()
+    .filter((path) => path !== "/")
+    .map((path) => ({
+      url: `${baseUrl}${path}`,
+      lastModified,
+      changeFrequency: "weekly" as const,
+      priority: priorityFor(path),
+    }));
 
   const monitorRoutes: MetadataRoute.Sitemap = MONITORS_DATA.map((monitor) => ({
     url: `${baseUrl}/monitor/${encodeURIComponent(monitor.slug)}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly",
+    lastModified,
+    changeFrequency: "weekly" as const,
     priority: 0.9,
   }));
 
-  return [...staticRoutes, ...monitorRoutes];
+  // Buang duplikat: hierarki bisa punya fullPath yang sama dengan rute statis.
+  const seen = new Set<string>();
+  return [...staticRoutes, ...hierarchyRoutes, ...monitorRoutes].filter((entry) => {
+    if (seen.has(entry.url)) return false;
+    seen.add(entry.url);
+    return true;
+  });
 }
