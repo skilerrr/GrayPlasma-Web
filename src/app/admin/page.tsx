@@ -55,7 +55,8 @@ import {
   DEFAULT_HOMEPAGE_SETTINGS,
   DEFAULT_ADMIN_USERS,
 } from "@/lib/db-service";
-import { isSupabaseConfigured, signInAdminWithSupabase, signOutAdminFromSupabase } from "@/lib/supabase";
+import { useRouter } from "next/navigation";
+import { isSupabaseConfigured, signInAdminWithSupabase, signOutAdminFromSupabase, getCurrentSupabaseAdmin, supabase } from "@/lib/supabase";
 import { compressImage, formatFileSize, CompressedImageResult } from "@/lib/image-compressor";
 import { MonitorFormModal } from "@/components/admin/monitor-form-modal";
 import { MonitorLiveStudio } from "@/components/admin/monitor-live-studio";
@@ -91,12 +92,10 @@ type AdminActiveTab =
   | "compressor";
 
 export default function AdminDashboardPage() {
+  const router = useRouter();
+
   // Authentication state (Multi-Account)
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [emailInput, setEmailInput] = useState("");
-  const [passwordInput, setPasswordInput] = useState("");
-  const [isLoggingIn, setIsLoggingIn] = useState(false);
-  const [authError, setAuthError] = useState("");
   const [currentAdmin, setCurrentAdmin] = useState<AdminUser | null>(null);
 
   // Data states
@@ -135,17 +134,65 @@ export default function AdminDashboardPage() {
   const [toolIsCompressing, setToolIsCompressing] = useState(false);
 
   useEffect(() => {
-    // Check local session
-    if (typeof window !== "undefined") {
-      const savedAuth = sessionStorage.getItem("gp_admin_auth");
-      if (savedAuth === "true") {
-        setIsAuthenticated(true);
-        const activeAdmin = DatabaseService.getCurrentAdminSession();
-        setCurrentAdmin(activeAdmin);
+    let alive = true;
+
+    const bootstrap = async () => {
+      // P0 FIX: sesi diverifikasi ke Supabase, bukan dari sessionStorage lokal.
+      if (!isSupabaseConfigured) {
+        if (alive) router.replace("/admin/login");
+        return;
       }
-    }
-    loadAllData();
-  }, []);
+
+      const profile = await getCurrentSupabaseAdmin();
+      if (!alive) return;
+
+      if (!profile || !profile.is_active) {
+        router.replace("/admin/login");
+        return;
+      }
+
+      const adminUser: AdminUser = {
+        id: profile.id,
+        name: profile.name,
+        username: profile.username || profile.email.split("@")[0],
+        role: profile.role,
+        roleTitle: profile.role_title || "Administrator",
+        avatar: profile.avatar || "/gp-logo.png",
+        pinCode: "",
+        email: profile.email,
+        bio: profile.bio,
+        permissions: profile.permissions || ["*"],
+        createdAt: profile.created_at?.substring(0, 10) || "2026-01-01",
+        lastLogin: new Date().toISOString().substring(0, 10),
+      };
+
+      DatabaseService.setCurrentAdminSession(adminUser);
+      setCurrentAdmin(adminUser);
+      setIsAuthenticated(true);
+      await loadAllData();
+    };
+
+    bootstrap();
+
+    // Sinkronkan cookie middleware tiap Supabase refresh token.
+    const subscription = supabase?.auth.onAuthStateChange(async (event, session) => {
+      if (event === "TOKEN_REFRESHED" && session?.access_token) {
+        await fetch("/api/auth/session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ access_token: session.access_token }),
+        });
+      }
+      if (event === "SIGNED_OUT") {
+        router.replace("/admin/login");
+      }
+    });
+
+    return () => {
+      alive = false;
+      subscription?.data.subscription.unsubscribe();
+    };
+  }, [router]);
 
   const loadAllData = async () => {
     setIsLoading(true);
@@ -178,73 +225,18 @@ export default function AdminDashboardPage() {
     }
   };
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoggingIn(true);
-    setAuthError("");
-
-    const cleanUsername = emailInput.trim();
-    const cleanPass = passwordInput.trim();
-
-    if (!cleanUsername || !cleanPass) {
-      setAuthError("Username dan Password wajib diisi.");
-      setIsLoggingIn(false);
-      return;
-    }
-
-    // 1. Try Supabase Auth first if configured (mendukung username maupun email)
-    if (isSupabaseConfigured) {
-      const res = await signInAdminWithSupabase(cleanUsername, cleanPass);
-      if (res.profile && !res.error) {
-        const adminUser: AdminUser = {
-          id: res.profile.id,
-          name: res.profile.name,
-          username: res.profile.username || res.profile.email.split("@")[0] || cleanUsername,
-          role: res.profile.role,
-          roleTitle: res.profile.role_title || "Administrator",
-          avatar: res.profile.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
-          pinCode: cleanPass,
-          email: res.profile.email,
-          bio: res.profile.bio,
-          permissions: res.profile.permissions || ["*"],
-          createdAt: "2026-01-01",
-          lastLogin: new Date().toISOString().substring(0, 10),
-        };
-        setIsAuthenticated(true);
-        setCurrentAdmin(adminUser);
-        DatabaseService.setCurrentAdminSession(adminUser);
-        setIsLoggingIn(false);
-        return;
-      }
-    }
-
-    // 2. Local fallback verification for offline / initial state
-    const adminList = DatabaseService.getAdminUsers();
-    const matchedAdmin = adminList.find(
-      (a) =>
-        (a.username?.toLowerCase() === cleanUsername.toLowerCase() ||
-          a.email?.toLowerCase() === cleanUsername.toLowerCase() ||
-          cleanUsername.toLowerCase() === "grayplasma") &&
-        (a.pinCode === cleanPass || cleanPass === "test123")
-    );
-
-    if (matchedAdmin || (cleanUsername.toLowerCase() === "grayplasma" && cleanPass === "test123")) {
-      const adminToSet = matchedAdmin || adminList[0];
-      setIsAuthenticated(true);
-      setCurrentAdmin(adminToSet);
-      DatabaseService.setCurrentAdminSession(adminToSet);
-      setAuthError("");
-    } else {
-      setAuthError("Username atau Password salah.");
-    }
-    setIsLoggingIn(false);
-  };
-
   const handleLogout = async () => {
     await signOutAdminFromSupabase();
+    // Hapus cookie sesi middleware juga, bukan cuma state lokal.
+    try {
+      await fetch("/api/auth/session", { method: "DELETE" });
+    } catch {
+      /* diabaikan */
+    }
     setIsAuthenticated(false);
     DatabaseService.setCurrentAdminSession(null);
     setCurrentAdmin(null);
+    router.replace("/admin/login");
   };
 
   // Monitor Actions
@@ -344,90 +336,14 @@ export default function AdminDashboardPage() {
     }
   };
 
-  // If not authenticated, render Industrial-HUD login form
+  // Middleware + pengecekan sesi Supabase yang jadi gerbang; ini cuma tampilan sementara.
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-[#070709] flex items-center justify-center p-4 relative font-sans">
-        {/* Ambient subtle tech grid */}
-        <div className="absolute inset-0 bg-blueprint-grid opacity-30 pointer-events-none" />
-
-        {/* Industrial-HUD Login Window */}
-        <div className="max-w-md w-full bg-[#0d0d11] border border-zinc-800 rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl relative z-10">
-          {/* Top HUD Header */}
-          <div className="space-y-3 text-center border-b border-zinc-800 pb-5">
-            <div className="flex items-center justify-center gap-2">
-              <span className="px-2.5 py-0.5 rounded bg-zinc-900 border border-zinc-750 text-emerald-400 font-mono text-[10px] font-bold uppercase tracking-wider">
-                Admin Security
-              </span>
-            </div>
-
-            <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-750 text-emerald-400 flex items-center justify-center mx-auto">
-              <Lock className="w-5 h-5" />
-            </div>
-
-            <div>
-              <h2 className="text-lg font-bold text-white uppercase tracking-tight">
-                GrayPlasma Admin Workspace
-              </h2>
-              <p className="text-xs text-zinc-400 mt-1">
-                Silakan masuk dengan akun individu masing-masing (Owner & Collaborators).
-              </p>
-            </div>
-          </div>
-
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div className="space-y-1.5 text-left">
-              <label className="text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider">
-                Username Admin
-              </label>
-              <input
-                type="text"
-                required
-                value={emailInput}
-                onChange={(e) => setEmailInput(e.target.value)}
-                placeholder="Masukkan username"
-                className="w-full bg-zinc-900 border border-zinc-750 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500 font-mono transition-colors"
-                autoFocus
-              />
-            </div>
-
-            <div className="space-y-1.5 text-left">
-              <label className="text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider">
-                Kata Sandi / Password
-              </label>
-              <input
-                type="password"
-                required
-                value={passwordInput}
-                onChange={(e) => setPasswordInput(e.target.value)}
-                placeholder="Masukkan kata sandi"
-                className="w-full bg-zinc-900 border border-zinc-750 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500 font-mono transition-colors"
-              />
-              {authError && (
-                <p className="text-xs text-rose-400 pt-1 text-center font-medium">{authError}</p>
-              )}
-            </div>
-
-            <Button
-              type="submit"
-              disabled={isLoggingIn}
-              className="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-bold uppercase tracking-wider text-xs py-5 rounded-xl font-mono flex items-center justify-center gap-2"
-            >
-              <Unlock className="w-4 h-4" />
-              <span>{isLoggingIn ? "Memverifikasi..." : "Verifikasi Masuk"}</span>
-            </Button>
-          </form>
-
-          <div className="pt-2 text-center">
-            <Link
-              href="/"
-              className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors inline-flex items-center gap-1.5"
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Kembali ke Beranda Katalog</span>
-            </Link>
-          </div>
+      <div className="min-h-screen bg-[#070709] flex flex-col items-center justify-center gap-3 font-mono text-xs text-zinc-400">
+        <div className="w-10 h-10 rounded-xl border border-zinc-800 bg-zinc-900 flex items-center justify-center text-emerald-400">
+          <Lock className="w-4 h-4" />
         </div>
+        <p className="uppercase tracking-wider">Memeriksa sesi admin...</p>
       </div>
     );
   }

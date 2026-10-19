@@ -67,21 +67,14 @@ export async function signInAdminWithSupabase(usernameOrEmail: string, password:
       .single();
 
     if (profileError || !profileData) {
-      // Fallback: If profile row doesn't exist yet, check metadata or create one
-      const fallbackProfile: SupabaseAdminProfile = {
-        id: authData.user.id,
-        username: cleanInput,
-        email: authData.user.email || emailToTry,
-        name: authData.user.user_metadata?.name || "Admin Member",
-        role: (authData.user.app_metadata?.role as any) || "super_admin",
-        role_title: "Administrator",
-        is_active: true,
-        permissions: ["*"],
+      // P0 FIX: nggak ada lagi auto-create profil dengan role super_admin.
+      // Akun Supabase tanpa baris di admin_profiles = bukan admin.
+      await supabase.auth.signOut();
+      return {
+        user: null,
+        profile: null,
+        error: "Akun ini tidak terdaftar sebagai admin. Hubungi owner.",
       };
-
-      // Try inserting into admin_profiles
-      await supabase.from("admin_profiles").upsert(fallbackProfile);
-      return { user: authData.user, profile: fallbackProfile, error: null };
     }
 
     if (!profileData.is_active) {

@@ -589,7 +589,8 @@ export const DEFAULT_ADMIN_USERS: AdminUser[] = [
     role: "super_admin",
     roleTitle: "Master Administrator",
     avatar: "/gp-logo.png",
-    pinCode: "test123",
+    // Password TIDAK lagi disimpan di kode. Autentikasi lewat Supabase Auth.
+    pinCode: "",
     email: "grayplasma@grayplasma.id",
     bio: "Master Administrator GrayPlasma.",
     permissions: ["*"],
@@ -725,7 +726,7 @@ export class DatabaseService {
             role: d.role || "editor",
             roleTitle: d.role_title || "Collaborator",
             avatar: d.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
-            pinCode: "gp2026",
+            pinCode: "",
             email: d.email,
             bio: d.bio,
             permissions: d.permissions || ["guides", "faq"],
@@ -806,12 +807,10 @@ export class DatabaseService {
   }
 
   static getCurrentAdminSession(): AdminUser | null {
-    const session = getLocalData<AdminUser | null>(STORAGE_KEYS.CURRENT_ADMIN_SESSION, DEFAULT_ADMIN_USERS[0]);
-    if (session && (session.id === "admin-joel" || session.username === "gray1plasma" || session.id === "admin-glacik")) {
-      setLocalData(STORAGE_KEYS.CURRENT_ADMIN_SESSION, DEFAULT_ADMIN_USERS[0]);
-      return DEFAULT_ADMIN_USERS[0];
-    }
-    return session || DEFAULT_ADMIN_USERS[0];
+    // P0 FIX: tidak ada lagi fallback ke super admin default.
+    // Kalau tidak ada sesi tersimpan, hasilnya null — bukan "dianggap super admin".
+    const session = getLocalData<AdminUser | null>(STORAGE_KEYS.CURRENT_ADMIN_SESSION, null);
+    return session ?? null;
   }
 
   // ==========================================
