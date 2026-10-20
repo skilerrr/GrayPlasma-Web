@@ -118,6 +118,27 @@ const INITIAL_FILTER_STATE: FilterState = {
   sortBy: "tier",
 };
 
+
+/**
+ * Pecah string aksen kartu ("hover:border-gp-sky text-gp-sky") jadi dua bagian:
+ *  - `border` -> dipasang di elemen <Link> (efek hover border)
+ *  - `text`   -> dipasang di elemen dalam (efek hover teks & ikon)
+ *
+ * Kalau class-nya utuh dipasang di <Link>, warnanya hanya kena di <Link>
+ * sendiri; teks di dalam tetap `text-white` sehingga efek hover-nya nggak
+ * kelihatan. Ini bug yang pernah ada.
+ */
+function cardAccent(raw: string | undefined): { border: string; text: string } {
+  const parts = (raw || "").split(" ").filter(Boolean);
+  const border = parts.find((c) => c.startsWith("hover:border-"));
+  const text = parts.find((c) => c.startsWith("text-"));
+  return {
+    // Tanpa aksen -> hover border netral, tanpa perubahan warna teks.
+    border: border ?? "hover:border-gp-ink-600",
+    text: text ? `group-hover:${text}` : "",
+  };
+}
+
 function CatalogPageContent() {
   const [monitorsData, setMonitorsData] = useState<Monitor[]>(MONITORS_DATA);
   const [desksData, setDesksData] = useState<DeskItem[]>(DESK_DATABASE);
@@ -684,7 +705,7 @@ function CatalogPageContent() {
           ).map(([groupTitle, groupData]) => (
             <div key={groupTitle} className="space-y-3">
               <div className="flex items-center gap-2 text-xs font-bold text-gp-ink-200 uppercase tracking-wider">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span className="w-1.5 h-1.5 rounded-full bg-gp-mint-50" />
                 <span>{groupTitle}</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -692,12 +713,20 @@ function CatalogPageContent() {
                   <Link
                     key={card.id}
                     href={card.path}
-                    className={`p-3.5 rounded-lg bg-gp-ink-950 border border-gp-ink-700 transition-colors space-y-1.5 group block shadow-tech-card hover:border-gp-ink-600 ${
-                      card.color || "hover:border-emerald-500 text-emerald-400"
+                    className={`p-3.5 rounded-lg bg-gp-ink-950 border border-gp-ink-700 transition-colors space-y-1.5 group block shadow-tech-card ${
+                      cardAccent(card.color).border
                     }`}
                   >
-                    <div className="flex items-center gap-2 font-bold text-white text-xs group-hover:text-emerald-400 transition-colors">
-                      <FileText className="w-3.5 h-3.5 text-gp-ink-400 group-hover:text-emerald-400 transition-colors flex-shrink-0" />
+                    <div
+                      className={`flex items-center gap-2 font-bold text-white text-xs transition-colors ${
+                        cardAccent(card.color).text
+                      }`}
+                    >
+                      <FileText
+                        className={`w-3.5 h-3.5 text-gp-ink-400 transition-colors flex-shrink-0 ${
+                          cardAccent(card.color).text
+                        }`}
+                      />
                       <span className="truncate">{card.title}</span>
                     </div>
                     <p className="text-2xs text-gp-ink-300 line-clamp-2 leading-relaxed font-sans">

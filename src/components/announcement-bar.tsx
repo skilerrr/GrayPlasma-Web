@@ -9,31 +9,39 @@ interface AnnouncementBarProps {
   settings?: AnnouncementBarSettings;
 }
 
+/**
+ * Tema announcement bar.
+ *
+ * Warna diambil dari design token (gp-*), bukan palette Tailwind mentah,
+ * supaya semua warna aksen di situs berasal dari satu sumber kebenaran.
+ * `gp.<family>-<shade>`:
+ *   50/100 = aksen terang (teks & border), 200+ = permukaan gelap.
+ */
 const THEME_STYLES = {
   emerald: {
-    bg: "bg-gradient-to-r from-emerald-950 via-gp-mint-400 to-emerald-950 border-emerald-500/30 text-emerald-300",
-    badge: "bg-emerald-500/20 text-emerald-400 border-emerald-500/40",
-    button: "bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border-emerald-500/40",
+    bg: "bg-gradient-to-r from-gp-mint-900 via-gp-mint-400 to-gp-mint-900 border-gp-mint-50/30 text-gp-mint-50",
+    badge: "bg-gp-mint-50/20 text-gp-mint-50 border-gp-mint-50/40",
+    button: "bg-gp-mint-50/20 hover:bg-gp-mint-50/30 text-gp-mint-50 border-gp-mint-50/40",
   },
   cyan: {
-    bg: "bg-gradient-to-r from-cyan-950 via-gp-sky-200 to-cyan-950 border-cyan-500/30 text-cyan-300",
-    badge: "bg-cyan-500/20 text-cyan-400 border-cyan-500/40",
-    button: "bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border-cyan-500/40",
+    bg: "bg-gradient-to-r from-gp-sky-800 via-gp-sky-200 to-gp-sky-800 border-gp-sky-50/30 text-gp-sky-50",
+    badge: "bg-gp-sky-50/20 text-gp-sky-50 border-gp-sky-50/40",
+    button: "bg-gp-sky-50/20 hover:bg-gp-sky-50/30 text-gp-sky-50 border-gp-sky-50/40",
   },
   amber: {
-    bg: "bg-gradient-to-r from-amber-950 via-gp-ember-200 to-amber-950 border-amber-500/30 text-amber-300",
-    badge: "bg-amber-500/20 text-amber-400 border-amber-500/40",
-    button: "bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border-amber-500/40",
+    bg: "bg-gradient-to-r from-gp-ember-500 via-gp-ember-200 to-gp-ember-500 border-gp-ember-50/30 text-gp-ember-50",
+    badge: "bg-gp-ember-50/20 text-gp-ember-50 border-gp-ember-50/40",
+    button: "bg-gp-ember-50/20 hover:bg-gp-ember-50/30 text-gp-ember-50 border-gp-ember-50/40",
   },
   rose: {
-    bg: "bg-gradient-to-r from-rose-950 via-gp-coral-400 to-rose-950 border-rose-500/30 text-rose-300",
-    badge: "bg-rose-500/20 text-rose-400 border-rose-500/40",
-    button: "bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border-rose-500/40",
+    bg: "bg-gradient-to-r from-gp-coral-800 via-gp-coral-400 to-gp-coral-800 border-gp-coral-50/30 text-gp-coral-50",
+    badge: "bg-gp-coral-50/20 text-gp-coral-50 border-gp-coral-50/40",
+    button: "bg-gp-coral-50/20 hover:bg-gp-coral-50/30 text-gp-coral-50 border-gp-coral-50/40",
   },
   violet: {
-    bg: "bg-gradient-to-r from-violet-950 via-gp-violet-200 to-violet-950 border-violet-500/30 text-violet-300",
-    badge: "bg-violet-500/20 text-violet-400 border-violet-500/40",
-    button: "bg-violet-500/20 hover:bg-violet-500/30 text-violet-300 border-violet-500/40",
+    bg: "bg-gradient-to-r from-gp-violet-500 via-gp-violet-200 to-gp-violet-500 border-gp-violet/30 text-gp-violet",
+    badge: "bg-gp-violet/20 text-gp-violet border-gp-violet/40",
+    button: "bg-gp-violet/20 hover:bg-gp-violet/30 text-gp-violet border-gp-violet/40",
   },
 };
 

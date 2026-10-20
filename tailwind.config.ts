@@ -13,6 +13,50 @@ const config: Config = {
     "./src/data/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/hooks/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  // Class yang disimpan di DATABASE (bukan di source) tidak bisa di-detect
+  // Tailwind karena tidak muncul di file mana pun. Akibatnya class seperti
+  // `hover:border-[#52ba69] text-[#52ba69]` -> TIDAK pernah jadi CSS, dan
+  // kustomisasi warna dari admin diam-diam mati.
+  //
+  // Fix: (1) admin hanya boleh menyimpan class dari daftar aman di bawah,
+  //      (2) daftar itu di-safelist-kan supaya Pasti ter-generate.
+  safelist: [
+    // Aksen mint
+    "hover:border-gp-mint-50",
+    "text-gp-mint-50",
+    "hover:bg-gp-mint-50",
+    "border-gp-mint-50",
+    "bg-gp-mint-50",
+    "group-hover:text-gp-mint-50",
+    // Aksen sky
+    "hover:border-gp-sky",
+    "text-gp-sky",
+    "hover:bg-gp-sky",
+    "border-gp-sky",
+    "bg-gp-sky",
+    "group-hover:text-gp-sky",
+    // Aksen ember
+    "hover:border-gp-ember-50",
+    "text-gp-ember-50",
+    "hover:bg-gp-ember-50",
+    "border-gp-ember-50",
+    "bg-gp-ember-50",
+    "group-hover:text-gp-ember-50",
+    // Aksen coral
+    "hover:border-gp-coral-50",
+    "text-gp-coral-50",
+    "hover:bg-gp-coral-50",
+    "border-gp-coral-50",
+    "bg-gp-coral-50",
+    "group-hover:text-gp-coral-50",
+    // Aksen violet
+    "hover:border-gp-violet",
+    "text-gp-violet",
+    "hover:bg-gp-violet",
+    "border-gp-violet",
+    "bg-gp-violet",
+    "group-hover:text-gp-violet",
+  ],
   theme: {
     extend: {
       screens: {

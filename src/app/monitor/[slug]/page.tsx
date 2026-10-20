@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MONITORS_DATA } from "@/data/monitors";
 import { MonitorDetailClient } from "@/components/monitor-detail-client";
-import { getMonitorsForDetail, findMonitorBySlug } from "@/lib/monitors-source";
+import { getMonitorsForDetailCached, findMonitorBySlug } from "@/lib/monitors-source";
 
 interface MonitorDetailPageProps {
   params: Promise<{
@@ -24,7 +24,7 @@ export async function generateMetadata({
   params,
 }: MonitorDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const monitors = await getMonitorsForDetail();
+  const monitors = await getMonitorsForDetailCached();
   const monitor = findMonitorBySlug(monitors, slug);
 
   if (!monitor) {
@@ -74,7 +74,7 @@ export default async function MonitorDetailPage({
 }: MonitorDetailPageProps) {
   const { slug } = await params;
 
-  const monitors = await getMonitorsForDetail();
+  const monitors = await getMonitorsForDetailCached();
   const monitor = findMonitorBySlug(monitors, slug);
 
   // Slug yang nggak ada di Supabase maupun data statis = 404 asli,

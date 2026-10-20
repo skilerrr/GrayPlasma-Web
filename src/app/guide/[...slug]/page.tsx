@@ -116,7 +116,17 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
   useEffect(() => {
     async function load() {
       try {
-        const [loadedNodes, loadedMonitors, loadedDesks, loadedCards, loadedSettings, loadedPeriphs, loadedChairs, loadedHp] = await Promise.all([
+        const [
+          loadedNodes,
+          loadedMonitors,
+          loadedDesks,
+          loadedCards,
+          loadedSettings,
+          loadedPeriphs,
+          loadedChairs,
+          loadedHp,
+          loadedFaqs,
+        ] = await Promise.all([
           DatabaseService.getHierarchyNodes(),
           DatabaseService.getMonitors(),
           DatabaseService.getDesks(),
@@ -125,6 +135,8 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
           DatabaseService.getPeripherals(),
           DatabaseService.getChairsAsync(),
           DatabaseService.getHomepageSettings(),
+          // FAQ ikut paralel — sebelumnya di-await setelahnya (waterfall 2 round-trip).
+          DatabaseService.getFAQAsync(),
         ]);
         if (loadedNodes && loadedNodes.length > 0) setNodes(loadedNodes);
         if (loadedMonitors && loadedMonitors.length > 0) setMonitors(loadedMonitors);
@@ -140,7 +152,6 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
           setShowChairs(Boolean(loadedHp.sectionVisibility.showChairs));
         }
 
-        const loadedFaqs = await DatabaseService.getFAQAsync();
         if (loadedFaqs && loadedFaqs.length > 0) setFaqs(loadedFaqs.filter((f) => f.isPublished !== false));
 
         const loadedAbout = DatabaseService.getAboutContent();

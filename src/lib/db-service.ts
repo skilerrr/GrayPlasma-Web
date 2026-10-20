@@ -40,6 +40,13 @@ export type {
 import { SiteHierarchyNode } from "@/types/site-hierarchy";
 import { DEFAULT_SITE_HIERARCHY } from "@/data/site-hierarchy";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import {
+  cachedFetch,
+  invalidateCache,
+  isTableMissing,
+  markTableMissing,
+  isMissingRelationError,
+} from "@/lib/data-cache";
 import { NOTION_AFTERSALES_CARDS } from "@/data/notion-aftersales-board-data";
 import { NotionBoardCard } from "@/components/notion-kanban-board";
 
@@ -158,6 +165,48 @@ export const DEFAULT_BANNER_SETTINGS: PageBannerSettings = {
   guideBannerUrl: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1600&auto=format&fit=crop",
   monitorBannerUrl: "",
 };
+
+/**
+ * Aksen warna yang boleh dipakai untuk kartu sub-page.
+ *
+ * PENTING: class di sini HARUS ada di `tailwind.config.ts` safelist. Class
+ * yang disimpan di database tidak bisa di-detect Tailwind dari source, jadi
+ * nilai arbitrary seperti `text-[#52ba69]` diam-diam tidak pernah jadi CSS.
+ * Karena itu admin hanya boleh memilih dari daftar ini.
+ */
+export const SUBPAGE_CARD_ACCENTS = [
+  { id: "mint", label: "Mint", color: "hover:border-gp-mint-50 text-gp-mint-50" },
+  { id: "sky", label: "Sky", color: "hover:border-gp-sky text-gp-sky" },
+  { id: "ember", label: "Ember", color: "hover:border-gp-ember-50 text-gp-ember-50" },
+  { id: "coral", label: "Coral", color: "hover:border-gp-coral-50 text-gp-coral-50" },
+  { id: "violet", label: "Violet", color: "hover:border-gp-violet text-gp-violet" },
+] as const;
+
+/** Peta hex lama -> kelas token, buat migrasi data yang sudah tersimpan. */
+const LEGACY_ACCENT_HEX: Record<string, string> = {
+  "#52ba69": "hover:border-gp-mint-50 text-gp-mint-50",
+  "#58a6ff": "hover:border-gp-sky text-gp-sky",
+  "#d157eb": "hover:border-gp-violet text-gp-violet",
+  "#ff9f43": "hover:border-gp-ember-50 text-gp-ember-50",
+};
+
+/** Normalisasi nilai `color` kartu: hex lama / class asing -> kelas token valid. */
+export function normalizeCardAccent(raw: string | undefined | null): string {
+  if (!raw) return SUBPAGE_CARD_ACCENTS[0].color;
+  const valid: string[] = SUBPAGE_CARD_ACCENTS.map((a) => a.color);
+  if (valid.includes(raw)) return raw;
+  const hex = raw.match(/\[?#([0-9a-fA-F]{6})\]?/);
+  if (hex) {
+    const mapped = LEGACY_ACCENT_HEX["#" + hex[1].toLowerCase()];
+    if (mapped) return mapped;
+  }
+  // class yang tak dikenal (mis. amber-400) -> padanan token terdekat
+  if (/amber/.test(raw)) return "hover:border-gp-ember-50 text-gp-ember-50";
+  if (/cyan|blue/.test(raw)) return "hover:border-gp-sky text-gp-sky";
+  if (/rose|red|pink/.test(raw)) return "hover:border-gp-coral-50 text-gp-coral-50";
+  if (/violet|purple/.test(raw)) return "hover:border-gp-violet text-gp-violet";
+  return SUBPAGE_CARD_ACCENTS[0].color;
+}
 
 export interface SubpageCardItem {
   id: string;
@@ -778,6 +827,7 @@ export class DatabaseService {
    */
   private static async upsertMonitorRow(row: Record<string, unknown>): Promise<void> {
     if (!supabase) return;
+    invalidateCache("monitors");
     const base = { ...row } as Record<string, unknown> & { gtidReviewUrl?: string; reviewUrl?: string };
     delete base.reviewUrl;
     const legacy = { ...base, gtidReviewUrl: base.gtidReviewUrl ?? row.reviewUrl ?? null };
@@ -796,26 +846,29 @@ export class DatabaseService {
   // 1. MONITORS CRUD
   // ==========================================
   static async getMonitors(): Promise<Monitor[]> {
-    if (isSupabaseConfigured && supabase) {
-      try {
-        const { data, error } = await supabase
-          .from("monitors")
-          .select("*")
-          .order("created_at", { ascending: false });
+    return cachedFetch("monitors", async () => {
+      if (isSupabaseConfigured && supabase) {
+        try {
+          const { data, error } = await supabase
+            .from("monitors")
+            .select("*")
+            .order("created_at", { ascending: false });
 
-        if (!error && data && data.length > 0) {
-          return (data as (Monitor & { gtidReviewUrl?: string })[]).map((m) =>
-            DatabaseService.normalizeMonitor(m)
-          ) as Monitor[];
+          if (!error && data && data.length > 0) {
+            return (data as (Monitor & { gtidReviewUrl?: string })[]).map((m) =>
+              DatabaseService.normalizeMonitor(m)
+            ) as Monitor[];
+          }
+        } catch (err) {
+          console.warn("Supabase fetch failed, using local storage", err);
         }
-      } catch (err) {
-        console.warn("Supabase fetch failed, using local storage", err);
       }
-    }
-    return getLocalData<Monitor[]>(STORAGE_KEYS.MONITORS, MONITORS_DATA);
+      return getLocalData<Monitor[]>(STORAGE_KEYS.MONITORS, MONITORS_DATA);
+    }, 45000);
   }
 
   static async saveMonitor(monitor: Monitor): Promise<Monitor[]> {
+    invalidateCache("monitors");
     let current = getLocalData<Monitor[]>(STORAGE_KEYS.MONITORS, MONITORS_DATA);
     const existingIndex = current.findIndex((m) => m.id === monitor.id);
 
@@ -847,6 +900,7 @@ export class DatabaseService {
   }
 
   static async deleteMonitor(id: string): Promise<Monitor[]> {
+    invalidateCache("monitors");
     let current = getLocalData<Monitor[]>(STORAGE_KEYS.MONITORS, MONITORS_DATA);
     const target = current.find((m) => m.id === id);
     if (target) {
@@ -882,20 +936,23 @@ export class DatabaseService {
   // 2. DESKS CRUD
   // ==========================================
   static async getDesks(): Promise<DeskItem[]> {
-    if (isSupabaseConfigured && supabase) {
-      try {
-        const { data, error } = await supabase.from("desks").select("*");
-        if (!error && data && data.length > 0) {
-          return data as DeskItem[];
+    return cachedFetch("desks", async () => {
+      if (isSupabaseConfigured && supabase) {
+        try {
+          const { data, error } = await supabase.from("desks").select("*");
+          if (!error && data && data.length > 0) {
+            return data as DeskItem[];
+          }
+        } catch (err) {
+          console.warn("Supabase desk fetch failed", err);
         }
-      } catch (err) {
-        console.warn("Supabase desk fetch failed", err);
       }
-    }
-    return getLocalData<DeskItem[]>(STORAGE_KEYS.DESKS, DESK_DATABASE);
+      return getLocalData<DeskItem[]>(STORAGE_KEYS.DESKS, DESK_DATABASE);
+    }, 120000);
   }
 
   static async saveDesk(desk: DeskItem): Promise<DeskItem[]> {
+    invalidateCache("desks");
     let current = getLocalData<DeskItem[]>(STORAGE_KEYS.DESKS, DESK_DATABASE);
     const idx = current.findIndex((d) => d.id === desk.id);
     if (idx >= 0) {
@@ -919,6 +976,7 @@ export class DatabaseService {
   }
 
   static async deleteDesk(id: string): Promise<DeskItem[]> {
+    invalidateCache("desks");
     let current = getLocalData<DeskItem[]>(STORAGE_KEYS.DESKS, DESK_DATABASE);
     const target = current.find((d) => d.id === id);
     if (target) DatabaseService.logActivity("delete", "desk", target.name);
@@ -951,18 +1009,21 @@ export class DatabaseService {
   // 3. PERIPHERALS CRUD
   // ==========================================
   static async getPeripherals(): Promise<PeripheralItem[]> {
-    if (isSupabaseConfigured && supabase) {
-      try {
-        const { data, error } = await supabase.from("peripherals").select("*");
-        if (!error && data && data.length > 0) return data as PeripheralItem[];
-      } catch (err) {
-        console.warn("Supabase peripheral fetch failed", err);
+    return cachedFetch("peripherals", async () => {
+      if (isSupabaseConfigured && supabase) {
+        try {
+          const { data, error } = await supabase.from("peripherals").select("*");
+          if (!error && data && data.length > 0) return data as PeripheralItem[];
+        } catch (err) {
+          console.warn("Supabase peripheral fetch failed", err);
+        }
       }
-    }
-    return getLocalData<PeripheralItem[]>(STORAGE_KEYS.PERIPHERALS, PERIPHERALS_DATABASE);
+      return getLocalData<PeripheralItem[]>(STORAGE_KEYS.PERIPHERALS, PERIPHERALS_DATABASE);
+    }, 120000);
   }
 
   static async savePeripheral(item: PeripheralItem): Promise<PeripheralItem[]> {
+    invalidateCache("peripherals");
     let current = getLocalData<PeripheralItem[]>(STORAGE_KEYS.PERIPHERALS, PERIPHERALS_DATABASE);
     const idx = current.findIndex((p) => p.id === item.id);
     if (idx >= 0) {
@@ -986,6 +1047,7 @@ export class DatabaseService {
   }
 
   static async deletePeripheral(id: string): Promise<PeripheralItem[]> {
+    invalidateCache("peripherals");
     let current = getLocalData<PeripheralItem[]>(STORAGE_KEYS.PERIPHERALS, PERIPHERALS_DATABASE);
     const target = current.find((p) => p.id === id);
     if (target) DatabaseService.logActivity("delete", "peripheral", target.name);
@@ -1010,18 +1072,26 @@ export class DatabaseService {
   }
 
   static async getChairsAsync(): Promise<ChairItem[]> {
-    if (isSupabaseConfigured && supabase) {
-      try {
-        const { data, error } = await supabase.from("chairs").select("*");
-        if (!error && data && data.length > 0) return data as ChairItem[];
-      } catch (err) {
-        console.warn("Supabase chair fetch failed", err);
+    return cachedFetch("chairs", async () => {
+      if (isSupabaseConfigured && supabase && !isTableMissing("chairs")) {
+        try {
+          const { data, error } = await supabase.from("chairs").select("*");
+          if (isMissingRelationError(error)) {
+            // Tabel `chairs` belum dibuat di Supabase. Sekali catat, lalu skip.
+            markTableMissing("chairs");
+            return getLocalData<ChairItem[]>(STORAGE_KEYS.CHAIRS, DEFAULT_CHAIRS_DATABASE);
+          }
+          if (!error && data && data.length > 0) return data as ChairItem[];
+        } catch (err) {
+          console.warn("Supabase chair fetch failed", err);
+        }
       }
-    }
-    return getLocalData<ChairItem[]>(STORAGE_KEYS.CHAIRS, DEFAULT_CHAIRS_DATABASE);
+      return getLocalData<ChairItem[]>(STORAGE_KEYS.CHAIRS, DEFAULT_CHAIRS_DATABASE);
+    }, 300000);
   }
 
   static async saveChair(item: ChairItem): Promise<ChairItem[]> {
+    invalidateCache("chairs");
     let current = getLocalData<ChairItem[]>(STORAGE_KEYS.CHAIRS, DEFAULT_CHAIRS_DATABASE);
     const idx = current.findIndex((c) => c.id === item.id);
     if (idx >= 0) {
@@ -1044,12 +1114,14 @@ export class DatabaseService {
   }
 
   static async saveAllChairs(chairs: ChairItem[]): Promise<ChairItem[]> {
+    invalidateCache("chairs");
     setLocalData(STORAGE_KEYS.CHAIRS, chairs);
     DatabaseService.logActivity("update", "chair", "Katalog Kursi", `Memperbarui ${chairs.length} data kursi.`);
     return chairs;
   }
 
   static async deleteChair(id: string): Promise<ChairItem[]> {
+    invalidateCache("chairs");
     let current = getLocalData<ChairItem[]>(STORAGE_KEYS.CHAIRS, DEFAULT_CHAIRS_DATABASE);
     const target = current.find((c) => c.id === id);
     if (target) DatabaseService.logActivity("delete", "chair", target.name);
@@ -1130,23 +1202,26 @@ export class DatabaseService {
   // 5. SITE HIERARCHY & GUIDES CRUD
   // ==========================================
   static async getHierarchyNodes(): Promise<SiteHierarchyNode[]> {
-    if (isSupabaseConfigured && supabase) {
-      try {
-        const { data, error } = await supabase
-          .from("hierarchy_nodes")
-          .select("*")
-          .order("order", { ascending: true });
-        if (!error && data && data.length > 0) {
-          return data as SiteHierarchyNode[];
+    return cachedFetch("hierarchy_nodes", async () => {
+      if (isSupabaseConfigured && supabase) {
+        try {
+          const { data, error } = await supabase
+            .from("hierarchy_nodes")
+            .select("*")
+            .order("order", { ascending: true });
+          if (!error && data && data.length > 0) {
+            return data as SiteHierarchyNode[];
+          }
+        } catch (err) {
+          console.warn("Supabase hierarchy fetch failed", err);
         }
-      } catch (err) {
-        console.warn("Supabase hierarchy fetch failed", err);
       }
-    }
-    return getLocalData<SiteHierarchyNode[]>(STORAGE_KEYS.HIERARCHY, DEFAULT_SITE_HIERARCHY);
+      return getLocalData<SiteHierarchyNode[]>(STORAGE_KEYS.HIERARCHY, DEFAULT_SITE_HIERARCHY);
+    }, 300000);
   }
 
   static async saveHierarchyNode(node: SiteHierarchyNode): Promise<SiteHierarchyNode[]> {
+    invalidateCache("hierarchy_nodes");
     let current = getLocalData<SiteHierarchyNode[]>(STORAGE_KEYS.HIERARCHY, DEFAULT_SITE_HIERARCHY);
     const existingIndex = current.findIndex((n) => n.id === node.id);
 
@@ -1172,6 +1247,7 @@ export class DatabaseService {
   }
 
   static async deleteHierarchyNode(id: string): Promise<SiteHierarchyNode[]> {
+    invalidateCache("hierarchy_nodes");
     let current = getLocalData<SiteHierarchyNode[]>(STORAGE_KEYS.HIERARCHY, DEFAULT_SITE_HIERARCHY);
     const target = current.find((n) => n.id === id);
     if (target) DatabaseService.logActivity("delete", "hierarchy", target.title);
@@ -1197,26 +1273,103 @@ export class DatabaseService {
   // ==========================================
   // 6. GLOBAL SITE SETTINGS & ANNOUNCEMENT BAR
   // ==========================================
-  static async getSiteSettings(): Promise<GlobalSiteSettings> {
-    if (isSupabaseConfigured && supabase) {
-      try {
-        const { data, error } = await supabase
-          .from("site_settings")
-          .select("*")
-          .eq("key", "global_site_config")
-          .single();
-
-        if (!error && data && data.value) {
-          return data.value as GlobalSiteSettings;
+  /**
+   * Semua key `site_settings` diambil dalam SATU request.
+   *
+   * Sebelumnya tiap getter (global_site_config, page_banners, homepage_settings,
+   * ad_banners) issuing request `.eq("key", ...)` sendiri-sendiri, dan dipanggil
+   * dari 3 komponen sekaligus -> 7 request per page load. Sekarang 1.
+   */
+  private static async fetchSiteSettingsMap(): Promise<Record<string, unknown>> {
+    return cachedFetch("site_settings:all", async () => {
+        if (isSupabaseConfigured && supabase) {
+          try {
+            const { data, error } = await supabase
+              .from("site_settings")
+              .select("key,value")
+              .in(
+                "key",
+                ["global_site_config", "page_banners", "homepage_settings", "ad_banners"]
+              );
+            if (!error && data && data.length > 0) {
+              const map: Record<string, unknown> = {};
+              for (const row of data as { key: string; value: unknown }[]) {
+                map[row.key] = row.value;
+              }
+              return map;
+            }
+          } catch (err) {
+            console.warn("Supabase site settings fetch failed", err);
+          }
         }
-      } catch (err) {
-        console.warn("Supabase site settings fetch failed", err);
-      }
+        // Fallback: rakit dari localStorage per key.
+        return {
+          global_site_config: getLocalData<GlobalSiteSettings>(
+            STORAGE_KEYS.SITE_SETTINGS,
+            DEFAULT_SITE_SETTINGS
+          ),
+          page_banners: getLocalData<PageBannerSettings>(
+            STORAGE_KEYS.PAGE_BANNERS,
+            DEFAULT_BANNER_SETTINGS
+          ),
+          homepage_settings: getLocalData<HomepageSettings>(
+            STORAGE_KEYS.HOMEPAGE_SETTINGS,
+            DEFAULT_HOMEPAGE_SETTINGS
+          ),
+          ad_banners: getLocalData<AdBannerItem[]>(STORAGE_KEYS.AD_BANNERS, DEFAULT_AD_BANNERS),
+        } satisfies Record<string, unknown>;
+      });
     }
-    return getLocalData<GlobalSiteSettings>(STORAGE_KEYS.SITE_SETTINGS, DEFAULT_SITE_SETTINGS);
-  }
 
-  static async saveSiteSettings(settings: GlobalSiteSettings): Promise<GlobalSiteSettings> {
+    static async getSiteSettings(): Promise<GlobalSiteSettings> {
+      const map = await DatabaseService.fetchSiteSettingsMap();
+      const value = map.global_site_config as GlobalSiteSettings | undefined;
+      if (value) return value;
+      return getLocalData<GlobalSiteSettings>(STORAGE_KEYS.SITE_SETTINGS, DEFAULT_SITE_SETTINGS);
+    }
+
+    static async getBannerSettings(): Promise<PageBannerSettings> {
+      const map = await DatabaseService.fetchSiteSettingsMap();
+      const value = map.page_banners as PageBannerSettings | undefined;
+      if (value) return value;
+      return getLocalData<PageBannerSettings>(STORAGE_KEYS.PAGE_BANNERS, DEFAULT_BANNER_SETTINGS);
+    }
+
+    static async getHomepageSettings(): Promise<HomepageSettings> {
+      const map = await DatabaseService.fetchSiteSettingsMap();
+      const value = map.homepage_settings as HomepageSettings | undefined;
+      if (value) {
+        // Normalisasi aksen kartu: nilai hex lama tidak pernah jadi CSS
+        // (Tailwind cuma bisa mendeteksi class yang ada di source).
+        if (Array.isArray(value.subpageCards)) {
+          return {
+            ...value,
+            subpageCards: value.subpageCards.map((c) => ({
+              ...c,
+              color: normalizeCardAccent(c.color),
+            })),
+          };
+        }
+        return value;
+      }
+      return getLocalData<HomepageSettings>(
+        STORAGE_KEYS.HOMEPAGE_SETTINGS,
+        DEFAULT_HOMEPAGE_SETTINGS
+      );
+    }
+
+    static async getAdBanners(): Promise<AdBannerItem[]> {
+      const map = await DatabaseService.fetchSiteSettingsMap();
+      const value = map.ad_banners as AdBannerItem[] | undefined;
+      if (Array.isArray(value)) {
+        return [...value].sort((a, b) => a.order - b.order);
+      }
+      const local = getLocalData<AdBannerItem[]>(STORAGE_KEYS.AD_BANNERS, DEFAULT_AD_BANNERS);
+      return [...local].sort((a, b) => a.order - b.order);
+    }
+
+    static async saveSiteSettings(settings: GlobalSiteSettings): Promise<GlobalSiteSettings> {
+    invalidateCache("site_settings:all");
     setLocalData(STORAGE_KEYS.SITE_SETTINGS, settings);
     DatabaseService.logActivity("update", "settings", "Konfigurasi Global Website", "Simpan info konsultasi, kontak, dan announcement bar.");
 
@@ -1236,6 +1389,7 @@ export class DatabaseService {
   }
 
   static resetSiteSettings(): GlobalSiteSettings {
+    invalidateCache("site_settings:all");
     setLocalData(STORAGE_KEYS.SITE_SETTINGS, DEFAULT_SITE_SETTINGS);
     DatabaseService.logActivity("reset", "settings", "Konfigurasi Global", "Reset ke default setting.");
     return DEFAULT_SITE_SETTINGS;
@@ -1244,26 +1398,8 @@ export class DatabaseService {
   // ==========================================
   // 7. PAGE BANNER SETTINGS
   // ==========================================
-  static async getBannerSettings(): Promise<PageBannerSettings> {
-    if (isSupabaseConfigured && supabase) {
-      try {
-        const { data, error } = await supabase
-          .from("site_settings")
-          .select("*")
-          .eq("key", "page_banners")
-          .single();
-
-        if (!error && data && data.value) {
-          return data.value as PageBannerSettings;
-        }
-      } catch (err) {
-        console.warn("Supabase banner settings fetch failed", err);
-      }
-    }
-    return getLocalData<PageBannerSettings>(STORAGE_KEYS.PAGE_BANNERS, DEFAULT_BANNER_SETTINGS);
-  }
-
   static async saveBannerSettings(settings: PageBannerSettings): Promise<PageBannerSettings> {
+    invalidateCache("site_settings:all");
     setLocalData(STORAGE_KEYS.PAGE_BANNERS, settings);
     DatabaseService.logActivity("update", "banner", "Header Banners", "Update cover & judul banner.");
 
@@ -1283,6 +1419,7 @@ export class DatabaseService {
   }
 
   static resetBannerSettings(): PageBannerSettings {
+    invalidateCache("site_settings:all");
     setLocalData(STORAGE_KEYS.PAGE_BANNERS, DEFAULT_BANNER_SETTINGS);
     DatabaseService.logActivity("reset", "banner", "Banners", "Reset banner ke default.");
     return DEFAULT_BANNER_SETTINGS;
@@ -1291,25 +1428,8 @@ export class DatabaseService {
   // ==========================================
   // 7B. HOMEPAGE SETTINGS & SUBPAGES CRUD
   // ==========================================
-  static async getHomepageSettings(): Promise<HomepageSettings> {
-    if (isSupabaseConfigured && supabase) {
-      try {
-        const { data, error } = await supabase
-          .from("site_settings")
-          .select("value")
-          .eq("key", "homepage_settings")
-          .single();
-        if (!error && data && data.value) {
-          return data.value as HomepageSettings;
-        }
-      } catch (err) {
-        console.warn("Supabase homepage settings fetch failed", err);
-      }
-    }
-    return getLocalData<HomepageSettings>(STORAGE_KEYS.HOMEPAGE_SETTINGS, DEFAULT_HOMEPAGE_SETTINGS);
-  }
-
   static async saveHomepageSettings(settings: HomepageSettings): Promise<HomepageSettings> {
+    invalidateCache("site_settings:all");
     setLocalData(STORAGE_KEYS.HOMEPAGE_SETTINGS, settings);
     DatabaseService.logActivity("update", "settings", "Homepage Settings", "Update hero, disclaimer, dan kartu navigasi beranda.");
 
@@ -1329,6 +1449,7 @@ export class DatabaseService {
   }
 
   static resetHomepageSettings(): HomepageSettings {
+    invalidateCache("site_settings:all");
     setLocalData(STORAGE_KEYS.HOMEPAGE_SETTINGS, DEFAULT_HOMEPAGE_SETTINGS);
     DatabaseService.logActivity("reset", "settings", "Homepage Settings", "Reset konfigurasi beranda ke default.");
     return DEFAULT_HOMEPAGE_SETTINGS;
@@ -1337,118 +1458,107 @@ export class DatabaseService {
   // ==========================================
   // 7B.2 AD BANNERS SLIDER (FULL-WIDTH ADS)
   // ==========================================
-  static async getAdBanners(): Promise<AdBannerItem[]> {
-    if (isSupabaseConfigured && supabase) {
-      try {
-        const { data, error } = await supabase
-          .from("site_settings")
-          .select("value")
-          .eq("key", "ad_banners")
-          .single();
-        if (!error && data && Array.isArray(data.value)) {
-          return data.value as AdBannerItem[];
-        }
-      } catch (err) {
-        console.warn("Supabase ad banners fetch failed", err);
-      }
-    }
-    const local = getLocalData<AdBannerItem[]>(STORAGE_KEYS.AD_BANNERS, DEFAULT_AD_BANNERS);
-    return [...local].sort((a, b) => a.order - b.order);
-  }
 
   static async saveAdBanner(banner: AdBannerItem): Promise<AdBannerItem[]> {
-    let current = getLocalData<AdBannerItem[]>(STORAGE_KEYS.AD_BANNERS, DEFAULT_AD_BANNERS);
-    const existingIndex = current.findIndex((b) => b.id === banner.id);
-    if (existingIndex >= 0) {
-      current[existingIndex] = { ...banner };
-      DatabaseService.logActivity("update", "banner", banner.title, `Target: ${banner.linkUrl}`);
-    } else {
-      current = [...current, { ...banner }];
-      DatabaseService.logActivity("create", "banner", banner.title, `Target: ${banner.linkUrl}`);
-    }
-    current.sort((a, b) => a.order - b.order);
-    setLocalData(STORAGE_KEYS.AD_BANNERS, current);
-
-    if (isSupabaseConfigured && supabase) {
-      try {
-        await supabase.from("site_settings").upsert({
-          key: "ad_banners",
-          value: current,
-          updated_at: new Date().toISOString(),
-        });
-      } catch (err) {
-        console.error("Supabase ad banners upsert error", err);
+    invalidateCache("site_settings:all");
+      let current = getLocalData<AdBannerItem[]>(STORAGE_KEYS.AD_BANNERS, DEFAULT_AD_BANNERS);
+      const existingIndex = current.findIndex((b) => b.id === banner.id);
+      if (existingIndex >= 0) {
+        current[existingIndex] = { ...banner };
+        DatabaseService.logActivity("update", "banner", banner.title, `Target: ${banner.linkUrl}`);
+      } else {
+        current = [...current, { ...banner }];
+        DatabaseService.logActivity("create", "banner", banner.title, `Target: ${banner.linkUrl}`);
       }
-    }
-    return current;
-  }
+      current.sort((a, b) => a.order - b.order);
+      setLocalData(STORAGE_KEYS.AD_BANNERS, current);
 
-  static async deleteAdBanner(id: string): Promise<AdBannerItem[]> {
-    let current = getLocalData<AdBannerItem[]>(STORAGE_KEYS.AD_BANNERS, DEFAULT_AD_BANNERS);
-    const target = current.find((b) => b.id === id);
-    if (target) DatabaseService.logActivity("delete", "banner", target.title);
-    current = current.filter((b) => b.id !== id);
-    setLocalData(STORAGE_KEYS.AD_BANNERS, current);
-
-    if (isSupabaseConfigured && supabase) {
-      try {
-        await supabase.from("site_settings").upsert({
-          key: "ad_banners",
-          value: current,
-          updated_at: new Date().toISOString(),
-        });
-      } catch (err) {
-        console.error("Supabase ad banners sync error", err);
-      }
-    }
-    return current;
-  }
-
-  static async reorderAdBanners(banners: AdBannerItem[]): Promise<AdBannerItem[]> {
-    const updated = banners.map((b, idx) => ({ ...b, order: idx + 1 }));
-    setLocalData(STORAGE_KEYS.AD_BANNERS, updated);
-    DatabaseService.logActivity("update", "banner", "Urutan Ad Banner", "Perbarui susunan banner beranda.");
-
-    if (isSupabaseConfigured && supabase) {
-      try {
-        await supabase.from("site_settings").upsert({
-          key: "ad_banners",
-          value: updated,
-          updated_at: new Date().toISOString(),
-        });
-      } catch (err) {
-        console.error("Supabase ad banners reorder sync error", err);
-      }
-    }
-    return updated;
-  }
-
-  static resetAdBannersToDefault(): AdBannerItem[] {
-    setLocalData(STORAGE_KEYS.AD_BANNERS, DEFAULT_AD_BANNERS);
-    DatabaseService.logActivity("reset", "banner", "Ad Banners", "Kembalikan banner ke default.");
-    return DEFAULT_AD_BANNERS;
-  }
-
-  // ==========================================
-  // 7C. AFTERSALES KANBAN CARDS CRUD
-  // ==========================================
-  static async getAftersalesCards(): Promise<NotionBoardCard[]> {
-    if (isSupabaseConfigured && supabase) {
-      try {
-        const { data, error } = await supabase
-          .from("aftersales_cards")
-          .select("*");
-        if (!error && data && data.length > 0) {
-          return data as NotionBoardCard[];
+      if (isSupabaseConfigured && supabase) {
+        try {
+          await supabase.from("site_settings").upsert({
+            key: "ad_banners",
+            value: current,
+            updated_at: new Date().toISOString(),
+          });
+        } catch (err) {
+          console.error("Supabase ad banners upsert error", err);
         }
-      } catch (err) {
-        console.warn("Supabase aftersales cards fetch failed", err);
       }
+      return current;
     }
-    return getLocalData<NotionBoardCard[]>(STORAGE_KEYS.AFTERSALES_CARDS, NOTION_AFTERSALES_CARDS);
+
+    static async deleteAdBanner(id: string): Promise<AdBannerItem[]> {
+    invalidateCache("site_settings:all");
+      let current = getLocalData<AdBannerItem[]>(STORAGE_KEYS.AD_BANNERS, DEFAULT_AD_BANNERS);
+      const target = current.find((b) => b.id === id);
+      if (target) DatabaseService.logActivity("delete", "banner", target.title);
+      current = current.filter((b) => b.id !== id);
+      setLocalData(STORAGE_KEYS.AD_BANNERS, current);
+
+      if (isSupabaseConfigured && supabase) {
+        try {
+          await supabase.from("site_settings").upsert({
+            key: "ad_banners",
+            value: current,
+            updated_at: new Date().toISOString(),
+          });
+        } catch (err) {
+          console.error("Supabase ad banners sync error", err);
+        }
+      }
+      return current;
+    }
+
+    static async reorderAdBanners(banners: AdBannerItem[]): Promise<AdBannerItem[]> {
+    invalidateCache("site_settings:all");
+      const updated = banners.map((b, idx) => ({ ...b, order: idx + 1 }));
+      setLocalData(STORAGE_KEYS.AD_BANNERS, updated);
+      DatabaseService.logActivity("update", "banner", "Urutan Ad Banner", "Perbarui susunan banner beranda.");
+
+      if (isSupabaseConfigured && supabase) {
+        try {
+          await supabase.from("site_settings").upsert({
+            key: "ad_banners",
+            value: updated,
+            updated_at: new Date().toISOString(),
+          });
+        } catch (err) {
+          console.error("Supabase ad banners reorder sync error", err);
+        }
+      }
+      return updated;
+    }
+
+    static resetAdBannersToDefault(): AdBannerItem[] {
+    invalidateCache("site_settings:all");
+      setLocalData(STORAGE_KEYS.AD_BANNERS, DEFAULT_AD_BANNERS);
+      DatabaseService.logActivity("reset", "banner", "Ad Banners", "Kembalikan banner ke default.");
+      return DEFAULT_AD_BANNERS;
+    }
+
+    // ==========================================
+    // 7C. AFTERSALES KANBAN CARDS CRUD
+    // ==========================================
+    static async getAftersalesCards(): Promise<NotionBoardCard[]> {
+      return cachedFetch("aftersales_cards", async () => {
+      if (isSupabaseConfigured && supabase) {
+        try {
+          const { data, error } = await supabase
+            .from("aftersales_cards")
+            .select("*");
+          if (!error && data && data.length > 0) {
+            return data as NotionBoardCard[];
+          }
+        } catch (err) {
+          console.warn("Supabase aftersales cards fetch failed", err);
+        }
+      }
+      return getLocalData<NotionBoardCard[]>(STORAGE_KEYS.AFTERSALES_CARDS, NOTION_AFTERSALES_CARDS);
+    }, 120000);
   }
 
   static async saveAftersalesCard(card: NotionBoardCard): Promise<NotionBoardCard[]> {
+    invalidateCache("aftersales_cards");
     let current = getLocalData<NotionBoardCard[]>(STORAGE_KEYS.AFTERSALES_CARDS, NOTION_AFTERSALES_CARDS);
     const idx = current.findIndex((c) => c.id === card.id);
     if (idx >= 0) {
@@ -1473,6 +1583,7 @@ export class DatabaseService {
   }
 
   static async deleteAftersalesCard(cardId: string): Promise<NotionBoardCard[]> {
+    invalidateCache("aftersales_cards");
     let current = getLocalData<NotionBoardCard[]>(STORAGE_KEYS.AFTERSALES_CARDS, NOTION_AFTERSALES_CARDS);
     const target = current.find((c) => c.id === cardId);
     if (target) {
@@ -1493,6 +1604,7 @@ export class DatabaseService {
   }
 
   static async saveAftersalesCards(cards: NotionBoardCard[]): Promise<NotionBoardCard[]> {
+    invalidateCache("aftersales_cards");
     setLocalData(STORAGE_KEYS.AFTERSALES_CARDS, cards);
     DatabaseService.logActivity("update", "aftersales", "Semua Kartu Kanban Aftersales", `Total: ${cards.length} kartu`);
     return cards;
@@ -1513,21 +1625,23 @@ export class DatabaseService {
   }
 
   static async getFAQAsync(): Promise<FAQItem[]> {
-    if (isSupabaseConfigured && supabase) {
-      try {
-        const { data, error } = await supabase
-          .from("faq_items")
-          .select("*")
-          .order("order", { ascending: true });
-        if (!error && data && data.length > 0) {
-          setLocalData(STORAGE_KEYS.FAQ_ITEMS, data);
-          return data as FAQItem[];
+    return cachedFetch("faq_items", async () => {
+      if (isSupabaseConfigured && supabase) {
+        try {
+          const { data, error } = await supabase
+            .from("faq_items")
+            .select("*")
+            .order("order", { ascending: true });
+          if (!error && data && data.length > 0) {
+            setLocalData(STORAGE_KEYS.FAQ_ITEMS, data);
+            return data as FAQItem[];
+          }
+        } catch (err) {
+          console.warn("Supabase FAQ fetch failed, fallback to local", err);
         }
-      } catch (err) {
-        console.warn("Supabase FAQ fetch failed, fallback to local", err);
       }
-    }
-    return getLocalData<FAQItem[]>(STORAGE_KEYS.FAQ_ITEMS, FAQ_LIST);
+      return getLocalData<FAQItem[]>(STORAGE_KEYS.FAQ_ITEMS, FAQ_LIST);
+    }, 300000);
   }
 
   static saveFAQ(item: FAQItem): FAQItem[] {

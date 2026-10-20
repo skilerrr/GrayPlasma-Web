@@ -22,13 +22,23 @@ import {
   Tv,
   Ruler,
   Wrench,
+  ShieldCheck,
+  Info,
+  Menu,
+  Home,
 } from "lucide-react";
 import { QuickFilterTab } from "@/types/monitor";
 import { Button } from "@/components/ui/button";
 import { GPLogo } from "@/components/gp-logo";
 import { CONSULTATION_DATA } from "@/data/grayplasma-content";
+import { NAV_MENU_GROUPS, isNavGroupActive } from "@/data/nav-menu";
 import { DatabaseService, GlobalSiteSettings, DEFAULT_SITE_SETTINGS } from "@/lib/db-service";
 import { AnnouncementBar } from "@/components/announcement-bar";
+import {
+  NavDropdownPanel,
+  NavDropdownSection,
+  NavDropdownItem,
+} from "@/components/nav-dropdown";
 
 export type NavMenuKey =
   | "catalog-all"
@@ -73,8 +83,14 @@ export function Navbar({
 }: NavbarProps) {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [openDropdown, setOpenDropdown] = useState<"catalog" | "aftersales" | "more" | null>(null);
+  const triggerRefs = useRef<Record<string, HTMLButtonElement | null>>({
+    catalog: null,
+    aftersales: null,
+    more: null,
+  });
   const [siteSettings, setSiteSettings] = useState<GlobalSiteSettings>(DEFAULT_SITE_SETTINGS);
   const [showChairs, setShowChairs] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     async function loadSettings() {
@@ -95,10 +111,31 @@ export function Navbar({
   }, []);
 
   useEffect(() => {
+    if (mobileMenuOpen) setOpenDropdown(null);
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
     const handleDocumentClick = () => setOpenDropdown(null);
     window.addEventListener("click", handleDocumentClick);
     return () => window.removeEventListener("click", handleDocumentClick);
   }, []);
+
+  // Escape menutup dropdown yang sedang terbuka.
+  useEffect(() => {
+    if (!openDropdown) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        if (mobileMenuOpen) {
+          setMobileMenuOpen(false);
+          return;
+        }
+        setOpenDropdown(null);
+        triggerRefs.current[openDropdown]?.focus();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [openDropdown, mobileMenuOpen]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -115,19 +152,15 @@ export function Navbar({
   }, []);
 
   const currentKey = activeMenuKey || "home";
-  const isCatalogActive = currentKey.startsWith("catalog");
-  const isAftersalesActive = currentKey.startsWith("aftersales");
-  const isMoreActive =
-    currentKey === "desk-guide" ||
-    currentKey === "hdr-guide" ||
-    currentKey === "graynotes-all" ||
-    currentKey === "faq" ||
-    currentKey === "bandwidth-guide" ||
-    currentKey === "feedback" ||
-    currentKey === "glossary" ||
-    currentKey === "about" ||
-    currentKey === "support-donasi" ||
-    currentKey === "consultation";
+  // Active state diturunkan dari definisi menu yang sama, jadi desktop dan
+  // mobile tidak bisa berbeda pendapat soal menu mana yang sedang aktif.
+  const groupActive = (key: "catalog" | "aftersales" | "more") => {
+    const group = NAV_MENU_GROUPS.find((g) => g.key === key);
+    return group ? isNavGroupActive(group, currentKey) : false;
+  };
+  const isCatalogActive = groupActive("catalog");
+  const isAftersalesActive = groupActive("aftersales");
+  const isMoreActive = groupActive("more");
 
   return (
     <header className="sticky top-0 z-40 w-full bg-gp-ink-950/95 backdrop-blur-xl border-b border-gp-ink-700 transition-colors">
@@ -147,7 +180,7 @@ export function Navbar({
               <div className="flex items-center gap-2">
                 <span className="text-base sm:text-lg font-black tracking-tight text-white uppercase truncate">
                   {(siteSettings.brandName || "GRAYPLASMA ID").replace(/\s*ID$/i, "")}{" "}
-                  <span className="text-orange-500 font-mono">ID</span>
+                  <span className="text-gp-orange font-mono">ID</span>
                 </span>
               </div>
               <p className="text-2xs text-gp-ink-300 hidden lg:block font-medium">
@@ -161,10 +194,10 @@ export function Navbar({
             {/* Beranda */}
             <Link
               href="/"
-              className={`px-3 py-1.5 rounded text-xs font-semibold transition-colors ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
                 currentKey === "home"
-                  ? "bg-gp-ink-700 text-white shadow-sm border border-gp-ink-600 font-bold"
-                  : "text-gp-ink-300 hover:text-gp-ink-100"
+                  ? "bg-gp-ink-700 text-white shadow-sm border border-gp-ink-600"
+                  : "text-gp-ink-300 hover:text-gp-ink-100 hover:bg-gp-ink-800"
               }`}
             >
               Beranda
@@ -173,301 +206,192 @@ export function Navbar({
             {/* Menu 1: Rekomendasi Monitor & Meja */}
             <div className="relative" onClick={(e) => e.stopPropagation()}>
               <button
+                ref={(el) => { triggerRefs.current.catalog = el; }}
+                aria-haspopup="menu"
+                aria-expanded={openDropdown === "catalog"}
+                aria-controls="menu-catalog"
                 onClick={() => setOpenDropdown(openDropdown === "catalog" ? null : "catalog")}
-                className={`px-3 py-1.5 rounded text-xs font-semibold transition-colors flex items-center gap-1.5 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
                   isCatalogActive
-                    ? "bg-gp-ink-700 text-white shadow-sm border border-gp-ink-600 font-bold"
-                    : "text-gp-ink-300 hover:text-gp-ink-100"
+                    ? "bg-gp-ink-700 text-white shadow-sm border border-gp-ink-600"
+                    : "text-gp-ink-300 hover:text-gp-ink-100 hover:bg-gp-ink-800"
                 }`}
               >
-                <Layers className="w-3.5 h-3.5 text-emerald-400" />
+                <Layers className="h-3.5 w-3.5 text-gp-mint-50" />
                 <span>Rekomendasi</span>
-                <ChevronDown className={`w-3 h-3 transition-transform ${openDropdown === "catalog" ? "rotate-180" : ""}`} />
+                <ChevronDown className={`h-3 w-3 transition-transform ${openDropdown === "catalog" ? "rotate-180" : ""}`} />
               </button>
 
               {openDropdown === "catalog" && (
-                <div className="absolute top-full left-0 mt-2 w-72 bg-gp-ink-750 border border-gp-ink-650 rounded-xl p-2 shadow-2xl z-50 animate-in fade-in zoom-in-95 space-y-1">
-                  <div className="text-3xs font-bold text-gp-ink-400 px-2 py-1 uppercase tracking-wider">
-                    Katalog Rekomendasi
-                  </div>
-                  <Link
-                    href="/catalog/all"
-                    onClick={() => {
-                      onMenuSelect("catalog-all");
-                      setOpenDropdown(null);
-                    }}
-                    className="w-full text-left px-2.5 py-2 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700/80 transition-colors flex items-center justify-between group"
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <div className="p-1.5 rounded bg-emerald-500/10 text-emerald-400">
-                        <Tv className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <span className="block font-semibold text-gp-ink-100 group-hover:text-white">Rekomendasi Monitor</span>
-                        <span className="text-3xs text-gp-ink-400">Semua model hasil kurasi & tes lab</span>
-                      </div>
-                    </div>
-                    <span className="text-3xs text-gp-ink-300 font-mono bg-gp-ink-800 px-1.5 py-0.5 rounded border border-gp-ink-700">
-                      {totalMonitorsCount}
-                    </span>
-                  </Link>
-
-                  <Link
-                    href="/catalog/desks"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-2 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700/80 transition-colors flex items-center justify-between group"
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <div className="p-1.5 rounded bg-orange-500/10 text-orange-400">
-                        <Layers className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <span className="block font-semibold text-gp-ink-100 group-hover:text-white">Rekomendasi Meja + Kaki</span>
-                        <span className="text-3xs text-gp-ink-400">Daun meja, standing desk, & arm</span>
-                      </div>
-                    </div>
-                    <span className="text-3xs font-mono px-1.5 py-0.5 rounded bg-orange-500/10 border border-orange-500/30 text-orange-400 font-bold">
-                      10 Meja
-                    </span>
-                  </Link>
-
-                  <Link
-                    href="/catalog/arms-brackets"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-2 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700/80 transition-colors flex items-center justify-between group"
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <div className="p-1.5 rounded bg-cyan-500/10 text-cyan-400">
-                        <Wrench className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <span className="block font-semibold text-gp-ink-100 group-hover:text-white">Arm & Bracket Monitor</span>
-                        <span className="text-3xs text-gp-ink-400">Gas spring arm & mount adapter</span>
-                      </div>
-                    </div>
-                    <span className="text-3xs font-mono px-1.5 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold">
-                      Arm & Mount
-                    </span>
-                  </Link>
-
-                  <Link
-                    href="/catalog/accessories"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-2 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700/80 transition-colors flex items-center justify-between group"
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <div className="p-1.5 rounded bg-blue-500/10 text-blue-400">
-                        <Sparkles className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <span className="block font-semibold text-gp-ink-100 group-hover:text-white">Aksesoris Setup</span>
-                        <span className="text-3xs text-gp-ink-400">Screenbar, kabel, & cable mgmt</span>
-                      </div>
-                    </div>
-                    <span className="text-3xs font-mono px-1.5 py-0.5 rounded bg-blue-500/10 border border-blue-500/30 text-blue-400 font-bold">
-                      Aksesoris
-                    </span>
-                  </Link>
-
-                  {showChairs && (
-                    <Link
-                      href="/catalog/chairs"
-                      onClick={() => setOpenDropdown(null)}
-                      className="w-full text-left px-2.5 py-2 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700/80 transition-colors flex items-center justify-between group"
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <div className="p-1.5 rounded bg-purple-500/10 text-purple-400">
-                          <span className="text-xs">🪑</span>
-                        </div>
-                        <div>
-                          <span className="block font-semibold text-gp-ink-100 group-hover:text-white">Kursi Ergonomis</span>
-                          <span className="text-3xs text-gp-ink-400">Kurasi mesh lumbar & gas lift</span>
-                        </div>
-                      </div>
-                      <span className="text-4xs font-mono px-1.5 py-0.5 rounded bg-purple-500/20 border border-purple-500/40 text-purple-300 font-bold">
-                        DRAFT
-                      </span>
-                    </Link>
-                  )}
-                </div>
+              <NavDropdownPanel open align="left" id="menu-catalog">
+                {NAV_MENU_GROUPS.filter((g) => g.key === "catalog").map((group) => (
+                  <React.Fragment key={group.key}>
+                    <NavDropdownSection title={group.section} />
+                    {group.entries
+                      .filter((entry) => !entry.draft || showChairs)
+                      .map((entry) => (
+                        <NavDropdownItem
+                          key={entry.href}
+                          href={entry.href}
+                          icon={entry.icon}
+                          tone={entry.tone}
+                          title={entry.label}
+                          description={entry.description}
+                          badge={entry.href === "/catalog/all" ? String(totalMonitorsCount) : entry.badge}
+                          badgeTone={entry.badgeTone}
+                          onSelect={() => {
+                            if (entry.href === "/catalog/all") onMenuSelect("catalog-all");
+                            setOpenDropdown(null);
+                          }}
+                        />
+                      ))}
+                    {group.extraSection ? (
+                      <>
+                        <NavDropdownSection title={group.extraSection.title} divided />
+                        {group.extraSection.entries.map((entry) => (
+                          <NavDropdownItem
+                            key={entry.href}
+                            href={entry.href}
+                            icon={entry.icon}
+                            tone={entry.tone}
+                            title={entry.label}
+                            description={entry.description}
+                            onSelect={() => setOpenDropdown(null)}
+                          />
+                        ))}
+                      </>
+                    ) : null}
+                  </React.Fragment>
+                ))}
+              </NavDropdownPanel>
               )}
             </div>
 
             {/* Menu 2: Aftersales with Submenu */}
             <div className="relative" onClick={(e) => e.stopPropagation()}>
               <button
+                ref={(el) => { triggerRefs.current.aftersales = el; }}
+                aria-haspopup="menu"
+                aria-expanded={openDropdown === "aftersales"}
+                aria-controls="menu-aftersales"
                 onClick={() => setOpenDropdown(openDropdown === "aftersales" ? null : "aftersales")}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
                   isAftersalesActive
-                    ? "bg-gp-ink-700 text-white shadow-sm"
-                    : "text-gp-ink-300 hover:text-gp-ink-100"
+                    ? "bg-gp-ink-700 text-white shadow-sm border border-gp-ink-600"
+                    : "text-gp-ink-300 hover:text-gp-ink-100 hover:bg-gp-ink-800"
                 }`}
               >
-                <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
+                <ShieldAlert className="h-3.5 w-3.5 text-gp-ember-50" />
                 <span>Aftersales</span>
-                <ChevronDown className={`w-3 h-3 transition-transform ${openDropdown === "aftersales" ? "rotate-180" : ""}`} />
+                <ChevronDown className={`h-3 w-3 transition-transform ${openDropdown === "aftersales" ? "rotate-180" : ""}`} />
               </button>
 
               {openDropdown === "aftersales" && (
-                <div className="absolute top-full left-0 mt-2 w-64 bg-gp-ink-750 border border-gp-ink-650 rounded-xl p-2 shadow-2xl z-50 animate-in fade-in zoom-in-95 space-y-1">
-                  <div className="text-3xs font-bold text-gp-ink-400 px-2 py-1 uppercase tracking-wider">
-                    Aftersales & Garansi Brand
-                  </div>
-                  <Link
-                    href="/guide/brand/aftersales-rma"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700 transition-colors block group"
-                  >
-                    <span className="block font-semibold">Aftersales Brand Tier List</span>
-                    <span className="text-3xs text-gp-ink-400 font-mono group-hover:text-gp-mint">/guide/brand/aftersales-rma</span>
-                  </Link>
-                  <Link
-                    href="/guide/brand/odm-layak-dibeli"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700 transition-colors block group"
-                  >
-                    <span className="block font-semibold">Brand ODM Monitor Layak Dibeli?</span>
-                    <span className="text-3xs text-gp-ink-400 font-mono group-hover:text-gp-mint">/guide/brand/odm-layak-dibeli</span>
-                  </Link>
-                </div>
+              <NavDropdownPanel open align="left" id="menu-aftersales">
+                {NAV_MENU_GROUPS.filter((g) => g.key === "aftersales").map((group) => (
+                  <React.Fragment key={group.key}>
+                    <NavDropdownSection title={group.section} />
+                    {group.entries
+                      .filter((entry) => !entry.draft || showChairs)
+                      .map((entry) => (
+                        <NavDropdownItem
+                          key={entry.href}
+                          href={entry.href}
+                          icon={entry.icon}
+                          tone={entry.tone}
+                          title={entry.label}
+                          description={entry.description}
+                          badge={entry.href === "/catalog/all" ? String(totalMonitorsCount) : entry.badge}
+                          badgeTone={entry.badgeTone}
+                          onSelect={() => {
+                            if (entry.href === "/catalog/all") onMenuSelect("catalog-all");
+                            setOpenDropdown(null);
+                          }}
+                        />
+                      ))}
+                    {group.extraSection ? (
+                      <>
+                        <NavDropdownSection title={group.extraSection.title} divided />
+                        {group.extraSection.entries.map((entry) => (
+                          <NavDropdownItem
+                            key={entry.href}
+                            href={entry.href}
+                            icon={entry.icon}
+                            tone={entry.tone}
+                            title={entry.label}
+                            description={entry.description}
+                            onSelect={() => setOpenDropdown(null)}
+                          />
+                        ))}
+                      </>
+                    ) : null}
+                  </React.Fragment>
+                ))}
+              </NavDropdownPanel>
               )}
             </div>
 
             {/* Menu 3: Panduan & Sub-pages */}
             <div className="relative" onClick={(e) => e.stopPropagation()}>
               <button
+                ref={(el) => { triggerRefs.current.more = el; }}
+                aria-haspopup="menu"
+                aria-expanded={openDropdown === "more"}
+                aria-controls="menu-more"
                 onClick={() => setOpenDropdown(openDropdown === "more" ? null : "more")}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
                   isMoreActive
-                    ? "bg-gp-ink-700 text-white shadow-sm"
-                    : "text-gp-ink-300 hover:text-gp-ink-100"
+                    ? "bg-gp-ink-700 text-white shadow-sm border border-gp-ink-600"
+                    : "text-gp-ink-300 hover:text-gp-ink-100 hover:bg-gp-ink-800"
                 }`}
               >
-                <BookOpen className="w-3.5 h-3.5 text-cyan-400" />
+                <BookOpen className="h-3.5 w-3.5 text-gp-sky-50" />
                 <span>Panduan & Info</span>
-                <ChevronDown className={`w-3 h-3 transition-transform ${openDropdown === "more" ? "rotate-180" : ""}`} />
+                <ChevronDown className={`h-3 w-3 transition-transform ${openDropdown === "more" ? "rotate-180" : ""}`} />
               </button>
 
               {openDropdown === "more" && (
-                <div className="absolute top-full right-0 mt-2 w-72 bg-gp-ink-750 border border-gp-ink-650 rounded-xl p-2 shadow-2xl z-50 animate-in fade-in zoom-in-95 max-h-[80vh] overflow-y-auto space-y-1">
-                  <div className="text-3xs font-bold text-gp-ink-400 px-2.5 py-1 uppercase tracking-wider">
-                    Panduan & Edukasi (/guide/...)
-                  </div>
-                  <Link
-                    href="/guide/faq"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700 transition-colors flex items-start gap-2 group"
-                  >
-                    <HelpCircle className="w-3.5 h-3.5 text-amber-400 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <span className="block font-semibold">QnA & FAQ Section</span>
-                      <span className="text-3xs text-gp-ink-400 font-mono group-hover:text-gp-mint">/guide/faq</span>
-                    </div>
-                  </Link>
-                  <Link
-                    href="/guide/sdr/glossary"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700 transition-colors flex items-start gap-2 group"
-                  >
-                    <BookOpen className="w-3.5 h-3.5 text-emerald-400 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <span className="block font-semibold">How to Read GrayPlasma Glossary</span>
-                      <span className="text-3xs text-gp-ink-400 font-mono group-hover:text-gp-mint">/guide/sdr/glossary</span>
-                    </div>
-                  </Link>
-                  <Link
-                    href="/guide/display/bandwidth-dp-hdmi"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700 transition-colors flex items-start gap-2 group"
-                  >
-                    <SlidersHorizontal className="w-3.5 h-3.5 text-rose-400 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <span className="block font-semibold">Bandwidth DP 1.4 vs HDMI 2.1</span>
-                      <span className="text-3xs text-gp-ink-400 font-mono group-hover:text-gp-mint">/guide/display/bandwidth-dp-hdmi</span>
-                    </div>
-                  </Link>
-                  <Link
-                    href="/guide/setup/ukuran-meja-monitor-ideal"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700 transition-colors flex items-start gap-2 group"
-                  >
-                    <Ruler className="w-3.5 h-3.5 text-amber-400 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <span className="block font-semibold">Ukuran Meja & Monitor Ideal (24" / 27")</span>
-                      <span className="text-3xs text-gp-ink-400 font-mono group-hover:text-gp-mint">/guide/setup/ukuran-meja-monitor-ideal</span>
-                    </div>
-                  </Link>
-                  <Link
-                    href="/guide/setup/meja-ergonomi"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700 transition-colors flex items-start gap-2 group"
-                  >
-                    <LayoutGrid className="w-3.5 h-3.5 text-cyan-400 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <span className="block font-semibold">Rekomendasi Meja & Monitor Arm</span>
-                      <span className="text-3xs text-gp-ink-400 font-mono group-hover:text-gp-mint">/guide/setup/meja-ergonomi</span>
-                    </div>
-                  </Link>
-                  <Link
-                    href="/guide/oled/perawatan-burn-in"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700 transition-colors flex items-start gap-2 group"
-                  >
-                    <SunMedium className="w-3.5 h-3.5 text-rose-400 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <span className="block font-semibold">Panduan Lengkap OLED & Burn-in</span>
-                      <span className="text-3xs text-gp-ink-400 font-mono group-hover:text-gp-mint">/guide/oled/perawatan-burn-in</span>
-                    </div>
-                  </Link>
-                  <Link
-                    href="/guide/warna/akurasi-d65-p3"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700 transition-colors flex items-start gap-2 group"
-                  >
-                    <FileText className="w-3.5 h-3.5 text-cyan-400 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <span className="block font-semibold">D65-P3 Undersaturated Guide</span>
-                      <span className="text-3xs text-gp-ink-400 font-mono group-hover:text-gp-mint">/guide/warna/akurasi-d65-p3</span>
-                    </div>
-                  </Link>
-
-                  <div className="text-3xs font-bold text-gp-ink-400 px-2.5 py-1 uppercase tracking-wider border-t border-gp-ink-650 mt-1 pt-1">
-                    Komunitas & Penulis
-                  </div>
-                  <Link
-                    href="/guide/about/tentang-penulis"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700 transition-colors flex items-start gap-2 group"
-                  >
-                    <HelpCircle className="w-3.5 h-3.5 text-violet-400 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <span className="block font-semibold">Tentang Website & Penulis</span>
-                      <span className="text-3xs text-gp-ink-400 font-mono group-hover:text-gp-mint">/guide/about/tentang-penulis</span>
-                    </div>
-                  </Link>
-                  <Link
-                    href="/guide/support/donasi-penulis"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700 transition-colors flex items-start gap-2 group"
-                  >
-                    <Heart className="w-3.5 h-3.5 text-rose-400 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <span className="block font-semibold">Support & Donasi Penulis</span>
-                      <span className="text-3xs text-gp-ink-400 font-mono group-hover:text-gp-mint">/guide/support/donasi-penulis</span>
-                    </div>
-                  </Link>
-                  <Link
-                    href="/guide/consultation/konsultasi-joel-gray"
-                    onClick={() => setOpenDropdown(null)}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium text-gp-ink-200 hover:text-white hover:bg-gp-ink-700 transition-colors flex items-start gap-2 group"
-                  >
-                    <Headphones className="w-3.5 h-3.5 text-emerald-400 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <span className="block font-semibold">Konsultasi WA / Discord</span>
-                      <span className="text-3xs text-gp-ink-400 font-mono group-hover:text-gp-mint">/guide/consultation/konsultasi-joel-gray</span>
-                    </div>
-                  </Link>
-                </div>
+              <NavDropdownPanel open align="right" id="menu-more">
+                {NAV_MENU_GROUPS.filter((g) => g.key === "more").map((group) => (
+                  <React.Fragment key={group.key}>
+                    <NavDropdownSection title={group.section} />
+                    {group.entries
+                      .filter((entry) => !entry.draft || showChairs)
+                      .map((entry) => (
+                        <NavDropdownItem
+                          key={entry.href}
+                          href={entry.href}
+                          icon={entry.icon}
+                          tone={entry.tone}
+                          title={entry.label}
+                          description={entry.description}
+                          badge={entry.href === "/catalog/all" ? String(totalMonitorsCount) : entry.badge}
+                          badgeTone={entry.badgeTone}
+                          onSelect={() => {
+                            if (entry.href === "/catalog/all") onMenuSelect("catalog-all");
+                            setOpenDropdown(null);
+                          }}
+                        />
+                      ))}
+                    {group.extraSection ? (
+                      <>
+                        <NavDropdownSection title={group.extraSection.title} divided />
+                        {group.extraSection.entries.map((entry) => (
+                          <NavDropdownItem
+                            key={entry.href}
+                            href={entry.href}
+                            icon={entry.icon}
+                            tone={entry.tone}
+                            title={entry.label}
+                            description={entry.description}
+                            onSelect={() => setOpenDropdown(null)}
+                          />
+                        ))}
+                      </>
+                    ) : null}
+                  </React.Fragment>
+                ))}
+              </NavDropdownPanel>
               )}
             </div>
           </nav>
@@ -475,7 +399,7 @@ export function Navbar({
           {/* Instant Search Bar */}
           <div className="flex-1 min-w-0 max-w-xs sm:max-w-md mx-1 sm:mx-2">
             <div className="relative group">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gp-ink-400 group-focus-within:text-emerald-400 transition-colors">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gp-ink-400 group-focus-within:text-gp-mint-50 transition-colors">
                 <Search className="w-4 h-4" />
               </div>
               <input
@@ -515,9 +439,9 @@ export function Navbar({
               onClick={onToggleMobileFilter}
               className="lg:hidden flex items-center gap-1.5 border-gp-ink-700 bg-gp-ink-900"
             >
-              <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
+              <SlidersHorizontal className="w-3.5 h-3.5 text-gp-mint-50" />
               {activeFilterCount > 0 && (
-                <span className="w-4 h-4 rounded-full bg-emerald-500 text-black font-bold text-3xs flex items-center justify-center">
+                <span className="w-4 h-4 rounded-full bg-gp-mint-50 text-black font-bold text-3xs flex items-center justify-center">
                   {activeFilterCount}
                 </span>
               )}
@@ -527,7 +451,7 @@ export function Navbar({
               href={siteSettings.consultation?.whatsappUrl || CONSULTATION_DATA.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-orange-500/10 border border-orange-500/30 hover:border-orange-400 text-xs font-semibold text-orange-400 hover:bg-orange-500 hover:text-gp-ink-950 active:translate-y-[1px] transition-all"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gp-orange/10 border border-gp-orange/30 hover:border-gp-orange text-xs font-semibold text-gp-orange hover:bg-gp-orange hover:text-gp-ink-950 active:translate-y-[1px] transition-all"
             >
               <MessageCircle className="w-3.5 h-3.5" />
               <span>Tanya Joel</span>
@@ -535,82 +459,101 @@ export function Navbar({
           </div>
         </div>
 
-        {/* Mobile Horizontal Menu Bar — scroll-x + fade di tepi kanan biar
-            user tahu masih ada tab berikutnya (sebelumnya kepotong diam-diam) */}
-        <div className="relative lg:hidden">
-          <div className="flex items-center gap-2 py-2 border-t border-gp-ink-800 overflow-x-auto no-scrollbar scroll-smooth">
-          <MobileNavLink href="/" label="Beranda" active={currentKey === "home"} />
-          <MobileNavLink
-            href="/guide/brand/aftersales-rma"
-            label="Aftersales"
-            active={isAftersalesActive}
-          />
-          <MobileNavLink
-            href="/guide/setup/meja-ergonomi"
-            label="Meja & Setup"
-            active={currentKey === "desk-guide" || currentKey === "hdr-guide"}
-          />
-          <MobileNavLink href="/guide/faq" label="QnA & FAQ" active={currentKey === "faq"} />
-          <MobileNavLink
-            href="/guide/display/bandwidth-dp-hdmi"
-            label="Bandwidth"
-            active={currentKey === "bandwidth-guide"}
-          />
-          <MobileNavLink
-            href="/guide/oled/perawatan-burn-in"
-            label="OLED Care"
-            active={false}
-          />
-          <MobileNavLink
-            href="/guide/sdr/glossary"
-            label="Glosarium"
-            active={currentKey === "glossary"}
-          />
-          <MobileNavLink
-            href="/guide/about/tentang-penulis"
-            label="Tentang"
-            active={currentKey === "about"}
-          />
-          <MobileNavLink
-            href="/guide/support/donasi-penulis"
-            label="Donasi"
-            active={currentKey === "support-donasi"}
-          />
-          </div>
-          {/* Fade hint di tepi kanan (pointer-events-none, 0 layout cost) */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-gp-ink-950 via-gp-ink-950/80 to-transparent"
-          />
+        {/* Mobile Menu — sheet full-screen yang isi-nya PERSIS sama dengan
+            dropdown desktop (dari NAV_MENU_GROUPS), bukan daftar datar.
+            Sebelumnya mobile cuma punya 9 link datar: katalog meja, aksesoris,
+            arm & bracket, dan konsultasi nggak terjangkau dari HP. */}
+        <div className="lg:hidden">
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((v) => !v)}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu-sheet"
+            className={`w-full flex items-center gap-2 px-3 py-2.5 text-xs font-semibold transition-colors ${
+              mobileMenuOpen
+                ? "bg-gp-ink-700 text-white"
+                : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800"
+            }`}
+          >
+            <Menu className="h-4 w-4 text-gp-mint-50" />
+            <span>Menu</span>
+            <span className="ml-auto text-3xs font-normal text-gp-ink-400">
+              {mobileMenuOpen ? "Tutup" : "Semua halaman"}
+            </span>
+            <ChevronDown
+              className={`h-3.5 w-3.5 text-gp-ink-400 transition-transform ${
+                mobileMenuOpen ? "rotate-180" : ""
+              }`}
+            />
+          </button>
+
+          {mobileMenuOpen && (
+            <div
+              id="mobile-menu-sheet"
+              className="max-h-[70vh] overflow-y-auto overscroll-contain border-t border-gp-ink-800 bg-gp-ink-950 px-3 pb-4 pt-2"
+            >
+              <div className="mb-1">
+                <Link
+                  href="/"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-xs font-semibold transition-colors ${
+                    currentKey === "home"
+                      ? "bg-gp-ink-700 text-white"
+                      : "text-gp-ink-200 hover:bg-gp-ink-800"
+                  }`}
+                >
+                  <span className="flex h-7 w-7 items-center justify-center rounded-md bg-gp-mint-50/10 text-gp-mint-50">
+                    <Home className="h-4 w-4" />
+                  </span>
+                  Beranda
+                </Link>
+              </div>
+
+              {NAV_MENU_GROUPS.map((group) => (
+                <div key={group.key} className="mb-2">
+                  <NavDropdownSection title={group.section} />
+                  {group.entries
+                    .filter((entry) => !entry.draft || showChairs)
+                    .map((entry) => (
+                      <NavDropdownItem
+                        key={entry.href}
+                        href={entry.href}
+                        icon={entry.icon}
+                        tone={entry.tone}
+                        title={entry.label}
+                        description={entry.description}
+                        badge={
+                          entry.href === "/catalog/all" ? String(totalMonitorsCount) : entry.badge
+                        }
+                        badgeTone={entry.badgeTone}
+                        onSelect={() => {
+                          if (entry.href === "/catalog/all") onMenuSelect("catalog-all");
+                          setMobileMenuOpen(false);
+                        }}
+                      />
+                    ))}
+                  {group.extraSection ? (
+                    <>
+                      <NavDropdownSection title={group.extraSection.title} divided />
+                      {group.extraSection.entries.map((entry) => (
+                        <NavDropdownItem
+                          key={entry.href}
+                          href={entry.href}
+                          icon={entry.icon}
+                          tone={entry.tone}
+                          title={entry.label}
+                          description={entry.description}
+                          onSelect={() => setMobileMenuOpen(false)}
+                        />
+                      ))}
+                    </>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </header>
-  );
-}
-
-/**
- * Item menu baris horizontal di mobile.
- * Semua item pakai aturan yang sama: aktif -> surface terang + teks putih,
- * non-aktif -> teks netral. Tidak ada warna aksen hardcoded per item.
- */
-function MobileNavLink({
-  href,
-  label,
-  active,
-}: {
-  href: string;
-  label: string;
-  active: boolean;
-}) {
-  return (
-    <Link
-      href={href}
-      aria-current={active ? "page" : undefined}
-      className={`flex-shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors ${
-        active ? "bg-gp-ink-700 text-white" : "text-gp-ink-300 hover:text-white"
-      }`}
-    >
-      {label}
-    </Link>
   );
 }

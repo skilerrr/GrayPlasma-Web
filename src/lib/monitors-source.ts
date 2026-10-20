@@ -1,6 +1,7 @@
 import { MONITORS_DATA } from "@/data/monitors";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import type { Monitor } from "@/types/monitor";
+import { unstable_cache } from "next/cache";
 
 /**
  * Sumber data halaman detail monitor.
@@ -34,6 +35,20 @@ export async function getMonitorsForDetail(): Promise<Monitor[]> {
 
   return MONITORS_DATA;
 }
+
+/**
+ * Versi server-side (ISR) dari sumber data monitor.
+ *
+ * `generateMetadata` + render halaman detail sama-sama memanggil
+ * `getMonitorsForDetail()`. Tanpa cache, itu 2 query Supabase per request.
+ * `unstable_cache` membuat keduanya berbagi 1 hasil, di-cache di server dan
+ * di-refresh otomatis mengikuti `revalidate` (60 detik) di page monitor.
+ */
+export const getMonitorsForDetailCached = unstable_cache(
+  async () => getMonitorsForDetail(),
+  ["monitors-for-detail"],
+  { revalidate: 60, tags: ["monitors"] }
+);
 
 /** Pencocokan slug yang toleran: slug, id, `mon-<slug>`, atau model tanpa tanda baca. */
 export function findMonitorBySlug(monitors: Monitor[], rawSlug: string): Monitor | null {

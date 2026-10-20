@@ -45,6 +45,8 @@ import {
   DatabaseService,
   DEFAULT_SITE_SETTINGS,
   DEFAULT_BANNER_SETTINGS,
+  SUBPAGE_CARD_ACCENTS,
+  normalizeCardAccent,
 } from "@/lib/db-service";
 import { compressImage } from "@/lib/image-compressor";
 import { NotionRichEditor } from "@/components/admin/notion-rich-editor";
@@ -442,7 +444,7 @@ export function SiteElementsManager({
                     desc: "Deskripsi panduan...",
                     path: "/guide/custom",
                     icon: "📄",
-                    color: "hover:border-gp-sky text-gp-sky",
+                    color: normalizeCardAccent("hover:border-gp-sky text-gp-sky"),
                     order: homepageForm.subpageCards.length + 1,
                     isVisible: true,
                   });
@@ -1185,6 +1187,44 @@ export function SiteElementsManager({
                     onChange={(e) => setEditingCard({ ...editingCard, desc: e.target.value })}
                     className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:border-emerald-400 focus:outline-none placeholder:text-gp-ink-400"
                   />
+                </div>
+
+                <div>
+                  <label className="text-gp-ink-200 block mb-1 font-semibold">Warna Aksen</label>
+                  <div className="flex flex-wrap gap-2">
+                    {SUBPAGE_CARD_ACCENTS.map((accent) => {
+                      const isActive = editingCard.color === accent.color;
+                      const dotClass = accent.color
+                        .split(" ")
+                        .find((c) => c.startsWith("text-"))
+                        ?.replace("text-", "") ?? "";
+                      return (
+                        <button
+                          key={accent.id}
+                          type="button"
+                          onClick={() =>
+                            setEditingCard({ ...editingCard, color: accent.color })
+                          }
+                          aria-pressed={isActive}
+                          className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-2xs font-semibold transition-colors ${
+                            isActive
+                              ? "border-gp-ink-500 bg-gp-ink-700 text-white"
+                              : "border-gp-ink-650 bg-gp-ink-850 text-gp-ink-300 hover:border-gp-ink-500 hover:text-white"
+                          }`}
+                        >
+                          <span
+                            className={`h-2.5 w-2.5 rounded-full ${dotClass}`}
+                            aria-hidden="true"
+                          />
+                          {accent.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <p className="text-3xs text-gp-ink-500 mt-1.5">
+                    Warna memakai design token. Nilai hex kustom tidak bisa dipakai karena
+                    Tailwind hanya membuat CSS untuk class yang ada di source.
+                  </p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
