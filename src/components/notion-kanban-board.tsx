@@ -121,7 +121,7 @@ export function NotionKanbanBoard({
                         </span>
                         <h4
                           className={`text-xs font-bold leading-tight ${
-                            isSelected ? "text-orange-400" : "text-white"
+                            isSelected ? "text-hue-orange-400" : "text-white"
                           }`}
                         >
                           {card.title}

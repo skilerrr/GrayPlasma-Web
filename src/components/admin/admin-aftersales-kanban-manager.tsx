@@ -173,8 +173,8 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
   return (
     <div className="space-y-6 font-sans">
       {notice && (
-        <div className="p-3.5 bg-emerald-950/90 border border-emerald-500/50 rounded-2xl text-xs text-emerald-200 font-semibold flex items-center gap-2 shadow-lg animate-in fade-in">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+        <div className="p-3.5 bg-hue-emerald-950/90 border border-hue-emerald-500/50 rounded-2xl text-xs text-hue-emerald-200 font-semibold flex items-center gap-2 shadow-lg animate-in fade-in">
+          <CheckCircle2 className="w-4 h-4 text-hue-emerald-400 flex-shrink-0" />
           <span>{notice}</span>
         </div>
       )}
@@ -183,7 +183,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gp-ink-700 pb-5">
           <div className="space-y-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-hue-amber-500/10 border border-hue-amber-500/30 text-hue-amber-400 text-xs font-bold">
               <ShieldAlert className="w-3.5 h-3.5" />
               <span>Aftersales & RMA Kanban Studio</span>
             </div>
@@ -211,7 +211,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
               variant="cyber"
               size="sm"
               onClick={handleOpenAdd}
-              className="text-xs font-bold bg-amber-500 text-black hover:bg-amber-400 shadow-md"
+              className="text-xs font-bold bg-hue-amber-500 text-black hover:bg-hue-amber-400 shadow-md"
             >
               <Plus className="w-3.5 h-3.5 mr-1.5" />
               <span>+ Tambah Brand Evaluasi</span>
@@ -263,7 +263,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Cari brand aftersales..."
-              className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-amber-500/60"
+              className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-hue-amber-500/60"
             />
           </div>
         </div>
@@ -312,7 +312,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
                           <button
                             type="button"
                             onClick={() => handleDeleteCard(card.id, card.title)}
-                            className="p-1 rounded-lg hover:bg-gp-ink-700 text-gp-ink-400 hover:text-red-400"
+                            className="p-1 rounded-lg hover:bg-gp-ink-700 text-gp-ink-400 hover:text-hue-red-400"
                             title="Hapus"
                           >
                             <Trash2 className="w-3 h-3" />
@@ -337,7 +337,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
                         {card.sistemKlaim && (
                           <div className="flex items-center justify-between">
                             <span className="text-gp-ink-400">Klaim:</span>
-                            <span className="text-emerald-400 font-bold">{card.sistemKlaim}</span>
+                            <span className="text-hue-emerald-400 font-bold">{card.sistemKlaim}</span>
                           </div>
                         )}
                         {card.phoneNumber && card.phoneNumber !== "Empty" && card.phoneNumber !== "-" && (
@@ -350,8 +350,8 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
 
                       {/* Deep-dive note indicator */}
                       {card.deepDiveNote && (
-                        <div className="text-3xs text-amber-400/90 italic flex items-center gap-1 pt-1">
-                          <FileText className="w-3 h-3 text-amber-400" />
+                        <div className="text-3xs text-hue-amber-400/90 italic flex items-center gap-1 pt-1">
+                          <FileText className="w-3 h-3 text-hue-amber-400" />
                           <span>Ulasan mendalam tersedia</span>
                         </div>
                       )}
@@ -379,7 +379,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
             {/* Fixed Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-gp-ink-700 bg-gp-ink-850 flex-shrink-0">
               <span className="font-bold text-white text-sm uppercase flex items-center gap-2">
-                <ShieldAlert className="w-4 h-4 text-amber-400" />
+                <ShieldAlert className="w-4 h-4 text-hue-amber-400" />
                 <span>{editingCard.title ? `Edit Evaluasi: ${editingCard.title}` : "Tambah Brand Evaluasi Baru"}</span>
               </span>
               <button
@@ -406,7 +406,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
                       value={editingCard.title || ""}
                       onChange={(e) => setEditingCard({ ...editingCard, title: e.target.value })}
                       placeholder="Contoh: ASUS MONITOR (SC ASTRINDO)"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-white font-bold focus:outline-none focus:border-amber-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-white font-bold focus:outline-none focus:border-hue-amber-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
@@ -414,7 +414,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
                     <select
                       value={editingCard.columnId || "baik"}
                       onChange={(e) => setEditingCard({ ...editingCard, columnId: e.target.value })}
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-400 font-bold"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-hue-amber-400 font-bold"
                     >
                       <option value="baik">BAIK (BARE MINIMUM) - Hijau</option>
                       <option value="biasa">BIASA SAJA - Abu/Oranye</option>
@@ -431,7 +431,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
                       value={editingCard.sistemKlaim || ""}
                       onChange={(e) => setEditingCard({ ...editingCard, sistemKlaim: e.target.value })}
                       placeholder="Contoh: GANTI BARU / SWAP UNIT"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-emerald-400 font-mono font-semibold focus:outline-none focus:border-amber-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-hue-emerald-400 font-mono font-semibold focus:outline-none focus:border-hue-amber-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
@@ -441,7 +441,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
                       value={editingCard.phoneNumber || ""}
                       onChange={(e) => setEditingCard({ ...editingCard, phoneNumber: e.target.value })}
                       placeholder="Contoh: 1500 128"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-white font-mono focus:outline-none focus:border-amber-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-white font-mono focus:outline-none focus:border-hue-amber-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
@@ -451,7 +451,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
                       value={tagsInput}
                       onChange={(e) => setTagsInput(e.target.value)}
                       placeholder="BAIK, ONSITE, 3 TAHUN"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-hue-amber-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                 </div>
@@ -463,29 +463,29 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
                     value={editingCard.contactUrl || ""}
                     onChange={(e) => setEditingCard({ ...editingCard, contactUrl: e.target.value })}
                     placeholder="https://www.asus.com/id/support/..."
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-sky-400 font-mono focus:outline-none focus:border-amber-400 placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-hue-sky-400 font-mono focus:outline-none focus:border-hue-amber-400 placeholder:text-gp-ink-400"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="text-emerald-400 block mb-1 font-semibold">Kelebihan / Pros (1 per baris):</label>
+                    <label className="text-hue-emerald-400 block mb-1 font-semibold">Kelebihan / Pros (1 per baris):</label>
                     <textarea
                       rows={3}
                       value={prosText}
                       onChange={(e) => setProsText(e.target.value)}
                       placeholder="Contoh: Proses klaim di bawah 7 hari kerja"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:outline-none focus:border-emerald-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:outline-none focus:border-hue-emerald-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
-                    <label className="text-rose-400 block mb-1 font-semibold">Kekurangan / Cons (1 per baris):</label>
+                    <label className="text-hue-rose-400 block mb-1 font-semibold">Kekurangan / Cons (1 per baris):</label>
                     <textarea
                       rows={3}
                       value={consText}
                       onChange={(e) => setConsText(e.target.value)}
                       placeholder="Contoh: Wajib simpan dus dan nota asli"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:outline-none focus:border-rose-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:outline-none focus:border-hue-rose-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                 </div>
@@ -494,7 +494,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
                 <div>
                   <label className="text-gp-ink-200 block mb-1.5 font-semibold flex items-center justify-between">
                     <span>Ulasan Mendalam & Dokumen Analisis Lab (Visual WYSIWYG):</span>
-                    <span className="text-2xs text-amber-400 font-mono font-medium">Tampil pada Side Panel Ulasan</span>
+                    <span className="text-2xs text-hue-amber-400 font-mono font-medium">Tampil pada Side Panel Ulasan</span>
                   </label>
                   <NotionRichEditor
                     value={editingCard.deepDiveNote || ""}
@@ -519,7 +519,7 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
                 >
                   Batal
                 </Button>
-                <Button type="submit" variant="cyber" size="sm" className="bg-amber-500 hover:bg-amber-400 text-black font-bold shadow-lg shadow-amber-500/10">
+                <Button type="submit" variant="cyber" size="sm" className="bg-hue-amber-500 hover:bg-hue-amber-400 text-black font-bold shadow-lg shadow-hue-amber-500/10">
                   Simpan Kartu Aftersales
                 </Button>
               </div>

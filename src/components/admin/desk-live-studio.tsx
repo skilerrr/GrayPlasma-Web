@@ -329,7 +329,7 @@ export function DeskLiveStudio({
             }}
             className={`px-2.5 py-1 rounded-lg text-3xs font-mono font-bold flex items-center gap-1.5 transition-colors ${
               isLive
-                ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20"
+                ? "bg-hue-emerald-500/10 text-hue-emerald-400 border border-hue-emerald-500/30 hover:bg-hue-emerald-500/20"
                 : "bg-gp-ink-700/80 text-gp-ink-300 border border-gp-ink-600 hover:text-white"
             }`}
             title={isLive ? "Klik untuk jadikan Draft (Sembunyikan)" : "Klik untuk Publikasikan (Aktif)"}
@@ -350,7 +350,7 @@ export function DeskLiveStudio({
       category: "Finansial",
       getValue: (d) => d.price,
       renderCell: (d) => (
-        <div className="font-mono font-bold text-emerald-400 whitespace-nowrap">
+        <div className="font-mono font-bold text-hue-emerald-400 whitespace-nowrap">
           <input
             type="number"
             defaultValue={d.price}
@@ -360,7 +360,7 @@ export function DeskLiveStudio({
                 handleQuickEditPrice(d, newP);
               }
             }}
-            className="w-28 bg-gp-ink-800/80 border border-gp-ink-650 hover:border-emerald-500 focus:border-emerald-500 rounded px-2 py-1 text-xs text-emerald-400 font-mono font-bold focus:outline-none"
+            className="w-28 bg-gp-ink-800/80 border border-gp-ink-650 hover:border-hue-emerald-500 focus:border-hue-emerald-500 rounded px-2 py-1 text-xs text-hue-emerald-400 font-mono font-bold focus:outline-none"
           />
         </div>
       ),
@@ -385,7 +385,7 @@ export function DeskLiveStudio({
                 setDocContent(getInitialDoc(d));
                 setViewMode("studio");
               }}
-              className="font-bold text-white hover:text-orange-400 cursor-pointer transition-colors"
+              className="font-bold text-white hover:text-hue-orange-400 cursor-pointer transition-colors"
               title="Buka di Detail Studio"
             >
               {d.name}
@@ -407,7 +407,7 @@ export function DeskLiveStudio({
       category: "Klasifikasi",
       getValue: (d) => d.category,
       renderCell: (d) => (
-        <span className="px-2 py-0.5 rounded text-3xs font-mono font-bold bg-amber-500/10 text-amber-300 border border-amber-500/30 whitespace-nowrap">
+        <span className="px-2 py-0.5 rounded text-3xs font-mono font-bold bg-hue-amber-500/10 text-hue-amber-300 border border-hue-amber-500/30 whitespace-nowrap">
           {d.category}
         </span>
       ),
@@ -473,8 +473,8 @@ export function DeskLiveStudio({
           onClick={() => handleQuickEditArmSupport(d, !(d.specs?.armSupport ?? true))}
           className={`px-2 py-0.5 rounded text-3xs font-mono font-bold border transition-colors whitespace-nowrap ${
             d.specs?.armSupport
-              ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/25"
-              : "bg-amber-500/15 text-amber-400 border-amber-500/30 hover:bg-amber-500/25"
+              ? "bg-hue-emerald-500/15 text-hue-emerald-400 border-hue-emerald-500/30 hover:bg-hue-emerald-500/25"
+              : "bg-hue-amber-500/15 text-hue-amber-400 border-hue-amber-500/30 hover:bg-hue-amber-500/25"
           }`}
           title="Klik untuk ubah status kelayakan clamp arm"
         >
@@ -497,7 +497,7 @@ export function DeskLiveStudio({
             {d.customVariables.slice(0, 2).map((v) => (
               <span
                 key={v.id}
-                className="px-1.5 py-0.5 rounded bg-gp-ink-700 text-amber-300 text-4xs font-mono font-bold border border-gp-ink-600"
+                className="px-1.5 py-0.5 rounded bg-gp-ink-700 text-hue-amber-300 text-4xs font-mono font-bold border border-gp-ink-600"
                 title={`${v.label}: ${v.value}`}
               >
                 {v.label}
@@ -559,7 +559,7 @@ export function DeskLiveStudio({
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-orange-500/10 text-orange-400 border border-orange-500/30 text-3xs font-mono hover:bg-orange-500/20"
+            className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-hue-orange-500/10 text-hue-orange-400 border border-hue-orange-500/30 text-3xs font-mono hover:bg-hue-orange-500/20"
           >
             <ExternalLink className="w-3 h-3" />
             <span>Shopee</span>
@@ -582,8 +582,8 @@ export function DeskLiveStudio({
     <div className="space-y-4 font-sans text-white">
       {/* Toast Notice */}
       {notice && (
-        <div className="p-3 bg-emerald-950/90 border border-emerald-500 rounded-xl text-xs text-emerald-200 font-semibold flex items-center gap-2 shadow-lg">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+        <div className="p-3 bg-hue-emerald-950/90 border border-hue-emerald-500 rounded-xl text-xs text-hue-emerald-200 font-semibold flex items-center gap-2 shadow-lg">
+          <CheckCircle2 className="w-4 h-4 text-hue-emerald-400 flex-shrink-0" />
           <span>{notice}</span>
         </div>
       )}
@@ -591,7 +591,7 @@ export function DeskLiveStudio({
       {/* Main Studio Header */}
       <div className="p-5 rounded-2xl bg-gp-ink-850 border border-gp-ink-650 flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-xl">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs font-bold">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-hue-amber-500/15 border border-hue-amber-500/40 text-hue-amber-300 text-xs font-bold">
             <TableIcon className="w-3.5 h-3.5" />
             <span>Katalog Meja, Daun Meja & Standing Desk Studio</span>
           </div>
@@ -681,7 +681,7 @@ export function DeskLiveStudio({
                   placeholder="Cari nama meja, material, dimensi..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-gp-ink-800 border border-gp-ink-650 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-amber-500 font-mono"
+                  className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-gp-ink-800 border border-gp-ink-650 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-hue-amber-500 font-mono"
                 />
               </div>
 
@@ -689,7 +689,7 @@ export function DeskLiveStudio({
               <select
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
-                className="bg-gp-ink-800 border border-gp-ink-650 rounded-xl px-3 py-1.5 text-xs text-amber-400 font-mono focus:outline-none"
+                className="bg-gp-ink-800 border border-gp-ink-650 rounded-xl px-3 py-1.5 text-xs text-hue-amber-400 font-mono focus:outline-none"
               >
                 <option value="all">Semua Kategori Meja</option>
                 {DESK_CATEGORIES.map((cat) => (
@@ -703,7 +703,7 @@ export function DeskLiveStudio({
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value as "all" | "published" | "draft")}
-                className="bg-gp-ink-800 border border-gp-ink-650 rounded-xl px-3 py-1.5 text-xs text-emerald-400 font-mono focus:outline-none"
+                className="bg-gp-ink-800 border border-gp-ink-650 rounded-xl px-3 py-1.5 text-xs text-hue-emerald-400 font-mono focus:outline-none"
               >
                 <option value="all">Semua Status</option>
                 <option value="published">🟢 Hanya Aktif (Live)</option>
@@ -717,9 +717,9 @@ export function DeskLiveStudio({
                 variant="outline"
                 size="sm"
                 onClick={() => setIsColManagerOpen(true)}
-                className="text-xs font-mono text-gp-ink-200 border-gp-ink-600 hover:border-amber-500 hover:text-white flex items-center gap-1.5"
+                className="text-xs font-mono text-gp-ink-200 border-gp-ink-600 hover:border-hue-amber-500 hover:text-white flex items-center gap-1.5"
               >
-                <SlidersHorizontal className="w-3.5 h-3.5 text-amber-400" />
+                <SlidersHorizontal className="w-3.5 h-3.5 text-hue-amber-400" />
                 <span>Kelola Kolom ({tableManager.visibleColumns.length})</span>
               </Button>
 
@@ -728,7 +728,7 @@ export function DeskLiveStudio({
                 variant="outline"
                 size="sm"
                 onClick={handleExportCSV}
-                className="text-xs font-mono text-amber-400 border-amber-500/40 hover:bg-amber-500/10 flex items-center gap-1.5"
+                className="text-xs font-mono text-hue-amber-400 border-hue-amber-500/40 hover:bg-hue-amber-500/10 flex items-center gap-1.5"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Export CSV</span>
@@ -748,9 +748,9 @@ export function DeskLiveStudio({
           </div>
 
           {/* Drag Hint Banner */}
-          <div className="px-4 py-2.5 bg-amber-950/40 border border-amber-500/30 rounded-xl flex flex-wrap items-center justify-between gap-2 text-xs text-amber-300 font-mono">
+          <div className="px-4 py-2.5 bg-hue-amber-950/40 border border-hue-amber-500/30 rounded-xl flex flex-wrap items-center justify-between gap-2 text-xs text-hue-amber-300 font-mono">
             <div className="flex items-center gap-2">
-              <GripVertical className="w-4 h-4 text-amber-400" />
+              <GripVertical className="w-4 h-4 text-hue-amber-400" />
               <span>
                 <strong>MODE EXCEL AKTIF:</strong> Klik header untuk <strong>Sort (Asc/Desc/Reset)</strong>, Drag header kolom untuk <strong>Reorder Kolom</strong>, atau Drag handle <strong>⠿</strong> untuk urutan baris meja.
               </span>
@@ -785,9 +785,9 @@ export function DeskLiveStudio({
                             col.minWidth || "min-w-[140px]"
                           } ${
                             isDragging
-                              ? "opacity-40 bg-amber-500/20"
+                              ? "opacity-40 bg-hue-amber-500/20"
                               : isOver
-                              ? "border-l-2 border-l-amber-400 bg-amber-500/10"
+                              ? "border-l-2 border-l-amber-400 bg-hue-amber-500/10"
                               : "hover:bg-gp-ink-700/80"
                           }`}
                           title="Klik untuk sort (Asc/Desc/Reset), atau Drag untuk memindahkan urutan kolom"
@@ -795,7 +795,7 @@ export function DeskLiveStudio({
                           <div className="flex items-center justify-between gap-1.5">
                             <div className="flex items-center gap-1.5 min-w-0">
                               <span
-                                className="cursor-grab active:cursor-grabbing text-gp-ink-400 hover:text-amber-400"
+                                className="cursor-grab active:cursor-grabbing text-gp-ink-400 hover:text-hue-amber-400"
                                 title="Drag kolom"
                               >
                                 <GripVertical className="w-3.5 h-3.5" />
@@ -803,7 +803,7 @@ export function DeskLiveStudio({
                               <span className="truncate">{col.label}</span>
                             </div>
                             {isSorted ? (
-                              <span className="text-amber-400 font-bold text-2xs flex-shrink-0">
+                              <span className="text-hue-amber-400 font-bold text-2xs flex-shrink-0">
                                 {tableManager.sortDirection === "asc" ? "▲" : "▼"}
                               </span>
                             ) : col.sortable !== false ? (
@@ -850,13 +850,13 @@ export function DeskLiveStudio({
                           setDragOverIndex(null);
                         }}
                         className={`group transition-colors hover:bg-gp-ink-700/40 ${
-                          isDragging ? "opacity-30 border-2 border-dashed border-amber-400 bg-amber-950/40" : ""
-                        } ${isDragOver ? "border-t-4 border-t-amber-400 bg-amber-950/20" : ""}`}
+                          isDragging ? "opacity-30 border-2 border-dashed border-hue-amber-400 bg-hue-amber-950/40" : ""
+                        } ${isDragOver ? "border-t-4 border-t-amber-400 bg-hue-amber-950/20" : ""}`}
                       >
                         {/* Drag Handle */}
                         <td className="py-2.5 px-3 text-center border-r border-gp-ink-700/60">
                           <div
-                            className={`p-1.5 text-gp-ink-400 hover:text-amber-400 transition-colors inline-flex rounded-lg hover:bg-gp-ink-700 ${
+                            className={`p-1.5 text-gp-ink-400 hover:text-hue-amber-400 transition-colors inline-flex rounded-lg hover:bg-gp-ink-700 ${
                               tableManager.sortField !== null
                                 ? "opacity-30 cursor-not-allowed"
                                 : "cursor-grab active:cursor-grabbing"
@@ -896,7 +896,7 @@ export function DeskLiveStudio({
                                 setDocContent(getInitialDoc(d));
                                 setViewMode("studio");
                               }}
-                              className="text-2xs font-mono font-bold text-amber-400 border-amber-500/40 hover:bg-amber-500/10 h-7 px-2"
+                              className="text-2xs font-mono font-bold text-hue-amber-400 border-hue-amber-500/40 hover:bg-hue-amber-500/10 h-7 px-2"
                               title="Buka 3-Kolom Studio"
                             >
                               <Edit2 className="w-3 h-3 mr-1" />
@@ -907,7 +907,7 @@ export function DeskLiveStudio({
                               <button
                                 type="button"
                                 onClick={() => onPreviewSidePanel(d)}
-                                className="p-1 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-emerald-400"
+                                className="p-1 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-hue-emerald-400"
                                 title="Preview Side Panel"
                               >
                                 <Eye className="w-3.5 h-3.5" />
@@ -926,7 +926,7 @@ export function DeskLiveStudio({
                             <button
                               type="button"
                               onClick={() => handleDelete()}
-                              className="p-1 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-400 hover:text-rose-400"
+                              className="p-1 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-400 hover:text-hue-rose-400"
                               title="Hapus Meja"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
@@ -973,7 +973,7 @@ export function DeskLiveStudio({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Cari nama, ukuran, material..."
-              className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-amber-500 font-sans"
+              className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-hue-amber-500 font-sans"
             />
           </div>
 
@@ -984,7 +984,7 @@ export function DeskLiveStudio({
               onClick={() => setCategoryFilter("all")}
               className={`px-2 py-0.5 rounded text-3xs font-mono font-bold uppercase transition-colors ${
                 categoryFilter === "all"
-                  ? "bg-amber-500 text-black"
+                  ? "bg-hue-amber-500 text-black"
                   : "bg-gp-ink-800 text-gp-ink-300 hover:text-white"
               }`}
             >
@@ -997,7 +997,7 @@ export function DeskLiveStudio({
                 onClick={() => setCategoryFilter(cat)}
                 className={`px-2 py-0.5 rounded text-3xs font-mono font-bold uppercase transition-colors truncate max-w-[120px] ${
                   categoryFilter === cat
-                    ? "bg-amber-500 text-black"
+                    ? "bg-hue-amber-500 text-black"
                     : "bg-gp-ink-800 text-gp-ink-300 hover:text-white"
                 }`}
                 title={cat}
@@ -1027,7 +1027,7 @@ export function DeskLiveStudio({
                     }`}
                   >
                     <div className="flex items-center justify-between gap-1 mb-1">
-                      <span className="text-4xs font-mono font-bold uppercase px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                      <span className="text-4xs font-mono font-bold uppercase px-2 py-0.5 rounded bg-hue-amber-500/10 text-hue-amber-400 border border-hue-amber-500/30">
                         {d.category}
                       </span>
                       <span className="text-3xs font-mono text-gp-ink-400">
@@ -1035,17 +1035,17 @@ export function DeskLiveStudio({
                       </span>
                     </div>
 
-                    <h4 className="text-xs font-bold text-white line-clamp-1 group-hover:text-orange-400">
+                    <h4 className="text-xs font-bold text-white line-clamp-1 group-hover:text-hue-orange-400">
                       {d.name}
                     </h4>
 
                     <div className="flex items-baseline justify-between mt-2 pt-1 border-t border-gp-ink-700/60">
-                      <span className="text-xs font-mono font-bold text-emerald-400 tabular-nums">
+                      <span className="text-xs font-mono font-bold text-hue-emerald-400 tabular-nums">
                         {d.price > 0 ? formatRupiah(d.price) : "Custom Size"}
                       </span>
                       <span
                         className={`text-4xs font-mono font-bold ${
-                          d.specs?.armSupport ? "text-emerald-400" : "text-amber-400"
+                          d.specs?.armSupport ? "text-hue-emerald-400" : "text-hue-amber-400"
                         }`}
                       >
                         {d.specs?.armSupport ? "[ARM OK]" : "[CEK TEBAL]"}
@@ -1092,7 +1092,7 @@ export function DeskLiveStudio({
               <button
                 type="button"
                 onClick={handleDuplicate}
-                className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-orange-400 text-xs flex items-center gap-1"
+                className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-hue-orange-400 text-xs flex items-center gap-1"
                 title="Duplikat Meja Ini"
               >
                 <Copy className="w-3.5 h-3.5" />
@@ -1101,7 +1101,7 @@ export function DeskLiveStudio({
               <button
                 type="button"
                 onClick={handleDelete}
-                className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-rose-400 text-xs flex items-center gap-1"
+                className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-hue-rose-400 text-xs flex items-center gap-1"
                 title="Hapus Meja"
               >
                 <Trash2 className="w-3.5 h-3.5" />
@@ -1127,7 +1127,7 @@ export function DeskLiveStudio({
               value={formData.name || ""}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               placeholder="# Nama Meja Rekomendasi..."
-              className="w-full bg-transparent text-lg sm:text-xl font-black text-white placeholder-gp-ink-500 focus:outline-none focus:border-b border-amber-500 tracking-tight leading-snug py-1"
+              className="w-full bg-transparent text-lg sm:text-xl font-black text-white placeholder-gp-ink-500 focus:outline-none focus:border-b border-hue-amber-500 tracking-tight leading-snug py-1"
             />
           </div>
 
@@ -1149,7 +1149,7 @@ export function DeskLiveStudio({
                       category: e.target.value as DeskItem["category"],
                     })
                   }
-                  className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1 text-xs text-amber-400 font-mono font-bold focus:outline-none focus:border-amber-500"
+                  className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1 text-xs text-hue-amber-400 font-mono font-bold focus:outline-none focus:border-hue-amber-500"
                 >
                   {DESK_CATEGORIES.map((c) => (
                     <option key={c} value={c}>
@@ -1171,7 +1171,7 @@ export function DeskLiveStudio({
                     onClick={() => setFormData({ ...formData, type: t })}
                     className={`flex-1 py-1 rounded text-3xs font-mono font-bold border transition-colors ${
                       formData.type === t
-                        ? "bg-amber-500/20 text-amber-300 border-amber-500/50"
+                        ? "bg-hue-amber-500/20 text-hue-amber-300 border-hue-amber-500/50"
                         : "bg-gp-ink-800 text-gp-ink-300 border-gp-ink-700"
                     }`}
                   >
@@ -1189,7 +1189,7 @@ export function DeskLiveStudio({
                   type="number"
                   value={formData.price || 0}
                   onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
-                  className="w-36 bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1 text-xs text-emerald-400 font-mono font-bold focus:outline-none focus:border-emerald-500"
+                  className="w-36 bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1 text-xs text-hue-emerald-400 font-mono font-bold focus:outline-none focus:border-hue-emerald-500"
                 />
                 <span className="text-2xs font-mono text-gp-ink-300">
                   {formatRupiah(formData.price || 0)}
@@ -1214,7 +1214,7 @@ export function DeskLiveStudio({
                     })
                   }
                   placeholder="120 x 60 cm"
-                  className="flex-1 bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1 text-xs text-white font-mono focus:outline-none focus:border-amber-500"
+                  className="flex-1 bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1 text-xs text-white font-mono focus:outline-none focus:border-hue-amber-500"
                 />
                 <input
                   type="text"
@@ -1229,7 +1229,7 @@ export function DeskLiveStudio({
                     })
                   }
                   placeholder="Tebal: 2.4 cm"
-                  className="w-28 bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1 text-xs text-white font-mono focus:outline-none focus:border-amber-500"
+                  className="w-28 bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1 text-xs text-white font-mono focus:outline-none focus:border-hue-amber-500"
                 />
               </div>
             </div>
@@ -1251,11 +1251,11 @@ export function DeskLiveStudio({
                         },
                       })
                     }
-                    className="rounded border-gp-ink-600 bg-gp-ink-800 text-emerald-500"
+                    className="rounded border-gp-ink-600 bg-gp-ink-800 text-hue-emerald-500"
                   />
                   <span
                     className={
-                      formData.specs?.armSupport ? "text-emerald-400 font-bold" : "text-gp-ink-300"
+                      formData.specs?.armSupport ? "text-hue-emerald-400 font-bold" : "text-gp-ink-300"
                     }
                   >
                     {formData.specs?.armSupport
@@ -1283,7 +1283,7 @@ export function DeskLiveStudio({
                     })
                   }
                   placeholder="Multiplek / Plywood Full HPL, Kayu Solid..."
-                  className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-amber-500"
+                  className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-hue-amber-500"
                 />
               </div>
             </div>
@@ -1297,7 +1297,7 @@ export function DeskLiveStudio({
                   value={formData.shopeeUrl || ""}
                   onChange={(e) => setFormData({ ...formData, shopeeUrl: e.target.value })}
                   placeholder="https://shopee.co.id/..."
-                  className="flex-1 bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1 text-xs text-orange-400 font-mono focus:outline-none focus:border-orange-500 truncate"
+                  className="flex-1 bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1 text-xs text-hue-orange-400 font-mono focus:outline-none focus:border-hue-orange-500 truncate"
                 />
                 {formData.shopeeUrl && (
                   <a
@@ -1342,7 +1342,7 @@ export function DeskLiveStudio({
                     value={formData.description || ""}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     placeholder="Ringkasan singkat ulasan meja..."
-                    className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-amber-500 font-sans"
+                    className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-hue-amber-500 font-sans"
                   />
                 </div>
 
@@ -1355,7 +1355,7 @@ export function DeskLiveStudio({
                     value={formData.notes || ""}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                     placeholder="Catatan ulasan meja..."
-                    className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-amber-500 font-sans"
+                    className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-hue-amber-500 font-sans"
                   />
                 </div>
 
@@ -1368,7 +1368,7 @@ export function DeskLiveStudio({
                     value={formData.catatanBadge || ""}
                     onChange={(e) => setFormData({ ...formData, catatanBadge: e.target.value })}
                     placeholder="ADA (DISARANKAN MEMBACA NYA)"
-                    className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1 text-xs text-emerald-400 font-mono font-bold focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1 text-xs text-hue-emerald-400 font-mono font-bold focus:outline-none focus:border-hue-emerald-500"
                   />
                 </div>
               </div>
@@ -1388,7 +1388,7 @@ export function DeskLiveStudio({
               variant="outline"
               size="sm"
               onClick={() => setIsTableBuilderOpen(true)}
-              className="text-xs font-mono text-amber-400 border-amber-500/40 hover:bg-amber-500/10 flex items-center gap-1.5"
+              className="text-xs font-mono text-hue-amber-400 border-hue-amber-500/40 hover:bg-hue-amber-500/10 flex items-center gap-1.5"
             >
               <TableIcon className="w-3.5 h-3.5" />
               <span>+ Susun Tabel Modular</span>
@@ -1399,7 +1399,7 @@ export function DeskLiveStudio({
           <div className="p-4 rounded-xl bg-gp-ink-850 border border-gp-ink-700 space-y-3 shadow-tech-card">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <TableIcon className="w-4 h-4 text-orange-500" />
+                <TableIcon className="w-4 h-4 text-hue-orange-500" />
                 <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">
                   [ VARIABEL & KOLOM DATA MODULAR MEJA ]
                 </span>
@@ -1422,11 +1422,11 @@ export function DeskLiveStudio({
                     className="flex items-center justify-between bg-gp-ink-800 border border-gp-ink-650 px-3 py-1.5 rounded-lg text-xs"
                   >
                     <div className="flex items-center gap-2 flex-1">
-                      <span className="px-1.5 py-0.5 rounded bg-gp-ink-700 text-4xs font-mono text-amber-400 uppercase font-bold">
+                      <span className="px-1.5 py-0.5 rounded bg-gp-ink-700 text-4xs font-mono text-hue-amber-400 uppercase font-bold">
                         {v.category || "Fitur"}
                       </span>
                       <span className="font-bold text-white font-mono">{v.label}:</span>
-                      <span className="text-emerald-400 font-semibold">{v.value}</span>
+                      <span className="text-hue-emerald-400 font-semibold">{v.value}</span>
                     </div>
                     <button
                       type="button"
@@ -1434,7 +1434,7 @@ export function DeskLiveStudio({
                         const updated = (formData.customVariables || []).filter((_, i) => i !== idx);
                         setFormData({ ...formData, customVariables: updated });
                       }}
-                      className="text-gp-ink-400 hover:text-rose-400 p-1"
+                      className="text-gp-ink-400 hover:text-hue-rose-400 p-1"
                       title="Hapus Variabel Ini"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -1451,19 +1451,19 @@ export function DeskLiveStudio({
                 placeholder="Nama Variabel / Kolom (e.g. Beban Maks Motor)..."
                 value={newVarLabel}
                 onChange={(e) => setNewVarLabel(e.target.value)}
-                className="sm:col-span-5 bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-gp-ink-400 font-mono focus:outline-none focus:border-amber-500"
+                className="sm:col-span-5 bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-gp-ink-400 font-mono focus:outline-none focus:border-hue-amber-500"
               />
               <input
                 type="text"
                 placeholder="Nilai Data (e.g. 80 kg, 25mm/s)..."
                 value={newVarValue}
                 onChange={(e) => setNewVarValue(e.target.value)}
-                className="sm:col-span-4 bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-gp-ink-400 font-mono focus:outline-none focus:border-amber-500"
+                className="sm:col-span-4 bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-gp-ink-400 font-mono focus:outline-none focus:border-hue-amber-500"
               />
               <select
                 value={newVarCategory}
                 onChange={(e) => setNewVarCategory(e.target.value)}
-                className="sm:col-span-3 bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2 py-1.5 text-xs text-amber-400 font-mono focus:outline-none"
+                className="sm:col-span-3 bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2 py-1.5 text-xs text-hue-amber-400 font-mono focus:outline-none"
               >
                 <option value="Material & Frame">Rangka & Kayu</option>
                 <option value="Motor Standing">Motor Elektrik</option>
@@ -1496,7 +1496,7 @@ export function DeskLiveStudio({
                       setFormData({ ...formData, customVariables: updated });
                       showNotification(`Variabel "${p.l}" berhasil ditambahkan.`);
                     }}
-                    className="text-3xs font-mono px-2 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-650 hover:border-amber-500/60 text-amber-300 transition-colors"
+                    className="text-3xs font-mono px-2 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-650 hover:border-hue-amber-500/60 text-hue-amber-300 transition-colors"
                   >
                     + {p.l}
                   </button>
@@ -1554,13 +1554,13 @@ export function DeskLiveStudio({
         .map(
           (v) => `
       <tr class="hover:bg-gp-ink-700/40 transition-colors">
-        <td class="px-3.5 py-2.5 border-r border-gp-ink-700/60 font-mono text-amber-400 font-bold uppercase text-3xs">${
+        <td class="px-3.5 py-2.5 border-r border-gp-ink-700/60 font-mono text-hue-amber-400 font-bold uppercase text-3xs">${
           v.category || "Spesifikasi"
         }</td>
         <td class="px-3.5 py-2.5 border-r border-gp-ink-700/60 font-semibold text-white">${
           v.label
         }</td>
-        <td class="px-3.5 py-2.5 text-emerald-400 font-mono font-bold">${v.value}</td>
+        <td class="px-3.5 py-2.5 text-hue-emerald-400 font-mono font-bold">${v.value}</td>
       </tr>`
         )
         .join("")}
@@ -1571,7 +1571,7 @@ export function DeskLiveStudio({
                       setDocContent((prev) => prev + tableHtml);
                       showNotification("Tabel variabel berhasil disisipkan ke ulasan meja.");
                     }}
-                    className="text-xs font-mono text-emerald-400 border-emerald-500/40 hover:bg-emerald-500/10 flex items-center gap-1"
+                    className="text-xs font-mono text-hue-emerald-400 border-hue-emerald-500/40 hover:bg-hue-emerald-500/10 flex items-center gap-1"
                   >
                     <TableIcon className="w-3 h-3" />
                     <span>Sisipkan ke Dokumen</span>
@@ -1613,8 +1613,8 @@ export function DeskLiveStudio({
         <div className="lg:col-span-4 bg-gp-ink-850 border border-gp-ink-700 rounded-xl p-5 space-y-4 shadow-tech-card sticky top-4">
           <div className="flex items-center justify-between border-b border-gp-ink-700 pb-3">
             <div className="flex items-center gap-2">
-              <Eye className="w-4 h-4 text-emerald-400" />
-              <span className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">
+              <Eye className="w-4 h-4 text-hue-emerald-400" />
+              <span className="text-xs font-mono font-bold text-hue-emerald-400 uppercase tracking-widest">
                 [ LIVE_SIDE_PANEL_PREVIEW ]
               </span>
             </div>
@@ -1662,21 +1662,21 @@ export function DeskLiveStudio({
 
               <div className="flex justify-between items-center py-0.5">
                 <span className="text-gp-ink-400">Status Catatan</span>
-                <span className="px-2 py-0.5 rounded text-3xs font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                <span className="px-2 py-0.5 rounded text-3xs font-bold bg-hue-emerald-500/15 text-hue-emerald-400 border border-hue-emerald-500/30">
                   {formData.catatanBadge || "ADA"}
                 </span>
               </div>
 
               <div className="flex justify-between items-center py-0.5">
                 <span className="text-gp-ink-400">Kategori</span>
-                <span className="px-2 py-0.5 rounded text-3xs font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                <span className="px-2 py-0.5 rounded text-3xs font-bold bg-hue-amber-500/15 text-hue-amber-300 border border-hue-amber-500/30">
                   {formData.category}
                 </span>
               </div>
 
               <div className="flex justify-between items-center pt-1 border-t border-gp-ink-700/60">
                 <span className="text-gp-ink-400">Kisaran Harga</span>
-                <span className="font-mono font-black text-emerald-400 text-sm">
+                <span className="font-mono font-black text-hue-emerald-400 text-sm">
                   {formData.price && formData.price > 0
                     ? formatRupiah(formData.price)
                     : "Custom Size"}
@@ -1696,9 +1696,9 @@ export function DeskLiveStudio({
               <div className="text-gp-ink-200">
                 <strong>Arm Gas-Spring:</strong>{" "}
                 {formData.specs?.armSupport ? (
-                  <span className="text-emerald-400 font-mono font-bold">Aman Dijepit (Clamp OK)</span>
+                  <span className="text-hue-emerald-400 font-mono font-bold">Aman Dijepit (Clamp OK)</span>
                 ) : (
-                  <span className="text-amber-400 font-mono font-bold">Perlu Plat Tambahan</span>
+                  <span className="text-hue-amber-400 font-mono font-bold">Perlu Plat Tambahan</span>
                 )}
               </div>
             </div>
@@ -1706,7 +1706,7 @@ export function DeskLiveStudio({
             {/* Custom Modular Variables Badges */}
             {(formData.customVariables || []).length > 0 && (
               <div className="p-3 rounded-xl bg-gp-ink-800/60 border border-gp-ink-700 space-y-1.5 text-xs">
-                <span className="text-3xs font-mono font-bold text-amber-400 uppercase tracking-wider block">
+                <span className="text-3xs font-mono font-bold text-hue-amber-400 uppercase tracking-wider block">
                   Variabel & Parameter Modular:
                 </span>
                 <div className="grid grid-cols-1 gap-1.5">
@@ -1716,12 +1716,12 @@ export function DeskLiveStudio({
                       className="flex justify-between items-center text-2xs bg-gp-ink-950/60 px-2.5 py-1 rounded-lg border border-gp-ink-700"
                     >
                       <div className="flex items-center gap-1.5">
-                        <span className="text-4xs font-mono font-bold text-amber-400 uppercase bg-gp-ink-700 px-1 rounded">
+                        <span className="text-4xs font-mono font-bold text-hue-amber-400 uppercase bg-gp-ink-700 px-1 rounded">
                           {v.category || "Fitur"}
                         </span>
                         <span className="text-gp-ink-300">{v.label}:</span>
                       </div>
-                      <span className="text-emerald-400 font-mono font-bold">{v.value}</span>
+                      <span className="text-hue-emerald-400 font-mono font-bold">{v.value}</span>
                     </div>
                   ))}
                 </div>

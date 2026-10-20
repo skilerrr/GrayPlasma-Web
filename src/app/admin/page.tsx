@@ -384,7 +384,7 @@ export default function AdminDashboardPage() {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-gp-ink-998 flex flex-col items-center justify-center gap-3 font-mono text-xs text-gp-ink-300">
-        <div className="w-10 h-10 rounded-xl border border-gp-ink-700 bg-gp-ink-800 flex items-center justify-center text-emerald-400">
+        <div className="w-10 h-10 rounded-xl border border-gp-ink-700 bg-gp-ink-800 flex items-center justify-center text-hue-emerald-400">
           <Lock className="w-4 h-4" />
         </div>
         <p className="uppercase tracking-wider">Memeriksa sesi admin...</p>
@@ -406,8 +406,8 @@ export default function AdminDashboardPage() {
             <Link href="/" className="flex items-center gap-2 group">
               <GPLogo className="w-7 h-7 flex-shrink-0" />
               <div>
-                <span className="font-black text-xs uppercase tracking-tight text-white group-hover:text-emerald-400 transition-colors block">
-                  GP<span className="text-emerald-400">ADMIN</span>
+                <span className="font-black text-xs uppercase tracking-tight text-white group-hover:text-hue-emerald-400 transition-colors block">
+                  GP<span className="text-hue-emerald-400">ADMIN</span>
                 </span>
                 <span className="text-4xs text-gp-ink-300 block -mt-0.5">Admin Panel</span>
               </div>
@@ -428,13 +428,13 @@ export default function AdminDashboardPage() {
                 <img
                   src={currentAdmin.avatar}
                   alt={currentAdmin.name}
-                  className="w-9 h-9 rounded-lg object-cover border border-amber-500/40 group-hover:border-gp-ember-50 transition-colors"
+                  className="w-9 h-9 rounded-lg object-cover border border-hue-amber-500/40 group-hover:border-gp-ember-50 transition-colors"
                 />
                 <label
                   title="Ganti Foto Profil Anda"
                   className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                 >
-                  <Upload className="w-3.5 h-3.5 text-amber-400" />
+                  <Upload className="w-3.5 h-3.5 text-hue-amber-400" />
                   <input
                     type="file"
                     accept="image/*"
@@ -447,7 +447,7 @@ export default function AdminDashboardPage() {
                 <span className="text-xs font-bold text-white block truncate">
                   {currentAdmin.name}
                 </span>
-                <span className="text-3xs text-amber-400 block truncate font-medium">
+                <span className="text-3xs text-hue-amber-400 block truncate font-medium">
                   {currentAdmin.roleTitle}
                 </span>
               </div>
@@ -500,7 +500,7 @@ export default function AdminDashboardPage() {
             variant="outline"
             size="sm"
             onClick={handleLogout}
-            className="text-xs text-rose-400 border-rose-500/30"
+            className="text-xs text-hue-rose-400 border-hue-rose-500/30"
           >
             <Lock className="w-3.5 h-3.5 mr-1" />
             <span>Keluar</span>
@@ -536,7 +536,7 @@ export default function AdminDashboardPage() {
               <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gp-ink-800 border border-gp-ink-700 text-2xs">
                 <span
                   className={`w-2 h-2 rounded-full ${
-                    isSupabaseConfigured ? "bg-emerald-400 animate-pulse" : "bg-amber-400"
+                    isSupabaseConfigured ? "bg-hue-emerald-400 animate-pulse" : "bg-hue-amber-400"
                   }`}
                 />
                 <span className="text-gp-ink-200">
@@ -555,11 +555,11 @@ export default function AdminDashboardPage() {
           <div
             className={`fixed bottom-6 right-6 z-50 p-4 rounded-2xl border shadow-2xl text-xs font-semibold flex items-center gap-2.5 animate-in slide-in-from-bottom-5 ${
               syncMessage.isError
-                ? "bg-rose-950/90 border-rose-500 text-rose-200"
-                : "bg-emerald-950/90 border-emerald-500 text-emerald-200"
+                ? "bg-hue-rose-950/90 border-hue-rose-500 text-hue-rose-200"
+                : "bg-hue-emerald-950/90 border-hue-emerald-500 text-hue-emerald-200"
             }`}
           >
-            <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-hue-emerald-400 flex-shrink-0" />
             <span>{syncMessage.text}</span>
           </div>
         )}
@@ -571,14 +571,14 @@ export default function AdminDashboardPage() {
             <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-4 space-y-1">
               <span className="text-2xs text-gp-ink-300 uppercase font-bold">Total Monitor</span>
               <div className="text-2xl font-black text-white">{monitors.length} Model</div>
-              <span className="text-3xs text-emerald-400">
+              <span className="text-3xs text-hue-emerald-400">
                 {monitors.filter((m) => m.tier === "S-TIER").length} S-Tier • {monitors.filter((m) => m.tier === "BEST VALUE").length} Best Value
               </span>
             </div>
 
             <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-4 space-y-1">
               <span className="text-2xs text-gp-ink-300 uppercase font-bold">Meja, Arm & Bracket</span>
-              <div className="text-2xl font-black text-cyan-400">{desks.length + peripherals.length + chairs.length} Item</div>
+              <div className="text-2xl font-black text-hue-cyan-400">{desks.length + peripherals.length + chairs.length} Item</div>
               <span className="text-3xs text-gp-ink-300">
                 {desks.length} Meja • {peripherals.filter(p => (p.category || "").toLowerCase().includes("arm") || (p.name || "").toLowerCase().includes("arm")).length} Arm • {peripherals.filter(p => (p.category || "").toLowerCase().includes("bracket") || (p.name || "").toLowerCase().includes("bracket")).length} Bracket • {chairs.length} Kursi
               </span>
@@ -586,13 +586,13 @@ export default function AdminDashboardPage() {
 
             <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-4 space-y-1">
               <span className="text-2xs text-gp-ink-300 uppercase font-bold">Hierarki Rute</span>
-              <div className="text-2xl font-black text-amber-400">{hierarchyNodes.length} Subpage</div>
+              <div className="text-2xl font-black text-hue-amber-400">{hierarchyNodes.length} Subpage</div>
               <span className="text-3xs text-gp-ink-300">Panduan SDR, HDR, Desk, ODM</span>
             </div>
 
             <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-4 space-y-1">
               <span className="text-2xs text-gp-ink-300 uppercase font-bold">Tim Admin & RBAC</span>
-              <div className="text-2xl font-black text-violet-400">{admins.length} Anggota</div>
+              <div className="text-2xl font-black text-hue-violet-400">{admins.length} Anggota</div>
               <span className="text-3xs text-gp-ink-300">Super Admin, Reviewer, Editor</span>
             </div>
           </div>
@@ -707,7 +707,7 @@ export default function AdminDashboardPage() {
           {activeTab === "compressor" && (
             <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6">
               <div className="space-y-2 border-b border-gp-ink-700 pb-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-bold">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-hue-rose-500/10 border border-hue-rose-500/30 text-hue-rose-400 text-xs font-bold">
                   <Sparkles className="w-3.5 h-3.5" />
                   <span>WebP Client-Side Image Optimizer</span>
                 </div>
@@ -720,8 +720,8 @@ export default function AdminDashboardPage() {
               </div>
 
               <div className="max-w-xl mx-auto space-y-4 text-center">
-                <label className="border-2 border-dashed border-gp-ink-600 hover:border-emerald-500 rounded-2xl p-8 flex flex-col items-center justify-center cursor-pointer transition-colors bg-gp-ink-950/60 group">
-                  <Upload className="w-10 h-10 text-gp-ink-400 group-hover:text-emerald-400 mb-2 transition-colors" />
+                <label className="border-2 border-dashed border-gp-ink-600 hover:border-hue-emerald-500 rounded-2xl p-8 flex flex-col items-center justify-center cursor-pointer transition-colors bg-gp-ink-950/60 group">
+                  <Upload className="w-10 h-10 text-gp-ink-400 group-hover:text-hue-emerald-400 mb-2 transition-colors" />
                   <span className="text-sm font-bold text-white">Pilih File Foto untuk Uji Kompresi</span>
                   <span className="text-xs text-gp-ink-400 mt-1">Mendukung format PNG, JPG, JPEG, BMP</span>
                   <input
@@ -733,13 +733,13 @@ export default function AdminDashboardPage() {
                 </label>
 
                 {toolIsCompressing && (
-                  <div className="text-xs text-emerald-400 font-bold animate-pulse">
+                  <div className="text-xs text-hue-emerald-400 font-bold animate-pulse">
                     Sedang melakukan resizing & konversi WebP...
                   </div>
                 )}
 
                 {toolImageStats && (
-                  <div className="bg-gp-ink-950 border border-emerald-500/40 rounded-2xl p-5 text-left space-y-4">
+                  <div className="bg-gp-ink-950 border border-hue-emerald-500/40 rounded-2xl p-5 text-left space-y-4">
                     <div className="flex items-center gap-4">
                       <img
                         src={toolImageStats.dataUrl}
@@ -749,9 +749,9 @@ export default function AdminDashboardPage() {
                       <div className="space-y-1 text-xs">
                         <span className="font-bold text-white block">Hasil Optimasi WebP</span>
                         <div className="text-gp-ink-300">
-                          Ukuran Asli: <span className="line-through text-rose-400">{formatFileSize(toolImageStats.originalSize)}</span>
+                          Ukuran Asli: <span className="line-through text-hue-rose-400">{formatFileSize(toolImageStats.originalSize)}</span>
                         </div>
-                        <div className="text-emerald-400 font-bold text-sm">
+                        <div className="text-hue-emerald-400 font-bold text-sm">
                           Ukuran WebP: {formatFileSize(toolImageStats.compressedSize)} (-{toolImageStats.savedPercentage}%)
                         </div>
                         <div className="text-2xs text-gp-ink-400">

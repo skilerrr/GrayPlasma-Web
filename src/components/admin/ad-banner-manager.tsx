@@ -43,12 +43,12 @@ const PRESET_PAGES = [
 ];
 
 const BADGE_COLORS: Array<{ id: AdBannerItem["badgeColor"]; label: string; class: string }> = [
-  { id: "emerald", label: "Emerald (Hijau)", class: "bg-emerald-500/20 text-emerald-400 border-emerald-500/40" },
-  { id: "amber", label: "Amber (Kuning)", class: "bg-amber-500/20 text-amber-400 border-amber-500/40" },
-  { id: "cyan", label: "Cyan (Biru Muda)", class: "bg-cyan-500/20 text-cyan-400 border-cyan-500/40" },
-  { id: "rose", label: "Rose (Merah)", class: "bg-rose-500/20 text-rose-400 border-rose-500/40" },
-  { id: "violet", label: "Violet (Ungu)", class: "bg-violet-500/20 text-violet-400 border-violet-500/40" },
-  { id: "orange", label: "Orange (Oranye)", class: "bg-orange-500/20 text-orange-400 border-orange-500/40" },
+  { id: "emerald", label: "Emerald (Hijau)", class: "bg-hue-emerald-500/20 text-hue-emerald-400 border-hue-emerald-500/40" },
+  { id: "amber", label: "Amber (Kuning)", class: "bg-hue-amber-500/20 text-hue-amber-400 border-hue-amber-500/40" },
+  { id: "cyan", label: "Cyan (Biru Muda)", class: "bg-hue-cyan-500/20 text-hue-cyan-400 border-hue-cyan-500/40" },
+  { id: "rose", label: "Rose (Merah)", class: "bg-hue-rose-500/20 text-hue-rose-400 border-hue-rose-500/40" },
+  { id: "violet", label: "Violet (Ungu)", class: "bg-hue-violet-500/20 text-hue-violet-400 border-hue-violet-500/40" },
+  { id: "orange", label: "Orange (Oranye)", class: "bg-hue-orange-500/20 text-hue-orange-400 border-hue-orange-500/40" },
 ];
 
 export function AdBannerManager() {
@@ -191,8 +191,8 @@ export function AdBannerManager() {
   return (
     <div className="space-y-8 font-sans">
       {notice && (
-        <div className="p-3.5 bg-emerald-950/90 border border-emerald-500/50 rounded-2xl text-xs text-emerald-200 font-semibold flex items-center gap-2 shadow-lg animate-in fade-in">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+        <div className="p-3.5 bg-hue-emerald-950/90 border border-hue-emerald-500/50 rounded-2xl text-xs text-hue-emerald-200 font-semibold flex items-center gap-2 shadow-lg animate-in fade-in">
+          <CheckCircle2 className="w-4 h-4 text-hue-emerald-400 flex-shrink-0" />
           <span>{notice}</span>
         </div>
       )}
@@ -201,7 +201,7 @@ export function AdBannerManager() {
       <div className="bg-gp-ink-900 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gp-ink-700 pb-5">
           <div className="space-y-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-hue-emerald-500/10 border border-hue-emerald-500/30 text-hue-emerald-400 text-xs font-bold">
               <Megaphone className="w-3.5 h-3.5" />
               <span>Edge-to-Edge Like-Ad Carousel</span>
             </div>
@@ -238,7 +238,7 @@ export function AdBannerManager() {
               type="button"
               size="sm"
               onClick={handleOpenAdd}
-              className="text-xs font-bold bg-emerald-500 text-black hover:bg-emerald-400 shadow-md"
+              className="text-xs font-bold bg-hue-emerald-500 text-black hover:bg-hue-emerald-400 shadow-md"
             >
               <Plus className="w-3.5 h-3.5 mr-1.5" />
               <span>Tambah Banner Baru</span>
@@ -254,15 +254,15 @@ export function AdBannerManager() {
           </div>
           <div className="p-3.5 rounded-2xl bg-gp-ink-950 border border-gp-ink-750">
             <span className="text-3xs font-mono text-gp-ink-400 block uppercase">Aktif di Beranda</span>
-            <span className="text-xl font-bold font-mono text-emerald-400">{activeCount} Slide</span>
+            <span className="text-xl font-bold font-mono text-hue-emerald-400">{activeCount} Slide</span>
           </div>
           <div className="p-3.5 rounded-2xl bg-gp-ink-950 border border-gp-ink-750">
             <span className="text-3xs font-mono text-gp-ink-400 block uppercase">Interval Auto-Slide</span>
-            <span className="text-xl font-bold font-mono text-cyan-400">5 Detik</span>
+            <span className="text-xl font-bold font-mono text-hue-cyan-400">5 Detik</span>
           </div>
           <div className="p-3.5 rounded-2xl bg-gp-ink-950 border border-gp-ink-750">
             <span className="text-3xs font-mono text-gp-ink-400 block uppercase">Swipe Gestures</span>
-            <span className="text-xl font-bold font-mono text-orange-400">Aktif (Touch/Drag)</span>
+            <span className="text-xl font-bold font-mono text-hue-orange-400">Aktif (Touch/Drag)</span>
           </div>
         </div>
       </div>
@@ -272,7 +272,7 @@ export function AdBannerManager() {
         <div className="bg-gp-ink-900 border border-gp-ink-700 rounded-2xl p-5 space-y-3 shadow-xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-xs font-bold text-gp-ink-200">
-              <Play className="w-3.5 h-3.5 text-emerald-400" />
+              <Play className="w-3.5 h-3.5 text-hue-emerald-400" />
               <span>Live Simulator: Tampilan Beranda Full-Width</span>
             </div>
             <span className="text-3xs font-mono text-gp-ink-400">
@@ -356,7 +356,7 @@ export function AdBannerManager() {
                         #{index + 1}
                       </span>
                       {banner.badge && (
-                        <span className="text-3xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                        <span className="text-3xs font-mono font-bold px-2 py-0.5 rounded bg-hue-emerald-500/10 text-hue-emerald-400 border border-hue-emerald-500/30">
                           {banner.badge}
                         </span>
                       )}
@@ -380,7 +380,7 @@ export function AdBannerManager() {
                     onClick={() => handleToggleActive(banner)}
                     className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-colors flex items-center gap-1.5 border ${
                       banner.isActive
-                        ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
+                        ? "bg-hue-emerald-500/10 text-hue-emerald-400 border-hue-emerald-500/30 hover:bg-hue-emerald-500/20"
                         : "bg-gp-ink-750 text-gp-ink-400 border-gp-ink-700 hover:text-gp-ink-200"
                     }`}
                   >
@@ -404,7 +404,7 @@ export function AdBannerManager() {
                     variant="outline"
                     size="sm"
                     onClick={() => handleDelete(banner.id, banner.title)}
-                    className="text-xs border-gp-ink-700 text-rose-400 hover:bg-rose-500/10 hover:border-rose-500/30"
+                    className="text-xs border-gp-ink-700 text-hue-rose-400 hover:bg-hue-rose-500/10 hover:border-hue-rose-500/30"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </Button>
@@ -422,7 +422,7 @@ export function AdBannerManager() {
             {/* Modal Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-gp-ink-700 bg-gp-ink-850 flex-shrink-0">
               <div className="flex items-center gap-2.5">
-                <div className="p-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+                <div className="p-1.5 rounded-lg bg-hue-emerald-500/10 border border-hue-emerald-500/30 text-hue-emerald-400">
                   <Megaphone className="w-4 h-4" />
                 </div>
                 <div>
@@ -449,7 +449,7 @@ export function AdBannerManager() {
                 {/* Title */}
                 <div className="space-y-1.5">
                   <label className="text-gp-ink-200 font-bold block">
-                    Judul Utama Banner (Heading) <span className="text-rose-400">*</span>
+                    Judul Utama Banner (Heading) <span className="text-hue-rose-400">*</span>
                   </label>
                   <input
                     type="text"
@@ -457,7 +457,7 @@ export function AdBannerManager() {
                     value={editingBanner.title}
                     onChange={(e) => setEditingBanner({ ...editingBanner, title: e.target.value })}
                     placeholder="Contoh: Xiaomi G24i 180Hz Fast IPS"
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-white placeholder-gp-ink-400 focus:outline-none focus:border-emerald-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-white placeholder-gp-ink-400 focus:outline-none focus:border-hue-emerald-400"
                   />
                 </div>
 
@@ -471,7 +471,7 @@ export function AdBannerManager() {
                     value={editingBanner.subtitle || ""}
                     onChange={(e) => setEditingBanner({ ...editingBanner, subtitle: e.target.value })}
                     placeholder="Contoh: Rekomendasi monitor gaming budget terbaik dengan akurasi deITP 2.1 teruji di lab GrayPlasma."
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white placeholder-gp-ink-400 focus:outline-none focus:border-emerald-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white placeholder-gp-ink-400 focus:outline-none focus:border-hue-emerald-400"
                   />
                 </div>
 
@@ -484,7 +484,7 @@ export function AdBannerManager() {
                       value={editingBanner.badge || ""}
                       onChange={(e) => setEditingBanner({ ...editingBanner, badge: e.target.value })}
                       placeholder="Contoh: S-TIER BUDGET 2026"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white placeholder-gp-ink-400 focus:outline-none focus:border-emerald-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white placeholder-gp-ink-400 focus:outline-none focus:border-hue-emerald-400"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -497,7 +497,7 @@ export function AdBannerManager() {
                           badgeColor: e.target.value as AdBannerItem["badgeColor"],
                         })
                       }
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-emerald-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-emerald-400"
                     >
                       {BADGE_COLORS.map((c) => (
                         <option key={c.id} value={c.id}>
@@ -511,7 +511,7 @@ export function AdBannerManager() {
                 {/* Image URL & Upload */}
                 <div className="space-y-1.5">
                   <label className="text-gp-ink-200 font-bold block">
-                    Gambar Banner (Landscape 1920x600 atau 1600x500 disarankan) <span className="text-rose-400">*</span>
+                    Gambar Banner (Landscape 1920x600 atau 1600x500 disarankan) <span className="text-hue-rose-400">*</span>
                   </label>
                   <div className="flex gap-2">
                     <input
@@ -520,7 +520,7 @@ export function AdBannerManager() {
                       value={editingBanner.imageUrl}
                       onChange={(e) => setEditingBanner({ ...editingBanner, imageUrl: e.target.value })}
                       placeholder="https://images.unsplash.com/... atau upload file"
-                      className="flex-1 bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white placeholder-gp-ink-400 focus:outline-none focus:border-emerald-400"
+                      className="flex-1 bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white placeholder-gp-ink-400 focus:outline-none focus:border-hue-emerald-400"
                     />
                     <label className="cursor-pointer px-4 py-2 rounded-xl bg-gp-ink-700 hover:bg-gp-ink-600 border border-gp-ink-600 font-bold text-gp-ink-100 flex items-center gap-1.5 flex-shrink-0 transition-colors">
                       <Upload className="w-3.5 h-3.5" />
@@ -550,7 +550,7 @@ export function AdBannerManager() {
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
                     <label className="text-gp-ink-200 font-bold block">
-                      Target URL Trigger Halaman <span className="text-rose-400">*</span>
+                      Target URL Trigger Halaman <span className="text-hue-rose-400">*</span>
                     </label>
                     <span className="text-3xs font-mono text-gp-ink-300">
                       (Internal: /monitor/... atau eksternal: https://...)
@@ -563,7 +563,7 @@ export function AdBannerManager() {
                       value={editingBanner.linkUrl}
                       onChange={(e) => setEditingBanner({ ...editingBanner, linkUrl: e.target.value })}
                       placeholder="/monitor/xiaomi-g24i-2026- atau /catalog/all"
-                      className="flex-1 bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white placeholder-gp-ink-400 focus:outline-none focus:border-emerald-400 font-mono text-xs"
+                      className="flex-1 bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white placeholder-gp-ink-400 focus:outline-none focus:border-hue-emerald-400 font-mono text-xs"
                     />
                     <select
                       onChange={(e) => {
@@ -571,7 +571,7 @@ export function AdBannerManager() {
                           setEditingBanner({ ...editingBanner, linkUrl: e.target.value });
                         }
                       }}
-                      className="bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3 py-2 text-gp-ink-200 hover:text-white text-xs max-w-[140px] truncate focus:border-emerald-400"
+                      className="bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3 py-2 text-gp-ink-200 hover:text-white text-xs max-w-[140px] truncate focus:border-hue-emerald-400"
                     >
                       <option value="">Pilih Preset...</option>
                       {PRESET_PAGES.map((p) => (
@@ -592,7 +592,7 @@ export function AdBannerManager() {
                       value={editingBanner.ctaText || "Lihat Selengkapnya"}
                       onChange={(e) => setEditingBanner({ ...editingBanner, ctaText: e.target.value })}
                       placeholder="Contoh: Cek Data Pengujian"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white placeholder-gp-ink-400 focus:outline-none focus:border-emerald-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white placeholder-gp-ink-400 focus:outline-none focus:border-hue-emerald-400"
                     />
                   </div>
 
@@ -605,7 +605,7 @@ export function AdBannerManager() {
                         onChange={(e) =>
                           setEditingBanner({ ...editingBanner, targetBlank: e.target.checked })
                         }
-                        className="rounded border-gp-ink-500 bg-gp-ink-700 text-emerald-500 focus:ring-0"
+                        className="rounded border-gp-ink-500 bg-gp-ink-700 text-hue-emerald-500 focus:ring-0"
                       />
                       <span className="text-gp-ink-200">Buka di Tab Baru (target="_blank")</span>
                     </label>
@@ -614,12 +614,12 @@ export function AdBannerManager() {
 
                 {/* Active Toggle */}
                 <div className="pt-2">
-                  <label className="flex items-center gap-2 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 cursor-pointer">
+                  <label className="flex items-center gap-2 p-3 rounded-xl bg-hue-emerald-500/10 border border-hue-emerald-500/30 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={editingBanner.isActive}
                       onChange={(e) => setEditingBanner({ ...editingBanner, isActive: e.target.checked })}
-                      className="rounded border-gp-ink-500 bg-gp-ink-700 text-emerald-500 focus:ring-0"
+                      className="rounded border-gp-ink-500 bg-gp-ink-700 text-hue-emerald-500 focus:ring-0"
                     />
                     <div>
                       <span className="font-bold text-white block">Aktifkan Slide di Beranda</span>
@@ -646,7 +646,7 @@ export function AdBannerManager() {
                   type="submit"
                   variant="cyber"
                   size="sm"
-                  className="bg-emerald-500 hover:bg-emerald-400 text-black font-bold flex items-center gap-2"
+                  className="bg-hue-emerald-500 hover:bg-hue-emerald-400 text-black font-bold flex items-center gap-2"
                 >
                   <Save className="w-3.5 h-3.5" />
                   <span>Simpan Banner</span>

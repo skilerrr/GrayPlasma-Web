@@ -113,7 +113,7 @@ export function NotionBlockRenderer({ content = "", className = "" }: NotionBloc
                 type="checkbox"
                 defaultChecked={item.checked}
                 readOnly
-                className="w-3.5 h-3.5 rounded border-gp-ink-600 bg-gp-ink-800 text-emerald-500 accent-emerald-500"
+                className="w-3.5 h-3.5 rounded border-gp-ink-600 bg-gp-ink-800 text-hue-emerald-500 accent-hue-emerald-500"
               />
               <span className={`flex-1 leading-relaxed ${item.checked ? "line-through opacity-60" : ""}`}>
                 {renderInline(item.text)}
@@ -263,17 +263,17 @@ export function NotionBlockRenderer({ content = "", className = "" }: NotionBloc
       }
 
       const styles = {
-        info: "bg-blue-950/20 border-blue-500/30 text-blue-200",
-        warning: "bg-amber-950/20 border-amber-500/30 text-amber-200",
-        tip: "bg-emerald-950/20 border-emerald-500/30 text-emerald-200",
-        danger: "bg-red-950/20 border-red-500/30 text-red-200",
+        info: "bg-hue-blue-950/20 border-hue-blue-500/30 text-hue-blue-200",
+        warning: "bg-hue-amber-950/20 border-hue-amber-500/30 text-hue-amber-200",
+        tip: "bg-hue-emerald-950/20 border-hue-emerald-500/30 text-hue-emerald-200",
+        danger: "bg-hue-red-950/20 border-hue-red-500/30 text-hue-red-200",
       };
 
       const icons = {
-        info: <Info className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />,
-        warning: <AlertTriangle className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />,
-        tip: <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />,
-        danger: <AlertTriangle className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />,
+        info: <Info className="w-4 h-4 text-hue-blue-400 flex-shrink-0 mt-0.5" />,
+        warning: <AlertTriangle className="w-4 h-4 text-hue-amber-400 flex-shrink-0 mt-0.5" />,
+        tip: <CheckCircle2 className="w-4 h-4 text-hue-emerald-400 flex-shrink-0 mt-0.5" />,
+        danger: <AlertTriangle className="w-4 h-4 text-hue-red-400 flex-shrink-0 mt-0.5" />,
       };
 
       elements.push(
@@ -426,7 +426,7 @@ function renderInline(text: string): React.ReactNode {
       );
     } else if (earliest.type === "highlight") {
       parts.push(
-        <mark key={`m-${keyIdx++}`} className="bg-amber-500/20 text-amber-200 px-1 py-0.5 rounded">
+        <mark key={`m-${keyIdx++}`} className="bg-hue-amber-500/20 text-hue-amber-200 px-1 py-0.5 rounded">
           {renderInline(earliest.match[1])}
         </mark>
       );

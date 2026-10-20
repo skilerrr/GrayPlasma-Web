@@ -28,7 +28,7 @@ export function DeskCard({ desk, onSelectDesk }: DeskCardProps) {
     >
       {/* Top Header: Category & Type Badge */}
       <div className="flex items-center justify-between gap-2 mb-3">
-        <span className="text-2xs font-bold tracking-wider text-amber-400 uppercase bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/30">
+        <span className="text-2xs font-bold tracking-wider text-hue-amber-400 uppercase bg-hue-amber-500/10 px-2.5 py-0.5 rounded-full border border-hue-amber-500/30">
           {desk.category}
         </span>
 
@@ -41,7 +41,7 @@ export function DeskCard({ desk, onSelectDesk }: DeskCardProps) {
 
       {/* Desk Title */}
       <div className="mb-2.5">
-        <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-amber-400 transition-colors line-clamp-2 leading-snug tracking-tight">
+        <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-hue-amber-400 transition-colors line-clamp-2 leading-snug tracking-tight">
           {desk.name}
         </h3>
         {desk.description && (

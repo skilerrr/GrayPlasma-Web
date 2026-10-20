@@ -94,7 +94,7 @@ export function MonitorCard({
       onClick={() => onSelectMonitor(monitor)}
       className={`group relative min-w-0 bg-gp-ink-900 hover:bg-gp-ink-850 border transition-all duration-200 rounded-xl sm:rounded-2xl p-2.5 sm:p-5 flex flex-col justify-between cursor-pointer hover:border-gp-ink-600 hover:-translate-y-0.5 ${
         isCompared
-          ? "border-emerald-500/70 ring-1 ring-emerald-500/30"
+          ? "border-hue-emerald-500/70 ring-1 ring-hue-emerald-500/30"
           : "border-gp-ink-700/80"
       }`}
     >
@@ -117,7 +117,7 @@ export function MonitorCard({
               onClick={handleCompareClick}
               className={`inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded text-2xs font-medium transition-colors shrink-0 ${
                 isCompared
-                  ? "bg-emerald-500 text-gp-ink-950 font-bold shadow-sm"
+                  ? "bg-hue-emerald-500 text-gp-ink-950 font-bold shadow-sm"
                   : "text-gp-ink-300 hover:text-gp-ink-100 bg-gp-ink-800/60 hover:bg-gp-ink-700 border border-gp-ink-700"
               }`}
               title={isCompared ? "Hapus dari komparasi" : "Bandingkan monitor ini"}
@@ -141,7 +141,7 @@ export function MonitorCard({
           {/* Clean hover quick view */}
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 backdrop-blur-[2px]">
             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gp-ink-800/90 border border-gp-ink-600/80 text-xs font-medium text-white shadow-lg">
-              <Info className="w-3.5 h-3.5 text-emerald-400" />
+              <Info className="w-3.5 h-3.5 text-hue-emerald-400" />
               <span>Lihat Spesifikasi</span>
             </span>
           </div>
@@ -149,7 +149,7 @@ export function MonitorCard({
 
         {/* Monitor Name */}
         <div className="mb-2">
-          <h3 className="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-400 transition-colors line-clamp-2 sm:line-clamp-1 leading-snug">
+          <h3 className="text-xs sm:text-sm font-bold text-white group-hover:text-hue-emerald-400 transition-colors line-clamp-2 sm:line-clamp-1 leading-snug">
             {monitor.fullName}
           </h3>
         </div>
@@ -206,7 +206,7 @@ export function MonitorCard({
               type="button"
               onClick={(e) => handleMarketplaceClick(e, bestDeal)}
               title={`Beli di ${bestDeal.marketplace}`}
-              className="flex-1 min-w-0 flex items-center justify-center gap-1 sm:gap-1.5 text-2xs sm:text-xs py-2 px-1.5 sm:px-3 font-semibold rounded-lg bg-orange-500 hover:bg-orange-400 text-gp-ink-950 transition-all shadow-sm active:translate-y-[1px]"
+              className="flex-1 min-w-0 flex items-center justify-center gap-1 sm:gap-1.5 text-2xs sm:text-xs py-2 px-1.5 sm:px-3 font-semibold rounded-lg bg-hue-orange-500 hover:bg-hue-orange-400 text-gp-ink-950 transition-all shadow-sm active:translate-y-[1px]"
             >
               <ShoppingBag className="w-3.5 h-3.5 shrink-0" />
               <span className="hidden sm:inline truncate">Beli di {bestDeal.marketplace}</span>
@@ -261,10 +261,10 @@ export function MonitorCard({
                       className="w-full text-left px-2.5 py-2 rounded-lg hover:bg-gp-ink-700/70 transition-colors flex items-center justify-between group/item"
                     >
                       <div className="flex flex-col">
-                        <span className="text-xs font-semibold text-white group-hover/item:text-emerald-400 flex items-center gap-1">
+                        <span className="text-xs font-semibold text-white group-hover/item:text-hue-emerald-400 flex items-center gap-1">
                           {link.marketplace}
                           {link.officialStore && (
-                            <span className="text-4xs px-1 rounded bg-emerald-500/20 text-emerald-400 font-normal">
+                            <span className="text-4xs px-1 rounded bg-hue-emerald-500/20 text-hue-emerald-400 font-normal">
                               Official
                             </span>
                           )}

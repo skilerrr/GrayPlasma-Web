@@ -22,9 +22,9 @@ export function DeskSidePanel({ desk, isOpen, onClose }: DeskSidePanelProps) {
     if (t.includes("DAUN MEJA")) return "bg-gp-ember-300 text-gp-ember-100 border-gp-ember-100/30";
     if (t.includes("HOLLOW")) return "bg-gp-ink-700 text-gp-ink-200 border-gp-ink-600";
     if (t.includes("ELEKTRIK")) return "bg-gp-mint-600 text-gp-mint-50 border-gp-mint-50/30";
-    if (t.includes("LACI") || t.includes("NAKAS")) return "bg-indigo-900 text-indigo-300 border-indigo-300/30";
+    if (t.includes("LACI") || t.includes("NAKAS")) return "bg-hue-indigo-900 text-hue-indigo-300 border-hue-indigo-300/30";
     if (t.includes("TACOSHEET") || t.includes("PLYWOOD")) return "bg-gp-coral-600 text-gp-coral-50 border-gp-coral-50/30";
-    return "bg-gp-sky-500 text-blue-300 border-blue-500/30";
+    return "bg-gp-sky-500 text-hue-blue-300 border-hue-blue-500/30";
   };
 
   const handleCopyLink = () => {
@@ -113,7 +113,7 @@ export function DeskSidePanel({ desk, isOpen, onClose }: DeskSidePanelProps) {
             <div className="grid grid-cols-12 gap-2 items-center py-1">
               <span className="col-span-5 text-gp-ink-400 font-medium">Status Catatan</span>
               <div className="col-span-7">
-                <span className="px-2.5 py-0.5 rounded text-2xs font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                <span className="px-2.5 py-0.5 rounded text-2xs font-bold bg-hue-emerald-500/15 text-hue-emerald-400 border border-hue-emerald-500/30">
                   {desk.catatanBadge || "ADA (DISARANKAN MEMBACA NYA)"}
                 </span>
               </div>
@@ -139,7 +139,7 @@ export function DeskSidePanel({ desk, isOpen, onClose }: DeskSidePanelProps) {
             {/* Kisaran Harga */}
             <div className="grid grid-cols-12 gap-2 items-center py-1 border-t border-gp-ink-700/60 pt-2">
               <span className="col-span-5 text-gp-ink-400 font-medium">Kisaran Harga</span>
-              <div className="col-span-7 font-mono font-black text-emerald-400 text-base">
+              <div className="col-span-7 font-mono font-black text-hue-emerald-400 text-base">
                 {desk.price > 0 ? formatRupiah(desk.price) : "Custom Size / Pilihan"}
               </div>
             </div>
@@ -169,13 +169,13 @@ export function DeskSidePanel({ desk, isOpen, onClose }: DeskSidePanelProps) {
                     >
                       <div className="flex items-center gap-1.5 truncate">
                         {v.category && (
-                          <span className="text-4xs font-mono font-bold text-amber-400 uppercase bg-gp-ink-700 px-1 rounded">
+                          <span className="text-4xs font-mono font-bold text-hue-amber-400 uppercase bg-gp-ink-700 px-1 rounded">
                             {v.category}
                           </span>
                         )}
                         <span className="text-gp-ink-300 font-medium truncate">{v.label}</span>
                       </div>
-                      <span className="text-emerald-400 font-mono font-bold ml-2">
+                      <span className="text-hue-emerald-400 font-mono font-bold ml-2">
                         {v.value}
                       </span>
                     </div>

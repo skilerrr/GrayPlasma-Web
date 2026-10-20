@@ -88,9 +88,9 @@ export function DeskRecommendationsView({
     if (t.includes("DAUN MEJA")) return "bg-gp-ember-300 text-gp-ember-100 border-gp-ember-100/30";
     if (t.includes("HOLLOW")) return "bg-gp-ink-700 text-gp-ink-200 border-gp-ink-600";
     if (t.includes("ELEKTRIK")) return "bg-gp-mint-600 text-gp-mint-50 border-gp-mint-50/30";
-    if (t.includes("LACI") || t.includes("NAKAS")) return "bg-indigo-900 text-indigo-300 border-indigo-300/30";
+    if (t.includes("LACI") || t.includes("NAKAS")) return "bg-hue-indigo-900 text-hue-indigo-300 border-hue-indigo-300/30";
     if (t.includes("TACOSHEET") || t.includes("PLYWOOD")) return "bg-gp-coral-600 text-gp-coral-50 border-gp-coral-50/30";
-    return "bg-gp-sky-500 text-blue-300 border-blue-500/30";
+    return "bg-gp-sky-500 text-hue-blue-300 border-hue-blue-500/30";
   };
 
   const publicDeskColumns = React.useMemo<TableColumnDef<DeskItem>[]>(() => [
@@ -105,7 +105,7 @@ export function DeskRecommendationsView({
       getValue: (d) => d.name,
       renderCell: (desk) => (
         <div className="flex items-center gap-2.5">
-          <FileText className="w-3.5 h-3.5 text-gp-ink-400 group-hover:text-emerald-400 transition-colors flex-shrink-0" />
+          <FileText className="w-3.5 h-3.5 text-gp-ink-400 group-hover:text-hue-emerald-400 transition-colors flex-shrink-0" />
           <span className="underline-offset-4 group-hover:underline font-bold text-sm text-white">
             {desk.name}
           </span>
@@ -153,7 +153,7 @@ export function DeskRecommendationsView({
           className={`px-2 py-0.5 rounded text-3xs font-mono font-bold uppercase tracking-wider whitespace-nowrap ${
             desk.type?.includes("NON") || !desk.type?.includes("L SHAPED")
               ? "bg-gp-ink-750 text-gp-ink-200 border border-gp-ink-600"
-              : "bg-gp-violet-300 text-purple-300 border border-purple-500/40"
+              : "bg-gp-violet-300 text-hue-purple-300 border border-hue-purple-500/40"
           }`}
         >
           {desk.type || "NON L SHAPED"}
@@ -170,8 +170,8 @@ export function DeskRecommendationsView({
       category: "Status",
       getValue: (d) => d.catatanBadge || "",
       renderCell: (desk) => (
-        <span className="px-2 py-0.5 rounded text-3xs font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 uppercase tracking-wider inline-flex items-center gap-1.5 whitespace-nowrap">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+        <span className="px-2 py-0.5 rounded text-3xs font-mono font-bold bg-hue-emerald-500/10 text-hue-emerald-400 border border-hue-emerald-500/30 uppercase tracking-wider inline-flex items-center gap-1.5 whitespace-nowrap">
+          <span className="w-1.5 h-1.5 rounded-full bg-hue-emerald-400 animate-pulse" />
           <span>{desk.catatanBadge || "ADA CATATAN"}</span>
         </span>
       ),
@@ -186,7 +186,7 @@ export function DeskRecommendationsView({
       category: "Finansial",
       getValue: (d) => d.price,
       renderCell: (desk) => (
-        <span className="font-mono font-bold text-xs text-emerald-400 whitespace-nowrap tabular-nums">
+        <span className="font-mono font-bold text-xs text-hue-emerald-400 whitespace-nowrap tabular-nums">
           {desk.price > 0 ? `IDR ${desk.price.toLocaleString("id-ID")}` : "IDR 0 (Custom)"}
         </span>
       ),
@@ -235,8 +235,8 @@ export function DeskRecommendationsView({
         <span
           className={`px-2 py-0.5 rounded text-3xs font-mono font-bold border whitespace-nowrap ${
             desk.specs?.armSupport
-              ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
-              : "bg-orange-500/10 text-orange-400 border-orange-500/30"
+              ? "bg-hue-emerald-500/10 text-hue-emerald-400 border-hue-emerald-500/30"
+              : "bg-hue-orange-500/10 text-hue-orange-400 border-hue-orange-500/30"
           }`}
         >
           {desk.specs?.armSupport ? "[✓ LOLOS CLAMP]" : "[! PERLU PLAT]"}
@@ -262,14 +262,14 @@ export function DeskRecommendationsView({
           <Link href="/" className="hover:text-white transition-colors">GRAYPLASMAID // MONITOR</Link>
           <span className="text-gp-ink-500">/</span>
           <span className="text-white font-bold flex items-center gap-1.5">
-            <Layers className="w-3.5 h-3.5 text-orange-400" />
+            <Layers className="w-3.5 h-3.5 text-hue-orange-400" />
             REKOMENDASI MEJA
           </span>
         </div>
 
         {/* Page Title & Intro */}
         <div className="space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-hue-emerald-500/10 border border-hue-emerald-500/30 text-hue-emerald-400 text-xs font-bold">
             <LayoutGrid className="w-3.5 h-3.5" />
             <span>SUB-PAGE REKOMENDASI MONITOR</span>
           </div>
@@ -287,9 +287,9 @@ export function DeskRecommendationsView({
         <div className="pt-2 border-t border-gp-ink-650 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <Link
             href="/guide/setup/ukuran-meja-monitor-ideal"
-            className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500/20 hover:border-gp-ember-50 transition-colors font-bold text-xs sm:text-sm group shadow-sm"
+            className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-hue-amber-500/10 border border-hue-amber-500/30 text-hue-amber-400 hover:bg-hue-amber-500/20 hover:border-gp-ember-50 transition-colors font-bold text-xs sm:text-sm group shadow-sm"
           >
-            <Ruler className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
+            <Ruler className="w-4 h-4 text-hue-amber-400 group-hover:scale-110 transition-transform" />
             <span>[ GUIDELINE // UKURAN MEJA & MONITOR IDEAL ]</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </Link>
@@ -297,7 +297,7 @@ export function DeskRecommendationsView({
           {isAdmin && onAddDesk && (
             <Button
               onClick={onAddDesk}
-              className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold gap-2 px-4 py-2 rounded-xl"
+              className="bg-hue-emerald-600 hover:bg-hue-emerald-500 text-white text-xs font-bold gap-2 px-4 py-2 rounded-xl"
             >
               <Plus className="w-4 h-4" />
               <span>Tambah Meja Baru</span>
@@ -317,7 +317,7 @@ export function DeskRecommendationsView({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Cari nama toko, daun meja, hollow, elektrik, nakas..."
-              className="w-full bg-gp-ink-850 border border-gp-ink-650 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder:text-gp-ink-500 focus:outline-none focus:border-emerald-500"
+              className="w-full bg-gp-ink-850 border border-gp-ink-650 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder:text-gp-ink-500 focus:outline-none focus:border-hue-emerald-500"
             />
             {searchQuery && (
               <button
@@ -342,7 +342,7 @@ export function DeskRecommendationsView({
             <button
               onClick={() => setSelectedShape("NON L SHAPED")}
               className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
-                selectedShape === "NON L SHAPED" ? "bg-gp-ink-700 text-cyan-400" : "text-gp-ink-300 hover:text-gp-ink-100"
+                selectedShape === "NON L SHAPED" ? "bg-gp-ink-700 text-hue-cyan-400" : "text-gp-ink-300 hover:text-gp-ink-100"
               }`}
             >
               Non L-Shaped
@@ -350,7 +350,7 @@ export function DeskRecommendationsView({
             <button
               onClick={() => setSelectedShape("L SHAPED")}
               className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
-                selectedShape === "L SHAPED" ? "bg-gp-ink-700 text-purple-400" : "text-gp-ink-300 hover:text-gp-ink-100"
+                selectedShape === "L SHAPED" ? "bg-gp-ink-700 text-hue-purple-400" : "text-gp-ink-300 hover:text-gp-ink-100"
               }`}
             >
               L-Shaped
@@ -367,7 +367,7 @@ export function DeskRecommendationsView({
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors ${
                   selectedCategory === cat.id
-                    ? "bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 shadow-sm"
+                    ? "bg-hue-emerald-500/15 border border-hue-emerald-500/40 text-hue-emerald-400 shadow-sm"
                     : "bg-gp-ink-750 border border-gp-ink-650 text-gp-ink-300 hover:text-white hover:bg-gp-ink-700"
                 }`}
               >
@@ -379,9 +379,9 @@ export function DeskRecommendationsView({
           <button
             type="button"
             onClick={() => setIsColManagerOpen(true)}
-            className="px-3 py-1.5 rounded-xl text-xs font-mono font-bold border border-gp-ink-600 bg-gp-ink-750 text-gp-ink-200 hover:text-white hover:border-emerald-500 transition-colors flex items-center gap-1.5 whitespace-nowrap self-start sm:self-auto"
+            className="px-3 py-1.5 rounded-xl text-xs font-mono font-bold border border-gp-ink-600 bg-gp-ink-750 text-gp-ink-200 hover:text-white hover:border-hue-emerald-500 transition-colors flex items-center gap-1.5 whitespace-nowrap self-start sm:self-auto"
           >
-            <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
+            <SlidersHorizontal className="w-3.5 h-3.5 text-hue-emerald-400" />
             <span>[ KELOLA KOLOM ({tableManager.visibleColumns.length}) ]</span>
           </button>
         </div>
@@ -410,9 +410,9 @@ export function DeskRecommendationsView({
                         col.minWidth || "min-w-[140px]"
                       } ${
                         isDragging
-                          ? "opacity-40 bg-emerald-500/20"
+                          ? "opacity-40 bg-hue-emerald-500/20"
                           : isOver
-                          ? "border-l-2 border-l-emerald-400 bg-emerald-500/10"
+                          ? "border-l-2 border-l-emerald-400 bg-hue-emerald-500/10"
                           : "hover:bg-gp-ink-700"
                       }`}
                       title="Klik untuk sort (Asc/Desc/Reset), atau Drag untuk memindahkan urutan kolom"
@@ -420,7 +420,7 @@ export function DeskRecommendationsView({
                       <div className="flex items-center justify-between gap-1.5">
                         <div className="flex items-center gap-1.5 min-w-0">
                           <span
-                            className="cursor-grab active:cursor-grabbing text-gp-ink-400 hover:text-emerald-400"
+                            className="cursor-grab active:cursor-grabbing text-gp-ink-400 hover:text-hue-emerald-400"
                             title="Drag kolom"
                           >
                             <GripVertical className="w-3.5 h-3.5" />
@@ -428,7 +428,7 @@ export function DeskRecommendationsView({
                           <span className="truncate">{col.label}</span>
                         </div>
                         {isSorted ? (
-                          <span className="text-emerald-400 font-bold text-2xs flex-shrink-0">
+                          <span className="text-hue-emerald-400 font-bold text-2xs flex-shrink-0">
                             {tableManager.sortDirection === "asc" ? "▲" : "▼"}
                           </span>
                         ) : col.sortable !== false ? (
@@ -461,7 +461,7 @@ export function DeskRecommendationsView({
                     <div className="flex items-center justify-center gap-2">
                       <button
                         onClick={() => setSelectedDesk(desk)}
-                        className="px-2.5 py-1 rounded-lg bg-gp-ink-700 hover:bg-emerald-500/20 text-gp-ink-200 hover:text-emerald-400 text-2xs font-semibold transition-colors flex items-center gap-1"
+                        className="px-2.5 py-1 rounded-lg bg-gp-ink-700 hover:bg-hue-emerald-500/20 text-gp-ink-200 hover:text-hue-emerald-400 text-2xs font-semibold transition-colors flex items-center gap-1"
                         title="Buka Catatan Lengkap"
                       >
                         <span>Buka</span>
@@ -473,7 +473,7 @@ export function DeskRecommendationsView({
                           href={desk.shopeeUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 text-xs transition-colors"
+                          className="p-1 rounded-lg bg-hue-amber-500/10 hover:bg-hue-amber-500/20 text-hue-amber-400 text-xs transition-colors"
                           title="Beli di Shopee"
                         >
                           <ShoppingBag className="w-3.5 h-3.5" />
@@ -492,7 +492,7 @@ export function DeskRecommendationsView({
                       {isAdmin && onDeleteDesk && (
                         <button
                           onClick={() => onDeleteDesk(desk.id)}
-                          className="p-1 rounded-lg bg-red-950/60 hover:bg-red-900/80 text-red-400 text-xs"
+                          className="p-1 rounded-lg bg-hue-red-950/60 hover:bg-hue-red-900/80 text-hue-red-400 text-xs"
                           title="Hapus Meja"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -527,7 +527,7 @@ export function DeskRecommendationsView({
             {/* Drawer Top Header */}
             <div className="sticky top-0 z-20 bg-gp-ink-800/95 backdrop-blur-md px-6 py-4 border-b border-gp-ink-650 flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs text-gp-ink-300">
-                <Layers className="w-4 h-4 text-orange-400" />
+                <Layers className="w-4 h-4 text-hue-orange-400" />
                 <span className="truncate max-w-[280px] font-bold text-white uppercase tracking-tight">
                   {selectedDesk.name}
                 </span>
@@ -538,7 +538,7 @@ export function DeskRecommendationsView({
                     href={selectedDesk.shopeeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/40 text-orange-400 text-xs font-bold transition-colors shadow-sm"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-hue-orange-500/10 hover:bg-hue-orange-500/20 border border-hue-orange-500/40 text-hue-orange-400 text-xs font-bold transition-colors shadow-sm"
                   >
                     <ShoppingBag className="w-3.5 h-3.5" />
                     <span>Beli di Shopee</span>
@@ -620,7 +620,7 @@ export function DeskRecommendationsView({
                     <span>#</span>
                     <span>KISARAN HARGA</span>
                   </span>
-                  <div className="col-span-2 font-mono font-bold text-emerald-400 text-sm">
+                  <div className="col-span-2 font-mono font-bold text-hue-emerald-400 text-sm">
                     {selectedDesk.price > 0 ? `IDR ${selectedDesk.price.toLocaleString("id-ID")}` : "Custom"}
                   </div>
                 </div>
@@ -644,7 +644,7 @@ export function DeskRecommendationsView({
                   <div className="space-y-4 text-xs text-gp-ink-200 leading-relaxed">
                     <p className="font-semibold text-white">{selectedDesk.description}</p>
                     {selectedDesk.notes && (
-                      <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300">
+                      <div className="p-3.5 rounded-xl bg-hue-amber-500/10 border border-hue-amber-500/30 text-hue-amber-300">
                         <span className="font-bold block mb-1">Catatan GrayPlasma:</span>
                         <span>{selectedDesk.notes}</span>
                       </div>
@@ -663,7 +663,7 @@ export function DeskRecommendationsView({
                 </div>
                 <Link
                   href="/guide/setup/ukuran-meja-monitor-ideal"
-                  className="px-3 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 hover:bg-emerald-500/30 text-xs font-bold whitespace-nowrap transition-colors"
+                  className="px-3 py-1.5 rounded-xl bg-hue-emerald-500/20 border border-hue-emerald-500/40 text-hue-emerald-400 hover:bg-hue-emerald-500/30 text-xs font-bold whitespace-nowrap transition-colors"
                 >
                   Buka Panduan Ukuran →
                 </Link>

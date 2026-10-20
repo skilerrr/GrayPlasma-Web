@@ -199,8 +199,8 @@ export function SiteElementsManager({
   return (
     <div className="space-y-6 font-sans">
       {notice && (
-        <div className="p-3.5 bg-emerald-950/90 border border-emerald-500/50 rounded-2xl text-xs text-emerald-200 font-semibold flex items-center gap-2 shadow-lg animate-in fade-in">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+        <div className="p-3.5 bg-hue-emerald-950/90 border border-hue-emerald-500/50 rounded-2xl text-xs text-hue-emerald-200 font-semibold flex items-center gap-2 shadow-lg animate-in fade-in">
+          <CheckCircle2 className="w-4 h-4 text-hue-emerald-400 flex-shrink-0" />
           <span>{notice}</span>
         </div>
       )}
@@ -209,7 +209,7 @@ export function SiteElementsManager({
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gp-ink-700 pb-5">
           <div className="space-y-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-hue-emerald-500/10 border border-hue-emerald-500/30 text-hue-emerald-400 text-xs font-bold">
               <Sliders className="w-3.5 h-3.5" />
               <span>Full Customization Studio</span>
             </div>
@@ -237,7 +237,7 @@ export function SiteElementsManager({
               variant="cyber"
               size="sm"
               onClick={handleSaveAll}
-              className="text-xs font-bold bg-emerald-500 text-black hover:bg-emerald-400 shadow-md"
+              className="text-xs font-bold bg-hue-emerald-500 text-black hover:bg-hue-emerald-400 shadow-md"
             >
               <Save className="w-3.5 h-3.5 mr-1.5" />
               <span>Simpan Semua Perubahan</span>
@@ -264,7 +264,7 @@ export function SiteElementsManager({
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 flex-shrink-0 ${
                   isActive
-                    ? "bg-gp-ink-700 text-emerald-400 border border-emerald-500/30 shadow-sm"
+                    ? "bg-gp-ink-700 text-hue-emerald-400 border border-hue-emerald-500/30 shadow-sm"
                     : "text-gp-ink-300 hover:text-white"
                 }`}
               >
@@ -295,7 +295,7 @@ export function SiteElementsManager({
                       type="text"
                       value={homepageForm.pageTitle}
                       onChange={(e) => setHomepageForm({ ...homepageForm, pageTitle: e.target.value })}
-                      className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-3 py-2 text-xs text-white font-bold focus:outline-none focus:border-emerald-500"
+                      className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-3 py-2 text-xs text-white font-bold focus:outline-none focus:border-hue-emerald-500"
                     />
                   </div>
 
@@ -306,7 +306,7 @@ export function SiteElementsManager({
                         type="text"
                         value={homepageForm.statusBadge}
                         onChange={(e) => setHomepageForm({ ...homepageForm, statusBadge: e.target.value })}
-                        className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-3 py-2 text-xs text-gp-ink-200 font-mono focus:outline-none focus:border-emerald-500"
+                        className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-3 py-2 text-xs text-gp-ink-200 font-mono focus:outline-none focus:border-hue-emerald-500"
                       />
                     </div>
                     <div>
@@ -316,7 +316,7 @@ export function SiteElementsManager({
                           type="text"
                           value={homepageForm.pageIcon}
                           onChange={(e) => setHomepageForm({ ...homepageForm, pageIcon: e.target.value })}
-                          className="w-16 text-center text-xl bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-2 py-1 text-white focus:outline-none focus:border-emerald-500"
+                          className="w-16 text-center text-xl bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-2 py-1 text-white focus:outline-none focus:border-hue-emerald-500"
                         />
                         <div className="flex flex-wrap gap-1">
                           {PAGE_ICONS.map((ic) => (
@@ -324,7 +324,7 @@ export function SiteElementsManager({
                               key={ic}
                               type="button"
                               onClick={() => setHomepageForm({ ...homepageForm, pageIcon: ic })}
-                              className="text-xs p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 hover:border-emerald-500"
+                              className="text-xs p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 hover:border-hue-emerald-500"
                             >
                               {ic}
                             </button>
@@ -341,10 +341,10 @@ export function SiteElementsManager({
                         type="text"
                         value={homepageForm.heroCoverUrl}
                         onChange={(e) => setHomepageForm({ ...homepageForm, heroCoverUrl: e.target.value })}
-                        className="flex-1 bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-3 py-2 text-xs text-gp-ink-200 focus:outline-none focus:border-emerald-500"
+                        className="flex-1 bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-3 py-2 text-xs text-gp-ink-200 focus:outline-none focus:border-hue-emerald-500"
                       />
                       <label className="px-3 py-2 rounded-xl bg-gp-ink-700 hover:bg-gp-ink-600 text-xs text-gp-ink-100 font-bold cursor-pointer flex items-center gap-1.5">
-                        <Upload className="w-3.5 h-3.5 text-pink-400" />
+                        <Upload className="w-3.5 h-3.5 text-hue-pink-400" />
                         <span>Upload WebP</span>
                         <input
                           type="file"
@@ -379,7 +379,7 @@ export function SiteElementsManager({
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                    <AlertTriangle className="w-4 h-4 text-amber-400" />
+                    <AlertTriangle className="w-4 h-4 text-hue-amber-400" />
                     <span>Kotak Disclaimer & Catatan Penting Beranda</span>
                   </h4>
                   <p className="text-xs text-gp-ink-300">
@@ -395,7 +395,7 @@ export function SiteElementsManager({
                     type="text"
                     value={homepageForm.disclaimerTitle}
                     onChange={(e) => setHomepageForm({ ...homepageForm, disclaimerTitle: e.target.value })}
-                    className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-3 py-2 text-amber-400 font-bold focus:outline-none focus:border-amber-500"
+                    className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-3 py-2 text-hue-amber-400 font-bold focus:outline-none focus:border-hue-amber-500"
                   />
                 </div>
 
@@ -450,7 +450,7 @@ export function SiteElementsManager({
                   });
                   setIsCardModalOpen(true);
                 }}
-                className="text-xs font-bold bg-emerald-500 text-black hover:bg-emerald-400"
+                className="text-xs font-bold bg-hue-emerald-500 text-black hover:bg-hue-emerald-400"
               >
                 <Plus className="w-4 h-4 mr-1" />
                 <span>Tambah Kartu Baru</span>
@@ -488,7 +488,7 @@ export function SiteElementsManager({
                           <p className="text-2xs text-gp-ink-300 line-clamp-2 leading-relaxed">
                             {card.desc}
                           </p>
-                          <span className="text-3xs font-mono text-emerald-400 truncate block">
+                          <span className="text-3xs font-mono text-hue-emerald-400 truncate block">
                             {card.path}
                           </span>
                         </div>
@@ -498,7 +498,7 @@ export function SiteElementsManager({
                             type="button"
                             onClick={() => toggleCardVisibility(card.id)}
                             className={`p-1 rounded-lg text-xs flex items-center gap-1 font-semibold ${
-                              card.isVisible ? "text-emerald-400 hover:bg-emerald-500/10" : "text-gp-ink-400 hover:bg-gp-ink-700"
+                              card.isVisible ? "text-hue-emerald-400 hover:bg-hue-emerald-500/10" : "text-gp-ink-400 hover:bg-gp-ink-700"
                             }`}
                             title={card.isVisible ? "Tampil di Beranda" : "Disembunyikan"}
                           >
@@ -521,7 +521,7 @@ export function SiteElementsManager({
                             <button
                               type="button"
                               onClick={() => handleDeleteCard(card.id)}
-                              className="p-1 rounded-lg hover:bg-gp-ink-700 text-gp-ink-400 hover:text-red-400"
+                              className="p-1 rounded-lg hover:bg-gp-ink-700 text-gp-ink-400 hover:text-hue-red-400"
                               title="Hapus Kartu"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
@@ -565,7 +565,7 @@ export function SiteElementsManager({
                             sectionVisibility: { ...homepageForm.sectionVisibility, showMonitors: e.target.checked },
                           })
                         }
-                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-emerald-500"
+                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-hue-emerald-500"
                       />
                       <span className="text-gp-ink-200">Tampilkan</span>
                     </label>
@@ -611,7 +611,7 @@ export function SiteElementsManager({
                             sectionVisibility: { ...homepageForm.sectionVisibility, showDesks: e.target.checked },
                           })
                         }
-                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-emerald-500"
+                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-hue-emerald-500"
                       />
                       <span className="text-gp-ink-200">Tampilkan</span>
                     </label>
@@ -657,7 +657,7 @@ export function SiteElementsManager({
                             sectionVisibility: { ...homepageForm.sectionVisibility, showArms: e.target.checked },
                           })
                         }
-                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-emerald-500"
+                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-hue-emerald-500"
                       />
                       <span className="text-gp-ink-200">
                         {homepageForm.sectionVisibility.showArms !== false ? "Aktif (Live)" : "Nonaktif (Disabled)"}
@@ -707,7 +707,7 @@ export function SiteElementsManager({
                             sectionVisibility: { ...homepageForm.sectionVisibility, showBrackets: e.target.checked },
                           })
                         }
-                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-emerald-500"
+                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-hue-emerald-500"
                       />
                       <span className="text-gp-ink-200">
                         {homepageForm.sectionVisibility.showBrackets !== false ? "Aktif (Live)" : "Nonaktif (Disabled)"}
@@ -757,7 +757,7 @@ export function SiteElementsManager({
                             sectionVisibility: { ...homepageForm.sectionVisibility, showPeripherals: e.target.checked },
                           })
                         }
-                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-emerald-500"
+                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-hue-emerald-500"
                       />
                       <span className="text-gp-ink-200">
                         {homepageForm.sectionVisibility.showPeripherals ? "Aktif (Live)" : "Nonaktif (Disabled)"}
@@ -794,7 +794,7 @@ export function SiteElementsManager({
                     <span className="font-bold text-white flex items-center gap-2">
                       <span>🪑</span>
                       <span>Katalog Kursi Ergonomis & Gaming</span>
-                      <span className="px-2 py-0.5 rounded text-4xs font-mono font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                      <span className="px-2 py-0.5 rounded text-4xs font-mono font-bold bg-hue-amber-500/15 text-hue-amber-300 border border-hue-amber-500/30">
                         [STAGING / DRAFT Q2 2027]
                       </span>
                     </span>
@@ -808,7 +808,7 @@ export function SiteElementsManager({
                             sectionVisibility: { ...homepageForm.sectionVisibility, showChairs: e.target.checked },
                           })
                         }
-                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-emerald-500"
+                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-hue-emerald-500"
                       />
                       <span className="text-gp-ink-200">Tampilkan di Publik (Live)</span>
                     </label>
@@ -822,7 +822,7 @@ export function SiteElementsManager({
                 <div className="p-4 bg-gp-ink-800/50 border border-gp-ink-700 rounded-xl space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-white flex items-center gap-2">
-                      <ShieldAlert className="w-4 h-4 text-amber-400" />
+                      <ShieldAlert className="w-4 h-4 text-hue-amber-400" />
                       <span>Section Aftersales & Garansi Brand Kanban</span>
                     </span>
                     <label className="flex items-center gap-2 cursor-pointer">
@@ -835,7 +835,7 @@ export function SiteElementsManager({
                             sectionVisibility: { ...homepageForm.sectionVisibility, showAftersales: e.target.checked },
                           })
                         }
-                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-emerald-500"
+                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-hue-emerald-500"
                       />
                       <span className="text-gp-ink-200">Tampilkan</span>
                     </label>
@@ -847,7 +847,7 @@ export function SiteElementsManager({
                 <div className="p-4 bg-gp-ink-800/50 border border-gp-ink-700 rounded-xl space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-white flex items-center gap-2">
-                      <HelpCircle className="w-4 h-4 text-amber-400" />
+                      <HelpCircle className="w-4 h-4 text-hue-amber-400" />
                       <span>Section Pertanyaan Umum (FAQ & QnA)</span>
                     </span>
                     <label className="flex items-center gap-2 cursor-pointer">
@@ -860,7 +860,7 @@ export function SiteElementsManager({
                             sectionVisibility: { ...homepageForm.sectionVisibility, showFaq: e.target.checked },
                           })
                         }
-                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-emerald-500"
+                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-hue-emerald-500"
                       />
                       <span className="text-gp-ink-200">Tampilkan</span>
                     </label>
@@ -872,7 +872,7 @@ export function SiteElementsManager({
                 <div className="p-4 bg-gp-ink-800/50 border border-gp-ink-700 rounded-xl space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-white flex items-center gap-2">
-                      <BookOpen className="w-4 h-4 text-cyan-400" />
+                      <BookOpen className="w-4 h-4 text-hue-cyan-400" />
                       <span>Section Edukasi & Panduan (Desk / HDR / GrayNotes / Bandwidth)</span>
                     </span>
                     <label className="flex items-center gap-2 cursor-pointer">
@@ -885,7 +885,7 @@ export function SiteElementsManager({
                             sectionVisibility: { ...homepageForm.sectionVisibility, showGuides: e.target.checked },
                           })
                         }
-                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-emerald-500"
+                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-hue-emerald-500"
                       />
                       <span className="text-gp-ink-200">Tampilkan</span>
                     </label>
@@ -897,7 +897,7 @@ export function SiteElementsManager({
                 <div className="p-4 bg-gp-ink-800/50 border border-gp-ink-700 rounded-xl space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-white flex items-center gap-2">
-                      <PhoneCall className="w-4 h-4 text-emerald-400" />
+                      <PhoneCall className="w-4 h-4 text-hue-emerald-400" />
                       <span>Section Konsultasi Langsung & Dukungan Donasi</span>
                     </span>
                     <label className="flex items-center gap-2 cursor-pointer">
@@ -910,7 +910,7 @@ export function SiteElementsManager({
                             sectionVisibility: { ...homepageForm.sectionVisibility, showConsultation: e.target.checked },
                           })
                         }
-                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-emerald-500"
+                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-hue-emerald-500"
                       />
                       <span className="text-gp-ink-200">Tampilkan</span>
                     </label>
@@ -922,7 +922,7 @@ export function SiteElementsManager({
                 <div className="p-4 bg-gp-ink-800/50 border border-gp-ink-700 rounded-xl space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-white flex items-center gap-2">
-                      <MessageSquare className="w-4 h-4 text-orange-400" />
+                      <MessageSquare className="w-4 h-4 text-hue-orange-400" />
                       <span>Section Form Kritik & Saran / Request Monitor</span>
                     </span>
                     <label className="flex items-center gap-2 cursor-pointer">
@@ -935,7 +935,7 @@ export function SiteElementsManager({
                             sectionVisibility: { ...homepageForm.sectionVisibility, showFeedback: e.target.checked },
                           })
                         }
-                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-emerald-500"
+                        className="rounded border-gp-ink-600 bg-gp-ink-800 text-hue-emerald-500"
                       />
                       <span className="text-gp-ink-200">Tampilkan</span>
                     </label>
@@ -965,7 +965,7 @@ export function SiteElementsManager({
                         announcement: { ...settingsForm.announcement, isEnabled: e.target.checked },
                       })
                     }
-                    className="rounded border-gp-ink-600 bg-gp-ink-800 text-emerald-500"
+                    className="rounded border-gp-ink-600 bg-gp-ink-800 text-hue-emerald-500"
                   />
                   <span className="text-gp-ink-200">Aktifkan Pengumuman</span>
                 </label>
@@ -982,7 +982,7 @@ export function SiteElementsManager({
                       announcement: { ...settingsForm.announcement, text: e.target.value },
                     })
                   }
-                  className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-hue-emerald-500"
                 />
               </div>
 
@@ -1075,7 +1075,7 @@ export function SiteElementsManager({
                     className="flex-1 bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-3 py-2 text-white text-xs"
                   />
                   <label className="px-3 py-2 rounded-xl bg-gp-ink-700 hover:bg-gp-ink-600 text-xs text-gp-ink-100 font-bold cursor-pointer flex items-center gap-1.5">
-                    <Upload className="w-3.5 h-3.5 text-pink-400" />
+                    <Upload className="w-3.5 h-3.5 text-hue-pink-400" />
                     <span>Upload QRIS WebP</span>
                     <input
                       type="file"
@@ -1163,7 +1163,7 @@ export function SiteElementsManager({
                       type="text"
                       value={editingCard.icon}
                       onChange={(e) => setEditingCard({ ...editingCard, icon: e.target.value })}
-                      className="w-full text-center text-lg bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-2 text-white focus:border-emerald-400 focus:outline-none"
+                      className="w-full text-center text-lg bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-2 text-white focus:border-hue-emerald-400 focus:outline-none"
                     />
                   </div>
                   <div className="col-span-3">
@@ -1173,7 +1173,7 @@ export function SiteElementsManager({
                       required
                       value={editingCard.title}
                       onChange={(e) => setEditingCard({ ...editingCard, title: e.target.value })}
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white font-bold focus:border-emerald-400 focus:outline-none placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white font-bold focus:border-hue-emerald-400 focus:outline-none placeholder:text-gp-ink-400"
                     />
                   </div>
                 </div>
@@ -1185,7 +1185,7 @@ export function SiteElementsManager({
                     required
                     value={editingCard.desc}
                     onChange={(e) => setEditingCard({ ...editingCard, desc: e.target.value })}
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:border-emerald-400 focus:outline-none placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:border-hue-emerald-400 focus:outline-none placeholder:text-gp-ink-400"
                   />
                 </div>
 
@@ -1235,7 +1235,7 @@ export function SiteElementsManager({
                       required
                       value={editingCard.path}
                       onChange={(e) => setEditingCard({ ...editingCard, path: e.target.value })}
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-emerald-400 font-mono focus:border-emerald-400 focus:outline-none"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-hue-emerald-400 font-mono focus:border-hue-emerald-400 focus:outline-none"
                     />
                   </div>
                   <div>
@@ -1243,7 +1243,7 @@ export function SiteElementsManager({
                     <select
                       value={editingCard.groupTitle}
                       onChange={(e) => setEditingCard({ ...editingCard, groupTitle: e.target.value })}
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:border-emerald-400 focus:outline-none"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:border-hue-emerald-400 focus:outline-none"
                     >
                       <option value="1. EVALUASI BRAND & AFTERSALES (OEM / ODM LIST)">1. Evaluasi Brand & Aftersales</option>
                       <option value="2. GLOSARIUM & PANDUAN KALIBRASI WARNA (GRAYPLASMA)">2. Glosarium & Kalibrasi</option>
@@ -1262,7 +1262,7 @@ export function SiteElementsManager({
                     type="checkbox"
                     checked={editingCard.isVisible}
                     onChange={(e) => setEditingCard({ ...editingCard, isVisible: e.target.checked })}
-                    className="rounded border-gp-ink-500 bg-gp-ink-700 text-emerald-500 focus:ring-0"
+                    className="rounded border-gp-ink-500 bg-gp-ink-700 text-hue-emerald-500 focus:ring-0"
                   />
                   <span className="text-xs font-semibold">Tampilkan di Beranda</span>
                 </label>
@@ -1280,7 +1280,7 @@ export function SiteElementsManager({
                   >
                     Batal
                   </Button>
-                  <Button type="submit" variant="cyber" size="sm" className="bg-emerald-500 hover:bg-emerald-400 text-black font-bold">
+                  <Button type="submit" variant="cyber" size="sm" className="bg-hue-emerald-500 hover:bg-hue-emerald-400 text-black font-bold">
                     Simpan Kartu
                   </Button>
                 </div>

@@ -86,7 +86,7 @@ export function PeripheralFormModal({
         {/* Top Bar */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gp-ink-700 bg-gp-ink-850 flex-shrink-0">
           <div className="flex items-center gap-2.5">
-            <div className="p-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
+            <div className="p-1.5 rounded-lg bg-hue-cyan-500/10 border border-hue-cyan-500/30 text-hue-cyan-400">
               <Wrench className="w-4 h-4" />
             </div>
             <h3 className="text-base font-bold text-white tracking-tight">
@@ -120,12 +120,12 @@ export function PeripheralFormModal({
                   type="checkbox"
                   checked={formData.isPublished !== false}
                   onChange={(e) => setFormData({ ...formData, isPublished: e.target.checked })}
-                  className="rounded border-gp-ink-600 bg-gp-ink-950 text-emerald-500 accent-emerald-500 w-4 h-4"
+                  className="rounded border-gp-ink-600 bg-gp-ink-950 text-hue-emerald-500 accent-hue-emerald-500 w-4 h-4"
                 />
                 <span
                   className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${
                     formData.isPublished !== false
-                      ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
+                      ? "bg-hue-emerald-500/20 text-hue-emerald-400 border border-hue-emerald-500/40"
                       : "bg-gp-ink-700 text-gp-ink-300 border border-gp-ink-600"
                   }`}
                 >
@@ -146,7 +146,7 @@ export function PeripheralFormModal({
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="Contoh: North Bayou NB F80 Gas Spring"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 text-white text-xs focus:border-cyan-400 focus:outline-none placeholder:text-gp-ink-400 transition-colors font-medium"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 text-white text-xs focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-400 transition-colors font-medium"
                 />
               </div>
 
@@ -159,7 +159,7 @@ export function PeripheralFormModal({
                   value={formData.brand || ""}
                   onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
                   placeholder="Contoh: North Bayou, Baseus, Oximus"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 text-white text-xs focus:border-cyan-400 focus:outline-none placeholder:text-gp-ink-400 transition-colors"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 text-white text-xs focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-400 transition-colors"
                 />
               </div>
             </div>
@@ -173,7 +173,7 @@ export function PeripheralFormModal({
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 text-white text-xs focus:border-cyan-400 focus:outline-none transition-colors"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 text-white text-xs focus:border-hue-cyan-400 focus:outline-none transition-colors"
                 >
                   {COMMON_CATEGORIES.map((cat) => (
                     <option key={cat} value={cat}>
@@ -186,7 +186,7 @@ export function PeripheralFormModal({
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-gp-ink-200 flex items-center justify-between">
                   <span>Harga Estimasi</span>
-                  <span className="text-emerald-400 font-mono font-semibold">
+                  <span className="text-hue-emerald-400 font-mono font-semibold">
                     {formatRupiah(formData.price || 0)}
                   </span>
                 </label>
@@ -194,7 +194,7 @@ export function PeripheralFormModal({
                   type="number"
                   value={formData.price || 0}
                   onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 text-white text-xs font-mono focus:border-cyan-400 focus:outline-none transition-colors"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 text-white text-xs font-mono focus:border-hue-cyan-400 focus:outline-none transition-colors"
                 />
               </div>
             </div>
@@ -209,7 +209,7 @@ export function PeripheralFormModal({
                 value={formData.verdict || ""}
                 onChange={(e) => setFormData({ ...formData, verdict: e.target.value })}
                 placeholder="Contoh: Best budget arm 180rb-an. Per gas spring responsif untuk monitor sampai 9kg."
-                className="w-full px-3.5 py-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 text-white text-xs focus:border-cyan-400 focus:outline-none placeholder:text-gp-ink-400 transition-colors"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 text-white text-xs focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-400 transition-colors"
               />
             </div>
 
@@ -223,7 +223,7 @@ export function PeripheralFormModal({
                 value={formData.recommendedFor || ""}
                 onChange={(e) => setFormData({ ...formData, recommendedFor: e.target.value })}
                 placeholder="Contoh: Monitor 24-27 inci, ketebalan daun meja 2-8cm"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 text-white text-xs focus:border-cyan-400 focus:outline-none placeholder:text-gp-ink-400 transition-colors"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 text-white text-xs focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-400 transition-colors"
               />
             </div>
 
@@ -238,7 +238,7 @@ export function PeripheralFormModal({
                   value={formData.notes || ""}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                   placeholder="Contoh: Termasuk bracket VESA 75x75 & 100x100"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 text-white text-xs focus:border-cyan-400 focus:outline-none placeholder:text-gp-ink-400 transition-colors"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 text-white text-xs focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-400 transition-colors"
                 />
               </div>
 
@@ -251,7 +251,7 @@ export function PeripheralFormModal({
                   value={formData.shopeeUrl || ""}
                   onChange={(e) => setFormData({ ...formData, shopeeUrl: e.target.value })}
                   placeholder="https://shopee.co.id/..."
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 text-white text-xs focus:border-cyan-400 focus:outline-none placeholder:text-gp-ink-400 transition-colors"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 text-white text-xs focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-400 transition-colors"
                 />
               </div>
             </div>
@@ -272,7 +272,7 @@ export function PeripheralFormModal({
               type="submit"
               variant="cyber"
               size="sm"
-              className="bg-emerald-500 hover:bg-emerald-400 text-black font-bold flex items-center gap-2"
+              className="bg-hue-emerald-500 hover:bg-hue-emerald-400 text-black font-bold flex items-center gap-2"
             >
               <Save className="w-4 h-4" />
               <span>Simpan Aksesoris</span>

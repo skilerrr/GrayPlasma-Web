@@ -404,34 +404,34 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
 
   const subpageBreadcrumbs: BreadcrumbItem[] = isDeskPage
     ? [
-        { label: "KATALOG & DATABASE", href: "/", icon: <Layers className="w-3.5 h-3.5 text-orange-400" /> },
+        { label: "KATALOG & DATABASE", href: "/", icon: <Layers className="w-3.5 h-3.5 text-hue-orange-400" /> },
         { label: "REKOMENDASI MEJA + KAKI", icon: <FileText className="w-3.5 h-3.5 text-gp-ink-300" /> },
       ]
     : isArmBracketPage
     ? [
-        { label: "KATALOG & DATABASE", href: "/", icon: <Wrench className="w-3.5 h-3.5 text-cyan-400" /> },
+        { label: "KATALOG & DATABASE", href: "/", icon: <Wrench className="w-3.5 h-3.5 text-hue-cyan-400" /> },
         { label: "ARM & BRACKET MONITOR", icon: <FileText className="w-3.5 h-3.5 text-gp-ink-300" /> },
       ]
     : isAccessoriesPage
     ? [
-        { label: "KATALOG & DATABASE", href: "/", icon: <Sparkles className="w-3.5 h-3.5 text-blue-400" /> },
+        { label: "KATALOG & DATABASE", href: "/", icon: <Sparkles className="w-3.5 h-3.5 text-hue-blue-400" /> },
         { label: "AKSESORIS SETUP", icon: <FileText className="w-3.5 h-3.5 text-gp-ink-300" /> },
       ]
     : isChairsPage
     ? [
-        { label: "KATALOG & DATABASE", href: "/", icon: <LayoutGrid className="w-3.5 h-3.5 text-purple-400" /> },
+        { label: "KATALOG & DATABASE", href: "/", icon: <LayoutGrid className="w-3.5 h-3.5 text-hue-purple-400" /> },
         { label: "KURSI ERGONOMIS", icon: <FileText className="w-3.5 h-3.5 text-gp-ink-300" /> },
       ]
     : isAftersalesPage
-    ? [{ label: "AFTERSALES BRAND MONITOR", icon: <ShieldAlert className="w-3.5 h-3.5 text-amber-400" /> }]
+    ? [{ label: "AFTERSALES BRAND MONITOR", icon: <ShieldAlert className="w-3.5 h-3.5 text-hue-amber-400" /> }]
     : isCatalogPage
     ? [
-        { label: "KATALOG MONITOR", href: "/", icon: <MonitorIcon className="w-3.5 h-3.5 text-emerald-400" /> },
+        { label: "KATALOG MONITOR", href: "/", icon: <MonitorIcon className="w-3.5 h-3.5 text-hue-emerald-400" /> },
         { label: pageTitle, icon: <FileText className="w-3.5 h-3.5 text-gp-ink-300" /> },
       ]
     : matchedMonitor
     ? [
-        { label: "REKOMENDASI MONITOR", href: "/", icon: <MonitorIcon className="w-3.5 h-3.5 text-emerald-400" /> },
+        { label: "REKOMENDASI MONITOR", href: "/", icon: <MonitorIcon className="w-3.5 h-3.5 text-hue-emerald-400" /> },
         { label: matchedMonitor.fullName, icon: <Search className="w-3.5 h-3.5 text-gp-ink-300" /> },
       ]
     : slugParts.length > 1
@@ -439,7 +439,7 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
         { label: slugParts[0].toUpperCase(), href: `/guide/${slugParts[0]}`, icon: <BookOpen className="w-3.5 h-3.5 text-gp-ink-300" /> },
         { label: matchedNode?.title || pageTitle, icon: <FileText className="w-3.5 h-3.5 text-gp-ink-300" /> },
       ]
-    : [{ label: matchedNode?.title || pageTitle, icon: isFAQIndexPage ? <HelpCircle className="w-3.5 h-3.5 text-amber-400" /> : <FileText className="w-3.5 h-3.5 text-gp-ink-300" /> }];
+    : [{ label: matchedNode?.title || pageTitle, icon: isFAQIndexPage ? <HelpCircle className="w-3.5 h-3.5 text-hue-amber-400" /> : <FileText className="w-3.5 h-3.5 text-gp-ink-300" /> }];
 
   return (
     <div className="min-h-screen bg-gp-ink-800 text-gp-ink-200 flex flex-col font-sans selection:bg-gp-sky-800 selection:text-white">
@@ -485,25 +485,25 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
         <div className="space-y-4 -mt-12 relative z-10 px-2 sm:px-4">
           <div className="p-3 rounded-2xl bg-gp-ink-850 border border-gp-ink-700 w-fit shadow-2xl">
             {isFAQIndexPage ? (
-              <HelpCircle className="w-8 h-8 text-amber-400" />
+              <HelpCircle className="w-8 h-8 text-hue-amber-400" />
             ) : isAftersalesPage ? (
-              <ShieldAlert className="w-8 h-8 text-amber-400" />
+              <ShieldAlert className="w-8 h-8 text-hue-amber-400" />
             ) : isAboutPage ? (
               <User className="w-8 h-8 text-gp-ink-200" />
             ) : isSupportPage ? (
-              <Heart className="w-8 h-8 text-rose-400" />
+              <Heart className="w-8 h-8 text-hue-rose-400" />
             ) : isConsultationPage ? (
-              <Headphones className="w-8 h-8 text-emerald-400" />
+              <Headphones className="w-8 h-8 text-hue-emerald-400" />
             ) : isDeskPage ? (
-              <Layers className="w-8 h-8 text-orange-400" />
+              <Layers className="w-8 h-8 text-hue-orange-400" />
             ) : isArmBracketPage ? (
-              <Wrench className="w-8 h-8 text-cyan-400" />
+              <Wrench className="w-8 h-8 text-hue-cyan-400" />
             ) : isAccessoriesPage ? (
-              <Sparkles className="w-8 h-8 text-blue-400" />
+              <Sparkles className="w-8 h-8 text-hue-blue-400" />
             ) : isChairsPage ? (
               <span className="text-3xl leading-none">🪑</span>
             ) : (
-              <MonitorIcon className="w-8 h-8 text-emerald-400" />
+              <MonitorIcon className="w-8 h-8 text-hue-emerald-400" />
             )}
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-tight uppercase">
@@ -531,7 +531,7 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
             </div>
           ) : isChairsPage ? (
             <div className="space-y-1 text-xs text-gp-ink-300 pt-1">
-              <p className="font-medium text-purple-300/90">
+              <p className="font-medium text-hue-purple-300/90">
                 Database kurasi kursi ergonomis dan gaming dengan struktur penopang lumbar teruji dan hidrolik Class 4 [Draft Database].
               </p>
             </div>
@@ -565,8 +565,8 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
         {/* CHECK: UNPUBLISHED / ARCHIVED DRAFT PAGE NOTICE                           */}
         {/* ========================================================================= */}
         {matchedNode && matchedNode.isPublished === false ? (
-          <div className="my-12 p-8 rounded-2xl bg-gp-ink-750 border border-amber-500/40 text-center space-y-4 max-w-2xl mx-auto shadow-2xl">
-            <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto">
+          <div className="my-12 p-8 rounded-2xl bg-gp-ink-750 border border-hue-amber-500/40 text-center space-y-4 max-w-2xl mx-auto shadow-2xl">
+            <div className="w-14 h-14 rounded-2xl bg-hue-amber-500/10 border border-hue-amber-500/30 text-hue-amber-400 flex items-center justify-center mx-auto">
               <ShieldAlert className="w-7 h-7" />
             </div>
             <h2 className="text-xl font-bold text-white uppercase tracking-tight">
@@ -608,8 +608,8 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
               <DeskPeripheralsView desks={desks} peripherals={peripherals} chairs={chairs} showChairs={true} hideHeaderCard={true} initialTab="kursi" />
             </div>
           ) : (
-            <div className="my-12 p-8 rounded-2xl bg-gp-ink-750 border border-purple-500/40 text-center space-y-4 max-w-2xl mx-auto shadow-2xl">
-              <div className="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/30 text-purple-400 flex items-center justify-center mx-auto text-2xl">
+            <div className="my-12 p-8 rounded-2xl bg-gp-ink-750 border border-hue-purple-500/40 text-center space-y-4 max-w-2xl mx-auto shadow-2xl">
+              <div className="w-14 h-14 rounded-2xl bg-hue-purple-500/10 border border-hue-purple-500/30 text-hue-purple-400 flex items-center justify-center mx-auto text-2xl">
                 🪑
               </div>
               <h2 className="text-xl font-bold text-white uppercase tracking-tight">
@@ -638,11 +638,11 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
                 onClick={() => setIsMobileFilterOpen(true)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-colors flex items-center gap-1.5 border ${
                   activeFilterCount > 0
-                    ? "bg-emerald-500/15 border-emerald-500/60 text-emerald-300 shadow-tech-subtle"
+                    ? "bg-hue-emerald-500/15 border-hue-emerald-500/60 text-hue-emerald-300 shadow-tech-subtle"
                     : "bg-gp-ink-850 border-gp-ink-700 text-gp-ink-200 hover:text-white hover:border-gp-ink-600"
                 }`}
               >
-                <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
+                <SlidersHorizontal className="w-3.5 h-3.5 text-hue-emerald-400" />
                 <span>Filter {activeFilterCount > 0 ? `(${activeFilterCount})` : ""}</span>
               </button>
 
@@ -776,11 +776,11 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
                 <div key={idx} className="p-5 rounded-2xl bg-gp-ink-750 border border-gp-ink-650 space-y-3 shadow-sm">
                   <div className="flex items-center justify-between gap-2 border-b border-gp-ink-700 pb-2">
                     <h3 className="font-bold text-white text-sm">{brand.brand}</h3>
-                    <span className="text-3xs font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                    <span className="text-3xs font-bold px-2 py-0.5 rounded bg-hue-amber-500/10 text-hue-amber-400 border border-hue-amber-500/30">
                       {brand.category}
                     </span>
                   </div>
-                  <div className="text-xs text-rose-300 bg-rose-950/20 p-2.5 rounded-xl border border-rose-500/30 font-medium">
+                  <div className="text-xs text-hue-rose-300 bg-hue-rose-950/20 p-2.5 rounded-xl border border-hue-rose-500/30 font-medium">
                     ⚠️ {brand.issue}
                   </div>
                   <p className="text-xs text-gp-ink-200 leading-relaxed">

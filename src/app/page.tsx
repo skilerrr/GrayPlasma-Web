@@ -625,7 +625,7 @@ function CatalogPageContent() {
   const consult = siteSettings.consultation || CONSULTATION_DATA;
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col selection:bg-emerald-500 selection:text-black font-sans">
+    <div className="min-h-screen bg-black text-white flex flex-col selection:bg-hue-emerald-500 selection:text-black font-sans">
       <AnnouncementBar settings={siteSettings?.announcement} />
       {/* Sticky Header */}
       <Navbar
@@ -672,8 +672,8 @@ function CatalogPageContent() {
 
             {/* Tech-Brutalist Callout / Disclaimer Box */}
             <div className="p-4 sm:p-5 rounded-lg border-l-4 border-l-amber-400 border-y border-r border-gp-ink-700 bg-gp-ink-900 text-xs text-gp-ink-200 space-y-2.5 shadow-tech-subtle">
-              <div className="flex items-center gap-2 font-mono font-bold text-amber-400 uppercase tracking-wide">
-                <AlertTriangle className="w-4 h-4 text-amber-400" />
+              <div className="flex items-center gap-2 font-mono font-bold text-hue-amber-400 uppercase tracking-wide">
+                <AlertTriangle className="w-4 h-4 text-hue-amber-400" />
                 <span>// {homepageSettings.disclaimerTitle || "CATATAN PENTING & STANDAR PENGUJIAN :"}</span>
               </div>
               {homepageSettings.disclaimerMarkdown ? (
@@ -732,7 +732,7 @@ function CatalogPageContent() {
                     <p className="text-2xs text-gp-ink-300 line-clamp-2 leading-relaxed font-sans">
                       {card.desc}
                     </p>
-                    <span className="text-3xs font-mono text-gp-ink-400 block pt-0.5 group-hover:text-emerald-400">
+                    <span className="text-3xs font-mono text-gp-ink-400 block pt-0.5 group-hover:text-hue-emerald-400">
                       {card.path} →
                     </span>
                   </Link>
@@ -753,7 +753,7 @@ function CatalogPageContent() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
               <div className="space-y-1">
                 <div className="flex items-center gap-2.5">
-                  <span className="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 flex items-center justify-center font-mono text-xs font-bold shrink-0">
+                  <span className="w-7 h-7 rounded-lg bg-hue-emerald-500/10 border border-hue-emerald-500/25 text-hue-emerald-400 flex items-center justify-center font-mono text-xs font-bold shrink-0">
                     01
                   </span>
                   <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
@@ -769,7 +769,7 @@ function CatalogPageContent() {
                 {/* On-click Trigger to Open Monitor Database in Separate Page */}
                 <Link
                   href="/catalog/all"
-                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors border bg-emerald-500/10 hover:bg-emerald-500/20 border-emerald-500/30 text-emerald-400 hover:text-emerald-300"
+                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors border bg-hue-emerald-500/10 hover:bg-hue-emerald-500/20 border-hue-emerald-500/30 text-hue-emerald-400 hover:text-hue-emerald-300"
                   title="Buka Database Rekomendasi Monitor di Halaman Terpisah"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -782,12 +782,12 @@ function CatalogPageContent() {
                   onClick={() => setIsMobileDrawerOpen(true)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors border ${
                     activeFilterCount > 0
-                      ? "bg-emerald-500/15 border-emerald-500/50 text-emerald-300"
+                      ? "bg-hue-emerald-500/15 border-hue-emerald-500/50 text-hue-emerald-300"
                       : "bg-gp-ink-800 border-gp-ink-700 text-gp-ink-200 hover:text-white hover:border-gp-ink-600"
                   }`}
                   title="Buka panel parameter & filter"
                 >
-                  <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
+                  <SlidersHorizontal className="w-3.5 h-3.5 text-hue-emerald-400" />
                   <span>Filter {activeFilterCount > 0 ? `(${activeFilterCount})` : ""}</span>
                 </button>
 
@@ -892,7 +892,7 @@ function CatalogPageContent() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
               <div className="space-y-1">
                 <div className="flex items-center gap-2.5">
-                  <span className="w-7 h-7 rounded-lg bg-orange-500/10 border border-orange-500/25 text-orange-400 flex items-center justify-center font-mono text-xs font-bold shrink-0">
+                  <span className="w-7 h-7 rounded-lg bg-hue-orange-500/10 border border-hue-orange-500/25 text-hue-orange-400 flex items-center justify-center font-mono text-xs font-bold shrink-0">
                     02
                   </span>
                   <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
@@ -910,7 +910,7 @@ function CatalogPageContent() {
                 </span>
                 <Link
                   href="/catalog/desks"
-                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors border bg-orange-500/10 hover:bg-orange-500/20 border-orange-500/30 text-orange-400 hover:text-orange-300"
+                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors border bg-hue-orange-500/10 hover:bg-hue-orange-500/20 border-hue-orange-500/30 text-hue-orange-400 hover:text-hue-orange-300"
                   title="Buka Database Rekomendasi Meja di Halaman Terpisah"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -963,7 +963,7 @@ function CatalogPageContent() {
                       <th className="py-3 px-3 min-w-[180px]">[ KATEGORI ]</th>
                       <th className="py-3 px-3 min-w-[140px]">[ TIPE & BENTUK ]</th>
                       <th className="py-3 px-3 min-w-[160px]">[ STATUS CATATAN ]</th>
-                      <th className="py-3 px-4 min-w-[140px] text-right font-mono text-emerald-400">[ ESTIMASI BUDGET ]</th>
+                      <th className="py-3 px-4 min-w-[140px] text-right font-mono text-hue-emerald-400">[ ESTIMASI BUDGET ]</th>
                       <th className="py-3 px-3 text-center min-w-[110px]">[ AKSI ]</th>
                     </tr>
                   </thead>
@@ -978,8 +978,8 @@ function CatalogPageContent() {
                       >
                         <td className="py-3.5 px-4 font-bold text-white">
                           <div className="flex items-center gap-2">
-                            <span className="text-base text-gp-ink-400 group-hover:text-amber-400 transition-colors">📄</span>
-                            <span className="group-hover:text-amber-400 transition-colors">{desk.name}</span>
+                            <span className="text-base text-gp-ink-400 group-hover:text-hue-amber-400 transition-colors">📄</span>
+                            <span className="group-hover:text-hue-amber-400 transition-colors">{desk.name}</span>
                           </div>
                         </td>
                         <td className="py-3.5 px-3">
@@ -997,11 +997,11 @@ function CatalogPageContent() {
                           </span>
                         </td>
                         <td className="py-3.5 px-3">
-                          <span className="px-2 py-0.5 rounded text-3xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/25">
+                          <span className="px-2 py-0.5 rounded text-3xs font-bold bg-hue-emerald-500/10 text-hue-emerald-400 border border-hue-emerald-500/25">
                             {desk.catatanBadge || "ADA (BACA PANDUAN)"}
                           </span>
                         </td>
-                        <td className="py-3.5 px-4 text-right font-mono font-bold text-emerald-400 tabular-nums">
+                        <td className="py-3.5 px-4 text-right font-mono font-bold text-hue-emerald-400 tabular-nums">
                           {desk.price > 0 ? formatRupiah(desk.price) : "Custom"}
                         </td>
                         <td className="py-3.5 px-3 text-center">
@@ -1047,12 +1047,12 @@ function CatalogPageContent() {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2.5">
-                    <span className="w-7 h-7 rounded-lg bg-cyan-500/10 border border-cyan-500/25 text-cyan-400 flex items-center justify-center font-mono text-xs font-bold shrink-0">
+                    <span className="w-7 h-7 rounded-lg bg-hue-cyan-500/10 border border-hue-cyan-500/25 text-hue-cyan-400 flex items-center justify-center font-mono text-xs font-bold shrink-0">
                       03
                     </span>
                     <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2 flex-wrap">
                       <span>Database Rekomendasi Arm & Bracket</span>
-                      <span className="px-2 py-0.5 rounded text-3xs font-mono font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/25">
+                      <span className="px-2 py-0.5 rounded text-3xs font-mono font-bold bg-hue-cyan-500/10 text-hue-cyan-400 border border-hue-cyan-500/25">
                         GAS SPRING & MOUNT
                       </span>
                     </h2>
@@ -1068,7 +1068,7 @@ function CatalogPageContent() {
                 </span>
                 <Link
                   href="/catalog/arms-brackets"
-                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors border bg-cyan-500/10 hover:bg-cyan-500/20 border-cyan-500/30 text-cyan-400 hover:text-cyan-300"
+                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors border bg-hue-cyan-500/10 hover:bg-hue-cyan-500/20 border-hue-cyan-500/30 text-hue-cyan-400 hover:text-hue-cyan-300"
                   title="Buka Database Arm & Bracket di Halaman Terpisah"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -1090,7 +1090,7 @@ function CatalogPageContent() {
                       }}
                       className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${
                         armBracketFilter === cat.id
-                          ? "bg-cyan-500 text-black font-semibold shadow-sm"
+                          ? "bg-hue-cyan-500 text-black font-semibold shadow-sm"
                           : "bg-gp-ink-850 text-gp-ink-300 hover:text-white border border-gp-ink-700"
                       }`}
                     >
@@ -1107,7 +1107,7 @@ function CatalogPageContent() {
                     setArmBracketPage(1);
                   }}
                   placeholder="Cari arm atau bracket..."
-                  className="px-3.5 py-1.5 rounded-lg bg-gp-ink-850 border border-gp-ink-700 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-cyan-500 w-full sm:w-56"
+                  className="px-3.5 py-1.5 rounded-lg bg-gp-ink-850 border border-gp-ink-700 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-hue-cyan-500 w-full sm:w-56"
                 />
               </div>
 
@@ -1121,7 +1121,7 @@ function CatalogPageContent() {
                         <th className="py-3 px-3 min-w-[160px]">[ TIPE BRACKET ]</th>
                         <th className="py-3 px-3 min-w-[130px]">[ BRAND ]</th>
                         <th className="py-3 px-3 min-w-[160px]">[ SPESIFIKASI & GARANSI ]</th>
-                        <th className="py-3 px-4 min-w-[140px] text-right font-mono text-cyan-400">[ KISARAN HARGA ]</th>
+                        <th className="py-3 px-4 min-w-[140px] text-right font-mono text-hue-cyan-400">[ KISARAN HARGA ]</th>
                         <th className="py-3 px-3 text-center min-w-[140px]">[ AKSI ]</th>
                       </tr>
                     </thead>
@@ -1153,15 +1153,15 @@ function CatalogPageContent() {
                                   <span className="text-base group-hover:scale-110 transition-transform">
                                     {isArmItem ? "🦾" : "📐"}
                                   </span>
-                                  <span className="group-hover:text-cyan-400 transition-colors">{item.name}</span>
+                                  <span className="group-hover:text-hue-cyan-400 transition-colors">{item.name}</span>
                                 </div>
                               </td>
                               <td className="py-3.5 px-3">
                                 <span
                                   className={`px-2 py-0.5 rounded text-3xs font-bold ${
                                     isArmItem
-                                      ? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/25"
-                                      : "bg-amber-500/10 text-amber-400 border border-amber-500/25"
+                                      ? "bg-hue-cyan-500/10 text-hue-cyan-400 border border-hue-cyan-500/25"
+                                      : "bg-hue-amber-500/10 text-hue-amber-400 border border-hue-amber-500/25"
                                   }`}
                                 >
                                   {item.type || item.category}
@@ -1233,12 +1233,12 @@ function CatalogPageContent() {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2.5">
-                    <span className="w-7 h-7 rounded-lg bg-blue-500/10 border border-blue-500/25 text-blue-400 flex items-center justify-center font-mono text-xs font-bold shrink-0">
+                    <span className="w-7 h-7 rounded-lg bg-hue-blue-500/10 border border-hue-blue-500/25 text-hue-blue-400 flex items-center justify-center font-mono text-xs font-bold shrink-0">
                       04
                     </span>
                     <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2 flex-wrap">
                       <span>Database Rekomendasi Aksesoris Setup</span>
-                      <span className="px-2 py-0.5 rounded text-3xs font-mono font-bold bg-blue-500/10 text-blue-400 border border-blue-500/25">
+                      <span className="px-2 py-0.5 rounded text-3xs font-mono font-bold bg-hue-blue-500/10 text-hue-blue-400 border border-hue-blue-500/25">
                         SCREENBAR, KABEL, STAND & AUDIO
                       </span>
                     </h2>
@@ -1254,7 +1254,7 @@ function CatalogPageContent() {
                 </span>
                 <Link
                   href="/catalog/accessories"
-                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors border bg-blue-500/10 hover:bg-blue-500/20 border-blue-500/30 text-blue-400 hover:text-blue-300"
+                  className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors border bg-hue-blue-500/10 hover:bg-hue-blue-500/20 border-hue-blue-500/30 text-hue-blue-400 hover:text-hue-blue-300"
                   title="Buka Database Aksesoris di Halaman Terpisah"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -1276,7 +1276,7 @@ function CatalogPageContent() {
                       }}
                       className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${
                         accessoryCategory === cat.id
-                          ? "bg-blue-500 text-white font-semibold shadow-sm"
+                          ? "bg-hue-blue-500 text-white font-semibold shadow-sm"
                           : "bg-gp-ink-850 text-gp-ink-300 hover:text-white border border-gp-ink-700"
                       }`}
                     >
@@ -1293,7 +1293,7 @@ function CatalogPageContent() {
                     setAccessoryPage(1);
                   }}
                   placeholder="Cari aksesoris setup..."
-                  className="px-3.5 py-1.5 rounded-lg bg-gp-ink-850 border border-gp-ink-700 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-blue-500 w-full sm:w-56"
+                  className="px-3.5 py-1.5 rounded-lg bg-gp-ink-850 border border-gp-ink-700 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-hue-blue-500 w-full sm:w-56"
                 />
               </div>
 
@@ -1307,7 +1307,7 @@ function CatalogPageContent() {
                         <th className="py-3 px-3 min-w-[160px]">[ KATEGORI ]</th>
                         <th className="py-3 px-3 min-w-[130px]">[ BRAND ]</th>
                         <th className="py-3 px-3 min-w-[150px]">[ GARANSI & SPEK ]</th>
-                        <th className="py-3 px-4 min-w-[140px] text-right font-mono text-blue-400">[ KISARAN HARGA ]</th>
+                        <th className="py-3 px-4 min-w-[140px] text-right font-mono text-hue-blue-400">[ KISARAN HARGA ]</th>
                         <th className="py-3 px-3 text-center min-w-[140px]">[ AKSI ]</th>
                       </tr>
                     </thead>
@@ -1344,11 +1344,11 @@ function CatalogPageContent() {
                               <td className="py-3.5 px-4 font-bold text-white">
                                 <div className="flex items-center gap-2">
                                   <span className="text-base group-hover:scale-110 transition-transform">{itemIcon}</span>
-                                  <span className="group-hover:text-blue-400 transition-colors">{item.name}</span>
+                                  <span className="group-hover:text-hue-blue-400 transition-colors">{item.name}</span>
                                 </div>
                               </td>
                               <td className="py-3.5 px-3">
-                                <span className="px-2 py-0.5 rounded text-3xs font-bold bg-blue-500/10 text-blue-400 border border-blue-500/25">
+                                <span className="px-2 py-0.5 rounded text-3xs font-bold bg-hue-blue-500/10 text-hue-blue-400 border border-hue-blue-500/25">
                                   {item.category}
                                 </span>
                               </td>
@@ -1418,12 +1418,12 @@ function CatalogPageContent() {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2.5">
-                    <span className="w-7 h-7 rounded-lg bg-purple-500/10 border border-purple-500/25 text-purple-400 flex items-center justify-center font-mono text-xs font-bold shrink-0">
+                    <span className="w-7 h-7 rounded-lg bg-hue-purple-500/10 border border-hue-purple-500/25 text-hue-purple-400 flex items-center justify-center font-mono text-xs font-bold shrink-0">
                       05
                     </span>
                     <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2 flex-wrap">
                       <span>{homepageSettings.sectionTitles?.chairsTitle || "Database Rekomendasi Kursi Ergonomis & Gaming"}</span>
-                      <span className="px-2 py-0.5 rounded text-3xs font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/40">
+                      <span className="px-2 py-0.5 rounded text-3xs font-mono font-bold bg-hue-purple-500/20 text-hue-purple-300 border border-hue-purple-500/40">
                         [ DRAFT / STAGING CATALOG ]
                       </span>
                     </h2>
@@ -1440,7 +1440,7 @@ function CatalogPageContent() {
                   </span>
                   <Link
                     href="/catalog/chairs"
-                    className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors border bg-purple-500/10 hover:bg-purple-500/20 border-purple-500/30 text-purple-400 hover:text-purple-300"
+                    className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors border bg-hue-purple-500/10 hover:bg-hue-purple-500/20 border-hue-purple-500/30 text-hue-purple-400 hover:text-hue-purple-300"
                     title="Buka Database Rekomendasi Kursi di Halaman Terpisah"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
@@ -1450,8 +1450,8 @@ function CatalogPageContent() {
               </div>
 
               {/* Staging Notice Alert */}
-              <div className="flex items-center gap-3 p-3.5 rounded-xl bg-purple-950/30 border border-purple-800/40 text-xs text-purple-200">
-                <AlertTriangle className="w-4 h-4 text-purple-400 shrink-0" />
+              <div className="flex items-center gap-3 p-3.5 rounded-xl bg-hue-purple-950/30 border border-hue-purple-800/40 text-xs text-hue-purple-200">
+                <AlertTriangle className="w-4 h-4 text-hue-purple-400 shrink-0" />
                 <p>
                   <strong>Draft Notice:</strong> Katalog kursi ini merupakan kurasi eksperimental tahap awal dari riset komunitas GrayPlasma. Peluncuran database resmi dijadwalkan pada Q2 2027 setelah pengujian laboratorium komprehensif.
                 </p>
@@ -1487,7 +1487,7 @@ function CatalogPageContent() {
                     setChairPage(1);
                   }}
                   placeholder="Cari kursi ergonomis..."
-                  className="px-3.5 py-1.5 rounded-lg bg-gp-ink-850 border border-gp-ink-700 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-purple-500 w-full sm:w-56"
+                  className="px-3.5 py-1.5 rounded-lg bg-gp-ink-850 border border-gp-ink-700 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-hue-purple-500 w-full sm:w-56"
                 />
               </div>
 
@@ -1497,15 +1497,15 @@ function CatalogPageContent() {
                   return (
                     <div
                       key={chair.id}
-                      className="p-5 rounded-2xl bg-gp-ink-900 border border-gp-ink-700/90 hover:border-purple-500/40 transition-colors flex flex-col justify-between space-y-4 group"
+                      className="p-5 rounded-2xl bg-gp-ink-900 border border-gp-ink-700/90 hover:border-hue-purple-500/40 transition-colors flex flex-col justify-between space-y-4 group"
                     >
                       <div className="space-y-2.5">
                         <div className="flex items-start justify-between gap-2">
                           <div>
-                            <span className="text-3xs font-mono font-bold uppercase tracking-wider text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
+                            <span className="text-3xs font-mono font-bold uppercase tracking-wider text-hue-purple-400 bg-hue-purple-500/10 px-2 py-0.5 rounded border border-hue-purple-500/20">
                               {chair.brand} • {chair.category}
                             </span>
-                            <h3 className="text-base font-black text-white group-hover:text-purple-300 transition-colors mt-1">
+                            <h3 className="text-base font-black text-white group-hover:text-hue-purple-300 transition-colors mt-1">
                               {chair.name}
                             </h3>
                           </div>
@@ -1544,7 +1544,7 @@ function CatalogPageContent() {
                               href={chair.shopeeUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="px-2.5 py-1 rounded-lg bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 border border-orange-500/30 text-2xs font-bold transition-colors"
+                              className="px-2.5 py-1 rounded-lg bg-hue-orange-500/10 hover:bg-hue-orange-500/20 text-hue-orange-400 border border-hue-orange-500/30 text-2xs font-bold transition-colors"
                             >
                               Shopee
                             </a>
@@ -1554,7 +1554,7 @@ function CatalogPageContent() {
                               href={chair.tokopediaUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="px-2.5 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-2xs font-bold transition-colors"
+                              className="px-2.5 py-1 rounded-lg bg-hue-emerald-500/10 hover:bg-hue-emerald-500/20 text-hue-emerald-400 border border-hue-emerald-500/30 text-2xs font-bold transition-colors"
                             >
                               Tokopedia
                             </a>
@@ -1583,8 +1583,8 @@ function CatalogPageContent() {
         {/* ========================================================================= */}
         {activeMenuKey === "aftersales-tier" && (
           homepageSettings.sectionVisibility.showAftersales === false ? (
-            <div className="max-w-4xl mx-auto my-12 p-8 rounded-2xl bg-gp-ink-900 border border-amber-500/30 text-center space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto">
+            <div className="max-w-4xl mx-auto my-12 p-8 rounded-2xl bg-gp-ink-900 border border-hue-amber-500/30 text-center space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-hue-amber-500/10 border border-hue-amber-500/30 text-hue-amber-400 flex items-center justify-center mx-auto">
                 <ShieldAlert className="w-6 h-6" />
               </div>
               <h2 className="text-lg font-bold text-white uppercase tracking-tight">[ // BOARD AFTERSALES SEDANG DIARSIPKAN SEMENTARA ]</h2>
@@ -1603,14 +1603,14 @@ function CatalogPageContent() {
                   <span>Kembali ke Beranda</span>
                 </button>
                 <span className="text-white font-medium flex items-center gap-1.5">
-                  <ShieldAlert className="w-4 h-4 text-amber-400" />
+                  <ShieldAlert className="w-4 h-4 text-hue-amber-400" />
                   LIST AFTERSALES (BRAND MONITOR OEM)
                 </span>
               </div>
 
               {/* Notion Header & Icon Block */}
               <div className="space-y-4 pt-2">
-                <div className="p-2.5 rounded-xl bg-gp-ink-800 border border-gp-ink-700 w-fit text-amber-400">
+                <div className="p-2.5 rounded-xl bg-gp-ink-800 border border-gp-ink-700 w-fit text-hue-amber-400">
                   <ShieldAlert className="w-8 h-8" />
                 </div>
                 <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
@@ -1658,7 +1658,7 @@ function CatalogPageContent() {
             <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-4 py-2.5">
               <button
                 onClick={() => setActiveMenuKey("home")}
-                className="text-xs font-bold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
+                className="text-xs font-bold text-gp-ink-300 hover:text-hue-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda Utama</span>
@@ -1668,7 +1668,7 @@ function CatalogPageContent() {
 
             <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6">
               <div className="space-y-2 border-b border-gp-ink-700 pb-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/30 text-violet-400 text-xs font-bold">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-hue-violet-500/10 border border-hue-violet-500/30 text-hue-violet-400 text-xs font-bold">
                   <User className="w-3.5 h-3.5" />
                   <span>Profil & Cerita Penulis</span>
                 </div>
@@ -1680,7 +1680,7 @@ function CatalogPageContent() {
 
               {/* Part 1: Latar Belakang */}
               <div className="space-y-3">
-                <h3 className="text-base font-bold text-emerald-400 uppercase tracking-wider">
+                <h3 className="text-base font-bold text-hue-emerald-400 uppercase tracking-wider">
                   PART 1 | LATAR BELAKANG
                 </h3>
                 <div className="bg-gp-ink-950 p-5 rounded-2xl border border-gp-ink-700 text-xs text-gp-ink-200 leading-relaxed space-y-3">
@@ -1707,7 +1707,7 @@ function CatalogPageContent() {
                   href={consult.youtubeUrl || CONSULTATION_DATA.youtubeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/20 font-bold text-xs transition-colors flex items-center gap-1.5"
+                  className="px-3 py-1.5 rounded-lg bg-hue-red-500/10 border border-hue-red-500/30 text-hue-red-400 hover:bg-hue-red-500/20 font-bold text-xs transition-colors flex items-center gap-1.5"
                 >
                   <span>YouTube GrayPlasma</span>
                   <ExternalLink className="w-3 h-3" />
@@ -1726,7 +1726,7 @@ function CatalogPageContent() {
             <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-4 py-2.5">
               <button
                 onClick={() => setActiveMenuKey("home")}
-                className="text-xs font-bold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
+                className="text-xs font-bold text-gp-ink-300 hover:text-hue-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda Utama</span>
@@ -1736,7 +1736,7 @@ function CatalogPageContent() {
 
             <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6">
               <div className="space-y-2 border-b border-gp-ink-700 pb-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-hue-cyan-500/10 border border-hue-cyan-500/30 text-hue-cyan-400 text-xs font-bold">
                   <BookOpen className="w-3.5 h-3.5" />
                   <span>Data Pengetesan GrayPlasma</span>
                 </div>
@@ -1750,7 +1750,7 @@ function CatalogPageContent() {
               <div className="space-y-5">
                 {HOW_TO_READ_GLOSSARY.sections.map((sec, idx) => (
                   <div key={idx} className="bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3">
-                    <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-wider">
+                    <h3 className="text-sm font-bold text-hue-emerald-400 uppercase tracking-wider">
                       {sec.title}
                     </h3>
                     <div className="text-xs text-gp-ink-200 leading-relaxed whitespace-pre-line">
@@ -1762,7 +1762,7 @@ function CatalogPageContent() {
 
               {/* Case Study Box */}
               <div className="bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3">
-                <h3 className="text-sm font-bold text-amber-400 uppercase tracking-wider">
+                <h3 className="text-sm font-bold text-hue-amber-400 uppercase tracking-wider">
                   Contoh Studi Kasus: Skyworth H27G30Q & Acer EK251Q Ebi
                 </h3>
                 <div className="text-xs text-gp-ink-200 leading-relaxed space-y-2">
@@ -1772,7 +1772,7 @@ function CatalogPageContent() {
                   <p>
                     - <strong>Acer EK251Q Ebi:</strong> Data sRGB akurat tapi tidak nyaman dipakai harian karena fitur Ultra Sharpness dipaksa selalu On.
                   </p>
-                  <p className="text-emerald-400 font-bold pt-1">
+                  <p className="text-hue-emerald-400 font-bold pt-1">
                     Solusi: Selalu tanyakan ke Joel Gray sebelum checkout agar tidak salah memilih!
                   </p>
                 </div>
@@ -1790,7 +1790,7 @@ function CatalogPageContent() {
             <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-4 py-2.5">
               <button
                 onClick={() => setActiveMenuKey("home")}
-                className="text-xs font-bold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
+                className="text-xs font-bold text-gp-ink-300 hover:text-hue-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda Utama</span>
@@ -1799,7 +1799,7 @@ function CatalogPageContent() {
             </div>
 
             <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6 text-center">
-              <div className="w-16 h-16 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-400 flex items-center justify-center mx-auto">
+              <div className="w-16 h-16 rounded-2xl bg-hue-rose-500/10 border border-hue-rose-500/30 text-hue-rose-400 flex items-center justify-center mx-auto">
                 <Heart className="w-8 h-8" />
               </div>
 
@@ -1815,7 +1815,7 @@ function CatalogPageContent() {
               {/* QRIS Placeholder Container */}
               <div className="bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-6 max-w-sm mx-auto space-y-4">
                 <div className="w-48 h-48 bg-gp-ink-800 border border-gp-ink-600 rounded-xl mx-auto flex flex-col items-center justify-center text-center p-4">
-                  <QrCode className="w-16 h-16 text-emerald-400 mb-2" />
+                  <QrCode className="w-16 h-16 text-hue-emerald-400 mb-2" />
                   <span className="text-xs font-bold text-white">QRIS All Payment</span>
                   <span className="text-3xs text-gp-ink-400">Gopay / OVO / Dana / BCA</span>
                 </div>
@@ -1842,7 +1842,7 @@ function CatalogPageContent() {
             <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-4 py-2.5">
               <button
                 onClick={() => setActiveMenuKey("home")}
-                className="text-xs font-bold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
+                className="text-xs font-bold text-gp-ink-300 hover:text-hue-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda Utama</span>
@@ -1874,7 +1874,7 @@ function CatalogPageContent() {
                   </span>
                   {filterState.searchQuery && (
                     <span className="text-xs text-gp-ink-300">
-                      untuk &ldquo;<span className="text-emerald-400">{filterState.searchQuery}</span>&rdquo;
+                      untuk &ldquo;<span className="text-hue-emerald-400">{filterState.searchQuery}</span>&rdquo;
                     </span>
                   )}
                 </div>
@@ -1886,12 +1886,12 @@ function CatalogPageContent() {
                     onClick={() => setIsMobileDrawerOpen(true)}
                     className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-colors flex items-center gap-1.5 border ${
                       activeFilterCount > 0
-                        ? "bg-emerald-500/15 border-emerald-500/60 text-emerald-300 shadow-tech-subtle"
+                        ? "bg-hue-emerald-500/15 border-hue-emerald-500/60 text-hue-emerald-300 shadow-tech-subtle"
                         : "bg-gp-ink-800 border-gp-ink-700 text-gp-ink-200 hover:text-white hover:border-gp-ink-600"
                     }`}
                     title="Buka panel parameter filter"
                   >
-                    <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
+                    <SlidersHorizontal className="w-3.5 h-3.5 text-hue-emerald-400" />
                     <span>[ PARAMETER & FILTER {activeFilterCount > 0 ? `(${activeFilterCount})` : ""} ]</span>
                   </button>
 
@@ -1902,7 +1902,7 @@ function CatalogPageContent() {
                       onClick={() => handleSetViewMode("grid")}
                       className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-colors ${
                         viewMode === "grid"
-                          ? "bg-gp-ink-700 text-emerald-400 shadow-sm"
+                          ? "bg-gp-ink-700 text-hue-emerald-400 shadow-sm"
                           : "text-gp-ink-300 hover:text-white"
                       }`}
                     >
@@ -1913,7 +1913,7 @@ function CatalogPageContent() {
                       onClick={() => handleSetViewMode("table")}
                       className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-colors ${
                         viewMode === "table"
-                          ? "bg-gp-ink-700 text-emerald-400 shadow-sm"
+                          ? "bg-gp-ink-700 text-hue-emerald-400 shadow-sm"
                           : "text-gp-ink-300 hover:text-white"
                       }`}
                     >
@@ -1931,7 +1931,7 @@ function CatalogPageContent() {
                           sortBy: e.target.value as FilterState["sortBy"],
                         }))
                       }
-                      className="bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-white focus:outline-none focus:border-emerald-500 cursor-pointer"
+                      className="bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-white focus:outline-none focus:border-hue-emerald-500 cursor-pointer"
                     >
                       <option value="tier">Tier Rekomendasi</option>
                       <option value="price-asc">Harga Termurah</option>
@@ -2021,7 +2021,7 @@ function CatalogPageContent() {
             <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-4 py-2.5">
               <button
                 onClick={() => setActiveMenuKey("home")}
-                className="text-xs font-bold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
+                className="text-xs font-bold text-gp-ink-300 hover:text-hue-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda Utama</span>
@@ -2033,7 +2033,7 @@ function CatalogPageContent() {
             <div className="space-y-4">
               <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6">
                 <div className="flex items-center gap-2.5 mb-2">
-                  <LayoutGrid className="w-5 h-5 text-amber-400" />
+                  <LayoutGrid className="w-5 h-5 text-hue-amber-400" />
                   <h2 className="text-lg font-black text-white uppercase tracking-tight">
                     Panduan Ukuran Meja vs Ukuran Monitor (Ergonomi Jarak Pandang)
                   </h2>
@@ -2050,7 +2050,7 @@ function CatalogPageContent() {
                     className="bg-gp-ink-950 border border-gp-ink-700/90 rounded-2xl p-5 space-y-4 flex flex-col justify-between"
                   >
                     <div className="space-y-2.5">
-                      <span className="text-3xs font-black uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
+                      <span className="text-3xs font-black uppercase tracking-wider text-hue-emerald-400 bg-hue-emerald-500/10 px-2 py-0.5 rounded border border-hue-emerald-500/30">
                         {guide.recommendedSizes}
                       </span>
                       <h3 className="text-base font-black text-white">{guide.deskDepth}</h3>
@@ -2090,7 +2090,7 @@ function CatalogPageContent() {
             <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-4 py-2.5">
               <button
                 onClick={() => setActiveMenuKey("home")}
-                className="text-xs font-bold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
+                className="text-xs font-bold text-gp-ink-300 hover:text-hue-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda Utama</span>
@@ -2100,7 +2100,7 @@ function CatalogPageContent() {
 
             <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6">
               <div className="flex items-center gap-2.5 mb-2">
-                <SunMedium className="w-5 h-5 text-rose-400" />
+                <SunMedium className="w-5 h-5 text-hue-rose-400" />
                 <h2 className="text-lg font-black text-white uppercase tracking-tight">
                   Edukasi Monitor HDR: True HDR vs Fake DisplayHDR 400
                 </h2>
@@ -2115,18 +2115,18 @@ function CatalogPageContent() {
                 <div
                   key={idx}
                   className={`bg-gp-ink-950 border rounded-2xl p-5 space-y-4 flex flex-col justify-between ${hdr.tier === "TRUE HDR"
-                      ? "border-emerald-500/50 shadow-tech-card"
+                      ? "border-hue-emerald-500/50 shadow-tech-card"
                       : hdr.tier === "DECENT HDR"
-                        ? "border-amber-500/40"
+                        ? "border-hue-amber-500/40"
                         : "border-gp-ink-700"
                     }`}
                 >
                   <div className="space-y-3">
                     <span
                       className={`text-3xs font-black px-2 py-0.5 rounded uppercase tracking-wider ${hdr.tier === "TRUE HDR"
-                          ? "bg-emerald-500 text-black"
+                          ? "bg-hue-emerald-500 text-black"
                           : hdr.tier === "DECENT HDR"
-                            ? "bg-amber-500 text-black"
+                            ? "bg-hue-amber-500 text-black"
                             : "bg-gp-ink-700 text-gp-ink-300"
                         }`}
                     >
@@ -2150,7 +2150,7 @@ function CatalogPageContent() {
                     <div className="space-y-1">
                       {hdr.models.map((m, i) => (
                         <div key={i} className="text-gp-ink-200 flex items-center gap-1.5 text-2xs">
-                          <span className="w-1 h-1 bg-emerald-400 rounded-full" />
+                          <span className="w-1 h-1 bg-hue-emerald-400 rounded-full" />
                           <span>{m}</span>
                         </div>
                       ))}
@@ -2171,7 +2171,7 @@ function CatalogPageContent() {
             <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-4 py-2.5">
               <button
                 onClick={() => setActiveMenuKey("home")}
-                className="text-xs font-bold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
+                className="text-xs font-bold text-gp-ink-300 hover:text-hue-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda Utama</span>
@@ -2181,7 +2181,7 @@ function CatalogPageContent() {
 
             <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6">
               <div className="flex items-center gap-2.5 mb-2">
-                <BookOpen className="w-5 h-5 text-cyan-400" />
+                <BookOpen className="w-5 h-5 text-hue-cyan-400" />
                 <h2 className="text-lg font-black text-white uppercase tracking-tight">
                   GrayNotes: Catatan Teknis & Pengujian Monitor
                 </h2>
@@ -2195,7 +2195,7 @@ function CatalogPageContent() {
               {graynotes.filter(n => n.isPublished !== false).map((note) => (
                 <div key={note.id} className="bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3.5">
                   <div className="flex items-center gap-2">
-                    <span className="text-3xs font-black uppercase text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/30">
+                    <span className="text-3xs font-black uppercase text-hue-cyan-400 bg-hue-cyan-500/10 px-2 py-0.5 rounded border border-hue-cyan-500/30">
                       {note.category}
                     </span>
                   </div>
@@ -2209,19 +2209,19 @@ function CatalogPageContent() {
                   <ul className="space-y-1.5">
                     {note.details.map((d, idx) => (
                       <li key={idx} className="text-xs text-gp-ink-300 flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-1.5 flex-shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-hue-cyan-400 mt-1.5 flex-shrink-0" />
                         <span>{d}</span>
                       </li>
                     ))}
                   </ul>
 
                   {note.warning && (
-                    <div className="p-2.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs">
+                    <div className="p-2.5 rounded-xl bg-hue-rose-500/10 border border-hue-rose-500/30 text-hue-rose-300 text-xs">
                       {note.warning}
                     </div>
                   )}
 
-                  <div className="pt-2 border-t border-gp-ink-800 text-xs text-emerald-400">
+                  <div className="pt-2 border-t border-gp-ink-800 text-xs text-hue-emerald-400">
                     <strong>Rekomendasi:</strong> {note.recommendation}
                   </div>
                 </div>
@@ -2407,7 +2407,7 @@ function CatalogPageContent() {
                 <div key={idx} className="bg-gp-ink-750 border border-gp-ink-650 rounded-2xl p-6 space-y-3 shadow-sm">
                   <div className="flex items-center justify-between">
                     <h3 className="text-base font-bold text-white flex items-center gap-2">
-                      <span className="text-emerald-400">⚡</span>
+                      <span className="text-hue-emerald-400">⚡</span>
                       <span>{item.interface}</span>
                     </h3>
                     <span className="text-xs font-mono font-bold text-gp-mint bg-gp-mint-900 px-2.5 py-1 rounded">
@@ -2445,7 +2445,7 @@ function CatalogPageContent() {
             <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-4 py-2.5">
               <button
                 onClick={() => setActiveMenuKey("home")}
-                className="text-xs font-bold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
+                className="text-xs font-bold text-gp-ink-300 hover:text-hue-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda Utama</span>
@@ -2454,7 +2454,7 @@ function CatalogPageContent() {
             </div>
 
             <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6 text-center">
-              <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto">
+              <div className="w-14 h-14 rounded-2xl bg-hue-amber-500/10 border border-hue-amber-500/30 text-hue-amber-400 flex items-center justify-center mx-auto">
                 <MessageSquare className="w-7 h-7" />
               </div>
               <div className="space-y-2">
@@ -2471,11 +2471,11 @@ function CatalogPageContent() {
                   href={consult.feedbackFormUrl || CONSULTATION_DATA.feedbackFormUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 hover:border-amber-500 hover:bg-amber-500/20 transition-colors space-y-2 group"
+                  className="p-5 rounded-2xl bg-hue-amber-500/10 border border-hue-amber-500/30 hover:border-hue-amber-500 hover:bg-hue-amber-500/20 transition-colors space-y-2 group"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-amber-400">Google Form Resmi</span>
-                    <ExternalLink className="w-3.5 h-3.5 text-gp-ink-400 group-hover:text-amber-400" />
+                    <span className="text-xs font-bold text-hue-amber-400">Google Form Resmi</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-gp-ink-400 group-hover:text-hue-amber-400" />
                   </div>
                   <h4 className="text-sm font-bold text-white">Formulir Kritik & Saran</h4>
                   <p className="text-xs text-gp-ink-300 leading-relaxed">
@@ -2487,11 +2487,11 @@ function CatalogPageContent() {
                   href={consult.discordUrl || CONSULTATION_DATA.discordUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-cyan-500/60 hover:bg-gp-ink-800 transition-colors space-y-2 group"
+                  className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-hue-cyan-500/60 hover:bg-gp-ink-800 transition-colors space-y-2 group"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-cyan-400">Forum Discord GrayPlasma</span>
-                    <ExternalLink className="w-3.5 h-3.5 text-gp-ink-400 group-hover:text-cyan-400" />
+                    <span className="text-xs font-bold text-hue-cyan-400">Forum Discord GrayPlasma</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-gp-ink-400 group-hover:text-hue-cyan-400" />
                   </div>
                   <h4 className="text-sm font-bold text-white">Saluran Saran & Diskusi</h4>
                   <p className="text-xs text-gp-ink-300 leading-relaxed">
@@ -2503,11 +2503,11 @@ function CatalogPageContent() {
                   href={consult.whatsappUrl || CONSULTATION_DATA.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-emerald-500/60 hover:bg-gp-ink-800 transition-colors space-y-2 group sm:col-span-2"
+                  className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-hue-emerald-500/60 hover:bg-gp-ink-800 transition-colors space-y-2 group sm:col-span-2"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-emerald-400">Direct Chat WhatsApp</span>
-                    <ExternalLink className="w-3.5 h-3.5 text-gp-ink-400 group-hover:text-emerald-400" />
+                    <span className="text-xs font-bold text-hue-emerald-400">Direct Chat WhatsApp</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-gp-ink-400 group-hover:text-hue-emerald-400" />
                   </div>
                   <h4 className="text-sm font-bold text-white">Chat Joel Gray (@gray1plasma)</h4>
                   <p className="text-xs text-gp-ink-300 leading-relaxed">
@@ -2528,7 +2528,7 @@ function CatalogPageContent() {
             <div className="flex items-center justify-between bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-4 py-2.5">
               <button
                 onClick={() => setActiveMenuKey("home")}
-                className="text-xs font-bold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
+                className="text-xs font-bold text-gp-ink-300 hover:text-hue-emerald-400 flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda Utama</span>
@@ -2537,7 +2537,7 @@ function CatalogPageContent() {
             </div>
 
             <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 text-center space-y-3">
-              <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto">
+              <div className="w-14 h-14 rounded-2xl bg-hue-emerald-500/10 border border-hue-emerald-500/30 text-hue-emerald-400 flex items-center justify-center mx-auto">
                 <Headphones className="w-7 h-7" />
               </div>
               <h2 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
@@ -2554,12 +2554,12 @@ function CatalogPageContent() {
                 href={consult.whatsappUrl || CONSULTATION_DATA.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-emerald-500/60 hover:bg-gp-ink-800 transition-colors text-center space-y-2 group"
+                className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-hue-emerald-500/60 hover:bg-gp-ink-800 transition-colors text-center space-y-2 group"
               >
-                <PhoneCall className="w-6 h-6 text-emerald-400 mx-auto group-hover:scale-110 transition-transform" />
+                <PhoneCall className="w-6 h-6 text-hue-emerald-400 mx-auto group-hover:scale-110 transition-transform" />
                 <h3 className="text-sm font-bold text-white">WhatsApp Langsung</h3>
                 <p className="text-xs text-gp-ink-300 font-mono">{consult.whatsapp || CONSULTATION_DATA.whatsapp}</p>
-                <span className="text-2xs font-bold text-emerald-400 block pt-1">Chat Sekarang →</span>
+                <span className="text-2xs font-bold text-hue-emerald-400 block pt-1">Chat Sekarang →</span>
               </a>
 
               {/* TikTok */}
@@ -2567,12 +2567,12 @@ function CatalogPageContent() {
                 href={consult.tiktokUrl || CONSULTATION_DATA.tiktokUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-rose-500/60 hover:bg-gp-ink-800 transition-colors text-center space-y-2 group"
+                className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-hue-rose-500/60 hover:bg-gp-ink-800 transition-colors text-center space-y-2 group"
               >
-                <Send className="w-6 h-6 text-rose-400 mx-auto group-hover:scale-110 transition-transform" />
+                <Send className="w-6 h-6 text-hue-rose-400 mx-auto group-hover:scale-110 transition-transform" />
                 <h3 className="text-sm font-bold text-white">TikTok</h3>
                 <p className="text-xs text-gp-ink-300">{consult.tiktok || CONSULTATION_DATA.tiktok}</p>
-                <span className="text-2xs font-bold text-rose-400 block pt-1">Follow & Tanya di Live →</span>
+                <span className="text-2xs font-bold text-hue-rose-400 block pt-1">Follow & Tanya di Live →</span>
               </a>
 
               {/* Discord */}
@@ -2580,12 +2580,12 @@ function CatalogPageContent() {
                 href={consult.discordUrl || CONSULTATION_DATA.discordUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-cyan-500/60 hover:bg-gp-ink-800 transition-colors text-center space-y-2 group"
+                className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-hue-cyan-500/60 hover:bg-gp-ink-800 transition-colors text-center space-y-2 group"
               >
-                <MessageSquare className="w-6 h-6 text-cyan-400 mx-auto group-hover:scale-110 transition-transform" />
+                <MessageSquare className="w-6 h-6 text-hue-cyan-400 mx-auto group-hover:scale-110 transition-transform" />
                 <h3 className="text-sm font-bold text-white">Discord Community</h3>
                 <p className="text-xs text-gp-ink-300">GrayPlasma</p>
-                <span className="text-2xs font-bold text-cyan-400 block pt-1">Join Server →</span>
+                <span className="text-2xs font-bold text-hue-cyan-400 block pt-1">Join Server →</span>
               </a>
             </div>
           </div>
@@ -2640,10 +2640,10 @@ export default function CatalogPage() {
     <Suspense
       fallback={
         <div className="min-h-screen bg-black flex flex-col items-center justify-center space-y-3 font-sans">
-          <div className="p-3 rounded-2xl bg-gp-ink-800 border border-gp-ink-700 text-emerald-400 animate-pulse">
+          <div className="p-3 rounded-2xl bg-gp-ink-800 border border-gp-ink-700 text-hue-emerald-400 animate-pulse">
             <Tv className="w-8 h-8" />
           </div>
-          <p className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">
+          <p className="text-xs font-mono font-bold text-hue-emerald-400 uppercase tracking-widest">
             Memuat Katalog GrayPlasma...
           </p>
         </div>

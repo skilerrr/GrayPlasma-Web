@@ -59,7 +59,7 @@ export function PeripheralSidePanel({ peripheral, isOpen, onClose }: PeripheralS
                 href={buyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold transition-colors flex items-center gap-1.5 shadow-tech-subtle"
+                className="px-3 py-1.5 rounded-lg bg-hue-orange-500 hover:bg-hue-orange-600 text-white text-xs font-bold transition-colors flex items-center gap-1.5 shadow-tech-subtle"
               >
                 <ShoppingBag className="w-3.5 h-3.5" />
                 <span>Beli di {platform}</span>
@@ -88,14 +88,14 @@ export function PeripheralSidePanel({ peripheral, isOpen, onClose }: PeripheralS
               {peripheral.name}
             </h2>
             <div className="flex flex-wrap items-center gap-2 pt-1">
-              <span className="px-2.5 py-0.5 rounded-lg text-xs font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+              <span className="px-2.5 py-0.5 rounded-lg text-xs font-bold bg-hue-cyan-500/10 text-hue-cyan-400 border border-hue-cyan-500/30">
                 {peripheral.category}
               </span>
               <span className="px-2.5 py-0.5 rounded-lg text-xs font-bold bg-gp-ink-700 text-gp-ink-200 border border-gp-ink-600">
                 Brand: {peripheral.brand}
               </span>
               {peripheral.warranty && (
-                <span className="px-2.5 py-0.5 rounded-lg text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                <span className="px-2.5 py-0.5 rounded-lg text-xs font-bold bg-hue-emerald-500/10 text-hue-emerald-400 border border-hue-emerald-500/30 flex items-center gap-1">
                   <ShieldCheck className="w-3 h-3" />
                   <span>Garansi {peripheral.warranty}</span>
                 </span>
@@ -121,7 +121,7 @@ export function PeripheralSidePanel({ peripheral, isOpen, onClose }: PeripheralS
 
             <div className="grid grid-cols-12 gap-2 items-center py-1 border-t border-gp-ink-700/60 pt-2">
               <span className="col-span-5 text-gp-ink-400 font-medium">Kisaran Harga</span>
-              <div className="col-span-7 font-mono font-black text-cyan-400 text-base">
+              <div className="col-span-7 font-mono font-black text-hue-cyan-400 text-base">
                 {peripheral.price > 0 ? formatRupiah(peripheral.price) : "Cek Toko"}
               </div>
             </div>
@@ -129,9 +129,9 @@ export function PeripheralSidePanel({ peripheral, isOpen, onClose }: PeripheralS
 
           {/* Verdict Box */}
           {peripheral.verdict && (
-            <div className="p-4 sm:p-5 rounded-2xl bg-cyan-950/20 border border-cyan-500/30 text-xs text-cyan-200 space-y-2">
-              <div className="flex items-center gap-1.5 font-bold text-cyan-400 uppercase tracking-wider text-2xs">
-                <Sparkles className="w-4 h-4 text-cyan-400" />
+            <div className="p-4 sm:p-5 rounded-2xl bg-hue-cyan-950/20 border border-hue-cyan-500/30 text-xs text-hue-cyan-200 space-y-2">
+              <div className="flex items-center gap-1.5 font-bold text-hue-cyan-400 uppercase tracking-wider text-2xs">
+                <Sparkles className="w-4 h-4 text-hue-cyan-400" />
                 <span>Verdict Pengujian Lab GrayPlasma:</span>
               </div>
               <p className="leading-relaxed text-gp-ink-100">{peripheral.verdict}</p>

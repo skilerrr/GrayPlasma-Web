@@ -53,7 +53,7 @@ export function Footer() {
               <div>
                 <span className="font-black text-white text-base tracking-tight uppercase block">
                   {(siteSettings.brandName || "GRAYPLASMA ID").replace(/\s*ID$/i, "")}{" "}
-                  <span className="text-orange-500 font-mono">ID</span>
+                  <span className="text-hue-orange-500 font-mono">ID</span>
                 </span>
                 <span className="text-2xs text-gp-ink-300">
                   {siteSettings.brandTagline || "Rekomendasi & Kurasi Monitor"}
@@ -76,27 +76,27 @@ export function Footer() {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link href="/" className="hover:text-emerald-400 transition-colors">
+                <Link href="/" className="hover:text-hue-emerald-400 transition-colors">
                   Tabel Database Utama
                 </Link>
               </li>
               <li>
-                <Link href="/guide/sdr/glossary" className="hover:text-emerald-400 transition-colors">
+                <Link href="/guide/sdr/glossary" className="hover:text-hue-emerald-400 transition-colors">
                   List SDR GrayPlasma Review
                 </Link>
               </li>
               <li>
-                <Link href="/guide/oled/panduan-perawatan" className="hover:text-emerald-400 transition-colors">
+                <Link href="/guide/oled/panduan-perawatan" className="hover:text-hue-emerald-400 transition-colors">
                   List OLED & Flagship
                 </Link>
               </li>
               <li>
-                <Link href="/guide/setup/meja-ergonomi" className="hover:text-emerald-400 transition-colors">
+                <Link href="/guide/setup/meja-ergonomi" className="hover:text-hue-emerald-400 transition-colors">
                   Rekomendasi Meja & Arm
                 </Link>
               </li>
               <li>
-                <Link href="/guide/brand/aftersales-rma" className="hover:text-emerald-400 transition-colors">
+                <Link href="/guide/brand/aftersales-rma" className="hover:text-hue-emerald-400 transition-colors">
                   Aftersales Brand Tier List
                 </Link>
               </li>
@@ -106,42 +106,42 @@ export function Footer() {
           {/* Column 3: Panduan & Sub-Path Guides (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-              <BookOpen className="w-3.5 h-3.5 text-cyan-400" />
+              <BookOpen className="w-3.5 h-3.5 text-hue-cyan-400" />
               <span>Panduan & Edukasi (/guide/...)</span>
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link href="/guide/sdr/glossary" className="hover:text-cyan-400 transition-colors flex items-center gap-1">
+                <Link href="/guide/sdr/glossary" className="hover:text-hue-cyan-400 transition-colors flex items-center gap-1">
                   <span>•</span>
                   <span>Cara Baca Delta E (deITP)</span>
                 </Link>
               </li>
               <li>
-                <Link href="/guide/warna/akurasi-d65-p3" className="hover:text-cyan-400 transition-colors flex items-center gap-1">
+                <Link href="/guide/warna/akurasi-d65-p3" className="hover:text-hue-cyan-400 transition-colors flex items-center gap-1">
                   <span>•</span>
                   <span>Akurasi D65-P3 vs Rec.2020</span>
                 </Link>
               </li>
               <li>
-                <Link href="/guide/brand/odm-layak-dibeli" className="hover:text-cyan-400 transition-colors flex items-center gap-1">
+                <Link href="/guide/brand/odm-layak-dibeli" className="hover:text-hue-cyan-400 transition-colors flex items-center gap-1">
                   <span>•</span>
                   <span>Brand ODM Layak Dibeli?</span>
                 </Link>
               </li>
               <li>
-                <Link href="/guide/display/bandwidth-dp-hdmi" className="hover:text-cyan-400 transition-colors flex items-center gap-1">
+                <Link href="/guide/display/bandwidth-dp-hdmi" className="hover:text-hue-cyan-400 transition-colors flex items-center gap-1">
                   <span>•</span>
                   <span>Bandwidth DP 1.4 vs HDMI 2.1</span>
                 </Link>
               </li>
               <li>
-                <Link href="/guide/oled/panduan-perawatan" className="hover:text-cyan-400 transition-colors flex items-center gap-1">
+                <Link href="/guide/oled/panduan-perawatan" className="hover:text-hue-cyan-400 transition-colors flex items-center gap-1">
                   <span>•</span>
                   <span>Perawatan OLED & Burn-in</span>
                 </Link>
               </li>
               <li>
-                <Link href="/guide/faq/toleransi-lama-baru" className="hover:text-cyan-400 transition-colors flex items-center gap-1">
+                <Link href="/guide/faq/toleransi-lama-baru" className="hover:text-hue-cyan-400 transition-colors flex items-center gap-1">
                   <span>•</span>
                   <span>Toleransi Baru (5 RGB) GrayPlasma</span>
                 </Link>
@@ -152,7 +152,7 @@ export function Footer() {
           {/* Column 4: Konsultasi & Komunitas (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-              <PhoneCall className="w-3.5 h-3.5 text-emerald-400" />
+              <PhoneCall className="w-3.5 h-3.5 text-hue-emerald-400" />
               <span>Konsultasi & Komunitas</span>
             </h4>
             <ul className="space-y-2 text-xs">
@@ -161,9 +161,9 @@ export function Footer() {
                   href={consult.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-emerald-400 transition-colors flex items-center gap-1.5"
+                  className="hover:text-hue-emerald-400 transition-colors flex items-center gap-1.5"
                 >
-                  <PhoneCall className="w-3 h-3 text-emerald-400" />
+                  <PhoneCall className="w-3 h-3 text-hue-emerald-400" />
                   <span>WhatsApp: {consult.whatsapp} ({consult.author?.split(" ")[0] || "Joel Gray"})</span>
                 </a>
               </li>
@@ -172,9 +172,9 @@ export function Footer() {
                   href={consult.discordUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-cyan-400 transition-colors flex items-center gap-1.5"
+                  className="hover:text-hue-cyan-400 transition-colors flex items-center gap-1.5"
                 >
-                  <MessageSquare className="w-3 h-3 text-cyan-400" />
+                  <MessageSquare className="w-3 h-3 text-hue-cyan-400" />
                   <span>Discord Komunitas GrayPlasma Official</span>
                 </a>
               </li>
@@ -183,9 +183,9 @@ export function Footer() {
                   href={consult.tiktokUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-rose-400 transition-colors flex items-center gap-1.5"
+                  className="hover:text-hue-rose-400 transition-colors flex items-center gap-1.5"
                 >
-                  <Send className="w-3 h-3 text-rose-400" />
+                  <Send className="w-3 h-3 text-hue-rose-400" />
                   <span>TikTok: {consult.tiktok}</span>
                 </a>
               </li>
@@ -194,9 +194,9 @@ export function Footer() {
                   href={consult.youtubeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-red-400 transition-colors flex items-center gap-1.5"
+                  className="hover:text-hue-red-400 transition-colors flex items-center gap-1.5"
                 >
-                  <ExternalLink className="w-3 h-3 text-red-400" />
+                  <ExternalLink className="w-3 h-3 text-hue-red-400" />
                   <span>YouTube GrayPlasma</span>
                 </a>
               </li>
@@ -205,7 +205,7 @@ export function Footer() {
                   href={consult.feedbackFormUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500 hover:text-black font-semibold transition-colors text-2xs"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-hue-amber-500/10 border border-hue-amber-500/30 text-hue-amber-400 hover:bg-hue-amber-500 hover:text-black font-semibold transition-colors text-2xs"
                 >
                   <span>Form Kritik & Saran</span>
                   <ExternalLink className="w-2.5 h-2.5" />
@@ -218,7 +218,7 @@ export function Footer() {
         {/* Disclaimer Callout */}
         <div className="p-4 sm:p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700/80 text-xs text-gp-ink-300 space-y-1.5">
           <div className="flex items-center gap-2 text-gp-ink-200 font-bold text-2xs uppercase tracking-wider">
-            <Info className="w-4 h-4 text-amber-400 flex-shrink-0" />
+            <Info className="w-4 h-4 text-hue-amber-400 flex-shrink-0" />
             <span>Ketentuan & Disclaimer Pengujian</span>
           </div>
           <p className="leading-relaxed text-gp-ink-300">
@@ -235,7 +235,7 @@ export function Footer() {
           {/* Watermark / Credit — "built, and developed by @skylerr" */}
           <div className="flex items-center gap-1.5 text-gp-ink-400 text-center">
             <span className="text-gp-ink-500">built, and developed by</span>
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-gp-ink-900 border border-gp-ink-700 font-mono text-2xs text-emerald-400 hover:border-emerald-500/50 hover:text-emerald-300 transition-colors">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-gp-ink-900 border border-gp-ink-700 font-mono text-2xs text-hue-emerald-400 hover:border-hue-emerald-500/50 hover:text-hue-emerald-300 transition-colors">
               <span className="text-gp-ink-500">&lt;</span>@skylerr<span className="text-gp-ink-500">&gt;</span>
             </span>
           </div>

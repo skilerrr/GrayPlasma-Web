@@ -76,7 +76,7 @@ export function MonitorComparatorTray({
                       e.stopPropagation();
                       onRemovePin(m.slug || m.id);
                     }}
-                    className="p-1 text-gp-ink-300 hover:text-rose-400 transition-colors"
+                    className="p-1 text-gp-ink-300 hover:text-hue-rose-400 transition-colors"
                     title="Hapus"
                   >
                     <X className="w-3 h-3" />
@@ -98,7 +98,7 @@ export function MonitorComparatorTray({
               variant="cyber"
               size="sm"
               onClick={() => onOpenChange(true)}
-              className="bg-emerald-500 text-gp-ink-950 font-bold hover:bg-emerald-400 text-xs px-3 sm:px-4 py-2 border border-emerald-400/50 shadow-sm"
+              className="bg-hue-emerald-500 text-gp-ink-950 font-bold hover:bg-hue-emerald-400 text-xs px-3 sm:px-4 py-2 border border-hue-emerald-400/50 shadow-sm"
             >
               Bandingkan Head-to-Head
             </Button>
@@ -129,7 +129,7 @@ export function MonitorComparatorTray({
 
             <button
               onClick={onClearAll}
-              className="text-xs text-gp-ink-300 hover:text-rose-400 flex items-center gap-1 transition-colors"
+              className="text-xs text-gp-ink-300 hover:text-hue-rose-400 flex items-center gap-1 transition-colors"
             >
               <RotateCcw className="w-3 h-3" />
               <span>Reset Pilihan</span>
@@ -152,7 +152,7 @@ export function MonitorComparatorTray({
                 >
                   <button
                     onClick={() => onRemovePin(m.slug || m.id)}
-                    className="absolute top-3 right-3 p-1 rounded-lg bg-black/60 text-gp-ink-300 hover:text-rose-400 border border-gp-ink-700 transition-colors"
+                    className="absolute top-3 right-3 p-1 rounded-lg bg-black/60 text-gp-ink-300 hover:text-hue-rose-400 border border-gp-ink-700 transition-colors"
                     title="Hapus monitor ini"
                   >
                     <X className="w-3.5 h-3.5" />

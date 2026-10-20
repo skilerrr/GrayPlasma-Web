@@ -249,7 +249,7 @@ export function ArmBracketStudio({
               onClick={() => handleTogglePublish(p)}
               className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-colors ${
                 isLive
-                  ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20"
+                  ? "bg-hue-emerald-500/10 text-hue-emerald-400 border border-hue-emerald-500/30 hover:bg-hue-emerald-500/20"
                   : "bg-gp-ink-700/80 text-gp-ink-300 border border-gp-ink-600 hover:text-white"
               }`}
               title={isLive ? "Klik untuk jadikan Draft (Sembunyikan)" : "Klik untuk Publikasikan (Aktif)"}
@@ -293,7 +293,7 @@ export function ArmBracketStudio({
         category: "Identitas",
         getValue: (p) => p.category,
         renderCell: (p) => (
-          <span className="px-2 py-0.5 rounded text-3xs font-mono font-bold bg-gp-ink-800 border border-gp-ink-700 text-cyan-400">
+          <span className="px-2 py-0.5 rounded text-3xs font-mono font-bold bg-gp-ink-800 border border-gp-ink-700 text-hue-cyan-400">
             {p.category}
           </span>
         ),
@@ -307,7 +307,7 @@ export function ArmBracketStudio({
         category: "Finansial",
         getValue: (p) => p.price,
         renderCell: (p) => (
-          <span className="font-mono font-bold text-xs text-emerald-400">
+          <span className="font-mono font-bold text-xs text-hue-emerald-400">
             {formatRupiah(p.price)}
           </span>
         ),
@@ -345,7 +345,7 @@ export function ArmBracketStudio({
         category: "Spesifikasi",
         getValue: (p) => p.recommendedFor || "",
         renderCell: (p) => (
-          <span className="text-xs text-amber-300/90 font-mono">
+          <span className="text-xs text-hue-amber-300/90 font-mono">
             {p.recommendedFor || "-"}
           </span>
         ),
@@ -376,7 +376,7 @@ export function ArmBracketStudio({
                 href={p.shopeeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-1 rounded bg-orange-500/10 text-orange-400 hover:bg-orange-500/20 border border-orange-500/30"
+                className="p-1 rounded bg-hue-orange-500/10 text-hue-orange-400 hover:bg-hue-orange-500/20 border border-hue-orange-500/30"
                 title="Buka Shopee"
               >
                 <ShoppingBag className="w-3.5 h-3.5" />
@@ -387,7 +387,7 @@ export function ArmBracketStudio({
                 href={p.tokopediaUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-1 rounded bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/30"
+                className="p-1 rounded bg-hue-emerald-500/10 text-hue-emerald-400 hover:bg-hue-emerald-500/20 border border-hue-emerald-500/30"
                 title="Buka Tokopedia"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -419,7 +419,7 @@ export function ArmBracketStudio({
             <button
               type="button"
               onClick={() => handleDuplicate(p)}
-              className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-cyan-400 hover:bg-gp-ink-700 transition-colors"
+              className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-hue-cyan-400 hover:bg-gp-ink-700 transition-colors"
               title="Duplikat Item"
             >
               <Copy className="w-3.5 h-3.5" />
@@ -427,7 +427,7 @@ export function ArmBracketStudio({
             <button
               type="button"
               onClick={() => handleDelete(p.id, p.name)}
-              className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-rose-400 hover:bg-gp-ink-700 transition-colors"
+              className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-hue-rose-400 hover:bg-gp-ink-700 transition-colors"
               title="Hapus Item"
             >
               <Trash2 className="w-3.5 h-3.5" />
@@ -458,15 +458,15 @@ export function ArmBracketStudio({
     <div className="space-y-6 animate-in fade-in duration-200">
       {/* Notice Banner */}
       {notice && (
-        <div className="p-3.5 rounded-xl bg-cyan-950/60 border border-cyan-500/40 text-cyan-200 text-xs flex items-center justify-between shadow-lg">
+        <div className="p-3.5 rounded-xl bg-hue-cyan-950/60 border border-hue-cyan-500/40 text-hue-cyan-200 text-xs flex items-center justify-between shadow-lg">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-cyan-400" />
+            <Sparkles className="w-4 h-4 text-hue-cyan-400" />
             <span className="font-bold">{notice}</span>
           </div>
           <button
             type="button"
             onClick={() => setNotice(null)}
-            className="text-cyan-400 hover:text-white text-xs font-mono"
+            className="text-hue-cyan-400 hover:text-white text-xs font-mono"
           >
             Tutup
           </button>
@@ -477,7 +477,7 @@ export function ArmBracketStudio({
       <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
+            <div className="p-2 rounded-xl bg-hue-cyan-500/10 border border-hue-cyan-500/30 text-hue-cyan-400">
               <Wrench className="w-5 h-5" />
             </div>
             <h2 className="text-xl font-black text-white tracking-tight">
@@ -521,7 +521,7 @@ export function ArmBracketStudio({
           <div className="text-xl font-black text-white">
             {armItems.length} <span className="text-xs font-normal text-gp-ink-400">Model</span>
           </div>
-          <span className="text-3xs text-emerald-400 font-mono">
+          <span className="text-3xs text-hue-emerald-400 font-mono">
             {armItems.filter((a) => a.isPublished !== false).length} Live •{" "}
             {armItems.filter((a) => a.isPublished === false).length} Draft
           </span>
@@ -531,7 +531,7 @@ export function ArmBracketStudio({
           <span className="text-3xs font-mono uppercase font-bold text-gp-ink-400">
             🗜️ Bracket & Mount
           </span>
-          <div className="text-xl font-black text-cyan-400">
+          <div className="text-xl font-black text-hue-cyan-400">
             {bracketItems.length} <span className="text-xs font-normal text-gp-ink-400">Model</span>
           </div>
           <span className="text-3xs text-gp-ink-300 font-mono">
@@ -544,7 +544,7 @@ export function ArmBracketStudio({
           <span className="text-3xs font-mono uppercase font-bold text-gp-ink-400">
             🔌 Aksesoris & Kabel
           </span>
-          <div className="text-xl font-black text-amber-400">
+          <div className="text-xl font-black text-hue-amber-400">
             {accessoryItems.length} <span className="text-xs font-normal text-gp-ink-400">Item</span>
           </div>
           <span className="text-3xs text-gp-ink-300 font-mono">
@@ -557,10 +557,10 @@ export function ArmBracketStudio({
           <span className="text-3xs font-mono uppercase font-bold text-gp-ink-400">
             🌐 Total Publikasi
           </span>
-          <div className="text-xl font-black text-emerald-400">
+          <div className="text-xl font-black text-hue-emerald-400">
             {liveCount} <span className="text-xs font-normal text-gp-ink-400">/ {peripherals.length}</span>
           </div>
-          <span className="text-3xs text-amber-400 font-mono">
+          <span className="text-3xs text-hue-amber-400 font-mono">
             {draftCount} Item Nonaktif (Hidden)
           </span>
         </div>
@@ -574,7 +574,7 @@ export function ArmBracketStudio({
             onClick={() => setSubTab("arms")}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 whitespace-nowrap ${
               subTab === "arms"
-                ? "bg-gp-ink-700 text-cyan-400 border border-cyan-500/40 shadow-sm"
+                ? "bg-gp-ink-700 text-hue-cyan-400 border border-hue-cyan-500/40 shadow-sm"
                 : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
             }`}
           >
@@ -587,7 +587,7 @@ export function ArmBracketStudio({
             onClick={() => setSubTab("brackets")}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 whitespace-nowrap ${
               subTab === "brackets"
-                ? "bg-gp-ink-700 text-emerald-400 border border-emerald-500/40 shadow-sm"
+                ? "bg-gp-ink-700 text-hue-emerald-400 border border-hue-emerald-500/40 shadow-sm"
                 : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
             }`}
           >
@@ -600,7 +600,7 @@ export function ArmBracketStudio({
             onClick={() => setSubTab("accessories")}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 whitespace-nowrap ${
               subTab === "accessories"
-                ? "bg-gp-ink-700 text-amber-400 border border-amber-500/40 shadow-sm"
+                ? "bg-gp-ink-700 text-hue-amber-400 border border-hue-amber-500/40 shadow-sm"
                 : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
             }`}
           >
@@ -628,7 +628,7 @@ export function ArmBracketStudio({
             onClick={() => setIsColManagerOpen(true)}
             className="px-3 py-1.5 rounded-xl bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-700 text-gp-ink-200 hover:text-white text-xs font-medium flex items-center gap-1.5 transition-colors"
           >
-            <SlidersHorizontal className="w-3.5 h-3.5 text-cyan-400" />
+            <SlidersHorizontal className="w-3.5 h-3.5 text-hue-cyan-400" />
             <span>Kelola Kolom</span>
             <span className="text-3xs font-mono px-1 rounded bg-gp-ink-700 text-gp-ink-300">
               {visibleColumns.length}
@@ -670,7 +670,7 @@ export function ArmBracketStudio({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Cari model, tipe, catatan..."
-              className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder:text-gp-ink-400 focus:outline-none focus:border-cyan-500/50"
+              className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder:text-gp-ink-400 focus:outline-none focus:border-hue-cyan-500/50"
             />
           </div>
 
@@ -773,13 +773,13 @@ export function ArmBracketStudio({
                 className={`bg-gp-ink-950 border rounded-2xl p-5 space-y-3.5 flex flex-col justify-between transition-colors ${
                   !isLive
                     ? "border-gp-ink-750 opacity-70 bg-gp-ink-950/40"
-                    : "border-gp-ink-700 hover:border-cyan-500/40"
+                    : "border-gp-ink-700 hover:border-hue-cyan-500/40"
                 }`}
               >
                 <div className="space-y-2.5">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-3xs font-mono font-bold uppercase px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+                      <span className="text-3xs font-mono font-bold uppercase px-2 py-0.5 rounded bg-hue-cyan-500/10 text-hue-cyan-400 border border-hue-cyan-500/30">
                         {p.category}
                       </span>
                       {p.brand && (
@@ -795,7 +795,7 @@ export function ArmBracketStudio({
                       onClick={() => handleTogglePublish(p)}
                       className={`px-2 py-0.5 rounded text-3xs font-mono font-bold flex items-center gap-1 transition-colors ${
                         isLive
-                          ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
+                          ? "bg-hue-emerald-500/15 text-hue-emerald-400 border border-hue-emerald-500/30"
                           : "bg-gp-ink-700 text-gp-ink-300 border border-gp-ink-600"
                       }`}
                       title={isLive ? "Klik untuk nonaktifkan" : "Klik untuk publikasikan"}
@@ -807,7 +807,7 @@ export function ArmBracketStudio({
 
                   <div>
                     <h4 className="text-base font-black text-white">{p.name}</h4>
-                    <div className="text-sm font-mono font-bold text-emerald-400 mt-1">
+                    <div className="text-sm font-mono font-bold text-hue-emerald-400 mt-1">
                       {formatRupiah(p.price)}
                     </div>
                   </div>
@@ -840,7 +840,7 @@ export function ArmBracketStudio({
                         href={p.shopeeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-2.5 py-1 rounded-lg bg-orange-500/10 text-orange-400 hover:bg-orange-500/20 border border-orange-500/30 text-xs font-bold flex items-center gap-1"
+                        className="px-2.5 py-1 rounded-lg bg-hue-orange-500/10 text-hue-orange-400 hover:bg-hue-orange-500/20 border border-hue-orange-500/30 text-xs font-bold flex items-center gap-1"
                       >
                         <ShoppingBag className="w-3 h-3" />
                         <span>Shopee</span>
@@ -851,7 +851,7 @@ export function ArmBracketStudio({
                         href={p.tokopediaUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/30 text-xs font-bold flex items-center gap-1"
+                        className="px-2.5 py-1 rounded-lg bg-hue-emerald-500/10 text-hue-emerald-400 hover:bg-hue-emerald-500/20 border border-hue-emerald-500/30 text-xs font-bold flex items-center gap-1"
                       >
                         <ExternalLink className="w-3 h-3" />
                         <span>Tokopedia</span>
@@ -874,7 +874,7 @@ export function ArmBracketStudio({
                     <button
                       type="button"
                       onClick={() => handleDuplicate(p)}
-                      className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-cyan-400"
+                      className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-hue-cyan-400"
                       title="Duplikat"
                     >
                       <Copy className="w-3.5 h-3.5" />
@@ -882,7 +882,7 @@ export function ArmBracketStudio({
                     <button
                       type="button"
                       onClick={() => handleDelete(p.id, p.name)}
-                      className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-rose-400"
+                      className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-hue-rose-400"
                       title="Hapus"
                     >
                       <Trash2 className="w-3.5 h-3.5" />

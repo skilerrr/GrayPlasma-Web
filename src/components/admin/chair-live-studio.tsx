@@ -178,7 +178,7 @@ export function ChairLiveStudio({
     <div className="space-y-6">
       {/* Toast Notification */}
       {notice && (
-        <div className="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-xl bg-cyan-400 text-black font-bold text-xs flex items-center gap-2 shadow-2xl animate-in slide-in-from-bottom-2">
+        <div className="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-xl bg-hue-cyan-400 text-black font-bold text-xs flex items-center gap-2 shadow-2xl animate-in slide-in-from-bottom-2">
           <CheckCircle2 className="w-4 h-4" />
           <span>{notice}</span>
         </div>
@@ -187,7 +187,7 @@ export function ChairLiveStudio({
       {/* Top Header Card */}
       <div className="p-6 rounded-2xl bg-gp-ink-900 border border-gp-ink-700 flex flex-col lg:flex-row lg:items-center justify-between gap-5 shadow-sm">
         <div className="space-y-1.5">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-bold">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-hue-cyan-500/10 border border-hue-cyan-500/30 text-hue-cyan-400 text-xs font-mono font-bold">
             <span>🪑</span>
             <span>ERGONOMIC & GAMING CHAIR STUDIO (Q2 2027)</span>
           </div>
@@ -206,8 +206,8 @@ export function ChairLiveStudio({
             onClick={handleToggleMasterVisibility}
             className={`px-3.5 py-2 rounded-xl text-xs font-mono font-bold flex items-center gap-2 border transition-colors shadow-sm ${
               isMasterLive
-                ? "bg-emerald-500/15 border-emerald-500/50 text-emerald-300 hover:bg-emerald-500/25"
-                : "bg-amber-500/15 border-amber-500/50 text-amber-300 hover:bg-amber-500/25"
+                ? "bg-hue-emerald-500/15 border-hue-emerald-500/50 text-hue-emerald-300 hover:bg-hue-emerald-500/25"
+                : "bg-hue-amber-500/15 border-hue-amber-500/50 text-hue-amber-300 hover:bg-hue-amber-500/25"
             }`}
             title="Klik untuk mengubah status visibilitas katalog kursi di halaman publik"
           >
@@ -250,12 +250,12 @@ export function ChairLiveStudio({
       <div
         className={`p-4 rounded-2xl border text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
           isMasterLive
-            ? "bg-emerald-950/30 border-emerald-500/40 text-emerald-200"
-            : "bg-amber-950/30 border-amber-500/40 text-amber-200"
+            ? "bg-hue-emerald-950/30 border-hue-emerald-500/40 text-hue-emerald-200"
+            : "bg-hue-amber-950/30 border-hue-amber-500/40 text-hue-amber-200"
         }`}
       >
         <div className="flex items-start gap-2.5">
-          <Info className={`w-4 h-4 flex-shrink-0 mt-0.5 ${isMasterLive ? "text-emerald-400" : "text-amber-400"}`} />
+          <Info className={`w-4 h-4 flex-shrink-0 mt-0.5 ${isMasterLive ? "text-hue-emerald-400" : "text-hue-amber-400"}`} />
           <div className="space-y-0.5">
             <span className="font-black uppercase tracking-wider block text-2xs">
               {isMasterLive ? "Status Katalog: Terbuka untuk Publik (Live)" : "Status Katalog: Mode Staging Aman (Tersembunyi dari Publik)"}
@@ -272,8 +272,8 @@ export function ChairLiveStudio({
           onClick={handleToggleMasterVisibility}
           className={`px-3 py-1.5 rounded-lg font-mono font-bold text-2xs border whitespace-nowrap transition-colors ${
             isMasterLive
-              ? "bg-emerald-500 text-black border-emerald-400 hover:bg-emerald-400"
-              : "bg-amber-500 text-black border-amber-400 hover:bg-amber-400"
+              ? "bg-hue-emerald-500 text-black border-hue-emerald-400 hover:bg-hue-emerald-400"
+              : "bg-hue-amber-500 text-black border-hue-amber-400 hover:bg-hue-amber-400"
           }`}
         >
           {isMasterLive ? "Ubah ke Mode Staging (Hide)" : "Buka ke Publik Sekarang (Live)"}
@@ -289,7 +289,7 @@ export function ChairLiveStudio({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Cari kursi, brand, atau bahan..."
-            className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-cyan-400"
+            className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-hue-cyan-400"
           />
         </div>
 
@@ -310,7 +310,7 @@ export function ChairLiveStudio({
               onClick={() => setCategoryFilter(cat)}
               className={`px-3 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-colors ${
                 categoryFilter === cat
-                  ? "bg-cyan-950/40 text-cyan-400 border border-cyan-500/40 font-bold"
+                  ? "bg-hue-cyan-950/40 text-hue-cyan-400 border border-hue-cyan-500/40 font-bold"
                   : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
               }`}
             >
@@ -329,7 +329,7 @@ export function ChairLiveStudio({
               key={chair.id}
               className={`bg-gp-ink-950 border rounded-2xl p-5 space-y-4 flex flex-col justify-between transition-colors ${
                 !isItemLive
-                  ? "border-amber-500/30 opacity-80 bg-gp-ink-950/60"
+                  ? "border-hue-amber-500/30 opacity-80 bg-gp-ink-950/60"
                   : "border-gp-ink-700 hover:border-gp-ink-600"
               }`}
             >
@@ -338,7 +338,7 @@ export function ChairLiveStudio({
                 <div className="flex items-start justify-between gap-3">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-3xs px-2 py-0.5 rounded bg-gp-ink-800 text-cyan-400 border border-gp-ink-700 font-mono font-bold uppercase">
+                      <span className="text-3xs px-2 py-0.5 rounded bg-gp-ink-800 text-hue-cyan-400 border border-gp-ink-700 font-mono font-bold uppercase">
                         {chair.category}
                       </span>
                       <span className="text-3xs px-2 py-0.5 rounded bg-gp-ink-800 text-gp-ink-300 border border-gp-ink-700 font-mono">
@@ -351,8 +351,8 @@ export function ChairLiveStudio({
                         onClick={() => handleToggleChairPublish(chair)}
                         className={`text-3xs px-2.5 py-0.5 rounded-full font-mono font-bold flex items-center gap-1 border transition-colors ${
                           isItemLive
-                            ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
-                            : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
+                            ? "bg-hue-emerald-500/10 text-hue-emerald-400 border-hue-emerald-500/30 hover:bg-hue-emerald-500/20"
+                            : "bg-hue-amber-500/10 text-hue-amber-400 border-hue-amber-500/30 hover:bg-hue-amber-500/20"
                         }`}
                         title={
                           isItemLive
@@ -369,7 +369,7 @@ export function ChairLiveStudio({
                   </div>
 
                   <div className="text-right">
-                    <div className="text-sm font-black text-emerald-400 font-mono">
+                    <div className="text-sm font-black text-hue-emerald-400 font-mono">
                       {formatRupiah(chair.price)}
                     </div>
                   </div>
@@ -405,8 +405,8 @@ export function ChairLiveStudio({
 
                 {/* Verdict Box */}
                 {chair.verdict && (
-                  <div className="text-xs text-gp-ink-200 bg-cyan-950/20 border border-cyan-500/20 p-3 rounded-xl leading-relaxed">
-                    <span className="text-cyan-400 font-mono font-bold text-3xs block uppercase mb-0.5">
+                  <div className="text-xs text-gp-ink-200 bg-hue-cyan-950/20 border border-hue-cyan-500/20 p-3 rounded-xl leading-relaxed">
+                    <span className="text-hue-cyan-400 font-mono font-bold text-3xs block uppercase mb-0.5">
                       Verdict GrayPlasma:
                     </span>
                     <p className="text-2xs text-gp-ink-200">{chair.verdict}</p>
@@ -422,7 +422,7 @@ export function ChairLiveStudio({
                       href={chair.shopeeUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-2 py-1 rounded bg-orange-500/10 text-orange-400 border border-orange-500/30 hover:bg-orange-500/20 transition-colors flex items-center gap-1 font-mono text-3xs"
+                      className="px-2 py-1 rounded bg-hue-orange-500/10 text-hue-orange-400 border border-hue-orange-500/30 hover:bg-hue-orange-500/20 transition-colors flex items-center gap-1 font-mono text-3xs"
                     >
                       <ShoppingBag className="w-3 h-3" />
                       <span>Shopee</span>
@@ -433,7 +433,7 @@ export function ChairLiveStudio({
                       href={chair.tokopediaUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-2 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20 transition-colors flex items-center gap-1 font-mono text-3xs"
+                      className="px-2 py-1 rounded bg-hue-emerald-500/10 text-hue-emerald-400 border border-hue-emerald-500/30 hover:bg-hue-emerald-500/20 transition-colors flex items-center gap-1 font-mono text-3xs"
                     >
                       <ExternalLink className="w-3 h-3" />
                       <span>Tokopedia</span>
@@ -448,8 +448,8 @@ export function ChairLiveStudio({
                     onClick={() => handleToggleChairPublish(chair)}
                     className={`p-1.5 rounded-lg border transition-colors ${
                       isItemLive
-                        ? "bg-gp-ink-800 border-gp-ink-700 hover:bg-amber-950/40 text-gp-ink-300 hover:text-amber-400"
-                        : "bg-amber-500/20 border-amber-500/40 text-amber-300 hover:bg-emerald-500/20 hover:text-emerald-300"
+                        ? "bg-gp-ink-800 border-gp-ink-700 hover:bg-hue-amber-950/40 text-gp-ink-300 hover:text-hue-amber-400"
+                        : "bg-hue-amber-500/20 border-hue-amber-500/40 text-hue-amber-300 hover:bg-hue-emerald-500/20 hover:text-hue-emerald-300"
                     }`}
                     title={isItemLive ? "Sembunyikan ke Staging" : "Terbitkan ke Live"}
                   >
@@ -458,7 +458,7 @@ export function ChairLiveStudio({
 
                   <button
                     onClick={() => handleStartEdit(chair)}
-                    className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-cyan-400"
+                    className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-hue-cyan-400"
                     title="Edit Spesifikasi Kursi"
                   >
                     <Edit2 className="w-3.5 h-3.5" />
@@ -466,7 +466,7 @@ export function ChairLiveStudio({
 
                   <button
                     onClick={() => handleDeleteChair(chair.id, chair.name)}
-                    className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-rose-400"
+                    className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-hue-rose-400"
                     title="Hapus Kursi"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -510,7 +510,7 @@ export function ChairLiveStudio({
                       required
                       value={editingChair.name}
                       onChange={(e) => setEditingChair({ ...editingChair, name: e.target.value })}
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white font-bold focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white font-bold focus:outline-none focus:border-hue-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
@@ -520,7 +520,7 @@ export function ChairLiveStudio({
                       required
                       value={editingChair.brand}
                       onChange={(e) => setEditingChair({ ...editingChair, brand: e.target.value })}
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                 </div>
@@ -537,7 +537,7 @@ export function ChairLiveStudio({
                           category: e.target.value as ChairItem["category"],
                         })
                       }
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-cyan-400"
                     >
                       {CHAIR_CATEGORIES.map((cat) => (
                         <option key={cat} value={cat}>
@@ -553,7 +553,7 @@ export function ChairLiveStudio({
                       required
                       value={editingChair.price}
                       onChange={(e) => setEditingChair({ ...editingChair, price: Number(e.target.value) })}
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-emerald-400 font-mono font-bold focus:outline-none focus:border-cyan-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-hue-emerald-400 font-mono font-bold focus:outline-none focus:border-hue-cyan-400"
                     />
                   </div>
                 </div>
@@ -568,7 +568,7 @@ export function ChairLiveStudio({
                       value={editingChair.lumbarSupport}
                       onChange={(e) => setEditingChair({ ...editingChair, lumbarSupport: e.target.value })}
                       placeholder="Contoh: Dynamic Self-Adaptive 3D Lumbar"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
@@ -579,7 +579,7 @@ export function ChairLiveStudio({
                       value={editingChair.armrest}
                       onChange={(e) => setEditingChair({ ...editingChair, armrest: e.target.value })}
                       placeholder="Contoh: 3D Adjustable / Flip-Up 90°"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                 </div>
@@ -594,7 +594,7 @@ export function ChairLiveStudio({
                       value={editingChair.mechanism}
                       onChange={(e) => setEditingChair({ ...editingChair, mechanism: e.target.value })}
                       placeholder="Contoh: Multi-Lock Synchro Tilt 110°-138°"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
@@ -605,7 +605,7 @@ export function ChairLiveStudio({
                       value={editingChair.gasLift}
                       onChange={(e) => setEditingChair({ ...editingChair, gasLift: e.target.value })}
                       placeholder="Contoh: Class 4 TÜV Certified / Class 3"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                 </div>
@@ -619,7 +619,7 @@ export function ChairLiveStudio({
                       value={editingChair.material}
                       onChange={(e) => setEditingChair({ ...editingChair, material: e.target.value })}
                       placeholder="Contoh: High Elastic Wintex Mesh"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
@@ -629,7 +629,7 @@ export function ChairLiveStudio({
                       value={editingChair.recommendedHeight}
                       onChange={(e) => setEditingChair({ ...editingChair, recommendedHeight: e.target.value })}
                       placeholder="Contoh: 160 cm - 185 cm"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
@@ -639,7 +639,7 @@ export function ChairLiveStudio({
                       value={editingChair.maxWeightCapacity}
                       onChange={(e) => setEditingChair({ ...editingChair, maxWeightCapacity: e.target.value })}
                       placeholder="Contoh: 130 kg"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                 </div>
@@ -653,7 +653,7 @@ export function ChairLiveStudio({
                       value={editingChair.warranty}
                       onChange={(e) => setEditingChair({ ...editingChair, warranty: e.target.value })}
                       placeholder="Contoh: 2 Tahun Sparepart & Hidrolik"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
@@ -663,7 +663,7 @@ export function ChairLiveStudio({
                       value={editingChair.shopeeUrl || ""}
                       onChange={(e) => setEditingChair({ ...editingChair, shopeeUrl: e.target.value })}
                       placeholder="https://shopee.co.id/..."
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
@@ -673,7 +673,7 @@ export function ChairLiveStudio({
                       value={editingChair.tokopediaUrl || ""}
                       onChange={(e) => setEditingChair({ ...editingChair, tokopediaUrl: e.target.value })}
                       placeholder="https://tokopedia.com/..."
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-cyan-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                 </div>
@@ -686,7 +686,7 @@ export function ChairLiveStudio({
                     value={editingChair.verdict}
                     onChange={(e) => setEditingChair({ ...editingChair, verdict: e.target.value })}
                     placeholder="Kelebihan utama dan pertimbangan sebelum membeli..."
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-white focus:outline-none focus:border-cyan-400 leading-relaxed placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-white focus:outline-none focus:border-hue-cyan-400 leading-relaxed placeholder:text-gp-ink-400"
                   />
                 </div>
 
@@ -697,7 +697,7 @@ export function ChairLiveStudio({
                     value={editingChair.notes}
                     onChange={(e) => setEditingChair({ ...editingChair, notes: e.target.value })}
                     placeholder="Misal: Dudukan mesh agak keras di awal, butuh waktu adaptasi..."
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:outline-none focus:border-cyan-400 leading-relaxed placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:outline-none focus:border-hue-cyan-400 leading-relaxed placeholder:text-gp-ink-400"
                   />
                 </div>
 
@@ -708,7 +708,7 @@ export function ChairLiveStudio({
                       type="checkbox"
                       checked={editingChair.isPublished !== false}
                       onChange={(e) => setEditingChair({ ...editingChair, isPublished: e.target.checked })}
-                      className="rounded border-gp-ink-500 bg-gp-ink-700 text-cyan-500 focus:ring-cyan-500 w-4 h-4"
+                      className="rounded border-gp-ink-500 bg-gp-ink-700 text-hue-cyan-500 focus:ring-hue-cyan-500 w-4 h-4"
                     />
                     <div>
                       <span className="text-white text-xs font-bold block">Status: Siap Terbit (Live)</span>
@@ -735,7 +735,7 @@ export function ChairLiveStudio({
                   type="submit"
                   variant="cyber"
                   size="sm"
-                  className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold flex items-center gap-1.5"
+                  className="bg-hue-cyan-500 hover:bg-hue-cyan-400 text-black font-bold flex items-center gap-1.5"
                 >
                   <Save className="w-3.5 h-3.5" />
                   <span>Simpan Rekomendasi Kursi</span>

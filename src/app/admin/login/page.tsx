@@ -110,12 +110,12 @@ export default function AdminLoginPage() {
       <div className="max-w-md w-full bg-gp-ink-900 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl relative z-10">
         <div className="space-y-3 text-center border-b border-gp-ink-700 pb-5">
           <div className="flex items-center justify-center gap-2">
-            <span className="px-2.5 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-650 text-emerald-400 font-mono text-3xs font-bold uppercase tracking-wider">
+            <span className="px-2.5 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-650 text-hue-emerald-400 font-mono text-3xs font-bold uppercase tracking-wider">
               Admin Security
             </span>
           </div>
 
-          <div className="w-12 h-12 rounded-xl bg-gp-ink-800 border border-gp-ink-650 text-emerald-400 flex items-center justify-center mx-auto">
+          <div className="w-12 h-12 rounded-xl bg-gp-ink-800 border border-gp-ink-650 text-hue-emerald-400 flex items-center justify-center mx-auto">
             <Lock className="w-5 h-5" />
           </div>
 
@@ -146,7 +146,7 @@ export default function AdminLoginPage() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="grayplasma"
-                className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-emerald-500 font-mono transition-colors"
+                className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-hue-emerald-500 font-mono transition-colors"
                 autoFocus
               />
             </div>
@@ -162,17 +162,17 @@ export default function AdminLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Masukkan kata sandi"
-                className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-emerald-500 font-mono transition-colors"
+                className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gp-ink-400 focus:outline-none focus:border-hue-emerald-500 font-mono transition-colors"
               />
               {error && (
-                <p className="text-xs text-rose-400 pt-1 text-center font-medium">{error}</p>
+                <p className="text-xs text-hue-rose-400 pt-1 text-center font-medium">{error}</p>
               )}
             </div>
 
             <button
               type="submit"
               disabled={isBusy}
-              className="w-full bg-emerald-500 hover:bg-emerald-600 disabled:opacity-60 text-black font-bold uppercase tracking-wider text-xs py-4 rounded-xl font-mono flex items-center justify-center gap-2 transition-colors"
+              className="w-full bg-hue-emerald-500 hover:bg-hue-emerald-600 disabled:opacity-60 text-black font-bold uppercase tracking-wider text-xs py-4 rounded-xl font-mono flex items-center justify-center gap-2 transition-colors"
             >
               <Unlock className="w-4 h-4" />
               <span>{isBusy ? "Memverifikasi..." : "Verifikasi Masuk"}</span>

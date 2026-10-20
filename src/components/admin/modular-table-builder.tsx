@@ -419,7 +419,7 @@ export function ModularTableBuilder({
       if (row.isHeaderGroup) {
         html += `
       <tr class="bg-gp-ink-800/90 border-t-2 border-b border-gp-ink-600/80">
-        <td colspan="${colCount}" class="px-4 py-2 text-2xs font-mono font-bold tracking-wider text-amber-400 uppercase">
+        <td colspan="${colCount}" class="px-4 py-2 text-2xs font-mono font-bold tracking-wider text-hue-amber-400 uppercase">
           ${row.groupTitle || "Seksi"}
         </td>
       </tr>
@@ -462,7 +462,7 @@ export function ModularTableBuilder({
         {/* Top Header */}
         <div className="h-16 px-6 bg-gp-ink-900 border-b-2 border-gp-ink-700 flex items-center justify-between flex-shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+            <div className="w-9 h-9 rounded-lg bg-hue-emerald-500/10 border border-hue-emerald-500/40 flex items-center justify-center text-hue-emerald-400">
               <TableIcon className="w-5 h-5" />
             </div>
             <div>
@@ -497,21 +497,21 @@ export function ModularTableBuilder({
             <button
               type="button"
               onClick={() => handleApplyPreset("desk")}
-              className="px-2.5 py-1 rounded bg-gp-ink-800 border border-gp-ink-600 hover:border-amber-500/60 text-amber-300 font-mono text-2xs font-semibold transition-colors"
+              className="px-2.5 py-1 rounded bg-gp-ink-800 border border-gp-ink-600 hover:border-hue-amber-500/60 text-hue-amber-300 font-mono text-2xs font-semibold transition-colors"
             >
               Uji Meja & Arm
             </button>
             <button
               type="button"
               onClick={() => handleApplyPreset("monitor")}
-              className="px-2.5 py-1 rounded bg-gp-ink-800 border border-gp-ink-600 hover:border-cyan-500/60 text-cyan-300 font-mono text-2xs font-semibold transition-colors"
+              className="px-2.5 py-1 rounded bg-gp-ink-800 border border-gp-ink-600 hover:border-hue-cyan-500/60 text-hue-cyan-300 font-mono text-2xs font-semibold transition-colors"
             >
               Lab Monitor GrayPlasma
             </button>
             <button
               type="button"
               onClick={() => handleApplyPreset("comparison")}
-              className="px-2.5 py-1 rounded bg-gp-ink-800 border border-gp-ink-600 hover:border-violet-500/60 text-violet-300 font-mono text-2xs font-semibold transition-colors"
+              className="px-2.5 py-1 rounded bg-gp-ink-800 border border-gp-ink-600 hover:border-hue-violet-500/60 text-hue-violet-300 font-mono text-2xs font-semibold transition-colors"
             >
               [Perbandingan Model]
             </button>
@@ -531,7 +531,7 @@ export function ModularTableBuilder({
               variant="outline"
               size="sm"
               onClick={handleAddGroupHeader}
-              className="text-xs font-mono font-bold text-amber-400 border-amber-500/40 hover:bg-amber-500/10 flex items-center gap-1.5"
+              className="text-xs font-mono font-bold text-hue-amber-400 border-hue-amber-500/40 hover:bg-hue-amber-500/10 flex items-center gap-1.5"
             >
               <FolderPlus className="w-3.5 h-3.5" />
               <span>+ Seksi Hierarki</span>
@@ -541,7 +541,7 @@ export function ModularTableBuilder({
               variant="outline"
               size="sm"
               onClick={() => handleAddDataRow()}
-              className="text-xs font-mono font-bold text-emerald-400 border-emerald-500/40 hover:bg-emerald-500/10 flex items-center gap-1.5"
+              className="text-xs font-mono font-bold text-hue-emerald-400 border-hue-emerald-500/40 hover:bg-hue-emerald-500/10 flex items-center gap-1.5"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>+ Baris Data</span>
@@ -570,13 +570,13 @@ export function ModularTableBuilder({
                       type="text"
                       value={col.label}
                       onChange={(e) => handleRenameColumn(col.id, e.target.value)}
-                      className="bg-transparent text-white font-mono font-bold text-xs focus:outline-none focus:text-emerald-400 w-28 sm:w-36"
+                      className="bg-transparent text-white font-mono font-bold text-xs focus:outline-none focus:text-hue-emerald-400 w-28 sm:w-36"
                     />
                     {columns.length > 1 && (
                       <button
                         type="button"
                         onClick={() => handleDeleteColumn(col.id)}
-                        className="text-gp-ink-400 hover:text-rose-400 opacity-60 group-hover:opacity-100 p-0.5"
+                        className="text-gp-ink-400 hover:text-hue-rose-400 opacity-60 group-hover:opacity-100 p-0.5"
                         title="Hapus Kolom"
                       >
                         <Trash2 className="w-3 h-3" />
@@ -586,7 +586,7 @@ export function ModularTableBuilder({
                 ))}
 
                 {isAddingCol ? (
-                  <div className="flex items-center gap-1 bg-gp-ink-800 border border-emerald-500/50 px-2 py-0.5 rounded">
+                  <div className="flex items-center gap-1 bg-gp-ink-800 border border-hue-emerald-500/50 px-2 py-0.5 rounded">
                     <input
                       type="text"
                       autoFocus
@@ -602,7 +602,7 @@ export function ModularTableBuilder({
                     <button
                       type="button"
                       onClick={handleAddColumn}
-                      className="p-1 text-emerald-400 hover:text-emerald-300"
+                      className="p-1 text-hue-emerald-400 hover:text-hue-emerald-300"
                     >
                       <Check className="w-3.5 h-3.5" />
                     </button>
@@ -618,7 +618,7 @@ export function ModularTableBuilder({
                   <button
                     type="button"
                     onClick={() => setIsAddingCol(true)}
-                    className="px-2.5 py-1 rounded bg-gp-ink-800/80 border border-dashed border-gp-ink-600 hover:border-emerald-500 text-2xs font-mono font-semibold text-gp-ink-300 hover:text-emerald-400 flex items-center gap-1 transition-colors"
+                    className="px-2.5 py-1 rounded bg-gp-ink-800/80 border border-dashed border-gp-ink-600 hover:border-hue-emerald-500 text-2xs font-mono font-semibold text-gp-ink-300 hover:text-hue-emerald-400 flex items-center gap-1 transition-colors"
                   >
                     <Plus className="w-3 h-3" />
                     <span>+ Kolom Baru</span>
@@ -664,27 +664,27 @@ export function ModularTableBuilder({
                           setDraggedRowIndex(null);
                           setDragOverRowIndex(null);
                         }}
-                        className={`bg-gp-ink-950 px-4 py-2.5 flex items-center justify-between gap-3 border-t-2 border-b border-amber-500/30 group transition-all ${
+                        className={`bg-gp-ink-950 px-4 py-2.5 flex items-center justify-between gap-3 border-t-2 border-b border-hue-amber-500/30 group transition-all ${
                           isDragging
-                            ? "opacity-30 border-dashed border-amber-400 bg-amber-950/40"
+                            ? "opacity-30 border-dashed border-hue-amber-400 bg-hue-amber-950/40"
                             : ""
-                        } ${isDragOver ? "border-t-4 border-t-amber-400 bg-amber-950/30 scale-[1.005]" : ""}`}
+                        } ${isDragOver ? "border-t-4 border-t-amber-400 bg-hue-amber-950/30 scale-[1.005]" : ""}`}
                       >
                         <div className="flex items-center gap-2 flex-1">
                           <div
-                            className="cursor-grab active:cursor-grabbing p-1 text-gp-ink-500 hover:text-amber-400 transition-colors"
+                            className="cursor-grab active:cursor-grabbing p-1 text-gp-ink-500 hover:text-hue-amber-400 transition-colors"
                             title="Drag untuk memindahkan urutan seksi ini"
                           >
                             <GripVertical className="w-4 h-4" />
                           </div>
-                          <span className="text-3xs font-mono text-amber-500 font-bold">
+                          <span className="text-3xs font-mono text-hue-amber-500 font-bold">
                             SEKSI:
                           </span>
                           <input
                             type="text"
                             value={row.groupTitle || ""}
                             onChange={(e) => handleUpdateGroupTitle(row.id, e.target.value)}
-                            className="bg-transparent text-amber-400 font-mono font-bold text-xs uppercase tracking-wider focus:outline-none focus:text-white flex-1"
+                            className="bg-transparent text-hue-amber-400 font-mono font-bold text-xs uppercase tracking-wider focus:outline-none focus:text-white flex-1"
                             placeholder="// NAMA SEKSI HIERARKI..."
                           />
                         </div>
@@ -693,7 +693,7 @@ export function ModularTableBuilder({
                           <button
                             type="button"
                             onClick={() => handleAddDataRow(rIdx)}
-                            className="px-2 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-650 text-emerald-400 hover:border-emerald-500 text-3xs font-mono font-bold flex items-center gap-1"
+                            className="px-2 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-650 text-hue-emerald-400 hover:border-hue-emerald-500 text-3xs font-mono font-bold flex items-center gap-1"
                             title="Tambah Baris di Bawah Seksi Ini"
                           >
                             <Plus className="w-3 h-3" />
@@ -720,7 +720,7 @@ export function ModularTableBuilder({
                           <button
                             type="button"
                             onClick={() => handleDeleteRow(row.id)}
-                            className="p-1 rounded bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-400 hover:text-rose-400"
+                            className="p-1 rounded bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-400 hover:text-hue-rose-400"
                             title="Hapus Seksi"
                           >
                             <Trash2 className="w-3 h-3" />
@@ -756,13 +756,13 @@ export function ModularTableBuilder({
                       }}
                       className={`px-3 py-2 flex items-center gap-2 hover:bg-gp-ink-700/30 transition-colors group ${
                         isDragging
-                          ? "opacity-30 border border-dashed border-emerald-400 bg-emerald-950/40"
+                          ? "opacity-30 border border-dashed border-hue-emerald-400 bg-hue-emerald-950/40"
                           : ""
-                      } ${isDragOver ? "border-t-2 border-t-emerald-400 bg-emerald-950/20" : ""}`}
+                      } ${isDragOver ? "border-t-2 border-t-emerald-400 bg-hue-emerald-950/20" : ""}`}
                     >
                       <div className="flex items-center gap-1 text-gp-ink-500 font-mono text-3xs">
                         <div
-                          className="cursor-grab active:cursor-grabbing p-1 text-gp-ink-400 hover:text-emerald-400 transition-colors"
+                          className="cursor-grab active:cursor-grabbing p-1 text-gp-ink-400 hover:text-hue-emerald-400 transition-colors"
                           title="Drag untuk memindahkan urutan baris ini"
                         >
                           <GripVertical className="w-3.5 h-3.5" />
@@ -798,7 +798,7 @@ export function ModularTableBuilder({
                                 handleUpdateCell(row.id, col.id, e.target.value)
                               }
                               placeholder={`Isi ${col.label}...`}
-                              className={`w-full bg-gp-ink-800/90 border border-gp-ink-700 rounded px-2.5 py-1.5 text-xs focus:outline-none focus:border-emerald-500 font-sans transition-colors ${
+                              className={`w-full bg-gp-ink-800/90 border border-gp-ink-700 rounded px-2.5 py-1.5 text-xs focus:outline-none focus:border-hue-emerald-500 font-sans transition-colors ${
                                 cIdx === 0
                                   ? "text-white font-semibold"
                                   : "text-gp-ink-200"
@@ -812,7 +812,7 @@ export function ModularTableBuilder({
                       <button
                         type="button"
                         onClick={() => handleDeleteRow(row.id)}
-                        className="p-1 rounded text-gp-ink-400 hover:text-rose-400 opacity-50 group-hover:opacity-100 transition-opacity"
+                        className="p-1 rounded text-gp-ink-400 hover:text-hue-rose-400 opacity-50 group-hover:opacity-100 transition-opacity"
                         title="Hapus Baris"
                       >
                         <Trash2 className="w-3.5 h-3.5" />

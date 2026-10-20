@@ -66,7 +66,7 @@ export function AftersalesFormModal({
         {/* Fixed Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gp-ink-700 bg-gp-ink-850 flex-shrink-0">
           <div className="flex items-center gap-2.5">
-            <div className="p-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400">
+            <div className="p-1.5 rounded-lg bg-hue-amber-500/10 border border-hue-amber-500/30 text-hue-amber-400">
               <ShieldAlert className="w-4 h-4" />
             </div>
             <h3 className="text-base font-bold text-white uppercase tracking-tight">
@@ -93,7 +93,7 @@ export function AftersalesFormModal({
                   value={formData.brand}
                   onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
                   placeholder="Contoh: ASUS, Dell, Xiaomi"
-                  className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-amber-400 focus:outline-none placeholder:text-gp-ink-400 font-bold"
+                  className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-hue-amber-400 focus:outline-none placeholder:text-gp-ink-400 font-bold"
                   required
                 />
               </div>
@@ -102,7 +102,7 @@ export function AftersalesFormModal({
                 <select
                   value={formData.rating}
                   onChange={(e) => setFormData({ ...formData, rating: e.target.value as AftersalesBrand["rating"] })}
-                  className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-amber-400 focus:outline-none font-bold"
+                  className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-hue-amber-400 focus:outline-none font-bold"
                 >
                   <option value="S">Tier S (Onsite / Terbaik)</option>
                   <option value="A">Tier A (Bagus & Aman)</option>
@@ -120,7 +120,7 @@ export function AftersalesFormModal({
                   value={formData.distributor}
                   onChange={(e) => setFormData({ ...formData, distributor: e.target.value })}
                   placeholder="PT Synnex / Distributor Resmi"
-                  className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-amber-400 focus:outline-none placeholder:text-gp-ink-400"
+                  className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-hue-amber-400 focus:outline-none placeholder:text-gp-ink-400"
                 />
               </div>
               <div>
@@ -130,7 +130,7 @@ export function AftersalesFormModal({
                   value={formData.warrantyPeriod}
                   onChange={(e) => setFormData({ ...formData, warrantyPeriod: e.target.value })}
                   placeholder="3 Tahun Penuh"
-                  className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-amber-400 focus:outline-none placeholder:text-gp-ink-400"
+                  className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-hue-amber-400 focus:outline-none placeholder:text-gp-ink-400"
                 />
               </div>
             </div>
@@ -142,7 +142,7 @@ export function AftersalesFormModal({
                 value={formData.contactUrl || ""}
                 onChange={(e) => setFormData({ ...formData, contactUrl: e.target.value })}
                 placeholder="https://..."
-                className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-sky-400 font-mono focus:border-amber-400 focus:outline-none placeholder:text-gp-ink-400"
+                className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-hue-sky-400 font-mono focus:border-hue-amber-400 focus:outline-none placeholder:text-gp-ink-400"
               />
             </div>
 
@@ -152,7 +152,7 @@ export function AftersalesFormModal({
                 rows={3}
                 value={formData.summary}
                 onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
-                className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-xs text-gp-ink-100 focus:border-amber-400 focus:outline-none placeholder:text-gp-ink-400"
+                className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-xs text-gp-ink-100 focus:border-hue-amber-400 focus:outline-none placeholder:text-gp-ink-400"
               />
             </div>
           </div>
@@ -168,7 +168,7 @@ export function AftersalesFormModal({
             >
               Batal
             </Button>
-            <Button type="submit" variant="cyber" size="sm" className="bg-amber-500 hover:bg-amber-400 text-black font-bold">
+            <Button type="submit" variant="cyber" size="sm" className="bg-hue-amber-500 hover:bg-hue-amber-400 text-black font-bold">
               Simpan Data Aftersales
             </Button>
           </div>

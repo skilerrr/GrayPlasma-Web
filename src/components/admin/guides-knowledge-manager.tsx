@@ -299,8 +299,8 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
   return (
     <div className="space-y-6">
       {notice && (
-        <div className="p-3 bg-emerald-950/90 border border-emerald-500 rounded-xl text-xs text-emerald-200 font-semibold flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+        <div className="p-3 bg-hue-emerald-950/90 border border-hue-emerald-500 rounded-xl text-xs text-hue-emerald-200 font-semibold flex items-center gap-2">
+          <CheckCircle2 className="w-4 h-4 text-hue-emerald-400 flex-shrink-0" />
           <span>{notice}</span>
         </div>
       )}
@@ -309,7 +309,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gp-ink-700 pb-5">
           <div className="space-y-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-hue-cyan-500/10 border border-hue-cyan-500/30 text-hue-cyan-400 text-xs font-bold">
               <BookOpen className="w-3.5 h-3.5" />
               <span>Knowledge Hub & Panduan Artikel</span>
             </div>
@@ -328,7 +328,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
             onClick={() => setActiveTab("faq")}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 flex-shrink-0 ${
               activeTab === "faq"
-                ? "bg-gp-ink-700 text-emerald-400 border border-emerald-500/30"
+                ? "bg-gp-ink-700 text-hue-emerald-400 border border-hue-emerald-500/30"
                 : "text-gp-ink-300 hover:text-white"
             }`}
           >
@@ -339,7 +339,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
             onClick={() => setActiveTab("desk_guide")}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 flex-shrink-0 ${
               activeTab === "desk_guide"
-                ? "bg-gp-ink-700 text-cyan-400 border border-cyan-500/30"
+                ? "bg-gp-ink-700 text-hue-cyan-400 border border-hue-cyan-500/30"
                 : "text-gp-ink-300 hover:text-white"
             }`}
           >
@@ -350,7 +350,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
             onClick={() => setActiveTab("hdr_guide")}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 flex-shrink-0 ${
               activeTab === "hdr_guide"
-                ? "bg-gp-ink-700 text-amber-400 border border-amber-500/30"
+                ? "bg-gp-ink-700 text-hue-amber-400 border border-hue-amber-500/30"
                 : "text-gp-ink-300 hover:text-white"
             }`}
           >
@@ -361,7 +361,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
             onClick={() => setActiveTab("graynotes")}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 flex-shrink-0 ${
               activeTab === "graynotes"
-                ? "bg-gp-ink-700 text-pink-400 border border-pink-500/30"
+                ? "bg-gp-ink-700 text-hue-pink-400 border border-hue-pink-500/30"
                 : "text-gp-ink-300 hover:text-white"
             }`}
           >
@@ -372,7 +372,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
             onClick={() => setActiveTab("brands_avoid")}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 flex-shrink-0 ${
               activeTab === "brands_avoid"
-                ? "bg-gp-ink-700 text-rose-400 border border-rose-500/30"
+                ? "bg-gp-ink-700 text-hue-rose-400 border border-hue-rose-500/30"
                 : "text-gp-ink-300 hover:text-white"
             }`}
           >
@@ -383,7 +383,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
             onClick={() => setActiveTab("bandwidth")}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 flex-shrink-0 ${
               activeTab === "bandwidth"
-                ? "bg-gp-ink-700 text-violet-400 border border-violet-500/30"
+                ? "bg-gp-ink-700 text-hue-violet-400 border border-hue-violet-500/30"
                 : "text-gp-ink-300 hover:text-white"
             }`}
           >
@@ -394,7 +394,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
             onClick={() => setActiveTab("about")}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 flex-shrink-0 ${
               activeTab === "about"
-                ? "bg-gp-ink-700 text-yellow-400 border border-yellow-500/30"
+                ? "bg-gp-ink-700 text-hue-yellow-400 border border-hue-yellow-500/30"
                 : "text-gp-ink-300 hover:text-white"
             }`}
           >
@@ -415,7 +415,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Cari pertanyaan FAQ..."
-                    className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-400"
+                    className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-hue-emerald-400"
                   />
                 </div>
               </div>
@@ -471,7 +471,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                   <div
                     key={faq.id}
                     className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 flex flex-col justify-between transition-colors ${
-                      faq.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-amber-500/20" : ""
+                      faq.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-hue-amber-500/20" : ""
                     }`}
                   >
                     <div className="space-y-2">
@@ -481,7 +481,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                             {faq.category || "General"}
                           </span>
                           {faq.important && (
-                            <span className="text-3xs px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 font-mono font-bold">
+                            <span className="text-3xs px-2 py-0.5 rounded bg-hue-amber-500/10 text-hue-amber-300 border border-hue-amber-500/30 font-mono font-bold">
                               [FEATURED]
                             </span>
                           )}
@@ -490,8 +490,8 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                             onClick={() => handleToggleFaqPublish(faq)}
                             className={`text-3xs px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
                               faq.isPublished !== false
-                                ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
-                                : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
+                                ? "bg-hue-emerald-500/10 text-hue-emerald-400 border-hue-emerald-500/30 hover:bg-hue-emerald-500/20"
+                                : "bg-hue-amber-500/10 text-hue-amber-400 border-hue-amber-500/30 hover:bg-hue-amber-500/20"
                             }`}
                             title={faq.isPublished !== false ? "Klik untuk sembunyikan dari FAQ publik" : "Klik untuk publikasikan ke web"}
                           >
@@ -506,8 +506,8 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                             onClick={() => handleToggleFaqPublish(faq)}
                             className={`p-1.5 rounded-lg border transition-colors ${
                               faq.isPublished !== false
-                                ? "bg-gp-ink-800 border-gp-ink-700 hover:bg-amber-950/40 text-gp-ink-300 hover:text-amber-400"
-                                : "bg-amber-500/20 border-amber-500/40 text-amber-300 hover:bg-emerald-500/20 hover:text-emerald-300"
+                                ? "bg-gp-ink-800 border-gp-ink-700 hover:bg-hue-amber-950/40 text-gp-ink-300 hover:text-hue-amber-400"
+                                : "bg-hue-amber-500/20 border-hue-amber-500/40 text-hue-amber-300 hover:bg-hue-emerald-500/20 hover:text-hue-emerald-300"
                             }`}
                             title={faq.isPublished !== false ? "Sembunyikan FAQ (Draft)" : "Aktifkan FAQ (Publish)"}
                           >
@@ -518,13 +518,13 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                               setEditingFaq(faq);
                               setIsFaqModalOpen(true);
                             }}
-                            className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-emerald-400"
+                            className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-hue-emerald-400"
                           >
                             <Edit2 className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => handleDeleteFaq(faq.id)}
-                            className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-rose-400"
+                            className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-hue-rose-400"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -575,19 +575,19 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                 <div
                   key={idx}
                   className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 transition-colors ${
-                    guide.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-amber-500/20" : ""
+                    guide.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-hue-amber-500/20" : ""
                   }`}
                 >
                   <div className="flex items-start justify-between">
                     <div>
-                      <h4 className="text-sm font-black text-cyan-400">{guide.deskDepth}</h4>
+                      <h4 className="text-sm font-black text-hue-cyan-400">{guide.deskDepth}</h4>
                       <button
                         type="button"
                         onClick={() => handleToggleDeskPublish(idx)}
                         className={`mt-1 text-3xs px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
                           guide.isPublished !== false
-                            ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
-                            : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
+                            ? "bg-hue-emerald-500/10 text-hue-emerald-400 border-hue-emerald-500/30 hover:bg-hue-emerald-500/20"
+                            : "bg-hue-amber-500/10 text-hue-amber-400 border-hue-amber-500/30 hover:bg-hue-amber-500/20"
                         }`}
                         title={guide.isPublished !== false ? "Sembunyikan dari tabel meja publik" : "Tampilkan kembali di web"}
                       >
@@ -602,8 +602,8 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                         onClick={() => handleToggleDeskPublish(idx)}
                         className={`p-1.5 rounded-lg border transition-colors ${
                           guide.isPublished !== false
-                            ? "bg-gp-ink-800 border-gp-ink-700 hover:bg-amber-950/40 text-gp-ink-300 hover:text-amber-400"
-                            : "bg-amber-500/20 border-amber-500/40 text-amber-300 hover:bg-emerald-500/20 hover:text-emerald-300"
+                            ? "bg-gp-ink-800 border-gp-ink-700 hover:bg-hue-amber-950/40 text-gp-ink-300 hover:text-hue-amber-400"
+                            : "bg-hue-amber-500/20 border-hue-amber-500/40 text-hue-amber-300 hover:bg-hue-emerald-500/20 hover:text-hue-emerald-300"
                         }`}
                         title={guide.isPublished !== false ? "Sembunyikan dari publik" : "Publikasikan ke website"}
                       >
@@ -614,13 +614,13 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                           setEditingDeskIndex(idx);
                           setEditingDeskGuide({ ...guide });
                         }}
-                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-cyan-400"
+                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-hue-cyan-400"
                       >
                         <Edit2 className="w-3.5 h-3.5" />
                       </button>
                       <button
                         onClick={() => handleDeleteDeskGuide(idx)}
-                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-rose-400"
+                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-hue-rose-400"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -638,7 +638,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                     </div>
                     <div>
                       <span className="text-gp-ink-400 block text-3xs uppercase font-bold">Rekomendasi Arm:</span>
-                      <span className="text-emerald-400 font-semibold">{guide.monitorArmRecommendation}</span>
+                      <span className="text-hue-emerald-400 font-semibold">{guide.monitorArmRecommendation}</span>
                     </div>
                     <div className="text-gp-ink-300 pt-1 border-t border-gp-ink-700">{guide.notes}</div>
                   </div>
@@ -663,16 +663,16 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                 <div
                   key={hdr.tier}
                   className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 transition-colors ${
-                    hdr.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-amber-500/20" : ""
+                    hdr.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-hue-amber-500/20" : ""
                   }`}
                 >
                   <div className="flex items-start justify-between">
                     <div>
                       <span className={`text-xs px-2.5 py-1 rounded-lg font-black ${
                         hdr.tier === "TRUE HDR"
-                          ? "bg-amber-500 text-black"
+                          ? "bg-hue-amber-500 text-black"
                           : hdr.tier === "DECENT HDR"
-                          ? "bg-cyan-500 text-black"
+                          ? "bg-hue-cyan-500 text-black"
                           : "bg-gp-ink-700 text-gp-ink-300"
                       }`}>
                         {hdr.tier}
@@ -682,8 +682,8 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                         onClick={() => handleToggleHdrPublish(idx)}
                         className={`mt-2 text-3xs px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
                           hdr.isPublished !== false
-                            ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
-                            : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
+                            ? "bg-hue-emerald-500/10 text-hue-emerald-400 border-hue-emerald-500/30 hover:bg-hue-emerald-500/20"
+                            : "bg-hue-amber-500/10 text-hue-amber-400 border-hue-amber-500/30 hover:bg-hue-amber-500/20"
                         }`}
                         title={hdr.isPublished !== false ? "Sembunyikan dari panduan HDR publik" : "Tampilkan kembali di web"}
                       >
@@ -698,8 +698,8 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                         onClick={() => handleToggleHdrPublish(idx)}
                         className={`p-1.5 rounded-lg border transition-colors ${
                           hdr.isPublished !== false
-                            ? "bg-gp-ink-800 border-gp-ink-700 hover:bg-amber-950/40 text-gp-ink-300 hover:text-amber-400"
-                            : "bg-amber-500/20 border-amber-500/40 text-amber-300 hover:bg-emerald-500/20 hover:text-emerald-300"
+                            ? "bg-gp-ink-800 border-gp-ink-700 hover:bg-hue-amber-950/40 text-gp-ink-300 hover:text-hue-amber-400"
+                            : "bg-hue-amber-500/20 border-hue-amber-500/40 text-hue-amber-300 hover:bg-hue-emerald-500/20 hover:text-hue-emerald-300"
                         }`}
                         title={hdr.isPublished !== false ? "Sembunyikan dari publik" : "Publikasikan ke web"}
                       >
@@ -710,13 +710,13 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                           setEditingHdrIndex(idx);
                           setEditingHdrGuide({ ...hdr });
                         }}
-                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-amber-400"
+                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-hue-amber-400"
                       >
                         <Edit2 className="w-3.5 h-3.5" />
                       </button>
                       <button
                         onClick={() => handleDeleteHdrGuide(idx)}
-                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-rose-400"
+                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-hue-rose-400"
                         title="Hapus Klasifikasi HDR"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -772,13 +772,13 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                 <div
                   key={gn.id}
                   className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 transition-colors ${
-                    gn.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-amber-500/20" : ""
+                    gn.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-hue-amber-500/20" : ""
                   }`}
                 >
                   <div className="flex items-start justify-between">
                     <div>
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-3xs px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/30 font-bold uppercase">
+                        <span className="text-3xs px-2 py-0.5 rounded bg-hue-pink-500/10 text-hue-pink-400 border border-hue-pink-500/30 font-bold uppercase">
                           {gn.category}
                         </span>
                         <button
@@ -786,8 +786,8 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                           onClick={() => handleToggleGraynotePublish(gn)}
                           className={`text-3xs px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
                             gn.isPublished !== false
-                              ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
-                              : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
+                              ? "bg-hue-emerald-500/10 text-hue-emerald-400 border-hue-emerald-500/30 hover:bg-hue-emerald-500/20"
+                              : "bg-hue-amber-500/10 text-hue-amber-400 border-hue-amber-500/30 hover:bg-hue-amber-500/20"
                           }`}
                           title={gn.isPublished !== false ? "Sembunyikan GrayNote dari publik" : "Publikasikan ke web"}
                         >
@@ -803,8 +803,8 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                         onClick={() => handleToggleGraynotePublish(gn)}
                         className={`p-1.5 rounded-lg border transition-colors ${
                           gn.isPublished !== false
-                            ? "bg-gp-ink-800 border-gp-ink-700 hover:bg-amber-950/40 text-gp-ink-300 hover:text-amber-400"
-                            : "bg-amber-500/20 border-amber-500/40 text-amber-300 hover:bg-emerald-500/20 hover:text-emerald-300"
+                            ? "bg-gp-ink-800 border-gp-ink-700 hover:bg-hue-amber-950/40 text-gp-ink-300 hover:text-hue-amber-400"
+                            : "bg-hue-amber-500/20 border-hue-amber-500/40 text-hue-amber-300 hover:bg-hue-emerald-500/20 hover:text-hue-emerald-300"
                         }`}
                         title={gn.isPublished !== false ? "Sembunyikan dari publik" : "Publikasikan ke web"}
                       >
@@ -815,13 +815,13 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                           setEditingGraynote(gn);
                           setIsGraynoteModalOpen(true);
                         }}
-                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-pink-400"
+                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-hue-pink-400"
                       >
                         <Edit2 className="w-3.5 h-3.5" />
                       </button>
                       <button
                         onClick={() => handleDeleteGraynote(gn.id)}
-                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-rose-400"
+                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-hue-rose-400"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -870,13 +870,13 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                 <div
                   key={ba.brand}
                   className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-3 transition-colors ${
-                    ba.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-amber-500/20" : ""
+                    ba.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-hue-amber-500/20" : ""
                   }`}
                 >
                   <div className="flex items-start justify-between">
                     <div>
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-3xs px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/30 font-bold uppercase">
+                        <span className="text-3xs px-2 py-0.5 rounded bg-hue-rose-500/10 text-hue-rose-400 border border-hue-rose-500/30 font-bold uppercase">
                           {ba.category}
                         </span>
                         <button
@@ -884,8 +884,8 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                           onClick={() => handleToggleAvoidBrandPublish(ba)}
                           className={`text-3xs px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
                             ba.isPublished !== false
-                              ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
-                              : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
+                              ? "bg-hue-emerald-500/10 text-hue-emerald-400 border-hue-emerald-500/30 hover:bg-hue-emerald-500/20"
+                              : "bg-hue-amber-500/10 text-hue-amber-400 border-hue-amber-500/30 hover:bg-hue-amber-500/20"
                           }`}
                           title={ba.isPublished !== false ? "Sembunyikan catatan brand dari publik" : "Publikasikan ke web"}
                         >
@@ -901,8 +901,8 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                         onClick={() => handleToggleAvoidBrandPublish(ba)}
                         className={`p-1.5 rounded-lg border transition-colors ${
                           ba.isPublished !== false
-                            ? "bg-gp-ink-800 border-gp-ink-700 hover:bg-amber-950/40 text-gp-ink-300 hover:text-amber-400"
-                            : "bg-amber-500/20 border-amber-500/40 text-amber-300 hover:bg-emerald-500/20 hover:text-emerald-300"
+                            ? "bg-gp-ink-800 border-gp-ink-700 hover:bg-hue-amber-950/40 text-gp-ink-300 hover:text-hue-amber-400"
+                            : "bg-hue-amber-500/20 border-hue-amber-500/40 text-hue-amber-300 hover:bg-hue-emerald-500/20 hover:text-hue-emerald-300"
                         }`}
                         title={ba.isPublished !== false ? "Sembunyikan dari publik" : "Publikasikan ke web"}
                       >
@@ -913,13 +913,13 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                           setEditingAvoidBrand(ba);
                           setIsAvoidModalOpen(true);
                         }}
-                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-rose-400"
+                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-hue-rose-400"
                       >
                         <Edit2 className="w-3.5 h-3.5" />
                       </button>
                       <button
                         onClick={() => handleDeleteAvoidBrand(ba.brand)}
-                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-rose-400"
+                        className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-hue-rose-400"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -948,19 +948,19 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                 <div
                   key={bw.interface}
                   className={`bg-gp-ink-950 border border-gp-ink-700 rounded-2xl p-5 space-y-2 text-xs transition-colors ${
-                    bw.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-amber-500/20" : ""
+                    bw.isPublished === false ? "opacity-75 bg-gp-ink-950/60 border-hue-amber-500/20" : ""
                   }`}
                 >
                   <div className="flex items-start justify-between">
-                    <h4 className="text-sm font-black text-violet-400">{bw.interface}</h4>
+                    <h4 className="text-sm font-black text-hue-violet-400">{bw.interface}</h4>
                     <div className="flex items-center gap-1">
                       <button
                         type="button"
                         onClick={() => handleToggleBandwidthPublish(bw)}
                         className={`text-3xs px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1 border transition-colors ${
                           bw.isPublished !== false
-                            ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
-                            : "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
+                            ? "bg-hue-emerald-500/10 text-hue-emerald-400 border-hue-emerald-500/30 hover:bg-hue-emerald-500/20"
+                            : "bg-hue-amber-500/10 text-hue-amber-400 border-hue-amber-500/30 hover:bg-hue-amber-500/20"
                         }`}
                         title={bw.isPublished !== false ? "Sembunyikan dari tabel bandwidth publik" : "Publikasikan ke web"}
                       >
@@ -970,7 +970,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                       <button
                         type="button"
                         onClick={() => handleDeleteBandwidthGuide(bw.interface)}
-                        className="p-1 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-rose-400"
+                        className="p-1 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 hover:text-hue-rose-400"
                         title="Hapus Panduan Bandwidth"
                       >
                         <Trash2 className="w-3 h-3" />
@@ -994,7 +994,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
         {activeTab === "about" && (
           <form onSubmit={handleSaveAbout} className="space-y-4 max-w-3xl text-xs">
             <div className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 space-y-4">
-              <h4 className="font-bold text-yellow-400 uppercase text-xs">
+              <h4 className="font-bold text-hue-yellow-400 uppercase text-xs">
                 Tentang Website & Profil Joel Gray
               </h4>
 
@@ -1005,7 +1005,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                     type="text"
                     value={aboutContent.title}
                     onChange={(e) => setAboutContent({ ...aboutContent, title: e.target.value })}
-                    className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-yellow-400"
+                    className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-hue-yellow-400"
                   />
                 </div>
                 <div>
@@ -1014,7 +1014,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                     type="text"
                     value={aboutContent.author}
                     onChange={(e) => setAboutContent({ ...aboutContent, author: e.target.value })}
-                    className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-yellow-400"
+                    className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-hue-yellow-400"
                   />
                 </div>
               </div>
@@ -1025,7 +1025,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                   rows={4}
                   value={aboutContent.latarBelakang}
                   onChange={(e) => setAboutContent({ ...aboutContent, latarBelakang: e.target.value })}
-                  className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl p-3 text-gp-ink-200 focus:outline-none focus:border-yellow-400 leading-relaxed"
+                  className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl p-3 text-gp-ink-200 focus:outline-none focus:border-hue-yellow-400 leading-relaxed"
                 />
               </div>
 
@@ -1035,7 +1035,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                   rows={4}
                   value={aboutContent.biodataPenulis}
                   onChange={(e) => setAboutContent({ ...aboutContent, biodataPenulis: e.target.value })}
-                  className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl p-3 text-gp-ink-200 focus:outline-none focus:border-yellow-400 leading-relaxed"
+                  className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-xl p-3 text-gp-ink-200 focus:outline-none focus:border-hue-yellow-400 leading-relaxed"
                 />
               </div>
 
@@ -1109,7 +1109,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                     required
                     value={editingDeskGuide.deskDepth}
                     onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, deskDepth: e.target.value })}
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-cyan-400 font-bold focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-hue-cyan-400 font-bold focus:outline-none focus:border-hue-cyan-400 placeholder:text-gp-ink-400"
                   />
                 </div>
                 <div>
@@ -1119,7 +1119,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                     required
                     value={editingDeskGuide.recommendedSizes}
                     onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, recommendedSizes: e.target.value })}
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-cyan-400 placeholder:text-gp-ink-400"
                   />
                 </div>
                 <div>
@@ -1129,7 +1129,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                     required
                     value={editingDeskGuide.viewingDistance}
                     onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, viewingDistance: e.target.value })}
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-cyan-400 placeholder:text-gp-ink-400"
                   />
                 </div>
                 <div>
@@ -1138,7 +1138,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                     type="text"
                     value={editingDeskGuide.monitorArmRecommendation}
                     onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, monitorArmRecommendation: e.target.value })}
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-emerald-400 focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-hue-emerald-400 focus:outline-none focus:border-hue-cyan-400 placeholder:text-gp-ink-400"
                   />
                 </div>
                 <div>
@@ -1147,7 +1147,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                     rows={2}
                     value={editingDeskGuide.notes}
                     onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, notes: e.target.value })}
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:outline-none focus:border-cyan-400 placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:outline-none focus:border-hue-cyan-400 placeholder:text-gp-ink-400"
                   />
                 </div>
 
@@ -1157,7 +1157,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                       type="checkbox"
                       checked={editingDeskGuide.isPublished !== false}
                       onChange={(e) => setEditingDeskGuide({ ...editingDeskGuide, isPublished: e.target.checked })}
-                      className="rounded border-gp-ink-500 bg-gp-ink-700 text-cyan-500 focus:ring-cyan-500"
+                      className="rounded border-gp-ink-500 bg-gp-ink-700 text-hue-cyan-500 focus:ring-hue-cyan-500"
                     />
                     <span className="text-gp-ink-200 text-xs font-semibold">Tampilkan di Publik (Live)</span>
                   </label>
@@ -1168,7 +1168,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                 <Button type="button" variant="outline" size="sm" onClick={() => setEditingDeskGuide(null)} className="border-gp-ink-600 text-gp-ink-200 hover:text-white hover:bg-gp-ink-700">
                   Batal
                 </Button>
-                <Button type="submit" variant="cyber" size="sm" className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold">
+                <Button type="submit" variant="cyber" size="sm" className="bg-hue-cyan-500 hover:bg-hue-cyan-400 text-black font-bold">
                   Simpan Pedoman
                 </Button>
               </div>
@@ -1201,7 +1201,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                     type="text"
                     disabled
                     value={editingHdrGuide.tier}
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-amber-400 font-black cursor-not-allowed"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-hue-amber-400 font-black cursor-not-allowed"
                   />
                 </div>
                 <div>
@@ -1210,7 +1210,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                     type="text"
                     value={editingHdrGuide.requirements}
                     onChange={(e) => setEditingHdrGuide({ ...editingHdrGuide, requirements: e.target.value })}
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400 placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-amber-400 placeholder:text-gp-ink-400"
                   />
                 </div>
                 <div>
@@ -1219,7 +1219,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                     type="text"
                     value={editingHdrGuide.contrastRatio}
                     onChange={(e) => setEditingHdrGuide({ ...editingHdrGuide, contrastRatio: e.target.value })}
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400 placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-amber-400 placeholder:text-gp-ink-400"
                   />
                 </div>
                 <div>
@@ -1228,7 +1228,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                     type="text"
                     value={editingHdrGuide.peakBrightness}
                     onChange={(e) => setEditingHdrGuide({ ...editingHdrGuide, peakBrightness: e.target.value })}
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400 placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-amber-400 placeholder:text-gp-ink-400"
                   />
                 </div>
                 <div>
@@ -1237,7 +1237,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                     rows={2}
                     value={editingHdrGuide.verdict}
                     onChange={(e) => setEditingHdrGuide({ ...editingHdrGuide, verdict: e.target.value })}
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:outline-none focus:border-amber-400 placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:outline-none focus:border-hue-amber-400 placeholder:text-gp-ink-400"
                   />
                 </div>
 
@@ -1247,7 +1247,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                       type="checkbox"
                       checked={editingHdrGuide.isPublished !== false}
                       onChange={(e) => setEditingHdrGuide({ ...editingHdrGuide, isPublished: e.target.checked })}
-                      className="rounded border-gp-ink-500 bg-gp-ink-700 text-amber-500 focus:ring-amber-500"
+                      className="rounded border-gp-ink-500 bg-gp-ink-700 text-hue-amber-500 focus:ring-hue-amber-500"
                     />
                     <span className="text-gp-ink-200 text-xs font-semibold">Tampilkan di Publik (Live)</span>
                   </label>
@@ -1258,7 +1258,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                 <Button type="button" variant="outline" size="sm" onClick={() => setEditingHdrGuide(null)} className="border-gp-ink-600 text-gp-ink-200 hover:text-white hover:bg-gp-ink-700">
                   Batal
                 </Button>
-                <Button type="submit" variant="cyber" size="sm" className="bg-amber-500 hover:bg-amber-400 text-black font-bold">
+                <Button type="submit" variant="cyber" size="sm" className="bg-hue-amber-500 hover:bg-hue-amber-400 text-black font-bold">
                   Simpan Tier HDR
                 </Button>
               </div>
@@ -1332,7 +1332,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                     required
                     value={editingAvoidBrand.brand}
                     onChange={(e) => setEditingAvoidBrand({ ...editingAvoidBrand, brand: e.target.value })}
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-rose-400 font-bold focus:outline-none focus:border-rose-400 placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-hue-rose-400 font-bold focus:outline-none focus:border-hue-rose-400 placeholder:text-gp-ink-400"
                   />
                 </div>
                 <div>
@@ -1341,7 +1341,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                     type="text"
                     value={editingAvoidBrand.category}
                     onChange={(e) => setEditingAvoidBrand({ ...editingAvoidBrand, category: e.target.value })}
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-rose-400 placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-rose-400 placeholder:text-gp-ink-400"
                   />
                 </div>
                 <div>
@@ -1350,7 +1350,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                     rows={2}
                     value={editingAvoidBrand.issue}
                     onChange={(e) => setEditingAvoidBrand({ ...editingAvoidBrand, issue: e.target.value })}
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:outline-none focus:border-rose-400 placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:outline-none focus:border-hue-rose-400 placeholder:text-gp-ink-400"
                   />
                 </div>
 
@@ -1360,7 +1360,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                       type="checkbox"
                       checked={editingAvoidBrand.isPublished !== false}
                       onChange={(e) => setEditingAvoidBrand({ ...editingAvoidBrand, isPublished: e.target.checked })}
-                      className="rounded border-gp-ink-500 bg-gp-ink-700 text-rose-500 focus:ring-rose-500"
+                      className="rounded border-gp-ink-500 bg-gp-ink-700 text-hue-rose-500 focus:ring-hue-rose-500"
                     />
                     <span className="text-gp-ink-200 text-xs font-semibold">Tampilkan di Publik (Live)</span>
                   </label>
@@ -1371,7 +1371,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
                 <Button type="button" variant="outline" size="sm" onClick={() => setIsAvoidModalOpen(false)} className="border-gp-ink-600 text-gp-ink-200 hover:text-white hover:bg-gp-ink-700">
                   Batal
                 </Button>
-                <Button type="submit" variant="cyber" size="sm" className="bg-rose-500 hover:bg-rose-400 text-black font-bold">
+                <Button type="submit" variant="cyber" size="sm" className="bg-hue-rose-500 hover:bg-hue-rose-400 text-black font-bold">
                   Simpan Catatan
                 </Button>
               </div>

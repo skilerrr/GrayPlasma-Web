@@ -60,7 +60,7 @@ export function PaginationBar({
                   onClick={() => onPageChange(p)}
                   className={`w-8 h-8 rounded-xl text-xs font-mono font-bold transition-colors ${
                     currentPage === p
-                      ? "bg-emerald-500 text-gp-ink-950 font-bold border border-emerald-400"
+                      ? "bg-hue-emerald-500 text-gp-ink-950 font-bold border border-hue-emerald-400"
                       : "bg-gp-ink-850 border border-gp-ink-700 text-gp-ink-300 hover:text-white hover:border-gp-ink-600"
                   }`}
                 >

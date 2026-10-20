@@ -61,7 +61,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-gp-ink-700">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-black uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded border border-emerald-500/30">
+                <span className="text-xs font-black uppercase tracking-wider text-hue-emerald-400 bg-hue-emerald-500/10 px-2.5 py-0.5 rounded border border-hue-emerald-500/30">
                   {monitor.brand}
                 </span>
                 <TierBadge tier={monitor.tier} />
@@ -112,7 +112,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
                       onClick={() => setSelectedImageIndex(idx)}
                       className={`relative w-20 h-14 rounded-lg overflow-hidden border-2 flex-shrink-0 transition-all ${
                         selectedImageIndex === idx
-                          ? "border-emerald-400 scale-95 shadow-tech-subtle"
+                          ? "border-hue-emerald-400 scale-95 shadow-tech-subtle"
                           : "border-gp-ink-700 hover:border-gp-ink-500 opacity-70 hover:opacity-100"
                       }`}
                     >
@@ -145,7 +145,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
                       <span className="text-xs text-gp-ink-400 line-through">
                         {formatRupiah(monitor.originalPrice)}
                       </span>
-                      <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/30">
+                      <span className="text-xs font-bold text-hue-emerald-400 bg-hue-emerald-500/10 px-1.5 py-0.5 rounded border border-hue-emerald-500/30">
                         Hemat {formatRupiah(monitor.originalPrice - monitor.price)}
                       </span>
                     </div>
@@ -154,7 +154,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
 
                 {/* Verdict Box */}
                 <div className="p-3 rounded-xl bg-gp-ink-800/90 border border-gp-ink-700 text-xs space-y-1.5">
-                  <div className="flex items-center gap-1.5 font-bold text-emerald-400 uppercase tracking-wider text-3xs">
+                  <div className="flex items-center gap-1.5 font-bold text-hue-emerald-400 uppercase tracking-wider text-3xs">
                     <ShieldCheck className="w-3.5 h-3.5" />
                     <span>Verdict Reviewer</span>
                   </div>
@@ -212,15 +212,15 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
           {/* Pros & Cons Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Pros */}
-            <div className="bg-emerald-950/15 border border-emerald-900/40 rounded-2xl p-4 space-y-2.5">
-              <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider">
+            <div className="bg-hue-emerald-950/15 border border-hue-emerald-900/40 rounded-2xl p-4 space-y-2.5">
+              <div className="flex items-center gap-2 text-hue-emerald-400 font-bold text-xs uppercase tracking-wider">
                 <Check className="w-4 h-4" />
                 <span>Kelebihan (Pros)</span>
               </div>
               <ul className="space-y-1.5">
                 {monitor.pros.map((item, i) => (
                   <li key={i} className="text-xs text-gp-ink-200 flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-1.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-hue-emerald-400 mt-1.5 flex-shrink-0" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -228,15 +228,15 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
             </div>
 
             {/* Cons */}
-            <div className="bg-rose-950/15 border border-rose-900/40 rounded-2xl p-4 space-y-2.5">
-              <div className="flex items-center gap-2 text-rose-400 font-bold text-xs uppercase tracking-wider">
+            <div className="bg-hue-rose-950/15 border border-hue-rose-900/40 rounded-2xl p-4 space-y-2.5">
+              <div className="flex items-center gap-2 text-hue-rose-400 font-bold text-xs uppercase tracking-wider">
                 <XCircle className="w-4 h-4" />
                 <span>Kekurangan (Cons)</span>
               </div>
               <ul className="space-y-1.5">
                 {monitor.cons.map((item, i) => (
                   <li key={i} className="text-xs text-gp-ink-300 flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-1.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-hue-rose-400 mt-1.5 flex-shrink-0" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -247,7 +247,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
           {/* Technical Specifications Table */}
           <div className="space-y-3 bg-gp-ink-998 border border-gp-ink-700/90 rounded-2xl p-5">
             <div className="flex items-center gap-2 border-b border-gp-ink-700 pb-3">
-              <Cpu className="w-4 h-4 text-emerald-400" />
+              <Cpu className="w-4 h-4 text-hue-emerald-400" />
               <h3 className="text-sm font-bold text-white uppercase tracking-wider">
                 Tabel Spesifikasi Teknis Lengkap
               </h3>
@@ -270,7 +270,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
                   </div>
                   <div className="flex justify-between py-1 border-b border-gp-ink-800">
                     <span className="text-gp-ink-400">Tipe Panel</span>
-                    <span className="text-emerald-400 font-medium">{monitor.specs.display.panelType}</span>
+                    <span className="text-hue-emerald-400 font-medium">{monitor.specs.display.panelType}</span>
                   </div>
                   <div className="flex justify-between py-1 border-b border-gp-ink-800">
                     <span className="text-gp-ink-400">Refresh Rate</span>
@@ -341,7 +341,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
                   </div>
                   <div className="flex justify-between py-1 border-b border-gp-ink-800">
                     <span className="text-gp-ink-400">Garansi Resmi</span>
-                    <span className="text-emerald-400 font-medium">{monitor.specs.features.warranty}</span>
+                    <span className="text-hue-emerald-400 font-medium">{monitor.specs.features.warranty}</span>
                   </div>
                 </div>
               </div>
@@ -352,7 +352,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
           {monitor.priceHistory && monitor.priceHistory.length > 0 && (
             <div className="space-y-3 bg-gp-ink-950/80 border border-gp-ink-700 rounded-2xl p-4 sm:p-5">
               <div className="flex items-center gap-2">
-                <TrendingDown className="w-4 h-4 text-emerald-400" />
+                <TrendingDown className="w-4 h-4 text-hue-emerald-400" />
                 <h3 className="text-xs font-bold text-white uppercase tracking-wider">
                   Riwayat Tren Harga
                 </h3>
@@ -368,7 +368,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
                       {formatRupiah(point.price)}
                     </span>
                     {point.label && (
-                      <span className="text-4xs text-emerald-400 font-semibold block mt-0.5">
+                      <span className="text-4xs text-hue-emerald-400 font-semibold block mt-0.5">
                         {point.label}
                       </span>
                     )}

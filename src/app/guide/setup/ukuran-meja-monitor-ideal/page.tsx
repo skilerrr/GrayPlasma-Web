@@ -53,7 +53,7 @@ export default function UkuranMejaMonitorIdealPage() {
   const calcResult = calculateRecommendation();
 
   return (
-    <div className="min-h-screen bg-gp-ink-800 text-gp-ink-100 flex flex-col font-sans selection:bg-amber-500/30 selection:text-amber-200">
+    <div className="min-h-screen bg-gp-ink-800 text-gp-ink-100 flex flex-col font-sans selection:bg-hue-amber-500/30 selection:text-hue-amber-200">
       {/* Unified Subpage Navbar */}
       <SubpageNavbar
         breadcrumbs={[
@@ -70,7 +70,7 @@ export default function UkuranMejaMonitorIdealPage() {
         {/* Page Hero Title */}
         <div className="bg-gp-ink-750 border border-gp-ink-650 rounded-2xl p-6 sm:p-10 space-y-6 shadow-2xl relative overflow-hidden">
           <div className="relative z-10 space-y-4">
-            <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+            <div className="w-12 h-12 rounded-xl bg-hue-amber-500/10 border border-hue-amber-500/30 flex items-center justify-center text-hue-amber-400">
               <Ruler className="w-6 h-6" />
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight uppercase">
@@ -87,7 +87,7 @@ export default function UkuranMejaMonitorIdealPage() {
               onClick={() => setActiveTab("24inch")}
               className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 ${
                 activeTab === "24inch"
-                  ? "bg-amber-500/20 border border-amber-500/40 text-amber-400 shadow-sm"
+                  ? "bg-hue-amber-500/20 border border-hue-amber-500/40 text-hue-amber-400 shadow-sm"
                   : "bg-gp-ink-800 border border-gp-ink-650 text-gp-ink-300 hover:text-white"
               }`}
             >
@@ -98,7 +98,7 @@ export default function UkuranMejaMonitorIdealPage() {
               onClick={() => setActiveTab("27inch")}
               className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 ${
                 activeTab === "27inch"
-                  ? "bg-amber-500/20 border border-amber-500/40 text-amber-400 shadow-sm"
+                  ? "bg-hue-amber-500/20 border border-hue-amber-500/40 text-hue-amber-400 shadow-sm"
                   : "bg-gp-ink-800 border border-gp-ink-650 text-gp-ink-300 hover:text-white"
               }`}
             >
@@ -109,7 +109,7 @@ export default function UkuranMejaMonitorIdealPage() {
               onClick={() => setActiveTab("calculator")}
               className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 ${
                 activeTab === "calculator"
-                  ? "bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 shadow-sm"
+                  ? "bg-hue-emerald-500/20 border border-hue-emerald-500/40 text-hue-emerald-400 shadow-sm"
                   : "bg-gp-ink-800 border border-gp-ink-650 text-gp-ink-300 hover:text-white"
               }`}
             >
@@ -124,7 +124,7 @@ export default function UkuranMejaMonitorIdealPage() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-base sm:text-lg font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                <Layers className="w-4 h-4 text-amber-400" />
+                <Layers className="w-4 h-4 text-hue-amber-400" />
                 <span>GAMBARAN KASAR (24 INCH)</span>
               </h2>
               <span className="text-xs text-gp-ink-300">Data rekomendasi meja setup monitor 24"</span>
@@ -138,7 +138,7 @@ export default function UkuranMejaMonitorIdealPage() {
                       <th className="py-3 px-4 min-w-[160px] text-white">UKURAN MONITOR</th>
                       <th className="py-3 px-4 min-w-[220px]">DEVICE / SETUP</th>
                       <th className="py-3 px-4 min-w-[160px] font-mono text-gp-ink-200">UKURAN MEJA (MINIMUM, CM)</th>
-                      <th className="py-3 px-4 min-w-[160px] font-mono text-emerald-400">UKURAN MEJA (IDEAL, CM)</th>
+                      <th className="py-3 px-4 min-w-[160px] font-mono text-hue-emerald-400">UKURAN MEJA (IDEAL, CM)</th>
                       <th className="py-3 px-4 min-w-[140px]">BENTUK MEJA</th>
                     </tr>
                   </thead>
@@ -156,10 +156,10 @@ export default function UkuranMejaMonitorIdealPage() {
                                 key={dIdx}
                                 className={`px-2 py-0.5 rounded text-3xs font-bold uppercase tracking-wider ${
                                   dev.includes("1 MONITOR") || dev.includes("2 MONITOR")
-                                    ? "bg-blue-900/40 text-blue-300 border border-blue-500/30"
+                                    ? "bg-hue-blue-900/40 text-hue-blue-300 border border-hue-blue-500/30"
                                     : dev.includes("LAPTOP")
-                                    ? "bg-gp-ember-500/40 text-amber-300 border border-amber-500/30"
-                                    : "bg-gray-700 text-gp-ink-100 border border-gp-ink-500"
+                                    ? "bg-gp-ember-500/40 text-hue-amber-300 border border-hue-amber-500/30"
+                                    : "bg-hue-gray-700 text-gp-ink-100 border border-gp-ink-500"
                                 }`}
                               >
                                 {dev.trim()}
@@ -170,7 +170,7 @@ export default function UkuranMejaMonitorIdealPage() {
                         <td className="py-3.5 px-4 font-mono text-gp-ink-200 font-semibold">
                           {item.minDeskSize}
                         </td>
-                        <td className="py-3.5 px-4 font-mono text-emerald-400 font-bold text-sm">
+                        <td className="py-3.5 px-4 font-mono text-hue-emerald-400 font-bold text-sm">
                           {item.idealDeskSize}
                         </td>
                         <td className="py-3.5 px-4">
@@ -192,7 +192,7 @@ export default function UkuranMejaMonitorIdealPage() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-base sm:text-lg font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                <Layers className="w-4 h-4 text-amber-400" />
+                <Layers className="w-4 h-4 text-hue-amber-400" />
                 <span>GAMBARAN KASAR (27 INCH, TERMASUK SECONDARY 24 INCH)</span>
               </h2>
               <span className="text-xs text-gp-ink-300">Data rekomendasi meja setup monitor 27"</span>
@@ -206,7 +206,7 @@ export default function UkuranMejaMonitorIdealPage() {
                       <th className="py-3 px-4 min-w-[180px] text-white">UKURAN MONITOR</th>
                       <th className="py-3 px-4 min-w-[220px]">DEVICE / SETUP</th>
                       <th className="py-3 px-4 min-w-[160px] font-mono text-gp-ink-200">UKURAN MEJA (MINIMUM, CM)</th>
-                      <th className="py-3 px-4 min-w-[160px] font-mono text-emerald-400">UKURAN MEJA (IDEAL, CM)</th>
+                      <th className="py-3 px-4 min-w-[160px] font-mono text-hue-emerald-400">UKURAN MEJA (IDEAL, CM)</th>
                       <th className="py-3 px-4 min-w-[140px]">BENTUK MEJA</th>
                     </tr>
                   </thead>
@@ -224,10 +224,10 @@ export default function UkuranMejaMonitorIdealPage() {
                                 key={dIdx}
                                 className={`px-2 py-0.5 rounded text-3xs font-bold uppercase tracking-wider ${
                                   dev.includes("1 MONITOR") || dev.includes("2 MONITOR")
-                                    ? "bg-blue-900/40 text-blue-300 border border-blue-500/30"
+                                    ? "bg-hue-blue-900/40 text-hue-blue-300 border border-hue-blue-500/30"
                                     : dev.includes("LAPTOP")
-                                    ? "bg-gp-ember-500/40 text-amber-300 border border-amber-500/30"
-                                    : "bg-gray-700 text-gp-ink-100 border border-gp-ink-500"
+                                    ? "bg-gp-ember-500/40 text-hue-amber-300 border border-hue-amber-500/30"
+                                    : "bg-hue-gray-700 text-gp-ink-100 border border-gp-ink-500"
                                 }`}
                               >
                                 {dev.trim()}
@@ -238,7 +238,7 @@ export default function UkuranMejaMonitorIdealPage() {
                         <td className="py-3.5 px-4 font-mono text-gp-ink-200 font-semibold">
                           {item.minDeskSize}
                         </td>
-                        <td className="py-3.5 px-4 font-mono text-emerald-400 font-bold text-sm">
+                        <td className="py-3.5 px-4 font-mono text-hue-emerald-400 font-bold text-sm">
                           {item.idealDeskSize}
                         </td>
                         <td className="py-3.5 px-4">
@@ -260,7 +260,7 @@ export default function UkuranMejaMonitorIdealPage() {
           <div className="bg-gp-ink-750 border border-gp-ink-650 rounded-2xl p-6 sm:p-10 space-y-8 shadow-2xl">
             <div className="space-y-2">
               <h2 className="text-xl sm:text-2xl font-extrabold text-white uppercase tracking-tight flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-emerald-400" />
+                <Sparkles className="w-5 h-5 text-hue-emerald-400" />
                 <span>Pencari Ukuran Meja Ideal Interaktif</span>
               </h2>
               <p className="text-xs sm:text-sm text-gp-ink-300">
@@ -286,7 +286,7 @@ export default function UkuranMejaMonitorIdealPage() {
                       onClick={() => setCalcMonitorSize(opt.id as any)}
                       className={`p-3 rounded-xl border text-left transition-colors ${
                         calcMonitorSize === opt.id
-                          ? "bg-emerald-500/20 border-emerald-500/50 text-white shadow-sm"
+                          ? "bg-hue-emerald-500/20 border-hue-emerald-500/50 text-white shadow-sm"
                           : "bg-gp-ink-750 border-gp-ink-650 text-gp-ink-300 hover:text-white"
                       }`}
                     >
@@ -313,7 +313,7 @@ export default function UkuranMejaMonitorIdealPage() {
                       onClick={() => setCalcDevice(opt.id as any)}
                       className={`p-3 rounded-xl border text-center transition-colors ${
                         calcDevice === opt.id
-                          ? "bg-amber-500/20 border-amber-500/50 text-white shadow-sm"
+                          ? "bg-hue-amber-500/20 border-hue-amber-500/50 text-white shadow-sm"
                           : "bg-gp-ink-750 border-gp-ink-650 text-gp-ink-300 hover:text-white"
                       }`}
                     >
@@ -326,37 +326,37 @@ export default function UkuranMejaMonitorIdealPage() {
             </div>
 
             {/* Recommendation Result Card */}
-            <div className="p-6 rounded-2xl bg-gradient-to-r from-gp-mint-700 to-gp-mint-500 border border-emerald-500/40 space-y-4 shadow-xl">
+            <div className="p-6 rounded-2xl bg-gradient-to-r from-gp-mint-700 to-gp-mint-500 border border-hue-emerald-500/40 space-y-4 shadow-xl">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-xs font-bold text-hue-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4" />
                   <span>Rekomendasi Dimensi Meja Anda:</span>
                 </span>
-                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-2xs font-bold">
+                <span className="px-2.5 py-0.5 rounded-full bg-hue-emerald-500/20 text-hue-emerald-300 text-2xs font-bold">
                   Bentuk: Non L-Shaped
                 </span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl bg-black/40 border border-emerald-500/30 space-y-1">
+                <div className="p-4 rounded-xl bg-black/40 border border-hue-emerald-500/30 space-y-1">
                   <span className="text-2xs text-gp-ink-300 block">Ukuran Meja Minimum</span>
                   <span className="text-xl sm:text-2xl font-black font-mono text-gp-ink-100">
                     {calcResult.min}
                   </span>
                 </div>
 
-                <div className="p-4 rounded-xl bg-emerald-500/20 border border-emerald-400/50 space-y-1">
-                  <span className="text-2xs text-emerald-300 font-bold block">
+                <div className="p-4 rounded-xl bg-hue-emerald-500/20 border border-hue-emerald-400/50 space-y-1">
+                  <span className="text-2xs text-hue-emerald-300 font-bold block">
                     Ukuran Meja Paling Ideal (Direkomendasikan)
                   </span>
-                  <span className="text-xl sm:text-2xl font-black font-mono text-emerald-400">
+                  <span className="text-xl sm:text-2xl font-black font-mono text-hue-emerald-400">
                     {calcResult.ideal}
                   </span>
                 </div>
               </div>
 
               <p className="text-xs text-gp-ink-200 italic pt-1 flex items-center gap-1.5">
-                <Info className="w-4 h-4 text-emerald-400 inline-block flex-shrink-0" />
+                <Info className="w-4 h-4 text-hue-emerald-400 inline-block flex-shrink-0" />
                 <span><strong className="font-semibold text-white">Catatan Ergonomi:</strong> {calcResult.notes}</span>
               </p>
             </div>
@@ -366,7 +366,7 @@ export default function UkuranMejaMonitorIdealPage() {
         {/* 4. KNOWLEDGE & TIPS SECTION */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
           <div className="p-6 rounded-2xl bg-gp-ink-750 border border-gp-ink-650 space-y-3">
-            <div className="flex items-center gap-2 text-amber-400 font-bold text-sm">
+            <div className="flex items-center gap-2 text-hue-amber-400 font-bold text-sm">
               <AlertTriangle className="w-4 h-4" />
               <span>Mengapa Kedalaman Meja (Lebar) 70 cm Sangat Krusial?</span>
             </div>
@@ -376,7 +376,7 @@ export default function UkuranMejaMonitorIdealPage() {
           </div>
 
           <div className="p-6 rounded-2xl bg-gp-ink-750 border border-gp-ink-650 space-y-3">
-            <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+            <div className="flex items-center gap-2 text-hue-emerald-400 font-bold text-sm">
               <CheckCircle2 className="w-4 h-4" />
               <span>Ketebalan Daun Meja untuk Bracket Jepit</span>
             </div>
@@ -398,7 +398,7 @@ export default function UkuranMejaMonitorIdealPage() {
           </div>
           <Link
             href="/catalog/desks"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow-lg whitespace-nowrap"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-hue-emerald-600 hover:bg-hue-emerald-500 text-white font-bold text-xs transition-colors shadow-lg whitespace-nowrap"
           >
             <span>Lihat Daftar Rekomendasi Meja</span>
             <ArrowRight className="w-4 h-4" />

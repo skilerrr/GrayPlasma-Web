@@ -290,7 +290,7 @@ export function MonitorFormModal({
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gp-ink-700 bg-gp-ink-850 flex-shrink-0">
           <div className="flex items-center gap-2.5">
-            <div className="p-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+            <div className="p-1.5 rounded-lg bg-hue-emerald-500/10 border border-hue-emerald-500/30 text-hue-emerald-400">
               <Tv className="w-4 h-4" />
             </div>
             <h3 className="text-base font-bold text-white uppercase tracking-tight">
@@ -324,12 +324,12 @@ export function MonitorFormModal({
                 type="checkbox"
                 checked={formData.isPublished !== false}
                 onChange={(e) => setFormData({ ...formData, isPublished: e.target.checked })}
-                className="rounded border-gp-ink-600 bg-gp-ink-950 text-emerald-500 accent-emerald-500 w-4 h-4"
+                className="rounded border-gp-ink-600 bg-gp-ink-950 text-hue-emerald-500 accent-hue-emerald-500 w-4 h-4"
               />
               <span
                 className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${
                   formData.isPublished !== false
-                    ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
+                    ? "bg-hue-emerald-500/20 text-hue-emerald-400 border border-hue-emerald-500/40"
                     : "bg-gp-ink-700 text-gp-ink-300 border border-gp-ink-600"
                 }`}
               >
@@ -340,7 +340,7 @@ export function MonitorFormModal({
 
           {/* 1. Basic Info */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold text-emerald-400 uppercase tracking-wider">
+            <h4 className="text-xs font-bold text-hue-emerald-400 uppercase tracking-wider">
               1. Identitas & Tier Rating
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -351,7 +351,7 @@ export function MonitorFormModal({
                   value={formData.brand}
                   onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
                   placeholder="Xiaomi, AOC, Dell, MSI, dll."
-                  className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-hue-emerald-500"
                   required
                 />
               </div>
@@ -362,7 +362,7 @@ export function MonitorFormModal({
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value, model: e.target.value })}
                   placeholder="Contoh: Xiaomi G24i 180Hz Fast IPS"
-                  className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-hue-emerald-500"
                   required
                 />
               </div>
@@ -374,7 +374,7 @@ export function MonitorFormModal({
                 <select
                   value={formData.tier}
                   onChange={(e) => setFormData({ ...formData, tier: e.target.value as TierRating })}
-                  className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-hue-emerald-500"
                 >
                   <option value="S-TIER">S-TIER (Terbaik)</option>
                   <option value="BEST VALUE">BEST VALUE (Paling Worth It)</option>
@@ -388,7 +388,7 @@ export function MonitorFormModal({
                   type="number"
                   value={formData.price}
                   onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
-                  className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-mono"
+                  className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-hue-emerald-500 font-mono"
                   required
                 />
               </div>
@@ -398,17 +398,17 @@ export function MonitorFormModal({
                   type="number"
                   value={formData.originalPrice}
                   onChange={(e) => setFormData({ ...formData, originalPrice: Number(e.target.value) })}
-                  className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-mono"
+                  className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-hue-emerald-500 font-mono"
                 />
               </div>
               <div>
-                <label className="text-2xs text-emerald-400 font-bold block mb-1"># Target Rekomendasi (Rp)</label>
+                <label className="text-2xs text-hue-emerald-400 font-bold block mb-1"># Target Rekomendasi (Rp)</label>
                 <input
                   type="number"
                   value={formData.recommendedPrice || ""}
                   onChange={(e) => setFormData({ ...formData, recommendedPrice: Number(e.target.value) })}
                   placeholder="e.g. 1500000"
-                  className="w-full bg-gp-ink-950 border border-emerald-500/40 rounded-xl px-3 py-2 text-xs text-emerald-400 focus:outline-none focus:border-emerald-500 font-mono"
+                  className="w-full bg-gp-ink-950 border border-hue-emerald-500/40 rounded-xl px-3 py-2 text-xs text-hue-emerald-400 focus:outline-none focus:border-hue-emerald-500 font-mono"
                 />
               </div>
             </div>
@@ -417,11 +417,11 @@ export function MonitorFormModal({
           {/* 2. Image Uploader with WebP Compression */}
           <div className="space-y-3 pt-4 border-t border-gp-ink-700/80">
             <div className="flex items-center justify-between">
-              <h4 className="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+              <h4 className="text-xs font-bold text-hue-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
                 <ImageIcon className="w-3.5 h-3.5" />
                 <span>2. Foto Monitor & Auto WebP Optimizer</span>
               </h4>
-              <span className="text-3xs text-emerald-400 font-semibold">
+              <span className="text-3xs text-hue-emerald-400 font-semibold">
                 Auto-Compressed to WebP (&lt; 80KB)
               </span>
             </div>
@@ -439,7 +439,7 @@ export function MonitorFormModal({
                   <ImageIcon className="w-8 h-8 text-gp-ink-500" />
                 )}
                 {isCompressing && (
-                  <div className="absolute inset-0 bg-black/75 flex items-center justify-center text-3xs text-emerald-400 font-bold">
+                  <div className="absolute inset-0 bg-black/75 flex items-center justify-center text-3xs text-hue-emerald-400 font-bold">
                     Compressing...
                   </div>
                 )}
@@ -447,7 +447,7 @@ export function MonitorFormModal({
 
               {/* Upload Controls */}
               <div className="space-y-2 flex-1 w-full">
-                <label className="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 hover:bg-emerald-500/20 text-emerald-400 font-bold text-xs transition-colors">
+                <label className="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-hue-emerald-500/10 border border-hue-emerald-500/30 hover:bg-hue-emerald-500/20 text-hue-emerald-400 font-bold text-xs transition-colors">
                   <Upload className="w-3.5 h-3.5" />
                   <span>Pilih / Drop File Gambar</span>
                   <input
@@ -463,8 +463,8 @@ export function MonitorFormModal({
 
                 {/* Compression Stats Badge */}
                 {compressionStats && (
-                  <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-emerald-950/40 border border-emerald-500/40 text-2xs text-emerald-300">
-                    <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                  <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-hue-emerald-950/40 border border-hue-emerald-500/40 text-2xs text-hue-emerald-300">
+                    <CheckCircle2 className="w-3 h-3 text-hue-emerald-400" />
                     <span>
                       {formatFileSize(compressionStats.originalSize)} ➔{" "}
                       <strong>{formatFileSize(compressionStats.compressedSize)}</strong>{" "}
@@ -480,7 +480,7 @@ export function MonitorFormModal({
                     value={formData.thumbnail}
                     onChange={(e) => setFormData({ ...formData, thumbnail: e.target.value })}
                     placeholder="Atau masukkan Direct Thumbnail URL..."
-                    className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-lg px-2.5 py-1 text-2xs text-gp-ink-200 focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-lg px-2.5 py-1 text-2xs text-gp-ink-200 focus:outline-none focus:border-hue-emerald-500"
                   />
                 </div>
 
@@ -491,7 +491,7 @@ export function MonitorFormModal({
                     value={formData.bannerImage || ""}
                     onChange={(e) => setFormData({ ...formData, bannerImage: e.target.value })}
                     placeholder="Custom Cover / Banner URL untuk Halaman Produk (Opsional)..."
-                    className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-lg px-2.5 py-1 text-2xs text-gp-ink-200 focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-gp-ink-800 border border-gp-ink-700 rounded-lg px-2.5 py-1 text-2xs text-gp-ink-200 focus:outline-none focus:border-hue-emerald-500"
                   />
                 </div>
               </div>
@@ -500,7 +500,7 @@ export function MonitorFormModal({
 
           {/* 3. Specs Details & Toleransi Data */}
           <div className="space-y-3 pt-4 border-t border-gp-ink-700/80">
-            <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider">
+            <h4 className="text-xs font-bold text-hue-amber-400 uppercase tracking-wider">
               3. Spesifikasi Layar & Data GrayPlasma
             </h4>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -675,7 +675,7 @@ export function MonitorFormModal({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               <div>
-                <label className="text-2xs text-emerald-400 block mb-1">Toleransi Baru (Data Baru GrayPlasma)</label>
+                <label className="text-2xs text-hue-emerald-400 block mb-1">Toleransi Baru (Data Baru GrayPlasma)</label>
                 <input
                   type="text"
                   value={formData.responseTimeData?.toleranceNew || "Toleransi Baru (5 RGB)"}
@@ -689,11 +689,11 @@ export function MonitorFormModal({
                     })
                   }
                   placeholder="e.g. Toleransi Baru (5 RGB)"
-                  className="w-full bg-gp-ink-950 border border-emerald-500/30 rounded-xl px-3 py-1.5 text-xs text-emerald-300"
+                  className="w-full bg-gp-ink-950 border border-hue-emerald-500/30 rounded-xl px-3 py-1.5 text-xs text-hue-emerald-300"
                 />
               </div>
               <div>
-                <label className="text-2xs text-rose-400 block mb-1">Toleransi Lama (Data Lama GrayPlasma)</label>
+                <label className="text-2xs text-hue-rose-400 block mb-1">Toleransi Lama (Data Lama GrayPlasma)</label>
                 <input
                   type="text"
                   value={formData.responseTimeData?.toleranceOld || "Toleransi Lama (10 RGB)"}
@@ -707,7 +707,7 @@ export function MonitorFormModal({
                     })
                   }
                   placeholder="e.g. Toleransi Lama (10 RGB)"
-                  className="w-full bg-gp-ink-950 border border-rose-500/30 rounded-xl px-3 py-1.5 text-xs text-rose-300"
+                  className="w-full bg-gp-ink-950 border border-hue-rose-500/30 rounded-xl px-3 py-1.5 text-xs text-hue-rose-300"
                 />
               </div>
             </div>
@@ -715,7 +715,7 @@ export function MonitorFormModal({
 
           {/* 4. Ulasan Mendalam & Analisis Laboratorium (Side Panel & Full Page) */}
           <div className="space-y-4 pt-4 border-t border-gp-ink-700/80">
-            <h4 className="text-xs font-bold text-cyan-400 uppercase tracking-wider">
+            <h4 className="text-xs font-bold text-hue-cyan-400 uppercase tracking-wider">
               4. Ulasan Mendalam & Analisis Laboratorium (Side Panel & Detail)
             </h4>
 
@@ -837,7 +837,7 @@ export function MonitorFormModal({
 
           {/* 6. Link Pembelian Tambahan (Per-City) & Toko Affiliate */}
           <div className="space-y-3 pt-4 border-t border-gp-ink-700/80">
-            <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider">
+            <h4 className="text-xs font-bold text-hue-amber-400 uppercase tracking-wider">
               6. Link Pembelian Tambahan (Surabaya, Jakarta, Shopee, Tokopedia)
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -880,7 +880,7 @@ export function MonitorFormModal({
               rows={2}
               value={formData.expertVerdict}
               onChange={(e) => setFormData({ ...formData, expertVerdict: e.target.value })}
-              className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-emerald-500"
+              className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-hue-emerald-500"
             />
           </div>
 
@@ -901,7 +901,7 @@ export function MonitorFormModal({
               type="submit"
               variant="cyber"
               size="sm"
-              className="bg-emerald-500 hover:bg-emerald-400 text-black font-bold"
+              className="bg-hue-emerald-500 hover:bg-hue-emerald-400 text-black font-bold"
             >
               Simpan Data Monitor
             </Button>

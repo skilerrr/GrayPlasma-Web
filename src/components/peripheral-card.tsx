@@ -51,7 +51,7 @@ export function PeripheralCard({ item, onSelectItem }: PeripheralCardProps) {
 
       {/* Item Title */}
       <div className="mb-2.5">
-        <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-emerald-400 transition-colors line-clamp-2 leading-snug tracking-tight">
+        <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-hue-emerald-400 transition-colors line-clamp-2 leading-snug tracking-tight">
           {item.name}
         </h3>
         {item.verdict && (
@@ -98,9 +98,9 @@ export function PeripheralCard({ item, onSelectItem }: PeripheralCardProps) {
               }}
               className={`flex-1 flex items-center justify-center gap-1.5 text-xs py-2 font-semibold text-gp-ink-950 rounded-lg transition-colors ${
                 storePlatform === "Shopee"
-                  ? "bg-orange-500 hover:bg-orange-400 text-gp-ink-950"
+                  ? "bg-hue-orange-500 hover:bg-hue-orange-400 text-gp-ink-950"
                   : storePlatform === "Tokopedia"
-                  ? "bg-emerald-500 hover:bg-emerald-400 text-gp-ink-950"
+                  ? "bg-hue-emerald-500 hover:bg-hue-emerald-400 text-gp-ink-950"
                   : "bg-gp-ink-700 hover:bg-gp-ink-600 text-white"
               }`}
             >

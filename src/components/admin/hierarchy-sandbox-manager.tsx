@@ -71,7 +71,7 @@ export function HierarchySandboxManager({
       description: "Deskripsi singkat ulasan dan data pengujian laboratorium.",
       content: `<h2>1. Pembahasan Utama Pengujian</h2>
 <p>Tulis penjelasan hasil pengukuran sensor di sini dengan format terstruktur, tabel pengujian, atau callout GrayPlasma verdict.</p>
-<div class="my-5 p-4 rounded-xl border border-amber-500/40 bg-amber-500/5 text-amber-300 flex items-start gap-3.5 notion-callout">
+<div class="my-5 p-4 rounded-xl border border-hue-amber-500/40 bg-hue-amber-500/5 text-hue-amber-300 flex items-start gap-3.5 notion-callout">
   <div class="px-2 py-0.5 rounded bg-black/40 border border-current font-mono text-3xs font-bold tracking-wider uppercase flex-shrink-0">
     [VERDICT GrayPlasma]
   </div>
@@ -175,7 +175,7 @@ export function HierarchySandboxManager({
     <div className="space-y-6">
       {/* Toast Notification */}
       {notice && (
-        <div className="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-xl bg-emerald-500 text-black font-bold text-xs flex items-center gap-2 shadow-2xl animate-in slide-in-from-bottom-2">
+        <div className="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-xl bg-hue-emerald-500 text-black font-bold text-xs flex items-center gap-2 shadow-2xl animate-in slide-in-from-bottom-2">
           <CheckCircle2 className="w-4 h-4" />
           <span>{notice}</span>
         </div>
@@ -201,7 +201,7 @@ export function HierarchySandboxManager({
         {/* Top Control Header */}
         <div className="p-6 rounded-2xl bg-gp-ink-900 border border-gp-ink-700 flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-sm">
           <div className="space-y-1">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-gp-ink-800 border border-gp-ink-650 text-cyan-400 text-2xs font-mono font-bold">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-gp-ink-800 border border-gp-ink-650 text-hue-cyan-400 text-2xs font-mono font-bold">
               <FolderTree className="w-3.5 h-3.5" />
               <span>Hierarki & Rute</span>
             </div>
@@ -260,7 +260,7 @@ export function HierarchySandboxManager({
               onClick={() => setFilterCategory(cat)}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-colors ${
                 filterCategory === cat
-                  ? "bg-cyan-950/40 text-cyan-400 border border-cyan-500/40 font-bold"
+                  ? "bg-hue-cyan-950/40 text-hue-cyan-400 border border-hue-cyan-500/40 font-bold"
                   : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
               }`}
             >
@@ -300,12 +300,12 @@ export function HierarchySandboxManager({
 
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-2.5">
-                          <FileText className={`w-4 h-4 flex-shrink-0 ${!isLive ? "text-amber-500" : "text-cyan-400"}`} />
+                          <FileText className={`w-4 h-4 flex-shrink-0 ${!isLive ? "text-hue-amber-500" : "text-hue-cyan-400"}`} />
                           <div>
-                            <div className="font-bold text-white group-hover:text-cyan-400 transition-colors flex items-center gap-2">
+                            <div className="font-bold text-white group-hover:text-hue-cyan-400 transition-colors flex items-center gap-2">
                               <span>{node.title}</span>
                               {!isLive && (
-                                <span className="px-1.5 py-0.5 rounded text-4xs font-mono font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                                <span className="px-1.5 py-0.5 rounded text-4xs font-mono font-bold bg-hue-amber-500/10 text-hue-amber-400 border border-hue-amber-500/30">
                                   Draft
                                 </span>
                               )}
@@ -326,7 +326,7 @@ export function HierarchySandboxManager({
                             e.stopPropagation();
                             onTestTrigger(node);
                           }}
-                          className="inline-flex items-center gap-1.5 font-mono font-bold text-emerald-400 hover:text-emerald-300 hover:underline text-2xs transition-colors"
+                          className="inline-flex items-center gap-1.5 font-mono font-bold text-hue-emerald-400 hover:text-hue-emerald-300 hover:underline text-2xs transition-colors"
                           title="Buka rute publik"
                         >
                           <span>{node.fullPath}</span>
@@ -343,14 +343,14 @@ export function HierarchySandboxManager({
                           onClick={(e) => handleTogglePublish(e, node)}
                           className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-2xs font-mono font-bold transition-colors border ${
                             isLive
-                              ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
+                              ? "bg-hue-emerald-500/10 text-hue-emerald-400 border-hue-emerald-500/30 hover:bg-hue-emerald-500/20"
                               : "bg-gp-ink-800 text-gp-ink-300 border-gp-ink-650 hover:bg-gp-ink-700"
                           }`}
                           title={isLive ? "Klik untuk sembunyikan dari publik" : "Klik untuk tampilkan ke publik"}
                         >
                           <span
                             className={`w-1.5 h-1.5 rounded-full ${
-                              isLive ? "bg-emerald-400 animate-pulse" : "bg-gp-ink-400"
+                              isLive ? "bg-hue-emerald-400 animate-pulse" : "bg-gp-ink-400"
                             }`}
                           />
                           <span>{isLive ? "Aktif" : "Draft"}</span>
@@ -365,16 +365,16 @@ export function HierarchySandboxManager({
                           {/* Live Edit Button */}
                           <button
                             onClick={() => handleStartEdit(node)}
-                            className="px-2.5 py-1 rounded bg-gp-ink-800 border border-gp-ink-650 hover:border-cyan-400 text-gp-ink-100 hover:text-white flex items-center gap-1.5 text-xs font-mono transition-colors"
+                            className="px-2.5 py-1 rounded bg-gp-ink-800 border border-gp-ink-650 hover:border-hue-cyan-400 text-gp-ink-100 hover:text-white flex items-center gap-1.5 text-xs font-mono transition-colors"
                           >
-                            <Edit2 className="w-3 h-3 text-cyan-400" />
+                            <Edit2 className="w-3 h-3 text-hue-cyan-400" />
                             <span>Edit</span>
                           </button>
 
                           {/* Delete Button */}
                           <button
                             onClick={() => handleDelete(node.id)}
-                            className="p-1.5 rounded bg-gp-ink-800 border border-gp-ink-700 hover:bg-rose-950/40 text-gp-ink-400 hover:text-rose-400 transition-colors"
+                            className="p-1.5 rounded bg-gp-ink-800 border border-gp-ink-700 hover:bg-hue-rose-950/40 text-gp-ink-400 hover:text-hue-rose-400 transition-colors"
                             title="Hapus Halaman"
                           >
                             <Trash2 className="w-3.5 h-3.5" />

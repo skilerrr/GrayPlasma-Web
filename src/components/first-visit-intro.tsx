@@ -53,7 +53,7 @@ export function FirstVisitIntro() {
           <GPLogo className="w-9 h-9" />
         </div>
         <span className="text-sm font-black tracking-tight text-white uppercase">
-          GrayPlasma<span className="text-orange-500 font-mono">ID</span>
+          GrayPlasma<span className="text-hue-orange-500 font-mono">ID</span>
         </span>
         <span className="text-3xs font-mono text-gp-ink-500 uppercase tracking-widest">
           Kurasi &amp; Database Monitor

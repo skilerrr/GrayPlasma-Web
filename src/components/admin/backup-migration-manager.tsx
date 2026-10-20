@@ -91,8 +91,8 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
         <div
           className={`p-4 rounded-2xl border text-xs font-semibold flex items-center gap-2.5 shadow-xl ${
             syncStatus.isError
-              ? "bg-rose-950/90 border-rose-500 text-rose-200"
-              : "bg-emerald-950/90 border-emerald-500 text-emerald-200"
+              ? "bg-hue-rose-950/90 border-hue-rose-500 text-hue-rose-200"
+              : "bg-hue-emerald-950/90 border-hue-emerald-500 text-hue-emerald-200"
           }`}
         >
           <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
@@ -103,7 +103,7 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
       <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6">
         {/* Header */}
         <div className="space-y-2 border-b border-gp-ink-700 pb-5">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-hue-cyan-500/10 border border-hue-cyan-500/30 text-hue-cyan-400 text-xs font-bold">
             <Server className="w-3.5 h-3.5" />
             <span>Database Backup, Cloud Sync & Migrations</span>
           </div>
@@ -119,7 +119,7 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 space-y-4 flex flex-col justify-between">
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-amber-400">
+              <div className="flex items-center gap-2 text-hue-amber-400">
                 <Download className="w-4 h-4" />
                 <h4 className="text-sm font-bold text-white uppercase">
                   1-Click Full Database Backup (Export JSON)
@@ -144,7 +144,7 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
 
           <div className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 space-y-4 flex flex-col justify-between">
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-cyan-400">
+              <div className="flex items-center gap-2 text-hue-cyan-400">
                 <Upload className="w-4 h-4" />
                 <h4 className="text-sm font-bold text-white uppercase">
                   1-Click Restore Database (Import JSON)
@@ -157,7 +157,7 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
 
             <label className="w-full cursor-pointer">
               <div className="px-4 py-2.5 rounded-xl bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-600 text-xs font-bold text-gp-ink-100 text-center flex items-center justify-center gap-1.5 transition-colors">
-                <Upload className="w-4 h-4 text-cyan-400" />
+                <Upload className="w-4 h-4 text-hue-cyan-400" />
                 <span>Pilih File Backup JSON untuk Restore</span>
               </div>
               <input
@@ -173,7 +173,7 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
         {/* 2. Supabase Integration & Push Sync */}
         <div className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 space-y-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-emerald-400">
+            <div className="flex items-center gap-2 text-hue-emerald-400">
               <Cloud className="w-4 h-4" />
               <h4 className="text-sm font-bold text-white uppercase">
                 Supabase Cloud Live Synchronization
@@ -182,8 +182,8 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
             <span
               className={`text-3xs px-2.5 py-0.5 rounded-full font-bold border ${
                 isSupabaseConfigured
-                  ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
-                  : "bg-amber-500/10 text-amber-400 border-amber-500/30"
+                  ? "bg-hue-emerald-500/10 text-hue-emerald-400 border-hue-emerald-500/30"
+                  : "bg-hue-amber-500/10 text-hue-amber-400 border-hue-amber-500/30"
               }`}
             >
               {isSupabaseConfigured ? "Supabase Live Connected" : "Local Database Mode"}
@@ -213,7 +213,7 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
         {/* 3. SQL Migration Generator */}
         <div className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 space-y-3 text-xs">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-violet-400 font-bold">
+            <div className="flex items-center gap-2 text-hue-violet-400 font-bold">
               <FileCode className="w-4 h-4" />
               <span className="text-white">Skema SQL Migrasi Supabase</span>
             </div>
@@ -226,7 +226,7 @@ export function BackupMigrationManager({ onRefreshAll }: BackupMigrationManagerP
             >
               {copiedSql ? (
                 <>
-                  <Check className="w-3.5 h-3.5 text-emerald-400 mr-1" />
+                  <Check className="w-3.5 h-3.5 text-hue-emerald-400 mr-1" />
                   <span>Tersalin!</span>
                 </>
               ) : (

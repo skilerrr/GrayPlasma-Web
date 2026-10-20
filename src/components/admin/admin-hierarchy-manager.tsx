@@ -50,27 +50,27 @@ const ROLE_CONFIG: Record<
 > = {
   super_admin: {
     label: "Super Admin (Owner)",
-    badgeClass: "bg-amber-500/10 text-amber-400 border-amber-500/30",
+    badgeClass: "bg-hue-amber-500/10 text-hue-amber-400 border-hue-amber-500/30",
     desc: "Hak akses penuh ke seluruh database, manajemen anggota tim admin, reset database, dan migrasi Supabase.",
-    icon: <Award className="w-3.5 h-3.5 text-amber-400" />,
+    icon: <Award className="w-3.5 h-3.5 text-hue-amber-400" />,
   },
   lead_reviewer: {
     label: "Lead Reviewer",
-    badgeClass: "bg-cyan-500/10 text-cyan-400 border-cyan-500/30",
+    badgeClass: "bg-hue-cyan-500/10 text-hue-cyan-400 border-hue-cyan-500/30",
     desc: "Hak mengelola database monitor live studio, pengujian laboratorium GrayPlasma, kurasi meja, dan aftersales.",
-    icon: <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />,
+    icon: <ShieldCheck className="w-3.5 h-3.5 text-hue-cyan-400" />,
   },
   editor: {
     label: "Content Editor",
-    badgeClass: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
+    badgeClass: "bg-hue-emerald-500/10 text-hue-emerald-400 border-hue-emerald-500/30",
     desc: "Hak mengelola artikel panduan (/guide/...), FAQ, banner halaman, dan pengumuman ribbon.",
-    icon: <Edit2 className="w-3.5 h-3.5 text-emerald-400" />,
+    icon: <Edit2 className="w-3.5 h-3.5 text-hue-emerald-400" />,
   },
   contributor: {
     label: "Contributor / Tester",
-    badgeClass: "bg-violet-500/10 text-violet-400 border-violet-500/30",
+    badgeClass: "bg-hue-violet-500/10 text-hue-violet-400 border-hue-violet-500/30",
     desc: "Hak draft monitor dan input hasil pengetesan sementara.",
-    icon: <Users className="w-3.5 h-3.5 text-violet-400" />,
+    icon: <Users className="w-3.5 h-3.5 text-hue-violet-400" />,
   },
 };
 
@@ -263,8 +263,8 @@ export function AdminHierarchyManager({
     <div className="space-y-6">
       {/* Toast Notice */}
       {notice && (
-        <div className="p-3 bg-emerald-950/90 border border-emerald-500 rounded-xl text-xs text-emerald-200 font-semibold flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+        <div className="p-3 bg-hue-emerald-950/90 border border-hue-emerald-500 rounded-xl text-xs text-hue-emerald-200 font-semibold flex items-center gap-2">
+          <CheckCircle2 className="w-4 h-4 text-hue-emerald-400 flex-shrink-0" />
           <span>{notice}</span>
         </div>
       )}
@@ -273,7 +273,7 @@ export function AdminHierarchyManager({
       <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gp-ink-700 pb-5">
           <div className="space-y-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-hue-amber-500/10 border border-hue-amber-500/30 text-hue-amber-400 text-xs font-bold">
               <Shield className="w-3.5 h-3.5" />
               <span>Admin Hierarchy & Role-Based Access Control (RBAC)</span>
             </div>
@@ -313,7 +313,7 @@ export function AdminHierarchyManager({
             onClick={() => setActiveSubTab("team")}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-1.5 ${
               activeSubTab === "team"
-                ? "bg-gp-ink-700 text-amber-400 border border-amber-500/30"
+                ? "bg-gp-ink-700 text-hue-amber-400 border border-hue-amber-500/30"
                 : "text-gp-ink-300 hover:text-white"
             }`}
           >
@@ -327,7 +327,7 @@ export function AdminHierarchyManager({
             }}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-1.5 ${
               activeSubTab === "audit"
-                ? "bg-gp-ink-700 text-cyan-400 border border-cyan-500/30"
+                ? "bg-gp-ink-700 text-hue-cyan-400 border border-hue-cyan-500/30"
                 : "text-gp-ink-300 hover:text-white"
             }`}
           >
@@ -341,19 +341,19 @@ export function AdminHierarchyManager({
           <div className="space-y-6">
             {/* Current Active Session Indicator */}
             {currentAdmin && (
-              <div className="p-4 rounded-2xl bg-gradient-to-r from-gp-ink-950 via-gp-ink-800 to-gp-ink-950 border border-amber-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-gp-ink-950 via-gp-ink-800 to-gp-ink-950 border border-hue-amber-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-3.5">
                   <div className="relative group cursor-pointer flex-shrink-0">
                     <img
                       src={currentAdmin.avatar}
                       alt={currentAdmin.name}
-                      className="w-14 h-14 rounded-2xl object-cover border-2 border-amber-500/60 shadow-lg shadow-amber-500/10 group-hover:opacity-75 transition-opacity"
+                      className="w-14 h-14 rounded-2xl object-cover border-2 border-hue-amber-500/60 shadow-lg shadow-hue-amber-500/10 group-hover:opacity-75 transition-opacity"
                     />
                     <label
                       title="Ganti Foto Profil Anda"
                       className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                     >
-                      <Camera className="w-5 h-5 text-amber-400" />
+                      <Camera className="w-5 h-5 text-hue-amber-400" />
                       <input
                         type="file"
                         accept="image/*"
@@ -364,10 +364,10 @@ export function AdminHierarchyManager({
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-amber-400 uppercase font-bold tracking-wider">
+                      <span className="text-xs text-hue-amber-400 uppercase font-bold tracking-wider">
                         Sesi Admin Aktif Saat Ini
                       </span>
-                      <span className="text-3xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30">
+                      <span className="text-3xs px-2 py-0.5 rounded-full bg-hue-emerald-500/20 text-hue-emerald-400 font-bold border border-hue-emerald-500/30">
                         Online
                       </span>
                     </div>
@@ -380,7 +380,7 @@ export function AdminHierarchyManager({
 
                 <div className="flex items-center gap-3">
                   <label className="px-3 py-1.5 rounded-xl bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-600 text-xs font-semibold text-gp-ink-100 cursor-pointer flex items-center gap-1.5 transition-colors">
-                    <Upload className="w-3.5 h-3.5 text-amber-400" />
+                    <Upload className="w-3.5 h-3.5 text-hue-amber-400" />
                     <span>Ganti Foto Profil</span>
                     <input
                       type="file"
@@ -408,7 +408,7 @@ export function AdminHierarchyManager({
                     key={adm.id}
                     className={`bg-gp-ink-950 border rounded-2xl p-5 space-y-4 flex flex-col justify-between transition-colors ${
                       isCurrent
-                        ? "border-amber-500/50 shadow-lg shadow-amber-500/5 bg-gp-ink-800/40"
+                        ? "border-hue-amber-500/50 shadow-lg shadow-hue-amber-500/5 bg-gp-ink-800/40"
                         : "border-gp-ink-700 hover:border-gp-ink-600"
                     }`}
                   >
@@ -420,13 +420,13 @@ export function AdminHierarchyManager({
                             <img
                               src={adm.avatar}
                               alt={adm.name}
-                              className="w-11 h-11 rounded-xl object-cover border border-gp-ink-700 group-hover:border-amber-500/50 transition-colors"
+                              className="w-11 h-11 rounded-xl object-cover border border-gp-ink-700 group-hover:border-hue-amber-500/50 transition-colors"
                             />
                             <label
                               title="Ganti Foto Profil"
                               className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                             >
-                              <Camera className="w-3.5 h-3.5 text-amber-400" />
+                              <Camera className="w-3.5 h-3.5 text-hue-amber-400" />
                               <input
                                 type="file"
                                 accept="image/*"
@@ -449,14 +449,14 @@ export function AdminHierarchyManager({
                           <button
                             onClick={() => handleOpenEdit(adm)}
                             title="Edit Akun Admin"
-                            className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-emerald-400"
+                            className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-hue-emerald-400"
                           >
                             <Edit2 className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => handleDeleteAdmin(adm.id, adm.name)}
                             title="Hapus Akun Admin"
-                            className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-rose-400"
+                            className="p-1.5 rounded-lg bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-200 hover:text-hue-rose-400"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -480,7 +480,7 @@ export function AdminHierarchyManager({
                         </span>
                         <div className="flex flex-wrap gap-1">
                           {adm.permissions.includes("*") ? (
-                            <span className="text-3xs px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 font-mono font-bold">
+                            <span className="text-3xs px-2 py-0.5 rounded bg-hue-amber-500/10 text-hue-amber-300 border border-hue-amber-500/30 font-mono font-bold">
                               [SUPER ADMIN - ALL ACCESS]
                             </span>
                           ) : (
@@ -510,13 +510,13 @@ export function AdminHierarchyManager({
                             DatabaseService.setCurrentAdminSession(adm);
                             showNotice(`Berganti ke akun: ${adm.name} (${adm.role})`);
                           }}
-                          className="px-2.5 py-1 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-700 text-xs font-semibold text-gp-ink-200 hover:text-amber-400 transition-colors flex items-center gap-1"
+                          className="px-2.5 py-1 rounded-lg bg-gp-ink-800 hover:bg-gp-ink-700 border border-gp-ink-700 text-xs font-semibold text-gp-ink-200 hover:text-hue-amber-400 transition-colors flex items-center gap-1"
                         >
-                          <Fingerprint className="w-3 h-3 text-amber-400" />
+                          <Fingerprint className="w-3 h-3 text-hue-amber-400" />
                           <span>Ganti Sesi</span>
                         </button>
                       ) : (
-                        <span className="text-2xs text-emerald-400 font-bold flex items-center gap-1">
+                        <span className="text-2xs text-hue-emerald-400 font-bold flex items-center gap-1">
                           <Check className="w-3.5 h-3.5" />
                           <span>Akun Aktif</span>
                         </span>
@@ -538,7 +538,7 @@ export function AdminHierarchyManager({
                 <select
                   value={logFilter}
                   onChange={(e) => setLogFilter(e.target.value)}
-                  className="bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-2.5 py-1.5 text-xs text-gp-ink-200 focus:outline-none focus:border-cyan-400"
+                  className="bg-gp-ink-800 border border-gp-ink-700 rounded-xl px-2.5 py-1.5 text-xs text-gp-ink-200 focus:outline-none focus:border-hue-cyan-400"
                 >
                   <option value="all">Semua Aksi & Modul</option>
                   <option value="monitor">Monitor</option>
@@ -558,7 +558,7 @@ export function AdminHierarchyManager({
                     showNotice("Audit log dibersihkan.");
                   }
                 }}
-                className="text-xs text-gp-ink-400 hover:text-rose-400 transition-colors"
+                className="text-xs text-gp-ink-400 hover:text-hue-rose-400 transition-colors"
               >
                 Hapus Log Riwayat
               </button>
@@ -575,12 +575,12 @@ export function AdminHierarchyManager({
                     <div className="flex items-start gap-3">
                       <div className={`p-2 rounded-xl mt-0.5 ${
                         log.action === "create"
-                          ? "bg-emerald-500/10 text-emerald-400"
+                          ? "bg-hue-emerald-500/10 text-hue-emerald-400"
                           : log.action === "delete"
-                          ? "bg-rose-500/10 text-rose-400"
+                          ? "bg-hue-rose-500/10 text-hue-rose-400"
                           : log.action === "sync" || log.action === "restore"
-                          ? "bg-cyan-500/10 text-cyan-400"
-                          : "bg-amber-500/10 text-amber-400"
+                          ? "bg-hue-cyan-500/10 text-hue-cyan-400"
+                          : "bg-hue-amber-500/10 text-hue-amber-400"
                       }`}>
                         <Activity className="w-3.5 h-3.5" />
                       </div>
@@ -616,7 +616,7 @@ export function AdminHierarchyManager({
             {/* Fixed Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-gp-ink-700 bg-gp-ink-850 flex-shrink-0">
               <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400">
+                <div className="p-2 rounded-xl bg-hue-amber-500/10 border border-hue-amber-500/30 text-hue-amber-400">
                   <UserPlus className="w-4 h-4" />
                 </div>
                 <div>
@@ -647,7 +647,7 @@ export function AdminHierarchyManager({
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Contoh: Joel Gray"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-amber-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
@@ -658,7 +658,7 @@ export function AdminHierarchyManager({
                       value={formData.username}
                       onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                       placeholder="gray1plasma"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-amber-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                 </div>
@@ -671,7 +671,7 @@ export function AdminHierarchyManager({
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="collaborator@grayplasma.id"
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400 font-mono text-xs placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-amber-400 font-mono text-xs placeholder:text-gp-ink-400"
                   />
                 </div>
 
@@ -696,7 +696,7 @@ export function AdminHierarchyManager({
                         }
                         setFormData({ ...formData, role: newRole, roleTitle, permissions: perms });
                       }}
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-hue-amber-400"
                     >
                       <option value="super_admin">[SUPER ADMIN] Super Admin (Full Control)</option>
                       <option value="lead_reviewer">[REVIEWER] Lead Reviewer (Lab & Monitor)</option>
@@ -713,7 +713,7 @@ export function AdminHierarchyManager({
                       value={formData.pinCode}
                       onChange={(e) => setFormData({ ...formData, pinCode: e.target.value })}
                       placeholder="PIN / Password"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-amber-400 font-mono font-bold focus:outline-none focus:border-amber-400 placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-hue-amber-400 font-mono font-bold focus:outline-none focus:border-hue-amber-400 placeholder:text-gp-ink-400"
                     />
                   </div>
                 </div>
@@ -721,7 +721,7 @@ export function AdminHierarchyManager({
                 <div>
                   <div className="flex items-center justify-between mb-1">
                     <label className="text-gp-ink-200 font-semibold">Foto Profil (Avatar)</label>
-                    <label className="text-2xs text-amber-400 hover:underline cursor-pointer flex items-center gap-1 font-semibold">
+                    <label className="text-2xs text-hue-amber-400 hover:underline cursor-pointer flex items-center gap-1 font-semibold">
                       <Upload className="w-3 h-3" />
                       <span>Upload Foto Sendiri (WebP)</span>
                       <input
@@ -736,14 +736,14 @@ export function AdminHierarchyManager({
                     <img
                       src={formData.avatar || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200&auto=format&fit=crop"}
                       alt="Preview"
-                      className="w-10 h-10 rounded-xl object-cover border border-amber-500/50 flex-shrink-0"
+                      className="w-10 h-10 rounded-xl object-cover border border-hue-amber-500/50 flex-shrink-0"
                     />
                     <input
                       type="text"
                       value={formData.avatar}
                       onChange={(e) => setFormData({ ...formData, avatar: e.target.value })}
                       placeholder="https://... atau klik Upload Foto di samping"
-                      className="flex-1 bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-gp-ink-200 focus:outline-none focus:border-amber-400 font-mono text-2xs placeholder:text-gp-ink-400"
+                      className="flex-1 bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-gp-ink-200 focus:outline-none focus:border-hue-amber-400 font-mono text-2xs placeholder:text-gp-ink-400"
                     />
                   </div>
                 </div>
@@ -755,7 +755,7 @@ export function AdminHierarchyManager({
                     value={formData.bio || ""}
                     onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
                     placeholder="Deskripsi peran dan tanggung jawab admin..."
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-2.5 text-gp-ink-100 focus:outline-none focus:border-amber-400 placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-2.5 text-gp-ink-100 focus:outline-none focus:border-hue-amber-400 placeholder:text-gp-ink-400"
                   />
                 </div>
 
@@ -778,7 +778,7 @@ export function AdminHierarchyManager({
                             type="checkbox"
                             checked={isChecked}
                             onChange={() => togglePermission(perm.id)}
-                            className="rounded border-gp-ink-500 bg-gp-ink-700 text-amber-500 focus:ring-0"
+                            className="rounded border-gp-ink-500 bg-gp-ink-700 text-hue-amber-500 focus:ring-0"
                           />
                           <span>{perm.label}</span>
                         </label>
@@ -799,7 +799,7 @@ export function AdminHierarchyManager({
                 >
                   Batal
                 </Button>
-                <Button type="submit" variant="cyber" size="sm" className="bg-amber-500 hover:bg-amber-400 text-black font-bold">
+                <Button type="submit" variant="cyber" size="sm" className="bg-hue-amber-500 hover:bg-hue-amber-400 text-black font-bold">
                   Simpan Admin
                 </Button>
               </div>

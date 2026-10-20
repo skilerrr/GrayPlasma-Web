@@ -207,7 +207,7 @@ Link Detail & Lab Data: ${detailUrl}`;
               className="p-1.5 rounded-lg hover:text-white hover:bg-gp-ink-700 transition-colors flex items-center gap-1 text-2xs"
               title="Salin ringkasan format Discord"
             >
-              <MessageSquare className="w-3.5 h-3.5 text-indigo-400" />
+              <MessageSquare className="w-3.5 h-3.5 text-hue-indigo-400" />
               <span>{copiedDiscord ? "Disalin!" : "Discord"}</span>
             </button>
 
@@ -305,7 +305,7 @@ Link Detail & Lab Data: ${detailUrl}`;
                   variant="default"
                   size="sm"
                   onClick={() => window.open(tokopediaLink.url, "_blank")}
-                  className="bg-brand-tokopedia hover:bg-emerald-600 text-white font-bold text-xs px-3"
+                  className="bg-brand-tokopedia hover:bg-hue-emerald-600 text-white font-bold text-xs px-3"
                 >
                   <ShoppingBag className="w-3.5 h-3.5 mr-1" /> Tokopedia
                 </Button>
@@ -315,7 +315,7 @@ Link Detail & Lab Data: ${detailUrl}`;
                   variant="default"
                   size="sm"
                   onClick={() => window.open(shopeeLink.url, "_blank")}
-                  className="bg-brand-shopee hover:bg-orange-600 text-white font-bold text-xs px-3"
+                  className="bg-brand-shopee hover:bg-hue-orange-600 text-white font-bold text-xs px-3"
                 >
                   <ShoppingBag className="w-3.5 h-3.5 mr-1" /> Shopee
                 </Button>
@@ -385,11 +385,11 @@ Link Detail & Lab Data: ${detailUrl}`;
                   <tr>
                     <td className="p-3 font-sans font-semibold text-white">Color Gamut P3</td>
                     <td className="p-3 text-gp-ink-400">95% P3</td>
-                    <td className="p-3 text-cyan-400 font-bold">
+                    <td className="p-3 text-hue-cyan-400 font-bold">
                       {monitor.specs.display.colorGamut || "100% P3 (dE < 4)"}
                     </td>
                     <td className="p-3">
-                      <span className="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-400 text-3xs font-bold">
+                      <span className="px-2 py-0.5 rounded bg-hue-cyan-500/20 text-hue-cyan-400 text-3xs font-bold">
                         EXCELLENT
                       </span>
                     </td>
@@ -397,11 +397,11 @@ Link Detail & Lab Data: ${detailUrl}`;
                   <tr>
                     <td className="p-3 font-sans font-semibold text-white">Kecerahan (Nits)</td>
                     <td className="p-3 text-gp-ink-400">HDR 400</td>
-                    <td className="p-3 text-rose-400 font-bold">
+                    <td className="p-3 text-hue-rose-400 font-bold">
                       Min ~100 nits / Max ~270 nits
                     </td>
                     <td className="p-3">
-                      <span className="px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 text-3xs font-bold">
+                      <span className="px-2 py-0.5 rounded bg-hue-rose-500/20 text-hue-rose-400 text-3xs font-bold">
                         DISARANKAN SDR
                       </span>
                     </td>
@@ -501,7 +501,7 @@ Link Detail & Lab Data: ${detailUrl}`;
           {monitor.customVariables && monitor.customVariables.length > 0 && (
             <div className="rounded-2xl bg-gp-ink-800/60 border border-gp-ink-700 p-5 space-y-3">
               <div className="flex items-center justify-between">
-                <span className="px-2.5 py-0.5 rounded bg-amber-500/10 text-amber-300 text-3xs font-black uppercase tracking-widest border border-amber-500/30">
+                <span className="px-2.5 py-0.5 rounded bg-hue-amber-500/10 text-hue-amber-300 text-3xs font-black uppercase tracking-widest border border-hue-amber-500/30">
                   PARAMETER & VARIABEL TAMBAHAN
                 </span>
                 <span className="text-3xs font-mono text-gp-ink-400">
@@ -516,13 +516,13 @@ Link Detail & Lab Data: ${detailUrl}`;
                   >
                     <div className="flex items-center gap-1.5 truncate">
                       {v.category && (
-                        <span className="text-4xs font-mono font-bold text-amber-400 uppercase bg-gp-ink-700 px-1.5 py-0.5 rounded">
+                        <span className="text-4xs font-mono font-bold text-hue-amber-400 uppercase bg-gp-ink-700 px-1.5 py-0.5 rounded">
                           {v.category}
                         </span>
                       )}
                       <span className="text-gp-ink-300 font-medium truncate">{v.label}</span>
                     </div>
-                    <span className="text-emerald-400 font-mono font-bold ml-2 flex-shrink-0">
+                    <span className="text-hue-emerald-400 font-mono font-bold ml-2 flex-shrink-0">
                       {v.value}
                     </span>
                   </div>

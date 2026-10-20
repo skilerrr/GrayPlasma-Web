@@ -133,36 +133,36 @@ export function BannerCarousel({
   const getBadgeColorClasses = (color?: string) => {
     switch (color) {
       case "amber":
-        return "bg-amber-500/15 text-amber-400 border-amber-500/30";
+        return "bg-hue-amber-500/15 text-hue-amber-400 border-hue-amber-500/30";
       case "rose":
-        return "bg-rose-500/15 text-rose-400 border-rose-500/30";
+        return "bg-hue-rose-500/15 text-hue-rose-400 border-hue-rose-500/30";
       case "cyan":
-        return "bg-cyan-500/15 text-cyan-400 border-cyan-500/30";
+        return "bg-hue-cyan-500/15 text-hue-cyan-400 border-hue-cyan-500/30";
       case "violet":
-        return "bg-violet-500/15 text-violet-400 border-violet-500/30";
+        return "bg-hue-violet-500/15 text-hue-violet-400 border-hue-violet-500/30";
       case "orange":
-        return "bg-orange-500/15 text-orange-400 border-orange-500/30";
+        return "bg-hue-orange-500/15 text-hue-orange-400 border-hue-orange-500/30";
       case "emerald":
       default:
-        return "bg-emerald-500/15 text-emerald-400 border-emerald-500/30";
+        return "bg-hue-emerald-500/15 text-hue-emerald-400 border-hue-emerald-500/30";
     }
   };
 
   const getDotColorClasses = (color?: string) => {
     switch (color) {
       case "amber":
-        return "bg-amber-400";
+        return "bg-hue-amber-400";
       case "rose":
-        return "bg-rose-400";
+        return "bg-hue-rose-400";
       case "cyan":
-        return "bg-cyan-400";
+        return "bg-hue-cyan-400";
       case "violet":
-        return "bg-violet-400";
+        return "bg-hue-violet-400";
       case "orange":
-        return "bg-orange-400";
+        return "bg-hue-orange-400";
       case "emerald":
       default:
-        return "bg-emerald-400";
+        return "bg-hue-emerald-400";
     }
   };
 
@@ -330,7 +330,7 @@ export function BannerCarousel({
                 {isActive && (
                   <div
                     key={`progress-${currentIndex}-${isPaused}`}
-                    className={`h-full bg-emerald-400 rounded-full ${
+                    className={`h-full bg-hue-emerald-400 rounded-full ${
                       isPaused ? "" : "animate-banner-progress"
                     }`}
                     style={{

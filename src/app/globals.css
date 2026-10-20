@@ -97,6 +97,77 @@
   --gp-brand-tokopedia-alt: 3 172 14;
   --gp-brand-shopee-dark: 212 61 31;
   --gp-brand-youtube: 255 0 0;
+
+  /* ============================================================
+   * HUE SCALE — warna Tailwind mentah yang dipakai situs, sekarang
+   * jadi token sendiri.
+   *
+   * Nilai RGB-nya PERSIS SAMA dengan palette aslinya, jadi hasil
+   * visual 100% identik — bedanya cuma sumber warna sekarang satu file
+   * (globals.css) dan bisa di-retint dari satu tempat.
+   * ============================================================ */
+  --gp-hue-amber-200: 254 240 138;
+  --gp-hue-amber-300: 252 211 77;
+  --gp-hue-amber-400: 251 191 36;
+  --gp-hue-amber-500: 245 158 11;
+  --gp-hue-amber-950: 69 26 3;
+  --gp-hue-blue-200: 191 219 254;
+  --gp-hue-blue-300: 147 197 253;
+  --gp-hue-blue-400: 96 165 250;
+  --gp-hue-blue-500: 59 130 246;
+  --gp-hue-blue-900: 30 58 138;
+  --gp-hue-blue-950: 23 37 84;
+  --gp-hue-cyan-200: 103 232 249;
+  --gp-hue-cyan-300: 34 211 238;
+  --gp-hue-cyan-400: 34 211 238;
+  --gp-hue-cyan-500: 6 182 212;
+  --gp-hue-cyan-950: 8 47 73;
+  --gp-hue-emerald-200: 167 243 208;
+  --gp-hue-emerald-300: 110 231 183;
+  --gp-hue-emerald-400: 52 211 153;
+  --gp-hue-emerald-500: 16 185 129;
+  --gp-hue-emerald-600: 5 150 105;
+  --gp-hue-emerald-900: 6 78 59;
+  --gp-hue-emerald-950: 2 44 34;
+  --gp-hue-gray-700: 55 65 81;
+  --gp-hue-indigo-300: 165 180 252;
+  --gp-hue-indigo-400: 129 140 248;
+  --gp-hue-indigo-900: 49 46 129;
+  --gp-hue-orange-300: 253 186 116;
+  --gp-hue-orange-400: 251 146 60;
+  --gp-hue-orange-500: 249 115 22;
+  --gp-hue-orange-600: 234 88 12;
+  --gp-hue-pink-300: 244 114 182;
+  --gp-hue-pink-400: 244 114 182;
+  --gp-hue-pink-500: 236 72 153;
+  --gp-hue-purple-200: 221 214 254;
+  --gp-hue-purple-300: 196 181 253;
+  --gp-hue-purple-400: 167 139 250;
+  --gp-hue-purple-500: 139 92 246;
+  --gp-hue-purple-800: 91 33 182;
+  --gp-hue-purple-950: 46 16 101;
+  --gp-hue-red-200: 254 202 202;
+  --gp-hue-red-400: 248 113 113;
+  --gp-hue-red-500: 239 68 68;
+  --gp-hue-red-900: 127 29 29;
+  --gp-hue-red-950: 69 10 10;
+  --gp-hue-rose-200: 254 205 211;
+  --gp-hue-rose-300: 253 164 175;
+  --gp-hue-rose-400: 251 113 133;
+  --gp-hue-rose-500: 244 63 94;
+  --gp-hue-rose-600: 225 29 72;
+  --gp-hue-rose-900: 136 19 55;
+  --gp-hue-rose-950: 76 5 25;
+  --gp-hue-sky-300: 125 211 252;
+  --gp-hue-sky-400: 56 189 248;
+  --gp-hue-teal-300: 94 234 212;
+  --gp-hue-teal-500: 20 184 166;
+  --gp-hue-violet-300: 196 181 253;
+  --gp-hue-violet-400: 167 139 250;
+  --gp-hue-violet-500: 139 92 246;
+  --gp-hue-yellow-400: 250 204 21;
+  --gp-hue-yellow-500: 234 179 8;
+
   --gp-surface: 13 13 17;
   --gp-surface-dark: 8 8 10;
   --gp-surface-elevated: 18 19 26;

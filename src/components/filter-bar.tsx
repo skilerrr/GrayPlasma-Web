@@ -195,7 +195,7 @@ export function FilterBar({
         {/* Modal Header */}
         <div className="px-5 sm:px-6 py-4 border-b border-gp-ink-700 flex items-center justify-between bg-gp-ink-850">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+            <div className="p-2 rounded-lg bg-hue-emerald-500/10 border border-hue-emerald-500/30 text-hue-emerald-400">
               <SlidersHorizontal className="w-4 h-4" />
             </div>
             <div>
@@ -212,7 +212,7 @@ export function FilterBar({
             {hasActiveFilters && (
               <button
                 onClick={onResetFilters}
-                className="text-3xs font-mono font-bold text-gp-ink-300 hover:text-emerald-400 px-2.5 py-1 rounded bg-gp-ink-800 border border-gp-ink-600 hover:border-emerald-500 flex items-center gap-1 transition-colors"
+                className="text-3xs font-mono font-bold text-gp-ink-300 hover:text-hue-emerald-400 px-2.5 py-1 rounded bg-gp-ink-800 border border-gp-ink-600 hover:border-hue-emerald-500 flex items-center gap-1 transition-colors"
                 title="Reset semua filter"
               >
                 <RotateCcw className="w-3 h-3" />
@@ -234,7 +234,7 @@ export function FilterBar({
           {/* 1. Budget Range & Quick Select */}
           <div className="space-y-3 bg-gp-ink-850 p-4 rounded-xl border border-gp-ink-700/80">
             <label className="text-xs font-semibold text-gp-ink-100 flex items-center gap-1.5">
-              <CircleDollarSign className="w-3.5 h-3.5 text-amber-400" />
+              <CircleDollarSign className="w-3.5 h-3.5 text-hue-amber-400" />
               <span>Budget Maksimal</span>
             </label>
 
@@ -248,12 +248,12 @@ export function FilterBar({
                     onClick={() => handleBudgetPreset(preset)}
                     className={`text-xs py-2 px-3 rounded-lg border font-mono font-bold text-left transition-colors flex items-center justify-between ${
                       isSelected
-                        ? "bg-amber-500/15 border-amber-500/60 text-amber-300 shadow-tech-subtle"
+                        ? "bg-hue-amber-500/15 border-hue-amber-500/60 text-hue-amber-300 shadow-tech-subtle"
                         : "bg-gp-ink-950 border-gp-ink-700 text-gp-ink-300 hover:text-gp-ink-100 hover:border-gp-ink-600"
                     }`}
                   >
                     <span>{preset.label}</span>
-                    {isSelected && <Check className="w-3.5 h-3.5 text-amber-400" />}
+                    {isSelected && <Check className="w-3.5 h-3.5 text-hue-amber-400" />}
                   </button>
                 );
               })}
@@ -263,7 +263,7 @@ export function FilterBar({
             <div className="pt-2">
               <div className="flex justify-between text-xs text-gp-ink-300 mb-2 font-mono">
                 <span>Rp 0</span>
-                <span className="text-emerald-400 font-medium bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
+                <span className="text-hue-emerald-400 font-medium bg-hue-emerald-500/10 px-2 py-0.5 rounded border border-hue-emerald-500/30">
                   {filterState.budgetRange[1] >= 25000000
                     ? "Semua Harga"
                     : `≤ ${formatRupiah(filterState.budgetRange[1])}`}
@@ -276,7 +276,7 @@ export function FilterBar({
                 step={500000}
                 value={filterState.budgetRange[1]}
                 onChange={handleSliderChange}
-                className="w-full h-1.5 bg-gp-ink-700 rounded-lg appearance-none cursor-pointer accent-emerald-400 focus:outline-none"
+                className="w-full h-1.5 bg-gp-ink-700 rounded-lg appearance-none cursor-pointer accent-hue-emerald-400 focus:outline-none"
               />
             </div>
           </div>
@@ -284,7 +284,7 @@ export function FilterBar({
           {/* 2. Rating Tier */}
           <div className="space-y-2.5 bg-gp-ink-850 p-4 rounded-xl border border-gp-ink-700/80">
             <label className="text-xs font-semibold text-gp-ink-100 flex items-center gap-1.5">
-              <Award className="w-3.5 h-3.5 text-emerald-400" />
+              <Award className="w-3.5 h-3.5 text-hue-emerald-400" />
               <span>Tier Rekomendasi</span>
             </label>
             <div className="grid grid-cols-2 gap-1.5">
@@ -297,12 +297,12 @@ export function FilterBar({
                     className={`text-xs py-2 px-3 rounded-lg border font-mono font-bold transition-colors flex items-center justify-between ${
                       isSelected
                         ? tier === "S-TIER"
-                          ? "bg-emerald-500/20 text-emerald-300 border-emerald-400 shadow-tech-subtle"
+                          ? "bg-hue-emerald-500/20 text-hue-emerald-300 border-hue-emerald-400 shadow-tech-subtle"
                           : tier === "BEST VALUE"
-                          ? "bg-amber-500/20 text-amber-300 border-amber-400 shadow-tech-subtle"
+                          ? "bg-hue-amber-500/20 text-hue-amber-300 border-hue-amber-400 shadow-tech-subtle"
                           : tier === "RECOMMENDED"
-                          ? "bg-cyan-500/20 text-cyan-300 border-cyan-400 shadow-tech-subtle"
-                          : "bg-rose-500/20 text-rose-300 border-rose-400 shadow-tech-subtle"
+                          ? "bg-hue-cyan-500/20 text-hue-cyan-300 border-hue-cyan-400 shadow-tech-subtle"
+                          : "bg-hue-rose-500/20 text-hue-rose-300 border-hue-rose-400 shadow-tech-subtle"
                         : "bg-gp-ink-950 border-gp-ink-700 text-gp-ink-300 hover:text-gp-ink-100 hover:border-gp-ink-600"
                     }`}
                   >
@@ -317,7 +317,7 @@ export function FilterBar({
           {/* 3. Panel Type */}
           <div className="space-y-2.5 bg-gp-ink-850 p-4 rounded-xl border border-gp-ink-700/80">
             <label className="text-xs font-semibold text-gp-ink-100 flex items-center gap-1.5">
-              <Layers className="w-3.5 h-3.5 text-cyan-400" />
+              <Layers className="w-3.5 h-3.5 text-hue-cyan-400" />
               <span>Tipe Panel</span>
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
@@ -329,12 +329,12 @@ export function FilterBar({
                     onClick={() => togglePanel(panel)}
                     className={`text-xs py-2 px-3 rounded-lg border font-mono font-bold text-left transition-colors flex items-center justify-between ${
                       isSelected
-                        ? "bg-cyan-500/15 border-cyan-500/60 text-cyan-300 shadow-tech-subtle"
+                        ? "bg-hue-cyan-500/15 border-hue-cyan-500/60 text-hue-cyan-300 shadow-tech-subtle"
                         : "bg-gp-ink-950 border-gp-ink-700 text-gp-ink-300 hover:text-gp-ink-100 hover:border-gp-ink-600"
                     }`}
                   >
                     <span>{panel}</span>
-                    {isSelected && <Check className="w-3.5 h-3.5 text-cyan-400" />}
+                    {isSelected && <Check className="w-3.5 h-3.5 text-hue-cyan-400" />}
                   </button>
                 );
               })}
@@ -344,7 +344,7 @@ export function FilterBar({
           {/* 4. Refresh Rate */}
           <div className="space-y-2.5 bg-gp-ink-850 p-4 rounded-xl border border-gp-ink-700/80">
             <label className="text-xs font-semibold text-gp-ink-100 flex items-center gap-1.5">
-              <Zap className="w-3.5 h-3.5 text-emerald-400" />
+              <Zap className="w-3.5 h-3.5 text-hue-emerald-400" />
               <span>Refresh Rate</span>
             </label>
             <div className="grid grid-cols-2 gap-1.5">
@@ -356,12 +356,12 @@ export function FilterBar({
                     onClick={() => toggleRefresh(rate)}
                     className={`text-xs py-2 px-3 rounded-lg border font-mono font-bold text-left transition-colors flex items-center justify-between ${
                       isSelected
-                        ? "bg-emerald-500/15 border-emerald-500/60 text-emerald-300 shadow-tech-subtle"
+                        ? "bg-hue-emerald-500/15 border-hue-emerald-500/60 text-hue-emerald-300 shadow-tech-subtle"
                         : "bg-gp-ink-950 border-gp-ink-700 text-gp-ink-300 hover:text-gp-ink-100 hover:border-gp-ink-600"
                     }`}
                   >
                     <span>{rate}</span>
-                    {isSelected && <Check className="w-3.5 h-3.5 text-emerald-400" />}
+                    {isSelected && <Check className="w-3.5 h-3.5 text-hue-emerald-400" />}
                   </button>
                 );
               })}
@@ -373,7 +373,7 @@ export function FilterBar({
             {/* Screen Size */}
             <div className="space-y-2.5 bg-gp-ink-850 p-4 rounded-xl border border-gp-ink-700/80">
               <label className="text-xs font-semibold text-gp-ink-100 flex items-center gap-1.5">
-                <Maximize className="w-3.5 h-3.5 text-amber-400" />
+                <Maximize className="w-3.5 h-3.5 text-hue-amber-400" />
                 <span>Ukuran Layar</span>
               </label>
               <div className="space-y-1.5">
@@ -385,12 +385,12 @@ export function FilterBar({
                       onClick={() => toggleScreenSize(size)}
                       className={`w-full text-xs py-1.5 px-3 rounded-lg border font-mono font-bold text-left transition-colors flex items-center justify-between ${
                         isSelected
-                          ? "bg-amber-500/15 border-amber-500/60 text-amber-300"
+                          ? "bg-hue-amber-500/15 border-hue-amber-500/60 text-hue-amber-300"
                           : "bg-gp-ink-950 border-gp-ink-700 text-gp-ink-300 hover:text-gp-ink-100 hover:border-gp-ink-600"
                       }`}
                     >
                       <span>{size}</span>
-                      {isSelected && <Check className="w-3 h-3 text-amber-400" />}
+                      {isSelected && <Check className="w-3 h-3 text-hue-amber-400" />}
                     </button>
                   );
                 })}
@@ -400,7 +400,7 @@ export function FilterBar({
             {/* Resolution */}
             <div className="space-y-2.5 bg-gp-ink-850 p-4 rounded-xl border border-gp-ink-700/80">
               <label className="text-xs font-semibold text-gp-ink-100 flex items-center gap-1.5">
-                <Tv className="w-3.5 h-3.5 text-violet-400" />
+                <Tv className="w-3.5 h-3.5 text-hue-violet-400" />
                 <span>Resolusi</span>
               </label>
               <div className="space-y-1.5">
@@ -412,12 +412,12 @@ export function FilterBar({
                       onClick={() => toggleResolution(res)}
                       className={`w-full text-xs py-1.5 px-3 rounded-lg border font-mono font-bold text-left transition-colors flex items-center justify-between ${
                         isSelected
-                          ? "bg-violet-500/15 border-violet-500/60 text-violet-300"
+                          ? "bg-hue-violet-500/15 border-hue-violet-500/60 text-hue-violet-300"
                           : "bg-gp-ink-950 border-gp-ink-700 text-gp-ink-300 hover:text-gp-ink-100 hover:border-gp-ink-600"
                       }`}
                     >
                       <span>{res}</span>
-                      {isSelected && <Check className="w-3 h-3 text-violet-400" />}
+                      {isSelected && <Check className="w-3 h-3 text-hue-violet-400" />}
                     </button>
                   );
                 })}
@@ -484,7 +484,7 @@ export function ActiveFilterPills({
 
       {/* Budget Pill */}
       {(filterState.budgetPreset || filterState.budgetRange[1] < 25000000) && (
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300 text-2xs">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-hue-amber-500/10 border border-hue-amber-500/30 text-hue-amber-300 text-2xs">
           <span>
             Budget: ≤ {formatRupiah(filterState.budgetRange[1])}
           </span>
@@ -508,7 +508,7 @@ export function ActiveFilterPills({
       {filterState.tiers.map((tier) => (
         <span
           key={tier}
-          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-2xs"
+          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-hue-emerald-500/10 border border-hue-emerald-500/30 text-hue-emerald-300 text-2xs"
         >
           <span>Tier: {tier}</span>
           <button
@@ -530,7 +530,7 @@ export function ActiveFilterPills({
       {filterState.panelTypes.map((panel) => (
         <span
           key={panel}
-          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-2xs"
+          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-hue-cyan-500/10 border border-hue-cyan-500/30 text-hue-cyan-300 text-2xs"
         >
           <span>{panel}</span>
           <button
@@ -552,7 +552,7 @@ export function ActiveFilterPills({
       {filterState.refreshRates.map((rate) => (
         <span
           key={rate}
-          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-2xs"
+          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-hue-emerald-500/10 border border-hue-emerald-500/30 text-hue-emerald-300 text-2xs"
         >
           <span>{rate}</span>
           <button
@@ -574,7 +574,7 @@ export function ActiveFilterPills({
       {filterState.resolutions.map((res) => (
         <span
           key={res}
-          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-violet-500/10 border border-violet-500/30 text-violet-300 text-2xs"
+          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-hue-violet-500/10 border border-hue-violet-500/30 text-hue-violet-300 text-2xs"
         >
           <span>{res}</span>
           <button
@@ -596,7 +596,7 @@ export function ActiveFilterPills({
       {filterState.screenSizes.map((size) => (
         <span
           key={size}
-          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300 text-2xs"
+          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-hue-amber-500/10 border border-hue-amber-500/30 text-hue-amber-300 text-2xs"
         >
           <span>{size}</span>
           <button
@@ -641,7 +641,7 @@ export function ActiveFilterPills({
       {/* Reset All */}
       <button
         onClick={onResetFilters}
-        className="text-2xs text-rose-400 hover:text-rose-300 ml-auto font-bold"
+        className="text-2xs text-hue-rose-400 hover:text-hue-rose-300 ml-auto font-bold"
       >
         [Reset Semua]
       </button>

@@ -87,7 +87,7 @@ const initialDeskColumns: TableColumnDef<DeskItem>[] = [
     minWidth: "130px",
     category: "Harga",
     renderCell: (d) => (
-      <span className="font-mono font-bold text-emerald-400 text-xs">
+      <span className="font-mono font-bold text-hue-emerald-400 text-xs">
         {formatRupiah(d.price)}
       </span>
     ),
@@ -101,7 +101,7 @@ const initialDeskColumns: TableColumnDef<DeskItem>[] = [
     renderCell: (d) => (
       <div className="text-gp-ink-200">
         <div>{d.specs?.material}</div>
-        <span className="text-3xs text-emerald-400 font-semibold">
+        <span className="text-3xs text-hue-emerald-400 font-semibold">
           Tebal: {d.specs?.thickness}
         </span>
       </div>
@@ -126,7 +126,7 @@ const initialDeskColumns: TableColumnDef<DeskItem>[] = [
     minWidth: "110px",
     category: "Fitur",
     renderCell: () => (
-      <span className="inline-flex items-center gap-1 text-3xs font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+      <span className="inline-flex items-center gap-1 text-3xs font-bold px-2 py-0.5 rounded bg-hue-emerald-500/10 text-hue-emerald-400 border border-hue-emerald-500/30">
         <CheckCircle2 className="w-3 h-3" />
         <span>Aman Jepit</span>
       </span>
@@ -143,7 +143,7 @@ const initialDeskColumns: TableColumnDef<DeskItem>[] = [
         href={d.shopeeUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500 hover:text-black text-amber-400 text-xs font-bold transition-colors"
+        className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-hue-amber-500/10 border border-hue-amber-500/30 hover:bg-hue-amber-500 hover:text-black text-hue-amber-400 text-xs font-bold transition-colors"
       >
         <ShoppingBag className="w-3 h-3" />
         <span>Shopee</span>
@@ -175,7 +175,7 @@ const initialPeripheralColumns: TableColumnDef<PeripheralItem>[] = [
     minWidth: "120px",
     category: "Harga",
     renderCell: (p) => (
-      <span className="font-mono font-bold text-emerald-400 text-xs">
+      <span className="font-mono font-bold text-hue-emerald-400 text-xs">
         {formatRupiah(p.price)}
       </span>
     ),
@@ -199,7 +199,7 @@ const initialPeripheralColumns: TableColumnDef<PeripheralItem>[] = [
     minWidth: "160px",
     category: "Spesifikasi",
     renderCell: (p) => (
-      <span className="px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 font-mono text-2xs">
+      <span className="px-2 py-0.5 rounded bg-hue-cyan-950/40 border border-hue-cyan-500/30 text-hue-cyan-300 font-mono text-2xs">
         {p.versionDetail || p.recommendedFor || "-"}
       </span>
     ),
@@ -228,7 +228,7 @@ const initialPeripheralColumns: TableColumnDef<PeripheralItem>[] = [
           href={p.shopeeUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-orange-500/10 border border-orange-500/30 hover:bg-orange-500 hover:text-black text-orange-400 text-xs font-bold transition-colors"
+          className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-hue-orange-500/10 border border-hue-orange-500/30 hover:bg-hue-orange-500 hover:text-black text-hue-orange-400 text-xs font-bold transition-colors"
         >
           <ShoppingBag className="w-3 h-3" />
           <span>Shopee</span>
@@ -250,7 +250,7 @@ const initialPeripheralColumns: TableColumnDef<PeripheralItem>[] = [
           href={p.tokopediaUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 hover:bg-emerald-500 hover:text-black text-emerald-400 text-xs font-bold transition-colors"
+          className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-hue-emerald-500/10 border border-hue-emerald-500/30 hover:bg-hue-emerald-500 hover:text-black text-hue-emerald-400 text-xs font-bold transition-colors"
         >
           <span>Tokopedia</span>
           <ExternalLink className="w-2.5 h-2.5" />
@@ -430,7 +430,7 @@ export function DeskPeripheralsView({
         <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold mb-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-hue-cyan-500/10 border border-hue-cyan-500/30 text-hue-cyan-400 text-xs font-bold mb-2">
                 <LayoutGrid className="w-3.5 h-3.5" />
                 <span>Panduan Meja & Peripherals Setup</span>
               </div>
@@ -449,7 +449,7 @@ export function DeskPeripheralsView({
               onClick={() => setActiveSubTab("meja")}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex-shrink-0 flex items-center gap-2 ${
                 activeSubTab === "meja"
-                  ? "bg-gp-ink-700 text-cyan-400 border border-cyan-500/40 shadow-sm"
+                  ? "bg-gp-ink-700 text-hue-cyan-400 border border-hue-cyan-500/40 shadow-sm"
                   : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800"
               }`}
             >
@@ -461,7 +461,7 @@ export function DeskPeripheralsView({
               onClick={() => setActiveSubTab("arms")}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex-shrink-0 flex items-center gap-2 ${
                 activeSubTab === "arms"
-                  ? "bg-gp-ink-700 text-cyan-400 border border-cyan-500/40 shadow-sm"
+                  ? "bg-gp-ink-700 text-hue-cyan-400 border border-hue-cyan-500/40 shadow-sm"
                   : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800"
               }`}
             >
@@ -473,7 +473,7 @@ export function DeskPeripheralsView({
               onClick={() => setActiveSubTab("brackets")}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex-shrink-0 flex items-center gap-2 ${
                 activeSubTab === "brackets"
-                  ? "bg-gp-ink-700 text-amber-400 border border-amber-500/40 shadow-sm"
+                  ? "bg-gp-ink-700 text-hue-amber-400 border border-hue-amber-500/40 shadow-sm"
                   : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800"
               }`}
             >
@@ -485,7 +485,7 @@ export function DeskPeripheralsView({
               onClick={() => setActiveSubTab("accessories")}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex-shrink-0 flex items-center gap-2 ${
                 activeSubTab === "accessories"
-                  ? "bg-gp-ink-700 text-emerald-400 border border-emerald-500/40 shadow-sm"
+                  ? "bg-gp-ink-700 text-hue-emerald-400 border border-hue-emerald-500/40 shadow-sm"
                   : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800"
               }`}
             >
@@ -498,7 +498,7 @@ export function DeskPeripheralsView({
                 onClick={() => setActiveSubTab("kursi")}
                 className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex-shrink-0 flex items-center gap-2 ${
                   activeSubTab === "kursi"
-                    ? "bg-gp-ink-700 text-purple-400 border border-purple-500/40 shadow-sm"
+                    ? "bg-gp-ink-700 text-hue-purple-400 border border-hue-purple-500/40 shadow-sm"
                     : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800"
                 }`}
               >
@@ -511,7 +511,7 @@ export function DeskPeripheralsView({
               onClick={() => setActiveSubTab("gimmick")}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex-shrink-0 flex items-center gap-2 ${
                 activeSubTab === "gimmick"
-                  ? "bg-gp-ink-700 text-amber-400 border border-amber-500/40 shadow-sm"
+                  ? "bg-gp-ink-700 text-hue-amber-400 border border-hue-amber-500/40 shadow-sm"
                   : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800"
               }`}
             >
@@ -523,7 +523,7 @@ export function DeskPeripheralsView({
               onClick={() => setActiveSubTab("consultation-packages")}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-colors flex-shrink-0 flex items-center gap-2 ${
                 activeSubTab === "consultation-packages"
-                  ? "bg-gp-ink-700 text-rose-400 border border-rose-500/40 shadow-sm"
+                  ? "bg-gp-ink-700 text-hue-rose-400 border border-hue-rose-500/40 shadow-sm"
                   : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800"
               }`}
             >
@@ -546,7 +546,7 @@ export function DeskPeripheralsView({
                   placeholder="Cari meja pilihan, bahan, atau ukuran..."
                   value={deskSearch}
                   onChange={(e) => setDeskSearch(e.target.value)}
-                  className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl bg-gp-ink-800 border border-gp-ink-700 text-white placeholder-gp-ink-400 focus:outline-none focus:border-cyan-500 font-mono transition-colors"
+                  className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl bg-gp-ink-800 border border-gp-ink-700 text-white placeholder-gp-ink-400 focus:outline-none focus:border-hue-cyan-500 font-mono transition-colors"
                 />
                 {deskSearch && (
                   <button
@@ -570,7 +570,7 @@ export function DeskPeripheralsView({
                     onClick={() => setDeskCategoryFilter(pill.id)}
                     className={`px-2.5 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-colors ${
                       deskCategoryFilter === pill.id
-                        ? "bg-orange-500/20 text-orange-300 border border-orange-500/40 font-bold"
+                        ? "bg-hue-orange-500/20 text-hue-orange-300 border border-hue-orange-500/40 font-bold"
                         : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-750"
                     }`}
                   >
@@ -586,7 +586,7 @@ export function DeskPeripheralsView({
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gp-ink-800 hover:bg-gp-ink-750 border border-gp-ink-700 text-xs font-bold text-gp-ink-200 hover:text-white transition-colors"
                 title="Atur kolom & urutan tabel meja"
               >
-                <SlidersHorizontal className="w-3.5 h-3.5 text-orange-400" />
+                <SlidersHorizontal className="w-3.5 h-3.5 text-hue-orange-400" />
                 <span>Atur Kolom ({deskTable.visibleColumns.length})</span>
               </button>
             </div>
@@ -604,7 +604,7 @@ export function DeskPeripheralsView({
                           col.id === "name"
                             ? "text-gp-ink-200 min-w-[240px] px-4"
                             : col.id === "price"
-                            ? "text-emerald-400 min-w-[130px]"
+                            ? "text-hue-emerald-400 min-w-[130px]"
                             : col.id === "arm_support" || col.id === "shopee"
                             ? "text-center min-w-[120px]"
                             : "min-w-[140px]"
@@ -674,7 +674,7 @@ export function DeskPeripheralsView({
                   }
                   value={peripheralSearch}
                   onChange={(e) => setPeripheralSearch(e.target.value)}
-                  className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl bg-gp-ink-800 border border-gp-ink-700 text-white placeholder-gp-ink-400 focus:outline-none focus:border-cyan-500 font-mono transition-colors"
+                  className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl bg-gp-ink-800 border border-gp-ink-700 text-white placeholder-gp-ink-400 focus:outline-none focus:border-hue-cyan-500 font-mono transition-colors"
                 />
                 {peripheralSearch && (
                   <button
@@ -699,7 +699,7 @@ export function DeskPeripheralsView({
                       onClick={() => setArmBracketSubFilter(pill.id as any)}
                       className={`px-2.5 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-colors ${
                         armBracketSubFilter === pill.id
-                          ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold"
+                          ? "bg-hue-cyan-500/20 text-hue-cyan-300 border border-hue-cyan-500/40 font-bold"
                           : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-750"
                       }`}
                     >
@@ -722,7 +722,7 @@ export function DeskPeripheralsView({
                       onClick={() => setAccessoryCategoryFilter(pill.id)}
                       className={`px-2.5 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-colors ${
                         accessoryCategoryFilter === pill.id
-                          ? "bg-blue-500/20 text-blue-300 border border-blue-500/40 font-bold"
+                          ? "bg-hue-blue-500/20 text-hue-blue-300 border border-hue-blue-500/40 font-bold"
                           : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-750"
                       }`}
                     >
@@ -739,7 +739,7 @@ export function DeskPeripheralsView({
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gp-ink-800 hover:bg-gp-ink-750 border border-gp-ink-700 text-xs font-bold text-gp-ink-200 hover:text-white transition-colors"
                 title="Atur kolom & urutan tabel"
               >
-                <SlidersHorizontal className="w-3.5 h-3.5 text-cyan-400" />
+                <SlidersHorizontal className="w-3.5 h-3.5 text-hue-cyan-400" />
                 <span>Atur Kolom ({periTable.visibleColumns.length})</span>
               </button>
             </div>
@@ -757,7 +757,7 @@ export function DeskPeripheralsView({
                           col.id === "name"
                             ? "text-gp-ink-200 min-w-[220px] px-4"
                             : col.id === "price"
-                            ? "text-emerald-400 min-w-[120px]"
+                            ? "text-hue-emerald-400 min-w-[120px]"
                             : col.id === "warranty" || col.id === "shopee" || col.id === "tokopedia"
                             ? "text-center min-w-[110px]"
                             : "min-w-[140px]"
@@ -831,7 +831,7 @@ export function DeskPeripheralsView({
                   onClick={() => setChairCategoryFilter(cat)}
                   className={`px-3 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-colors ${
                     chairCategoryFilter === cat
-                      ? "bg-purple-950/50 text-purple-300 border border-purple-500/50 font-bold"
+                      ? "bg-hue-purple-950/50 text-hue-purple-300 border border-hue-purple-500/50 font-bold"
                       : "text-gp-ink-300 hover:text-white hover:bg-gp-ink-800 border border-transparent"
                   }`}
                 >
@@ -847,13 +847,13 @@ export function DeskPeripheralsView({
               .map((chair) => (
                 <div
                   key={chair.id}
-                  className="bg-gp-ink-950 border border-gp-ink-700 hover:border-purple-500/40 rounded-2xl p-6 space-y-4 flex flex-col justify-between transition-colors"
+                  className="bg-gp-ink-950 border border-gp-ink-700 hover:border-hue-purple-500/40 rounded-2xl p-6 space-y-4 flex flex-col justify-between transition-colors"
                 >
                   <div className="space-y-3">
                     <div className="flex items-start justify-between gap-3">
                       <div>
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-3xs font-black uppercase px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/30">
+                          <span className="text-3xs font-black uppercase px-2 py-0.5 rounded bg-hue-purple-500/10 text-hue-purple-300 border border-hue-purple-500/30">
                             {chair.category}
                           </span>
                           <span className="text-3xs font-mono px-2 py-0.5 rounded bg-gp-ink-800 text-gp-ink-300 border border-gp-ink-700">
@@ -863,7 +863,7 @@ export function DeskPeripheralsView({
                         <h4 className="text-lg font-black text-white mt-1.5">{chair.name}</h4>
                       </div>
                       <div className="text-right">
-                        <div className="text-base font-black text-emerald-400 font-mono">
+                        <div className="text-base font-black text-hue-emerald-400 font-mono">
                           {formatRupiah(chair.price)}
                         </div>
                         <span className="text-3xs text-gp-ink-400 block">Estimasi Pasar</span>
@@ -900,8 +900,8 @@ export function DeskPeripheralsView({
 
                     {/* Verdict */}
                     {chair.verdict && (
-                      <div className="text-xs bg-purple-950/20 border border-purple-500/20 p-3 rounded-xl leading-relaxed">
-                        <span className="text-purple-400 font-mono font-bold text-3xs block uppercase mb-0.5">
+                      <div className="text-xs bg-hue-purple-950/20 border border-hue-purple-500/20 p-3 rounded-xl leading-relaxed">
+                        <span className="text-hue-purple-400 font-mono font-bold text-3xs block uppercase mb-0.5">
                           Verdict Ahli GrayPlasma:
                         </span>
                         <p className="text-2xs text-gp-ink-200">{chair.verdict}</p>
@@ -927,7 +927,7 @@ export function DeskPeripheralsView({
                           href={chair.shopeeUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-3 py-1.5 rounded-lg bg-orange-500/10 text-orange-400 border border-orange-500/30 hover:bg-orange-500/20 transition-colors flex items-center gap-1.5 font-bold text-xs"
+                          className="px-3 py-1.5 rounded-lg bg-hue-orange-500/10 text-hue-orange-400 border border-hue-orange-500/30 hover:bg-hue-orange-500/20 transition-colors flex items-center gap-1.5 font-bold text-xs"
                         >
                           <ShoppingBag className="w-3.5 h-3.5" />
                           <span>Shopee</span>
@@ -938,7 +938,7 @@ export function DeskPeripheralsView({
                           href={chair.tokopediaUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20 transition-colors flex items-center gap-1.5 font-bold text-xs"
+                          className="px-3 py-1.5 rounded-lg bg-hue-emerald-500/10 text-hue-emerald-400 border border-hue-emerald-500/30 hover:bg-hue-emerald-500/20 transition-colors flex items-center gap-1.5 font-bold text-xs"
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
                           <span>Tokopedia</span>
@@ -956,7 +956,7 @@ export function DeskPeripheralsView({
       {activeSubTab === "gimmick" && (
         <div className="bg-gp-ink-998 border border-gp-ink-700 rounded-2xl p-6 sm:p-8 space-y-6">
           <div className="space-y-2 border-b border-gp-ink-700 pb-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-hue-amber-500/10 border border-hue-amber-500/30 text-hue-amber-400 text-xs font-bold">
               <AlertTriangle className="w-3.5 h-3.5" />
               <span>Edukasi Meja & Setup Ergonomi</span>
             </div>
@@ -974,8 +974,8 @@ export function DeskPeripheralsView({
                 key={idx}
                 className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 text-xs text-gp-ink-200 leading-relaxed space-y-2"
               >
-                <div className="flex items-center gap-2 text-amber-400 font-bold">
-                  <span className="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center text-2xs">
+                <div className="flex items-center gap-2 text-hue-amber-400 font-bold">
+                  <span className="w-5 h-5 rounded-full bg-hue-amber-500/20 flex items-center justify-center text-2xs">
                     {idx + 1}
                   </span>
                   <span>Catatan Penting #{idx + 1}</span>
@@ -1012,11 +1012,11 @@ export function DeskPeripheralsView({
             {CONSULTATION_RESULTS_DATABASE.map((pack) => (
               <div
                 key={pack.id}
-                className="bg-gp-ink-950 border border-gp-ink-700 hover:border-emerald-500/40 rounded-2xl p-5 space-y-4 flex flex-col justify-between transition-colors"
+                className="bg-gp-ink-950 border border-gp-ink-700 hover:border-hue-emerald-500/40 rounded-2xl p-5 space-y-4 flex flex-col justify-between transition-colors"
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-3xs font-black uppercase px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                    <span className="text-3xs font-black uppercase px-2 py-0.5 rounded bg-hue-emerald-500/10 text-hue-emerald-400 border border-hue-emerald-500/30">
                       Budget {formatRupiah(pack.budget)}
                     </span>
                   </div>
@@ -1035,7 +1035,7 @@ export function DeskPeripheralsView({
                     <ul className="space-y-1.5">
                       {pack.recommendations.map((rec, i) => (
                         <li key={i} className="text-xs text-gp-ink-200 flex items-start gap-1.5">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 mt-0.5 flex-shrink-0" />
+                          <CheckCircle2 className="w-3.5 h-3.5 text-hue-emerald-400 mt-0.5 flex-shrink-0" />
                           <span>{rec}</span>
                         </li>
                       ))}

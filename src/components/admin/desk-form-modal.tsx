@@ -153,11 +153,11 @@ export function DeskFormModal({
         <div className="flex items-center justify-between px-6 py-4 border-b border-gp-ink-700 bg-gp-ink-850 flex-shrink-0">
           <div className="flex items-center gap-2.5">
             {type === "desk" ? (
-              <div className="p-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
+              <div className="p-1.5 rounded-lg bg-hue-cyan-500/10 border border-hue-cyan-500/30 text-hue-cyan-400">
                 <LayoutGrid className="w-4 h-4" />
               </div>
             ) : (
-              <div className="p-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+              <div className="p-1.5 rounded-lg bg-hue-emerald-500/10 border border-hue-emerald-500/30 text-hue-emerald-400">
                 <Wrench className="w-4 h-4" />
               </div>
             )}
@@ -194,12 +194,12 @@ export function DeskFormModal({
                       type="checkbox"
                       checked={deskData.isPublished !== false}
                       onChange={(e) => setDeskData({ ...deskData, isPublished: e.target.checked })}
-                      className="rounded border-gp-ink-600 bg-gp-ink-950 text-emerald-500 accent-emerald-500 w-4 h-4"
+                      className="rounded border-gp-ink-600 bg-gp-ink-950 text-hue-emerald-500 accent-hue-emerald-500 w-4 h-4"
                     />
                     <span
                       className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${
                         deskData.isPublished !== false
-                          ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
+                          ? "bg-hue-emerald-500/20 text-hue-emerald-400 border border-hue-emerald-500/40"
                           : "bg-gp-ink-700 text-gp-ink-300 border border-gp-ink-600"
                       }`}
                     >
@@ -215,7 +215,7 @@ export function DeskFormModal({
                     value={deskData.name}
                     onChange={(e) => setDeskData({ ...deskData, name: e.target.value })}
                     placeholder="Contoh: Meja Standar Kaki Hollow Besi 4x4"
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-cyan-400 focus:outline-none placeholder:text-gp-ink-400 font-medium"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-400 font-medium"
                     required
                   />
                 </div>
@@ -226,7 +226,7 @@ export function DeskFormModal({
                     <select
                       value={deskData.category}
                       onChange={(e) => setDeskData({ ...deskData, category: e.target.value as DeskItem["category"] })}
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-cyan-400 focus:outline-none"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-hue-cyan-400 focus:outline-none"
                     >
                       <option value="Meja Standar">Meja Standar</option>
                       <option value="Daun Meja">Daun Meja</option>
@@ -241,7 +241,7 @@ export function DeskFormModal({
                     <select
                       value={deskData.type || "NON L SHAPED"}
                       onChange={(e) => setDeskData({ ...deskData, type: e.target.value })}
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-cyan-400 focus:outline-none"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-hue-cyan-400 focus:outline-none"
                     >
                       <option value="NON L SHAPED">NON L SHAPED</option>
                       <option value="L SHAPED">L SHAPED</option>
@@ -256,7 +256,7 @@ export function DeskFormModal({
                       type="number"
                       value={deskData.price}
                       onChange={(e) => setDeskData({ ...deskData, price: Number(e.target.value) })}
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-emerald-400 font-mono focus:border-cyan-400 focus:outline-none"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-hue-emerald-400 font-mono focus:border-hue-cyan-400 focus:outline-none"
                       required
                     />
                   </div>
@@ -272,7 +272,7 @@ export function DeskFormModal({
                         })
                       }
                       placeholder="DAUN MEJA, KAKI MEJA HOLLOW"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-cyan-400 focus:outline-none placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-400"
                     />
                   </div>
                 </div>
@@ -290,7 +290,7 @@ export function DeskFormModal({
                         })
                       }
                       placeholder="Plywood / Multiplek 3cm"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-cyan-400 focus:outline-none placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
@@ -305,7 +305,7 @@ export function DeskFormModal({
                         })
                       }
                       placeholder="120 x 60 x 75 cm"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-cyan-400 focus:outline-none placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-400"
                     />
                   </div>
                 </div>
@@ -317,7 +317,7 @@ export function DeskFormModal({
                     value={deskData.shopeeUrl}
                     onChange={(e) => setDeskData({ ...deskData, shopeeUrl: e.target.value })}
                     placeholder="https://shopee.co.id/..."
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-sky-400 font-mono focus:border-cyan-400 focus:outline-none placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-hue-sky-400 font-mono focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-400"
                   />
                 </div>
 
@@ -348,7 +348,7 @@ export function DeskFormModal({
                     value={periphData.name}
                     onChange={(e) => setPeriphData({ ...periphData, name: e.target.value })}
                     placeholder="Contoh: North Bayou NB F80 Single Arm"
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-cyan-400 focus:outline-none placeholder:text-gp-ink-400 font-medium"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-400 font-medium"
                     required
                   />
                 </div>
@@ -364,7 +364,7 @@ export function DeskFormModal({
                           category: e.target.value as PeripheralItem["category"],
                         })
                       }
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-cyan-400 focus:outline-none"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-hue-cyan-400 focus:outline-none"
                     >
                       <option value="Monitor Arm / Bracket">Monitor Arm / Bracket</option>
                       <option value="Screenbar / Lampu Monitor">Screenbar / Lampu Monitor</option>
@@ -379,7 +379,7 @@ export function DeskFormModal({
                       type="number"
                       value={periphData.price}
                       onChange={(e) => setPeriphData({ ...periphData, price: Number(e.target.value) })}
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-emerald-400 font-mono focus:border-cyan-400 focus:outline-none"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-hue-emerald-400 font-mono focus:border-hue-cyan-400 focus:outline-none"
                       required
                     />
                   </div>
@@ -393,7 +393,7 @@ export function DeskFormModal({
                       value={periphData.brand}
                       onChange={(e) => setPeriphData({ ...periphData, brand: e.target.value })}
                       placeholder="North Bayou, Oximus, Baseus, dll."
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-cyan-400 focus:outline-none placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-400"
                     />
                   </div>
                   <div>
@@ -403,7 +403,7 @@ export function DeskFormModal({
                       value={periphData.recommendedFor}
                       onChange={(e) => setPeriphData({ ...periphData, recommendedFor: e.target.value })}
                       placeholder="Monitor 24 - 27 inci"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-cyan-400 focus:outline-none placeholder:text-gp-ink-400"
+                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-400"
                     />
                   </div>
                 </div>
@@ -415,7 +415,7 @@ export function DeskFormModal({
                     value={periphData.shopeeUrl}
                     onChange={(e) => setPeriphData({ ...periphData, shopeeUrl: e.target.value })}
                     placeholder="https://shopee.co.id/..."
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-sky-400 font-mono focus:border-cyan-400 focus:outline-none placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2.5 text-xs text-hue-sky-400 font-mono focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-400"
                   />
                 </div>
 
@@ -425,7 +425,7 @@ export function DeskFormModal({
                     rows={2}
                     value={periphData.verdict}
                     onChange={(e) => setPeriphData({ ...periphData, verdict: e.target.value })}
-                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-xs text-white focus:border-cyan-400 focus:outline-none placeholder:text-gp-ink-400"
+                    className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-xs text-white focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-400"
                   />
                 </div>
 
@@ -455,7 +455,7 @@ export function DeskFormModal({
             >
               Batal
             </Button>
-            <Button type="submit" variant="cyber" size="sm" className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold">
+            <Button type="submit" variant="cyber" size="sm" className="bg-hue-cyan-500 hover:bg-hue-cyan-400 text-black font-bold">
               Simpan Data
             </Button>
           </div>

@@ -84,7 +84,103 @@ const config: Config = {
          * yang sama didefinisikan di src/app/globals.css (:root).
          * Ubah warna di globals.css -> seluruh situs berubah.
          * ========================================================== */
-        gp: {
+  
+
+        hue: {
+          amber: {
+            200: "rgb(var(--gp-hue-amber-200) / <alpha-value>)",
+            300: "rgb(var(--gp-hue-amber-300) / <alpha-value>)",
+            400: "rgb(var(--gp-hue-amber-400) / <alpha-value>)",
+            500: "rgb(var(--gp-hue-amber-500) / <alpha-value>)",
+            950: "rgb(var(--gp-hue-amber-950) / <alpha-value>)",
+          },
+          blue: {
+            200: "rgb(var(--gp-hue-blue-200) / <alpha-value>)",
+            300: "rgb(var(--gp-hue-blue-300) / <alpha-value>)",
+            400: "rgb(var(--gp-hue-blue-400) / <alpha-value>)",
+            500: "rgb(var(--gp-hue-blue-500) / <alpha-value>)",
+            900: "rgb(var(--gp-hue-blue-900) / <alpha-value>)",
+            950: "rgb(var(--gp-hue-blue-950) / <alpha-value>)",
+          },
+          cyan: {
+            200: "rgb(var(--gp-hue-cyan-200) / <alpha-value>)",
+            300: "rgb(var(--gp-hue-cyan-300) / <alpha-value>)",
+            400: "rgb(var(--gp-hue-cyan-400) / <alpha-value>)",
+            500: "rgb(var(--gp-hue-cyan-500) / <alpha-value>)",
+            950: "rgb(var(--gp-hue-cyan-950) / <alpha-value>)",
+          },
+          emerald: {
+            200: "rgb(var(--gp-hue-emerald-200) / <alpha-value>)",
+            300: "rgb(var(--gp-hue-emerald-300) / <alpha-value>)",
+            400: "rgb(var(--gp-hue-emerald-400) / <alpha-value>)",
+            500: "rgb(var(--gp-hue-emerald-500) / <alpha-value>)",
+            600: "rgb(var(--gp-hue-emerald-600) / <alpha-value>)",
+            900: "rgb(var(--gp-hue-emerald-900) / <alpha-value>)",
+            950: "rgb(var(--gp-hue-emerald-950) / <alpha-value>)",
+          },
+          gray: {
+            700: "rgb(var(--gp-hue-gray-700) / <alpha-value>)",
+          },
+          indigo: {
+            300: "rgb(var(--gp-hue-indigo-300) / <alpha-value>)",
+            400: "rgb(var(--gp-hue-indigo-400) / <alpha-value>)",
+            900: "rgb(var(--gp-hue-indigo-900) / <alpha-value>)",
+          },
+          orange: {
+            300: "rgb(var(--gp-hue-orange-300) / <alpha-value>)",
+            400: "rgb(var(--gp-hue-orange-400) / <alpha-value>)",
+            500: "rgb(var(--gp-hue-orange-500) / <alpha-value>)",
+            600: "rgb(var(--gp-hue-orange-600) / <alpha-value>)",
+          },
+          pink: {
+            300: "rgb(var(--gp-hue-pink-300) / <alpha-value>)",
+            400: "rgb(var(--gp-hue-pink-400) / <alpha-value>)",
+            500: "rgb(var(--gp-hue-pink-500) / <alpha-value>)",
+          },
+          purple: {
+            200: "rgb(var(--gp-hue-purple-200) / <alpha-value>)",
+            300: "rgb(var(--gp-hue-purple-300) / <alpha-value>)",
+            400: "rgb(var(--gp-hue-purple-400) / <alpha-value>)",
+            500: "rgb(var(--gp-hue-purple-500) / <alpha-value>)",
+            800: "rgb(var(--gp-hue-purple-800) / <alpha-value>)",
+            950: "rgb(var(--gp-hue-purple-950) / <alpha-value>)",
+          },
+          red: {
+            200: "rgb(var(--gp-hue-red-200) / <alpha-value>)",
+            400: "rgb(var(--gp-hue-red-400) / <alpha-value>)",
+            500: "rgb(var(--gp-hue-red-500) / <alpha-value>)",
+            900: "rgb(var(--gp-hue-red-900) / <alpha-value>)",
+            950: "rgb(var(--gp-hue-red-950) / <alpha-value>)",
+          },
+          rose: {
+            200: "rgb(var(--gp-hue-rose-200) / <alpha-value>)",
+            300: "rgb(var(--gp-hue-rose-300) / <alpha-value>)",
+            400: "rgb(var(--gp-hue-rose-400) / <alpha-value>)",
+            500: "rgb(var(--gp-hue-rose-500) / <alpha-value>)",
+            600: "rgb(var(--gp-hue-rose-600) / <alpha-value>)",
+            900: "rgb(var(--gp-hue-rose-900) / <alpha-value>)",
+            950: "rgb(var(--gp-hue-rose-950) / <alpha-value>)",
+          },
+          sky: {
+            300: "rgb(var(--gp-hue-sky-300) / <alpha-value>)",
+            400: "rgb(var(--gp-hue-sky-400) / <alpha-value>)",
+          },
+          teal: {
+            300: "rgb(var(--gp-hue-teal-300) / <alpha-value>)",
+            500: "rgb(var(--gp-hue-teal-500) / <alpha-value>)",
+          },
+          violet: {
+            300: "rgb(var(--gp-hue-violet-300) / <alpha-value>)",
+            400: "rgb(var(--gp-hue-violet-400) / <alpha-value>)",
+            500: "rgb(var(--gp-hue-violet-500) / <alpha-value>)",
+          },
+          yellow: {
+            400: "rgb(var(--gp-hue-yellow-400) / <alpha-value>)",
+            500: "rgb(var(--gp-hue-yellow-500) / <alpha-value>)",
+          },
+        },
+
+      gp: {
           bg: "rgb(var(--gp-bg) / <alpha-value>)",
           blueprint: "rgb(var(--gp-blueprint) / <alpha-value>)",
           blueprintCard: "rgb(var(--gp-blueprint-card) / <alpha-value>)",
