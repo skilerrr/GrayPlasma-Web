@@ -287,7 +287,7 @@ export function DeskRecommendationsView({
         <div className="pt-2 border-t border-gp-ink-650 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <Link
             href="/guide/setup/ukuran-meja-monitor-ideal"
-            className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500/20 hover:border-amber-400 transition-colors font-bold text-xs sm:text-sm group shadow-sm"
+            className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500/20 hover:border-gp-ember-50 transition-colors font-bold text-xs sm:text-sm group shadow-sm"
           >
             <Ruler className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
             <span>[ GUIDELINE // UKURAN MEJA & MONITOR IDEAL ]</span>

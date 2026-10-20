@@ -285,7 +285,7 @@ export const DEFAULT_HOMEPAGE_SUBPAGES: SubpageCardItem[] = [
     desc: "Panduan membeli monitor rebadge/ODM (KTC, Titan Army, Xiaomi, Skyworth) dengan risiko minimal dan garansi jelas.",
     path: "/guide/brand/odm-layak-dibeli",
     icon: "⚠️",
-    color: "hover:border-amber-400 text-amber-400",
+    color: "hover:border-gp-ember-50 text-gp-ember-50",
     order: 6,
     isVisible: true,
   },

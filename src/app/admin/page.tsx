@@ -428,7 +428,7 @@ export default function AdminDashboardPage() {
                 <img
                   src={currentAdmin.avatar}
                   alt={currentAdmin.name}
-                  className="w-9 h-9 rounded-lg object-cover border border-amber-500/40 group-hover:border-amber-400 transition-colors"
+                  className="w-9 h-9 rounded-lg object-cover border border-amber-500/40 group-hover:border-gp-ember-50 transition-colors"
                 />
                 <label
                   title="Ganti Foto Profil Anda"
