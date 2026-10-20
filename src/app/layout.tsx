@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { ScrollEffects } from "@/components/scroll-effects";
+import { FirstVisitIntro } from "@/components/first-visit-intro";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -17,12 +19,12 @@ export const metadata: Metadata = {
     template: "%s | GRAYPLASMA",
   },
   description:
-    "Katalog kurasi dan rekomendasi monitor gaming dan produktivitas terpercaya oleh GRAYPLASMAID. Data pengujian GTID, panduan spesifikasi, perbandingan aftersales distributor, dan harga termurah.",
+    "Katalog kurasi dan rekomendasi monitor gaming dan produktivitas terpercaya oleh GRAYPLASMAID. Data pengujian GrayPlasma, panduan spesifikasi, perbandingan aftersales distributor, dan harga termurah.",
   keywords: [
     "grayplasma rekomendasi monitor",
     "grayplasma monitor",
     "monitor gaming indonesia",
-    "gtid monitor",
+    "grayplasma monitor",
     "rekomendasi monitor budget",
     "monitor 180hz",
     "aoc 24g4",
@@ -47,6 +49,10 @@ export default function RootLayout({
   return (
     <html lang="id" className="dark">
       <body className="bg-black text-white antialiased min-h-screen font-sans">
+        {/* Progress bar scroll - pakai CSS scroll-timeline, 0 listener JS */}
+        <div className="gp-scroll-progress" aria-hidden="true" />
+        <FirstVisitIntro />
+        <ScrollEffects />
         <NuqsAdapter>{children}</NuqsAdapter>
       </body>
     </html>

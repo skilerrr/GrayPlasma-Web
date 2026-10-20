@@ -65,7 +65,7 @@ export function Footer() {
               Database Pengujian & Kurasi Monitor Independen kolaborasi{" "}
               <strong className="text-white">{consult.author || "Joel Gray (@gray1plasma)"}</strong> x{" "}
               <strong className="text-white">{consult.collaborators || "Tim GrayPlasma"}</strong> berdasarkan data pengetesan laboratorium{" "}
-              <strong className="text-white">GTID Tech</strong>.
+              <strong className="text-white">GrayPlasma</strong>.
             </p>
           </div>
 
@@ -82,7 +82,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/guide/sdr/glossary" className="hover:text-emerald-400 transition-colors">
-                  List SDR GTID Review
+                  List SDR GrayPlasma Review
                 </Link>
               </li>
               <li>
@@ -143,7 +143,7 @@ export function Footer() {
               <li>
                 <Link href="/guide/faq/toleransi-lama-baru" className="hover:text-cyan-400 transition-colors flex items-center gap-1">
                   <span>•</span>
-                  <span>Toleransi Baru (5 RGB) GTID</span>
+                  <span>Toleransi Baru (5 RGB) GrayPlasma</span>
                 </Link>
               </li>
             </ul>
@@ -175,7 +175,7 @@ export function Footer() {
                   className="hover:text-cyan-400 transition-colors flex items-center gap-1.5"
                 >
                   <MessageSquare className="w-3 h-3 text-cyan-400" />
-                  <span>Discord Komunitas GTID Official</span>
+                  <span>Discord Komunitas GrayPlasma Official</span>
                 </a>
               </li>
               <li>
@@ -197,7 +197,7 @@ export function Footer() {
                   className="hover:text-red-400 transition-colors flex items-center gap-1.5"
                 >
                   <ExternalLink className="w-3 h-3 text-red-400" />
-                  <span>YouTube GTID Tech</span>
+                  <span>YouTube GrayPlasma</span>
                 </a>
               </li>
               <li className="pt-1">
@@ -229,7 +229,25 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-6 border-t border-gp-ink-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
           <div className="text-gp-ink-400 text-center sm:text-left">
-            {siteSettings.copyrightText || "© 2026 GrayPlasma. Hak Cipta materi kurasi milik GrayPlasma. Data pengujian milik GTID Tech."}
+            {siteSettings.copyrightText || "© 2026 GrayPlasma. Hak Cipta materi kurasi milik GrayPlasma. Data pengujian milik GrayPlasma."}
+          </div>
+
+          {/* Watermark / Credit — "built, and developed by @skylerr" */}
+          <div className="flex items-center gap-1.5 text-gp-ink-400 text-center">
+            <span className="text-gp-ink-500">built, and developed by</span>
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-gp-ink-900 border border-gp-ink-700 font-mono text-2xs text-emerald-400 hover:border-emerald-500/50 hover:text-emerald-300 transition-colors">
+              <span className="text-gp-ink-500">&lt;</span>@skylerr<span className="text-gp-ink-500">&gt;</span>
+            </span>
+          </div>
+        </div>
+
+        {/* Oversized background watermark (dekoratif, pointer-events-none) */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute inset-x-0 bottom-0 -z-0 overflow-hidden"
+        >
+          <div className="translate-y-[38%] text-center font-black uppercase tracking-tight text-white/[0.022] text-[18vw] leading-none whitespace-nowrap">
+            GrayPlasma
           </div>
         </div>
       </div>

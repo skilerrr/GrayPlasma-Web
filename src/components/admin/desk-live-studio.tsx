@@ -465,7 +465,7 @@ export function DeskLiveStudio({
       minWidth: "min-w-[150px]",
       sortable: true,
       isDefaultVisible: true,
-      category: "Uji GTID",
+      category: "Uji GrayPlasma",
       getValue: (d) => (d.specs?.armSupport ? 1 : 0),
       renderCell: (d) => (
         <button

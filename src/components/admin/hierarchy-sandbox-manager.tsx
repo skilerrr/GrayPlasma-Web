@@ -70,20 +70,20 @@ export function HierarchySandboxManager({
       category: "SDR & Kalibrasi Warna",
       description: "Deskripsi singkat ulasan dan data pengujian laboratorium.",
       content: `<h2>1. Pembahasan Utama Pengujian</h2>
-<p>Tulis penjelasan hasil pengukuran sensor di sini dengan format terstruktur, tabel pengujian, atau callout GTID verdict.</p>
+<p>Tulis penjelasan hasil pengukuran sensor di sini dengan format terstruktur, tabel pengujian, atau callout GrayPlasma verdict.</p>
 <div class="my-5 p-4 rounded-xl border border-amber-500/40 bg-amber-500/5 text-amber-300 flex items-start gap-3.5 notion-callout">
   <div class="px-2 py-0.5 rounded bg-black/40 border border-current font-mono text-3xs font-bold tracking-wider uppercase flex-shrink-0">
-    [VERDICT GTID]
+    [VERDICT GrayPlasma]
   </div>
   <div class="space-y-1 flex-1">
-    <strong class="block font-bold text-sm tracking-tight text-white">GTID Tech Verdict:</strong>
+    <strong class="block font-bold text-sm tracking-tight text-white">GrayPlasma Verdict:</strong>
     <p class="text-xs text-gp-ink-200 leading-relaxed">Tulis ringkasan ulasan atau catatan objektif sebelum pembaca memilih unit ini.</p>
   </div>
 </div>
 <p><br></p>`,
       onClickAction: "route",
       coverImage: "",
-      tags: ["Panduan", "GTID"],
+      tags: ["Panduan", "GrayPlasma"],
       discordCallbackSummary: "📄 Ulasan Panduan GrayPlasma. Link: https://grayplasma.id/guide/custom/panduan-baru",
       isPublished: true,
     });

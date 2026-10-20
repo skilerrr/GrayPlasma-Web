@@ -126,7 +126,7 @@ export function MonitorFormModal({
         thumbnail: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop",
         gallery: [],
         quickSpecs: ["24\"", "Fast IPS", "180Hz", "1ms GtG"],
-        expertVerdict: "Pengujian GTID Tech: Motion clarity sangat baik dan akurasi warna tinggi.",
+        expertVerdict: "Pengujian GrayPlasma: Motion clarity sangat baik dan akurasi warna tinggi.",
         pros: ["Fast IPS 180Hz", "Akurasi warna tinggi"],
         cons: ["Stand bawaan tilt only"],
         specs: {
@@ -253,7 +253,7 @@ export function MonitorFormModal({
         `${formData.specs?.display?.refreshRate || 180}Hz`,
         formData.specs?.display?.responseTime || "1ms GtG",
       ],
-      expertVerdict: formData.expertVerdict || "Data pengetesan GTID Tech.",
+      expertVerdict: formData.expertVerdict || "Data pengetesan GrayPlasma.",
       pros: formData.pros || ["Panel berkualitas", "Refresh rate tinggi"],
       cons: formData.cons || ["Perhatikan setting Overdrive"],
       specs: formData.specs as Monitor["specs"],
@@ -269,7 +269,7 @@ export function MonitorFormModal({
       frontImage: formData.frontImage || formData.thumbnail,
       rearImage: formData.rearImage,
       statusReason: formData.statusReason,
-      gtidReviewUrl: formData.gtidReviewUrl,
+      reviewUrl: formData.reviewUrl,
       introduction: formData.introduction,
       bannerImage: formData.bannerImage,
       deepDiveTitle: formData.deepDiveTitle,
@@ -501,7 +501,7 @@ export function MonitorFormModal({
           {/* 3. Specs Details & Toleransi Data */}
           <div className="space-y-3 pt-4 border-t border-gp-ink-700/80">
             <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider">
-              3. Spesifikasi Layar & Data GTID
+              3. Spesifikasi Layar & Data GrayPlasma
             </h4>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <div>
@@ -675,7 +675,7 @@ export function MonitorFormModal({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               <div>
-                <label className="text-2xs text-emerald-400 block mb-1">Toleransi Baru (Data Baru GTID)</label>
+                <label className="text-2xs text-emerald-400 block mb-1">Toleransi Baru (Data Baru GrayPlasma)</label>
                 <input
                   type="text"
                   value={formData.responseTimeData?.toleranceNew || "Toleransi Baru (5 RGB)"}
@@ -693,7 +693,7 @@ export function MonitorFormModal({
                 />
               </div>
               <div>
-                <label className="text-2xs text-rose-400 block mb-1">Toleransi Lama (Data Lama GTID)</label>
+                <label className="text-2xs text-rose-400 block mb-1">Toleransi Lama (Data Lama GrayPlasma)</label>
                 <input
                   type="text"
                   value={formData.responseTimeData?.toleranceOld || "Toleransi Lama (10 RGB)"}
@@ -751,11 +751,11 @@ export function MonitorFormModal({
             {/* YouTube Review URL & Status Alert */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="text-2xs text-gp-ink-300 block mb-1">URL Video Review GTID (YouTube Embed)</label>
+                <label className="text-2xs text-gp-ink-300 block mb-1">URL Video Review GrayPlasma (YouTube Embed)</label>
                 <input
                   type="text"
-                  value={formData.gtidReviewUrl || ""}
-                  onChange={(e) => setFormData({ ...formData, gtidReviewUrl: e.target.value })}
+                  value={formData.reviewUrl || ""}
+                  onChange={(e) => setFormData({ ...formData, reviewUrl: e.target.value })}
                   placeholder="https://www.youtube.com/watch?v=..."
                   className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-3 py-2 text-xs text-white"
                 />
@@ -875,7 +875,7 @@ export function MonitorFormModal({
 
           {/* 7. Verdict & Notes */}
           <div className="space-y-2 pt-4 border-t border-gp-ink-700/80">
-            <label className="text-2xs text-gp-ink-300 block">Evaluasi Singkat GrayPlasma / GTID Verdict</label>
+            <label className="text-2xs text-gp-ink-300 block">Evaluasi Singkat Verdict GrayPlasma</label>
             <textarea
               rows={2}
               value={formData.expertVerdict}

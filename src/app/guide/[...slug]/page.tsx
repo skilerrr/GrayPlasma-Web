@@ -796,19 +796,19 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
                 matchedNode?.contentMarkdown ||
                 `# ${aboutContent?.title || "TENTANG GRAYPLASMAID & JOEL GRAY"}
 
-> ${aboutContent?.subtitle || "Platform independen kurasi rekomendasi monitor & analisis data pengujian laboratorium GTID Tech."}
+> ${aboutContent?.subtitle || "Platform independen kurasi rekomendasi monitor & analisis data pengujian laboratorium GrayPlasma."}
 
 ---
 
 ## Siapa di Balik GrayPlasma?
 - **${aboutContent?.author || "Joel Gray (@gray1plasma)"}:** Penulis & Kurator Utama Rekomendasi Monitor. Meninjau unit berdasarkan ergonomi, build quality, dan kebutuhan nyata pengguna.
 - **Tim GrayPlasma:** Pengembang Web & Database Engine.
-- **GTID Tech:** Sumber data pengujian laboratorium independen (Akurasi deITP Calman, Response Time GTG, Motion Clarity).
+- **GrayPlasma:** Sumber data pengujian laboratorium independen (Akurasi deITP Calman, Response Time GTG, Motion Clarity).
 
 ---
 
 ## Latar Belakang Riset & Kurasi:
-${aboutContent?.latarBelakang || "Dimulai dari 2024, inisiatif merangkum data pengetesan GTID agar mudah dipahami masyarakat luas."}
+${aboutContent?.latarBelakang || "Dimulai dari 2024, inisiatif merangkum data pengetesan GrayPlasma agar mudah dipahami masyarakat luas."}
 
 ---
 
@@ -836,7 +836,7 @@ ${aboutContent?.biodataPenulis || "Terima kasih atas seluruh dukungan komunitas 
 2. **Follow Komunitas & Social Media:**
    - TikTok: [${siteSettings.consultation?.tiktok || "@gray1plasma"}](${siteSettings.consultation?.tiktokUrl || "https://www.tiktok.com/@gray1plasma"})
    - Discord: [${siteSettings.consultation?.discordUrl || "discord.gg/joingtid"}](${siteSettings.consultation?.discordUrl || "https://discord.gg/joingtid"})
-   - YouTube: [GTiD Tech](${siteSettings.consultation?.youtubeUrl || "https://www.youtube.com/c/GTiDtech/videos"})
+   - YouTube: [GrayPlasma](${siteSettings.consultation?.youtubeUrl || "https://www.youtube.com/c/GTiDtech/videos"})
 
 > Terima kasih atas seluruh dukungan komunitas yang membuat panduan ini tetap independen dan bebas sponsor!`
               }
@@ -892,7 +892,7 @@ ${siteSettings.consultation?.disclaimer || "Seluruh konsultasi disesuaikan denga
               </div>
 
               <h2 className="text-lg font-bold text-white">
-                {matchedMonitor.deepDiveTitle || "Ulasan & Analisis GTID"}
+                {matchedMonitor.deepDiveTitle || "Ulasan & Analisis GrayPlasma"}
               </h2>
 
               <p className="text-xs text-gp-ink-200 leading-relaxed">
@@ -924,7 +924,7 @@ ${siteSettings.consultation?.disclaimer || "Seluruh konsultasi disesuaikan denga
                   {matchedNode?.title || "Informasi Panduan"}
                 </h2>
                 <p className="text-xs text-gp-ink-300 leading-relaxed">
-                  {matchedNode?.description || "Panduan teknis dan ulasan independen GrayPlasma x GTID Tech."}
+                  {matchedNode?.description || "Panduan teknis dan ulasan independen GrayPlasma."}
                 </p>
               </div>
             )}

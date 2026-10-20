@@ -88,7 +88,7 @@ export const DEFAULT_AD_BANNERS: AdBannerItem[] = [
   {
     id: "banner-xiaomi-g24i",
     title: "Xiaomi G24i 180Hz Fast IPS",
-    subtitle: "Rekomendasi monitor gaming budget terbaik 2026. Akurasi warna deITP 2.1 dengan panel Fast IPS 180Hz responsif hasil pengujian lab GTID.",
+    subtitle: "Rekomendasi monitor gaming budget terbaik 2026. Akurasi warna deITP 2.1 dengan panel Fast IPS 180Hz responsif hasil pengujian lab GrayPlasma.",
     badge: "S-TIER BUDGET 2026",
     badgeColor: "emerald",
     imageUrl: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1920&auto=format&fit=crop",
@@ -130,8 +130,8 @@ export const DEFAULT_AD_BANNERS: AdBannerItem[] = [
   {
     id: "banner-glossary-deitp",
     title: "Standar Kalibrasi deITP & Akurasi Warna",
-    subtitle: "Pahami cara membaca laporan pengujian laboratorium GTID agar tidak tertipu klaim marketing '100% sRGB' palsu.",
-    badge: "STANDAR LAB GTID",
+    subtitle: "Pahami cara membaca laporan pengujian laboratorium GrayPlasma agar tidak tertipu klaim marketing '100% sRGB' palsu.",
+    badge: "STANDAR LAB GrayPlasma",
     badgeColor: "violet",
     imageUrl: "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?q=80&w=1920&auto=format&fit=crop",
     linkUrl: "/guide/sdr/glossary",
@@ -154,7 +154,7 @@ export interface PageBannerSettings {
 export const DEFAULT_BANNER_SETTINGS: PageBannerSettings = {
   homeBannerUrl: "",
   homeBannerTitle: "Katalog & Database Rekomendasi Monitor",
-  homeBannerSubtitle: "Kurasi monitor independen oleh tim GrayPlasma (@gray1plasma) dengan pengujian laboratorium GTID Tech.",
+  homeBannerSubtitle: "Kurasi monitor independen oleh tim GrayPlasma (@gray1plasma) dengan pengujian laboratorium GrayPlasma.",
   guideBannerUrl: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1600&auto=format&fit=crop",
   monitorBannerUrl: "",
 };
@@ -213,65 +213,11 @@ export interface HomepageSettings {
 }
 
 export const DEFAULT_HOMEPAGE_SUBPAGES: SubpageCardItem[] = [
-  // GROUP 1: REKOMENDASI MONITOR
-  {
-    id: "sub-1080p",
-    groupId: "group-1",
-    groupTitle: "1. REKOMENDASI MONITOR PILIHAN UTAMA",
-    groupEmoji: "🌟",
-    title: "REKOMENDASI MONITOR 1080P (FHD BUDGET)",
-    desc: "Katalog pilihan 1080p Fast IPS budget & esport 180Hz+",
-    path: "/guide/1080p",
-    icon: "🖥️",
-    color: "hover:border-gp-mint text-gp-mint",
-    order: 1,
-    isVisible: true,
-  },
-  {
-    id: "sub-1440p",
-    groupId: "group-1",
-    groupTitle: "1. REKOMENDASI MONITOR PILIHAN UTAMA",
-    groupEmoji: "🌟",
-    title: "REKOMENDASI MONITOR 1440P (2K SWEETSPOT)",
-    desc: "Pilihan monitor 2K 144Hz - 240Hz visual tajam",
-    path: "/guide/1440p",
-    icon: "🖥️",
-    color: "hover:border-gp-sky text-gp-sky",
-    order: 2,
-    isVisible: true,
-  },
-  {
-    id: "sub-4k",
-    groupId: "group-1",
-    groupTitle: "1. REKOMENDASI MONITOR PILIHAN UTAMA",
-    groupEmoji: "🌟",
-    title: "REKOMENDASI MONITOR 4K UHD & CREATOR",
-    desc: "Monitor resolusi tinggi untuk productivity & visual",
-    path: "/guide/4k",
-    icon: "🖥️",
-    color: "hover:border-gp-ember-50 text-gp-ember-50",
-    order: 3,
-    isVisible: true,
-  },
-  {
-    id: "sub-oled",
-    groupId: "group-1",
-    groupTitle: "1. REKOMENDASI MONITOR PILIHAN UTAMA",
-    groupEmoji: "🌟",
-    title: "REKOMENDASI MONITOR OLED & FLAGSHIP",
-    desc: "Panel QD-OLED & WOLED contrast tanpa tanding",
-    path: "/guide/oled",
-    icon: "✨",
-    color: "hover:border-gp-violet text-gp-violet",
-    order: 4,
-    isVisible: true,
-  },
-
-  // GROUP 2: EVALUASI BRAND & AFTERSALES
+  // GROUP 1: REKOMENDASI MONITOR// GROUP 2: EVALUASI BRAND & AFTERSALES
   {
     id: "sub-aftersales",
-    groupId: "group-2",
-    groupTitle: "2. EVALUASI BRAND & AFTERSALES (OEM / ODM LIST)",
+    groupId: "group-1",
+    groupTitle: "1. EVALUASI BRAND & AFTERSALES (OEM / ODM LIST)",
     groupEmoji: "🛡️",
     title: "LIST AFTERSALES (BRAND MONITOR OEM)",
     desc: "Database komprehensif sistem klaim garansi, track record RMA distributor resmi, dan tiering brand di Indonesia.",
@@ -283,8 +229,8 @@ export const DEFAULT_HOMEPAGE_SUBPAGES: SubpageCardItem[] = [
   },
   {
     id: "sub-odm",
-    groupId: "group-2",
-    groupTitle: "2. EVALUASI BRAND & AFTERSALES (OEM / ODM LIST)",
+    groupId: "group-1",
+    groupTitle: "1. EVALUASI BRAND & AFTERSALES (OEM / ODM LIST)",
     groupEmoji: "🛡️",
     title: "LIST BRAND MONITOR ODM / OEM LAYAK BELI",
     desc: "Panduan membeli monitor rebadge/ODM (KTC, Titan Army, Xiaomi, Skyworth) dengan risiko minimal dan garansi jelas.",
@@ -295,13 +241,13 @@ export const DEFAULT_HOMEPAGE_SUBPAGES: SubpageCardItem[] = [
     isVisible: true,
   },
 
-  // GROUP 3: GLOSARIUM GTID & KALIBRASI
+  // GROUP 3: GLOSARIUM GrayPlasma & KALIBRASI
   {
     id: "sub-glossary",
-    groupId: "group-3",
-    groupTitle: "3. GLOSARIUM & PANDUAN KALIBRASI WARNA (GTID TECH)",
+    groupId: "group-2",
+    groupTitle: "2. GLOSARIUM & PANDUAN KALIBRASI WARNA (GRAYPLASMA)",
     groupEmoji: "🎨",
-    title: "HOW TO READ GTID GLOSSARY",
+    title: "HOW TO READ GrayPlasma GLOSSARY",
     desc: "Cara membaca skor deITP, Delta E, gamut, dan response time.",
     path: "/guide/sdr/glossary",
     icon: "📄",
@@ -311,8 +257,8 @@ export const DEFAULT_HOMEPAGE_SUBPAGES: SubpageCardItem[] = [
   },
   {
     id: "sub-d65-p3",
-    groupId: "group-3",
-    groupTitle: "3. GLOSARIUM & PANDUAN KALIBRASI WARNA (GTID TECH)",
+    groupId: "group-2",
+    groupTitle: "2. GLOSARIUM & PANDUAN KALIBRASI WARNA (GRAYPLASMA)",
     groupEmoji: "🎨",
     title: "AKURASI D65-P3 VS UNDERSATURATED",
     desc: "Mengapa monitor Delta E rendah bisa kurang warna di Rec.2020.",
@@ -324,8 +270,8 @@ export const DEFAULT_HOMEPAGE_SUBPAGES: SubpageCardItem[] = [
   },
   {
     id: "sub-bandwidth",
-    groupId: "group-3",
-    groupTitle: "3. GLOSARIUM & PANDUAN KALIBRASI WARNA (GTID TECH)",
+    groupId: "group-2",
+    groupTitle: "2. GLOSARIUM & PANDUAN KALIBRASI WARNA (GRAYPLASMA)",
     groupEmoji: "🎨",
     title: "BANDWIDTH DP VS HDMI 2.0 / 2.1",
     desc: "Panduan kabel agar monitor tembus refresh rate maksimal tanpa kompresi.",
@@ -337,8 +283,8 @@ export const DEFAULT_HOMEPAGE_SUBPAGES: SubpageCardItem[] = [
   },
   {
     id: "sub-oled-care",
-    groupId: "group-3",
-    groupTitle: "3. GLOSARIUM & PANDUAN KALIBRASI WARNA (GTID TECH)",
+    groupId: "group-2",
+    groupTitle: "2. GLOSARIUM & PANDUAN KALIBRASI WARNA (GRAYPLASMA)",
     groupEmoji: "🎨",
     title: "PERAWATAN MONITOR OLED",
     desc: "Tips pencegahan burn-in, pixel cleaning, dan kebiasaan pemakaian.",
@@ -352,8 +298,8 @@ export const DEFAULT_HOMEPAGE_SUBPAGES: SubpageCardItem[] = [
   // GROUP 4: QNA & GRAYNOTES
   {
     id: "sub-faq-build",
-    groupId: "group-4",
-    groupTitle: "4. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)",
+    groupId: "group-3",
+    groupTitle: "3. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)",
     groupEmoji: "❓",
     title: "Build Quality Panel & Ketahanan",
     desc: "Penjelasan umur panel dan dead-lines.",
@@ -365,8 +311,8 @@ export const DEFAULT_HOMEPAGE_SUBPAGES: SubpageCardItem[] = [
   },
   {
     id: "sub-faq-ideal",
-    groupId: "group-4",
-    groupTitle: "4. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)",
+    groupId: "group-3",
+    groupTitle: "3. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)",
     groupEmoji: "❓",
     title: "Menentukan Monitor Ideal",
     desc: "3 faktor utama sebelum checkout monitor.",
@@ -378,8 +324,8 @@ export const DEFAULT_HOMEPAGE_SUBPAGES: SubpageCardItem[] = [
   },
   {
     id: "sub-faq-luasan",
-    groupId: "group-4",
-    groupTitle: "4. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)",
+    groupId: "group-3",
+    groupTitle: "3. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)",
     groupEmoji: "❓",
     title: "Luasan vs Akurasi Warna",
     desc: "Mengapa 100% sRGB belum tentu akurat.",
@@ -391,8 +337,8 @@ export const DEFAULT_HOMEPAGE_SUBPAGES: SubpageCardItem[] = [
   },
   {
     id: "sub-faq-ips",
-    groupId: "group-4",
-    groupTitle: "4. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)",
+    groupId: "group-3",
+    groupTitle: "3. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)",
     groupEmoji: "❓",
     title: "IPS vs VA vs TN di 2026",
     desc: "Perbandingan teknologi panel modern.",
@@ -404,8 +350,8 @@ export const DEFAULT_HOMEPAGE_SUBPAGES: SubpageCardItem[] = [
   },
   {
     id: "sub-faq-skyworth",
-    groupId: "group-4",
-    groupTitle: "4. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)",
+    groupId: "group-3",
+    groupTitle: "3. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)",
     groupEmoji: "❓",
     title: "Ikut PO Skyworth Apakah Worth-It?",
     desc: "Kelebihan dan estimasi waktu PO.",
@@ -417,8 +363,8 @@ export const DEFAULT_HOMEPAGE_SUBPAGES: SubpageCardItem[] = [
   },
   {
     id: "sub-faq-online",
-    groupId: "group-4",
-    groupTitle: "4. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)",
+    groupId: "group-3",
+    groupTitle: "3. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)",
     groupEmoji: "❓",
     title: "Beli Monitor Online Aman",
     desc: "SOP unboxing dan proteksi asuransi kurir.",
@@ -432,8 +378,8 @@ export const DEFAULT_HOMEPAGE_SUBPAGES: SubpageCardItem[] = [
   // GROUP 5: SETUP MEJA, AUTHOR & CONSULTATION
   {
     id: "sub-meja-ergonomi",
-    groupId: "group-5",
-    groupTitle: "5. SETUP MEJA, AUTHOR & CONSULTATION",
+    groupId: "group-4",
+    groupTitle: "4. SETUP MEJA, AUTHOR & CONSULTATION",
     groupEmoji: "🪑",
     title: "Panduan Meja & Ergonomi",
     desc: "Ukuran kedalaman meja vs inch monitor & rekomendasi gas spring arm.",
@@ -445,8 +391,8 @@ export const DEFAULT_HOMEPAGE_SUBPAGES: SubpageCardItem[] = [
   },
   {
     id: "sub-about",
-    groupId: "group-5",
-    groupTitle: "5. SETUP MEJA, AUTHOR & CONSULTATION",
+    groupId: "group-4",
+    groupTitle: "4. SETUP MEJA, AUTHOR & CONSULTATION",
     groupEmoji: "🪑",
     title: "Tentang Penulis (Joel Gray)",
     desc: "Biodata, latar belakang kurasi independen, dan komitmen evaluasi monitor.",
@@ -458,11 +404,11 @@ export const DEFAULT_HOMEPAGE_SUBPAGES: SubpageCardItem[] = [
   },
   {
     id: "sub-consultation",
-    groupId: "group-5",
-    groupTitle: "5. SETUP MEJA, AUTHOR & CONSULTATION",
+    groupId: "group-4",
+    groupTitle: "4. SETUP MEJA, AUTHOR & CONSULTATION",
     groupEmoji: "🪑",
     title: "Konsultasi & Support",
-    desc: "Konsultasi pemilihan monitor via Discord GTID / WA dan dukungan donasi.",
+    desc: "Konsultasi pemilihan monitor via Discord GrayPlasma / WA dan dukungan donasi.",
     path: "/guide/consultation",
     icon: "🎧",
     color: "hover:border-gp-violet text-gp-violet",
@@ -484,7 +430,7 @@ export const DEFAULT_HOMEPAGE_SETTINGS: HomepageSettings = {
   subpageCards: DEFAULT_HOMEPAGE_SUBPAGES,
   sectionTitles: {
     monitorsTitle: "DATABASE REKOMENDASI MONITOR LENGKAP",
-    monitorsSubtitle: "Tabel interaktif & katalog pengujian GTID Tech (9 monitor per halaman).",
+    monitorsSubtitle: "Tabel interaktif & katalog pengujian GrayPlasma (9 monitor per halaman).",
     desksTitle: "DATABASE REKOMENDASI MEJA & SETUP ERGONOMI",
     desksSubtitle: "Tabel kurasi daun meja plywood solid & standing desk elektrik (Klik baris untuk melihat side panel ulasan).",
     armsTitle: "DATABASE REKOMENDASI MONITOR ARM (GAS SPRING)",
@@ -547,7 +493,7 @@ export interface GlobalSiteSettings {
 export const DEFAULT_SITE_SETTINGS: GlobalSiteSettings = {
   brandName: "GRAYPLASMA ID",
   brandTagline: "Database Pengujian & Kurasi Monitor Independen",
-  copyrightText: "© 2024-2026 GrayPlasma ID x GTID Tech. Seluruh hak cipta dilindungi.",
+  copyrightText: "© 2024-2026 GrayPlasma ID. Seluruh hak cipta dilindungi.",
   consultation: {
     ...CONSULTATION_DATA,
     pricingNote: "Free Community Discord Consultation & VIP Dedicated Setup Review",
@@ -555,7 +501,7 @@ export const DEFAULT_SITE_SETTINGS: GlobalSiteSettings = {
   },
   announcement: {
     isEnabled: false,
-    text: "Update Database Laboratorium GTID 2026 telah aktif! Cek rekomendasi monitor dan panduan aftersales terbaru.",
+    text: "Update Database Laboratorium GrayPlasma 2026 telah aktif! Cek rekomendasi monitor dan panduan aftersales terbaru.",
     badgeText: "UPDATE",
     linkText: "Buka Panduan",
     linkUrl: "/guide/sdr/glossary",
@@ -629,7 +575,7 @@ export const INITIAL_ACTIVITY_LOGS: AdminActivityLog[] = [
     targetType: "monitor",
     targetName: "55 Model Database Monitor",
     timestamp: "2026-08-30 19:45",
-    details: "Verifikasi kelengkapan nilai akurasi warna deITP dan response time GTID.",
+    details: "Verifikasi kelengkapan nilai akurasi warna deITP dan response time GrayPlasma.",
   },
 ];
 
@@ -813,6 +759,39 @@ export class DatabaseService {
     return session ?? null;
   }
 
+  /**
+   * Normalisasi field monitor: nama kolom DB lama `gtidReviewUrl` -> `reviewUrl`.
+   * Supaya rename kolom (SQL) belum dijalankan pun, data lama tetap terbaca.
+   */
+  static normalizeMonitor<T extends { reviewUrl?: string; gtidReviewUrl?: string }>(row: T): T {
+    const out = { ...row } as T & { gtidReviewUrl?: string };
+    if (!out.reviewUrl && out.gtidReviewUrl) out.reviewUrl = out.gtidReviewUrl;
+    delete out.gtidReviewUrl;
+    return out as T;
+  }
+
+  /**
+   * Siapkan payload upsert monitor yang aman untuk kedua skema DB:
+   * - kalau kolom `reviewUrl` sudah ada (setelah ALTER TABLE) -> pakai itu
+   * - kalau belum (masih `gtidReviewUrl`) -> pakai kolom lama
+   * Deteksi dilakukan dari respons error PostgREST (PGRST204 = unknown column).
+   */
+  private static async upsertMonitorRow(row: Record<string, unknown>): Promise<void> {
+    if (!supabase) return;
+    const base = { ...row } as Record<string, unknown> & { gtidReviewUrl?: string; reviewUrl?: string };
+    delete base.reviewUrl;
+    const legacy = { ...base, gtidReviewUrl: base.gtidReviewUrl ?? row.reviewUrl ?? null };
+    delete legacy.reviewUrl;
+    const modern = { ...base, reviewUrl: row.reviewUrl ?? base.gtidReviewUrl ?? null };
+    delete modern.gtidReviewUrl;
+
+    let res = await supabase.from("monitors").upsert(modern as never);
+    if (res.error && /gtidReviewUrl|reviewUrl/i.test(res.error.message)) {
+      res = await supabase.from("monitors").upsert(legacy as never);
+    }
+    if (res.error) console.error("Supabase monitor upsert error", res.error);
+  }
+
   // ==========================================
   // 1. MONITORS CRUD
   // ==========================================
@@ -825,7 +804,9 @@ export class DatabaseService {
           .order("created_at", { ascending: false });
 
         if (!error && data && data.length > 0) {
-          return data as Monitor[];
+          return (data as (Monitor & { gtidReviewUrl?: string })[]).map((m) =>
+            DatabaseService.normalizeMonitor(m)
+          ) as Monitor[];
         }
       } catch (err) {
         console.warn("Supabase fetch failed, using local storage", err);
@@ -856,7 +837,7 @@ export class DatabaseService {
 
     if (isSupabaseConfigured && supabase) {
       try {
-        await supabase.from("monitors").upsert(updatedMonitor);
+        await DatabaseService.upsertMonitorRow(updatedMonitor as unknown as Record<string, unknown>);
       } catch (err) {
         console.error("Supabase monitor upsert error", err);
       }
@@ -1733,7 +1714,9 @@ export class DatabaseService {
       const aftersales = getLocalData<AftersalesBrand[]>(STORAGE_KEYS.AFTERSALES, AFTERSALES_DATA);
 
       if (monitors.length > 0) {
-        await supabase.from("monitors").upsert(monitors);
+        for (const m of monitors) {
+          await DatabaseService.upsertMonitorRow(m as unknown as Record<string, unknown>);
+        }
       }
       if (desks.length > 0) {
         await supabase.from("desks").upsert(desks);

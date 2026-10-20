@@ -289,7 +289,7 @@ Info: ${typeof window !== "undefined" ? window.location.href : ""}`;
                   ? card.cons
                   : [
                       "Disarankan menyimpan kelengkapan seperti Dus, Sterofoam di dalam dus, Buku Manual. Karena di beberapa kasus, diperlukan hal itu",
-                      "Menurut pandangan Penulis: Aftersales tergolong bagus dikarenakan sering dikritik (di-roasting) GTID, karena selain Produk Monitor, Aftersales tergolong Kurang",
+                      "Menurut pandangan Penulis: Aftersales tergolong bagus dikarenakan sering dikritik (di-roasting) GrayPlasma, karena selain Produk Monitor, Aftersales tergolong Kurang",
                       "Karena alasan di atas, penulis sedikit ragu mengenai masa depan Aftersales, dan sebaiknya waspada terhadap aftersales 1-3 tahun kedepan",
                       "Ada berpotensi tidak dapat full refund jika pemakaian lebih dari 1 Tahun dan jika unit pengganti nya tidak ada",
                     ]

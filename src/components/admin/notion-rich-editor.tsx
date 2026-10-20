@@ -208,7 +208,7 @@ export function NotionRichEditor({
         <thead>
           <tr>
             <th>Parameter / Fitur</th>
-            <th>Hasil Uji Lab GTID</th>
+            <th>Hasil Uji Lab GrayPlasma</th>
             <th>Verdict / Catatan</th>
           </tr>
         </thead>

@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS public.monitors (
   "frontImage" TEXT,
   "rearImage" TEXT,
   "statusReason" TEXT,
-  "gtidReviewUrl" TEXT,
+  "reviewUrl" TEXT,
   introduction TEXT,
   "bannerImage" TEXT,
   "deepDiveTitle" TEXT,

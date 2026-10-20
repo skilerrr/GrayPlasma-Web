@@ -92,7 +92,7 @@ export function MonitorCard({
   return (
     <div
       onClick={() => onSelectMonitor(monitor)}
-      className={`group relative bg-gp-ink-900 hover:bg-gp-ink-850 border transition-all duration-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between cursor-pointer hover:border-gp-ink-600 hover:-translate-y-0.5 ${
+      className={`group relative min-w-0 bg-gp-ink-900 hover:bg-gp-ink-850 border transition-all duration-200 rounded-xl sm:rounded-2xl p-2.5 sm:p-5 flex flex-col justify-between cursor-pointer hover:border-gp-ink-600 hover:-translate-y-0.5 ${
         isCompared
           ? "border-emerald-500/70 ring-1 ring-emerald-500/30"
           : "border-gp-ink-700/80"
@@ -101,11 +101,13 @@ export function MonitorCard({
       <div>
         {/* Top Header: Brand, Tier Badge & Compare Pin */}
         <div className="flex items-center justify-between gap-2 mb-3">
-          <div className="flex items-center gap-2 min-w-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
             <span className="text-2xs font-bold tracking-wider text-gp-ink-300 uppercase truncate">
               {monitor.brand}
             </span>
-            <TierBadge tier={monitor.tier} />
+            <span className="hidden sm:inline-flex shrink-0">
+              <TierBadge tier={monitor.tier} />
+            </span>
           </div>
 
           {/* VS Pin Comparator Button */}
@@ -113,21 +115,21 @@ export function MonitorCard({
             <button
               type="button"
               onClick={handleCompareClick}
-              className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-2xs font-medium transition-colors shrink-0 ${
+              className={`inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded text-2xs font-medium transition-colors shrink-0 ${
                 isCompared
                   ? "bg-emerald-500 text-gp-ink-950 font-bold shadow-sm"
                   : "text-gp-ink-300 hover:text-gp-ink-100 bg-gp-ink-800/60 hover:bg-gp-ink-700 border border-gp-ink-700"
               }`}
               title={isCompared ? "Hapus dari komparasi" : "Bandingkan monitor ini"}
             >
-              <Scale className="w-3.5 h-3.5" />
-              <span>{isCompared ? "Terpilih" : "+VS"}</span>
+              <Scale className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+              <span className="hidden xs:inline">{isCompared ? "Terpilih" : "+VS"}</span>
             </button>
           )}
         </div>
 
         {/* Product Image Thumbnail - Clean framing without distracting corner clutter */}
-        <div className="relative w-full aspect-[16/10] mb-3 bg-gp-ink-998 rounded-xl overflow-hidden border border-gp-ink-700/70 group-hover:border-gp-ink-600/70 transition-colors flex items-center justify-center">
+        <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] mb-2.5 sm:mb-3 bg-gp-ink-998 rounded-lg sm:rounded-xl overflow-hidden border border-gp-ink-700/70 group-hover:border-gp-ink-600/70 transition-colors flex items-center justify-center">
           <Image
             src={monitor.thumbnail}
             alt={monitor.fullName}
@@ -147,17 +149,19 @@ export function MonitorCard({
 
         {/* Monitor Name */}
         <div className="mb-2">
-          <h3 className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors line-clamp-1 leading-snug">
+          <h3 className="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-400 transition-colors line-clamp-2 sm:line-clamp-1 leading-snug">
             {monitor.fullName}
           </h3>
         </div>
 
-        {/* Clean Spec Chips */}
-        <div className="flex flex-wrap items-center gap-1.5 mb-4">
+        {/* Clean Spec Chips — mobile: 2 chip pertama saja supaya harga & tombol tetap muat */}
+        <div className="flex flex-wrap items-center gap-1 sm:gap-1.5 mb-2.5 sm:mb-4">
           {specChips.map((chip, idx) => (
             <span
               key={idx}
-              className="px-2 py-0.5 rounded text-2xs font-medium text-gp-ink-200 bg-gp-ink-700/50 border border-gp-ink-700/80"
+              className={`px-1.5 sm:px-2 py-0.5 rounded text-2xs font-medium text-gp-ink-200 bg-gp-ink-700/50 border border-gp-ink-700/80 ${
+                idx >= 2 ? "hidden sm:inline-block" : ""
+              }`}
             >
               {chip}
             </span>
@@ -168,17 +172,17 @@ export function MonitorCard({
       {/* Price & Action Section */}
       <div className="pt-3 border-t border-gp-ink-700/70 flex flex-col gap-2.5 mt-auto">
         {/* Price Row */}
-        <div className="flex items-baseline justify-between">
-          <div>
+        <div className="flex items-baseline justify-between gap-2">
+          <div className="min-w-0">
             <span className="text-3xs text-gp-ink-400 font-medium block leading-none mb-1">
               Harga Terbaik
             </span>
-            <div className="flex items-baseline gap-2">
-              <span className="text-base sm:text-lg font-bold text-white tracking-tight tabular-nums">
+            <div className="flex items-baseline gap-1.5 sm:gap-2 flex-wrap">
+              <span className="text-sm sm:text-lg font-bold text-white tracking-tight tabular-nums">
                 {formatRupiah(monitor.price)}
               </span>
               {monitor.originalPrice && monitor.originalPrice > monitor.price && (
-                <span className="text-xs text-gp-ink-400 line-through tabular-nums">
+                <span className="hidden xs:inline text-xs text-gp-ink-400 line-through tabular-nums">
                   {formatRupiah(monitor.originalPrice)}
                 </span>
               )}
@@ -191,7 +195,7 @@ export function MonitorCard({
           <a
             href={`/monitor/${monitor.slug}`}
             onClick={(e) => e.stopPropagation()}
-            className="p-2 rounded-lg bg-gp-ink-800 border border-gp-ink-700 hover:border-gp-ink-600 text-gp-ink-300 hover:text-white transition-colors shrink-0"
+            className="p-1.5 sm:p-2 rounded-lg bg-gp-ink-800 border border-gp-ink-700 hover:border-gp-ink-600 text-gp-ink-300 hover:text-white transition-colors shrink-0"
             title="Buka Halaman Detail"
           >
             <ExternalLink className="w-3.5 h-3.5" />
@@ -201,18 +205,21 @@ export function MonitorCard({
             <button
               type="button"
               onClick={(e) => handleMarketplaceClick(e, bestDeal)}
-              className="flex-1 flex items-center justify-center gap-1.5 text-xs py-2 px-3 font-semibold rounded-lg bg-orange-500 hover:bg-orange-400 text-gp-ink-950 transition-all shadow-sm active:translate-y-[1px]"
+              title={`Beli di ${bestDeal.marketplace}`}
+              className="flex-1 min-w-0 flex items-center justify-center gap-1 sm:gap-1.5 text-2xs sm:text-xs py-2 px-1.5 sm:px-3 font-semibold rounded-lg bg-orange-500 hover:bg-orange-400 text-gp-ink-950 transition-all shadow-sm active:translate-y-[1px]"
             >
-              <ShoppingBag className="w-3.5 h-3.5" />
-              <span>Beli di {bestDeal.marketplace}</span>
+              <ShoppingBag className="w-3.5 h-3.5 shrink-0" />
+              <span className="hidden sm:inline truncate">Beli di {bestDeal.marketplace}</span>
+              <span className="sm:hidden">Beli</span>
             </button>
           ) : (
             <button
               type="button"
               onClick={() => onSelectMonitor(monitor)}
-              className="flex-1 text-xs py-2 px-3 font-semibold rounded-lg bg-gp-ink-700 hover:bg-gp-ink-600 text-gp-ink-100 transition-colors"
+              className="flex-1 min-w-0 text-2xs sm:text-xs py-2 px-1.5 sm:px-3 font-semibold rounded-lg bg-gp-ink-700 hover:bg-gp-ink-600 text-gp-ink-100 transition-colors truncate"
             >
-              Lihat Opsi Toko
+              <span className="hidden sm:inline">Lihat Opsi Toko</span>
+              <span className="sm:hidden">Opsi Toko</span>
             </button>
           )}
 
@@ -225,7 +232,7 @@ export function MonitorCard({
                   e.stopPropagation();
                   setIsDropdownOpen(!isDropdownOpen);
                 }}
-                className="h-8 w-8 rounded-lg bg-gp-ink-800 border border-gp-ink-700 hover:border-gp-ink-600 text-gp-ink-300 hover:text-white flex items-center justify-center transition-colors"
+                className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-gp-ink-800 border border-gp-ink-700 hover:border-gp-ink-600 text-gp-ink-300 hover:text-white flex items-center justify-center transition-colors shrink-0"
                 title="Pilihan Marketplace Lain"
               >
                 <ChevronDown

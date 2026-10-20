@@ -525,14 +525,14 @@ Link Detail: ${detailUrl}`;
           <p className="text-sm text-gp-ink-200 leading-relaxed">
             {monitor.introduction ||
               monitor.deepDiveDescription ||
-              `${monitor.fullName} merupakan monitor ${monitor.specs.display.size}, ${monitor.specs.display.panelType} ${monitor.specs.display.refreshRate}Hz yang sangat kompetitif di kisaran harga ${formatRupiah(monitor.price)} di pasar Indonesia. Memiliki tuning overdrive yang matang dari pengujian laboratorium GTID Tech.`}
+              `${monitor.fullName} merupakan monitor ${monitor.specs.display.size}, ${monitor.specs.display.panelType} ${monitor.specs.display.refreshRate}Hz yang sangat kompetitif di kisaran harga ${formatRupiah(monitor.price)} di pasar Indonesia. Memiliki tuning overdrive yang matang dari pengujian laboratorium GrayPlasma.`}
           </p>
 
           {/* YouTube Embed Card */}
           <div className="pt-3">
             <YouTubeEmbed
-              url={monitor.gtidReviewUrl}
-              title={`Review & Ulasan Pengujian GTID: ${monitor.fullName}`}
+              url={monitor.reviewUrl}
+              title={`Review & Ulasan Pengujian GrayPlasma: ${monitor.fullName}`}
             />
           </div>
         </div>

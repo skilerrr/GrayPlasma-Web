@@ -40,8 +40,8 @@ export async function generateMetadata({
     : "";
   const title = `${monitor.fullName}${specLabel}`;
   const description = display
-    ? `Hasil pengujian lab GTID & kurasi GrayPlasma untuk ${monitor.fullName}. Harga Rp ${monitor.price.toLocaleString("id-ID")}, panel ${display.panelType}, tier ${monitor.tier}.`
-    : `Hasil pengujian lab GTID & kurasi GrayPlasma untuk ${monitor.fullName}. Harga Rp ${monitor.price.toLocaleString("id-ID")}, tier ${monitor.tier}.`;
+    ? `Hasil pengujian lab GrayPlasma & kurasi GrayPlasma untuk ${monitor.fullName}. Harga Rp ${monitor.price.toLocaleString("id-ID")}, panel ${display.panelType}, tier ${monitor.tier}.`
+    : `Hasil pengujian lab GrayPlasma & kurasi GrayPlasma untuk ${monitor.fullName}. Harga Rp ${monitor.price.toLocaleString("id-ID")}, tier ${monitor.tier}.`;
   const ogImageUrl = `/api/og/monitor?slug=${encodeURIComponent(monitor.slug)}&format=landscape`;
 
   return {

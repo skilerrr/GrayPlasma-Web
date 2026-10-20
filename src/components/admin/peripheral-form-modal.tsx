@@ -199,7 +199,7 @@ export function PeripheralFormModal({
               </div>
             </div>
 
-            {/* Row 3: Verdict GTID / Kurasi */}
+            {/* Row 3: Verdict GrayPlasma / Kurasi */}
             <div className="space-y-1.5">
               <label className="text-xs font-bold text-gp-ink-200 block">
                 Verdict Kurasi & Catatan Kualitas

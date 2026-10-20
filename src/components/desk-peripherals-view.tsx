@@ -1004,7 +1004,7 @@ export function DeskPeripheralsView({
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-gp-ink-200 uppercase tracking-wider">
-              Contoh Paket Racikan Setup Nyata dari Forum Konsultasi Discord GTID
+              Contoh Paket Racikan Setup Nyata dari Forum Konsultasi Discord GrayPlasma
             </h3>
           </div>
 

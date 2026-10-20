@@ -57,7 +57,7 @@ const ROLE_CONFIG: Record<
   lead_reviewer: {
     label: "Lead Reviewer",
     badgeClass: "bg-cyan-500/10 text-cyan-400 border-cyan-500/30",
-    desc: "Hak mengelola database monitor live studio, pengujian laboratorium GTID, kurasi meja, dan aftersales.",
+    desc: "Hak mengelola database monitor live studio, pengujian laboratorium GrayPlasma, kurasi meja, dan aftersales.",
     icon: <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />,
   },
   editor: {
@@ -587,7 +587,7 @@ export function AdminHierarchyManager({
                       <div>
                         <div className="flex items-center gap-2">
                           <span className="text-xs font-bold text-white">{log.targetName}</span>
-                          <span className="text-3xs px-1.5 py-0.2 rounded bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 uppercase">
+                          <span className="text-3xs px-1.5 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-700 text-gp-ink-300 uppercase">
                             {log.targetType}
                           </span>
                         </div>

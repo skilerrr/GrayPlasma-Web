@@ -131,9 +131,9 @@ const PRESET_DESK: { columns: TableColumn[]; rows: TableRowItem[] } = {
 const PRESET_MONITOR: { columns: TableColumn[]; rows: TableRowItem[] } = {
   columns: [
     { id: "col_param", label: "Parameter Display" },
-    { id: "col_val", label: "Pengukuran Lab GTID" },
+    { id: "col_val", label: "Pengukuran Lab GrayPlasma" },
     { id: "col_tol", label: "Toleransi Standar" },
-    { id: "col_verdict", label: "Verdict GTID" },
+    { id: "col_verdict", label: "Verdict GrayPlasma" },
   ],
   rows: [
     {
@@ -506,7 +506,7 @@ export function ModularTableBuilder({
               onClick={() => handleApplyPreset("monitor")}
               className="px-2.5 py-1 rounded bg-gp-ink-800 border border-gp-ink-600 hover:border-cyan-500/60 text-cyan-300 font-mono text-2xs font-semibold transition-colors"
             >
-              Lab Monitor GTID
+              Lab Monitor GrayPlasma
             </button>
             <button
               type="button"

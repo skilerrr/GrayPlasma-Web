@@ -436,8 +436,8 @@ export function SiteElementsManager({
                   setEditingCard({
                     id: `sub-custom-${Date.now()}`,
                     groupId: "group-1",
-                    groupTitle: "1. REKOMENDASI MONITOR PILIHAN UTAMA",
-                    groupEmoji: "🌟",
+                    groupTitle: "1. EVALUASI BRAND & AFTERSALES (OEM / ODM LIST)",
+                    groupEmoji: "🛡️",
                     title: "Kartu Baru",
                     desc: "Deskripsi panduan...",
                     path: "/guide/custom",
@@ -1205,11 +1205,10 @@ export function SiteElementsManager({
                       onChange={(e) => setEditingCard({ ...editingCard, groupTitle: e.target.value })}
                       className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white focus:border-emerald-400 focus:outline-none"
                     >
-                      <option value="1. REKOMENDASI MONITOR PILIHAN UTAMA">1. Rekomendasi Monitor</option>
-                      <option value="2. EVALUASI BRAND & AFTERSALES (OEM / ODM LIST)">2. Evaluasi Brand & Aftersales</option>
-                      <option value="3. GLOSARIUM & PANDUAN KALIBRASI WARNA (GTID TECH)">3. Glosarium & Kalibrasi</option>
-                      <option value="4. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)">4. QnA & GrayNotes</option>
-                      <option value="5. SETUP MEJA, AUTHOR & CONSULTATION">5. Setup Meja & Support</option>
+                      <option value="1. EVALUASI BRAND & AFTERSALES (OEM / ODM LIST)">1. Evaluasi Brand & Aftersales</option>
+                      <option value="2. GLOSARIUM & PANDUAN KALIBRASI WARNA (GRAYPLASMA)">2. Glosarium & Kalibrasi</option>
+                      <option value="3. QNA & GRAYNOTES (PERTANYAAN SERING DIAJUKAN)">3. QnA & GrayNotes</option>
+                      <option value="4. SETUP MEJA, AUTHOR & CONSULTATION">4. Setup Meja & Support</option>
                       <option value="Custom Lainnya">Custom Lainnya</option>
                     </select>
                   </div>

@@ -69,7 +69,7 @@ export interface OvershootData {
 export interface LabTestingMatrixRow {
   parameter: string; // e.g. "Response Time (GtG)", "Contrast Ratio", "Color Gamut P3", "Max Nits"
   marketingClaim: string; // e.g. "0.5ms MPRT", "1000:1", "95% P3", "HDR 400"
-  gtidResult: string; // e.g. "5.2ms (Toleransi 5 RGB)", "1330:1 Black", "100% P3", "270 nits"
+  gpResult: string; // e.g. "5.2ms (Toleransi 5 RGB)", "1330:1 Black", "100% P3", "270 nits"
   ratingStatus: "optimal" | "acceptable" | "warning" | "gimmick";
   notes?: string;
 }
@@ -126,7 +126,7 @@ export interface AdditionalStoreLink {
 export interface ResponseTimeData {
   toleranceNew?: string; // e.g. "Toleransi Baru (5 RGB)"
   toleranceOld?: string; // e.g. "Toleransi Lama (10 RGB)"
-  gtidScore?: string;
+  gpScore?: string;
   overdriveRecommendation?: string;
   overshootPercent?: number;
 }
@@ -173,7 +173,7 @@ export interface Monitor {
   frontImage?: string;
   rearImage?: string;
   statusReason?: string;
-  gtidReviewUrl?: string;
+  reviewUrl?: string; // link video review (nama kolom DB lama: gtidReviewUrl)
   introduction?: string;
   bannerImage?: string;
   deepDiveTitle?: string;
@@ -184,7 +184,7 @@ export interface Monitor {
   additionalStores?: AdditionalStoreLink[];
   responseTimeData?: ResponseTimeData;
 
-  // Modern GTID Lab Testing Matrix & Engineering Specs
+  // Modern GrayPlasma Lab Testing Matrix & Engineering Specs
   subpixelLayout?: SubpixelLayout;
   coatingType?: CoatingType;
   vrrSpecs?: VRRSpecs;

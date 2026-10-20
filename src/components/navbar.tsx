@@ -138,14 +138,14 @@ export function Navbar({
           {/* Logo & Branding */}
           <div
             onClick={() => onMenuSelect("home")}
-            className="flex items-center gap-3 cursor-pointer group select-none flex-shrink-0"
+            className="flex items-center gap-2 sm:gap-3 cursor-pointer group select-none flex-shrink-0 min-w-0"
           >
             <div className="p-1 rounded-lg bg-gp-ink-900 border border-gp-ink-700 group-hover:border-gp-ink-600 transition-colors">
               <GPLogo className="w-8 h-8 sm:w-9 sm:h-9" />
             </div>
-            <div>
+            <div className="hidden xs:block min-w-0">
               <div className="flex items-center gap-2">
-                <span className="text-base sm:text-lg font-black tracking-tight text-white uppercase">
+                <span className="text-base sm:text-lg font-black tracking-tight text-white uppercase truncate">
                   {(siteSettings.brandName || "GRAYPLASMA ID").replace(/\s*ID$/i, "")}{" "}
                   <span className="text-orange-500 font-mono">ID</span>
                 </span>
@@ -157,7 +157,7 @@ export function Navbar({
           </div>
 
           {/* Nav Dropdown Menus (Desktop) */}
-          <nav className="hidden md:flex items-center gap-1 bg-gp-ink-900 border border-gp-ink-700 rounded-lg p-1">
+          <nav className="hidden lg:flex items-center gap-1 bg-gp-ink-900 border border-gp-ink-700 rounded-lg p-1 shrink-0">
             {/* Beranda */}
             <Link
               href="/"
@@ -371,7 +371,7 @@ export function Navbar({
                   >
                     <BookOpen className="w-3.5 h-3.5 text-emerald-400 mt-0.5 flex-shrink-0" />
                     <div>
-                      <span className="block font-semibold">How to Read GTID Glossary</span>
+                      <span className="block font-semibold">How to Read GrayPlasma Glossary</span>
                       <span className="text-3xs text-gp-ink-400 font-mono group-hover:text-gp-mint">/guide/sdr/glossary</span>
                     </div>
                   </Link>
@@ -473,7 +473,7 @@ export function Navbar({
           </nav>
 
           {/* Instant Search Bar */}
-          <div className="flex-1 max-w-xs sm:max-w-md mx-1 sm:mx-2">
+          <div className="flex-1 min-w-0 max-w-xs sm:max-w-md mx-1 sm:mx-2">
             <div className="relative group">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gp-ink-400 group-focus-within:text-emerald-400 transition-colors">
                 <Search className="w-4 h-4" />
@@ -508,7 +508,7 @@ export function Navbar({
           </div>
 
           {/* Right Action: WhatsApp Consultation */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <Button
               variant="outline"
               size="sm"
@@ -536,7 +536,7 @@ export function Navbar({
         </div>
 
         {/* Mobile Horizontal Menu Bar */}
-        <div className="flex md:hidden items-center gap-2 py-2 border-t border-gp-ink-800 overflow-x-auto no-scrollbar">
+        <div className="flex lg:hidden items-center gap-2 py-2 border-t border-gp-ink-800 overflow-x-auto no-scrollbar">
           <MobileNavLink href="/" label="Beranda" active={currentKey === "home"} />
           <MobileNavLink
             href="/guide/brand/aftersales-rma"

@@ -3,21 +3,21 @@ import { SiteHierarchyNode, SiteCategoryGroup } from "@/types/site-hierarchy";
 export const DEFAULT_SITE_HIERARCHY: SiteHierarchyNode[] = [
   {
     id: "guide-sdr-glossary",
-    title: "HOW TO READ GTID GLOSSARY (SDR)",
+    title: "HOW TO READ GrayPlasma GLOSSARY (SDR)",
     slug: "glossary",
     fullPath: "/guide/sdr/glossary",
     category: "SDR & Kalibrasi Warna",
     icon: "BookOpen",
     coverImage: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop",
-    description: "Panduan lengkap membaca deITP, Delta E, Color Gamut sRGB vs DCI-P3, Contrast Ratio, dan Response Time GTID.",
-    contentMarkdown: `# HOW TO READ GTID GLOSSARY (SDR)
+    description: "Panduan lengkap membaca deITP, Delta E, Color Gamut sRGB vs DCI-P3, Contrast Ratio, dan Response Time GrayPlasma.",
+    contentMarkdown: `# HOW TO READ GrayPlasma GLOSSARY (SDR)
 
-> Panduan Lengkap Cara Membaca Data Pengetesan Warna, Contrast, & Response Time Laboratorium GTID
+> Panduan Lengkap Cara Membaca Data Pengetesan Warna, Contrast, & Response Time Laboratorium GrayPlasma
 
 ---
 
 ## 1. Standar Akurasi Warna: deITP vs de2000
-Standar Data pengetesan GTID menggunakan **deITP (Delta E ITP)** yang mampu mendeteksi perbedaan akurasi warna di tingkat kecerahan sangat rendah (0.1 cd/m²).
+Standar Data pengetesan GrayPlasma menggunakan **deITP (Delta E ITP)** yang mampu mendeteksi perbedaan akurasi warna di tingkat kecerahan sangat rendah (0.1 cd/m²).
 
 - **Skor di bawah 5 deITP:** Dianggap akurat secara kasat mata bagi mata manusia.
 - **Skor di atas 7 deITP:** Dianggap memiliki deviasi warna tampak, disarankan beralih ke profil kalibrasi OSD sRGB bawaan pabrik.
@@ -39,7 +39,7 @@ Standar Data pengetesan GTID menggunakan **deITP (Delta E ITP)** yang mampu mend
     tags: ["Glossary", "deITP", "sRGB", "DCI-P3", "Response Time"],
     order: 1,
     isPublished: true,
-    discordCallbackSummary: "📄 Panduan Cara Baca Glosarium GTID: Nilai deITP < 5 = Akurat. Gunakan OSD sRGB untuk konten web/editing standar. Link: https://grayplasma.id/guide/sdr/glossary",
+    discordCallbackSummary: "📄 Panduan Cara Baca Glosarium GrayPlasma: Nilai deITP < 5 = Akurat. Gunakan OSD sRGB untuk konten web/editing standar. Link: https://grayplasma.id/guide/sdr/glossary",
     updatedAt: "2026-08-25"
   },
   {
@@ -55,7 +55,7 @@ Standar Data pengetesan GTID menggunakan **deITP (Delta E ITP)** yang mampu mend
 
 > Mengapa monitor bisa akurat secara Delta E namun tetap kehilangan saturasi warna di ujung spektrum?
 
-Yap benar, ini bisa saja terjadi! Hal ini terbukti pada monitor seperti **H24G30F 180Hz** dan **MSI MAG 245F X24** yang sudah GTID uji.
+Yap benar, ini bisa saja terjadi! Hal ini terbukti pada monitor seperti **H24G30F 180Hz** dan **MSI MAG 245F X24** yang sudah GrayPlasma uji.
 
 ## Mengapa hal ini bisa terjadi?
 Skyworth memiliki **~62% Rec. 2020**, sehingga terdapat sekitar **~8-10% kehilangan Warna P3 di ujung Spektrum Warna**.
@@ -92,7 +92,7 @@ ODM adalah pabrik manufaktur pihak ketiga di China yang memproduksi monitor seca
 3. **Lama Waktu Klaim Garansi:** Jika terjadi kerusakan garis layar, suku cadang sering harus menunggu inden kontainer dari luar negeri.
 
 ## Rekomendasi GrayPlasma:
-> Jika memilih monitor ODM karena keterbatasan anggaran, utamakan brand yang menyediakan garansi ganti unit 3 tahun dan sudah lolos pengetesan Response Time GTID.`,
+> Jika memilih monitor ODM karena keterbatasan anggaran, utamakan brand yang menyediakan garansi ganti unit 3 tahun dan sudah lolos pengetesan Response Time GrayPlasma.`,
     onClickAction: "route",
     tags: ["ODM", "OEM", "Kualitas", "Firmware", "Garansi"],
     order: 3,
@@ -521,7 +521,7 @@ export const DEFAULT_CATEGORY_GROUPS: SiteCategoryGroup[] = [
     id: "cat-faq-glosarium",
     name: "FAQ & Glosarium",
     icon: "HelpCircle",
-    description: "Tanya jawab seputar data pengetesan laboratorium GTID dan kurasi GrayPlasma.",
+    description: "Tanya jawab seputar data pengetesan laboratorium GrayPlasma dan kurasi GrayPlasma.",
     badge: "QnA",
     routes: DEFAULT_SITE_HIERARCHY.filter((n) => n.category === "FAQ & Glosarium")
   }

@@ -14,7 +14,7 @@ interface YouTubeEmbedProps {
 export function YouTubeEmbed({
   url,
   videoId,
-  title = "Review & Pengetesan Laboratorium GTID",
+  title = "Review & Pengetesan Laboratorium GrayPlasma",
   className = "",
 }: YouTubeEmbedProps) {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -28,9 +28,9 @@ export function YouTubeEmbed({
     }
   }
 
-  // Fallback default GTID review video if none specified
+  // Fallback default GrayPlasma review video if none specified
   if (!resolvedId) {
-    resolvedId = "dQw4w9WgXcQ"; // Placeholder fallback or GTID video
+    resolvedId = "dQw4w9WgXcQ"; // Placeholder fallback or GrayPlasma video
   }
 
   const embedUrl = `https://www.youtube-nocookie.com/embed/${resolvedId}?autoplay=1&rel=0`;
@@ -85,7 +85,7 @@ export function YouTubeEmbed({
             {/* Bottom Title Bar */}
             <div className="absolute bottom-3 left-4 right-4 z-10 text-left">
               <span className="text-xs font-bold text-white line-clamp-1 drop-shadow-md">
-                ▶ Klik untuk Menonton Ulasan & Pengujian GTID
+                ▶ Klik untuk Menonton Ulasan & Pengujian GrayPlasma
               </span>
             </div>
           </div>

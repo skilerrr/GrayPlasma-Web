@@ -84,7 +84,7 @@ export function MonitorLiveStudio({
     }
     let doc = "";
     if (mon.expertVerdict) {
-      doc += `<div class="notion-callout notion-callout-amber"><span class="notion-callout-icon font-mono font-bold text-xs">[GTID VERDICT]</span><div class="notion-callout-content"><strong>GTID Tech Verdict:</strong><br>${mon.expertVerdict}</div></div>`;
+      doc += `<div class="notion-callout notion-callout-amber"><span class="notion-callout-icon font-mono font-bold text-xs">[GrayPlasma VERDICT]</span><div class="notion-callout-content"><strong>GrayPlasma Verdict:</strong><br>${mon.expertVerdict}</div></div>`;
     }
     if (mon.introduction) {
       doc += `<h2>Ulasan & Karakteristik Layar</h2><p>${mon.introduction}</p>`;
@@ -128,7 +128,7 @@ export function MonitorLiveStudio({
       frontImage: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop",
       rearImage: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop",
       quickSpecs: ["24 Inch or 23.8 Inch", "IPS", "180Hz", "1ms GtG"],
-      expertVerdict: "Data Pengetesan GTID Tech: Motion clarity sangat baik dan akurasi warna tinggi.",
+      expertVerdict: "Data Pengetesan GrayPlasma: Motion clarity sangat baik dan akurasi warna tinggi.",
       pros: ["Panel Fast IPS 180Hz", "Akurasi warna tinggi"],
       cons: ["Stand bawaan tilt only"],
       specs: {
@@ -210,7 +210,7 @@ export function MonitorLiveStudio({
       rearImage: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop",
       gallery: [],
       quickSpecs: ["24 Inch or 23.8 Inch", "IPS", "180Hz", "1ms GtG"],
-      expertVerdict: "Pengujian GTID Tech: Motion clarity sangat baik dan akurasi warna tinggi.",
+      expertVerdict: "Pengujian GrayPlasma: Motion clarity sangat baik dan akurasi warna tinggi.",
       pros: ["Panel Fast IPS 180Hz", "Akurasi warna tinggi"],
       cons: ["Stand bawaan tilt only"],
       specs: {
@@ -385,7 +385,7 @@ export function MonitorLiveStudio({
       frontImage: formData.frontImage || formData.thumbnail,
       rearImage: formData.rearImage,
       gallery: formData.gallery || [formData.thumbnail || ""],
-      gtidReviewUrl: formData.gtidReviewUrl,
+      reviewUrl: formData.reviewUrl,
       statusReason: formData.statusReason,
       introduction: formData.introduction,
       deepDiveTitle: formData.deepDiveTitle,
@@ -396,7 +396,7 @@ export function MonitorLiveStudio({
         `${formData.specs?.display?.refreshRate || 180}Hz`,
         formData.specs?.display?.responseTime || "1ms GtG",
       ],
-      expertVerdict: formData.expertVerdict || "Data pengetesan GTID Tech.",
+      expertVerdict: formData.expertVerdict || "Data pengetesan GrayPlasma.",
       pros: formData.pros || ["Panel berkualitas", "Refresh rate tinggi"],
       cons: formData.cons || ["Perhatikan setting Overdrive"],
       specs: formData.specs as Monitor["specs"],
@@ -584,13 +584,13 @@ export function MonitorLiveStudio({
       ),
     },
     {
-      id: "gtidTolerance",
-      label: "Toleransi GTID",
-      shortLabel: "Toleransi GTID",
+      id: "gpTolerance",
+      label: "Toleransi GrayPlasma",
+      shortLabel: "Toleransi GrayPlasma",
       minWidth: "min-w-[200px]",
       sortable: true,
       isDefaultVisible: true,
-      category: "Uji GTID",
+      category: "Uji GrayPlasma",
       getValue: (m) => m.responseTimeData?.toleranceNew || "",
       renderCell: (m) => (
         <div className="flex items-center gap-1.5 flex-wrap">
@@ -771,7 +771,7 @@ export function MonitorLiveStudio({
     },
     {
       id: "expertVerdict",
-      label: "Expert Verdict GTID",
+      label: "Expert Verdict GrayPlasma",
       shortLabel: "Verdict",
       minWidth: "min-w-[220px]",
       sortable: true,
@@ -814,7 +814,7 @@ export function MonitorLiveStudio({
             Live Database Monitor & Studio Properti
           </h2>
           <p className="text-xs text-gp-ink-300 max-w-2xl leading-relaxed">
-            Kelola, edit, dan tambah monitor dengan live preview real-time. Semua 21 properti teknis, toleransi data GTID, dan section ulasan tersinkronisasi instan.
+            Kelola, edit, dan tambah monitor dengan live preview real-time. Semua 21 properti teknis, toleransi data GrayPlasma, dan section ulasan tersinkronisasi instan.
           </p>
         </div>
 
@@ -1416,17 +1416,17 @@ export function MonitorLiveStudio({
               </div>
             </div>
 
-            {/* Video Review GTID */}
+            {/* Video Review GrayPlasma */}
             <div className="grid grid-cols-12 items-center gap-2">
               <span className="col-span-4 text-gp-ink-300 font-medium flex items-center gap-1.5">
                 <Youtube className="w-3.5 h-3.5 text-gp-ink-300 shrink-0" />
-                <span>Review YouTube GTID</span>
+                <span>Review YouTube GrayPlasma</span>
               </span>
               <div className="col-span-8">
                 <input
                   type="text"
-                  value={formData.gtidReviewUrl || ""}
-                  onChange={(e) => setFormData({ ...formData, gtidReviewUrl: e.target.value })}
+                  value={formData.reviewUrl || ""}
+                  onChange={(e) => setFormData({ ...formData, reviewUrl: e.target.value })}
                   placeholder="https://youtube.com/watch?v=..."
                   className="w-full bg-gp-ink-800 border border-gp-ink-650 rounded-lg px-2.5 py-1 text-xs text-gp-ink-200 focus:outline-none focus:border-rose-400"
                 />
@@ -1463,7 +1463,7 @@ export function MonitorLiveStudio({
               </div>
             </div>
 
-            {/* Collapsible Accordion: 21 Specs & Toleransi GTID */}
+            {/* Collapsible Accordion: 21 Specs & Toleransi GrayPlasma */}
             <div className="pt-1.5 border-t border-gp-ink-750">
               <button
                 type="button"
@@ -1472,7 +1472,7 @@ export function MonitorLiveStudio({
               >
                 <div className="flex items-center gap-2">
                   <SlidersHorizontal className="w-3.5 h-3.5 text-gp-ink-300 shrink-0" />
-                  <span>21 Parameter Spesifikasi Layar & Data GTID</span>
+                  <span>21 Parameter Spesifikasi Layar & Data GrayPlasma</span>
                 </div>
                 <span className="text-3xs text-emerald-400 font-mono font-bold">
                   {isSpecsExpanded ? "▲ Tutup Spesifikasi" : "▼ Buka 21 Spesifikasi"}
@@ -1560,7 +1560,7 @@ export function MonitorLiveStudio({
 
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="text-3xs text-emerald-400 block mb-0.5">Toleransi Baru (Data Baru GTID)</label>
+                      <label className="text-3xs text-emerald-400 block mb-0.5">Toleransi Baru (Data Baru GrayPlasma)</label>
                       <input
                         type="text"
                         value={formData.responseTimeData?.toleranceNew || "Toleransi Baru (5 RGB)"}
@@ -1577,7 +1577,7 @@ export function MonitorLiveStudio({
                       />
                     </div>
                     <div>
-                      <label className="text-3xs text-rose-400 block mb-0.5">Toleransi Lama (Data Lama GTID)</label>
+                      <label className="text-3xs text-rose-400 block mb-0.5">Toleransi Lama (Data Lama GrayPlasma)</label>
                       <input
                         type="text"
                         value={formData.responseTimeData?.toleranceOld || "Toleransi Lama (10 RGB)"}
@@ -1730,7 +1730,7 @@ export function MonitorLiveStudio({
                 <option value="Display & Panel">Display</option>
                 <option value="Konektivitas">Port / Colokan</option>
                 <option value="Fitur Gaming">Gaming</option>
-                <option value="Uji Lab GTID">Lab GTID</option>
+                <option value="Uji Lab GrayPlasma">Lab GrayPlasma</option>
                 <option value="Ergonomi">Ergonomi</option>
               </select>
             </div>
@@ -1859,7 +1859,7 @@ export function MonitorLiveStudio({
                 <button
                   type="button"
                   onClick={() => {
-                    const snippet = `<div class="notion-callout notion-callout-amber"><span class="notion-callout-icon font-mono font-bold text-xs">[GTID VERDICT]</span><div class="notion-callout-content"><strong>GTID Tech Verdict:</strong><br>Motion clarity sangat baik pada toleransi 5 RGB, akurasi warna tinggi di mode sRGB.</div></div><p><br></p>`;
+                    const snippet = `<div class="notion-callout notion-callout-amber"><span class="notion-callout-icon font-mono font-bold text-xs">[GrayPlasma VERDICT]</span><div class="notion-callout-content"><strong>GrayPlasma Verdict:</strong><br>Motion clarity sangat baik pada toleransi 5 RGB, akurasi warna tinggi di mode sRGB.</div></div><p><br></p>`;
                     setDocContent((prev) => prev + snippet);
                     setFormData((prev) => ({
                       ...prev,
@@ -1890,7 +1890,7 @@ export function MonitorLiveStudio({
                   className="text-3xs px-2 py-0.5 rounded bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/25 font-semibold font-mono transition-colors flex items-center gap-1"
                 >
                   <TableIcon className="w-3 h-3" />
-                  <span>+ Modular Tabel GTID</span>
+                  <span>+ Modular Tabel GrayPlasma</span>
                 </button>
                 <button
                   type="button"
@@ -2097,13 +2097,13 @@ export function MonitorLiveStudio({
           </div>
 
           {/* Video Preview if provided */}
-          {formData.gtidReviewUrl && (
+          {formData.reviewUrl && (
             <div className="p-3 rounded-xl bg-gp-ink-750 border border-gp-ink-650 space-y-1.5">
               <div className="flex items-center gap-1.5 text-xs text-white font-bold">
                 <Youtube className="w-4 h-4 text-rose-500" />
-                <span>Video Review GTID Terhubung</span>
+                <span>Video Review GrayPlasma Terhubung</span>
               </div>
-              <p className="text-3xs text-gp-ink-300 truncate">{formData.gtidReviewUrl}</p>
+              <p className="text-3xs text-gp-ink-300 truncate">{formData.reviewUrl}</p>
             </div>
           )}
         </div>
@@ -2120,7 +2120,7 @@ export function MonitorLiveStudio({
             ...prev,
             deepDiveDescription: (prev.deepDiveDescription || "") + tableHtml,
           }));
-          showNotification("Tabel modular laboratorium GTID berhasil disisipkan.");
+          showNotification("Tabel modular laboratorium GrayPlasma berhasil disisipkan.");
         }}
         initialPreset="monitor"
       />

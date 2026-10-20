@@ -132,7 +132,7 @@ export function PeripheralSidePanel({ peripheral, isOpen, onClose }: PeripheralS
             <div className="p-4 sm:p-5 rounded-2xl bg-cyan-950/20 border border-cyan-500/30 text-xs text-cyan-200 space-y-2">
               <div className="flex items-center gap-1.5 font-bold text-cyan-400 uppercase tracking-wider text-2xs">
                 <Sparkles className="w-4 h-4 text-cyan-400" />
-                <span>Verdict Pengujian Lab GTID:</span>
+                <span>Verdict Pengujian Lab GrayPlasma:</span>
               </div>
               <p className="leading-relaxed text-gp-ink-100">{peripheral.verdict}</p>
             </div>

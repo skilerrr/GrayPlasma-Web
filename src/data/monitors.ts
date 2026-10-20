@@ -28,7 +28,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: YES (75 × 75 mm).",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: YES (75 × 75 mm).",
     "pros": [
       "Panel IPS dengan Refresh Rate 200Hz native",
       "Response time teruji: Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
@@ -40,7 +40,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Port USB Hub: None"
     ],
     "deepDiveTitle": "Analisis Pengujian Response Time & Motion Clarity Xiaomi G24i",
-    "deepDiveDescription": "Xiaomi G24i menghadirkan performa refresh rate 200Hz di harga Rp 1.5 jutaan. Pada pengetesan GTID, overdrive level 'Fast' memberikan motion clarity paling stabil tanpa ada overshoot yang mengganggu.",
+    "deepDiveDescription": "Xiaomi G24i menghadirkan performa refresh rate 200Hz di harga Rp 1.5 jutaan. Pada pengetesan GrayPlasma, overdrive level 'Fast' memberikan motion clarity paling stabil tanpa ada overshoot yang mengganggu.",
     "deepDiveNote": "Gunakan DisplayPort 1.4 bawaan untuk mengaktifkan 200Hz penuh di PC Desktop.",
     "accessoriesIncluded": [
       "Kabel Power Adapter Xiaomi",
@@ -64,7 +64,7 @@ export const MONITORS_DATA: Monitor[] = [
     "responseTimeData": {
       "toleranceNew": "Toleransi Baru (5 RGB)",
       "toleranceOld": "Toleransi Lama (10 RGB)",
-      "gtidScore": "4.2ms GtG",
+      "gpScore": "4.2ms GtG",
       "overdriveRecommendation": "Fast"
     },
     "specs": {
@@ -76,7 +76,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -158,7 +158,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display DisplayPort 1.4,HDMI 2.0. Stand: Tilt. VESA: YES (75 × 75 mm).",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display DisplayPort 1.4,HDMI 2.0. Stand: Tilt. VESA: YES (75 × 75 mm).",
     "pros": [
       "Panel IPS dengan Refresh Rate 240Hz native",
       "Response time teruji: Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
@@ -195,7 +195,7 @@ export const MONITORS_DATA: Monitor[] = [
     "responseTimeData": {
       "toleranceNew": "Toleransi Baru (5 RGB)",
       "toleranceOld": "Toleransi Lama (10 RGB)",
-      "gtidScore": "3.9ms GtG",
+      "gpScore": "3.9ms GtG",
       "overdriveRecommendation": "Medium"
     },
     "specs": {
@@ -207,7 +207,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -289,7 +289,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
       "10 Bit (8 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display HDMI 2.0,DisplayPort 1.2. Stand: Tilt. VESA: YES (100 × 100 mm).",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display HDMI 2.0,DisplayPort 1.2. Stand: Tilt. VESA: YES (100 × 100 mm).",
     "pros": [
       "Panel IPS dengan Refresh Rate 240Hz native",
       "Response time teruji: Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
@@ -301,7 +301,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Port USB Hub: None"
     ],
     "deepDiveTitle": "Akurat di D65-P3 tapi kok Undersaturated di D65-P3?",
-    "deepDiveDescription": "Yap benar, ini bisa saja terjadi. Hal ini terjadi di H24G30F 180Hz yang sudah GTID tes. Skyworth memiliki ~62% Rec. 2020, sehingga ada sekitar ~8-10% kehilangan Warna P3 di ujung Spektrum Warna. Berarti MSI di ujung spektrum warna, sedikit parah dibanding H24G30F 180Hz, hanya ~59% Rec. 2020.",
+    "deepDiveDescription": "Yap benar, ini bisa saja terjadi. Hal ini terjadi di H24G30F 180Hz yang sudah GrayPlasma tes. Skyworth memiliki ~62% Rec. 2020, sehingga ada sekitar ~8-10% kehilangan Warna P3 di ujung Spektrum Warna. Berarti MSI di ujung spektrum warna, sedikit parah dibanding H24G30F 180Hz, hanya ~59% Rec. 2020.",
     "deepDiveNote": "Warna yang bisa MSI Cakup, itu akan akurat, Namun hanya bagian yang bisa MSI MAG 245F X24 cakup (Jika ada hal yang kurang jelas dari poin di atas, bertanyalah kepada poin tersebut)",
     "accessoriesIncluded": [
       "Kabel Adaptor",
@@ -327,7 +327,7 @@ export const MONITORS_DATA: Monitor[] = [
     "responseTimeData": {
       "toleranceNew": "Toleransi Baru (5 RGB)",
       "toleranceOld": "Toleransi Lama (10 RGB)",
-      "gtidScore": "3.8ms GtG",
+      "gpScore": "3.8ms GtG",
       "overdriveRecommendation": "Fast"
     },
     "specs": {
@@ -339,7 +339,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -406,7 +406,7 @@ export const MONITORS_DATA: Monitor[] = [
     "model": "Xiaomi A27Qi (2026) (?)",
     "fullName": "Xiaomi A27Qi (2026) (?)",
     "tier": "RECOMMENDED",
-    "tierDescription": "Kategori: List SDR Monitor (GTID Review). Response Time: 1ms GtG. Stand: Tilt Only.",
+    "tierDescription": "Kategori: List SDR Monitor (GrayPlasma Review). Response Time: 1ms GtG. Stand: Tilt Only.",
     "price": 2099000,
     "originalPrice": 2410000,
     "thumbnail": "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop",
@@ -420,7 +420,7 @@ export const MONITORS_DATA: Monitor[] = [
       "1ms GtG",
       "8-bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time 1ms GtG, Input Display 1x DP 1.4, 1x HDMI 2.0. Stand: Tilt Only. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time 1ms GtG, Input Display 1x DP 1.4, 1x HDMI 2.0. Stand: Tilt Only. VESA: 75 x 75 mm.",
     "pros": [
       "Panel Fast IPS dengan Refresh Rate 180Hz native",
       "Response time teruji: 1ms GtG",
@@ -440,7 +440,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "1ms GtG",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "Flat"
@@ -493,7 +493,7 @@ export const MONITORS_DATA: Monitor[] = [
       }
     ],
     "tags": [
-      "List SDR Monitor (GTID Review)",
+      "List SDR Monitor (GrayPlasma Review)",
       "Fast IPS",
       "180Hz",
       "1920 x 1080 (FHD)"
@@ -521,7 +521,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
       "10 Bit (8 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: YES (100 × 100 mm).",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: YES (100 × 100 mm).",
     "pros": [
       "Panel IPS dengan Refresh Rate 180Hz native",
       "Response time teruji: Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
@@ -541,7 +541,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -622,7 +622,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Lama (10 RGB)",
       "10 Bit (8 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Lama (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: YES (100 × 100 mm).",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Lama (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: YES (100 × 100 mm).",
     "pros": [
       "Panel IPS dengan Refresh Rate 300Hz native",
       "Response time teruji: Toleransi Lama (10 RGB)",
@@ -642,7 +642,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Lama (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -723,7 +723,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display DisplayPort 1.4,HDMI 2.0. Stand: Tilt. VESA: YES (100 × 100 mm).",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display DisplayPort 1.4,HDMI 2.0. Stand: Tilt. VESA: YES (100 × 100 mm).",
     "pros": [
       "Panel IPS dengan Refresh Rate 310Hz native",
       "Response time teruji: Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
@@ -743,7 +743,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -824,7 +824,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Baru,Toleransi Lama,Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
       "10 Bit (8 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Baru,Toleransi Lama,Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: YES (100 × 100 mm).",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Baru,Toleransi Lama,Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: YES (100 × 100 mm).",
     "pros": [
       "Panel IPS dengan Refresh Rate 240Hz native",
       "Response time teruji: Toleransi Baru,Toleransi Lama,Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
@@ -844,7 +844,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Baru,Toleransi Lama,Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -925,7 +925,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Baru (5 RGB)",
       "10 Bit (8 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Baru (5 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: YES (100 × 100 mm).",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Baru (5 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: YES (100 × 100 mm).",
     "pros": [
       "Panel IPS dengan Refresh Rate 200Hz native",
       "Response time teruji: Toleransi Baru (5 RGB)",
@@ -945,7 +945,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Baru (5 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -1026,7 +1026,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Baru (5 RGB)",
       "10 Bit (8 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Baru (5 RGB), Input Display HDMI 2.0,DisplayPort 1.4,USB C (DP Alt Mode). Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: YES (75 × 75 mm).",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Baru (5 RGB), Input Display HDMI 2.0,DisplayPort 1.4,USB C (DP Alt Mode). Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: YES (75 × 75 mm).",
     "pros": [
       "Panel IPS dengan Refresh Rate 60Hz native",
       "Response time teruji: Toleransi Baru (5 RGB)",
@@ -1046,7 +1046,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Baru (5 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -1127,7 +1127,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
       "10 Bit (8 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4 DSC,USB C (DP Alt Mode). Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: YES (100 × 100 mm).",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4 DSC,USB C (DP Alt Mode). Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: YES (100 × 100 mm).",
     "pros": [
       "Panel IPS dengan Refresh Rate 255Hz native",
       "Response time teruji: Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
@@ -1147,7 +1147,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -1228,7 +1228,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Lama (10 RGB)",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Lama (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment. VESA: YES (75 × 75 mm).",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Lama (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment. VESA: YES (75 × 75 mm).",
     "pros": [
       "Panel VA dengan Refresh Rate 180Hz native",
       "Response time teruji: Toleransi Lama (10 RGB)",
@@ -1248,7 +1248,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Lama (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "3000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "1500R"
@@ -1329,7 +1329,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
       "10 Bit (8 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display DisplayPort 1.4,HDMI 2.1 FRL (48 Gbps). Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: YES (100 × 100 mm).",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display DisplayPort 1.4,HDMI 2.1 FRL (48 Gbps). Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: YES (100 × 100 mm).",
     "pros": [
       "Panel IPS dengan Refresh Rate 300Hz native",
       "Response time teruji: Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
@@ -1349,7 +1349,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -1430,7 +1430,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Lama (10 RGB)",
       "10 Bit (8 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Lama (10 RGB), Input Display HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: YES (100 × 100 mm).",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Lama (10 RGB), Input Display HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: YES (100 × 100 mm).",
     "pros": [
       "Panel IPS dengan Refresh Rate 160Hz native",
       "Response time teruji: Toleransi Lama (10 RGB)",
@@ -1450,7 +1450,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Lama (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -1531,7 +1531,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
       "10 Bit (8 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: YES (100 × 100 mm).",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: YES (100 × 100 mm).",
     "pros": [
       "Panel IPS dengan Refresh Rate 144Hz native",
       "Response time teruji: Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
@@ -1551,7 +1551,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -1632,7 +1632,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
       "10 Bit (8 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4 DSC. Stand: Tilt,Swivel,Height Adjustment. VESA: YES (100 × 100 mm).",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4 DSC. Stand: Tilt,Swivel,Height Adjustment. VESA: YES (100 × 100 mm).",
     "pros": [
       "Panel VA dengan Refresh Rate 260Hz native",
       "Response time teruji: Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
@@ -1652,7 +1652,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "3000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "1500R"
@@ -1733,7 +1733,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Lama (10 RGB)",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Lama (10 RGB), Input Display HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4 DSC. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: YES (100 × 100 mm).",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Lama (10 RGB), Input Display HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4 DSC. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: YES (100 × 100 mm).",
     "pros": [
       "Panel IPS dengan Refresh Rate 500Hz native",
       "Response time teruji: Toleransi Lama (10 RGB)",
@@ -1753,7 +1753,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Lama (10 RGB)",
         "brightness": "400 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -1820,7 +1820,7 @@ export const MONITORS_DATA: Monitor[] = [
     "model": "Asus ROG STRIX XG27ACSR",
     "fullName": "Asus ROG STRIX XG27ACSR",
     "tier": "BEST VALUE",
-    "tierDescription": "Kategori: List SDR Monitor (GTID Review). Response Time: 1ms GtG. Stand: Tilt Only.",
+    "tierDescription": "Kategori: List SDR Monitor (GrayPlasma Review). Response Time: 1ms GtG. Stand: Tilt Only.",
     "price": 1500000,
     "originalPrice": 1720000,
     "thumbnail": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop",
@@ -1834,7 +1834,7 @@ export const MONITORS_DATA: Monitor[] = [
       "1ms GtG",
       "8-bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time 1ms GtG, Input Display 1x DP 1.4, 1x HDMI 2.0. Stand: Tilt Only. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time 1ms GtG, Input Display 1x DP 1.4, 1x HDMI 2.0. Stand: Tilt Only. VESA: 75 x 75 mm.",
     "pros": [
       "Panel Fast IPS dengan Refresh Rate 180Hz native",
       "Response time teruji: 1ms GtG",
@@ -1854,7 +1854,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "1ms GtG",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "Flat"
@@ -1907,7 +1907,7 @@ export const MONITORS_DATA: Monitor[] = [
       }
     ],
     "tags": [
-      "List SDR Monitor (GTID Review)",
+      "List SDR Monitor (GrayPlasma Review)",
       "Fast IPS",
       "180Hz",
       "1920 x 1080 (FHD)"
@@ -1935,7 +1935,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
       "8 Bit (6 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB), Input Display HDMI 1.4,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB), Input Display HDMI 1.4,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 240Hz native",
       "Response time teruji: TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
@@ -1955,7 +1955,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -2036,7 +2036,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
       "10 Bit (8 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 180Hz native",
       "Response time teruji: TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
@@ -2056,7 +2056,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -2137,7 +2137,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB), Input Display HDMI 2.1 TMDS (18 Gbps),DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB), Input Display HDMI 2.1 TMDS (18 Gbps),DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment. VESA: 75 x 75 mm.",
     "pros": [
       "Panel VA dengan Refresh Rate 180Hz native",
       "Response time teruji: TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
@@ -2157,7 +2157,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "3000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "1500R"
@@ -2238,7 +2238,7 @@ export const MONITORS_DATA: Monitor[] = [
       "NO DATA",
       "10 Bit (8 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time NO DATA, Input Display HDMI 2.0,DisplayPort 1.2,USB C (DP Alt Mode). Stand: Tilt. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time NO DATA, Input Display HDMI 2.0,DisplayPort 1.2,USB C (DP Alt Mode). Stand: Tilt. VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 60Hz native",
       "Response time teruji: NO DATA",
@@ -2258,7 +2258,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "NO DATA",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -2339,7 +2339,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI BARU (5 RGB)",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI BARU (5 RGB), Input Display HDMI 2.1 TMDS,DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI BARU (5 RGB), Input Display HDMI 2.1 TMDS,DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 240Hz native",
       "Response time teruji: TOLERANSI BARU (5 RGB)",
@@ -2359,7 +2359,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI BARU (5 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -2440,7 +2440,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI LAMA (10 RGB)",
       "10 Bit (8 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display DisplayPort 1.4,HDMI 2.0. Stand: Tilt. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display DisplayPort 1.4,HDMI 2.0. Stand: Tilt. VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 240Hz native",
       "Response time teruji: TOLERANSI LAMA (10 RGB)",
@@ -2460,7 +2460,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI LAMA (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -2541,7 +2541,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
       "10 Bit (8 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB), Input Display HDMI 2.1 TMDS,DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB), Input Display HDMI 2.1 TMDS,DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 200Hz native",
       "Response time teruji: TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
@@ -2561,7 +2561,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -2642,7 +2642,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
       "8-bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB), Input Display HDMI 2.1 TMDS,DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB), Input Display HDMI 2.1 TMDS,DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 240Hz native",
       "Response time teruji: TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
@@ -2662,7 +2662,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -2743,7 +2743,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI LAMA (10 RGB)",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 240Hz native",
       "Response time teruji: TOLERANSI LAMA (10 RGB)",
@@ -2763,7 +2763,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI LAMA (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -2844,7 +2844,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI LAMA (10 RGB)",
       "10 Bit (8 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display DisplayPort 1.4,HDMI 2.1 TMDS. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display DisplayPort 1.4,HDMI 2.1 TMDS. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 180Hz native",
       "Response time teruji: TOLERANSI LAMA (10 RGB)",
@@ -2864,7 +2864,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI LAMA (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -2945,7 +2945,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI LAMA (10 RGB)",
       "8 Bit (6 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
     "pros": [
       "Panel VA dengan Refresh Rate 170Hz native",
       "Response time teruji: TOLERANSI LAMA (10 RGB)",
@@ -2965,7 +2965,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI LAMA (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "3000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "1500R"
@@ -3046,7 +3046,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI LAMA (10 RGB)",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 280Hz native",
       "Response time teruji: TOLERANSI LAMA (10 RGB)",
@@ -3066,7 +3066,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI LAMA (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -3147,7 +3147,7 @@ export const MONITORS_DATA: Monitor[] = [
       "NO DATA",
       "8-bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time NO DATA, Input Display 1x DP 1.4, 1x HDMI 2.0. Stand: Tilt Only. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time NO DATA, Input Display 1x DP 1.4, 1x HDMI 2.0. Stand: Tilt Only. VESA: 75 x 75 mm.",
     "pros": [
       "Panel Mini LED IPS dengan Refresh Rate 180Hz native",
       "Response time teruji: NO DATA",
@@ -3167,7 +3167,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "NO DATA",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "Flat"
@@ -3248,7 +3248,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI LAMA (10 RGB)",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 100Hz native",
       "Response time teruji: TOLERANSI LAMA (10 RGB)",
@@ -3268,7 +3268,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI LAMA (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -3349,7 +3349,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI LAMA (10 RGB)",
       "8-bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display 1x DP 1.4, 1x HDMI 2.0. Stand: Tilt Only. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display 1x DP 1.4, 1x HDMI 2.0. Stand: Tilt Only. VESA: 75 x 75 mm.",
     "pros": [
       "Panel Fast IPS dengan Refresh Rate 180Hz native",
       "Response time teruji: TOLERANSI LAMA (10 RGB)",
@@ -3369,7 +3369,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI LAMA (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "Flat"
@@ -3450,7 +3450,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI LAMA (10 RGB)",
       "10 Bit (8 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display DisplayPort 1.4,HDMI 2.0. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display DisplayPort 1.4,HDMI 2.0. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 180Hz native",
       "Response time teruji: TOLERANSI LAMA (10 RGB)",
@@ -3470,7 +3470,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI LAMA (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -3551,7 +3551,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 180Hz native",
       "Response time teruji: TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
@@ -3571,7 +3571,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI BARU (5 RGB),TOLERANSI LAMA (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -3652,7 +3652,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI LAMA (10 RGB)",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 180Hz native",
       "Response time teruji: TOLERANSI LAMA (10 RGB)",
@@ -3672,7 +3672,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI LAMA (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -3753,7 +3753,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI LAMA (10 RGB)",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 180Hz native",
       "Response time teruji: TOLERANSI LAMA (10 RGB)",
@@ -3773,7 +3773,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI LAMA (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -3854,7 +3854,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI LAMA (10 RGB)",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display HDMI 1.4,DisplayPort 1.2. Stand: Tilt. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display HDMI 1.4,DisplayPort 1.2. Stand: Tilt. VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 165Hz native",
       "Response time teruji: TOLERANSI LAMA (10 RGB)",
@@ -3874,7 +3874,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI LAMA (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -3955,7 +3955,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI LAMA (10 RGB)",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display 1x DP 1.4, 1x HDMI 2.0. Stand: Tilt. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI LAMA (10 RGB), Input Display 1x DP 1.4, 1x HDMI 2.0. Stand: Tilt. VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 100Hz native",
       "Response time teruji: TOLERANSI LAMA (10 RGB)",
@@ -3975,7 +3975,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI LAMA (10 RGB)",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -4056,7 +4056,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Lama",
       "8 Bit (6 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Lama, Input Display HDMI 1.4,VGA. Stand: Tilt. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Lama, Input Display HDMI 1.4,VGA. Stand: Tilt. VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 100Hz native",
       "Response time teruji: Toleransi Lama",
@@ -4076,7 +4076,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Lama",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -4157,7 +4157,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Lama",
       "8 Bit (6 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Lama, Input Display HDMI 1.4,VGA. Stand: Tilt. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Lama, Input Display HDMI 1.4,VGA. Stand: Tilt. VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 100Hz native",
       "Response time teruji: Toleransi Lama",
@@ -4177,7 +4177,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Lama",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -4258,7 +4258,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Lama",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Lama, Input Display HDMI 2.0,DisplayPort 1.2. Stand: Tilt. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Lama, Input Display HDMI 2.0,DisplayPort 1.2. Stand: Tilt. VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 180Hz native",
       "Response time teruji: Toleransi Lama",
@@ -4278,7 +4278,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Lama",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -4359,7 +4359,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Baru,Toleransi Lama",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Baru,Toleransi Lama, Input Display DisplayPort 1.4,HDMI 2.1 TMDS (18 Gbps). Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Baru,Toleransi Lama, Input Display DisplayPort 1.4,HDMI 2.1 TMDS (18 Gbps). Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 180Hz native",
       "Response time teruji: Toleransi Baru,Toleransi Lama",
@@ -4379,7 +4379,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Baru,Toleransi Lama",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -4460,7 +4460,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Lama",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Lama, Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Lama, Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 180Hz native",
       "Response time teruji: Toleransi Lama",
@@ -4480,7 +4480,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Lama",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -4561,7 +4561,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Baru,Toleransi Lama",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Baru,Toleransi Lama, Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Baru,Toleransi Lama, Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 100Hz native",
       "Response time teruji: Toleransi Baru,Toleransi Lama",
@@ -4581,7 +4581,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Baru,Toleransi Lama",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -4662,7 +4662,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Lama",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Lama, Input Display DisplayPort 1.4,HDMI 2.1 TMDS (18 Gbps). Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Lama, Input Display DisplayPort 1.4,HDMI 2.1 TMDS (18 Gbps). Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 165Hz native",
       "Response time teruji: Toleransi Lama",
@@ -4682,7 +4682,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Lama",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -4763,7 +4763,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Lama (10 RGB),Toleransi Lama",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Lama (10 RGB),Toleransi Lama, Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Lama (10 RGB),Toleransi Lama, Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 180Hz native",
       "Response time teruji: Toleransi Lama (10 RGB),Toleransi Lama",
@@ -4783,7 +4783,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Lama (10 RGB),Toleransi Lama",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -4864,7 +4864,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Lama",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Lama, Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt,Swivel. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Lama, Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt,Swivel. VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 180Hz native",
       "Response time teruji: Toleransi Lama",
@@ -4884,7 +4884,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Lama",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -4965,7 +4965,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Lama",
       "8 Bit (6 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Lama, Input Display HDMI 2.0,DisplayPort 1.2. Stand: Tilt. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Lama, Input Display HDMI 2.0,DisplayPort 1.2. Stand: Tilt. VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 270Hz native",
       "Response time teruji: Toleransi Lama",
@@ -4985,7 +4985,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Lama",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -5066,7 +5066,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Lama",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Lama, Input Display HDMI 2.0,DisplayPort 1.4,USB C (DP Alt Mode). Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Lama, Input Display HDMI 2.0,DisplayPort 1.4,USB C (DP Alt Mode). Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 180Hz native",
       "Response time teruji: Toleransi Lama",
@@ -5086,7 +5086,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Lama",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -5167,7 +5167,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Lama",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Lama, Input Display HDMI 2.0,DisplayPort 1.4,USB C (DP Alt Mode). Stand: Tilt,Swivel,Height Adjustment. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Lama, Input Display HDMI 2.0,DisplayPort 1.4,USB C (DP Alt Mode). Stand: Tilt,Swivel,Height Adjustment. VESA: 75 x 75 mm.",
     "pros": [
       "Panel VA dengan Refresh Rate 180Hz native",
       "Response time teruji: Toleransi Lama",
@@ -5187,7 +5187,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Lama",
         "brightness": "250 - 300 nits",
         "contrastRatio": "3000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "1500R"
@@ -5268,7 +5268,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi Lama",
       "10 Bit (8 Bit + FRC)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi Lama, Input Display HDMI 2.1 TMDS (18 Gbps),DisplayPort 1.4,USB C (DP Alt Mode). Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Lama, Input Display HDMI 2.1 TMDS (18 Gbps),DisplayPort 1.4,USB C (DP Alt Mode). Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 60Hz native",
       "Response time teruji: Toleransi Lama",
@@ -5288,7 +5288,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi Lama",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -5369,7 +5369,7 @@ export const MONITORS_DATA: Monitor[] = [
       "Toleransi 10 RGB,Toleransi 5 RGB",
       "10 Bit (Real)"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time Toleransi 10 RGB,Toleransi 5 RGB, Input Display HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4 DSC,USB C (DP Alt Mode). Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi 10 RGB,Toleransi 5 RGB, Input Display HDMI 2.1 FRL (48 Gbps),DisplayPort 1.4 DSC,USB C (DP Alt Mode). Stand: Tilt,Swivel,Height Adjustment,Rotate (Pivot). VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 320Hz native",
       "Response time teruji: Toleransi 10 RGB,Toleransi 5 RGB",
@@ -5389,7 +5389,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "Toleransi 10 RGB,Toleransi 5 RGB",
         "brightness": "400 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -5470,7 +5470,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI BARU,TOLERANSI LAMA",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI BARU,TOLERANSI LAMA, Input Display HDMI 1.4,HDMI 2.0. Stand: Tilt. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI BARU,TOLERANSI LAMA, Input Display HDMI 1.4,HDMI 2.0. Stand: Tilt. VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 180Hz native",
       "Response time teruji: TOLERANSI BARU,TOLERANSI LAMA",
@@ -5490,7 +5490,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI BARU,TOLERANSI LAMA",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -5571,7 +5571,7 @@ export const MONITORS_DATA: Monitor[] = [
       "TOLERANSI LAMA",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GTID & GrayPlasma: Response Time TOLERANSI LAMA, Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
+    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time TOLERANSI LAMA, Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: 75 x 75 mm.",
     "pros": [
       "Panel IPS dengan Refresh Rate 165Hz native",
       "Response time teruji: TOLERANSI LAMA",
@@ -5591,7 +5591,7 @@ export const MONITORS_DATA: Monitor[] = [
         "responseTime": "TOLERANSI LAMA",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GTID Tested)",
+        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"

@@ -81,13 +81,13 @@ export function NotionTableView({
       ),
     },
     {
-      id: "gtidTolerance",
-      label: "[ GTID TOLERANSI ]",
-      shortLabel: "Toleransi GTID",
+      id: "gpTolerance",
+      label: "[ GrayPlasma TOLERANSI ]",
+      shortLabel: "Toleransi GrayPlasma",
       minWidth: "min-w-[220px]",
       sortable: true,
       isDefaultVisible: true,
-      category: "Uji GTID",
+      category: "Uji GrayPlasma",
       getValue: (m) => m.responseTimeData?.toleranceNew || "",
       renderCell: (m) => (
         <div className="flex items-center gap-1.5 flex-wrap">
@@ -253,7 +253,7 @@ export function NotionTableView({
             <MonitorIcon className="w-4 h-4" />
           </span>
           <h2 className="text-lg font-bold text-white tracking-tight">
-            List SDR Monitor (GTID Review & Database)
+            List SDR Monitor (GrayPlasma Review & Database)
           </h2>
         </div>
 

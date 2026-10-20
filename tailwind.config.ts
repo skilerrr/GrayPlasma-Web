@@ -15,6 +15,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        // Breakpoint ekstra: di bawah 400px layar terlalu sempit untuk
+        // wordmark + search bar berdampingan tanpa overflow.
+        xs: "400px",
+      },
       colors: {
         background: "rgb(var(--gp-background) / <alpha-value>)",
         surface: {

@@ -679,3 +679,101 @@ input[type="range"]::-moz-range-thumb {
 :where(p, li, td, h1, h2, h3, h4, span) {
   overflow-wrap: break-word;
 }
+
+/* ==================================================================
+ * SCROLL & MOTION — transisi cheap (transform/opacity only)
+ * Semua animasi memakai compositor GPU: tidak ada property yang
+ * memicu layout (width/height/top/left) sehingga tidak menambah
+ * work thread & RAM. Semua hormati prefers-reduced-motion.
+ * ================================================================== */
+
+/* Reveal-on-scroll: elemen start slightly lowered + transparan,
+   lalu naik ke posisi akhir. Dipicu IntersectionObserver (1 observer
+   untuk semua elemen, bukan scroll listener per elemen). */
+.gp-reveal {
+  opacity: 0 !important;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.gp-reveal.gp-reveal-visible {
+  opacity: 1 !important;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+/* Stagger: anak ke-n muncul sedikit lebih lambat */
+.gp-reveal[data-gp-delay="1"] { transition-delay: 60ms; }
+.gp-reveal[data-gp-delay="2"] { transition-delay: 120ms; }
+.gp-reveal[data-gp-delay="3"] { transition-delay: 180ms; }
+.gp-reveal[data-gp-delay="4"] { transition-delay: 240ms; }
+.gp-reveal[data-gp-delay="5"] { transition-delay: 300ms; }
+
+/* Scroll progress bar: scaleX digerakkan lewat CSS animation
+   yang terikat ke scroll timeline browser (0 listener JS). */
+.gp-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, rgb(var(--gp-emerald)), rgb(var(--gp-cyan)), rgb(var(--gp-orange)));
+  z-index: 60;
+  pointer-events: none;
+  will-change: transform;
+}
+
+@supports (animation-timeline: scroll()) {
+  .gp-scroll-progress {
+    animation: gp-progress-grow linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+
+@keyframes gp-progress-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* First-visit intro overlay: muncul sekali per sesi browser. */
+.gp-intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: rgb(var(--gp-ink-998));
+  pointer-events: none;
+  animation: gp-intro-fade 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.gp-intro-inner {
+  animation: gp-intro-rise 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes gp-intro-fade {
+  0%   { opacity: 1; }
+  70%  { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+@keyframes gp-intro-rise {
+  0%   { opacity: 0; transform: translate3d(0, 14px, 0) scale(0.96); }
+  45%  { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+/* Section anchor punya highlight halus saat di-target */
+:target {
+  animation: gp-target-pulse 1.4s ease-out;
+}
+
+@keyframes gp-target-pulse {
+  0%   { background-color: rgba(0, 230, 118, 0.16); }
+  100% { background-color: transparent; }
+}

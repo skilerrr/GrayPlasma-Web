@@ -105,7 +105,7 @@ export function MonitorSidePanel({
     const text = `[GRAYPLASMA] ${monitor.fullName} (${monitor.tier})
 Kisaran Harga: ${formatRupiah(monitor.price)}${targetPrice}
 Spesifikasi: ${monitor.specs.display.size} | ${monitor.specs.display.panelType} | ${monitor.specs.display.refreshRate}Hz | ${monitor.specs.display.resolution}
-Response Time Lab GTID: ${responseTime}
+Response Time Lab GrayPlasma: ${responseTime}
 Poin Utama: ${prosText}
 Link Detail & Lab Data: ${detailUrl}`;
 
@@ -323,12 +323,12 @@ Link Detail & Lab Data: ${detailUrl}`;
             </div>
           </div>
 
-          {/* DATA PENGETESAN LAB GTID MATRIX */}
+          {/* DATA PENGETESAN LAB GrayPlasma MATRIX */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-gp-orange">
                 <Zap className="w-4 h-4" />
-                <span>DATA PENGETESAN LAB (DATA BY: GTID TECH)</span>
+                <span>DATA PENGETESAN LAB (DATA BY: GRAYPLASMA)</span>
               </div>
               <span className="text-3xs font-mono text-gp-ink-400">Toleransi 5 RGB Standard</span>
             </div>
@@ -461,7 +461,7 @@ Link Detail & Lab Data: ${detailUrl}`;
                 KESIMPULAN & VERDICT LAB
               </span>
               <span className="text-3xs font-mono text-gp-ink-400">
-                DATA UJI: GTID LAB | KURASI: @GRAY1PLASMA
+                DATA UJI: GrayPlasma LAB | KURASI: @GRAY1PLASMA
               </span>
             </div>
 

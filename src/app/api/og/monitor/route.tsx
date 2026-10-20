@@ -68,7 +68,7 @@ export async function GET(req: NextRequest) {
                 GRAYPLASMA
               </div>
               <span style={{ fontSize: "14px", color: "#a1a1aa", fontWeight: 700 }}>
-                DATA PENGUJIAN LAB GTID TECH
+                DATA PENGUJIAN LAB GRAYPLASMA
               </span>
             </div>
 
@@ -128,7 +128,7 @@ export async function GET(req: NextRequest) {
               ))}
             </div>
 
-            {/* GTID Matrix Table Box */}
+            {/* GrayPlasma Matrix Table Box */}
             <div
               style={{
                 backgroundColor: "#12131a",
@@ -151,7 +151,7 @@ export async function GET(req: NextRequest) {
                   letterSpacing: "1px",
                 }}
               >
-                <span>DATA MATRIX LAB GTID (TOLERANSI 5 RGB)</span>
+                <span>DATA MATRIX LAB GrayPlasma (TOLERANSI 5 RGB)</span>
                 <span>AKURASI & RESPON</span>
               </div>
 

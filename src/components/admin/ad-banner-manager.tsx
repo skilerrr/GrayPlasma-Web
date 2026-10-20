@@ -34,7 +34,7 @@ const PRESET_PAGES = [
   { label: "Detail: Xiaomi G24i 180Hz (S-Tier)", url: "/monitor/xiaomi-g24i-2026-" },
   { label: "Katalog: Rekomendasi Meja + Setup", url: "/catalog/desks" },
   { label: "Panduan: Aftersales Brand & RMA Tier List", url: "/guide/brand/aftersales-rma" },
-  { label: "Panduan: Glosarium deITP & Akurasi GTID", url: "/guide/sdr/glossary" },
+  { label: "Panduan: Glosarium deITP & Akurasi GrayPlasma", url: "/guide/sdr/glossary" },
   { label: "Panduan: Meja Ergonomis & Monitor Arm", url: "/guide/setup/meja-ergonomi" },
   { label: "Panduan: OLED Care & Burn-in", url: "/guide/oled/perawatan-burn-in" },
   { label: "Panduan: Bandwidth DP 1.4 vs HDMI 2.1", url: "/guide/display/bandwidth-dp-hdmi" },
@@ -470,7 +470,7 @@ export function AdBannerManager() {
                     rows={2}
                     value={editingBanner.subtitle || ""}
                     onChange={(e) => setEditingBanner({ ...editingBanner, subtitle: e.target.value })}
-                    placeholder="Contoh: Rekomendasi monitor gaming budget terbaik dengan akurasi deITP 2.1 teruji di lab GTID."
+                    placeholder="Contoh: Rekomendasi monitor gaming budget terbaik dengan akurasi deITP 2.1 teruji di lab GrayPlasma."
                     className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl px-3.5 py-2 text-white placeholder-gp-ink-400 focus:outline-none focus:border-emerald-400"
                   />
                 </div>

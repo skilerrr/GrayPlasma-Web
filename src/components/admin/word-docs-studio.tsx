@@ -86,7 +86,7 @@ export interface WordDocsStudioProps {
 
 const TEXT_COLORS = [
   { label: "Putih Standar", value: "#ededed" },
-  { label: "GTID Hijau", value: "#00e676" },
+  { label: "GrayPlasma Hijau", value: "#00e676" },
   { label: "Aksen Emas", value: "#ffb300" },
   { label: "Tech Cyan", value: "#00d2ff" },
   { label: "Peringatan Merah", value: "#ff2d55" },
@@ -274,10 +274,10 @@ export function WordDocsStudio({
     setShowHighlightPicker(false);
   };
 
-  // Insert GTID Callout Card
-  const insertGtidCallout = (type: "verdict" | "note" | "warning" | "recommendation") => {
-    let iconLabel = "[VERDICT GTID]";
-    let titleText = "GTID Tech Verdict:";
+  // Insert GrayPlasma Callout Card
+  const insertGpCallout = (type: "verdict" | "note" | "warning" | "recommendation") => {
+    let iconLabel = "[VERDICT GrayPlasma]";
+    let titleText = "GrayPlasma Verdict:";
     let borderTheme = "border-amber-500/40 bg-amber-500/5 text-amber-300";
     let defaultText = "Tulis kesimpulan pengujian dan rekomendasi objektif di sini...";
 
@@ -632,12 +632,12 @@ export function WordDocsStudio({
             const imgHtml = `
 <figure class="my-4 text-center notion-figure" contenteditable="false">
   <div class="relative inline-block max-w-full">
-    <img src="${finalSrc}" alt="Grafik Pengujian Lab GTID" class="rounded-xl border border-gp-ink-700 shadow-md max-w-full inline-block cursor-pointer" style="width: 85%;" />
+    <img src="${finalSrc}" alt="Grafik Pengujian Lab GrayPlasma" class="rounded-xl border border-gp-ink-700 shadow-md max-w-full inline-block cursor-pointer" style="width: 85%;" />
     <button type="button" class="studio-delete-btn absolute top-2 right-2 px-2 py-0.5 rounded bg-black/80 hover:bg-rose-900 border border-gp-ink-600 text-rose-300 font-mono text-3xs cursor-pointer shadow-md" title="Hapus Gambar Ini">
       ✕ Hapus
     </button>
   </div>
-  <figcaption class="text-2xs font-mono text-gp-ink-400 mt-1.5">// Gambar Pengujian Laboratorium GTID Tech</figcaption>
+  <figcaption class="text-2xs font-mono text-gp-ink-400 mt-1.5">// Gambar Pengujian Laboratorium GrayPlasma</figcaption>
 </figure>
 <p><br></p>
 `;
@@ -1147,19 +1147,19 @@ export function WordDocsStudio({
 
           <div className="h-4 w-[1px] bg-gp-ink-700 mx-1" />
 
-          {/* Inserts: GTID Callouts, Modular Table, Matrix, Image, Link */}
+          {/* Inserts: GrayPlasma Callouts, Modular Table, Matrix, Image, Link */}
           <button
             type="button"
-            onClick={() => insertGtidCallout("verdict")}
+            onClick={() => insertGpCallout("verdict")}
             className="px-2 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-semibold flex items-center gap-1 font-mono"
-            title="Sisipkan Callout Box Verdict GTID"
+            title="Sisipkan Callout Box Verdict GrayPlasma"
           >
             <span>+ Verdict</span>
           </button>
 
           <button
             type="button"
-            onClick={() => insertGtidCallout("note")}
+            onClick={() => insertGpCallout("note")}
             className="px-2 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-semibold flex items-center gap-1 font-mono"
             title="Sisipkan Catatan Lab Cyan"
           >

@@ -408,7 +408,7 @@ export const DESK_DATABASE: DeskItem[] = [
 #### Catatan Penting:
 - Ukuran minimal daun meja ideal adalah **140 x 70 cm** dan maksimal **180 x 80 cm**.
 - Kaki meja **Oxihom FL40 (Dual Motor)** memiliki sertifikasi garansi 2 tahun dan sangat stabil di ketinggian maksimal tanpa goyang.
-- Telah diuji dan direkomendasikan langsung oleh member Discord GTID.
+- Telah diuji dan direkomendasikan langsung oleh member Discord GrayPlasma.
 
 ---
 
@@ -419,7 +419,7 @@ export const DESK_DATABASE: DeskItem[] = [
 - **+ Kaki Meja Dual Motor Oxihom FL40 (Garansi 2 Tahun)**: [Buka Link Shopee](https://s.shopee.co.id/5L9NC8l84j)
 
 **Testimoni Discord:**
-[Lihat Review Member Discord GTID](https://discord.com/channels/856570745726566411/1417101046479847565/1473011994402488582)`,
+[Lihat Review Member Discord GrayPlasma](https://discord.com/channels/856570745726566411/1417101046479847565/1473011994402488582)`,
     shopeeUrl: "https://s.shopee.co.id/LjkxfO137",
     specs: {
       material: "Oxihom FL40 Dual Motor + Plywood HPL / FJL Jati",

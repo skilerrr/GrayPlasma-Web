@@ -45,20 +45,20 @@ export interface GrayNoteItem {
 
 export const ABOUT_NOTION_CONTENT = {
   title: "TENTANG WEBSITE INI & PENULIS",
-  subtitle: "Unofficial Website of GTID's Data Testing",
+  subtitle: "Unofficial Website of GrayPlasma's Data Testing",
   author: "Joel Gray (@gray1plasma)",
   collaborator: "@GrayPlasma",
-  latarBelakang: `Dimulai dari 2024, penulis (bukan resmi dari Tim GTID) sadar akan satu hal: Bahwa masih banyak orang yang kesulitan membaca data pengetesan GTID. Penulis berinisiatif untuk meringkas apa yang sudah GTID tes, namun masih banyak kekurangan, yakni masih dalam format google docs dan belum mendalami soal Aftersales. Tiba di akhir 2024, penulis berinisiatif untuk mengembangkannya menjadi platform web mandiri, yang awalnya berasal dari ringkasan dokumen, dan meningkatkannya menjadi database terstruktur untuk format kelebihan dan kekurangan setiap monitor. Tak luput juga penulis menambah dan mempelajari kondisi aftersales di tiap brand monitor. Dapat disimpulkan bahwa website ini bisa menjadi jembatan antara orang awam dengan orang yang sudah expert.`,
-  biodataPenulis: `Halo semuanya! Perkenalkan nama aku Joel, biasa disingkat El. Sorry ga formal buat perkenalannya. Sebenarnya ini cuma hobi aja sih menulis plus minus, karena kasihan juga masih banyak orang awam yang bingung dengan cara baca data pengetesan GTID, sembari cari cuan dari affiliate (jujur ga maksa sih, buat belanja melalui link kurasi), cuma kok banyak waktu luang menjawab dan membantu di Discord GTID? Dikarenakan aku seorang lulusan SMK sedang gap year karena ada persoalan keluarga, sehingga baru berencana masuk kuliah di tahun 2027. Dan aku cuma mau bilang terima kasih yang sudah bertanya dan support melalui belanja menggunakan link affiliate atau memberikan donasi. Dan juga say sorry kalo ada yang nanya melalui Direct Messages Discord namun tidak dijawab.`
+  latarBelakang: `Dimulai dari 2024, penulis (bukan resmi dari Tim GrayPlasma) sadar akan satu hal: Bahwa masih banyak orang yang kesulitan membaca data pengetesan GrayPlasma. Penulis berinisiatif untuk meringkas apa yang sudah GrayPlasma tes, namun masih banyak kekurangan, yakni masih dalam format google docs dan belum mendalami soal Aftersales. Tiba di akhir 2024, penulis berinisiatif untuk mengembangkannya menjadi platform web mandiri, yang awalnya berasal dari ringkasan dokumen, dan meningkatkannya menjadi database terstruktur untuk format kelebihan dan kekurangan setiap monitor. Tak luput juga penulis menambah dan mempelajari kondisi aftersales di tiap brand monitor. Dapat disimpulkan bahwa website ini bisa menjadi jembatan antara orang awam dengan orang yang sudah expert.`,
+  biodataPenulis: `Halo semuanya! Perkenalkan nama aku Joel, biasa disingkat El. Sorry ga formal buat perkenalannya. Sebenarnya ini cuma hobi aja sih menulis plus minus, karena kasihan juga masih banyak orang awam yang bingung dengan cara baca data pengetesan GrayPlasma, sembari cari cuan dari affiliate (jujur ga maksa sih, buat belanja melalui link kurasi), cuma kok banyak waktu luang menjawab dan membantu di Discord GrayPlasma? Dikarenakan aku seorang lulusan SMK sedang gap year karena ada persoalan keluarga, sehingga baru berencana masuk kuliah di tahun 2027. Dan aku cuma mau bilang terima kasih yang sudah bertanya dan support melalui belanja menggunakan link affiliate atau memberikan donasi. Dan juga say sorry kalo ada yang nanya melalui Direct Messages Discord namun tidak dijawab.`
 };
 
 export const HOW_TO_READ_GLOSSARY = {
-  title: "HOW TO READ GTID GLOSSARY (SDR)",
-  subtitle: "Panduan Lengkap Cara Membaca Data Pengetesan Warna, Contrast, & Response Time GTID",
+  title: "HOW TO READ GrayPlasma GLOSSARY (SDR)",
+  subtitle: "Panduan Lengkap Cara Membaca Data Pengetesan Warna, Contrast, & Response Time GrayPlasma",
   sections: [
     {
       title: "1. Standar Akurasi Warna: deITP vs de2000",
-      content: `Standar Data pengetesan GTID biasanya menggunakan deITP (Delta E ITP) yang di mana dapat mendeteksi akurasi warna jauh lebih akurat dibanding de2000. deITP mampu mendeteksi perbedaan warna di kecerahan 0,1 Nits (cd/m²), hal inilah yang menyebabkan deITP sangat ideal untuk pengetesan akurasi warna (khususnya pada monitor dengan kecerahan dinamis).
+      content: `Standar Data pengetesan GrayPlasma biasanya menggunakan deITP (Delta E ITP) yang di mana dapat mendeteksi akurasi warna jauh lebih akurat dibanding de2000. deITP mampu mendeteksi perbedaan warna di kecerahan 0,1 Nits (cd/m²), hal inilah yang menyebabkan deITP sangat ideal untuk pengetesan akurasi warna (khususnya pada monitor dengan kecerahan dinamis).
       
       - Standar Akurasi Warna: Nilai di bawah atau kisaran 5 deITP dianggap akurat bagi mata manusia.
       - Jika sRGB Default tidak akurat (> 7 deITP), maka lihat settingan OSD sRGB / DCI-P3 yang disediakan oleh pabrikan.`
@@ -101,8 +101,8 @@ export const OLED_DEEP_DIVE = {
     "Jangan mencabut kabel power colokan listrik langsung saat selesai digunakan. Biarkan monitor dalam mode Standby agar sistem otomatis menjalankan 'Pixel Refresh' di latar belakang.",
     "Gunakan browser dalam mode Dark Theme dan sembunyikan Bookmark Bar jika sering browsing seharian."
   ],
-  toleransiLamaVsBaru: `Perbedaan Data Lama vs Data Baru di Glosarium GTID:
-  Pada standar data pengujian baru, GTID memperketat batas toleransi Overshoot (maksimal 5%) dan transisi warna sub-pixel pada tingkat kecerahan rendah, sehingga skor response time yang ditampilkan mencerminkan kondisi visual nyata pada gameplay kompetitif.`
+  toleransiLamaVsBaru: `Perbedaan Data Lama vs Data Baru di Glosarium GrayPlasma:
+  Pada standar data pengujian baru, GrayPlasma memperketat batas toleransi Overshoot (maksimal 5%) dan transisi warna sub-pixel pada tingkat kecerahan rendah, sehingga skor response time yang ditampilkan mencerminkan kondisi visual nyata pada gameplay kompetitif.`
 };
 
 export const AFTERSALES_DATA: AftersalesBrand[] = [
@@ -323,7 +323,7 @@ export const BRAND_ODM_GUIDE = {
   poinPenting: [
     "Brand OEM/ODM Murni: Pabrik membuat desain utuh dan brand hanya menempel stiker logo (minim riset).",
     "Kelemahan Utama: Firmware OSD seringkali generik, overdrive tidak disesuaikan dengan karakteristik panel, dan risiko inverse ghosting tinggi.",
-    "Rekomendasi: Jika ingin membeli monitor ODM karena budget murah, prioritaskan brand yang memberikan garansi 3 tahun ganti baru dan sudah di-review response time-nya oleh GTID."
+    "Rekomendasi: Jika ingin membeli monitor ODM karena budget murah, prioritaskan brand yang memberikan garansi 3 tahun ganti baru dan sudah di-review response time-nya oleh GrayPlasma."
   ]
 };
 
@@ -396,10 +396,10 @@ export const GRAYNOTES_LIST: GrayNoteItem[] = [
     recommendation: "Gunakan kabel DisplayPort 1.4 bawaan monitor yang dicolok langsung ke port GPU (bukan port motherboard)."
   },
   {
-    id: "note-gtid-testing",
-    title: "Cara Membaca Data Pengetesan Response Time & Ghosting GTID",
+    id: "note-grayplasma-testing",
+    title: "Cara Membaca Data Pengetesan Response Time & Ghosting GrayPlasma",
     category: "Response Time & Ghosting",
-    summary: "Angka '1ms' atau '0.5ms' di kotak monitor hanyalah klaim marketing MPRT (strobing). Response Time asli yang diuji alat GTID adalah GtG (Gray to Gray).",
+    summary: "Angka '1ms' atau '0.5ms' di kotak monitor hanyalah klaim marketing MPRT (strobing). Response Time asli yang diuji alat GrayPlasma adalah GtG (Gray to Gray).",
     details: [
       "Response Time ideal di 180Hz adalah di bawah 5.5ms GtG rata-rata di semua transisi warna.",
       "Overdrive Setting: Di menu OSD monitor, JANGAN selalu pilih level 'Fastest' / 'Extreme' karena akan menyebabkan Inverse Ghosting (Corona/Pixel Overshoot bergaris putih).",
@@ -514,16 +514,16 @@ export const FAQ_LIST: FAQItem[] = [
     category: "Laptop & Setup"
   },
   {
-    id: "faq-gtid-hz-tinggi",
-    question: "GTID lebih menyarankan Hz tinggi dibanding cuma FHD 100-144Hz, gimana dong?",
+    id: "faq-grayplasma-hz-tinggi",
+    question: "GrayPlasma lebih menyarankan Hz tinggi dibanding cuma FHD 100-144Hz, gimana dong?",
     answer: "Di tahun 2026, selisih harga monitor 100Hz dengan 180Hz sudah sangat tipis (hanya selisih 100-200 ribu rupiah). Membeli 180Hz memberikan kelancaran (fluidity) gerakan kursor dan animasi yang jauh lebih responsif, serta panel 180Hz modern umumnya memiliki tuning Overdrive yang jauh lebih matang dibanding panel murah 100Hz.",
     category: "Refresh Rate"
   },
   {
     id: "faq-toleransi-lama-baru",
     question: "BANG ITU DATA LAMA (Toleransi lama) VS (Toleransi Baru) DATA BARU, ITU APAAN YA BANG?",
-    answer: "Pada standar data pengujian baru di Glosarium GTID, batas toleransi Overshoot (inverse ghosting) diperketat maksimal di bawah 5% pada semua transisi warna. Jadi monitor yang di data lama tercatat 1ms bisa saja di data baru menjadi 4ms karena diuji pada overdrive yang bebas ghosting putih.",
-    category: "Glosarium GTID",
+    answer: "Pada standar data pengujian baru di Glosarium GrayPlasma, batas toleransi Overshoot (inverse ghosting) diperketat maksimal di bawah 5% pada semua transisi warna. Jadi monitor yang di data lama tercatat 1ms bisa saja di data baru menjadi 4ms karena diuji pada overdrive yang bebas ghosting putih.",
+    category: "Glosarium GrayPlasma",
     important: true
   },
   {
@@ -565,14 +565,14 @@ export const FAQ_LIST: FAQItem[] = [
   {
     id: "faq-logo-grayplasma",
     question: "KOK BANYAK LOGO GP (GRAYPLASMA?)",
-    answer: "Logo GP menandakan kurasi catatan dan anotasi khusus yang ditambahkan oleh Joel Gray (@gray1plasma) oleh tim GrayPlasma untuk melengkapi dan menyederhanakan data mentah pengetesan laboratorium GTID Tech.",
+    answer: "Logo GP menandakan kurasi catatan dan anotasi khusus yang ditambahkan oleh Joel Gray (@gray1plasma) oleh tim GrayPlasma untuk melengkapi dan menyederhanakan data mentah pengetesan laboratorium GrayPlasma.",
     category: "Tentang GP"
   }
 ];
 
 export const CONSULTATION_DATA = {
   author: "Joel Gray (@gray1plasma)",
-  collaborators: "Tim GrayPlasma & Data Pengujian GTID Tech",
+  collaborators: "Tim GrayPlasma & Data Pengujian GrayPlasma",
   whatsapp: "0851-7979-4019",
   whatsappUrl: "https://wa.me/6285179794019",
   tiktok: "@gray1plasma",

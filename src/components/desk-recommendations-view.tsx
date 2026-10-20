@@ -162,7 +162,7 @@ export function DeskRecommendationsView({
     },
     {
       id: "catatanBadge",
-      label: "[ CATATAN GTID ]",
+      label: "[ CATATAN GrayPlasma ]",
       shortLabel: "Catatan",
       minWidth: "min-w-[180px]",
       sortable: true,
@@ -229,7 +229,7 @@ export function DeskRecommendationsView({
       minWidth: "min-w-[140px]",
       sortable: true,
       isDefaultVisible: false,
-      category: "Uji GTID",
+      category: "Uji GrayPlasma",
       getValue: (d) => (d.specs?.armSupport ? 1 : 0),
       renderCell: (desk) => (
         <span

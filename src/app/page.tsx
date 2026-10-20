@@ -186,7 +186,7 @@ function CatalogPageContent() {
   const [bannerSettings, setBannerSettings] = useState<any>({
     homeBannerUrl: "",
     homeBannerTitle: "Katalog & Database Rekomendasi Monitor",
-    homeBannerSubtitle: "Kurasi monitor independen oleh tim GrayPlasma (@gray1plasma) dengan pengujian laboratorium GTID Tech.",
+    homeBannerSubtitle: "Kurasi monitor independen oleh tim GrayPlasma (@gray1plasma) dengan pengujian laboratorium GrayPlasma.",
   });
   const [adBanners, setAdBanners] = useState<AdBannerItem[]>(DEFAULT_AD_BANNERS);
   const [selectedAftersalesCard, setSelectedAftersalesCard] = useState<NotionBoardCard | null>(null);
@@ -632,7 +632,7 @@ function CatalogPageContent() {
         {/* ========================================================================= */}
         {/* SECTION 1: TITLE BLOCK & DISCLAIMER                                       */}
         {/* ========================================================================= */}
-        <section className="space-y-6">
+        <section className="space-y-6 gp-reveal">
           <div className="space-y-4">
             {/* Title & Notion-style Page Icon */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-4">
@@ -671,7 +671,7 @@ function CatalogPageContent() {
         {/* ========================================================================= */}
         {/* SECTION 2: SUB-PAGES HIERARCHY GRID (TECH-BRUTALIST CARDS)                */}
         {/* ========================================================================= */}
-        <section className="space-y-8">
+        <section className="space-y-8 gp-reveal">
           {Object.entries(
             homepageSettings.subpageCards
               .filter((c) => c.isVisible)
@@ -719,7 +719,7 @@ function CatalogPageContent() {
         {(activeMenuKey === "home"
           ? homepageSettings.sectionVisibility?.showMonitors !== false
           : isCatalog) && (
-          <section id="database-monitors" className="space-y-6 pt-12 border-t border-gp-ink-700 animate-in fade-in duration-200">
+          <section id="database-monitors" className="space-y-6 pt-12 border-t border-gp-ink-700 animate-in fade-in duration-200 gp-reveal">
             {/* Database Header Title & View Switcher */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
               <div className="space-y-1">
@@ -731,8 +731,8 @@ function CatalogPageContent() {
                     {homepageSettings.sectionTitles?.monitorsTitle || "Database Rekomendasi Monitor"}
                   </h2>
                 </div>
-                <p className="text-xs text-gp-ink-300 font-sans pl-9.5">
-                  {homepageSettings.sectionTitles?.monitorsSubtitle || "Tabel interaktif & kurasi monitor hasil pengujian laboratorium GTID Tech."}
+                <p className="text-xs text-gp-ink-300 font-sans pl-9">
+                  {homepageSettings.sectionTitles?.monitorsSubtitle || "Tabel interaktif & kurasi monitor hasil pengujian laboratorium GrayPlasma."}
                 </p>
               </div>
 
@@ -809,7 +809,7 @@ function CatalogPageContent() {
             {/* Main Content - Full 100% Width */}
             <div className="w-full min-w-0 space-y-6">
               {viewMode === "grid" ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4.5 animate-in fade-in duration-200">
+                <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-4 animate-in fade-in duration-200">
                   {paginatedMonitors.map((monitor) => (
                     <MonitorCard
                       key={monitor.id}
@@ -859,7 +859,7 @@ function CatalogPageContent() {
         {/* ========================================================================= */}
         {activeMenuKey === "home" &&
           homepageSettings.sectionVisibility?.showDesks !== false && (
-            <section id="database-desks" className="space-y-6 pt-12 border-t border-gp-ink-700 animate-in fade-in duration-200">
+            <section id="database-desks" className="space-y-6 pt-12 border-t border-gp-ink-700 animate-in fade-in duration-200 gp-reveal">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
               <div className="space-y-1">
                 <div className="flex items-center gap-2.5">
@@ -870,7 +870,7 @@ function CatalogPageContent() {
                     {homepageSettings.sectionTitles?.desksTitle || "Database Rekomendasi Meja & Setup Ergonomi"}
                   </h2>
                 </div>
-                <p className="text-xs text-gp-ink-300 font-sans pl-9.5">
+                <p className="text-xs text-gp-ink-300 font-sans pl-9">
                   {homepageSettings.sectionTitles?.desksSubtitle || "Tabel kurasi daun meja plywood solid & standing desk elektrik (Klik baris untuk melihat ulasan)."}
                 </p>
               </div>
@@ -1013,7 +1013,7 @@ function CatalogPageContent() {
             homepageSettings.sectionVisibility?.showBrackets !== false) && (
             <section
               id="database-arms-brackets"
-              className="space-y-6 pt-12 border-t border-gp-ink-700 animate-in fade-in duration-200"
+              className="gp-reveal space-y-6 pt-12 border-t border-gp-ink-700 animate-in fade-in duration-200"
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
                 <div className="space-y-1">
@@ -1028,7 +1028,7 @@ function CatalogPageContent() {
                       </span>
                     </h2>
                   </div>
-                  <p className="text-xs text-gp-ink-300 font-sans pl-9.5">
+                  <p className="text-xs text-gp-ink-300 font-sans pl-9">
                     Kurasi bracket monitor gas spring, desk mount, dinding, dan VESA adapter teruji kuat menahan beban monitor.
                   </p>
                 </div>
@@ -1199,7 +1199,7 @@ function CatalogPageContent() {
           homepageSettings.sectionVisibility?.showPeripherals !== false && (
             <section
               id="database-accessories"
-              className="space-y-6 pt-12 border-t border-gp-ink-700 animate-in fade-in duration-200"
+              className="gp-reveal space-y-6 pt-12 border-t border-gp-ink-700 animate-in fade-in duration-200"
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
                 <div className="space-y-1">
@@ -1214,7 +1214,7 @@ function CatalogPageContent() {
                       </span>
                     </h2>
                   </div>
-                  <p className="text-xs text-gp-ink-300 font-sans pl-9.5">
+                  <p className="text-xs text-gp-ink-300 font-sans pl-9">
                     Tabel kurasi screenbar anti-glare, kabel HDMI 2.1 / DP 1.4, cable management tray, dan audio setup.
                   </p>
                 </div>
@@ -1384,7 +1384,7 @@ function CatalogPageContent() {
           Boolean(homepageSettings.sectionVisibility?.showChairs) === true && (
             <section
               id="database-chairs"
-              className="space-y-6 pt-12 border-t border-gp-ink-700 animate-in fade-in duration-200"
+              className="gp-reveal space-y-6 pt-12 border-t border-gp-ink-700 animate-in fade-in duration-200"
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
                 <div className="space-y-1">
@@ -1399,7 +1399,7 @@ function CatalogPageContent() {
                       </span>
                     </h2>
                   </div>
-                  <p className="text-xs text-gp-ink-300 font-sans pl-9.5">
+                  <p className="text-xs text-gp-ink-300 font-sans pl-9">
                     {homepageSettings.sectionTitles?.chairsSubtitle ||
                       "Kurasi kursi ergonomis breathable mesh, lumbar support presisi, dan gas lift Class 4."}
                   </p>
@@ -1672,7 +1672,7 @@ function CatalogPageContent() {
               <div className="p-4 rounded-xl bg-gp-ink-800 border border-gp-ink-700 text-xs flex items-center justify-between">
                 <div>
                   <span className="text-gp-ink-300 block text-3xs uppercase font-bold">Hasil Kerjasama:</span>
-                  <span className="font-bold text-white">@GrayPlasma • Data Pengujian GTID Tech</span>
+                  <span className="font-bold text-white">@GrayPlasma • Data Pengujian GrayPlasma</span>
                 </div>
                 <a
                   href={consult.youtubeUrl || CONSULTATION_DATA.youtubeUrl}
@@ -1680,7 +1680,7 @@ function CatalogPageContent() {
                   rel="noopener noreferrer"
                   className="px-3 py-1.5 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/20 font-bold text-xs transition-colors flex items-center gap-1.5"
                 >
-                  <span>YouTube GTID</span>
+                  <span>YouTube GrayPlasma</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </div>
@@ -1689,7 +1689,7 @@ function CatalogPageContent() {
         )}
 
         {/* ========================================================================= */}
-        {/* VIEW: HOW TO READ GTID GLOSSARY                                           */}
+        {/* VIEW: HOW TO READ GrayPlasma GLOSSARY                                           */}
         {/* ========================================================================= */}
         {activeMenuKey === "glossary" && (
           <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-200">
@@ -1709,7 +1709,7 @@ function CatalogPageContent() {
               <div className="space-y-2 border-b border-gp-ink-700 pb-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold">
                   <BookOpen className="w-3.5 h-3.5" />
-                  <span>Data Pengetesan GTID</span>
+                  <span>Data Pengetesan GrayPlasma</span>
                 </div>
                 <h2 className="text-xl sm:text-3xl font-black text-white uppercase tracking-tight">
                   {HOW_TO_READ_GLOSSARY.title}
@@ -1937,7 +1937,7 @@ function CatalogPageContent() {
                     activeFilterCount={activeFilterCount}
                   />
                 ) : (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                  <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-5">
                     {filteredMonitors.map((monitor) => (
                       <MonitorCard
                         key={monitor.id}
@@ -2158,7 +2158,7 @@ function CatalogPageContent() {
                 </h2>
               </div>
               <p className="text-xs text-gp-ink-300 leading-relaxed max-w-3xl">
-                Rangkuman materi penting seputar port DisplayPort vs HDMI, cara membaca response time GTID, proteksi OLED, dan kebijakan klaim dead pixel.
+                Rangkuman materi penting seputar port DisplayPort vs HDMI, cara membaca response time GrayPlasma, proteksi OLED, dan kebijakan klaim dead pixel.
               </p>
             </div>
 
@@ -2235,7 +2235,7 @@ function CatalogPageContent() {
                   <span className="font-bold text-gp-ink-200 uppercase">CATATAN :</span>
                   <ul className="list-disc pl-5 space-y-1 text-gp-ink-300">
                     <li>
-                      Seluruh ulasan dan panduan disusun independen oleh GrayPlasma (@gray1plasma) berdasarkan pengujian laboratorium GTID Tech.
+                      Seluruh ulasan dan panduan disusun independen oleh GrayPlasma (@gray1plasma) berdasarkan pengujian laboratorium GrayPlasma.
                     </li>
                   </ul>
                 </div>
@@ -2461,7 +2461,7 @@ function CatalogPageContent() {
                   className="p-5 rounded-2xl bg-gp-ink-950 border border-gp-ink-700 hover:border-cyan-500/60 hover:bg-gp-ink-800 transition-colors space-y-2 group"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-cyan-400">Forum Discord GTID</span>
+                    <span className="text-xs font-bold text-cyan-400">Forum Discord GrayPlasma</span>
                     <ExternalLink className="w-3.5 h-3.5 text-gp-ink-400 group-hover:text-cyan-400" />
                   </div>
                   <h4 className="text-sm font-bold text-white">Saluran Saran & Diskusi</h4>
@@ -2555,7 +2555,7 @@ function CatalogPageContent() {
               >
                 <MessageSquare className="w-6 h-6 text-cyan-400 mx-auto group-hover:scale-110 transition-transform" />
                 <h3 className="text-sm font-bold text-white">Discord Community</h3>
-                <p className="text-xs text-gp-ink-300">GTID Tech & GrayPlasma</p>
+                <p className="text-xs text-gp-ink-300">GrayPlasma</p>
                 <span className="text-2xs font-bold text-cyan-400 block pt-1">Join Server →</span>
               </a>
             </div>

@@ -40,7 +40,7 @@ export const NOTION_AFTERSALES_CARDS: NotionBoardCard[] = [
     ],
     cons: [
       "Disarankan menyimpan kelengkapan seperti Dus, Sterofoam di dalam dus, Buku Manual. Karena di beberapa kasus, diperlukan hal itu",
-      "Menurut pandangan Penulis: Aftersales Xiaomi tergolong bagus dikarenakan sering dikritik (di-roasting) GTID, karena selain Produk Monitor, Aftersales Xiaomi tergolong Kurang",
+      "Menurut pandangan Penulis: Aftersales Xiaomi tergolong bagus dikarenakan sering dikritik (di-roasting) GrayPlasma, karena selain Produk Monitor, Aftersales Xiaomi tergolong Kurang",
       "Karena alasan di atas, penulis sedikit ragu mengenai masa depan Aftersales Monitor Xiaomi, dan sebaiknya waspada terhadap aftersales 1-3 tahun kedepan",
       "Ada berpotensi tidak dapat full refund jika pemakaian lebih dari 1 Tahun dan jika unit pengganti nya tidak ada",
     ],

@@ -191,7 +191,7 @@ export function MonitorModal({ monitor, isOpen, onClose }: MonitorModalProps) {
                         <ShoppingBag className="w-3.5 h-3.5" />
                         <span className="font-bold">{link.marketplace}</span>
                         {link.officialStore && (
-                          <span className="text-4xs px-1 py-0.2 rounded bg-gp-ink-800 border border-gp-ink-600 text-gp-ink-200 font-normal">
+                          <span className="text-4xs px-1 py-0.5 rounded bg-gp-ink-800 border border-gp-ink-600 text-gp-ink-200 font-normal">
                             Official Store
                           </span>
                         )}
