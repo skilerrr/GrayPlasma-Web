@@ -535,8 +535,10 @@ export function Navbar({
           </div>
         </div>
 
-        {/* Mobile Horizontal Menu Bar */}
-        <div className="flex lg:hidden items-center gap-2 py-2 border-t border-gp-ink-800 overflow-x-auto no-scrollbar">
+        {/* Mobile Horizontal Menu Bar — scroll-x + fade di tepi kanan biar
+            user tahu masih ada tab berikutnya (sebelumnya kepotong diam-diam) */}
+        <div className="relative lg:hidden">
+          <div className="flex items-center gap-2 py-2 border-t border-gp-ink-800 overflow-x-auto no-scrollbar scroll-smooth">
           <MobileNavLink href="/" label="Beranda" active={currentKey === "home"} />
           <MobileNavLink
             href="/guide/brand/aftersales-rma"
@@ -573,6 +575,12 @@ export function Navbar({
             href="/guide/support/donasi-penulis"
             label="Donasi"
             active={currentKey === "support-donasi"}
+          />
+          </div>
+          {/* Fade hint di tepi kanan (pointer-events-none, 0 layout cost) */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-gp-ink-950 via-gp-ink-950/80 to-transparent"
           />
         </div>
       </div>

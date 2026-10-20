@@ -611,7 +611,7 @@ export function NotionTableView({
       {/* VIEW 4: NOTION GALLERY CARD VIEW                                          */}
       {/* ========================================================================= */}
       {activeTab === "gallery" && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
           {displayMonitors.map((monitor: Monitor) => {
             const isSelected = selectedMonitorId === monitor.id;
             const photo = monitor.frontImage || monitor.thumbnail || "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop";
@@ -620,14 +620,14 @@ export function NotionTableView({
               <div
                 key={monitor.id}
                 onClick={() => onSelectMonitor(monitor)}
-                className={`group cursor-pointer rounded-2xl border transition-colors overflow-hidden flex flex-col bg-gp-ink-750 ${
+                className={`group cursor-pointer min-w-0 rounded-xl sm:rounded-2xl border transition-colors overflow-hidden flex flex-col bg-gp-ink-750 ${
                   isSelected
                     ? "border-gp-sky-800 ring-2 ring-gp-sky-800/50 shadow-xl"
                     : "border-gp-ink-650 hover:border-gp-ink-600 hover:bg-gp-ink-700"
                 }`}
               >
                 {/* Card Thumbnail */}
-                <div className="w-full aspect-[16/10] bg-gp-ink-850 relative overflow-hidden">
+                <div className="w-full aspect-[4/3] sm:aspect-[16/10] bg-gp-ink-850 relative overflow-hidden">
                   <Image
                     src={photo}
                     alt={monitor.fullName}
@@ -636,7 +636,7 @@ export function NotionTableView({
                   />
                   <div className="absolute top-2 right-2">
                     <span
-                      className={`text-3xs font-bold px-2 py-0.5 rounded shadow-sm ${
+                      className={`text-4xs sm:text-3xs font-bold px-1.5 sm:px-2 py-0.5 rounded shadow-sm ${
                         monitor.tier === "S-TIER"
                           ? "bg-gp-mint-900 text-gp-mint border border-gp-mint/30"
                           : monitor.tier === "BEST VALUE"
@@ -650,12 +650,12 @@ export function NotionTableView({
                 </div>
 
                 {/* Card Body */}
-                <div className="p-3.5 space-y-2 flex-1 flex flex-col justify-between">
+                <div className="p-2.5 sm:p-3.5 space-y-2 flex-1 flex flex-col justify-between">
                   <div className="space-y-1">
                     <div className="text-3xs text-gp-ink-400 font-bold uppercase tracking-wider">
                       {monitor.brand}
                     </div>
-                    <h4 className="font-bold text-white text-xs line-clamp-1 group-hover:text-gp-sky transition-colors">
+                    <h4 className="font-bold text-white text-xs line-clamp-2 sm:line-clamp-1 group-hover:text-gp-sky transition-colors">
                       {monitor.fullName}
                     </h4>
                   </div>
