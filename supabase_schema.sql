@@ -218,6 +218,37 @@ CREATE TABLE IF NOT EXISTS public.desks (
   "markdownContent" TEXT,
   "shopeeUrl" TEXT,
   specs JSONB,
+  "isPublished" BOOLEAN DEFAULT true,
+  "customVariables" JSONB DEFAULT '[]'::jsonb,
+  version_id INT DEFAULT 1,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- ==============================================================================
+-- 4B. CHAIRS TABLE (Ergonomic Chairs)
+-- ==============================================================================
+CREATE TABLE IF NOT EXISTS public.chairs (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  brand TEXT NOT NULL,
+  category TEXT NOT NULL,
+  price NUMERIC,
+  "lumbarSupport" TEXT,
+  armrest TEXT,
+  mechanism TEXT,
+  "gasLift" TEXT,
+  material TEXT,
+  "recommendedHeight" TEXT,
+  "maxWeightCapacity" TEXT,
+  warranty TEXT,
+  verdict TEXT,
+  notes TEXT,
+  "shopeeUrl" TEXT,
+  "tokopediaUrl" TEXT,
+  "imageUrl" TEXT,
+  "isPublished" BOOLEAN DEFAULT true,
+  "order" INT DEFAULT 0,
   version_id INT DEFAULT 1,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()

@@ -61,5 +61,49 @@ END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 GRANT EXECUTE ON FUNCTION public.admin_set_user_password(TEXT, TEXT) TO authenticated, service_role;
+
+-- 4. DDL Penyesuaian Kolom & Tabel Supabase
+CREATE TABLE IF NOT EXISTS public.chairs (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  brand TEXT NOT NULL,
+  category TEXT NOT NULL,
+  price NUMERIC,
+  "lumbarSupport" TEXT,
+  armrest TEXT,
+  mechanism TEXT,
+  "gasLift" TEXT,
+  material TEXT,
+  "recommendedHeight" TEXT,
+  "maxWeightCapacity" TEXT,
+  warranty TEXT,
+  verdict TEXT,
+  notes TEXT,
+  "shopeeUrl" TEXT,
+  "tokopediaUrl" TEXT,
+  "imageUrl" TEXT,
+  "isPublished" BOOLEAN DEFAULT true,
+  "order" INT DEFAULT 0,
+  version_id INT DEFAULT 1,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE public.chairs ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Public read chairs" ON public.chairs FOR SELECT USING (true);
+CREATE POLICY "Admin write chairs" ON public.chairs FOR ALL USING (public.is_super_admin() OR auth.role() = 'service_role');
+GRANT ALL ON public.chairs TO authenticated, service_role, anon;
+
+ALTER TABLE public.desks ADD COLUMN IF NOT EXISTS "isPublished" BOOLEAN DEFAULT true;
+ALTER TABLE public.desks ADD COLUMN IF NOT EXISTS "customVariables" JSONB DEFAULT '[]'::jsonb;
+
+ALTER TABLE public.aftersales ADD COLUMN IF NOT EXISTS points JSONB DEFAULT '[]'::jsonb;
+ALTER TABLE public.aftersales ADD COLUMN IF NOT EXISTS "contactUrl" TEXT;
+ALTER TABLE public.aftersales ADD COLUMN IF NOT EXISTS "claimSystem" TEXT;
+
 ALTER TABLE public.monitors ADD COLUMN IF NOT EXISTS "isPublished" BOOLEAN DEFAULT true;
+ALTER TABLE public.monitors ADD COLUMN IF NOT EXISTS "customVariables" JSONB DEFAULT '[]'::jsonb;
+
+ALTER TABLE public.faq_items ADD COLUMN IF NOT EXISTS "isPublished" BOOLEAN DEFAULT true;
+
 NOTIFY pgrst, 'reload schema';

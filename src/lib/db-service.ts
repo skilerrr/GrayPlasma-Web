@@ -738,7 +738,7 @@ export class DatabaseService {
     return getLocalData<AdminUser[]>(STORAGE_KEYS.ADMIN_USERS, DEFAULT_ADMIN_USERS);
   }
 
-  static saveAdminUser(user: AdminUser): AdminUser[] {
+  static async saveAdminUser(user: AdminUser): Promise<AdminUser[]> {
     let current = getLocalData<AdminUser[]>(STORAGE_KEYS.ADMIN_USERS, DEFAULT_ADMIN_USERS);
     const idx = current.findIndex((u) => u.id === user.id);
     if (idx >= 0) {
@@ -764,29 +764,27 @@ export class DatabaseService {
         is_active: true,
       };
 
-      if (user.id && user.id.length === 36) {
-        profilePayload.id = user.id;
-        supabase
-          .from("admin_profiles")
-          .upsert(profilePayload)
-          .then(({ error }) => {
-            if (error) console.error("Supabase admin profile upsert error", error);
-          });
-      } else if (user.email) {
-        supabase
-          .from("admin_profiles")
-          .update(profilePayload)
-          .eq("email", user.email.trim().toLowerCase())
-          .then(({ error }) => {
-            if (error) console.error("Supabase admin profile update error", error);
-          });
+      try {
+        if (user.id && user.id.length === 36) {
+          profilePayload.id = user.id;
+          const { error } = await supabase.from("admin_profiles").upsert(profilePayload);
+          if (error) console.error("Supabase admin profile upsert error", error);
+        } else if (user.email) {
+          const { error } = await supabase
+            .from("admin_profiles")
+            .update(profilePayload)
+            .eq("email", user.email.trim().toLowerCase());
+          if (error) console.error("Supabase admin profile update error", error);
+        }
+      } catch (err) {
+        console.error("Supabase saveAdminUser error", err);
       }
     }
 
     return current;
   }
 
-  static deleteAdminUser(id: string): AdminUser[] {
+  static async deleteAdminUser(id: string): Promise<AdminUser[]> {
     let current = getLocalData<AdminUser[]>(STORAGE_KEYS.ADMIN_USERS, DEFAULT_ADMIN_USERS);
     const target = current.find((u) => u.id === id);
     if (target) {
@@ -794,6 +792,19 @@ export class DatabaseService {
     }
     current = current.filter((u) => u.id !== id);
     setLocalData(STORAGE_KEYS.ADMIN_USERS, current);
+
+    if (isSupabaseConfigured && supabase) {
+      try {
+        if (id && id.length === 36) {
+          await supabase.from("admin_profiles").delete().eq("id", id);
+        } else if (target?.email) {
+          await supabase.from("admin_profiles").delete().eq("email", target.email.trim().toLowerCase());
+        }
+      } catch (err) {
+        console.error("Supabase admin profile delete error", err);
+      }
+    }
+
     return current;
   }
 
@@ -929,6 +940,38 @@ export class DatabaseService {
     if (res.error) console.error("Supabase monitor upsert error", res.error);
   }
 
+  /**
+   * Universal Supabase upsert with automatic unmapped column stripping and retry.
+   * Prevents PGRST204 errors from aborting database updates.
+   */
+  static async safeUpsert(table: string, payload: Record<string, unknown>): Promise<{ error: any }> {
+    if (!supabase) return { error: null };
+    let cur: Record<string, unknown> = { ...payload };
+
+    delete cur.isNew;
+    delete cur._localId;
+
+    let res = await supabase.from(table).upsert(cur as never);
+
+    let attempts = 0;
+    while (res.error && res.error.code === "PGRST204" && attempts < 10) {
+      attempts++;
+      const match = res.error.message.match(/Could not find the '([^']+)' column/);
+      if (match && match[1]) {
+        console.warn(`Stripping unknown column '${match[1]}' from '${table}' upsert and retrying...`);
+        delete cur[match[1]];
+        res = await supabase.from(table).upsert(cur as never);
+      } else {
+        break;
+      }
+    }
+
+    if (res.error) {
+      console.error(`Supabase ${table} upsert error:`, res.error);
+    }
+    return res;
+  }
+
   // ==========================================
   // 1. MONITORS CRUD
   // ==========================================
@@ -1043,6 +1086,7 @@ export class DatabaseService {
         try {
           const { data, error } = await supabase.from("desks").select("*");
           if (!error && data && data.length > 0) {
+            setLocalData(STORAGE_KEYS.DESKS, data);
             return data as DeskItem[];
           }
         } catch (err) {
@@ -1069,7 +1113,7 @@ export class DatabaseService {
 
     if (isSupabaseConfigured && supabase) {
       try {
-        await supabase.from("desks").upsert(desk);
+        await DatabaseService.safeUpsert("desks", desk as unknown as Record<string, unknown>);
       } catch (err) {
         console.error("Supabase desk upsert error", err);
       }
@@ -1128,7 +1172,9 @@ export class DatabaseService {
         try {
           const { data, error } = await supabase.from("peripherals").select("*");
           if (!error && data && data.length > 0) {
-            return (data as any[]).map((p) => DatabaseService.normalizePeripheral(p));
+            const mapped = (data as any[]).map((p) => DatabaseService.normalizePeripheral(p));
+            setLocalData(STORAGE_KEYS.PERIPHERALS, mapped);
+            return mapped;
           }
         } catch (err) {
           console.warn("Supabase peripheral fetch failed", err);
@@ -1156,26 +1202,13 @@ export class DatabaseService {
 
     if (isSupabaseConfigured && supabase) {
       try {
-        const payload: any = {
+        const payload: Record<string, unknown> = {
           ...normalized,
           shopeeUrl: normalized.shopeeUrl || null,
           tokopediaUrl: normalized.tokopediaUrl || null,
           tiktokUrl: normalized.tiktokUrl || null,
         };
-        const res = await supabase.from("peripherals").upsert(payload);
-        if (res.error && /column.*does not exist|PGRST204/i.test(res.error.message)) {
-          // Fallback ke snake_case kolom jika schema database memakai snake_case
-          const snakePayload: any = {
-            ...normalized,
-            shopee_url: normalized.shopeeUrl || null,
-            tokopedia_url: normalized.tokopediaUrl || null,
-            tiktok_url: normalized.tiktokUrl || null,
-          };
-          delete snakePayload.shopeeUrl;
-          delete snakePayload.tokopediaUrl;
-          delete snakePayload.tiktokUrl;
-          await supabase.from("peripherals").upsert(snakePayload);
-        }
+        await DatabaseService.safeUpsert("peripherals", payload);
       } catch (err) {
         console.error("Supabase peripheral upsert error", err);
       }
@@ -1218,7 +1251,10 @@ export class DatabaseService {
             markTableMissing("chairs");
             return getLocalData<ChairItem[]>(STORAGE_KEYS.CHAIRS, DEFAULT_CHAIRS_DATABASE);
           }
-          if (!error && data && data.length > 0) return data as ChairItem[];
+          if (!error && data && data.length > 0) {
+            setLocalData(STORAGE_KEYS.CHAIRS, data);
+            return data as ChairItem[];
+          }
         } catch (err) {
           console.warn("Supabase chair fetch failed", err);
         }
@@ -1242,7 +1278,7 @@ export class DatabaseService {
 
     if (isSupabaseConfigured && supabase) {
       try {
-        await supabase.from("chairs").upsert(item);
+        await DatabaseService.safeUpsert("chairs", item as unknown as Record<string, unknown>);
       } catch (err) {
         console.error("Supabase chair upsert error", err);
       }
@@ -1254,6 +1290,16 @@ export class DatabaseService {
     invalidateCache("chairs");
     setLocalData(STORAGE_KEYS.CHAIRS, chairs);
     DatabaseService.logActivity("update", "chair", "Katalog Kursi", `Memperbarui ${chairs.length} data kursi.`);
+
+    if (isSupabaseConfigured && supabase) {
+      try {
+        for (const item of chairs) {
+          await DatabaseService.safeUpsert("chairs", item as unknown as Record<string, unknown>);
+        }
+      } catch (err) {
+        console.error("Supabase saveAllChairs upsert error", err);
+      }
+    }
     return chairs;
   }
 
@@ -1288,7 +1334,10 @@ export class DatabaseService {
     if (isSupabaseConfigured && supabase) {
       try {
         const { data, error } = await supabase.from("aftersales").select("*");
-        if (!error && data && data.length > 0) return data as AftersalesBrand[];
+        if (!error && data && data.length > 0) {
+          setLocalData(STORAGE_KEYS.AFTERSALES, data);
+          return data as AftersalesBrand[];
+        }
       } catch (err) {
         console.warn("Supabase aftersales fetch failed", err);
       }
@@ -1311,7 +1360,7 @@ export class DatabaseService {
 
     if (isSupabaseConfigured && supabase) {
       try {
-        await supabase.from("aftersales").upsert(brand);
+        await DatabaseService.safeUpsert("aftersales", brand as unknown as Record<string, unknown>);
       } catch (err) {
         console.error("Supabase aftersales upsert error", err);
       }
@@ -1347,6 +1396,7 @@ export class DatabaseService {
             .select("*")
             .order("order", { ascending: true });
           if (!error && data && data.length > 0) {
+            setLocalData(STORAGE_KEYS.HIERARCHY, data);
             return data as SiteHierarchyNode[];
           }
         } catch (err) {
@@ -1374,7 +1424,7 @@ export class DatabaseService {
 
     if (isSupabaseConfigured && supabase) {
       try {
-        await supabase.from("hierarchy_nodes").upsert(node);
+        await DatabaseService.safeUpsert("hierarchy_nodes", node as unknown as Record<string, unknown>);
       } catch (err) {
         console.error("Supabase hierarchy upsert error", err);
       }
@@ -1684,6 +1734,7 @@ export class DatabaseService {
             .from("aftersales_cards")
             .select("*");
           if (!error && data && data.length > 0) {
+            setLocalData(STORAGE_KEYS.AFTERSALES_CARDS, data);
             return data as NotionBoardCard[];
           }
         } catch (err) {
@@ -1710,11 +1761,11 @@ export class DatabaseService {
 
     if (isSupabaseConfigured && supabase) {
       try {
-        const payload: any = {
+        const payload: Record<string, unknown> = {
           ...card,
           brand: (card as any).brand || card.title || card.id,
         };
-        await supabase.from("aftersales_cards").upsert(payload);
+        await DatabaseService.safeUpsert("aftersales_cards", payload);
       } catch (err) {
         console.error("Supabase aftersales card upsert error", err);
       }
@@ -1748,6 +1799,20 @@ export class DatabaseService {
     invalidateCache("aftersales_cards");
     setLocalData(STORAGE_KEYS.AFTERSALES_CARDS, cards);
     DatabaseService.logActivity("update", "aftersales", "Semua Kartu Kanban Aftersales", `Total: ${cards.length} kartu`);
+
+    if (isSupabaseConfigured && supabase) {
+      try {
+        for (const card of cards) {
+          const payload: Record<string, unknown> = {
+            ...card,
+            brand: (card as any).brand || card.title || card.id,
+          };
+          await DatabaseService.safeUpsert("aftersales_cards", payload);
+        }
+      } catch (err) {
+        console.error("Supabase saveAftersalesCards error", err);
+      }
+    }
     return cards;
   }
 
@@ -1785,7 +1850,7 @@ export class DatabaseService {
     }, 300000);
   }
 
-  static saveFAQ(item: FAQItem): FAQItem[] {
+  static async saveFAQ(item: FAQItem): Promise<FAQItem[]> {
     invalidateCache("faq_items");
     let current = getLocalData<FAQItem[]>(STORAGE_KEYS.FAQ_ITEMS, FAQ_LIST);
     const idx = current.findIndex((f) => f.id === item.id);
@@ -1799,15 +1864,17 @@ export class DatabaseService {
     setLocalData(STORAGE_KEYS.FAQ_ITEMS, current);
 
     if (isSupabaseConfigured && supabase) {
-      supabase.from("faq_items").upsert(item).then(({ error }) => {
-        if (error) console.error("Supabase FAQ upsert error", error);
-      });
+      try {
+        await DatabaseService.safeUpsert("faq_items", item as unknown as Record<string, unknown>);
+      } catch (err) {
+        console.error("Supabase FAQ upsert error", err);
+      }
     }
 
     return current;
   }
 
-  static deleteFAQ(id: string): FAQItem[] {
+  static async deleteFAQ(id: string): Promise<FAQItem[]> {
     invalidateCache("faq_items");
     let current = getLocalData<FAQItem[]>(STORAGE_KEYS.FAQ_ITEMS, FAQ_LIST);
     const target = current.find((f) => f.id === id);
@@ -1816,9 +1883,11 @@ export class DatabaseService {
     setLocalData(STORAGE_KEYS.FAQ_ITEMS, current);
 
     if (isSupabaseConfigured && supabase) {
-      supabase.from("faq_items").delete().eq("id", id).then(({ error }) => {
-        if (error) console.error("Supabase FAQ delete error", error);
-      });
+      try {
+        await supabase.from("faq_items").delete().eq("id", id);
+      } catch (err) {
+        console.error("Supabase FAQ delete error", err);
+      }
     }
 
     return current;

@@ -82,18 +82,18 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
   };
 
   // 1. FAQ Actions
-  const handleSaveFaq = (e: React.FormEvent) => {
+  const handleSaveFaq = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingFaq) return;
-    const updated = DatabaseService.saveFAQ(editingFaq);
+    const updated = await DatabaseService.saveFAQ(editingFaq);
     setFaqList(updated);
     setIsFaqModalOpen(false);
     showNotice(`FAQ "${editingFaq.question.substring(0, 30)}..." disimpan.`);
   };
 
-  const handleDeleteFaq = (id: string) => {
+  const handleDeleteFaq = async (id: string) => {
     if (confirm("Hapus pertanyaan FAQ ini?")) {
-      const updated = DatabaseService.deleteFAQ(id);
+      const updated = await DatabaseService.deleteFAQ(id);
       setFaqList(updated);
       showNotice("FAQ dihapus.");
     }
@@ -199,9 +199,9 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
   };
 
   // Visibility Toggles (Hide / Publish without deletion)
-  const handleToggleFaqPublish = (faq: FAQItem) => {
+  const handleToggleFaqPublish = async (faq: FAQItem) => {
     const newStatus = faq.isPublished === false ? true : false;
-    const updated = DatabaseService.saveFAQ({
+    const updated = await DatabaseService.saveFAQ({
       ...faq,
       isPublished: newStatus,
     });
@@ -1062,7 +1062,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
             isImportant: editingFaq.important || false,
             content: editingFaq.answer,
           }}
-          onSave={(savedDoc) => {
+          onSave={async (savedDoc) => {
             const updatedFaq: FAQItem = {
               id: savedDoc.id || editingFaq.id,
               question: savedDoc.title,
@@ -1071,7 +1071,7 @@ export function GuidesKnowledgeManager({ onRefresh }: GuidesKnowledgeManagerProp
               answer: savedDoc.content,
               isPublished: editingFaq.isPublished !== undefined ? editingFaq.isPublished : true,
             };
-            const updated = DatabaseService.saveFAQ(updatedFaq);
+            const updated = await DatabaseService.saveFAQ(updatedFaq);
             setFaqList(updated);
             setIsFaqModalOpen(false);
             setEditingFaq(null);

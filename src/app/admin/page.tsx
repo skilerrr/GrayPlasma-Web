@@ -353,7 +353,7 @@ export default function AdminDashboardPage() {
     try {
       const res = await compressImage(file, 400, 0.85);
       const updatedUser: AdminUser = { ...currentAdmin, avatar: res.dataUrl };
-      const updatedList = DatabaseService.saveAdminUser(updatedUser);
+      const updatedList = await DatabaseService.saveAdminUser(updatedUser);
       setAdmins(updatedList);
       setCurrentAdmin(updatedUser);
       DatabaseService.setCurrentAdminSession(updatedUser);

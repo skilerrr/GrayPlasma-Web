@@ -140,7 +140,7 @@ export function AdminHierarchyManager({
     try {
       const res = await compressImage(file, 400, 0.85);
       const updatedUser: AdminUser = { ...targetAdmin, avatar: res.dataUrl };
-      const updatedList = DatabaseService.saveAdminUser(updatedUser);
+      const updatedList = await DatabaseService.saveAdminUser(updatedUser);
       onUpdateAdmins(updatedList);
       if (currentAdmin?.id === targetAdmin.id) {
         onSwitchSession(updatedUser);
@@ -219,7 +219,7 @@ export function AdminHierarchyManager({
     }
 
     const adminToSave: AdminUser = { ...formData, id: finalId };
-    const updated = DatabaseService.saveAdminUser(adminToSave);
+    const updated = await DatabaseService.saveAdminUser(adminToSave);
     onUpdateAdmins(updated);
     if (currentAdmin?.id === formData.id || currentAdmin?.id === finalId) {
       onSwitchSession(adminToSave);
@@ -230,13 +230,13 @@ export function AdminHierarchyManager({
     showNotice(`Admin "${formData.name}" berhasil disimpan!`);
   };
 
-  const handleDeleteAdmin = (id: string, name: string) => {
+  const handleDeleteAdmin = async (id: string, name: string) => {
     if (admins.length <= 1) {
       alert("Tidak dapat menghapus admin terakhir!");
       return;
     }
     if (confirm(`Yakin ingin menghapus akses admin "${name}"?`)) {
-      const updated = DatabaseService.deleteAdminUser(id);
+      const updated = await DatabaseService.deleteAdminUser(id);
       onUpdateAdmins(updated);
       setLogs(DatabaseService.getActivityLogs());
       showNotice(`Admin "${name}" telah dihapus.`);
