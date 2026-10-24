@@ -52,23 +52,53 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- Helper function for super_admin to update another user's password directly
-CREATE OR REPLACE FUNCTION public.admin_set_user_password(target_user_id UUID, new_password TEXT)
+-- Helper function for super_admin to update another user's password directly (accepts UUID, email, or username)
+CREATE OR REPLACE FUNCTION public.admin_set_user_password(target_identifier TEXT, new_password TEXT)
 RETURNS BOOLEAN AS $$
+DECLARE
+  resolved_id UUID;
 BEGIN
   IF NOT public.is_super_admin() THEN
     RAISE EXCEPTION 'Hanya Super Admin yang berhak mengubah password pengguna lain.';
   END IF;
 
+  -- 1. Jika identifier formatnya UUID
+  IF target_identifier ~* '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$' THEN
+    resolved_id := target_identifier::UUID;
+  END IF;
+
+  -- 2. Jika belum ketemu, cari di auth.users berdasarkan email
+  IF resolved_id IS NULL THEN
+    SELECT u.id INTO resolved_id
+    FROM auth.users u
+    WHERE lower(u.email) = lower(target_identifier)
+       OR lower(u.email) = lower(replace(target_identifier, 'admin-', '')) || '@grayplasma.local'
+       OR lower(u.email) = lower(replace(target_identifier, 'admin-', '')) || '@grayplasma.id'
+    LIMIT 1;
+  END IF;
+
+  -- 3. Jika belum ketemu, cari di admin_profiles berdasarkan username / id
+  IF resolved_id IS NULL THEN
+    SELECT p.id INTO resolved_id
+    FROM public.admin_profiles p
+    WHERE lower(p.username) = lower(replace(target_identifier, 'admin-', ''))
+       OR lower(p.email) = lower(target_identifier)
+    LIMIT 1;
+  END IF;
+
+  IF resolved_id IS NULL THEN
+    RAISE EXCEPTION 'User "%" tidak ditemukan di auth.users', target_identifier;
+  END IF;
+
   UPDATE auth.users
   SET encrypted_password = crypt(new_password, gen_salt('bf'))
-  WHERE id = target_user_id;
+  WHERE id = resolved_id;
 
   RETURN true;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
-GRANT EXECUTE ON FUNCTION public.admin_set_user_password(UUID, TEXT) TO authenticated, service_role;
+GRANT EXECUTE ON FUNCTION public.admin_set_user_password(TEXT, TEXT) TO authenticated, service_role;
 
 -- Admin profiles policies
 DROP POLICY IF EXISTS "Admins can view all profiles" ON public.admin_profiles;

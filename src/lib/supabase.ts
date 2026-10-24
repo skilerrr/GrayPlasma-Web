@@ -290,7 +290,7 @@ export async function updateAdminPassword(
 
     // Ubah password user lain lewat fungsi security definer (khusus super admin)
     const { error: rpcError } = await supabase.rpc("admin_set_user_password", {
-      target_user_id: targetUserId,
+      target_identifier: targetUserId || targetEmail,
       new_password: newPassword,
     });
 
