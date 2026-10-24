@@ -183,9 +183,6 @@ export function Navbar({
                   <span className="text-gp-orange font-mono">ID</span>
                 </span>
               </div>
-              <p className="text-2xs text-gp-ink-300 hidden lg:block font-medium">
-                {siteSettings.brandTagline || "Database Pengujian & Kurasi Monitor Independen"}
-              </p>
             </div>
           </div>
 

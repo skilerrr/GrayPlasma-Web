@@ -105,7 +105,7 @@ export function MonitorSidePanel({
     const text = `[GRAYPLASMA] ${monitor.fullName} (${monitor.tier})
 Kisaran Harga: ${formatRupiah(monitor.price)}${targetPrice}
 Spesifikasi: ${monitor.specs.display.size} | ${monitor.specs.display.panelType} | ${monitor.specs.display.refreshRate}Hz | ${monitor.specs.display.resolution}
-Response Time Lab GrayPlasma: ${responseTime}
+Response Time Lab GTID: ${responseTime}
 Poin Utama: ${prosText}
 Link Detail & Lab Data: ${detailUrl}`;
 
@@ -334,16 +334,16 @@ Link Detail & Lab Data: ${detailUrl}`;
           <div className="pt-1">
             <YouTubeEmbed
               url={monitor.reviewUrl}
-              title={`Review & Ulasan Pengujian GrayPlasma: ${monitor.fullName}`}
+              title={`Review & Ulasan Pengujian GTID: ${monitor.fullName}`}
             />
           </div>
 
-          {/* DATA PENGETESAN LAB GrayPlasma MATRIX */}
+          {/* DATA PENGETESAN LAB GTID MATRIX */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-gp-orange">
                 <Zap className="w-4 h-4" />
-                <span>DATA PENGETESAN LAB (DATA BY: GRAYPLASMA)</span>
+                <span>DATA PENGETESAN LAB (DATA BY: GTID)</span>
               </div>
               <span className="text-3xs font-mono text-gp-ink-400">
                 {isLabNA ? "Status: Belum Diuji (N/A)" : "Toleransi 5 RGB Standard"}

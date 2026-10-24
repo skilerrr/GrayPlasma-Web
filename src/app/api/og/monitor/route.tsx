@@ -151,7 +151,7 @@ export async function GET(req: NextRequest) {
                   letterSpacing: "1px",
                 }}
               >
-                <span>DATA MATRIX LAB GrayPlasma (TOLERANSI 5 RGB)</span>
+                <span>DATA MATRIX LAB GTID (TOLERANSI 5 RGB)</span>
                 <span>AKURASI & RESPON</span>
               </div>
 

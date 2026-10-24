@@ -31,7 +31,7 @@ export const MONITORS_DATA: Monitor[] = [
       "N/A (Belum Diuji)",
       "8 Bit"
     ],
-    "expertVerdict": "Belum Diuji di Lab GrayPlasma (Status: N/A). Data spesifikasi bersumber dari rilis resmi pabrikan.",
+    "expertVerdict": "Belum Diuji di Lab GTID (Status: N/A). Data spesifikasi bersumber dari rilis resmi pabrikan.",
     "pros": [
       "Panel IPS dengan Refresh Rate 200Hz native",
       "Mendukung VESA Mount: YES (75 × 75 mm)",

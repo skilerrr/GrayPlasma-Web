@@ -61,4 +61,5 @@ END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 GRANT EXECUTE ON FUNCTION public.admin_set_user_password(TEXT, TEXT) TO authenticated, service_role;
+ALTER TABLE public.monitors ADD COLUMN IF NOT EXISTS "isPublished" BOOLEAN DEFAULT true;
 NOTIFY pgrst, 'reload schema';

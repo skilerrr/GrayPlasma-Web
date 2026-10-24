@@ -55,6 +55,7 @@ import {
   DEFAULT_HOMEPAGE_SETTINGS,
   DEFAULT_ADMIN_USERS,
 } from "@/lib/db-service";
+import { invalidateCache } from "@/lib/data-cache";
 import { useRouter } from "next/navigation";
 import { isSupabaseConfigured, signInAdminWithSupabase, signOutAdminFromSupabase, getCurrentSupabaseAdmin, supabase } from "@/lib/supabase";
 import { compressImage, formatFileSize, CompressedImageResult } from "@/lib/image-compressor";
@@ -240,9 +241,11 @@ export default function AdminDashboardPage() {
 
   const loadAllData = async () => {
     setIsLoading(true);
+    // Di halaman admin, selalu bersihkan cache agar data yang ditampilkan selalu LIVE dan up-to-date dari Supabase
+    invalidateCache();
     try {
       const [mList, dList, pList, aList, hList, bSettings, sSettings, cList, hpSettings] = await Promise.all([
-        DatabaseService.getMonitors(),
+        DatabaseService.getMonitors(true),
         DatabaseService.getDesks(),
         DatabaseService.getPeripherals(),
         DatabaseService.getAftersales(),

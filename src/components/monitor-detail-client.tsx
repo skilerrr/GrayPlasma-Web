@@ -548,7 +548,7 @@ Link Detail: ${detailUrl}`;
           <div className="pt-3">
             <YouTubeEmbed
               url={monitor.reviewUrl}
-              title={`Review & Ulasan Pengujian GrayPlasma: ${monitor.fullName}`}
+              title={`Review & Ulasan Pengujian GTID: ${monitor.fullName}`}
             />
           </div>
         </div>

@@ -1707,7 +1707,7 @@ function CatalogPageContent() {
               <div className="p-4 rounded-xl bg-gp-ink-800 border border-gp-ink-700 text-xs flex items-center justify-between">
                 <div>
                   <span className="text-gp-ink-300 block text-3xs uppercase font-bold">Hasil Kerjasama:</span>
-                  <span className="font-bold text-white">@GrayPlasma • Data Pengujian GrayPlasma</span>
+                  <span className="font-bold text-white">@GrayPlasma • Data Pengujian GTID</span>
                 </div>
                 <a
                   href={consult.youtubeUrl || CONSULTATION_DATA.youtubeUrl}

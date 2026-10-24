@@ -119,7 +119,7 @@ export function MonitorComparatorTray({
               </div>
               <div>
                 <h2 className="text-lg sm:text-xl font-black text-white tracking-tight">
-                  Tabel Komparasi Head-to-Head Lab GrayPlasma
+                  Tabel Komparasi Head-to-Head Lab GTID
                 </h2>
                 <p className="text-xs text-gp-ink-300">
                   Perbandingan data pengujian sensor, response time, dan akurasi warna monitor.
@@ -235,10 +235,10 @@ export function MonitorComparatorTray({
                 </div>
               </div>
 
-              {/* 2. GrayPlasma Lab Testing & Realita Data */}
+              {/* 2. GTID Lab Testing & Realita Data */}
               <div className="rounded-2xl border border-gp-ink-700 overflow-hidden bg-gp-ink-950/60">
                 <div className="bg-gp-ink-800/90 px-4 py-2 text-2xs font-black text-gp-emerald uppercase tracking-wider border-b border-gp-ink-700 flex items-center justify-between">
-                  <span>2. Data Pengujian Sensor Lab GrayPlasma</span>
+                  <span>2. Data Pengujian Sensor Lab GTID</span>
                   <span className="text-3xs text-gp-ink-400 font-mono">Toleransi 5 RGB vs Klaim</span>
                 </div>
                 <div className="divide-y divide-gp-ink-800">

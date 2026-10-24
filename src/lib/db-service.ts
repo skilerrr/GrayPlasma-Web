@@ -873,6 +873,26 @@ export class DatabaseService {
     return out as T;
   }
 
+  private static sanitizeMonitorPayload(row: Record<string, unknown>): Record<string, unknown> {
+    const payload: Record<string, unknown> = { ...row };
+    if ("createdAt" in payload && !("created_at" in payload)) {
+      payload.created_at = payload.createdAt;
+      delete payload.createdAt;
+    }
+    if ("updatedAt" in payload && !("updated_at" in payload)) {
+      payload.updated_at = payload.updatedAt;
+      delete payload.updatedAt;
+    }
+    if ("versionId" in payload && !("version_id" in payload)) {
+      payload.version_id = payload.versionId;
+      delete payload.versionId;
+    }
+    delete payload.isPublished;
+    delete payload.customVariables;
+    delete payload.isNew;
+    return payload;
+  }
+
   /**
    * Siapkan payload upsert monitor yang aman untuk kedua skema DB:
    * - kalau kolom `reviewUrl` sudah ada (setelah ALTER TABLE) -> pakai itu
@@ -882,24 +902,40 @@ export class DatabaseService {
   private static async upsertMonitorRow(row: Record<string, unknown>): Promise<void> {
     if (!supabase) return;
     invalidateCache("monitors");
-    const base = { ...row } as Record<string, unknown> & { gtidReviewUrl?: string; reviewUrl?: string };
-    delete base.reviewUrl;
-    const legacy = { ...base, gtidReviewUrl: base.gtidReviewUrl ?? row.reviewUrl ?? null };
-    delete legacy.reviewUrl;
-    const modern = { ...base, reviewUrl: row.reviewUrl ?? base.gtidReviewUrl ?? null };
-    delete modern.gtidReviewUrl;
+    const sanitized = DatabaseService.sanitizeMonitorPayload(row);
+    const reviewVal = sanitized.reviewUrl ?? sanitized.gtidReviewUrl ?? null;
 
-    let res = await supabase.from("monitors").upsert(modern as never);
-    if (res.error && /gtidReviewUrl|reviewUrl/i.test(res.error.message)) {
-      res = await supabase.from("monitors").upsert(legacy as never);
+    let payload: Record<string, unknown> = { ...sanitized, reviewUrl: reviewVal };
+    delete payload.gtidReviewUrl;
+
+    let res = await supabase.from("monitors").upsert(payload as never);
+    if (res.error && /reviewUrl/i.test(res.error.message)) {
+      delete payload.reviewUrl;
+      payload.gtidReviewUrl = reviewVal;
+      res = await supabase.from("monitors").upsert(payload as never);
     }
+
+    // Auto-strip unknown columns if schema cache throws PGRST204
+    while (res.error && res.error.code === "PGRST204") {
+      const match = res.error.message.match(/Could not find the '([^']+)' column/);
+      if (match && match[1]) {
+        delete payload[match[1]];
+        res = await supabase.from("monitors").upsert(payload as never);
+      } else {
+        break;
+      }
+    }
+
     if (res.error) console.error("Supabase monitor upsert error", res.error);
   }
 
   // ==========================================
   // 1. MONITORS CRUD
   // ==========================================
-  static async getMonitors(): Promise<Monitor[]> {
+  static async getMonitors(forceFresh = false): Promise<Monitor[]> {
+    if (forceFresh) {
+      invalidateCache("monitors");
+    }
     return cachedFetch("monitors", async () => {
       if (isSupabaseConfigured && supabase) {
         try {
@@ -909,9 +945,11 @@ export class DatabaseService {
             .order("created_at", { ascending: false });
 
           if (!error && data && data.length > 0) {
-            return (data as (Monitor & { gtidReviewUrl?: string })[]).map((m) =>
+            const mapped = (data as (Monitor & { gtidReviewUrl?: string })[]).map((m) =>
               DatabaseService.normalizeMonitor(m)
             ) as Monitor[];
+            setLocalData(STORAGE_KEYS.MONITORS, mapped);
+            return mapped;
           }
         } catch (err) {
           console.warn("Supabase fetch failed, using local storage", err);
@@ -919,7 +957,7 @@ export class DatabaseService {
       }
       const local = getLocalData<Monitor[]>(STORAGE_KEYS.MONITORS, MONITORS_DATA);
       return local.map((m) => DatabaseService.normalizeMonitor(m));
-    }, 45000);
+    }, forceFresh ? 0 : 45000);
   }
 
   static async saveMonitor(monitor: Monitor): Promise<Monitor[]> {

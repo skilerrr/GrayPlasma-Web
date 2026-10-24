@@ -103,7 +103,7 @@ export function YouTubeEmbed({
             {/* Bottom Title Bar */}
             <div className="absolute bottom-3 left-4 right-4 z-10 text-left">
               <span className="text-xs font-bold text-white line-clamp-1 drop-shadow-md">
-                ▶ Klik untuk Menonton Ulasan & Pengujian GrayPlasma
+                ▶ Klik untuk Menonton Ulasan & Pengujian GTID
               </span>
             </div>
           </div>

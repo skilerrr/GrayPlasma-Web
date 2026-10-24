@@ -64,8 +64,8 @@ export function Footer() {
             <p className="text-xs text-gp-ink-300 leading-relaxed max-w-sm">
               Database Pengujian & Kurasi Monitor Independen kolaborasi{" "}
               <strong className="text-white">{consult.author || "Joel Gray (@gray1plasma)"}</strong> x{" "}
-              <strong className="text-white">{consult.collaborators || "Tim GrayPlasma"}</strong> berdasarkan data pengetesan laboratorium{" "}
-              <strong className="text-white">GrayPlasma</strong>.
+              <strong className="text-white">{consult.collaborators || "Tim GrayPlasma"}</strong> bersumber dari data pengetesan laboratorium dan ulasan{" "}
+              <strong className="text-white">GTID</strong>.
             </p>
           </div>
 
