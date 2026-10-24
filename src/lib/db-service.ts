@@ -815,11 +815,12 @@ export class DatabaseService {
    *   dengan array `marketplaces` JSONB agar sinkron di semua komponen (halaman utama & admin).
    */
   static normalizeMonitor<T extends Record<string, any>>(row: T): T {
+    if (!row) return row;
     const out = { ...row } as any;
     if (!out.reviewUrl && out.gtidReviewUrl) out.reviewUrl = out.gtidReviewUrl;
     delete out.gtidReviewUrl;
 
-    let marketplaces = Array.isArray(out.marketplaces) ? [...out.marketplaces] : [];
+    const marketplaces = Array.isArray(out.marketplaces) ? [...out.marketplaces] : [];
 
     // Sync Shopee link
     const shopeeIdx = marketplaces.findIndex(
