@@ -12,42 +12,45 @@ interface ProsConsManagerProps {
 }
 
 export function ProsConsManager({
-  pros,
-  cons,
+  pros = [],
+  cons = [],
   onChangePros,
   onChangeCons,
   title = "Kelebihan & Kekurangan (Pros & Cons)",
 }: ProsConsManagerProps) {
+  const safePros = Array.isArray(pros) ? pros : [];
+  const safeCons = Array.isArray(cons) ? cons : [];
+
   const [newPro, setNewPro] = useState("");
   const [newCon, setNewCon] = useState("");
   const [mode, setMode] = useState<"chips" | "bulk">("chips");
 
   // Bulk textarea state
-  const [bulkPros, setBulkPros] = useState((pros || []).join("\n"));
-  const [bulkCons, setBulkCons] = useState((cons || []).join("\n"));
+  const [bulkPros, setBulkPros] = useState(safePros.join("\n"));
+  const [bulkCons, setBulkCons] = useState(safeCons.join("\n"));
 
   const handleAddPro = () => {
     const val = newPro.trim();
     if (!val) return;
-    onChangePros([...(pros || []), val]);
+    onChangePros([...safePros, val]);
     setNewPro("");
   };
 
   const handleAddCon = () => {
     const val = newCon.trim();
     if (!val) return;
-    onChangeCons([...(cons || []), val]);
+    onChangeCons([...safeCons, val]);
     setNewCon("");
   };
 
   const handleRemovePro = (idx: number) => {
-    const next = [...pros];
+    const next = [...safePros];
     next.splice(idx, 1);
     onChangePros(next);
   };
 
   const handleRemoveCon = (idx: number) => {
-    const next = [...cons];
+    const next = [...safeCons];
     next.splice(idx, 1);
     onChangeCons(next);
   };
@@ -67,8 +70,8 @@ export function ProsConsManager({
   };
 
   const handleSwitchToBulk = () => {
-    setBulkPros((pros || []).join("\n"));
-    setBulkCons((cons || []).join("\n"));
+    setBulkPros(safePros.join("\n"));
+    setBulkCons(safeCons.join("\n"));
     setMode("bulk");
   };
 
@@ -81,7 +84,7 @@ export function ProsConsManager({
             {title}
           </span>
           <span className="text-3xs font-mono px-2 py-0.5 rounded bg-gp-ink-800 text-gp-ink-300 border border-gp-ink-700">
-            {pros.length} Plus • {cons.length} Minus
+            {safePros.length} Plus • {safeCons.length} Minus
           </span>
         </div>
 
@@ -124,7 +127,7 @@ export function ProsConsManager({
                 <ThumbsUp className="w-3.5 h-3.5" />
                 <span>KELEBIHAN (PROS)</span>
               </span>
-              <span className="text-3xs text-gp-ink-400">{pros.length} item</span>
+              <span className="text-3xs text-gp-ink-400">{safePros.length} item</span>
             </div>
 
             {/* Quick Add Input */}
@@ -154,12 +157,12 @@ export function ProsConsManager({
 
             {/* Chips List */}
             <div className="space-y-1.5 min-h-[60px] max-h-[220px] overflow-y-auto pr-1">
-              {pros.length === 0 ? (
+              {safePros.length === 0 ? (
                 <div className="text-3xs text-gp-ink-500 italic py-3 text-center">
                   Belum ada catatan kelebihan.
                 </div>
               ) : (
-                pros.map((p, idx) => (
+                safePros.map((p, idx) => (
                   <div
                     key={idx}
                     className="group flex items-start justify-between gap-2 p-2 rounded-lg bg-gp-ink-850 border border-hue-emerald-500/25 hover:border-hue-emerald-500/50 transition-colors text-xs text-white"
@@ -191,7 +194,7 @@ export function ProsConsManager({
                 <ThumbsDown className="w-3.5 h-3.5" />
                 <span>KEKURANGAN (CONS)</span>
               </span>
-              <span className="text-3xs text-gp-ink-400">{cons.length} item</span>
+              <span className="text-3xs text-gp-ink-400">{safeCons.length} item</span>
             </div>
 
             {/* Quick Add Input */}
@@ -221,12 +224,12 @@ export function ProsConsManager({
 
             {/* Chips List */}
             <div className="space-y-1.5 min-h-[60px] max-h-[220px] overflow-y-auto pr-1">
-              {cons.length === 0 ? (
+              {safeCons.length === 0 ? (
                 <div className="text-3xs text-gp-ink-500 italic py-3 text-center">
                   Belum ada catatan kekurangan.
                 </div>
               ) : (
-                cons.map((c, idx) => (
+                safeCons.map((c, idx) => (
                   <div
                     key={idx}
                     className="group flex items-start justify-between gap-2 p-2 rounded-lg bg-gp-ink-850 border border-hue-rose-500/25 hover:border-hue-rose-500/50 transition-colors text-xs text-white"

@@ -259,6 +259,27 @@ const initialPeripheralColumns: TableColumnDef<PeripheralItem>[] = [
         <span className="text-gp-ink-500">-</span>
       ),
   },
+  {
+    id: "tiktok",
+    label: "TikTok Shop",
+    isDefaultVisible: true,
+    minWidth: "120px",
+    category: "Marketplace",
+    renderCell: (p) =>
+      p.tiktokUrl ? (
+        <a
+          href={p.tiktokUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-hue-cyan-500/10 border border-hue-cyan-500/30 hover:bg-hue-cyan-500 hover:text-black text-hue-cyan-400 text-xs font-bold transition-colors"
+        >
+          <span>TikTok</span>
+          <ExternalLink className="w-2.5 h-2.5" />
+        </a>
+      ) : (
+        <span className="text-gp-ink-500">-</span>
+      ),
+  },
 ];
 
 export function DeskPeripheralsView({

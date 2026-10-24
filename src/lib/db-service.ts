@@ -1047,37 +1047,72 @@ export class DatabaseService {
   // ==========================================
   // 3. PERIPHERALS CRUD
   // ==========================================
+  static normalizePeripheral(row: any): PeripheralItem {
+    if (!row) return row;
+    const out = { ...row };
+    if (!out.shopeeUrl && out.shopee_url) out.shopeeUrl = out.shopee_url;
+    if (!out.tokopediaUrl && out.tokopedia_url) out.tokopediaUrl = out.tokopedia_url;
+    if (!out.tiktokUrl && out.tiktok_url) out.tiktokUrl = out.tiktok_url;
+    if (out.shopeeUrl) out.shopeeUrl = out.shopeeUrl.trim();
+    if (out.tokopediaUrl) out.tokopediaUrl = out.tokopediaUrl.trim();
+    if (out.tiktokUrl) out.tiktokUrl = out.tiktokUrl.trim();
+    return out as PeripheralItem;
+  }
+
   static async getPeripherals(): Promise<PeripheralItem[]> {
     return cachedFetch("peripherals", async () => {
       if (isSupabaseConfigured && supabase) {
         try {
           const { data, error } = await supabase.from("peripherals").select("*");
-          if (!error && data && data.length > 0) return data as PeripheralItem[];
+          if (!error && data && data.length > 0) {
+            return (data as any[]).map((p) => DatabaseService.normalizePeripheral(p));
+          }
         } catch (err) {
           console.warn("Supabase peripheral fetch failed", err);
         }
       }
-      return getLocalData<PeripheralItem[]>(STORAGE_KEYS.PERIPHERALS, PERIPHERALS_DATABASE);
+      const local = getLocalData<PeripheralItem[]>(STORAGE_KEYS.PERIPHERALS, PERIPHERALS_DATABASE);
+      return local.map((p) => DatabaseService.normalizePeripheral(p));
     }, 120000);
   }
 
   static async savePeripheral(item: PeripheralItem): Promise<PeripheralItem[]> {
     invalidateCache("peripherals");
+    const normalized = DatabaseService.normalizePeripheral(item);
     let current = getLocalData<PeripheralItem[]>(STORAGE_KEYS.PERIPHERALS, PERIPHERALS_DATABASE);
-    const idx = current.findIndex((p) => p.id === item.id);
+    const idx = current.findIndex((p) => p.id === normalized.id);
     if (idx >= 0) {
-      current[idx] = item;
-      DatabaseService.logActivity("update", "peripheral", item.name);
+      current[idx] = normalized;
+      DatabaseService.logActivity("update", "peripheral", normalized.name);
     } else {
-      current = [item, ...current];
-      DatabaseService.logActivity("create", "peripheral", item.name);
+      current = [normalized, ...current];
+      DatabaseService.logActivity("create", "peripheral", normalized.name);
     }
 
     setLocalData(STORAGE_KEYS.PERIPHERALS, current);
 
     if (isSupabaseConfigured && supabase) {
       try {
-        await supabase.from("peripherals").upsert(item);
+        const payload: any = {
+          ...normalized,
+          shopeeUrl: normalized.shopeeUrl || null,
+          tokopediaUrl: normalized.tokopediaUrl || null,
+          tiktokUrl: normalized.tiktokUrl || null,
+        };
+        const res = await supabase.from("peripherals").upsert(payload);
+        if (res.error && /column.*does not exist|PGRST204/i.test(res.error.message)) {
+          // Fallback ke snake_case kolom jika schema database memakai snake_case
+          const snakePayload: any = {
+            ...normalized,
+            shopee_url: normalized.shopeeUrl || null,
+            tokopedia_url: normalized.tokopediaUrl || null,
+            tiktok_url: normalized.tiktokUrl || null,
+          };
+          delete snakePayload.shopeeUrl;
+          delete snakePayload.tokopediaUrl;
+          delete snakePayload.tiktokUrl;
+          await supabase.from("peripherals").upsert(snakePayload);
+        }
       } catch (err) {
         console.error("Supabase peripheral upsert error", err);
       }

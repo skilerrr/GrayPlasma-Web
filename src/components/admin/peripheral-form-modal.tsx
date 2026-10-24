@@ -285,7 +285,7 @@ export function PeripheralFormModal({
                     type="url"
                     value={formData.tiktokUrl || ""}
                     onChange={(e) => setFormData({ ...formData, tiktokUrl: e.target.value })}
-                    placeholder="https://vt.tokopedia.com/..."
+                    placeholder="https://vt.tiktok.com/..."
                     className="w-full px-3 py-2 rounded-lg bg-gp-ink-850 border border-gp-ink-600 text-white text-2xs focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-500 transition-colors font-mono"
                   />
                 </div>
