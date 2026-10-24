@@ -27,6 +27,7 @@ import {
 import { NOTION_AFTERSALES_COLUMNS } from "@/data/notion-aftersales-board-data";
 import { DatabaseService } from "@/lib/db-service";
 import { NotionRichEditor } from "@/components/admin/notion-rich-editor";
+import { ProsConsManager } from "@/components/admin/pros-cons-manager";
 import { Button } from "@/components/ui/button";
 
 interface AdminAftersalesKanbanManagerProps {
@@ -107,8 +108,12 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
       return;
     }
 
-    const prosList = prosText.split("\n").map((s) => s.trim()).filter(Boolean);
-    const consList = consText.split("\n").map((s) => s.trim()).filter(Boolean);
+    const prosList = Array.isArray(editingCard.pros) && editingCard.pros.length > 0
+      ? editingCard.pros
+      : prosText.split("\n").map((s) => s.trim()).filter(Boolean);
+    const consList = Array.isArray(editingCard.cons) && editingCard.cons.length > 0
+      ? editingCard.cons
+      : consText.split("\n").map((s) => s.trim()).filter(Boolean);
     const parsedTags = tagsInput
       .split(",")
       .map((s) => s.trim())
@@ -467,28 +472,19 @@ export function AdminAftersalesKanbanManager({ onRefresh }: AdminAftersalesKanba
                   />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-hue-emerald-400 block mb-1 font-semibold">Kelebihan / Pros (1 per baris):</label>
-                    <textarea
-                      rows={3}
-                      value={prosText}
-                      onChange={(e) => setProsText(e.target.value)}
-                      placeholder="Contoh: Proses klaim di bawah 7 hari kerja"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:outline-none focus:border-hue-emerald-400 placeholder:text-gp-ink-400"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-hue-rose-400 block mb-1 font-semibold">Kekurangan / Cons (1 per baris):</label>
-                    <textarea
-                      rows={3}
-                      value={consText}
-                      onChange={(e) => setConsText(e.target.value)}
-                      placeholder="Contoh: Wajib simpan dus dan nota asli"
-                      className="w-full bg-gp-ink-850 border border-gp-ink-600 rounded-xl p-3 text-gp-ink-100 focus:outline-none focus:border-hue-rose-400 placeholder:text-gp-ink-400"
-                    />
-                  </div>
-                </div>
+                <ProsConsManager
+                  pros={editingCard.pros || []}
+                  cons={editingCard.cons || []}
+                  onChangePros={(newPros) => {
+                    setEditingCard({ ...editingCard, pros: newPros });
+                    setProsText(newPros.join("\n"));
+                  }}
+                  onChangeCons={(newCons) => {
+                    setEditingCard({ ...editingCard, cons: newCons });
+                    setConsText(newCons.join("\n"));
+                  }}
+                  title="Kelebihan & Kekurangan Layanan Garansi"
+                />
 
                 {/* Rich WYSIWYG Editor for Deep-Dive Analysis */}
                 <div>

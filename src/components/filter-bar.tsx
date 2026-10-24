@@ -41,7 +41,15 @@ const PANEL_OPTIONS: PanelType[] = ["Fast IPS", "IPS", "OLED", "VA", "Nano IPS"]
 const REFRESH_OPTIONS: RefreshRateOption[] = ["100Hz", "144Hz", "165Hz–180Hz", "240Hz+"];
 const SCREEN_SIZE_OPTIONS: ScreenSizeCategory[] = ["24\"", "27\"", "32\"", "Ultrawide"];
 const RESOLUTION_OPTIONS: ResolutionCategory[] = ["FHD (1080p)", "2K (1440p)", "4K (2160p)"];
-const TIER_OPTIONS: TierRating[] = ["S-TIER", "BEST VALUE", "RECOMMENDED", "PASS"];
+const TIER_OPTIONS: TierRating[] = [
+  "TOP TIER",
+  "BEST VALUE",
+  "VALUE ENTRY",
+  "HONORABLE MENTION",
+  "RECOMMENDED",
+  "NOT RECOMMENDED",
+  "TIER Discontinue",
+];
 
 const BUDGET_PRESETS: { id: BudgetCategory; label: string; range: [number, number] }[] = [
   { id: "under-1.5m", label: "< 1.5 Jt", range: [0, 1500000] },
@@ -296,12 +304,14 @@ export function FilterBar({
                     onClick={() => toggleTier(tier)}
                     className={`text-xs py-2 px-3 rounded-lg border font-mono font-bold transition-colors flex items-center justify-between ${
                       isSelected
-                        ? tier === "S-TIER"
+                        ? tier === "TOP TIER" || tier === "S-TIER"
                           ? "bg-hue-emerald-500/20 text-hue-emerald-300 border-hue-emerald-400 shadow-tech-subtle"
-                          : tier === "BEST VALUE"
+                          : tier === "BEST VALUE" || tier === "VALUE ENTRY"
                           ? "bg-hue-amber-500/20 text-hue-amber-300 border-hue-amber-400 shadow-tech-subtle"
-                          : tier === "RECOMMENDED"
+                          : tier === "RECOMMENDED" || tier === "HONORABLE MENTION"
                           ? "bg-hue-cyan-500/20 text-hue-cyan-300 border-hue-cyan-400 shadow-tech-subtle"
+                          : tier === "TIER Discontinue" || tier === "DISCONTINUE"
+                          ? "bg-gp-ink-800 text-hue-rose-400 border-hue-rose-500 shadow-tech-subtle"
                           : "bg-hue-rose-500/20 text-hue-rose-300 border-hue-rose-400 shadow-tech-subtle"
                         : "bg-gp-ink-950 border-gp-ink-700 text-gp-ink-300 hover:text-gp-ink-100 hover:border-gp-ink-600"
                     }`}

@@ -41,31 +41,41 @@ export function Badge({
 }
 
 export function TierBadge({ tier }: { tier: TierRating }) {
-  if (tier === "S-TIER") {
+  const norm = (tier || "").toUpperCase();
+
+  if (norm === "S-TIER" || norm === "TOP TIER") {
     return (
       <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-3xs font-semibold bg-hue-emerald-500/10 text-hue-emerald-400 border border-hue-emerald-500/30">
         <span className="w-1.5 h-1.5 rounded-full bg-hue-emerald-400" />
-        S-Tier
+        {tier === "TOP TIER" ? "Top Tier" : "S-Tier"}
       </span>
     );
   }
-  if (tier === "BEST VALUE") {
+  if (norm === "BEST VALUE" || norm === "VALUE ENTRY") {
     return (
       <span className="inline-flex items-center px-2 py-0.5 rounded-full text-3xs font-semibold bg-hue-teal-500/10 text-hue-teal-300 border border-hue-teal-500/30">
-        Best Value
+        {tier === "VALUE ENTRY" ? "Value Entry" : "Best Value"}
       </span>
     );
   }
-  if (tier === "RECOMMENDED") {
+  if (norm === "RECOMMENDED" || norm === "HONORABLE MENTION") {
     return (
       <span className="inline-flex items-center px-2 py-0.5 rounded-full text-3xs font-medium bg-gp-ink-700/80 text-gp-ink-200 border border-gp-ink-600/60">
-        Recommended
+        {tier === "HONORABLE MENTION" ? "Honorable Mention" : "Recommended"}
+      </span>
+    );
+  }
+  if (norm === "TIER DISCONTINUE" || norm === "DISCONTINUE" || norm === "DISCONTINUED") {
+    return (
+      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-3xs font-semibold bg-gp-ink-800 text-hue-rose-400/90 border border-hue-rose-500/30">
+        <span className="w-1.5 h-1.5 rounded-full bg-hue-rose-400/80" />
+        Discontinue
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-3xs font-medium bg-gp-ink-800 text-gp-ink-300 border border-gp-ink-700">
-      Pass Tier
+    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-3xs font-medium bg-gp-ink-800 text-gp-ink-400 border border-gp-ink-700">
+      {tier === "NOT RECOMMENDED" ? "Not Recommended" : "Pass Tier"}
     </span>
   );
 }

@@ -1,4 +1,15 @@
-export type TierRating = "S-TIER" | "BEST VALUE" | "RECOMMENDED" | "PASS";
+export type TierRating =
+  | "S-TIER"
+  | "BEST VALUE"
+  | "RECOMMENDED"
+  | "PASS"
+  | "TOP TIER"
+  | "VALUE ENTRY"
+  | "HONORABLE MENTION"
+  | "NOT RECOMMENDED"
+  | "TIER Discontinue"
+  | "DISCONTINUE"
+  | (string & {});
 
 export type PanelType =
   | "IPS"

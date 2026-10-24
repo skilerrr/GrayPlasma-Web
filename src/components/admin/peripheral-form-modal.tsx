@@ -40,6 +40,8 @@ export function PeripheralFormModal({
     verdict: "",
     notes: "",
     shopeeUrl: "",
+    tokopediaUrl: "",
+    tiktokUrl: "",
     recommendedFor: "",
     isPublished: true,
   });
@@ -49,6 +51,8 @@ export function PeripheralFormModal({
       setFormData({
         ...initialData,
         isPublished: initialData.isPublished !== undefined ? initialData.isPublished : true,
+        tokopediaUrl: initialData.tokopediaUrl || "",
+        tiktokUrl: initialData.tiktokUrl || "",
       });
     } else {
       setFormData({
@@ -62,6 +66,8 @@ export function PeripheralFormModal({
         verdict: "",
         notes: "",
         shopeeUrl: "",
+        tokopediaUrl: "",
+        tiktokUrl: "",
         recommendedFor: "",
         isPublished: true,
       });
@@ -227,32 +233,62 @@ export function PeripheralFormModal({
               />
             </div>
 
-            {/* Row 5: Notes & Marketplace Link */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-gp-ink-200 block">
-                  Catatan Teknis Tambahan
-                </label>
-                <input
-                  type="text"
-                  value={formData.notes || ""}
-                  onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                  placeholder="Contoh: Termasuk bracket VESA 75x75 & 100x100"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 text-white text-xs focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-400 transition-colors"
-                />
-              </div>
+            {/* Row 5: Notes */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-gp-ink-200 block">
+                Catatan Teknis Tambahan
+              </label>
+              <input
+                type="text"
+                value={formData.notes || ""}
+                onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                placeholder="Contoh: Termasuk bracket VESA 75x75 & 100x100"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 text-white text-xs focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-400 transition-colors"
+              />
+            </div>
 
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-gp-ink-200 block">
-                  Link Marketplace (Shopee / Tokopedia)
-                </label>
-                <input
-                  type="url"
-                  value={formData.shopeeUrl || ""}
-                  onChange={(e) => setFormData({ ...formData, shopeeUrl: e.target.value })}
-                  placeholder="https://shopee.co.id/..."
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-gp-ink-850 border border-gp-ink-600 text-white text-xs focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-400 transition-colors"
-                />
+            {/* Row 6: Marketplace Links (Shopee, Tokopedia, TikTok) */}
+            <div className="space-y-2 p-3.5 rounded-xl bg-gp-ink-950/60 border border-gp-ink-700/80">
+              <label className="text-xs font-bold text-gp-ink-200 block">
+                Link Pembelian Marketplace
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="space-y-1">
+                  <span className="text-3xs font-mono font-bold text-brand-shopee flex items-center gap-1">
+                    Shopee URL
+                  </span>
+                  <input
+                    type="url"
+                    value={formData.shopeeUrl || ""}
+                    onChange={(e) => setFormData({ ...formData, shopeeUrl: e.target.value })}
+                    placeholder="https://s.shopee.co.id/..."
+                    className="w-full px-3 py-2 rounded-lg bg-gp-ink-850 border border-gp-ink-600 text-white text-2xs focus:border-brand-shopee focus:outline-none placeholder:text-gp-ink-500 transition-colors font-mono"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <span className="text-3xs font-mono font-bold text-hue-emerald-400 flex items-center gap-1">
+                    Tokopedia URL
+                  </span>
+                  <input
+                    type="url"
+                    value={formData.tokopediaUrl || ""}
+                    onChange={(e) => setFormData({ ...formData, tokopediaUrl: e.target.value })}
+                    placeholder="https://tk.tokopedia.com/..."
+                    className="w-full px-3 py-2 rounded-lg bg-gp-ink-850 border border-gp-ink-600 text-white text-2xs focus:border-hue-emerald-400 focus:outline-none placeholder:text-gp-ink-500 transition-colors font-mono"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <span className="text-3xs font-mono font-bold text-hue-cyan-400 flex items-center gap-1">
+                    TikTok Shop URL
+                  </span>
+                  <input
+                    type="url"
+                    value={formData.tiktokUrl || ""}
+                    onChange={(e) => setFormData({ ...formData, tiktokUrl: e.target.value })}
+                    placeholder="https://vt.tokopedia.com/..."
+                    className="w-full px-3 py-2 rounded-lg bg-gp-ink-850 border border-gp-ink-600 text-white text-2xs focus:border-hue-cyan-400 focus:outline-none placeholder:text-gp-ink-500 transition-colors font-mono"
+                  />
+                </div>
               </div>
             </div>
           </div>

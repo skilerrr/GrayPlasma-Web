@@ -288,11 +288,17 @@ export default function GuideDynamicPage({ params }: GuideDynamicPageProps) {
       if (filterState.sortBy === "price-desc") return b.price - a.price;
       if (filterState.sortBy === "refresh-desc") return b.specs.display.refreshRate - a.specs.display.refreshRate;
       if (filterState.sortBy === "tier") {
-        const tierWeights: Record<TierRating, number> = {
-          "S-TIER": 4,
-          "BEST VALUE": 3,
-          "RECOMMENDED": 2,
+        const tierWeights: Record<string, number> = {
+          "TOP TIER": 5,
+          "S-TIER": 5,
+          "BEST VALUE": 4,
+          "VALUE ENTRY": 3,
+          "RECOMMENDED": 3,
+          "HONORABLE MENTION": 2,
+          "NOT RECOMMENDED": 1,
           "PASS": 1,
+          "TIER Discontinue": 0,
+          "DISCONTINUE": 0,
         };
         return (tierWeights[b.tier] || 0) - (tierWeights[a.tier] || 0);
       }

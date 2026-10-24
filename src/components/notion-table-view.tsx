@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { Monitor, TierRating } from "@/types/monitor";
 import { formatRupiah } from "@/lib/utils";
+import { TierBadge } from "@/components/ui/badge";
 import { useDraggableTable, TableColumnDef } from "@/hooks/use-draggable-table";
 import { TableColumnManagerModal } from "@/components/ui/table-column-manager-modal";
 
@@ -154,11 +155,7 @@ export function NotionTableView({
       isDefaultVisible: false,
       category: "Peringkat",
       getValue: (m) => m.tier,
-      renderCell: (m) => (
-        <span className="px-2 py-0.5 rounded bg-hue-amber-500/15 border border-hue-amber-500/30 text-hue-amber-300 font-mono text-3xs font-bold whitespace-nowrap">
-          {m.tier}
-        </span>
-      ),
+      renderCell: (m) => <TierBadge tier={m.tier} />,
     },
     {
       id: "subpixel",
@@ -499,15 +496,7 @@ export function NotionTableView({
                                 {monitor.specs.display.size} • {monitor.specs.display.panelType} • {monitor.specs.display.refreshRate}Hz
                               </td>
                               <td className="py-2.5 px-3">
-                                <span className={`text-3xs font-bold px-2 py-0.5 rounded ${
-                                  monitor.tier === "S-TIER"
-                                    ? "bg-gp-mint-900 text-gp-mint"
-                                    : monitor.tier === "BEST VALUE"
-                                    ? "bg-gp-sky-600 text-gp-sky"
-                                    : "bg-gp-ink-700 text-gp-ink-300"
-                                }`}>
-                                  {monitor.tier}
-                                </span>
+                                <TierBadge tier={monitor.tier} />
                               </td>
                             </tr>
                           );
@@ -635,17 +624,7 @@ export function NotionTableView({
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute top-2 right-2">
-                    <span
-                      className={`text-4xs sm:text-3xs font-bold px-1.5 sm:px-2 py-0.5 rounded shadow-sm ${
-                        monitor.tier === "S-TIER"
-                          ? "bg-gp-mint-900 text-gp-mint border border-gp-mint/30"
-                          : monitor.tier === "BEST VALUE"
-                          ? "bg-gp-sky-600 text-gp-sky border border-gp-sky/30"
-                          : "bg-gp-ink-700 text-gp-ink-200"
-                      }`}
-                    >
-                      {monitor.tier}
-                    </span>
+                    <TierBadge tier={monitor.tier} />
                   </div>
                 </div>
 

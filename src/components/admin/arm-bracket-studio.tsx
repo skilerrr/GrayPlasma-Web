@@ -393,6 +393,17 @@ export function ArmBracketStudio({
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
             )}
+            {p.tiktokUrl && (
+              <a
+                href={p.tiktokUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-1 rounded bg-hue-cyan-500/10 text-hue-cyan-400 hover:bg-hue-cyan-500/20 border border-hue-cyan-500/30 font-mono text-3xs font-bold px-1.5"
+                title="Buka TikTok Shop"
+              >
+                TT
+              </a>
+            )}
           </div>
         ),
       },
@@ -855,6 +866,16 @@ export function ArmBracketStudio({
                       >
                         <ExternalLink className="w-3 h-3" />
                         <span>Tokopedia</span>
+                      </a>
+                    )}
+                    {p.tiktokUrl && (
+                      <a
+                        href={p.tiktokUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-2.5 py-1 rounded-lg bg-hue-cyan-500/10 text-hue-cyan-400 hover:bg-hue-cyan-500/20 border border-hue-cyan-500/30 text-xs font-bold flex items-center gap-1"
+                      >
+                        <span>TikTok</span>
                       </a>
                     )}
                   </div>

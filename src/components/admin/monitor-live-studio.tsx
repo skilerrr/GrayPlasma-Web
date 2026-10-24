@@ -43,6 +43,7 @@ import { ModularTableBuilder } from "@/components/admin/modular-table-builder";
 import { useDraggableTable, TableColumnDef } from "@/hooks/use-draggable-table";
 import { TableColumnManagerModal } from "@/components/ui/table-column-manager-modal";
 import { WordDocsStudio } from "@/components/admin/word-docs-studio";
+import { ProsConsManager } from "@/components/admin/pros-cons-manager";
 import Image from "next/image";
 
 interface MonitorLiveStudioProps {
@@ -397,8 +398,8 @@ export function MonitorLiveStudio({
         formData.specs?.display?.responseTime || "1ms GtG",
       ],
       expertVerdict: formData.expertVerdict || "Data pengetesan GrayPlasma.",
-      pros: formData.pros || ["Panel berkualitas", "Refresh rate tinggi"],
-      cons: formData.cons || ["Perhatikan setting Overdrive"],
+      pros: Array.isArray(formData.pros) ? formData.pros : [],
+      cons: Array.isArray(formData.cons) ? formData.cons : [],
       specs: formData.specs as Monitor["specs"],
       marketplaces: formData.marketplaces || [],
       priceHistory: [{ date: "Rekomendasi GrayPlasma", price: Number(formData.price), label: "Harga Target" }],
@@ -580,6 +581,7 @@ export function MonitorLiveStudio({
           <option value="VALUE ENTRY">VALUE ENTRY</option>
           <option value="HONORABLE MENTION">HONORABLE MENTION</option>
           <option value="NOT RECOMMENDED">NOT RECOMMENDED</option>
+          <option value="TIER Discontinue">TIER Discontinue</option>
         </select>
       ),
     },
@@ -907,6 +909,7 @@ export function MonitorLiveStudio({
                 <option value="VALUE ENTRY">VALUE ENTRY</option>
                 <option value="HONORABLE MENTION">HONORABLE MENTION</option>
                 <option value="NOT RECOMMENDED">NOT RECOMMENDED</option>
+                <option value="TIER Discontinue">TIER Discontinue</option>
               </select>
 
               {/* Status Visibility Filter */}
@@ -1338,19 +1341,21 @@ export function MonitorLiveStudio({
                 <span>Tier Rekomendasi</span>
               </span>
               <div className="col-span-8 flex items-center gap-1.5 flex-wrap">
-                {(["S-TIER", "BEST VALUE", "RECOMMENDED", "PASS"] as TierRating[]).map((t) => (
+                {(["TOP TIER", "BEST VALUE", "VALUE ENTRY", "HONORABLE MENTION", "NOT RECOMMENDED", "TIER Discontinue"] as TierRating[]).map((t) => (
                   <button
                     key={t}
                     type="button"
                     onClick={() => setFormData({ ...formData, tier: t })}
                     className={`px-2 py-0.5 rounded text-3xs font-bold transition-colors ${
                       formData.tier === t
-                        ? t === "S-TIER"
+                        ? t === "TOP TIER" || t === "S-TIER"
                           ? "bg-hue-emerald-500 text-black shadow-sm font-black"
-                          : t === "BEST VALUE"
+                          : t === "BEST VALUE" || t === "VALUE ENTRY"
                           ? "bg-hue-amber-500 text-black shadow-sm font-black"
-                          : t === "RECOMMENDED"
+                          : t === "HONORABLE MENTION" || t === "RECOMMENDED"
                           ? "bg-hue-cyan-500 text-black shadow-sm font-black"
+                          : t === "TIER Discontinue" || t === "DISCONTINUE"
+                          ? "bg-gp-ink-800 text-hue-rose-400 border border-hue-rose-500 font-black"
                           : "bg-hue-rose-500 text-white shadow-sm font-black"
                         : "bg-gp-ink-800 text-gp-ink-400 border border-gp-ink-650 hover:text-white"
                     }`}
@@ -1848,6 +1853,15 @@ export function MonitorLiveStudio({
             </div>
           </div>
 
+          {/* Pros & Cons Structured Editor */}
+          <ProsConsManager
+            pros={formData.pros || []}
+            cons={formData.cons || []}
+            onChangePros={(newPros) => setFormData((prev) => ({ ...prev, pros: newPros }))}
+            onChangeCons={(newCons) => setFormData((prev) => ({ ...prev, cons: newCons }))}
+            title={`Poin Plus & Minus: ${formData.model || "Monitor"}`}
+          />
+
           {/* 3. Word / Notion Document Canvas (Main Body) */}
           <div className="space-y-2 pt-1">
             <div className="flex items-center justify-between text-xs">
@@ -2163,7 +2177,7 @@ export function MonitorLiveStudio({
             showNotification("Dokumen ulasan monitor berhasil diperbarui.");
           }}
           onClose={() => setIsWordDocsOpen(false)}
-          availableCategories={["BEST VALUE", "TOP TIER", "VALUE ENTRY", "HONORABLE MENTION", "NOT RECOMMENDED"]}
+          availableCategories={["BEST VALUE", "TOP TIER", "VALUE ENTRY", "HONORABLE MENTION", "NOT RECOMMENDED", "TIER Discontinue"]}
         />
       )}
     </div>

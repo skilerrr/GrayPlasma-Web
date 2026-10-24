@@ -738,6 +738,9 @@ export function SiteElementsManager({
                     placeholder="Subjudul Section Bracket..."
                     className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-3 py-2 text-gp-ink-300"
                   />
+                  <div className="p-2.5 rounded-lg bg-hue-cyan-500/10 border border-hue-cyan-500/25 flex items-center justify-between text-2xs text-hue-cyan-300">
+                    <span>💡 Mengubah link atau daftar produk bracket? Kelola langsung di menu sidebar <strong>Arm & Bracket</strong>.</span>
+                  </div>
                 </div>
 
                 {/* Section Aksesoris & Kabel Peripherals */}

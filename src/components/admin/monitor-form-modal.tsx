@@ -18,6 +18,7 @@ import { Monitor, TierRating } from "@/types/monitor";
 import { compressImage, formatFileSize, CompressedImageResult } from "@/lib/image-compressor";
 import { uploadImageToSupabase, isSupabaseConfigured } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
+import { ProsConsManager } from "@/components/admin/pros-cons-manager";
 
 interface MonitorFormModalProps {
   monitor: Monitor | null;
@@ -376,10 +377,13 @@ export function MonitorFormModal({
                   onChange={(e) => setFormData({ ...formData, tier: e.target.value as TierRating })}
                   className="w-full bg-gp-ink-950 border border-gp-ink-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-hue-emerald-500"
                 >
-                  <option value="S-TIER">S-TIER (Terbaik)</option>
                   <option value="BEST VALUE">BEST VALUE (Paling Worth It)</option>
+                  <option value="TOP TIER">TOP TIER (Flagship)</option>
+                  <option value="VALUE ENTRY">VALUE ENTRY (Budget Entry)</option>
+                  <option value="HONORABLE MENTION">HONORABLE MENTION (Alternatif)</option>
                   <option value="RECOMMENDED">RECOMMENDED (Bagus)</option>
-                  <option value="PASS">PASS (Tidak Worth It)</option>
+                  <option value="NOT RECOMMENDED">NOT RECOMMENDED (Hindari)</option>
+                  <option value="TIER Discontinue">TIER Discontinue (Discontinued / EOL)</option>
                 </select>
               </div>
               <div>
@@ -815,6 +819,15 @@ export function MonitorFormModal({
               </div>
             </div>
           </div>
+
+          {/* Pros & Cons List Builder */}
+          <ProsConsManager
+            pros={formData.pros || []}
+            cons={formData.cons || []}
+            onChangePros={(newPros) => setFormData({ ...formData, pros: newPros })}
+            onChangeCons={(newCons) => setFormData({ ...formData, cons: newCons })}
+            title="Poin Kelebihan (Pros) & Kekurangan (Cons)"
+          />
 
           {/* 5. Kelengkapan yang Diberi */}
           <div className="space-y-2 pt-4 border-t border-gp-ink-700/80">
