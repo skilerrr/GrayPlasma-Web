@@ -52,6 +52,22 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
+-- Helper function for super_admin to update another user's password directly
+CREATE OR REPLACE FUNCTION public.admin_set_user_password(target_user_id UUID, new_password TEXT)
+RETURNS BOOLEAN AS $$
+BEGIN
+  IF NOT public.is_super_admin() THEN
+    RAISE EXCEPTION 'Hanya Super Admin yang berhak mengubah password pengguna lain.';
+  END IF;
+
+  UPDATE auth.users
+  SET encrypted_password = crypt(new_password, gen_salt('bf'))
+  WHERE id = target_user_id;
+
+  RETURN true;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
 -- Admin profiles policies
 DROP POLICY IF EXISTS "Admins can view all profiles" ON public.admin_profiles;
 CREATE POLICY "Admins can view all profiles" ON public.admin_profiles

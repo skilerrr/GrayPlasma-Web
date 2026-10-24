@@ -35,7 +35,7 @@ import {
 } from "@/lib/db-service";
 import { compressImage } from "@/lib/image-compressor";
 import { Button } from "@/components/ui/button";
-import { isSupabaseConfigured, createCollaboratorAccount } from "@/lib/supabase";
+import { isSupabaseConfigured, createCollaboratorAccount, updateAdminPassword } from "@/lib/supabase";
 
 interface AdminHierarchyManagerProps {
   admins: AdminUser[];
@@ -204,6 +204,16 @@ export function AdminHierarchyManager({
         showNotice(res.message);
         if (res.profile?.id) {
           finalId = res.profile.id;
+        }
+      }
+    } else if (isSupabaseConfigured && editingAdmin) {
+      // Jika mengedit admin yang sudah ada dan PIN/password diubah
+      if (formData.pinCode && formData.pinCode !== editingAdmin.pinCode) {
+        const passRes = await updateAdminPassword(formData.pinCode, formData.id);
+        if (!passRes.success) {
+          alert(`Peringatan update password Supabase: ${passRes.message}`);
+        } else {
+          showNotice(passRes.message || "Password admin berhasil diperbarui!");
         }
       }
     }

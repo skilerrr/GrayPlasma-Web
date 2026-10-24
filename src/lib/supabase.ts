@@ -260,6 +260,45 @@ export async function createCollaboratorAccount(params: {
 }
 
 /**
+ * Update password admin di Supabase Auth.
+ * - Jika akun milik sendiri (atau targetUserId sama dengan user yang login): update lewat auth.updateUser()
+ * - Jika akun orang lain: panggil RPC admin_set_user_password (khusus super_admin)
+ */
+export async function updateAdminPassword(
+  newPassword: string,
+  targetUserId?: string
+): Promise<{ success: boolean; message?: string }> {
+  if (!supabase) return { success: false, message: "Supabase belum terkonfigurasi." };
+  try {
+    const { data: sessionData } = await supabase.auth.getSession();
+    const currentUserId = sessionData.session?.user?.id;
+
+    if (!targetUserId || targetUserId === currentUserId) {
+      const { error } = await supabase.auth.updateUser({ password: newPassword });
+      if (error) return { success: false, message: error.message };
+      return { success: true, message: "Password akun Anda berhasil diperbarui di Supabase Auth." };
+    }
+
+    // Ubah password user lain lewat fungsi security definer (khusus super admin)
+    const { error: rpcError } = await supabase.rpc("admin_set_user_password", {
+      target_user_id: targetUserId,
+      new_password: newPassword,
+    });
+
+    if (rpcError) {
+      return {
+        success: false,
+        message: `Gagal mengubah password user lain: ${rpcError.message}`,
+      };
+    }
+
+    return { success: true, message: "Password admin berhasil diperbarui di Supabase Auth." };
+  } catch (err: any) {
+    return { success: false, message: err.message || "Gagal mengubah password." };
+  }
+}
+
+/**
  * Uploads a compressed WebP file to Supabase Storage Bucket ('gp-assets')
  * Returns the public URL of the uploaded image.
  */
