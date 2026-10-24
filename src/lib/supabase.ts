@@ -45,17 +45,60 @@ export async function signInAdminWithSupabase(usernameOrEmail: string, password:
     const cleanInput = usernameOrEmail.trim().toLowerCase();
     const cleanPassword = password.trim();
 
-    // Dukung username murni (misal: 'grayplasma') maupun format email
-    const emailToTry = cleanInput.includes("@")
-      ? cleanInput
-      : `${cleanInput}@grayplasma.local`;
+    // Resolusi email:
+    // 1. Jika sudah mengandung '@', gunakan langsung
+    // 2. Jika username, periksa cache admin lokal barangkali ada email akun terdaftar
+    let emailToTry = cleanInput;
+    if (!cleanInput.includes("@")) {
+      if (typeof window !== "undefined") {
+        try {
+          const raw = window.localStorage.getItem("gp_db_admin_users_v1");
+          if (raw) {
+            const list = JSON.parse(raw);
+            const found = list.find(
+              (u: any) =>
+                (u.username || "").toLowerCase() === cleanInput ||
+                (u.name || "").toLowerCase() === cleanInput
+            );
+            if (found?.email) {
+              emailToTry = found.email.trim().toLowerCase();
+            }
+          }
+        } catch {
+          /* ignore storage error */
+        }
+      }
+      if (!emailToTry.includes("@")) {
+        emailToTry = `${cleanInput}@grayplasma.local`;
+      }
+    }
 
-    const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+    let { data: authData, error: authError } = await supabase.auth.signInWithPassword({
       email: emailToTry,
       password: cleanPassword,
     });
 
+    // Fallback jika login username via .local gagal, coba domain .id
+    if (authError && !cleanInput.includes("@") && emailToTry.endsWith("@grayplasma.local")) {
+      const fallbackId = `${cleanInput}@grayplasma.id`;
+      const retry = await supabase.auth.signInWithPassword({
+        email: fallbackId,
+        password: cleanPassword,
+      });
+      if (!retry.error && retry.data.user) {
+        authData = retry.data;
+        authError = null;
+      }
+    }
+
     if (authError || !authData.user) {
+      if (authError?.message?.toLowerCase().includes("email not confirmed")) {
+        return {
+          user: null,
+          profile: null,
+          error: "Email akun belum dikonfirmasi di Supabase. Aktifkan 'Auto Confirm User' di Auth Dashboard atau klik link konfirmasi email.",
+        };
+      }
       return { user: null, profile: null, error: authError?.message || "Autentikasi gagal." };
     }
 
@@ -67,13 +110,27 @@ export async function signInAdminWithSupabase(usernameOrEmail: string, password:
       .single();
 
     if (profileError || !profileData) {
-      // P0 FIX: nggak ada lagi auto-create profil dengan role super_admin.
-      // Akun Supabase tanpa baris di admin_profiles = bukan admin.
+      // Fallback: periksa berdasarkan email jika ID auth belum tertaut di baris admin_profiles
+      const { data: profileByEmail } = await supabase
+        .from("admin_profiles")
+        .select("*")
+        .eq("email", authData.user.email || "")
+        .single();
+
+      if (profileByEmail) {
+        // Tautkan UUID auth.users ke admin_profiles
+        await supabase
+          .from("admin_profiles")
+          .update({ id: authData.user.id, last_login: new Date().toISOString() })
+          .eq("email", authData.user.email || "");
+        return { user: authData.user, profile: profileByEmail as SupabaseAdminProfile, error: null };
+      }
+
       await supabase.auth.signOut();
       return {
         user: null,
         profile: null,
-        error: "Akun ini tidak terdaftar sebagai admin. Hubungi owner.",
+        error: "Akun ini terdaftar di Auth tapi belum memiliki baris profil di tabel public.admin_profiles.",
       };
     }
 
@@ -135,6 +192,7 @@ export async function createCollaboratorAccount(params: {
   email: string;
   password?: string;
   name: string;
+  username?: string;
   role: "super_admin" | "lead_reviewer" | "editor" | "contributor";
   roleTitle?: string;
   permissions?: string[];
@@ -145,14 +203,17 @@ export async function createCollaboratorAccount(params: {
 
   try {
     const temporaryPassword = params.password || "gp" + Math.random().toString(36).substring(2, 8) + "!2026";
+    const cleanEmail = params.email.trim().toLowerCase();
+    const cleanUsername = (params.username || cleanEmail.split("@")[0]).trim().toLowerCase();
 
     // 1. Sign up user through Supabase Auth
     const { data: authData, error: authError } = await supabase.auth.signUp({
-      email: params.email.trim(),
+      email: cleanEmail,
       password: temporaryPassword,
       options: {
         data: {
           name: params.name,
+          username: cleanUsername,
           role: params.role,
         },
       },
@@ -165,7 +226,8 @@ export async function createCollaboratorAccount(params: {
     // 2. Insert record into admin_profiles
     const newProfile: SupabaseAdminProfile = {
       id: authData.user.id,
-      email: params.email.trim(),
+      username: cleanUsername,
+      email: cleanEmail,
       name: params.name.trim(),
       role: params.role,
       role_title: params.roleTitle || "Collaborator",
@@ -180,11 +242,16 @@ export async function createCollaboratorAccount(params: {
 
     if (profileError) {
       console.warn("Error inserting profile to table:", profileError.message);
+      return {
+        success: false,
+        message: `Akun Auth dibuat, namun gagal simpan ke tabel admin_profiles (${profileError.message}). Cek apakah RLS admin_profiles memblokir atau hubungkan akun manual via SQL.`,
+        profile: newProfile,
+      };
     }
 
     return {
       success: true,
-      message: `Akun untuk ${params.name} (${params.email}) berhasil didaftarkan. Password awal: ${temporaryPassword}`,
+      message: `Akun untuk ${params.name} (${cleanEmail}) berhasil didaftarkan.`,
       profile: newProfile,
     };
   } catch (err: any) {

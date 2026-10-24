@@ -381,7 +381,23 @@ Link Detail: ${detailUrl}`;
           <div className="grid grid-cols-12 items-center gap-2 py-0.5">
             <span className="col-span-4 text-gp-ink-400 font-medium">Last Updated</span>
             <span className="col-span-8 font-bold text-gp-ink-200 text-2xs">
-              {monitor.lastUpdatedDate || "June 24, 2025"}
+              {(() => {
+                if (monitor.updatedAt) {
+                  try {
+                    const d = new Date(monitor.updatedAt);
+                    if (!isNaN(d.getTime())) {
+                      return new Intl.DateTimeFormat("en-US", {
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
+                      }).format(d);
+                    }
+                  } catch {
+                    /* fallback */
+                  }
+                }
+                return monitor.lastUpdatedDate || "Recently Updated";
+              })()}
             </span>
           </div>
 

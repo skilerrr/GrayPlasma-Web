@@ -751,19 +751,36 @@ export class DatabaseService {
     setLocalData(STORAGE_KEYS.ADMIN_USERS, current);
 
     if (isSupabaseConfigured && supabase) {
-      supabase.from("admin_profiles").upsert({
-        id: user.id.length === 36 ? user.id : undefined, // only UUIDs for Supabase
+      const cleanUsername = user.username?.trim().toLowerCase() || (user.email ? user.email.split("@")[0].toLowerCase() : null);
+      const profilePayload: any = {
         name: user.name,
-        email: user.email,
+        username: cleanUsername,
+        email: user.email?.trim().toLowerCase(),
         role: user.role,
         role_title: user.roleTitle,
         avatar: user.avatar,
         bio: user.bio,
         permissions: user.permissions,
         is_active: true,
-      }).then(({ error }) => {
-        if (error) console.error("Supabase admin profile upsert error", error);
-      });
+      };
+
+      if (user.id && user.id.length === 36) {
+        profilePayload.id = user.id;
+        supabase
+          .from("admin_profiles")
+          .upsert(profilePayload)
+          .then(({ error }) => {
+            if (error) console.error("Supabase admin profile upsert error", error);
+          });
+      } else if (user.email) {
+        supabase
+          .from("admin_profiles")
+          .update(profilePayload)
+          .eq("email", user.email.trim().toLowerCase())
+          .then(({ error }) => {
+            if (error) console.error("Supabase admin profile update error", error);
+          });
+      }
     }
 
     return current;
@@ -911,9 +928,17 @@ export class DatabaseService {
     let current = getLocalData<Monitor[]>(STORAGE_KEYS.MONITORS, MONITORS_DATA);
     const existingIndex = current.findIndex((m) => m.id === normalized.id);
 
+    const nowIso = new Date().toISOString();
+    const nowFormatted = new Intl.DateTimeFormat("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    }).format(new Date());
+
     const updatedMonitor: Monitor = {
       ...normalized,
-      updatedAt: new Date().toISOString(),
+      updatedAt: nowIso,
+      lastUpdatedDate: nowFormatted,
       versionId: (normalized.versionId || 1) + 1,
     };
 

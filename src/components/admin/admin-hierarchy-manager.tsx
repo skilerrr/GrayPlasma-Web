@@ -187,11 +187,13 @@ export function AdminHierarchyManager({
     }
 
     // If creating a brand new admin and Supabase is configured, create the real account
+    let finalId = formData.id;
     if (isSupabaseConfigured && !editingAdmin) {
       const res = await createCollaboratorAccount({
         email: cleanEmail,
         password: formData.pinCode,
         name: formData.name,
+        username: formData.username,
         role: formData.role,
         roleTitle: formData.roleTitle,
         permissions: formData.permissions,
@@ -200,14 +202,18 @@ export function AdminHierarchyManager({
         alert(`Perhatian Supabase: ${res.message}\nAkun tetap disimpan ke cache lokal.`);
       } else {
         showNotice(res.message);
+        if (res.profile?.id) {
+          finalId = res.profile.id;
+        }
       }
     }
 
-    const updated = DatabaseService.saveAdminUser(formData);
+    const adminToSave: AdminUser = { ...formData, id: finalId };
+    const updated = DatabaseService.saveAdminUser(adminToSave);
     onUpdateAdmins(updated);
-    if (currentAdmin?.id === formData.id) {
-      onSwitchSession(formData);
-      DatabaseService.setCurrentAdminSession(formData);
+    if (currentAdmin?.id === formData.id || currentAdmin?.id === finalId) {
+      onSwitchSession(adminToSave);
+      DatabaseService.setCurrentAdminSession(adminToSave);
     }
     setLogs(DatabaseService.getActivityLogs());
     setIsModalOpen(false);
