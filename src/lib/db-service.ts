@@ -1647,7 +1647,11 @@ export class DatabaseService {
 
     if (isSupabaseConfigured && supabase) {
       try {
-        await supabase.from("aftersales_cards").upsert(card);
+        const payload: any = {
+          ...card,
+          brand: (card as any).brand || card.title || card.id,
+        };
+        await supabase.from("aftersales_cards").upsert(payload);
       } catch (err) {
         console.error("Supabase aftersales card upsert error", err);
       }
@@ -1719,6 +1723,7 @@ export class DatabaseService {
   }
 
   static saveFAQ(item: FAQItem): FAQItem[] {
+    invalidateCache("faq_items");
     let current = getLocalData<FAQItem[]>(STORAGE_KEYS.FAQ_ITEMS, FAQ_LIST);
     const idx = current.findIndex((f) => f.id === item.id);
     if (idx >= 0) {
@@ -1740,6 +1745,7 @@ export class DatabaseService {
   }
 
   static deleteFAQ(id: string): FAQItem[] {
+    invalidateCache("faq_items");
     let current = getLocalData<FAQItem[]>(STORAGE_KEYS.FAQ_ITEMS, FAQ_LIST);
     const target = current.find((f) => f.id === id);
     if (target) DatabaseService.logActivity("delete", "faq", target.question);
@@ -1756,6 +1762,7 @@ export class DatabaseService {
   }
 
   static resetFAQ(): FAQItem[] {
+    invalidateCache("faq_items");
     setLocalData(STORAGE_KEYS.FAQ_ITEMS, FAQ_LIST);
     DatabaseService.logActivity("reset", "faq", "Daftar FAQ", "Reset FAQ ke default.");
     return FAQ_LIST;
