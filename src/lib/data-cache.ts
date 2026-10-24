@@ -154,6 +154,7 @@ export function invalidateCache(keyOrPrefix?: string): void {
           if (k && k.startsWith(SESSION_PREFIX)) keys.push(k);
         }
         keys.forEach((k) => window.sessionStorage.removeItem(k));
+        localStorage.setItem("gp_cache_invalidated", Date.now().toString());
       } catch {
         /* ignore */
       }
@@ -169,6 +170,33 @@ export function invalidateCache(keyOrPrefix?: string): void {
       dropSession(key);
     }
   }
+
+  if (typeof window !== "undefined") {
+    try {
+      localStorage.setItem("gp_cache_invalidated", `${keyOrPrefix}:${Date.now()}`);
+    } catch {
+      /* ignore */
+    }
+  }
+}
+
+if (typeof window !== "undefined") {
+  window.addEventListener("storage", (e) => {
+    if (e.key === "gp_cache_invalidated" && e.newValue) {
+      memory.clear();
+      inflight.clear();
+      try {
+        const keys: string[] = [];
+        for (let i = 0; i < window.sessionStorage.length; i++) {
+          const k = window.sessionStorage.key(i);
+          if (k && k.startsWith(SESSION_PREFIX)) keys.push(k);
+        }
+        keys.forEach((k) => window.sessionStorage.removeItem(k));
+      } catch {
+        /* ignore */
+      }
+    }
+  });
 }
 
 /** Tandai tabel sebagai belum ada di Supabase supaya tidak di-query lagi. */

@@ -235,6 +235,9 @@ export function MonitorFormModal({
       return;
     }
 
+    const shopeeMkp = formData.marketplaces?.find((m) => m.marketplace?.toLowerCase() === "shopee")?.url;
+    const topedMkp = formData.marketplaces?.find((m) => m.marketplace?.toLowerCase() === "tokopedia")?.url;
+
     const finalItem: Monitor = {
       id: formData.id || `mon-${Date.now()}`,
       slug: formData.slug || formData.fullName.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
@@ -246,6 +249,9 @@ export function MonitorFormModal({
       price: Number(formData.price) || 1500000,
       originalPrice: formData.originalPrice ? Number(formData.originalPrice) : undefined,
       recommendedPrice: formData.recommendedPrice ? Number(formData.recommendedPrice) : undefined,
+      linkShopee: formData.linkShopee?.trim() || shopeeMkp || undefined,
+      linkTokopedia: formData.linkTokopedia?.trim() || topedMkp || undefined,
+      linkTiktokShop: formData.linkTiktokShop?.trim() || undefined,
       thumbnail: formData.thumbnail || "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop",
       gallery: formData.gallery || [],
       quickSpecs: [
@@ -255,8 +261,8 @@ export function MonitorFormModal({
         formData.specs?.display?.responseTime || "1ms GtG",
       ],
       expertVerdict: formData.expertVerdict || "Data pengetesan GrayPlasma.",
-      pros: formData.pros || ["Panel berkualitas", "Refresh rate tinggi"],
-      cons: formData.cons || ["Perhatikan setting Overdrive"],
+      pros: Array.isArray(formData.pros) ? formData.pros : [],
+      cons: Array.isArray(formData.cons) ? formData.cons : [],
       specs: formData.specs as Monitor["specs"],
       marketplaces: formData.marketplaces as Monitor["marketplaces"],
       priceHistory: [{ date: "Rekomendasi GrayPlasma", price: Number(formData.price), label: "Harga Target" }],
@@ -682,7 +688,7 @@ export function MonitorFormModal({
                 <label className="text-2xs text-hue-emerald-400 block mb-1">Toleransi Baru (Data Baru GrayPlasma)</label>
                 <input
                   type="text"
-                  value={formData.responseTimeData?.toleranceNew || "Toleransi Baru (5 RGB)"}
+                  value={formData.responseTimeData?.toleranceNew ?? ""}
                   onChange={(e) =>
                     setFormData({
                       ...formData,
@@ -692,15 +698,15 @@ export function MonitorFormModal({
                       },
                     })
                   }
-                  placeholder="e.g. Toleransi Baru (5 RGB)"
-                  className="w-full bg-gp-ink-950 border border-hue-emerald-500/30 rounded-xl px-3 py-1.5 text-xs text-hue-emerald-300"
+                  placeholder="e.g. Toleransi Baru (5 RGB) atau N/A"
+                  className="w-full bg-gp-ink-950 border border-hue-emerald-500/30 rounded-xl px-3 py-1.5 text-xs text-hue-emerald-300 placeholder:text-gp-ink-600"
                 />
               </div>
               <div>
                 <label className="text-2xs text-hue-rose-400 block mb-1">Toleransi Lama (Data Lama GrayPlasma)</label>
                 <input
                   type="text"
-                  value={formData.responseTimeData?.toleranceOld || "Toleransi Lama (10 RGB)"}
+                  value={formData.responseTimeData?.toleranceOld ?? ""}
                   onChange={(e) =>
                     setFormData({
                       ...formData,
@@ -710,8 +716,8 @@ export function MonitorFormModal({
                       },
                     })
                   }
-                  placeholder="e.g. Toleransi Lama (10 RGB)"
-                  className="w-full bg-gp-ink-950 border border-hue-rose-500/30 rounded-xl px-3 py-1.5 text-xs text-hue-rose-300"
+                  placeholder="e.g. Toleransi Lama (10 RGB) atau N/A"
+                  className="w-full bg-gp-ink-950 border border-hue-rose-500/30 rounded-xl px-3 py-1.5 text-xs text-hue-rose-300 placeholder:text-gp-ink-600"
                 />
               </div>
             </div>

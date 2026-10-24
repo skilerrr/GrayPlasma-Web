@@ -53,10 +53,10 @@ export interface MarketplaceLink {
   marketplace: "Tokopedia" | "Shopee" | "Blibli";
   url: string;
   price: number;
-  isAffiliate: boolean;
-  storeName: string;
-  officialStore: boolean;
-  inStock: boolean;
+  isAffiliate?: boolean;
+  storeName?: string;
+  officialStore?: boolean;
+  inStock?: boolean;
 }
 
 export interface PriceHistoryPoint {

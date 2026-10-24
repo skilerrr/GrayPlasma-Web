@@ -809,13 +809,49 @@ export class DatabaseService {
   }
 
   /**
-   * Normalisasi field monitor: nama kolom DB lama `gtidReviewUrl` -> `reviewUrl`.
-   * Supaya rename kolom (SQL) belum dijalankan pun, data lama tetap terbaca.
+   * Normalisasi field monitor:
+   * - Nama kolom DB lama `gtidReviewUrl` -> `reviewUrl`.
+   * - Sinkronisasi 2 arah antara kolom link affiliate (`linkShopee`, `linkTokopedia`)
+   *   dengan array `marketplaces` JSONB agar sinkron di semua komponen (halaman utama & admin).
    */
-  static normalizeMonitor<T extends { reviewUrl?: string; gtidReviewUrl?: string }>(row: T): T {
-    const out = { ...row } as T & { gtidReviewUrl?: string };
+  static normalizeMonitor<T extends Record<string, any>>(row: T): T {
+    const out = { ...row } as any;
     if (!out.reviewUrl && out.gtidReviewUrl) out.reviewUrl = out.gtidReviewUrl;
     delete out.gtidReviewUrl;
+
+    let marketplaces = Array.isArray(out.marketplaces) ? [...out.marketplaces] : [];
+
+    // Sync Shopee link
+    const shopeeIdx = marketplaces.findIndex(
+      (m: any) => m.marketplace?.toLowerCase() === "shopee"
+    );
+    if (out.linkShopee && typeof out.linkShopee === "string" && out.linkShopee.trim() !== "") {
+      const trimmed = out.linkShopee.trim();
+      if (shopeeIdx >= 0) {
+        marketplaces[shopeeIdx] = { ...marketplaces[shopeeIdx], url: trimmed };
+      } else {
+        marketplaces.push({ marketplace: "Shopee", url: trimmed, price: Number(out.price) || 0, isAffiliate: true });
+      }
+    } else if (shopeeIdx >= 0 && marketplaces[shopeeIdx]?.url) {
+      out.linkShopee = marketplaces[shopeeIdx].url;
+    }
+
+    // Sync Tokopedia link
+    const topedIdx = marketplaces.findIndex(
+      (m: any) => m.marketplace?.toLowerCase() === "tokopedia"
+    );
+    if (out.linkTokopedia && typeof out.linkTokopedia === "string" && out.linkTokopedia.trim() !== "") {
+      const trimmed = out.linkTokopedia.trim();
+      if (topedIdx >= 0) {
+        marketplaces[topedIdx] = { ...marketplaces[topedIdx], url: trimmed };
+      } else {
+        marketplaces.push({ marketplace: "Tokopedia", url: trimmed, price: Number(out.price) || 0, isAffiliate: true });
+      }
+    } else if (topedIdx >= 0 && marketplaces[topedIdx]?.url) {
+      out.linkTokopedia = marketplaces[topedIdx].url;
+    }
+
+    out.marketplaces = marketplaces;
     return out as T;
   }
 
@@ -863,19 +899,21 @@ export class DatabaseService {
           console.warn("Supabase fetch failed, using local storage", err);
         }
       }
-      return getLocalData<Monitor[]>(STORAGE_KEYS.MONITORS, MONITORS_DATA);
+      const local = getLocalData<Monitor[]>(STORAGE_KEYS.MONITORS, MONITORS_DATA);
+      return local.map((m) => DatabaseService.normalizeMonitor(m));
     }, 45000);
   }
 
   static async saveMonitor(monitor: Monitor): Promise<Monitor[]> {
     invalidateCache("monitors");
+    const normalized = DatabaseService.normalizeMonitor(monitor);
     let current = getLocalData<Monitor[]>(STORAGE_KEYS.MONITORS, MONITORS_DATA);
-    const existingIndex = current.findIndex((m) => m.id === monitor.id);
+    const existingIndex = current.findIndex((m) => m.id === normalized.id);
 
     const updatedMonitor: Monitor = {
-      ...monitor,
+      ...normalized,
       updatedAt: new Date().toISOString(),
-      versionId: (monitor.versionId || 1) + 1,
+      versionId: (normalized.versionId || 1) + 1,
     };
 
     if (existingIndex >= 0) {

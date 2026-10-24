@@ -119,12 +119,19 @@ Link Detail & Lab Data: ${detailUrl}`;
     window.open(ogUrl, "_blank");
   };
 
-  const tokopediaLink = monitor.marketplaces?.find(
-    (m) => m.marketplace === "Tokopedia"
-  );
-  const shopeeLink = monitor.marketplaces?.find(
-    (m) => m.marketplace === "Shopee"
-  );
+  const tokopediaUrl =
+    monitor.linkTokopedia ||
+    monitor.marketplaces?.find(
+      (m) => m.marketplace?.toLowerCase() === "tokopedia"
+    )?.url;
+  const shopeeUrl =
+    monitor.linkShopee ||
+    monitor.marketplaces?.find(
+      (m) => m.marketplace?.toLowerCase() === "shopee"
+    )?.url;
+
+  const tolNew = monitor.responseTimeData?.toleranceNew?.trim();
+  const isLabNA = !tolNew || tolNew.toUpperCase() === "N/A" || tolNew === "-";
 
   // Spec pills array for top header
   const specPills = [
@@ -300,27 +307,35 @@ Link Detail & Lab Data: ${detailUrl}`;
             </div>
 
             <div className="flex items-center gap-2">
-              {tokopediaLink && (
+              {tokopediaUrl && (
                 <Button
                   variant="default"
                   size="sm"
-                  onClick={() => window.open(tokopediaLink.url, "_blank")}
+                  onClick={() => window.open(tokopediaUrl, "_blank")}
                   className="bg-brand-tokopedia hover:bg-hue-emerald-600 text-white font-bold text-xs px-3"
                 >
                   <ShoppingBag className="w-3.5 h-3.5 mr-1" /> Tokopedia
                 </Button>
               )}
-              {shopeeLink && (
+              {shopeeUrl && (
                 <Button
                   variant="default"
                   size="sm"
-                  onClick={() => window.open(shopeeLink.url, "_blank")}
+                  onClick={() => window.open(shopeeUrl, "_blank")}
                   className="bg-brand-shopee hover:bg-hue-orange-600 text-white font-bold text-xs px-3"
                 >
                   <ShoppingBag className="w-3.5 h-3.5 mr-1" /> Shopee
                 </Button>
               )}
             </div>
+          </div>
+
+          {/* YouTube Embed Card */}
+          <div className="pt-1">
+            <YouTubeEmbed
+              url={monitor.reviewUrl}
+              title={`Review & Ulasan Pengujian GrayPlasma: ${monitor.fullName}`}
+            />
           </div>
 
           {/* DATA PENGETESAN LAB GrayPlasma MATRIX */}
@@ -330,85 +345,99 @@ Link Detail & Lab Data: ${detailUrl}`;
                 <Zap className="w-4 h-4" />
                 <span>DATA PENGETESAN LAB (DATA BY: GRAYPLASMA)</span>
               </div>
-              <span className="text-3xs font-mono text-gp-ink-400">Toleransi 5 RGB Standard</span>
+              <span className="text-3xs font-mono text-gp-ink-400">
+                {isLabNA ? "Status: Belum Diuji (N/A)" : "Toleransi 5 RGB Standard"}
+              </span>
             </div>
 
-            <div className="overflow-x-auto rounded-2xl border border-gp-ink-700 bg-black/60">
-              <table className="w-full text-left text-xs font-mono">
-                <thead className="bg-gp-ink-800/90 text-gp-ink-300 uppercase text-3xs font-sans font-bold border-b border-gp-ink-700">
-                  <tr>
-                    <th className="p-3">Parameter Uji</th>
-                    <th className="p-3">Klaim Marketing</th>
-                    <th className="p-3 text-gp-emerald">Hasil Sensor Lab</th>
-                    <th className="p-3">Status</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gp-ink-800 text-gp-ink-200">
-                  <tr>
-                    <td className="p-3 font-sans font-semibold text-white">Response Time (GtG)</td>
-                    <td className="p-3 text-gp-ink-400 line-through">0.5 ms / 1 ms MPRT</td>
-                    <td className="p-3 text-gp-emerald font-bold">
-                      {monitor.responseTimeData?.toleranceNew || "5.2 ms (Toleransi Baru)"}
-                    </td>
-                    <td className="p-3">
-                      <span className="px-2 py-0.5 rounded bg-gp-emerald/20 text-gp-emerald text-3xs font-bold">
-                        OPTIMAL
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="p-3 font-sans font-semibold text-white">Overshoot / Ghosting</td>
-                    <td className="p-3 text-gp-ink-400">0%</td>
-                    <td className="p-3 text-gp-amber font-bold">
-                      {monitor.overshootData
-                        ? `${monitor.overshootData.maxOvershootPercent}% (${monitor.overshootData.bestOverdriveMode})`
-                        : "< 5% (Overdrive Level 3)"}
-                    </td>
-                    <td className="p-3">
-                      <span className="px-2 py-0.5 rounded bg-gp-amber/20 text-gp-amber text-3xs font-bold">
-                        TERKONTROL
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="p-3 font-sans font-semibold text-white">Kontras Rasio Asli</td>
-                    <td className="p-3 text-gp-ink-400">1000 : 1</td>
-                    <td className="p-3 text-gp-emerald font-bold">
-                      {monitor.specs.display.contrastRatio || "1330 : 1 (Deeper Black)"}
-                    </td>
-                    <td className="p-3">
-                      <span className="px-2 py-0.5 rounded bg-gp-emerald/20 text-gp-emerald text-3xs font-bold">
-                        SOLID
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="p-3 font-sans font-semibold text-white">Color Gamut P3</td>
-                    <td className="p-3 text-gp-ink-400">95% P3</td>
-                    <td className="p-3 text-hue-cyan-400 font-bold">
-                      {monitor.specs.display.colorGamut || "100% P3 (dE < 4)"}
-                    </td>
-                    <td className="p-3">
-                      <span className="px-2 py-0.5 rounded bg-hue-cyan-500/20 text-hue-cyan-400 text-3xs font-bold">
-                        EXCELLENT
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="p-3 font-sans font-semibold text-white">Kecerahan (Nits)</td>
-                    <td className="p-3 text-gp-ink-400">HDR 400</td>
-                    <td className="p-3 text-hue-rose-400 font-bold">
-                      Min ~100 nits / Max ~270 nits
-                    </td>
-                    <td className="p-3">
-                      <span className="px-2 py-0.5 rounded bg-hue-rose-500/20 text-hue-rose-400 text-3xs font-bold">
-                        DISARANKAN SDR
-                      </span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            {isLabNA ? (
+              <div className="p-4 rounded-2xl border border-dashed border-gp-ink-700 bg-black/40 text-center space-y-1.5">
+                <div className="text-xs font-bold text-gp-ink-300 flex items-center justify-center gap-1.5">
+                  <Info className="w-4 h-4 text-gp-ink-400" />
+                  <span>Belum Diuji di Laboratorium GrayPlasma (Status: N/A)</span>
+                </div>
+                <p className="text-2xs text-gp-ink-400 max-w-md mx-auto">
+                  Monitor ini belum melalui pengujian sensor lab atau video review oleh tim GrayPlasma. Data spesifikasi saat ini merujuk pada lembar rilis resmi pabrikan.
+                </p>
+              </div>
+            ) : (
+              <div className="overflow-x-auto rounded-2xl border border-gp-ink-700 bg-black/60">
+                <table className="w-full text-left text-xs font-mono">
+                  <thead className="bg-gp-ink-800/90 text-gp-ink-300 uppercase text-3xs font-sans font-bold border-b border-gp-ink-700">
+                    <tr>
+                      <th className="p-3">Parameter Uji</th>
+                      <th className="p-3">Klaim Marketing</th>
+                      <th className="p-3 text-gp-emerald">Hasil Sensor Lab</th>
+                      <th className="p-3">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gp-ink-800 text-gp-ink-200">
+                    <tr>
+                      <td className="p-3 font-sans font-semibold text-white">Response Time (GtG)</td>
+                      <td className="p-3 text-gp-ink-400 line-through">0.5 ms / 1 ms MPRT</td>
+                      <td className="p-3 text-gp-emerald font-bold">
+                        {monitor.responseTimeData?.toleranceNew || "5.2 ms (Toleransi Baru)"}
+                      </td>
+                      <td className="p-3">
+                        <span className="px-2 py-0.5 rounded bg-gp-emerald/20 text-gp-emerald text-3xs font-bold">
+                          OPTIMAL
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 font-sans font-semibold text-white">Overshoot / Ghosting</td>
+                      <td className="p-3 text-gp-ink-400">0%</td>
+                      <td className="p-3 text-gp-amber font-bold">
+                        {monitor.overshootData
+                          ? `${monitor.overshootData.maxOvershootPercent}% (${monitor.overshootData.bestOverdriveMode})`
+                          : "< 5% (Overdrive Level 3)"}
+                      </td>
+                      <td className="p-3">
+                        <span className="px-2 py-0.5 rounded bg-gp-amber/20 text-gp-amber text-3xs font-bold">
+                          TERKONTROL
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 font-sans font-semibold text-white">Kontras Rasio Asli</td>
+                      <td className="p-3 text-gp-ink-400">1000 : 1</td>
+                      <td className="p-3 text-gp-emerald font-bold">
+                        {monitor.specs.display.contrastRatio || "1330 : 1 (Deeper Black)"}
+                      </td>
+                      <td className="p-3">
+                        <span className="px-2 py-0.5 rounded bg-gp-emerald/20 text-gp-emerald text-3xs font-bold">
+                          SOLID
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 font-sans font-semibold text-white">Color Gamut P3</td>
+                      <td className="p-3 text-gp-ink-400">95% P3</td>
+                      <td className="p-3 text-hue-cyan-400 font-bold">
+                        {monitor.specs.display.colorGamut || "100% P3 (dE < 4)"}
+                      </td>
+                      <td className="p-3">
+                        <span className="px-2 py-0.5 rounded bg-hue-cyan-500/20 text-hue-cyan-400 text-3xs font-bold">
+                          EXCELLENT
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 font-sans font-semibold text-white">Kecerahan (Nits)</td>
+                      <td className="p-3 text-gp-ink-400">HDR 400</td>
+                      <td className="p-3 text-hue-rose-400 font-bold">
+                        Min ~100 nits / Max ~270 nits
+                      </td>
+                      <td className="p-3">
+                        <span className="px-2 py-0.5 rounded bg-hue-rose-500/20 text-hue-rose-400 text-3xs font-bold">
+                          DISARANKAN SDR
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
 
           {/* PROS & CONS WITH VERTICAL COLOR RIBBONS */}

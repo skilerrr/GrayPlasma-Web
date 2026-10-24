@@ -13,10 +13,13 @@ export const MONITORS_DATA: Monitor[] = [
     "model": "Xiaomi G24i (2026)",
     "fullName": "Xiaomi G24i (2026)",
     "tier": "BEST VALUE",
-    "tierDescription": "Kategori: 144Hz+. Response Time: Toleransi Baru (5 RGB),Toleransi Lama (10 RGB). Stand: Tilt.",
+    "tierDescription": "Kategori: 144Hz+. Response Time: N/A (Belum Diuji). Stand: Tilt.",
     "price": 1600000,
     "originalPrice": 1840000,
     "recommendedPrice": 1550000,
+    "linkShopee": "https://s.shopee.co.id/Lm3epPnA0",
+    "linkTokopedia": "https://tk.tokopedia.com/ZS4grLsN5/",
+    "reviewUrl": "N/A",
     "thumbnail": "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop",
     "gallery": [
       "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop"
@@ -25,22 +28,21 @@ export const MONITORS_DATA: Monitor[] = [
       "24 Inch or 23.8 Inch",
       "IPS",
       "200Hz",
-      "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+      "N/A (Belum Diuji)",
       "8 Bit"
     ],
-    "expertVerdict": "Data Pengetesan GrayPlasma: Response Time Toleransi Baru (5 RGB),Toleransi Lama (10 RGB), Input Display HDMI 2.0,DisplayPort 1.4. Stand: Tilt. VESA: YES (75 × 75 mm).",
+    "expertVerdict": "Belum Diuji di Lab GrayPlasma (Status: N/A). Data spesifikasi bersumber dari rilis resmi pabrikan.",
     "pros": [
       "Panel IPS dengan Refresh Rate 200Hz native",
-      "Response time teruji: Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
       "Mendukung VESA Mount: YES (75 × 75 mm)",
-      "Konektivitas: HDMI 2.0,DisplayPort 1.4"
+      "Konektivitas: HDMI 2.0, DisplayPort 1.4"
     ],
     "cons": [
-      "Perhatikan settingan Overdrive di menu OSD agar tidak inverse ghosting",
+      "Belum diuji langsung di laboratorium GrayPlasma (Status: N/A)",
       "Port USB Hub: None"
     ],
-    "deepDiveTitle": "Analisis Pengujian Response Time & Motion Clarity Xiaomi G24i",
-    "deepDiveDescription": "Xiaomi G24i menghadirkan performa refresh rate 200Hz di harga Rp 1.5 jutaan. Pada pengetesan GrayPlasma, overdrive level 'Fast' memberikan motion clarity paling stabil tanpa ada overshoot yang mengganggu.",
+    "deepDiveTitle": "Analisis Spesifikasi Xiaomi G24i (2026)",
+    "deepDiveDescription": "Xiaomi G24i (2026) menghadirkan refresh rate 200Hz di harga Rp 1.6 jutaan. Monitor ini belum masuk pengujian sensor lab GrayPlasma, sehingga ulasan respon time lab belum tersedia (N/A).",
     "deepDiveNote": "Gunakan DisplayPort 1.4 bawaan untuk mengaktifkan 200Hz penuh di PC Desktop.",
     "accessoriesIncluded": [
       "Kabel Power Adapter Xiaomi",
@@ -57,15 +59,15 @@ export const MONITORS_DATA: Monitor[] = [
       {
         "city": "JAKARTA",
         "storeName": "Xiaomi Exclusive Center",
-        "url": "https://tokopedia.com",
+        "url": "https://tk.tokopedia.com/ZS4grLsN5/",
         "price": 1600000
       }
     ],
     "responseTimeData": {
-      "toleranceNew": "Toleransi Baru (5 RGB)",
-      "toleranceOld": "Toleransi Lama (10 RGB)",
-      "gpScore": "4.2ms GtG",
-      "overdriveRecommendation": "Fast"
+      "toleranceNew": "N/A",
+      "toleranceOld": "N/A",
+      "gpScore": "N/A",
+      "overdriveRecommendation": "N/A"
     },
     "specs": {
       "display": {
@@ -73,10 +75,10 @@ export const MONITORS_DATA: Monitor[] = [
         "resolution": "1920x1080 (FHD)",
         "panelType": "IPS",
         "refreshRate": 200,
-        "responseTime": "Toleransi Baru (5 RGB),Toleransi Lama (10 RGB)",
+        "responseTime": "N/A",
         "brightness": "250 - 300 nits",
         "contrastRatio": "1000:1",
-        "colorGamut": "99% sRGB / 90% DCI-P3 (GrayPlasma Tested)",
+        "colorGamut": "99% sRGB (Klaim Pabrikan)",
         "hdr": "HDR10 Support (Disarankan SDR)",
         "viewingAngle": "178° / 178°",
         "curvature": "None"
@@ -113,7 +115,7 @@ export const MONITORS_DATA: Monitor[] = [
       },
       {
         "marketplace": "Tokopedia",
-        "url": "https://tokopedia.com",
+        "url": "https://tk.tokopedia.com/ZS4grLsN5/",
         "price": 1600000,
         "isAffiliate": true,
         "storeName": "Tokopedia Partner",

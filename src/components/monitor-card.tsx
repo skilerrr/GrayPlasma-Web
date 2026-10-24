@@ -63,8 +63,15 @@ export function MonitorCard({
 }: MonitorCardProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // Find lowest price marketplace or default first
-  const sortedMarketplaces = [...(monitor.marketplaces || [])].sort(
+  // Find lowest price marketplace or default first with linkShopee / linkTokopedia fallback
+  const allMarketplaces: MarketplaceLink[] = [...(monitor.marketplaces || [])];
+  if (monitor.linkShopee && !allMarketplaces.some((m) => m.marketplace?.toLowerCase() === "shopee")) {
+    allMarketplaces.push({ marketplace: "Shopee", url: monitor.linkShopee, price: monitor.price, isAffiliate: true, storeName: "Shopee Store", officialStore: true, inStock: true });
+  }
+  if (monitor.linkTokopedia && !allMarketplaces.some((m) => m.marketplace?.toLowerCase() === "tokopedia")) {
+    allMarketplaces.push({ marketplace: "Tokopedia", url: monitor.linkTokopedia, price: monitor.price, isAffiliate: true, storeName: "Tokopedia Store", officialStore: true, inStock: true });
+  }
+  const sortedMarketplaces = allMarketplaces.sort(
     (a, b) => a.price - b.price
   );
   const bestDeal = sortedMarketplaces[0];

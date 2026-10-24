@@ -21,16 +21,34 @@ export function YouTubeEmbed({
 
   // Extract video ID from URL if not directly passed
   let resolvedId = videoId;
-  if (!resolvedId && url) {
+  const isExplicitNA = url && (url.trim().toUpperCase() === "N/A" || url.trim() === "-");
+
+  if (!resolvedId && url && !isExplicitNA) {
     const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
     if (match && match[1]) {
       resolvedId = match[1];
     }
   }
 
-  // Fallback default GrayPlasma review video if none specified
+  // Jika tidak ada video review atau status N/A, tampilkan empty state card yang jelas
   if (!resolvedId) {
-    resolvedId = "dQw4w9WgXcQ"; // Placeholder fallback or GrayPlasma video
+    return (
+      <div className={`space-y-2 font-sans ${className}`}>
+        <div className="flex items-center gap-1.5 font-bold text-gp-ink-400 uppercase text-2xs tracking-wider">
+          <Video className="w-3.5 h-3.5 text-gp-ink-500" />
+          <span>Status Review: Belum Tersedia (N/A)</span>
+        </div>
+        <div className="flex flex-col items-center justify-center p-8 rounded-2xl bg-gp-ink-900/60 border border-dashed border-gp-ink-700/70 text-center gap-2">
+          <div className="w-10 h-10 rounded-full bg-gp-ink-800 flex items-center justify-center text-gp-ink-400">
+            <Video className="w-5 h-5 text-gp-ink-500" />
+          </div>
+          <div className="text-xs font-bold text-gp-ink-200">Video Review Belum Tersedia</div>
+          <p className="text-2xs text-gp-ink-400 max-w-sm">
+            Monitor ini belum diuji atau belum ada video review resmi di kanal YouTube GrayPlasma. Seluruh data spesifikasi saat ini merujuk pada lembar spesifikasi resmi pabrikan.
+          </p>
+        </div>
+      </div>
+    );
   }
 
   const embedUrl = `https://www.youtube-nocookie.com/embed/${resolvedId}?autoplay=1&rel=0`;

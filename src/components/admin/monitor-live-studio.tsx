@@ -179,8 +179,21 @@ export function MonitorLiveStudio({
   };
 
   const handleSelectMonitor = (mon: Monitor) => {
+    const shopeeLink =
+      mon.linkShopee ||
+      mon.marketplaces?.find((m) => m.marketplace?.toLowerCase() === "shopee")?.url ||
+      "";
+    const tokopediaLink =
+      mon.linkTokopedia ||
+      mon.marketplaces?.find((m) => m.marketplace?.toLowerCase() === "tokopedia")?.url ||
+      "";
+
     setSelectedMonitor(mon);
-    setFormData({ ...mon });
+    setFormData({
+      ...mon,
+      linkShopee: shopeeLink,
+      linkTokopedia: tokopediaLink,
+    });
     setDocContent(getInitialDoc(mon));
     setCompressionStats(null);
   };
@@ -359,6 +372,29 @@ export function MonitorLiveStudio({
       return;
     }
 
+    // 2-way sync: pastikan linkShopee & linkTokopedia masuk ke array marketplaces
+    const syncMarketplaces = [...(formData.marketplaces || [])];
+    if (formData.linkShopee !== undefined) {
+      const idx = syncMarketplaces.findIndex((m) => m.marketplace?.toLowerCase() === "shopee");
+      const val = formData.linkShopee?.trim() || "";
+      if (val) {
+        if (idx >= 0) syncMarketplaces[idx] = { ...syncMarketplaces[idx], url: val };
+        else syncMarketplaces.push({ marketplace: "Shopee", url: val, price: Number(formData.price) || 0, isAffiliate: true, storeName: "Shopee Store", officialStore: true, inStock: true });
+      } else if (idx >= 0) {
+        syncMarketplaces.splice(idx, 1);
+      }
+    }
+    if (formData.linkTokopedia !== undefined) {
+      const idx = syncMarketplaces.findIndex((m) => m.marketplace?.toLowerCase() === "tokopedia");
+      const val = formData.linkTokopedia?.trim() || "";
+      if (val) {
+        if (idx >= 0) syncMarketplaces[idx] = { ...syncMarketplaces[idx], url: val };
+        else syncMarketplaces.push({ marketplace: "Tokopedia", url: val, price: Number(formData.price) || 0, isAffiliate: true, storeName: "Tokopedia Store", officialStore: true, inStock: true });
+      } else if (idx >= 0) {
+        syncMarketplaces.splice(idx, 1);
+      }
+    }
+
     const itemToSave: Monitor = {
       id: formData.id || `mon-${Date.now()}-${formData.model?.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
       slug: formData.slug || formData.model?.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "monitor",
@@ -379,14 +415,14 @@ export function MonitorLiveStudio({
       marketClass: formData.marketClass || "144Hz+",
       createdDateText: formData.createdDateText || "February 24, 2025 12:24",
       lastUpdatedDate: formData.lastUpdatedDate || "June 24, 2025",
-      linkShopee: formData.linkShopee,
-      linkTokopedia: formData.linkTokopedia,
-      linkTiktokShop: formData.linkTiktokShop,
+      linkShopee: formData.linkShopee?.trim() || undefined,
+      linkTokopedia: formData.linkTokopedia?.trim() || undefined,
+      linkTiktokShop: formData.linkTiktokShop?.trim() || undefined,
       thumbnail: formData.thumbnail || "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop",
       frontImage: formData.frontImage || formData.thumbnail,
       rearImage: formData.rearImage,
       gallery: formData.gallery || [formData.thumbnail || ""],
-      reviewUrl: formData.reviewUrl,
+      reviewUrl: formData.reviewUrl?.trim() || undefined,
       statusReason: formData.statusReason,
       introduction: formData.introduction,
       deepDiveTitle: formData.deepDiveTitle,
@@ -401,7 +437,7 @@ export function MonitorLiveStudio({
       pros: Array.isArray(formData.pros) ? formData.pros : [],
       cons: Array.isArray(formData.cons) ? formData.cons : [],
       specs: formData.specs as Monitor["specs"],
-      marketplaces: formData.marketplaces || [],
+      marketplaces: syncMarketplaces,
       priceHistory: [{ date: "Rekomendasi GrayPlasma", price: Number(formData.price), label: "Harga Target" }],
       tags: [
         formData.specs?.display?.panelType || "IPS",
@@ -594,16 +630,29 @@ export function MonitorLiveStudio({
       isDefaultVisible: true,
       category: "Uji GrayPlasma",
       getValue: (m) => m.responseTimeData?.toleranceNew || "",
-      renderCell: (m) => (
-        <div className="flex items-center gap-1.5 flex-wrap">
-          <span className="px-2 py-0.5 rounded bg-gp-mint-200 text-accent-emerald border border-accent-emerald/30 text-3xs font-mono font-bold">
-            {m.responseTimeData?.toleranceNew || "Toleransi Baru"}
-          </span>
-          <span className="px-2 py-0.5 rounded bg-gp-coral-300 text-gp-coral-100 border border-gp-coral-100/30 text-3xs font-mono font-bold">
-            {m.responseTimeData?.toleranceOld || "Toleransi Lama"}
-          </span>
-        </div>
-      ),
+      renderCell: (m) => {
+        const tolNew = m.responseTimeData?.toleranceNew?.trim();
+        const isNA = !tolNew || tolNew.toUpperCase() === "N/A" || tolNew === "-";
+        if (isNA) {
+          return (
+            <span className="px-2 py-0.5 rounded bg-gp-ink-800 text-gp-ink-400 border border-gp-ink-700 text-3xs font-mono font-medium whitespace-nowrap">
+              N/A (Belum Diuji)
+            </span>
+          );
+        }
+        return (
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <span className="px-2 py-0.5 rounded bg-gp-mint-200 text-accent-emerald border border-accent-emerald/30 text-3xs font-mono font-bold">
+              {m.responseTimeData?.toleranceNew}
+            </span>
+            {m.responseTimeData?.toleranceOld && m.responseTimeData.toleranceOld.trim().toUpperCase() !== "N/A" && (
+              <span className="px-2 py-0.5 rounded bg-gp-coral-300 text-gp-coral-100 border border-gp-coral-100/30 text-3xs font-mono font-bold">
+                {m.responseTimeData.toleranceOld}
+              </span>
+            )}
+          </div>
+        );
+      },
     },
     {
       id: "panelSize",
@@ -1563,12 +1612,35 @@ export function MonitorLiveStudio({
                     </div>
                   </div>
 
+                  <div className="flex items-center justify-between pt-1">
+                    <span className="text-3xs text-gp-ink-400 font-bold uppercase">Data Response Time Laboratorium</span>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setFormData({
+                          ...formData,
+                          reviewUrl: "N/A",
+                          responseTimeData: {
+                            toleranceNew: "N/A",
+                            toleranceOld: "N/A",
+                            gpScore: "N/A",
+                            overdriveRecommendation: "N/A",
+                          },
+                        })
+                      }
+                      className="px-2 py-0.5 rounded bg-gp-ink-700/80 hover:bg-gp-ink-650 text-gp-ink-300 hover:text-white border border-gp-ink-600 text-3xs font-mono transition-colors"
+                    >
+                      Set Belum Diuji (N/A)
+                    </button>
+                  </div>
+
                   <div className="grid grid-cols-2 gap-2">
                     <div>
                       <label className="text-3xs text-hue-emerald-400 block mb-0.5">Toleransi Baru (Data Baru GrayPlasma)</label>
                       <input
                         type="text"
-                        value={formData.responseTimeData?.toleranceNew || "Toleransi Baru (5 RGB)"}
+                        value={formData.responseTimeData?.toleranceNew ?? ""}
+                        placeholder="e.g. Toleransi Baru (5 RGB) atau N/A"
                         onChange={(e) =>
                           setFormData({
                             ...formData,
@@ -1578,14 +1650,15 @@ export function MonitorLiveStudio({
                             },
                           })
                         }
-                        className="w-full bg-gp-ink-800 border border-hue-emerald-500/40 rounded-lg px-2 py-1 text-xs text-hue-emerald-400 font-mono"
+                        className="w-full bg-gp-ink-800 border border-hue-emerald-500/40 rounded-lg px-2 py-1 text-xs text-hue-emerald-400 font-mono placeholder:text-gp-ink-500"
                       />
                     </div>
                     <div>
                       <label className="text-3xs text-hue-rose-400 block mb-0.5">Toleransi Lama (Data Lama GrayPlasma)</label>
                       <input
                         type="text"
-                        value={formData.responseTimeData?.toleranceOld || "Toleransi Lama (10 RGB)"}
+                        value={formData.responseTimeData?.toleranceOld ?? ""}
+                        placeholder="e.g. Toleransi Lama (10 RGB) atau N/A"
                         onChange={(e) =>
                           setFormData({
                             ...formData,
@@ -1595,7 +1668,7 @@ export function MonitorLiveStudio({
                             },
                           })
                         }
-                        className="w-full bg-gp-ink-800 border border-hue-rose-500/40 rounded-lg px-2 py-1 text-xs text-hue-rose-400 font-mono"
+                        className="w-full bg-gp-ink-800 border border-hue-rose-500/40 rounded-lg px-2 py-1 text-xs text-hue-rose-400 font-mono placeholder:text-gp-ink-500"
                       />
                     </div>
                   </div>

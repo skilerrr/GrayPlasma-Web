@@ -15,6 +15,8 @@ import {
   Monitor as MonitorIcon,
   Type,
   Layers,
+  Video,
+  ShoppingBag,
 } from "lucide-react";
 import { Monitor, TierRating } from "@/types/monitor";
 import { formatRupiah } from "@/lib/utils";
@@ -90,16 +92,105 @@ export function NotionTableView({
       isDefaultVisible: true,
       category: "Uji GrayPlasma",
       getValue: (m) => m.responseTimeData?.toleranceNew || "",
-      renderCell: (m) => (
-        <div className="flex items-center gap-1.5 flex-wrap">
-          <span className="px-2 py-0.5 rounded bg-gp-mint-200 text-accent-emerald border border-accent-emerald/30 text-3xs font-mono font-bold whitespace-nowrap">
-            {m.responseTimeData?.toleranceNew || "Toleransi Baru"}
-          </span>
-          <span className="px-2 py-0.5 rounded bg-gp-coral-300 text-gp-coral-100 border border-gp-coral-100/30 text-3xs font-mono font-bold whitespace-nowrap">
-            {m.responseTimeData?.toleranceOld || "Toleransi Lama"}
-          </span>
-        </div>
-      ),
+      renderCell: (m) => {
+        const tolNew = m.responseTimeData?.toleranceNew?.trim();
+        const isNA = !tolNew || tolNew.toUpperCase() === "N/A" || tolNew === "-";
+        if (isNA) {
+          return (
+            <span className="px-2 py-0.5 rounded bg-gp-ink-800 text-gp-ink-400 border border-gp-ink-700 text-3xs font-mono font-medium whitespace-nowrap">
+              N/A (Belum Diuji)
+            </span>
+          );
+        }
+        return (
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <span className="px-2 py-0.5 rounded bg-gp-mint-200 text-accent-emerald border border-accent-emerald/30 text-3xs font-mono font-bold whitespace-nowrap">
+              {m.responseTimeData?.toleranceNew}
+            </span>
+            {m.responseTimeData?.toleranceOld && m.responseTimeData.toleranceOld.trim().toUpperCase() !== "N/A" && (
+              <span className="px-2 py-0.5 rounded bg-gp-coral-300 text-gp-coral-100 border border-gp-coral-100/30 text-3xs font-mono font-bold whitespace-nowrap">
+                {m.responseTimeData.toleranceOld}
+              </span>
+            )}
+          </div>
+        );
+      },
+    },
+    {
+      id: "reviewStatus",
+      label: "[ STATUS REVIEW ]",
+      shortLabel: "Review",
+      minWidth: "min-w-[130px]",
+      sortable: true,
+      isDefaultVisible: true,
+      category: "Uji GrayPlasma",
+      getValue: (m) => {
+        const hasVid = Boolean(m.reviewUrl && m.reviewUrl.trim() !== "" && m.reviewUrl.trim().toUpperCase() !== "N/A" && m.reviewUrl.trim() !== "-");
+        return hasVid ? "Review Ready" : "N/A";
+      },
+      renderCell: (m) => {
+        const hasVid = Boolean(m.reviewUrl && m.reviewUrl.trim() !== "" && m.reviewUrl.trim().toUpperCase() !== "N/A" && m.reviewUrl.trim() !== "-");
+        if (!hasVid) {
+          return (
+            <span className="px-2 py-0.5 rounded bg-gp-ink-800/80 text-gp-ink-400 border border-gp-ink-700 text-3xs font-mono whitespace-nowrap">
+              N/A (Belum Ada)
+            </span>
+          );
+        }
+        return (
+          <a
+            href={m.reviewUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-hue-rose-500/15 text-hue-rose-400 border border-hue-rose-500/30 hover:bg-hue-rose-500/25 text-3xs font-mono font-bold whitespace-nowrap transition-colors"
+          >
+            <Video className="w-2.5 h-2.5" />
+            <span>Tonton</span>
+          </a>
+        );
+      },
+    },
+    {
+      id: "affiliateLinks",
+      label: "[ BELI / MARKETPLACE ]",
+      shortLabel: "Marketplace",
+      minWidth: "min-w-[150px]",
+      sortable: false,
+      isDefaultVisible: true,
+      category: "Harga & Pembelian",
+      getValue: (m) => m.linkShopee || m.linkTokopedia || "",
+      renderCell: (m) => {
+        const shopee = m.linkShopee || m.marketplaces?.find((mk) => mk.marketplace?.toLowerCase() === "shopee")?.url;
+        const tokopedia = m.linkTokopedia || m.marketplaces?.find((mk) => mk.marketplace?.toLowerCase() === "tokopedia")?.url;
+        if (!shopee && !tokopedia) {
+          return <span className="text-gp-ink-500 text-3xs font-mono">-</span>;
+        }
+        return (
+          <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
+            {shopee && (
+              <a
+                href={shopee}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-2 py-0.5 rounded bg-brand-shopee/20 text-brand-shopee border border-brand-shopee/40 hover:bg-brand-shopee hover:text-white text-3xs font-mono font-bold transition-colors"
+              >
+                Shopee
+              </a>
+            )}
+            {tokopedia && (
+              <a
+                href={tokopedia}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-2 py-0.5 rounded bg-brand-tokopedia/20 text-accent-emerald border border-brand-tokopedia/40 hover:bg-brand-tokopedia hover:text-white text-3xs font-mono font-bold transition-colors"
+              >
+                Tokopedia
+              </a>
+            )}
+          </div>
+        );
+      },
     },
     {
       id: "panelSize",
