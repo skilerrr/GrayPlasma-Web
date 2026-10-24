@@ -261,7 +261,8 @@ export default function AdminDashboardPage() {
       setSiteSettings(sSettings);
       setChairs(cList);
       if (hpSettings) setHomepageSettings(hpSettings);
-      setAdmins(DatabaseService.getAdminUsers());
+      const adminList = await DatabaseService.getAdminUsersAsync();
+      setAdmins(adminList);
     } catch (e) {
       console.error("Failed to load admin data", e);
     } finally {

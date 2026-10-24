@@ -68,6 +68,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
+GRANT EXECUTE ON FUNCTION public.admin_set_user_password(UUID, TEXT) TO authenticated, service_role;
+
 -- Admin profiles policies
 DROP POLICY IF EXISTS "Admins can view all profiles" ON public.admin_profiles;
 CREATE POLICY "Admins can view all profiles" ON public.admin_profiles

@@ -266,14 +266,23 @@ export async function createCollaboratorAccount(params: {
  */
 export async function updateAdminPassword(
   newPassword: string,
-  targetUserId?: string
+  targetUserId?: string,
+  targetEmail?: string
 ): Promise<{ success: boolean; message?: string }> {
   if (!supabase) return { success: false, message: "Supabase belum terkonfigurasi." };
   try {
     const { data: sessionData } = await supabase.auth.getSession();
     const currentUserId = sessionData.session?.user?.id;
+    const currentUserEmail = sessionData.session?.user?.email;
 
-    if (!targetUserId || targetUserId === currentUserId) {
+    const isSelf =
+      !targetUserId ||
+      targetUserId === currentUserId ||
+      (Boolean(targetEmail) &&
+        Boolean(currentUserEmail) &&
+        targetEmail?.trim().toLowerCase() === currentUserEmail?.trim().toLowerCase());
+
+    if (isSelf) {
       const { error } = await supabase.auth.updateUser({ password: newPassword });
       if (error) return { success: false, message: error.message };
       return { success: true, message: "Password akun Anda berhasil diperbarui di Supabase Auth." };
@@ -288,7 +297,7 @@ export async function updateAdminPassword(
     if (rpcError) {
       return {
         success: false,
-        message: `Gagal mengubah password user lain: ${rpcError.message}`,
+        message: `Fungsi SQL belum ada di database: jalankan set_admin.sql di Supabase SQL Editor terlebih dahulu (${rpcError.message})`,
       };
     }
 

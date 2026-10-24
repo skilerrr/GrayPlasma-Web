@@ -209,7 +209,7 @@ export function AdminHierarchyManager({
     } else if (isSupabaseConfigured && editingAdmin) {
       // Jika mengedit admin yang sudah ada dan PIN/password diubah
       if (formData.pinCode && formData.pinCode !== editingAdmin.pinCode) {
-        const passRes = await updateAdminPassword(formData.pinCode, formData.id);
+        const passRes = await updateAdminPassword(formData.pinCode, formData.id, cleanEmail);
         if (!passRes.success) {
           alert(`Peringatan update password Supabase: ${passRes.message}`);
         } else {
