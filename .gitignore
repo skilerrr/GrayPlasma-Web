@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local admin credentials & temporary sql scripts
+*set_admin*.sql
+*.local.sql

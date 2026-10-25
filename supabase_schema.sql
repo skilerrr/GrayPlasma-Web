@@ -30,7 +30,10 @@ ALTER TABLE public.admin_profiles ENABLE ROW LEVEL SECURITY;
 
 -- Helper function to check if current user is an active admin
 CREATE OR REPLACE FUNCTION public.is_admin()
-RETURNS BOOLEAN AS $$
+RETURNS BOOLEAN
+SET search_path = public, auth, pg_temp
+SECURITY DEFINER
+AS $$
 BEGIN
   RETURN EXISTS (
     SELECT 1 FROM public.admin_profiles
@@ -39,22 +42,28 @@ BEGIN
     (auth.jwt() -> 'app_metadata' ->> 'role') = 'admin'
   );
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql;
 
 -- Helper function to check if current user is super_admin (owner)
 CREATE OR REPLACE FUNCTION public.is_super_admin()
-RETURNS BOOLEAN AS $$
+RETURNS BOOLEAN
+SET search_path = public, auth, pg_temp
+SECURITY DEFINER
+AS $$
 BEGIN
   RETURN EXISTS (
     SELECT 1 FROM public.admin_profiles
     WHERE id = auth.uid() AND role = 'super_admin' AND is_active = true
   );
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql;
 
 -- Helper function for super_admin to update another user's password directly (accepts UUID, email, or username)
 CREATE OR REPLACE FUNCTION public.admin_set_user_password(target_identifier TEXT, new_password TEXT)
-RETURNS BOOLEAN AS $$
+RETURNS BOOLEAN
+SET search_path = public, auth, pg_temp
+SECURITY DEFINER
+AS $$
 DECLARE
   resolved_id UUID;
 BEGIN

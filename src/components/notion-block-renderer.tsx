@@ -476,10 +476,16 @@ function renderInline(text: string): React.ReactNode {
   return <>{parts}</>;
 }
 
-// Basic sanitizer to allow safe styling, callouts, tables, underlines
+// Enhanced sanitizer to allow safe styling, callouts, tables, while blocking XSS vectors
 function sanitizeNotionHtml(html: string): string {
-  // Strip harmful script / iframe tags
+  if (!html) return "";
   return html
-    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
-    .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, "");
+    // Strip dangerous executable tags
+    .replace(/<\s*(script|iframe|object|embed|applet|form|meta|link)\b[^<]*(?:(?!<\/\1>)<[^<]*)*<\/\1\s*>/gi, "")
+    .replace(/<\s*(script|iframe|object|embed|applet|form|meta|link)\b[^>]*\/?>/gi, "")
+    // Strip inline DOM event handlers (e.g. onerror, onload, onclick, onmouseover)
+    .replace(/\s+on[a-zA-Z]+\s*=\s*(["'])[\s\S]*?\1/gi, "")
+    .replace(/\s+on[a-zA-Z]+\s*=\s*[^\s>]+/gi, "")
+    // Neutralize dangerous javascript: & data:text/html protocol links
+    .replace(/(href|src|action)\s*=\s*(["'])\s*(?:javascript|data\s*:\s*text\/html):[\s\S]*?\2/gi, '$1="#"');
 }
